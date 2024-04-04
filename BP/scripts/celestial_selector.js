@@ -16,20 +16,26 @@ function set_planet_locations() {
 		solar_system[planet].y = coods.y
 	}
 }
-function set_astroids_locations() {
+function set_astroids_location() {
 	const middle = {x:200, y:101};
 	const random_angle = Math.random() * 360;
 	const coods = angle_to_vector(random_angle, solar_system.Asteroids.distance, middle);
 	solar_system.Asteroids.x = coods.x
 	solar_system.Asteroids.y = coods.y
 }
-function set_moon_locations(moon) {
-	const middle = moon == 'Moon' ? {x:161, y:81} : {x:97, y:49};
+function set_moon_location() {
+	const middle = {x:161, y:81}
 	let time = 3 * (world.getTimeOfDay() + 12000) / 200;
-	moon == 'Space_Station' ? time -= 120 : null
-	const coods = angle_to_vector(-time, moons.Overworld[moon].distance, middle);
-	moons.Overworld[moon].x = coods.x
-	moons.Overworld[moon].y = coods.y
+	const {x, y} = angle_to_vector(-time, overworld_moon.distance, middle);
+	overworld_moon.x = x;
+	overworld_moon.y = y;
+}
+function set_station_location() {
+	const middle = {x:97, y:49};
+	let time = (3 * (world.getTimeOfDay() + 12000) / 200) - 120;
+	const {x, y} = angle_to_vector(-time, overworld_station.distance, middle);
+	overworld_station.x = x;
+	overworld_station.y = y;
 }
 function read_inventory(player) {
 	const inventory = player.getComponent("inventory").container
@@ -57,41 +63,27 @@ function angle_to_vector(angle, distance, center) {
 
 const solar_system = {
 	Sol: {tier: 100, x: 200, y: 101},
-	Mercury: {tier: 4, distance: 56, turn: 88, init_angle: 250},
-	Venus: {tier: 3, distance: 78, turn: 225, init_angle: 178},
-	Overworld: {tier: 1, distance: 98, turn: 360, init_angle: 100},
-	Mars: {tier: 2, x:246, distance: 119, turn: 687, init_angle: 0},
-	Asteroids: {tier: 3, distance: 129},
-	Jupiter: {tier: 4, distance: 141, turn: 11.86 * 360, init_angle: 36},
-	Saturn: {tier: 100, distance: 161, turn: 29.46 * 360, init_angle: 47},
-	Uranus: {tier: 100, distance: 182, turn: 84.01 * 360, init_angle: 315},
-	Neptune: {tier: 100, distance: 200, turn: 164.79 * 360, init_angle: 296},
+	Mercury: {tier: 4, distance: (129.2 - 101.5) * 2, turn: 88, init_angle: 250},
+	Venus: {tier: 3, distance: (140.5 - 101.5) * 2, turn: 225, init_angle: 178},
+	Overworld: {tier: 1, distance: (150.3 - 101.5) * 2, turn: 360, init_angle: 100},
+	Mars: {tier: 2, x:246, distance: (160.2 - 101.5) * 2, turn: 687, init_angle: 0},
+	Asteroids: {tier: 3, distance: (166.5 - 101.5) * 2},
+	Jupiter: {tier: 4, distance: (172.4 - 101.5) * 2, turn: 11.86 * 360, init_angle: 36},
+	Saturn: {tier: 100, distance: (182.3 - 101.5) * 2, turn: 29.46 * 360, init_angle: 47},
+	Uranus: {tier: 100, distance: (192.7 - 101.5) * 2, turn: 84.01 * 360, init_angle: 315},
+	Neptune: {tier: 100, distance: (201.6 - 101.5) * 2, turn: 164.79 * 360, init_angle: 296},
 }
 
-const moons = {
-	Sol: {},
-	Mercury: {},
-	Venus: {},
-	Overworld: {Moon: {tier: 1, distance:161}},
-	Mars: {},
-	Asteroids: {},
-	Jupiter: {},
-	Saturn: {},
-	Uranus: {},
-	Neptune: {},
-}
+const overworld_moon = {tier: 1, distance:155.5};
+const overworld_station = {tier: 1, distance:94.9};
 const space_stations = [
 	{name: 'Satelite', owner: 'HiYasser444'},
 	{name: 'Death Ray', owner: 'tHeCreeper'},
 	{name: 'Stasis Room', owner: 'Enderman101'},
 ]
 
-if (world.getDynamicProperty("Overworld_space_station")) {
-	moons.Overworld.Space_Station = {tier: 1, distance:98}
-} else world.setDynamicProperty("Overworld_space_station", false)
-
 function zoom_at(player, focused, planet, station_materials) {
-	const station = world.getDynamicProperty("Overworld_space_station");
+	const station = player.getDynamicProperty("has_space_station");
 	let form = new ActionFormData()
 	.title("Celestial Panel " +`§${station ? 't' : 'f'}`+ planet)
 	if (focused == planet) {
@@ -101,12 +93,12 @@ function zoom_at(player, focused, planet, station_materials) {
 			`Tier ${solar_system[planet].tier < 6 ? '' + solar_system[focused]?.tier : '?' }`+
 			`${planet}`
 		)
-	} else {
+	} else if (focused == 'Moon') {
 		form.body(
-			`§${rocket_tier >= moons[planet][focused].tier ? 't' : 'f'}`+
+			`§${rocket_tier >= overworld_moon.tier ? 't' : 'f'}`+
 			`§${station ? 'f' : 't'}`+
-			`Tier ${moons[planet][focused].tier < 6 ? '' + moons[planet][focused]?.tier : '?' }`+
-			`${focused.replaceAll('_', ' ')}`
+			`Tier ${overworld_moon.tier < 6 ? '' + overworld_moon.tier : '?' }`+
+			`Moon`
 		)
 	}
 	form.button(
@@ -114,15 +106,28 @@ function zoom_at(player, focused, planet, station_materials) {
 		`§${focused == planet ? 't' : 'f'}`+
 		`${planet}`
 	)
-	for (let moon of Object.keys(moons[planet])) {
-		set_moon_locations(moon)
+	let buttons = 0;
+	if (planet == "Overworld") {
+		buttons++;
+		set_moon_location()
 		form.button(
-			`§${rocket_tier >= moons[planet][moon].tier ? 't' : 'f'}`+
-			`§${focused == moon ? 't' : 'f'}`+
-			`x${moons[planet][moon].x}`+
-			`y${moons[planet][moon].y}`+
-			`${moon.replaceAll('_', ' ')}`
+			`§${rocket_tier >= overworld_moon.tier ? 't' : 'f'}`+
+			`§${focused == 'Moon' ? 't' : 'f'}`+
+			`x${overworld_moon.x}`+
+			`y${overworld_moon.y}`+
+			`Moon`
 		)
+		if (player.getDynamicProperty('has_space_station')) {
+			buttons++;
+			set_station_location()
+			form.button(
+				`§${rocket_tier >= overworld_station.tier ? 't' : 'f'}`+
+				`§${focused == 'Space_Station' ? 't' : 'f'}`+
+				`x${overworld_station.x}`+
+				`y${overworld_station.y}`+
+				`Space Station`
+			)
+		}
 	}
 	form.button("LAUNCH")
 	.button(station_materials + "CREATE")
@@ -133,30 +138,41 @@ function zoom_at(player, focused, planet, station_materials) {
 		}
 		switch (response.selection) {
 			case 0: zoom_at(player, planet, planet, station_materials); return; break;
-			case Object.keys(moons[planet]).length + 1: launch(player, focused); return; break;
-			case Object.keys(moons[planet]).length + 2: create_station(player, focused); return; break;
+			case buttons + 1: launch(player, focused); return; break;
+			case buttons + 2: create_station(player, focused); return; break;
 		}
-		const moon = Object.keys(moons[planet])[response.selection - 1];
-		if (moon == "Space_Station") {view_stations(player, ''); return}
-		zoom_at(player, moon, planet, station_materials);
+		if (buttons >= 1 && response.selection == 1) {zoom_at(player, 'Moon', 'Overworld', station_materials); return}
+		if (buttons == 2 && response.selection == 2) {view_stations(player, ''); return}
 	})
 }
 
 function view_stations(player, focused) {
+	set_moon_location()
+	set_station_location()
 	let form = new ActionFormData()
 	.title("Celestial Panel §tOverworld")
-	.body("            Space Station")
+	.body(
+		`§${rocket_tier >= overworld_station.tier ? 't' : 'f'}`+
+		`§t`+
+		`Tier ${'' + overworld_station.tier}`+
+		`Space Station`
+	)
 	.button(`§t§f$Overworld`)
-	for (let moon of Object.keys(moons["Overworld"])) {
-		set_moon_locations(moon)
-		form.button(
-			`§t§${moon == 'Space_Station' ? 't' : 'f'}`+
-			`x${moons.Overworld[moon].x}`+
-			`y${moons.Overworld[moon].y}`+
-			`${moon.replaceAll('_', ' ')}`
-		)
-	}
-	form.button("LAUNCH")
+	.button(
+		`§${rocket_tier >= overworld_moon.tier ? 't' : 'f'}`+
+		`§f`+
+		`x${overworld_moon.x}`+
+		`y${overworld_moon.y}`+
+		`Moon`
+	)
+	.button(
+		`§${rocket_tier >= overworld_station.tier ? 't' : 'f'}`+
+		`§t`+
+		`x${overworld_station.x}`+
+		`y${overworld_station.y}`+
+		`Space Station`
+	)
+	.button("LAUNCH")
 	for (let station of space_stations) {
 		form.button(
 			`§t§${focused == station.name ? 't' : 'f'}`+
@@ -206,7 +222,8 @@ function select_solar_system(player, focused, station_materials) {
 	.show(player)
 	.then((response) => {
 		if (response.canceled) {
-			world.sendMessage("back"); return;
+			//select_solar_system(player, ''); return; disabled for testing
+			return;
 		}
 		switch (response.selection) {
 			case 10: launch(player, focused); return; break;
@@ -223,18 +240,17 @@ function launch(player, planet) {
 }
 
 function create_station(player, planet, station_materials) {
-	world.setDynamicProperty(`${planet}_space_station`, true)
+	player.setDynamicProperty("has_space_station", true)
 	player.runCommand("clear @s gold_ingot 0 16");
 	player.runCommand("clear @s heart_of_the_sea 0 1");
 	player.runCommand("clear @s copper_ingot 0 32");
 	player.runCommand("clear @s iron_ingot 0 24");
-	moons.Overworld.Space_Station = {tier: 1, distance:98}
 	zoom_at(player, planet, planet, station_materials)
 }
 
 world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
 	if ( (itemStack.typeId === "minecraft:compass") ) {
-		set_astroids_locations()
+		set_astroids_location()
 		const station_materials = read_inventory(source)
 		select_solar_system(source, '', station_materials)
 	}
@@ -249,8 +265,6 @@ world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
 })
 world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
 	if ( (itemStack.typeId === "minecraft:flint") ) {
-		world.setDynamicProperty("Overworld_space_station", false)
-		delete moons.Overworld.Space_Station; 
-
+		source.setDynamicProperty("has_space_station", undefined)
 	}
 })

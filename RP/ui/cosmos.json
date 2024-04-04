@@ -561,7 +561,10 @@
 							}
 						}
 					],
-					"bindings": "$can_zoom"
+					"bindings": "$can_zoom",
+					"anims": [
+						"@cosmos.bring_up"
+					]
 				}
 			}
 		]
@@ -577,7 +580,9 @@
 		"$action": "button.form_button_click",
 		"controls": [
 			{
-				"default@cosmos.catalog_planet": {}
+				"default@cosmos.catalog_planet": {
+					"anims": ["@cosmos.bring_right"]
+				}
 			},
 			{
 				"hover@cosmos.catalog_planet": {
@@ -649,7 +654,9 @@
 		"$action": "button.form_button_click",
 		"controls": [
 			{
-				"default@cosmos.catalog_planet": {}
+				"default@cosmos.catalog_planet": {
+					"anims": ["@cosmos.bring_right"]
+				}
 			},
 			{
 				"hover@cosmos.catalog_planet": {
@@ -666,7 +673,8 @@
 		"controls": [
 			{
 				"default@cosmos.space_station": {
-					"offset": [-8, 0]
+					"offset": [-8, 0],
+					"anims": ["@cosmos.bring_left"]
 				}
 			},
 			{
@@ -987,7 +995,10 @@
 								"color": [0.2, 0.8, 1],
 								"size": "$selection_size",
 								"layer": 6,
-								"bindings": "$is_selected"
+								"bindings": "$is_selected",
+								"anims": [
+									"@cosmos.size_down"
+								]
 							}
 						},
 						{
@@ -998,7 +1009,8 @@
 								"size": "$selection_size",
 								"layer": 7,
 								"anims": [
-									"@cosmos.fade_out"
+									"@cosmos.fade_out",
+									"@cosmos.size_down"
 								]
 							}
 						}
@@ -1126,15 +1138,18 @@
 			{
 				"button@cosmos.button": {
 					"$action": "button.form_button_click",
+					"$selection_size": ["150%", "150%"],
 					"controls": [
 						{
 							"selection_box": {
 								"type": "image",
 								"texture": "textures/ui/cosmos/selection_box",
 								"color": [0.2, 0.8, 1],
-								"size": ["150%", "150%"],
 								"layer": 6,
-								"bindings": "$is_selected"
+								"bindings": "$is_selected",
+								"anims": [
+									"@cosmos.size_down"
+								]
 							}
 						},
 						{
@@ -1142,10 +1157,10 @@
 								"type": "image",
 								"texture": "textures/ui/cosmos/selection_box",
 								"color": [1, 1, 0],
-								"size": ["150%", "150%"],
 								"layer": 7,
 								"anims": [
-									"@cosmos.fade_out"
+									"@cosmos.fade_out",
+									"@cosmos.size_down"
 								]
 							}
 						}
@@ -1245,6 +1260,32 @@
 		]
 	},
 	
+	// animations
+	
+	"size_down": {
+		"anim_type": "size",
+		"duration": 0.5,
+		"from": [160, 160],
+		"to": "$selection_size"
+	},
+	"bring_up": {
+		"anim_type": "offset",
+		"duration": 1,
+		"from": [-100, 50],
+		"to": [-100, -5]
+	},
+	"bring_right": {
+		"anim_type": "offset",
+		"duration": 0.4,
+		"from": [-50, 0],
+		"to": [0, 0]
+	},
+	"bring_left": {
+		"anim_type": "offset",
+		"duration": 0.4,
+		"from": [50, 0],
+		"to": [-8, 0]
+	},	
 	"fade_in": {
 		"anim_type": "alpha",
 		"duration": 2,
