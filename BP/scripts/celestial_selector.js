@@ -45,12 +45,17 @@ function read_inventory(player) {
 		items.push({id: inventory.getItem(item).typeId, amount: inventory.getItem(item).amount})
 	}
 	let results = ['§','f','§','f','§','f','§','f'];
+	const materials = [0, 0, 0, 0];
 	items.forEach((item)=> {
-		if (item.id == 'minecraft:gold_ingot' && item.amount >= 16) {results[1] = 't'};
-		if (item.id == 'minecraft:heart_of_the_sea') {results[3] = 't'};
-		if (item.id == 'minecraft:copper_ingot' && item.amount >= 32) {results[5] = 't'};
-		if (item.id == 'minecraft:iron_ingot' && item.amount >= 24) {results[7] = 't'};
+		if (item.id == 'minecraft:gold_ingot') {materials[0] += item.amount};
+		if (item.id == 'minecraft:heart_of_the_sea') {{materials[1] += item.amount}};
+		if (item.id == 'minecraft:copper_ingot') {{materials[2] += item.amount}};
+		if (item.id == 'minecraft:iron_ingot') {{materials[3] += item.amount}};
 	})
+	results[1] = materials[0] >= 16 ? 't' : 'f'
+	results[3] = materials[1] >= 1 ? 't' : 'f'
+	results[5] = materials[2] >= 32 ? 't' : 'f'
+	results[7] = materials[3] >= 24 ? 't' : 'f'
 	return results.join('')
 }
 function angle_to_vector(angle, distance, center) {
@@ -82,7 +87,7 @@ const space_stations = [
 	{name: 'Stasis Room', owner: 'Enderman101'},
 ]
 
-function zoom_at(player, focused, planet, station_materials) {
+function zoom_at(player, focused, planet) {
 	const station = player.getDynamicProperty("has_space_station");
 	let form = new ActionFormData()
 	.title("Celestial Panel " +`§${station ? 't' : 'f'}`+ planet)
@@ -130,18 +135,18 @@ function zoom_at(player, focused, planet, station_materials) {
 		}
 	}
 	form.button("LAUNCH")
-	.button(station_materials + "CREATE")
+	.button(read_inventory(player) + "CREATE")
 	.show(player)
 	.then((response) => {
 		if (response.canceled) {
 			select_solar_system(player, ''); return;
 		}
 		switch (response.selection) {
-			case 0: zoom_at(player, planet, planet, station_materials); return; break;
+			case 0: zoom_at(player, planet, planet); return; break;
 			case buttons + 1: launch(player, focused); return; break;
 			case buttons + 2: create_station(player, focused); return; break;
 		}
-		if (buttons >= 1 && response.selection == 1) {zoom_at(player, 'Moon', 'Overworld', station_materials); return}
+		if (buttons >= 1 && response.selection == 1) {zoom_at(player, 'Moon', 'Overworld'); return}
 		if (buttons == 2 && response.selection == 2) {view_stations(player, ''); return}
 	})
 }
@@ -195,9 +200,9 @@ function view_stations(player, focused) {
 	})
 }
 
-function select_solar_system(player, focused, station_materials) {
+function select_solar_system(player, focused) {
 	set_planet_locations()
-	const station = world.getDynamicProperty("Overworld_space_station");
+	const station = player.getDynamicProperty("has_space_station");
 	let form = new ActionFormData()
 	.title("Celestial Panel Solar System")
 	if (focused != '') {
@@ -218,11 +223,11 @@ function select_solar_system(player, focused, station_materials) {
 		)
 	}
 	form.button("LAUNCH")
-	.button(station_materials + "CREATE")
+	.button(read_inventory(player) + "CREATE")
 	.show(player)
 	.then((response) => {
 		if (response.canceled) {
-			//select_solar_system(player, ''); return; disabled for testing
+			//select_solar_system(player, ''); return; //disabled for testing
 			return;
 		}
 		switch (response.selection) {
@@ -230,8 +235,8 @@ function select_solar_system(player, focused, station_materials) {
 			case 11: create_station(player, focused); return; break;
 		}
 		const planet = Object.keys(solar_system)[response.selection]
-		if (planet == focused) {zoom_at(player, planet, planet, station_materials)}
-		else {select_solar_system(player, planet, station_materials)}
+		if (planet == focused) {zoom_at(player, planet, planet)}
+		else {select_solar_system(player, planet)}
 	})
 }
 
@@ -239,27 +244,26 @@ function launch(player, planet) {
 	overworld.runCommand(`say Launch ${player.nameTag} to ${planet}`)
 }
 
-function create_station(player, planet, station_materials) {
+function create_station(player, planet) {
 	player.setDynamicProperty("has_space_station", true)
 	player.runCommand("clear @s gold_ingot 0 16");
 	player.runCommand("clear @s heart_of_the_sea 0 1");
 	player.runCommand("clear @s copper_ingot 0 32");
 	player.runCommand("clear @s iron_ingot 0 24");
-	zoom_at(player, planet, planet, station_materials)
+	zoom_at(player, planet, planet)
 }
 
 world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
 	if ( (itemStack.typeId === "minecraft:compass") ) {
 		set_astroids_location()
-		const station_materials = read_inventory(source)
-		select_solar_system(source, '', station_materials)
+		select_solar_system(source, '')
 	}
 })
 
 //debug tools
 world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
 	if ( (itemStack.typeId === "minecraft:stick") ) {
-		const station = world.getDynamicProperty("Overworld_space_station");
+		const station = source.getDynamicProperty("has_space_station");
 		world.sendMessage(''+ station)
 	}
 })
