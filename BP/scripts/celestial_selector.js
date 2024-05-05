@@ -37,7 +37,10 @@ function set_station_location() {
 	overworld_station.x = x;
 	overworld_station.y = y;
 }
+
+
 function read_inventory(player) {
+	if (world.getPlayers({gameMode: "creative", name: player.nameTag}).length == 1) return '§t§t§t§t'
 	const inventory = player.getComponent("inventory").container
 	const items = []
 	for (let item = 0; item < inventory.size; item++) {
@@ -81,11 +84,6 @@ const solar_system = {
 
 const overworld_moon = {tier: 1, distance:155.5};
 const overworld_station = {tier: 1, distance:94.9};
-const space_stations = [
-	{name: 'Satelite', owner: 'HiYasser444'},
-	{name: 'Death Ray', owner: 'tHeCreeper'},
-	{name: 'Stasis Room', owner: 'Enderman101'},
-]
 
 function zoom_at(player, focused, planet) {
 	const station = player.getDynamicProperty("has_space_station");
@@ -154,13 +152,15 @@ function zoom_at(player, focused, planet) {
 function view_stations(player, focused) {
 	set_moon_location()
 	set_station_location()
+	const stations = JSON.parse(world.getDynamicProperty("space_stations") ?? '[]')
+	world.sendMessage(focused)
 	let form = new ActionFormData()
-	.title("Celestial Panel §tOverworld")
+	.title("Celestial Panel Space Station " + focused)
 	.body(
 		`§${rocket_tier >= overworld_station.tier ? 't' : 'f'}`+
 		`§t`+
 		`Tier ${'' + overworld_station.tier}`+
-		`Space Station`
+		`${stations.find(i => i.name == focused)?.owner}`
 	)
 	.button(`§t§f$Overworld`)
 	.button(
@@ -178,7 +178,8 @@ function view_stations(player, focused) {
 		`Space Station`
 	)
 	.button("LAUNCH")
-	for (let station of space_stations) {
+	.button("RENAME")
+	for (let station of stations) {
 		form.button(
 			`§t§${focused == station.name ? 't' : 'f'}`+
 			`space_station: ${station.name}`
@@ -194,8 +195,9 @@ function view_stations(player, focused) {
 			case 1: zoom_at(player, 'Moon', 'Overworld', '§f§f§f§f'); return; break;
 			case 2: view_stations(player, ''); return; break;
 			case 3: launch(player, focused); return; break;
+			case 4: rename(player, focused); return; break;
 		}
-		const station = space_stations[response.selection - 4].name;
+		const station = stations[response.selection - 5].name;
 		view_stations(player, station);
 	})
 }
@@ -244,8 +246,15 @@ function launch(player, planet) {
 	overworld.runCommand(`say Launch ${player.nameTag} to ${planet}`)
 }
 
+function rename(player, station) {
+	overworld.runCommand(`say Rename ${station}`)
+}
+
 function create_station(player, planet) {
 	player.setDynamicProperty("has_space_station", true)
+	const stations = JSON.parse(world.getDynamicProperty("space_stations") ?? '[]')
+	stations.push({name: `${player.nameTag}'s station`, owner: player.nameTag})
+	world.setDynamicProperty("space_stations", JSON.stringify(stations))
 	player.runCommand("clear @s gold_ingot 0 16");
 	player.runCommand("clear @s heart_of_the_sea 0 1");
 	player.runCommand("clear @s copper_ingot 0 32");
@@ -270,5 +279,19 @@ world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
 world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
 	if ( (itemStack.typeId === "minecraft:flint") ) {
 		source.setDynamicProperty("has_space_station", undefined)
+		world.setDynamicProperty("space_stations", JSON.stringify(JSON.parse(world.getDynamicProperty("space_stations") ?? '[]').filter(i => i.owner != source.nameTag)))
+	}
+})
+world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
+	if ( (itemStack.typeId === "minecraft:prismarine_shard") ) {
+		source.setDynamicProperty("has_space_station", undefined)
+		world.setDynamicProperty("space_stations", undefined)
+	}
+})
+world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
+	if ( (itemStack.typeId === "minecraft:blaze_rod") ) {
+		const stations = JSON.parse(world.getDynamicProperty("space_stations") ?? '[]')
+		stations.push({name: 'Space City', owner: 'Tom'})
+		world.setDynamicProperty("space_stations", JSON.stringify(stations))
 	}
 })

@@ -224,12 +224,22 @@
 					"bindings": "$is_station",
 					"controls": [
 						{
-							"green_launch_button@cosmos.form_buttons": {
+							"green_launch_button": {
+								"type": "panel",
 								"$buttons": "cosmos.launch_button",
 								"anchor_from": "top_right",
 								"anchor_to": "top_right",
 								"offset": [21, 0],
-								"visible": false //"bindings": "$is_staion_selected"
+								"bindings": "$is_station_selected",
+								"controls": [
+									{
+										"button@cosmos.form_buttons": {
+											"$buttons": "cosmos.launch_button",
+											"anchor_from": "top_right",
+											"anchor_to": "top_right"
+										}
+									}
+								]
 							}
 						},
 						{
@@ -237,7 +247,7 @@
 								"color": [1, 0, 0],
 								"anchor_from": "top_right",
 								"anchor_to": "top_right",
-								"visible": true //"bindings": "$no_station_selected"
+								"bindings": "$no_station_selected"
 							}
 						},
 						{
@@ -250,7 +260,7 @@
 								"anchor_to": "bottom_middle",
 								"offset": [0, -15],
 								"layer": 3,
-								"visible": true //"bindings": "$no_station_selected"
+								"bindings": "$no_station_selected"
 							}
 						},
 						{
@@ -275,7 +285,8 @@
 									{
 										"owner_name": {
 											"type": "label",
-											"text": "HiYasser444",
+											"text": "#owner",
+											"bindings": "$get_owner",
 											"text_alignment": "center",
 											"size": [87, 11],
 											"anchor_from": "bottom_middle",
@@ -285,7 +296,7 @@
 										}
 									}
 								],
-								"visible": false //"bindings": "$is_station_selected"
+								"bindings": "$is_station_selected"
 							}
 						},
 						{
@@ -302,15 +313,14 @@
 											"type": "stack_panel",
 											"anchor_from": "bottom_middle",
 											"anchor_to": "top_middle",
-											//"bindings": "$is_station_selected",
 											"controls": [
 												{
-													"solar_system_planets@cosmos.form_buttons": {
+													"station@cosmos.form_buttons": {
 														"$buttons": "cosmos.space_station_button"
 													}
 												},
 												{
-													"stations_list": {
+													"stations_list_footer": {
 														"type": "image",
 														"texture": "textures/ui/cosmos/stations_list_footer",
 														"size": [61, 4]
@@ -319,8 +329,7 @@
 											]
 										}
 									}
-								],
-								"visible": true //"bindings": "$is_station_selected"
+								]
 							}
 						}
 					]
@@ -362,7 +371,17 @@
 								"anchor_from": "top_left",
 								"anchor_to": "top_left",
 								"offset": [8, 34],
-								"bindings": "$is_planet"
+								"bindings": "$not_station"
+							}
+						},
+						{
+							"station_center": {
+								"type": "label",
+								"text": "Overworld",
+								"anchor_from": "top_left",
+								"anchor_to": "top_left",
+								"offset": [8, 34],
+								"bindings": "$is_station"
 							}
 						},
 						{
@@ -455,6 +474,25 @@
 										}
 									}
 								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"rename": {
+					"type": "panel",
+					"size": [94, 11],
+					"offset": [0, 5],
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
+					"bindings": "$is_station_selected",
+					"controls": [
+						{
+							"button@cosmos.form_buttons": {
+								"$buttons": "cosmos.rename_button",
+								"anchor_from": "top_left",
+								"anchor_to": "top_left"
 							}
 						}
 					]
@@ -752,6 +790,38 @@
 				"launch_label": {
 					"type": "label",
 					"text": "LAUNCH",
+					"layer": 3
+				}
+			}
+		]
+	},
+	
+	"rename_button@cosmos.button": {
+		"$action": "button.form_button_click",
+		"size": [94, 11],
+		"controls": [
+			{
+				"default@cosmos.rename_button_content": {}
+			},
+			{
+				"hover@cosmos.rename_button_content": {
+					"color": [0.7, 1, 0.3]
+				}
+			}
+		],
+		"bindings": "$is_rename_button"
+	},
+	"rename_button_content": {
+		"type": "image",
+		"texture": "textures/ui/cosmos/title_box",
+		"color": [0, 1, 0],
+		"layer": 2,
+		"controls": [
+			{
+				"launch_label": {
+					"type": "label",
+					"text": "RENAME",
+					"color": [0, 1, 0],
 					"layer": 3
 				}
 			}
