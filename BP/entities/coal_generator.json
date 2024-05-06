@@ -1,0 +1,52 @@
+{
+    "format_version": "1.20.0",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "cosmos:coal_generator",
+            "is_summonable": true
+        },
+        "components": {
+            //"minecraft:damage_sensor": {
+            //    "triggers": {
+            //        "deals_damage": false
+            //    }
+            //},
+            "minecraft:timer": {
+				"looping": true,
+				"time": 0.5,
+				"time_down_event": {
+					"event":"cosmos:tick"
+				}
+			},
+            "minecraft:type_family": {
+                "family": [
+                    "cosmos"
+                ]
+            },
+            "minecraft:collision_box": {
+                "width": 1,
+                "height": 1
+            },
+            "minecraft:knockback_resistance": {
+                "value": 100,
+                "max": 100
+            },
+            "minecraft:inventory": {
+                "container_type": "container",
+                "inventory_size": 1
+            },
+            "minecraft:pushable": {
+                "is_pushable": false,
+                "is_pushable_by_piston": false
+            },
+            "minecraft:physics": {}
+        },
+		"events": {
+			"cosmos:tick": {
+				"queue_command": {
+					"command": "scriptevent cosmos:tick coal_generator"
+				}
+			}
+		}
+    }
+}

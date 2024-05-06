@@ -1,0 +1,16 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "cosmos:coal_generator",
+      "materials": { "default": "shulker" },
+      "textures": {
+        "undyed": "textures/entity/shulker/shulker_undyed"
+      },
+      "geometry": {
+        "default": "geometry.shulker.v1.8"
+      },
+      "render_controllers": [ "controller.render.coal_generator" ]
+    }
+  }
+}
