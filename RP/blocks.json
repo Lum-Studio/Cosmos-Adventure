@@ -1,0 +1,35 @@
+{
+   "deco_block": {
+      "sound": "stone",
+      "textures": "deco_block"
+   },
+   "format_version": [
+      1,
+      1,
+      0
+   ],
+   "moon_bottom": {
+      "sound": "stone",
+      "textures": "moon_bottom"
+   },
+   "moon_middle": {
+      "sound": "stone",
+      "textures": "moon_middle"
+   },
+   "moon_top": {
+      "sound": "stone",
+      "textures": {
+         "down": "moon_top_side",
+         "side": "moon_top_side",
+         "up": "moon_top"
+      }
+   },
+   "space_station": {
+      "sound": "stone",
+      "textures": {
+         "down": "space_station_top",
+         "side": "space_station_side",
+         "up": "space_station_top"
+      }
+   }
+}
