@@ -1,0 +1,29 @@
+{
+   "num_mip_levels": 4,
+   "padding": 8,
+   "resource_pack_name": "vanilla",
+   "texture_data": {
+      "deco_block": {
+         "textures": "textures/blocks/deco_block"
+      },
+      "moon_bottom": {
+         "textures": "textures/blocks/moon_bottom"
+      },
+      "moon_middle": {
+         "textures": "textures/blocks/moon_middle"
+      },
+      "moon_top": {
+         "textures": "textures/blocks/moon_top"
+      },
+      "moon_top_side": {
+         "textures": "textures/blocks/moon_top_side"
+      },
+      "space_station_side": {
+         "textures": "textures/blocks/space_station_side"
+      },
+      "space_station_top": {
+         "textures": "textures/blocks/space_station_top"
+      }
+   },
+   "texture_name": "atlas.terrain"
+}
