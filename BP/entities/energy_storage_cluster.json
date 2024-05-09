@@ -2,14 +2,20 @@
     "format_version": "1.20.0",
     "minecraft:entity": {
         "description": {
-            "identifier": "cosmos:coal_generator",
+            "identifier": "cosmos:energy_storage_cluster",
             "is_summonable": true,
 			"properties": {
 				"cosmos:power": {
 					"type": "int",
 					"client_sync": true,
-					"range": [0, 120],
-					"default": 0 
+					"range": [0, 1800],
+					"default": 1800
+				},
+				"cosmos:capacity": {
+					"type": "int",
+					"client_sync": true,
+					"range": [0, 2500000],
+					"default": 2500000
 				} 
 			}
         },
@@ -18,11 +24,6 @@
 				"value": 5,
 				"max": 5
 			},
-            //"minecraft:damage_sensor": {
-            //    "triggers": {
-            //        "deals_damage": false
-            //    }
-            //},
             "minecraft:timer": {
 				"looping": true,
 				"time": 0.05,
@@ -30,22 +31,6 @@
 					"event":"cosmos:tick"
 				}
 			},
-            //"minecraft:interact": {
-            //  "interactions": [
-            //    {
-            //      "on_interact": {
-            //        "filters": {
-            //          "all_of": [
-            //            { "test": "is_family", "subject": "other", "value": "player" },
-            //            { "test": "is_sneak_held", "subject": "other", "value": false }
-            //          ]
-            //        },
-            //        "target": "self",
-		    //		"event": "cosmos:tick"
-            //      }
-            //    }
-            //  ]
-            //},
             "minecraft:type_family": {
                 "family": [
                     "cosmos"
@@ -72,7 +57,7 @@
 		"events": {
 			"cosmos:tick": {
 				"queue_command": {
-					"command": "scriptevent cosmos:tick coal_generator"
+					"command": "scriptevent cosmos:tick energy_storage_module"
 				}
 			}
 		}

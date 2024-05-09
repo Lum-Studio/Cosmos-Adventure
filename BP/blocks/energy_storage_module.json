@@ -1,0 +1,24 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cosmos:energy_storage_module",
+	  "menu_category": {
+		  "category": "items"
+	  }
+    },
+    "components": {
+      "minecraft:display_name": "Energy Storage Module",
+      "minecraft:destructible_by_mining": {
+		  "seconds_to_destroy": 1
+	  },
+	  "minecraft:destructible_by_explosion": false,
+	  "minecraft:material_instances": {
+		"*": {
+		  "render_method": "opaque",
+		  "texture": "machine"
+		}
+	  }
+    }
+  }
+}

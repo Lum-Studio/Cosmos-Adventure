@@ -2,15 +2,15 @@
   "format_version": "1.10.0",
   "minecraft:client_entity": {
     "description": {
-      "identifier": "cosmos:coal_generator",
+      "identifier": "cosmos:energy_storage_module",
       "materials": { "default": "shulker" },
       "textures": {
         "up": "textures/blocks/machine_blank",
         "down": "textures/blocks/machine_blank",
-        "north": "textures/blocks/coal_generator",
+        "north": "textures/blocks/energy_storage_module_0",
         "east": "textures/blocks/machine_output",
-        "south": "textures/blocks/machine_side",
-        "west": "textures/blocks/machine_side"
+        "south": "textures/blocks/energy_storage_module_0",
+        "west": "textures/blocks/machine_input"
       },
       "geometry": {
         "up": "geometry.up",

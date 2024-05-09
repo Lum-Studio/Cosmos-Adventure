@@ -1,7 +1,7 @@
 {
    "num_mip_levels": 4,
    "padding": 8,
-   "resource_pack_name": "vanilla",
+   "resource_pack_name": "Cosmos-Adventure",
    "texture_data": {
       "deco_block": {
          "textures": "textures/blocks/deco_block"
@@ -23,6 +23,13 @@
       },
       "space_station_top": {
          "textures": "textures/blocks/space_station_top"
+      },
+	  
+      "machine": {
+        "textures":"textures/blocks/machine_blank.png"
+      },
+      "advanced_machine": {
+        "textures":"textures/blocks/advanced_machine_blank.png"
       }
    },
    "texture_name": "atlas.terrain"
