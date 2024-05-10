@@ -1,5 +1,5 @@
 {
-   "format_version": 1,
+   "format_version": 2,
    "header": {
       "description": "The programmer has a nap, holdout, programmer!\n\nprototype 509(09.05.24)\n\nstaff roll:\n-Sonichec0(first development director, programmer)\n-Theshadowsen(second development director, studio owner, main repository editor)\n-Yasser(programmer)\n-error404(programmer)\n-Node(CryptoKing)(programmer, lead repository editor)\n\nthx for all\n\nthis is a placeholder of manifest for non-compiler user!",
       "min_engine_version": [

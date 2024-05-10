@@ -73,7 +73,7 @@ function move_energy(block, output = get_storage(block, rightLocation(block)), i
 			}
 		}
 	}
-	world.sendMessage(''+total_energy)
+	//world.sendMessage(''+total_energy)
 	if (output) {
 		const capacity = output.getProperty("cosmos:capacity")
 		const power = block.getProperty("cosmos:power")
