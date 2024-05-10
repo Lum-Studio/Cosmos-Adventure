@@ -1,18 +1,18 @@
 {
    "format_version": 1,
    "header": {
-      "description": "The programmer has a nap, holdout, programmer!\n\nprototype 507(07.05.24)\n\nstaff roll:\n-Sonichec0(first development director, programmer)\n-Theshadowsen(second development director, studio owner, main repository editor)\n-Yasser(programmer)\n-error404(programmer)\n-Node(CryptoKing)(programmer, lead repository editor)\n\nthx for all\n\nthis is a placeholder of manifest for non-compiler user!",
+      "description": "The programmer has a nap, holdout, programmer!\n\nprototype 509(09.05.24)\n\nstaff roll:\n-Sonichec0(first development director, programmer)\n-Theshadowsen(second development director, studio owner, main repository editor)\n-Yasser(programmer)\n-error404(programmer)\n-Node(CryptoKing)(programmer, lead repository editor)\n\nthx for all\n\nthis is a placeholder of manifest for non-compiler user!",
       "min_engine_version": [
          1,
          20,
          60
       ],
-      "name": "Cosmos Adventure(507)",
+      "name": "Cosmos Adventure(509)",
       "uuid": "c00f1945-b2c6-24e7-57ae-32ab091945ab",
       "version": [
          5,
          0,
-         7
+         9
       ]
    },
    "modules": [
@@ -22,7 +22,7 @@
          "version": [
             5,
             0,
-            7
+            9
          ]
       }
    ]
