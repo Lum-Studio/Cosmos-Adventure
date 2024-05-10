@@ -26,10 +26,10 @@
       },
 	  
       "machine": {
-        "textures":"textures/blocks/machine_blank.png"
+        "textures":"textures/blocks/machine_blank"
       },
       "advanced_machine": {
-        "textures":"textures/blocks/advanced_machine_blank.png"
+        "textures":"textures/blocks/advanced_machine_blank"
       }
    },
    "texture_name": "atlas.terrain"

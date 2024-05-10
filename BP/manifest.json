@@ -1,0 +1,33 @@
+{
+   "format_version": 2,
+   "header": {
+      "description": "§9Cosmos Adventure! §7(Galacticraft port for Bedrock Editon made by Lum Studio)§r\nCredit goes to:\n-§6Sonichec0§r\n-§dTheshadowsen§r\n-§bYasser444§r\n-§cError404.mcfunction§r\n-§aNode(CryptoKing)§r",
+      "name": "Cosmos Adventure",
+      "version": [5, 0, 7],
+      "uuid": "c4a889c0-c968-43cb-bd29-cf4f2b456965",
+      "min_engine_version": [1, 20, 60]
+   },
+   "modules": [
+        {
+            "type": "data",
+            "uuid": "a3c6109f-1534-4704-a108-4f611c9abfbc",
+            "version": [1, 0, 0]
+        },
+        {
+            "type": "script",
+            "uuid": "f8178752-ffcc-4fe3-9a80-5efa32e4ec3f",
+            "version": [1, 0, 0],
+            "entry": "scripts/main.js"
+        }
+   ],
+    "dependencies": [
+		{
+			"module_name":"@minecraft/server",
+			"version":"1.11.0-beta"
+		},
+		{
+			"module_name":"@minecraft/server-ui",
+			"version":"1.1.0"
+		}
+    ]
+}

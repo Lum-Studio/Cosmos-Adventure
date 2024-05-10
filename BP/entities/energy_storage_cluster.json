@@ -16,6 +16,12 @@
 					"client_sync": true,
 					"range": [0, 2500000],
 					"default": 2500000
+				} ,
+				"cosmos:energy": {
+					"type": "int",
+					"client_sync": true,
+					"range": [0, 2500000],
+					"default": 0
 				} 
 			}
         },
@@ -23,17 +29,18 @@
             "minecraft:health": {
 				"value": 5,
 				"max": 5
-			},
+			},/*
             "minecraft:timer": {
 				"looping": true,
 				"time": 0.05,
 				"time_down_event": {
 					"event":"cosmos:tick"
 				}
-			},
+			},*/
             "minecraft:type_family": {
                 "family": [
-                    "cosmos"
+                    "cosmos",
+					"energy_storage"
                 ]
             },
             "minecraft:collision_box": {
@@ -46,20 +53,20 @@
             },
             "minecraft:inventory": {
                 "container_type": "container",
-                "inventory_size": 1
+                "inventory_size": 2
             },
             "minecraft:pushable": {
                 "is_pushable": false,
                 "is_pushable_by_piston": false
             },
             "minecraft:physics": {}
-        },
+        }/*,
 		"events": {
 			"cosmos:tick": {
 				"queue_command": {
 					"command": "scriptevent cosmos:tick energy_storage_module"
 				}
 			}
-		}
+		}*/
     }
 }

@@ -1,5 +1,4 @@
 import {world, system} from "@minecraft/server";
-import {charge} from "../machines/electricity"
 
 function generateHeat(block) {
 	const fuel = block.getComponent('minecraft:inventory').container;
@@ -43,6 +42,5 @@ function generateHeat(block) {
 system.afterEvents.scriptEventReceive.subscribe((event) => {
     if( event.id == "cosmos:tick" && event.message == "coal_generator") {
 		generateHeat(event.sourceEntity)
-		charge(event.sourceEntity)
 	}
 })
