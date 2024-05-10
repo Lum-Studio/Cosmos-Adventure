@@ -1,22 +1,18 @@
 {
+   "format_version": [1, 1, 0],
    "deco_block": {
       "sound": "stone",
       "textures": "deco_block"
    },
-   "format_version": [
-      1,
-      1,
-      0
-   ],
-   "moon_bottom": {
+   "moon_rock": {
       "sound": "stone",
       "textures": "moon_bottom"
    },
-   "moon_middle": {
+   "moon_dirt": {
       "sound": "stone",
       "textures": "moon_middle"
    },
-   "moon_top": {
+   "moon_turf": {
       "sound": "stone",
       "textures": {
          "down": "moon_top_side",
@@ -30,6 +26,39 @@
          "down": "space_station_top",
          "side": "space_station_side",
          "up": "space_station_top"
+      }
+   },
+   "coal_generator": {
+      "sound": "stone",
+      "textures": {
+         "down": "machine",
+         "north": "machine_side",
+         "east": "machine_side",
+         "west": "machine_side",
+         "south": "coal_generator",
+         "up": "machine"
+      }
+   },
+   "energy_storage_module": {
+      "sound": "stone",
+      "textures": {
+         "down": "machine",
+         "north": "machine_side",
+         "east": "machine_side",
+         "west": "machine_side",
+         "south": "energy_storage_module",
+         "up": "machine"
+      }
+   },
+   "energy_storage_cluster": {
+      "sound": "stone",
+      "textures": {
+         "down": "advanced_machine",
+         "north": "advanced_machine_side",
+         "east": "advanced_machine_side",
+         "west": "advanced_machine_side",
+         "south": "energy_storage_cluster",
+         "up": "advanced_machine"
       }
    }
 }

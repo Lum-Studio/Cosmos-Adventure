@@ -1,31 +1,30 @@
 {
    "format_version": "1.20.10",
    "minecraft:block": {
+      "description": {
+         "identifier": "cosmos:moon_rock",
+         "menu_category": {
+            "category": "construction"
+         }
+      },
       "components": {
          "minecraft:destructible_by_explosion": {
             "explosion_resistance": 1
          },
          "minecraft:destructible_by_mining": {
-            "seconds_to_destroy": 3
+            "seconds_to_destroy": 1
          },
          "minecraft:loot": "loot_tables/blocks/empty.json",
          "minecraft:map_color": "#ffffff",
          "minecraft:material_instances": {
             "*": {
                "render_method": "opaque",
-               "texture": "moon_middle"
+               "texture": "moon_rock"
             }
          },
          "minecraft:on_player_destroyed": {
             "condition": "query.equipped_item_any_tag('slot.weapon.mainhand','minecraft:is_pickaxe')",
             "event": "destroy"
-         },
-         "minecraft:unit_cube": {}
-      },
-      "description": {
-         "identifier": "cosmos:moon_middle",
-         "menu_category": {
-            "category": "construction"
          }
       },
       "events": {

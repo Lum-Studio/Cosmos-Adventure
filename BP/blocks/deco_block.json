@@ -1,6 +1,12 @@
 {
    "format_version": "1.20.10",
    "minecraft:block": {
+      "description": {
+         "identifier": "cosmos:deco_block",
+         "menu_category": {
+            "category": "construction"
+         }
+      },
       "components": {
          "minecraft:destructible_by_explosion": {
             "explosion_resistance": 1
@@ -19,13 +25,6 @@
          "minecraft:on_player_destroyed": {
             "condition": "query.equipped_item_any_tag('slot.weapon.mainhand','minecraft:is_pickaxe')",
             "event": "destroy"
-         },
-         "minecraft:unit_cube": {}
-      },
-      "description": {
-         "identifier": "cosmos:deco_block",
-         "menu_category": {
-            "category": "construction"
          }
       },
       "events": {

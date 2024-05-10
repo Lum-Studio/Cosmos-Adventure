@@ -1,0 +1,9 @@
+
+tile.cosmos:coal_generator.name=Coal Generator
+tile.cosmos:energy_storage_module.name=Energy Storage Module
+tile.cosmos:energy_storage_cluster.name=Energy Storage Cluster
+tile.cosmos:moon_rock.name=Moon Rock
+tile.cosmos:moon_dirt.name=Moon Dirt
+tile.cosmos:moon_turf.name=Moon Turf
+tile.cosmos:deco_block.name=Tin Decoration Block
+tile.cosmos:space_station.name=Space Station

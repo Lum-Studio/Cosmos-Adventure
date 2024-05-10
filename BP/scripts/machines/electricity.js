@@ -58,37 +58,33 @@ function give_energy(input, output = get_storage(input, rightLocation(input))) {
 }
 
 function move_energy(block, output = get_storage(block, rightLocation(block)), input = get_machine(block, leftLocation(block))) {
-	let total_energy = block.getProperty("cosmos:energy")
-	if (input) {
-		const capacity = block.getProperty("cosmos:capacity")
-		const power = input.getProperty("cosmos:power")
-		const stored_energy = total_energy
-		const available_energy = input.getProperty("cosmos:energy") ?? 1000000; //world.sendMessage(`${capacity} ${power} ${stored_energy} ${available_energy} `)
-		if (stored_energy != capacity && power != 0) {
-			const moved_energy = Math.min(available_energy, power)
-			if (stored_energy + moved_energy <= capacity) {  //if there is enough capacity
-				total_energy += moved_energy
-			} else {  //not enough capacity
-				total_energy = capacity
-			}
+	const power = block.getProperty("cosmos:power")
+	const energy = block.getProperty("cosmos:energy")
+	const capacity = block.getProperty("cosmos:capacity")
+	if (input && !output) {
+		const input_power = input.getProperty("cosmos:power")
+		const input_energy = input.getProperty("cosmos:energy") ?? 1000000; 
+		if (energy != capacity && input_power != 0) {
+			const updated_energy = Math.min(energy + Math.min(input_energy, input_power), capacity)
+			block.setProperty("cosmos:energy", updated_energy)
 		}
 	}
-	//world.sendMessage(''+total_energy)
-	if (output) {
-		const capacity = output.getProperty("cosmos:capacity")
-		const power = block.getProperty("cosmos:power")
-		const available_energy = total_energy
-		const stored_energy = output.getProperty("cosmos:energy")
-		if (stored_energy != capacity) {
-			const moved_energy = Math.min(available_energy, power)
-			if (stored_energy + moved_energy <= capacity) {  //if there is enough capacity
-				total_energy -= moved_energy
-			} else {  //not enough capacity
-				total_energy -= (capacity - stored_energy)
-			}
+	if (output && !input) {
+		const output_energy = output.getProperty("cosmos:energy")
+		const output_capacity = output.getProperty("cosmos:capacity")
+		if (output_energy != output_capacity && energy != 0) {
+			const updated_energy = Math.max(0, energy - Math.min(energy, power))
+			block.setProperty("cosmos:energy", updated_energy)
 		}
 	}
-	block.setProperty("cosmos:energy", total_energy)
+	if (input && output) {
+		const input_power = input.getProperty("cosmos:power")
+		const input_energy = input.getProperty("cosmos:energy") ?? 1000000;
+		const output_energy = block.getProperty("cosmos:energy")
+		const output_capacity = output.getProperty("cosmos:capacity")
+		const updated_energy = Math.min(Math.max(0, energy + Math.min(input_energy, input_power) - Math.min(energy, power)), capacity)
+		block.setProperty("cosmos:energy", updated_energy)
+	}
 	block.nameTag = `en ${block.getProperty("cosmos:energy")}gJ`
 }
 

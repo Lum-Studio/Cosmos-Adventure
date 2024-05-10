@@ -8,7 +8,6 @@
 	  }
     },
     "components": {
-      "minecraft:display_name": "Coal Generator",
       "minecraft:destructible_by_mining": {
 		  "seconds_to_destroy": 1
 	  },
@@ -16,7 +15,7 @@
 	  "minecraft:material_instances": {
 		  "*": {
 			"render_method": "opaque",
-			"texture": "machine"
+			"texture": "coal_generator"
 		  }
 	  }
     }

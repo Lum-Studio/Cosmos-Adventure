@@ -28,8 +28,23 @@
       "machine": {
         "textures":"textures/blocks/machine_blank"
       },
+      "machine_side": {
+        "textures":"textures/blocks/machine_side"
+      },
       "advanced_machine": {
         "textures":"textures/blocks/advanced_machine_blank"
+      },
+      "advanced_machine_side": {
+        "textures":"textures/blocks/advanced_machine_side"
+      },
+      "coal_generator": {
+        "textures":"textures/blocks/coal_generator"
+      },
+      "energy_storage_module": {
+        "textures":"textures/blocks/energy_storage_module_16"
+      },
+      "energy_storage_cluster": {
+        "textures":"textures/blocks/energy_storage_cluster_16"
       }
    },
    "texture_name": "atlas.terrain"

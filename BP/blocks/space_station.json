@@ -1,25 +1,15 @@
 {
    "format_version": "1.20.10",
    "minecraft:block": {
-      "components": {
-         "minecraft:destructible_by_explosion": {
-            "explosion_resistance": 1
-         },
-         "minecraft:destructible_by_mining": {
-            "seconds_to_destroy": 3
-         },
-         "minecraft:loot": "loot_tables/blocks/empty.json",
-         "minecraft:on_player_destroyed": {
-            "condition": "query.equipped_item_any_tag('slot.weapon.mainhand','minecraft:is_pickaxe')",
-            "event": "destroy"
-         },
-         "minecraft:unit_cube": {}
-      },
       "description": {
          "identifier": "cosmos:space_station",
          "menu_category": {
             "category": "construction"
          }
+      },
+      "components": {
+         "minecraft:destructible_by_explosion": false,
+         "minecraft:destructible_by_mining": false
       }
    }
 }
