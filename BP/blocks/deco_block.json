@@ -9,19 +9,12 @@
             "seconds_to_destroy": 3
          },
          "minecraft:loot": "loot_tables/blocks/empty.json",
+         "minecraft:map_color": "#ffffff",
          "minecraft:material_instances": {
             "*": {
                "render_method": "opaque",
                "texture": "deco_block"
-            },
-            "events": {
-               "destroy": {
-                  "spawn_loot": {
-                     "table": "loot_tables/blocks/empty.json"
-                  }
-               }
-            },
-            "minecraft:map_color": "#ffffff"
+            }
          },
          "minecraft:on_player_destroyed": {
             "condition": "query.equipped_item_any_tag('slot.weapon.mainhand','minecraft:is_pickaxe')",
@@ -30,9 +23,16 @@
          "minecraft:unit_cube": {}
       },
       "description": {
-         "identifier": "galacticraft:deco_block",
+         "identifier": "cosmos:deco_block",
          "menu_category": {
             "category": "construction"
+         }
+      },
+      "events": {
+         "destroy": {
+            "spawn_loot": {
+               "table": "loot_tables/blocks/empty.json"
+            }
          }
       }
    }

@@ -16,7 +16,7 @@
          "minecraft:unit_cube": {}
       },
       "description": {
-         "identifier": "galacticraft:space_station",
+         "identifier": "cosmos:space_station",
          "menu_category": {
             "category": "construction"
          }
