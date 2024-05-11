@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:air_fan"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Oxygen Fan"
-            },
-            "minecraft:icon": {
-                "texture": "air_fan"
-            }
-        }
-    }
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "components": {
+         "minecraft:display_name": {
+            "value": "Oxygen Fan"
+         },
+         "minecraft:icon": {
+            "texture": "air_fan"
+         }
+      },
+      "description": {
+         "identifier": "cosmos:air_fan"
+      }
+   }
 }

@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:canister.copper"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Copper Canister"
-            },
-            "minecraft:icon": {
-                "texture": "canister.copper"
-            }
-        }
-    }
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "components": {
+         "minecraft:display_name": {
+            "value": "Copper Canister"
+         },
+         "minecraft:icon": {
+            "texture": "canister.copper"
+         }
+      },
+      "description": {
+         "identifier": "cosmos:canister.copper"
+      }
+   }
 }

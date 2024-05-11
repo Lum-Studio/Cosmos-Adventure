@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:compressed_copper"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Compressed Copper"
-            },
-            "minecraft:icon": {
-                "texture": "compressed_copper"
-            }
-        }
-    }
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "components": {
+         "minecraft:display_name": {
+            "value": "Compressed Copper"
+         },
+         "minecraft:icon": {
+            "texture": "compressed_copper"
+         }
+      },
+      "description": {
+         "identifier": "cosmos:compressed_copper"
+      }
+   }
 }

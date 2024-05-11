@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:buggymat.wheel"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Buggy Wheel"
-            },
-            "minecraft:icon": {
-                "texture": "buggymat.wheel"
-            }
-        }
-    }
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "components": {
+         "minecraft:display_name": {
+            "value": "Buggy Wheel"
+         },
+         "minecraft:icon": {
+            "texture": "buggymat.wheel"
+         }
+      },
+      "description": {
+         "identifier": "cosmos:buggymat.wheel"
+      }
+   }
 }

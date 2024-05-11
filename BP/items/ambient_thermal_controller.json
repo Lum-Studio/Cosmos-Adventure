@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:ambient_thermal_controller"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Ambient Thermal Controller"
-            },
-            "minecraft:icon": {
-                "texture": "ambient_thermal_controller"
-            }
-        }
-    }
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "components": {
+         "minecraft:display_name": {
+            "value": "Ambient Thermal Controller"
+         },
+         "minecraft:icon": {
+            "texture": "ambient_thermal_controller"
+         }
+      },
+      "description": {
+         "identifier": "cosmos:ambient_thermal_controller"
+      }
+   }
 }

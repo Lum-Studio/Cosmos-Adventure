@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:bucket_oil"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Oil Bucket"
-            },
-            "minecraft:icon": {
-                "texture": "bucket_oil"
-            }
-        }
-    }
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "components": {
+         "minecraft:display_name": {
+            "value": "Oil Bucket"
+         },
+         "minecraft:icon": {
+            "texture": "bucket_oil"
+         }
+      },
+      "description": {
+         "identifier": "cosmos:bucket_oil"
+      }
+   }
 }

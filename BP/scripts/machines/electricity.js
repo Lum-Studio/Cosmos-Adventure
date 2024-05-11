@@ -86,6 +86,59 @@ function move_energy(block, output = get_storage(block, rightLocation(block)), i
 		block.setProperty("cosmos:energy", updated_energy)
 	}
 	block.nameTag = `en ${block.getProperty("cosmos:energy")}gJ`
+	const batteries = block.getComponent('minecraft:inventory').container
+	let output_slot = batteries.getItem(0)
+	let input_slot = batteries.getItem(1)
+	if (output_slot?.typeId == "cosmos:battery" && (input_slot?.typeId != "cosmos:battery" || input_slot?.getDynamicProperty('energy') == 0)) {
+		let charge = output_slot.getDynamicProperty('energy') ?? 0
+		if (charge < 15000 && energy > 0) {
+			charge = Math.min(15000, charge + 200)
+			output_slot.setLore([`§r§${
+				charge >= 10000 ? '2' :
+				charge < 5000 ? '4' : '6'
+			}${charge} gJ/15,000 gJ`])
+			output_slot.getComponent('minecraft:durability').damage = 15000 - charge
+			output_slot.setDynamicProperty('energy', charge)
+			batteries.setItem(0, output_slot)
+			block.setProperty("cosmos:energy", Math.max(0, energy - 200))
+		}
+	}
+	if (input_slot?.typeId == "cosmos:battery" && (output_slot?.typeId != "cosmos:battery" || output_slot?.getDynamicProperty('energy') == 15000)) {
+		let charge = input_slot.getDynamicProperty('energy') ?? 0
+		if (charge > 0 && energy < capacity) {
+			charge = Math.max(0, charge - 200)
+			input_slot.setLore([`§r§${
+				charge >= 10000 ? '2' :
+				charge < 5000? '4' : '6'
+			}${charge} gJ/15,000 gJ`])
+			input_slot.getComponent('minecraft:durability').damage = 15000 - charge - 1
+			input_slot.setDynamicProperty('energy', charge)
+			batteries.setItem(1, input_slot)
+			block.setProperty("cosmos:energy", Math.min(capacity, energy + 200))
+		}
+	}
+	if (output_slot?.typeId == "cosmos:battery" && input_slot?.typeId == "cosmos:battery") {
+		let output_charge = output_slot.getDynamicProperty('energy') ?? 0
+		let input_charge = input_slot.getDynamicProperty('energy') ?? 0
+		if (output_charge < 15000 && input_charge > 0) {
+			output_charge = Math.min(15000, output_charge + 200)
+			output_slot.setLore([`§r§${
+				output_charge >= 10000 ? '2' :
+				output_charge < 5000 ? '4' : '6'
+			}${output_charge} gJ/15,000 gJ`])
+			output_slot.getComponent('minecraft:durability').damage = 15000 - output_charge
+			output_slot.setDynamicProperty('energy', output_charge)
+			input_charge = Math.max(0, input_charge - 200)
+			input_slot.setLore([`§r§${
+				input_charge >= 10000 ? '2' :
+				input_charge < 5000? '4' : '6'
+			}${input_charge} gJ/15,000 gJ`])
+			input_slot.getComponent('minecraft:durability').damage = 15000 - input_charge - 1
+			input_slot.setDynamicProperty('energy', input_charge)
+			batteries.setItem(1, input_slot)
+			batteries.setItem(0, output_slot)
+		}
+	}
 }
 
 system.runInterval (()=> {
