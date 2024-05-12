@@ -140,9 +140,9 @@ function zoom_at(player, focused, planet) {
 			select_solar_system(player, ''); return;
 		}
 		switch (response.selection) {
-			case 0: zoom_at(player, planet, planet); return; break;
-			case buttons + 1: launch(player, focused); return; break;
-			case buttons + 2: create_station(player, focused); return; break;
+			case 0: zoom_at(player, planet, planet); return;
+			case buttons + 1: launch(player, focused); return; 
+			case buttons + 2: create_station(player, focused); return;
 		}
 		if (buttons >= 1 && response.selection == 1) {zoom_at(player, 'Moon', 'Overworld'); return}
 		if (buttons == 2 && response.selection == 2) {view_stations(player, ''); return}
@@ -191,11 +191,11 @@ function view_stations(player, focused) {
 			select_solar_system(player, ''); return;
 		}
 		switch (response.selection) {
-			case 0: zoom_at(player, 'Overworld', 'Overworld', '§f§f§f§f'); return; break;
-			case 1: zoom_at(player, 'Moon', 'Overworld', '§f§f§f§f'); return; break;
-			case 2: view_stations(player, ''); return; break;
-			case 3: launch(player, focused); return; break;
-			case 4: rename(player, focused); return; break;
+			case 0: zoom_at(player, 'Overworld', 'Overworld', '§f§f§f§f'); return; 
+			case 1: zoom_at(player, 'Moon', 'Overworld', '§f§f§f§f'); return; 
+			case 2: view_stations(player, ''); return; 
+			case 3: launch(player, focused); return; 
+			case 4: rename(player, focused); return;
 		}
 		const station = stations[response.selection - 5].name;
 		view_stations(player, station);
@@ -233,8 +233,8 @@ function select_solar_system(player, focused) {
 			return;
 		}
 		switch (response.selection) {
-			case 10: launch(player, focused); return; break;
-			case 11: create_station(player, focused); return; break;
+			case 10: launch(player, focused); return;
+			case 11: create_station(player, focused); return;
 		}
 		const planet = Object.keys(solar_system)[response.selection]
 		if (planet == focused) {zoom_at(player, planet, planet)}
@@ -243,11 +243,11 @@ function select_solar_system(player, focused) {
 }
 
 function launch(player, planet) {
-	overworld.runCommand(`say Launch ${player.nameTag} to ${planet}`)
+	player.sendMessage(`Launch ${player.nameTag} to ${planet}`)
 }
 
 function rename(player, station) {
-	overworld.runCommand(`say Rename ${station}`)
+	player.sendMessage(`Rename ${station}`)
 }
 
 function create_station(player, planet) {

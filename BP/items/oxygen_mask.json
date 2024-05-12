@@ -1,17 +1,17 @@
 {
-   "format_version": "1.20.20",
-   "minecraft:item": {
-      "components": {
-         "minecraft:display_name": {
-            "value": "Oxygen Mask"
-         },
-         "minecraft:icon": {
-            "texture": "oxygen_mask"
-         },
-         "tag:csm:mask": {}
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "components": {
+      "minecraft:display_name": {
+        "value": "Oxygen Mask"
       },
-      "description": {
-         "identifier": "galacticraft:oxygen_mask"
-      }
-   }
+      "minecraft:icon": {
+        "texture": "oxygen_mask"
+      },
+      "tag:csm:mask": {}
+    },
+    "description": {
+      "identifier": "cosmos:oxygen_mask"
+    }
+  }
 }

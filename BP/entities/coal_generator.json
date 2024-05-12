@@ -23,13 +23,7 @@
             //        "deals_damage": false
             //    }
             //},
-            "minecraft:timer": {
-				"looping": true,
-				"time": 0.05,
-				"time_down_event": {
-					"event":"cosmos:tick"
-				}
-			},
+            
             //"minecraft:interact": {
             //  "interactions": [
             //    {
@@ -71,11 +65,7 @@
             "minecraft:physics": {}
         },
 		"events": {
-			"cosmos:tick": {
-				"queue_command": {
-					"command": "scriptevent cosmos:tick coal_generator"
-				}
-			}
+			
 		}
     }
 }

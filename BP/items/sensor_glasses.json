@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:sensor_glasses"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Sensor Glasses"
-            },
-            "minecraft:icon": {
-                "texture": "sensor_glasses"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:sensor_glasses"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Sensor Glasses"
+      },
+      "minecraft:icon": {
+        "texture": "sensor_glasses"
+      }
     }
+  }
 }

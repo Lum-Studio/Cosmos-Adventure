@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:ingot_tin"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Tin Ingot"
-            },
-            "minecraft:icon": {
-                "texture": "ingot_tin"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:ingot_tin"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Tin Ingot"
+      },
+      "minecraft:icon": {
+        "texture": "ingot_tin"
+      }
     }
+  }
 }

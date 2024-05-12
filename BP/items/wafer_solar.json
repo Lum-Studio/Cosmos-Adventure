@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:wafer_solar"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Blue Solar Wafer"
-            },
-            "minecraft:icon": {
-                "texture": "wafer_solar"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:wafer_solar"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Blue Solar Wafer"
+      },
+      "minecraft:icon": {
+        "texture": "wafer_solar"
+      }
     }
+  }
 }

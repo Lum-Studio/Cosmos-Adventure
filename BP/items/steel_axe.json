@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:steel_axe"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Heavy Duty Axe"
-            },
-            "minecraft:icon": {
-                "texture": "steel_axe"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:steel_axe"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Heavy Duty Axe"
+      },
+      "minecraft:icon": {
+        "texture": "steel_axe"
+      }
     }
+  }
 }

@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:steel_helmet"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Heavy Duty Helmet"
-            },
-            "minecraft:icon": {
-                "texture": "steel_helmet"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:steel_helmet"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Heavy Duty Helmet"
+      },
+      "minecraft:icon": {
+        "texture": "steel_helmet"
+      }
     }
+  }
 }

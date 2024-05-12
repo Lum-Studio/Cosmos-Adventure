@@ -1,18 +1,18 @@
 {
-   "format_version": "1.20.20",
-   "minecraft:item": {
-      "components": {
-         "minecraft:display_name": {
-            "value": "Light Blue Parachute"
-         },
-         "minecraft:icon": {
-            "texture": "parachute_blue"
-         },
-         "minecraft:max_stack_size": 1,
-         "tag:csm:parachute": {}
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "components": {
+      "minecraft:display_name": {
+        "value": "Light Blue Parachute"
       },
-      "description": {
-         "identifier": "galacticraft:parachute_blue"
-      }
-   }
+      "minecraft:icon": {
+        "texture": "parachute_blue"
+      },
+      "minecraft:max_stack_size": 1,
+      "tag:csm:parachute": {}
+    },
+    "description": {
+      "identifier": "cosmos:parachute_blue"
+    }
+  }
 }

@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:meteoric_iron_raw"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Raw Meteoric Iron"
-            },
-            "minecraft:icon": {
-                "texture": "meteoric_iron_raw"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:meteoric_iron_raw"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Raw Meteoric Iron"
+      },
+      "minecraft:icon": {
+        "texture": "meteoric_iron_raw"
+      }
     }
+  }
 }

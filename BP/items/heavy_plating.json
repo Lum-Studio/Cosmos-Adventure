@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:heavy_plating"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Heavy-Duty Plate"
-            },
-            "minecraft:icon": {
-                "texture": "heavy_plating"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:heavy_plating"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Heavy-Duty Plate"
+      },
+      "minecraft:icon": {
+        "texture": "heavy_plating"
+      }
     }
+  }
 }

@@ -1,25 +1,25 @@
 {
-   "format_version": "1.20.20",
-   "minecraft:item": {
-      "components": {
-         "minecraft:display_name": {
-            "value": "Medium Oxygen Tank"
-         },
-         "minecraft:durability": {
-            "damage_chance": {
-               "max": 100,
-               "min": 60
-            },
-            "max_durability": 1800
-         },
-         "minecraft:icon": {
-            "texture": "oxygen_tank_med_full"
-         },
-         "minecraft:max_stack_size": 1,
-         "tag:csm:tank": {}
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "components": {
+      "minecraft:display_name": {
+        "value": "Medium Oxygen Tank"
       },
-      "description": {
-         "identifier": "galacticraft:oxygen_tank_med_full"
-      }
-   }
+      "minecraft:durability": {
+        "damage_chance": {
+          "max": 100,
+          "min": 60
+        },
+        "max_durability": 1800
+      },
+      "minecraft:icon": {
+        "texture": "oxygen_tank_med_full"
+      },
+      "minecraft:max_stack_size": 1,
+      "tag:csm:tank": {}
+    },
+    "description": {
+      "identifier": "cosmos:oxygen_tank_med_full"
+    }
+  }
 }

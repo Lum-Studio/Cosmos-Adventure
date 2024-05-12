@@ -1,18 +1,18 @@
 {
-   "format_version": "1.20.20",
-   "minecraft:item": {
-      "components": {
-         "minecraft:display_name": {
-            "value": "Thermal Helmet"
-         },
-         "minecraft:icon": {
-            "texture": "thermal_helmet"
-         },
-         "minecraft:max_stack_size": 1,
-         "tag:csm:head": {}
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "components": {
+      "minecraft:display_name": {
+        "value": "Thermal Helmet"
       },
-      "description": {
-         "identifier": "galacticraft:thermal_helmet"
-      }
-   }
+      "minecraft:icon": {
+        "texture": "thermal_helmet"
+      },
+      "minecraft:max_stack_size": 1,
+      "tag:csm:head": {}
+    },
+    "description": {
+      "identifier": "cosmos:thermal_helmet"
+    }
+  }
 }

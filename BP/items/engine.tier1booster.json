@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:engine.tier1booster"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Tier 1 Booster"
-            },
-            "minecraft:icon": {
-                "texture": "engine.tier1booster"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:engine.tier1booster"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Tier 1 Booster"
+      },
+      "minecraft:icon": {
+        "texture": "engine.tier1booster"
+      }
     }
+  }
 }

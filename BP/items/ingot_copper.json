@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:ingot_copper"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Copper Ingot"
-            },
-            "minecraft:icon": {
-                "texture": "ingot_copper"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:ingot_copper"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Copper Ingot"
+      },
+      "minecraft:icon": {
+        "texture": "ingot_copper"
+      }
     }
+  }
 }

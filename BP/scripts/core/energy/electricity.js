@@ -1,4 +1,5 @@
 import {world, system} from "@minecraft/server";
+// Node- Rewrite later
 
 function rightLocation(entity) {
 	const direction = entity.getRotation().y

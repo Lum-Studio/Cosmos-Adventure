@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:schematic_buggy"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "NASA Workbench Schematic"
-            },
-            "minecraft:icon": {
-                "texture": "schematic_buggy"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:schematic_buggy"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "NASA Workbench Schematic"
+      },
+      "minecraft:icon": {
+        "texture": "schematic_buggy"
+      }
     }
+  }
 }

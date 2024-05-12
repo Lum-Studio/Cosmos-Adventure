@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:wafer_advanced"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Advanced Wafer"
-            },
-            "minecraft:icon": {
-                "texture": "wafer_advanced"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:wafer_advanced"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Advanced Wafer"
+      },
+      "minecraft:icon": {
+        "texture": "wafer_advanced"
+      }
     }
+  }
 }

@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:entity": {
     "description": {
-      "identifier": "g:inv_ent",
+      "identifier": "cosmos:inv_ent",
       "is_spawnable": false,
       "is_summonable": true,
       "is_experimental": false

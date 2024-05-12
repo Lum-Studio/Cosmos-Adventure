@@ -1,17 +1,17 @@
 {
-   "format_version": "1.20.20",
-   "minecraft:item": {
-      "components": {
-         "minecraft:display_name": {
-            "value": "Oxygen Gear"
-         },
-         "minecraft:icon": {
-            "texture": "oxygen_gear"
-         },
-         "tag:csm:gear": {}
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "components": {
+      "minecraft:display_name": {
+        "value": "Oxygen Gear"
       },
-      "description": {
-         "identifier": "galacticraft:oxygen_gear"
-      }
-   }
+      "minecraft:icon": {
+        "texture": "oxygen_gear"
+      },
+      "tag:csm:gear": {}
+    },
+    "description": {
+      "identifier": "cosmos:oxygen_gear"
+    }
+  }
 }

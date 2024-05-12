@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:oil_canister_partial_0"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Partially Filled Oil Canister"
-            },
-            "minecraft:icon": {
-                "texture": "oil_canister_partial_0"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:oil_canister_partial_0"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Partially Filled Oil Canister"
+      },
+      "minecraft:icon": {
+        "texture": "oil_canister_partial_0"
+      }
     }
+  }
 }

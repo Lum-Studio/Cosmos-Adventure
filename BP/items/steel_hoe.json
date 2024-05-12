@@ -1,16 +1,16 @@
 {
-    "format_version": "1.20.20",
-    "minecraft:item": {
-        "description": {
-            "identifier": "galacticraft:steel_hoe"
-        },
-        "components": {
-            "minecraft:display_name": {
-                "value": "Heavy Duty Hoe"
-            },
-            "minecraft:icon": {
-                "texture": "steel_hoe"
-            }
-        }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:steel_hoe"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Heavy Duty Hoe"
+      },
+      "minecraft:icon": {
+        "texture": "steel_hoe"
+      }
     }
+  }
 }

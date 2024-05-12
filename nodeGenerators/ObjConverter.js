@@ -119,7 +119,6 @@ async function generateModels() {
       console.warn(textureFile)
       if (textureFile){
       const textureFilePath = path.resolve(textureFile.path,textureFile.name);
-      console.warn(textureFilePath)
       const genModels = await OBJtoMC(objFileContent, textureFilePath, `galaticraft:${transformedName}`);
       fs.mkdirSync('./RP/models',{recursive:true})
       fs.writeFileSync(`./RP/models/${transformedName}.json`, JSON.stringify(genModels,null,2));
@@ -129,8 +128,6 @@ async function generateModels() {
   }));
 }
 
-
-// Your walkDir function remains unchanged
 
 generateModels().catch((error) => {
   console.error("Error generating models:", error);

@@ -1,18 +1,18 @@
 {
-   "format_version": "1.20.20",
-   "minecraft:item": {
-      "components": {
-         "minecraft:display_name": {
-            "value": "Thermal Leggings"
-         },
-         "minecraft:icon": {
-            "texture": "thermal_leggings"
-         },
-         "minecraft:max_stack_size": 1,
-         "tag:csm:legs": {}
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "components": {
+      "minecraft:display_name": {
+        "value": "Thermal Leggings"
       },
-      "description": {
-         "identifier": "galacticraft:thermal_leggings"
-      }
-   }
+      "minecraft:icon": {
+        "texture": "thermal_leggings"
+      },
+      "minecraft:max_stack_size": 1,
+      "tag:csm:legs": {}
+    },
+    "description": {
+      "identifier": "cosmos:thermal_leggings"
+    }
+  }
 }

@@ -1,17 +1,17 @@
 {
-   "format_version": "1.20.20",
-   "minecraft:item": {
-      "components": {
-         "minecraft:display_name": {
-            "value": "Frequency Module"
-         },
-         "minecraft:icon": {
-            "texture": "frequency_module"
-         },
-         "tag:csm:frequency": {}
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "components": {
+      "minecraft:display_name": {
+        "value": "Frequency Module"
       },
-      "description": {
-         "identifier": "galacticraft:frequency_module"
-      }
-   }
+      "minecraft:icon": {
+        "texture": "frequency_module"
+      },
+      "tag:csm:frequency": {}
+    },
+    "description": {
+      "identifier": "cosmos:frequency_module"
+    }
+  }
 }
