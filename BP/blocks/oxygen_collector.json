@@ -1,23 +1,22 @@
 {
-  "format_version": "1.20.60",
+  "format_version": "1.20.50",
   "minecraft:block": {
     "description": {
-      "identifier": "cosmos:coal_generator",
+      "identifier": "cosmos:oxygen_collector",
 	  "menu_category": {
 		  "category": "items"
 	  }
     },
     "components": {
-      "minecraft:custom_components": ["cosmos:machine"],
       "minecraft:destructible_by_mining": {
 		  "seconds_to_destroy": 1
 	  },
 	  "minecraft:destructible_by_explosion": false,
 	  "minecraft:material_instances": {
-		  "*": {
-			"render_method": "opaque",
-			"texture": "coal_generator"
-		  }
+		"*": {
+		  "render_method": "opaque",
+		  "texture": "oxygen_collector"
+		}
 	  }
     }
   }

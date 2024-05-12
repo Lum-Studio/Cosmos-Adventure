@@ -1,0 +1,33 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "cosmos:oxygen_collector",
+      "materials": { "default": "shulker" },
+      "textures": {
+        "up": "textures/blocks/collector",
+        "down": "textures/blocks/collector",
+        "north": "textures/blocks/collector",
+        "east": "textures/blocks/machine_input",
+        "south": "textures/blocks/collector",
+        "west": "textures/blocks/oxygen_output"
+      },
+      "geometry": {
+        "up": "geometry.up",
+        "down": "geometry.down",
+        "north": "geometry.north",
+        "east": "geometry.east",
+        "south": "geometry.south",
+        "west": "geometry.west"
+      },
+      "render_controllers": [ 
+	    "controller.render.up",
+	    "controller.render.down",
+	    "controller.render.north",
+	    "controller.render.east",
+	    "controller.render.south",
+	    "controller.render.west"
+	  ]
+    }
+  }
+}

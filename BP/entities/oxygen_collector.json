@@ -1,0 +1,64 @@
+{
+    "format_version": "1.20.0",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "cosmos:oxygen_collector",
+            "is_summonable": true,
+			"properties": {
+				"cosmos:capacity": {
+					"type": "int",
+					"client_sync": true,
+					"range": [0, 16000],
+					"default": 16000 
+				},
+				"cosmos:energy": {
+					"type": "int",
+					"client_sync": true,
+					"range": [0, 16000],
+					"default": 0 
+				},
+				"cosmos:oxygen_capacity": {
+					"type": "int",
+					"client_sync": true,
+					"range": [0, 6000],
+					"default": 6000
+				},
+				"cosmos:oxygen": {
+					"type": "int",
+					"client_sync": true,
+					"range": [0, 6000],
+					"default": 0 
+				}
+			}
+        },
+        "components": {
+            "minecraft:health": {
+				"value": 5,
+				"max": 5
+			},
+            "minecraft:type_family": {
+                "family": [
+                    "cosmos",
+					"consumer"
+                ]
+            },
+            "minecraft:collision_box": {
+                "width": 1,
+                "height": 1
+            },
+            "minecraft:knockback_resistance": {
+                "value": 100,
+                "max": 100
+            },
+            "minecraft:inventory": {
+                "container_type": "container",
+                "inventory_size": 1
+            },
+            "minecraft:pushable": {
+                "is_pushable": false,
+                "is_pushable_by_piston": false
+            },
+            "minecraft:physics": {}
+        }
+    }
+}

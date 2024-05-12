@@ -39,6 +39,10 @@
          "up": "machine"
       }
    },
+   "oxygen_collector": {
+      "sound": "stone",
+      "textures": "oxygen_collector"
+   },
    "energy_storage_module": {
       "sound": "stone",
       "textures": {

@@ -2,6 +2,7 @@
 tile.cosmos:coal_generator.name=Coal Generator
 tile.cosmos:energy_storage_module.name=Energy Storage Module
 tile.cosmos:energy_storage_cluster.name=Energy Storage Cluster
+tile.cosmos:oxygen_collector.name=Oxygen Collector
 tile.cosmos:moon_rock.name=Moon Rock
 tile.cosmos:moon_dirt.name=Moon Dirt
 tile.cosmos:moon_turf.name=Moon Turf

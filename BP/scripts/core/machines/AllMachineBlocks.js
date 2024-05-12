@@ -12,5 +12,9 @@ export default {
     "cosmos:energy_storage_cluster":{
         tileEntity:"cosmos:energy_storage_cluster",
         class:undefined
+    },
+    "cosmos:oxygen_collector":{
+        tileEntity:"cosmos:oxygen_collector",
+        class:undefined
     }
 }

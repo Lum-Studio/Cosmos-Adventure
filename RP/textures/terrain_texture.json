@@ -45,6 +45,9 @@
       },
       "energy_storage_cluster": {
         "textures":"textures/blocks/energy_storage_cluster_16"
+      },
+      "oxygen_collector": {
+        "textures":"textures/blocks/collector"
       }
    },
    "texture_name": "atlas.terrain"
