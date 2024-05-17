@@ -64,5 +64,9 @@
          "south": "energy_storage_cluster",
          "up": "advanced_machine"
       }
+   },
+   "aluminum_wire": {
+      "sound": "cloth",
+      "textures": "aluminum_wire"
    }
 }

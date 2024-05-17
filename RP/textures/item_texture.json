@@ -13,6 +13,9 @@
       "battery": {
          "textures": "textures/items/battery"
       },
+      "aluminum_wire": {
+         "textures": "textures/items/aluminum_wire"
+      },
       "bucket_fuel": {
          "textures": "textures/items/bucket_fuel"
       },

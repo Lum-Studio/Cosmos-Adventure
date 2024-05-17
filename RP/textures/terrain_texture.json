@@ -48,6 +48,9 @@
       },
       "oxygen_collector": {
         "textures":"textures/blocks/collector"
+      },
+      "aluminum_wire": {
+        "textures":"textures/blocks/aluminum_wire"
       }
    },
    "texture_name": "atlas.terrain"
