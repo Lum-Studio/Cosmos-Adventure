@@ -1,3 +1,3 @@
-#Cosmos Adventures
+# Cosmos Adventures
 
 A port of galacticraft
