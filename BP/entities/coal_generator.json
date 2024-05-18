@@ -10,7 +10,13 @@
 					"client_sync": true,
 					"range": [0, 120],
 					"default": 0 
-				} 
+				},
+                "cosmos:facing_direction" :{
+                    "type": "int",
+					"client_sync": true,
+					"range": [0, 5],
+					"default": 0 
+                }
 			}
         },
         "components": {
@@ -18,11 +24,6 @@
 				"value": 5,
 				"max": 5
 			},
-            //"minecraft:damage_sensor": {
-            //    "triggers": {
-            //        "deals_damage": false
-            //    }
-            //},
             
             //"minecraft:interact": {
             //  "interactions": [
@@ -62,7 +63,9 @@
                 "is_pushable": false,
                 "is_pushable_by_piston": false
             },
-            "minecraft:physics": {}
+            "minecraft:physics": {
+                "has_gravity": false
+            }
         },
 		"events": {
 			
