@@ -43,7 +43,7 @@ class MachineInstancesHandler {
      * Retrieves a machine instance from a specific dimension at the provided location.
      * @param {Dimension} dimension - The dimension to get the instance from.
      * @param {Vector3} location - The location of the instance to get.
-     * @returns {KineticBlockEntity} The found machine instance.
+     * @returns {MachineBlockEntity} The found machine instance.
      */
     get(dimension, location) {
         return this.instances[dimension.id][`x${location.x}y${location.y}z${location.z}`];

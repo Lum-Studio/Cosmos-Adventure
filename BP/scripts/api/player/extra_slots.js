@@ -43,7 +43,7 @@ function onDeath(P){
 }
 // first action after player sneaks
 function start(P){
-	var bEntity = P.dimension.spawnEntity("cosmos:inv_ent",P.location);
+	var bEntity = P.dimension.spawnEntity("g:inv_ent",P.location);
 	bEntity.nameTag="extra_slots_2024(-)"; // needed for condition in UI
 	tagItemAdd(P,bEntity.getComponent("inventory").container,bEntity);
 	P.setDynamicProperty("eid",bEntity.id);
