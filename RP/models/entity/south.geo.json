@@ -12,7 +12,7 @@
 			},
 			"bones": [
 				{
-					"name": "south",
+					"name": "side",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{
