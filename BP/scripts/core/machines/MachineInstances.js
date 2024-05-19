@@ -35,7 +35,7 @@ class MachineInstancesHandler {
      * @param {Dimension} dimension - The dimension to remove the instance from.
      * @param {Vector3} location - The location of the instance to remove.
      */
-    delete(dimension, location) {
+    destroy(dimension, location) {
         delete this.instances[dimension.id][`x${location.x}y${location.y}z${location.z}`];
     }
 

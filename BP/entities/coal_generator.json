@@ -1,0 +1,80 @@
+{
+    "format_version": "1.20.0",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "cosmos:coal_generator",
+            "is_summonable": true,
+			"properties": {
+				"cosmos:power": {
+					"type": "int",
+					"client_sync": true,
+					"range": [0, 120],
+					"default": 0 
+				},
+                "cosmos:facing_direction" :{
+                    "type": "int",
+					"client_sync": true,
+					"range": [0, 5],
+					"default": 0 
+                },
+				"cosmos:direction": {
+					"type": "enum",
+					"client_sync": true,
+					"values": ["north", "east", "south", "west"],
+					"default": "north"
+				} 
+			}
+        },
+        "components": {
+            "minecraft:health": {
+				"value": 5,
+				"max": 5
+			},
+            
+            //"minecraft:interact": {
+            //  "interactions": [
+            //    {
+            //      "on_interact": {
+            //        "filters": {
+            //          "all_of": [
+            //            { "test": "is_family", "subject": "other", "value": "player" },
+            //            { "test": "is_sneak_held", "subject": "other", "value": false }
+            //          ]
+            //        },
+            //        "target": "self",
+		    //		"event": "cosmos:tick"
+            //      }
+            //    }
+            //  ]
+            //},
+            "minecraft:type_family": {
+                "family": [
+                    "cosmos",
+					"generator"
+                ]
+            },
+            "minecraft:collision_box": {
+                "width": 1,
+                "height": 1
+            },
+            "minecraft:knockback_resistance": {
+                "value": 100,
+                "max": 100
+            },
+            "minecraft:inventory": {
+                "container_type": "container",
+                "inventory_size": 1
+            },
+            "minecraft:pushable": {
+                "is_pushable": false,
+                "is_pushable_by_piston": false
+            },
+            "minecraft:physics": {
+                "has_gravity": false
+            }
+        },
+		"events": {
+			
+		}
+    }
+}
