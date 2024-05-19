@@ -37,11 +37,32 @@
 				}
 			}
         },
-        "components": {
-            "minecraft:health": {
-				"value": 5,
-				"max": 5
+        "component_groups": {
+			"shrink": {
+				"minecraft:collision_box": {
+					"width": 0.7,
+					"height": 0.7
+				},
+				"minecraft:timer": {
+					"time": 0.1,
+					"time_down_event": {
+						"event":"cosmos:expand"
+					}
+				}
 			},
+			"expand": {
+				"minecraft:collision_box": {
+					"width": 1,
+					"height": 1
+				}
+			}
+		},
+        "components": {
+            "minecraft:damage_sensor": {
+                "triggers": {
+                    "deals_damage": false
+                }
+            },
             "minecraft:type_family": {
                 "family": [
                     "cosmos",
@@ -64,7 +85,24 @@
                 "is_pushable": false,
                 "is_pushable_by_piston": false
             },
-            "minecraft:physics": {}
-        }
+            "minecraft:physics": {
+                "has_gravity": false
+            }
+        },
+		"events": {
+			"cosmos:shrink": {
+				"add": {
+					"component_groups": ["shrink"]
+				}
+			},
+			"cosmos:expand": {
+				"remove": {
+					"component_groups": ["shrink"]
+				},
+				"add": {
+					"component_groups": ["expand"]
+				}
+			}
+		}
     }
 }

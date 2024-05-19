@@ -11,12 +11,6 @@
 					"range": [0, 120],
 					"default": 0 
 				},
-                "cosmos:facing_direction" :{
-                    "type": "int",
-					"client_sync": true,
-					"range": [0, 5],
-					"default": 0 
-                },
 				"cosmos:direction": {
 					"type": "enum",
 					"client_sync": true,
@@ -25,28 +19,32 @@
 				} 
 			}
         },
-        "components": {
-            "minecraft:health": {
-				"value": 5,
-				"max": 5
+        "component_groups": {
+			"shrink": {
+				"minecraft:collision_box": {
+					"width": 0.7,
+					"height": 0.7
+				},
+				"minecraft:timer": {
+					"time": 0.1,
+					"time_down_event": {
+						"event":"cosmos:expand"
+					}
+				}
 			},
-            
-            //"minecraft:interact": {
-            //  "interactions": [
-            //    {
-            //      "on_interact": {
-            //        "filters": {
-            //          "all_of": [
-            //            { "test": "is_family", "subject": "other", "value": "player" },
-            //            { "test": "is_sneak_held", "subject": "other", "value": false }
-            //          ]
-            //        },
-            //        "target": "self",
-		    //		"event": "cosmos:tick"
-            //      }
-            //    }
-            //  ]
-            //},
+			"expand": {
+				"minecraft:collision_box": {
+					"width": 1,
+					"height": 1
+				}
+			}
+		},
+        "components": {
+            "minecraft:damage_sensor": {
+                "triggers": {
+                    "deals_damage": false
+                }
+            },
             "minecraft:type_family": {
                 "family": [
                     "cosmos",
@@ -74,7 +72,19 @@
             }
         },
 		"events": {
-			
+			"cosmos:shrink": {
+				"add": {
+					"component_groups": ["shrink"]
+				}
+			},
+			"cosmos:expand": {
+				"remove": {
+					"component_groups": ["shrink"]
+				},
+				"add": {
+					"component_groups": ["expand"]
+				}
+			}
 		}
     }
 }

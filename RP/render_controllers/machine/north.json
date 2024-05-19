@@ -2,6 +2,8 @@
   "format_version": "1.8.0",
   "render_controllers": {
     "controller.render.north": {
+      "is_hurt_color": {},
+      "on_fire_color": {},
       "geometry": "Geometry.north",
       "materials": [ { "*": "Material.default" } ],
       "textures": [ "Texture.north" ]

@@ -5,12 +5,13 @@
       "identifier": "cosmos:oxygen_collector",
 	  "menu_category": {
 		  "category": "items"
-	  }
+	  },
+	  "states": {"cosmos:invisible": [false, true]}
     },
     "components": {
 	  "minecraft:custom_components": ["cosmos:machine"],
       "minecraft:destructible_by_mining": {
-		  "seconds_to_destroy": 1
+		  "seconds_to_destroy": 0.5
 	  },
 	  "minecraft:destructible_by_explosion": false,
 	  "minecraft:collision_box": false,
@@ -20,6 +21,12 @@
 		  "texture": "oxygen_collector"
 		}
 	  }
-    }
+    },
+	"permutations": [
+	  {
+	    "condition": "q.block_state('cosmos:invisible')",
+	    "components": {"minecraft:geometry": "geometry.invisible"}
+	  }
+	]
   }
 }
