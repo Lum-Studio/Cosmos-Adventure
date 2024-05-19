@@ -13,13 +13,13 @@
 		  "seconds_to_destroy": 1
 	  },
 	  "minecraft:destructible_by_explosion": false,
+	 "minecraft:collision_box": false,
 	  "minecraft:material_instances": {
 		  "*": {
 			"render_method": "opaque",
 			"texture": "coal_generator"
 		  }
-	  },
-	 "minecraft:collision_box": false
+	  }
 
 	}
   }

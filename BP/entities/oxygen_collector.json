@@ -28,6 +28,12 @@
 					"client_sync": true,
 					"range": [0, 6000],
 					"default": 0 
+				},
+				"cosmos:direction": {
+					"type": "enum",
+					"client_sync": true,
+					"values": ["north", "east", "south", "west"],
+					"default": "north"
 				}
 			}
         },

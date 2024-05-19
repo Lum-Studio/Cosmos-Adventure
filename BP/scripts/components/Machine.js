@@ -15,7 +15,9 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 			const direction = directions[playerRotaion == 4 ? 0 : playerRotaion]
 			entity.setProperty("cosmos:direction", direction)
 			event.permutationToPlace = BlockPermutation.resolve('minecraft:air')
-			MachineInstances.add(dimension, location, new machineType.class(block, entity))
+			if ( machineType.class ) {
+				MachineInstances.add(dimension, location, new machineType.class(block, entity))
+			}
 		}
 	})
 })

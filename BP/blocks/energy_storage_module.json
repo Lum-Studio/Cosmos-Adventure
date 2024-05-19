@@ -8,10 +8,12 @@
 	  }
     },
     "components": {
+	  "minecraft:custom_components": ["cosmos:machine"],
       "minecraft:destructible_by_mining": {
 		  "seconds_to_destroy": 1
 	  },
 	  "minecraft:destructible_by_explosion": false,
+	 "minecraft:collision_box": false,
 	  "minecraft:material_instances": {
 		"*": {
 		  "render_method": "opaque",
