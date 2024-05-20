@@ -2,8 +2,8 @@
  // This code is not well-done, but it is normal
 const slots = [ "head","body","legs","feet","tank1","tank2","frequency","mask","parachute","thermal","gear" ];
 const prefix = "csm:"; //prefix for item tags
-const maskTag = "mask(-)galacticraft:oxygen_mask";
-const gearTag = "gear(-)galacticraft:oxygen_gear";
+const maskTag = "mask(-)cosmos:oxygen_mask";
+const gearTag = "gear(-)cosmos:oxygen_gear";
 
 
 
@@ -43,7 +43,7 @@ function onDeath(P){
 }
 // first action after player sneaks
 function start(P){
-	var bEntity = P.dimension.spawnEntity("g:inv_ent",P.location);
+	var bEntity = P.dimension.spawnEntity("cosmos:inv_ent",P.location);
 	bEntity.nameTag="extra_slots_2024(-)"; // needed for condition in UI
 	tagItemAdd(P,bEntity.getComponent("inventory").container,bEntity);
 	P.setDynamicProperty("eid",bEntity.id);
@@ -159,7 +159,7 @@ system.runInterval(async()=>{
 // Interacting with inventory
 world.beforeEvents.playerInteractWithEntity.subscribe((ev)=>{
 	let {player:p,target:e} = ev;
-	if (e.typeId !== 'g:inv_ent') return;
+	if (e.typeId !== 'cosmos:inv_ent') return;
 	if (world.getEntity(p.getDynamicProperty('eid')).id !== e.id) ev.cancel = true;
 	if (p.hasTag("mobile_device")) return;
 	if (p.isSneaking  && !p.hasTag('sneaked')) system.run(()=>{
@@ -174,7 +174,7 @@ world.beforeEvents.playerInteractWithEntity.subscribe((ev)=>{
 });
 
 world.afterEvents.entityHitEntity.subscribe(({hitEntity:e,damagingEntity:p})=>{
-	if (e.typeId ==='g:inv_ent' && p.typeId === "minecraft:player"){
+	if (e.typeId ==='cosmos:inv_ent' && p.typeId === "minecraft:player"){
 		if (p.hasTag('sneaked')){
 			p.removeTag('sneaked');
 		}
