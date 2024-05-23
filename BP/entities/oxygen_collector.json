@@ -5,30 +5,6 @@
             "identifier": "cosmos:oxygen_collector",
             "is_summonable": true,
 			"properties": {
-				"cosmos:capacity": {
-					"type": "int",
-					"client_sync": true,
-					"range": [0, 16000],
-					"default": 16000 
-				},
-				"cosmos:energy": {
-					"type": "int",
-					"client_sync": true,
-					"range": [0, 16000],
-					"default": 0 
-				},
-				"cosmos:oxygen_capacity": {
-					"type": "int",
-					"client_sync": true,
-					"range": [0, 6000],
-					"default": 6000
-				},
-				"cosmos:oxygen": {
-					"type": "int",
-					"client_sync": true,
-					"range": [0, 6000],
-					"default": 0 
-				},
 				"cosmos:direction": {
 					"type": "enum",
 					"client_sync": true,
@@ -66,7 +42,7 @@
             "minecraft:type_family": {
                 "family": [
                     "cosmos",
-					"consumer"
+					"has_power_input"
                 ]
             },
             "minecraft:collision_box": {

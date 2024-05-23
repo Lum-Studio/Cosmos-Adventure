@@ -5,12 +5,6 @@
             "identifier": "cosmos:coal_generator",
             "is_summonable": true,
 			"properties": {
-				"cosmos:power": {
-					"type": "int",
-					"client_sync": true,
-					"range": [0, 120],
-					"default": 0 
-				},
 				"cosmos:direction": {
 					"type": "enum",
 					"client_sync": true,
@@ -48,7 +42,7 @@
             "minecraft:type_family": {
                 "family": [
                     "cosmos",
-					"generator"
+					"has_power_output"
                 ]
             },
             "minecraft:collision_box": {
@@ -61,7 +55,7 @@
             },
             "minecraft:inventory": {
                 "container_type": "container",
-                "inventory_size": 1
+                "inventory_size": 4
             },
             "minecraft:pushable": {
                 "is_pushable": false,

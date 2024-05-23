@@ -31,8 +31,14 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 		onPlayerDestroy ({block, dimension}) {
 			const entity = dimension.getEntitiesAtBlockLocation(block.location)[0]
 			MachineInstances.get(dimension, entity.location)?.destroy()
-			entity?.runCommand('kill @s')
-			entity?.runCommand('tp  ~ -64 ~')  //I will replace this line with a proper death animation later
+			if (entity) {
+				const container = entity.getComponent('minecraft:inventory').container
+				const data_slots = AllMachineBlocks[entity.typeId].slots
+				Object.values(data_slots).forEach(slot => container.setItem(slot, undefined))
+				
+				entity.runCommand('kill @s')
+				entity.runCommand('tp  ~ -64 ~')  //I will replace this line with a proper death animation later
+			}
 		}
 	})
 })

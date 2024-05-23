@@ -5,22 +5,10 @@
             "identifier": "cosmos:energy_storage_module",
             "is_summonable": true,
 			"properties": {
-				"cosmos:power": {
+				"cosmos:fill_level": {
 					"type": "int",
 					"client_sync": true,
-					"range": [0, 300],
-					"default": 300
-				},
-				"cosmos:capacity": {
-					"type": "int",
-					"client_sync": true,
-					"range": [0, 500000],
-					"default": 500000
-				},
-				"cosmos:energy": {
-					"type": "int",
-					"client_sync": true,
-					"range": [0, 500000],
+					"range": [0, 15],
 					"default": 0
 				},
 				"cosmos:direction": {
@@ -60,7 +48,9 @@
             "minecraft:type_family": {
                 "family": [
                     "cosmos",
-					"energy_storage"
+					"energy_storage",
+					"has_power_output",
+					"has_power_input"
                 ]
             },
             "minecraft:collision_box": {
@@ -73,7 +63,7 @@
             },
             "minecraft:inventory": {
                 "container_type": "container",
-                "inventory_size": 2
+                "inventory_size": 4
             },
             "minecraft:pushable": {
                 "is_pushable": false,
