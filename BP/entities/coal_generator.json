@@ -2,7 +2,7 @@
     "format_version": "1.20.0",
     "minecraft:entity": {
         "description": {
-            "identifier": "cosmos:coal_generator",
+            "identifier": "cosmos:machine:coal_generator",
             "is_summonable": true,
 			"properties": {
 				"cosmos:direction": {

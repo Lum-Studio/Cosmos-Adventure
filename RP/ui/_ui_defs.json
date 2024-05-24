@@ -1,5 +1,6 @@
 {
   "ui_defs": [
-    "ui/cosmos.json"
+    "ui/cosmos.json",
+	"ui/space_gear.json"
   ]
 }

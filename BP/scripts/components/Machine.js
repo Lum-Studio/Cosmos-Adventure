@@ -17,7 +17,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 		beforeOnPlayerPlace (event) {
 			const { block, dimension, player, permutationToPlace } = event
 			const block_id = permutationToPlace.type.id
-			const machineType = AllMachineBlocks[block_id]
+			const machineType = AllMachineBlocks[block_id.replace('cosmos:', '')]
 			const entity = dimension.spawnEntity(machineType.tileEntity, { ...block.center(), y: block.y })
 			const location = block.location
 			const playerRotaion = Math.round((player.getRotation().y + 180) / 90)
@@ -33,7 +33,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 			MachineInstances.get(dimension, entity.location)?.destroy()
 			if (entity) {
 				const container = entity.getComponent('minecraft:inventory').container
-				const data_slots = AllMachineBlocks[entity.typeId].slots
+				const data_slots = AllMachineBlocks[entity.typeId.replace('cosmos:machine:', '')].slots
 				Object.values(data_slots).forEach(slot => container.setItem(slot, undefined))
 				
 				entity.runCommand('kill @s')
@@ -48,8 +48,12 @@ system.runInterval(()=> {
 	players.forEach(player => {
 		const mainHand = player.getComponent("minecraft:equippable").getEquipment("Mainhand")
 		if (!pickaxes.has(mainHand?.typeId) && !(player.isSneaking && mainHand)) return //is holding a pickaxe or holding an item while sneaking
-		const block = player.getBlockFromViewDirection({blockFilter: {includeTypes: Object.keys(AllMachineBlocks)}, maxDistance: 6})?.block
+		const block = player.getBlockFromViewDirection( {
+			blockFilter: {
+				includeTypes: Object.keys(AllMachineBlocks).map(m=> 'cosmos:' + m)
+			}, maxDistance: 6
+		})?.block
 		const entity = block ? block.dimension.getEntitiesAtBlockLocation(block.location)[0] : player.getEntitiesFromViewDirection({maxDistance: 6})[0]?.entity
-		if (entity?.typeId.startsWith("cosmos:")) entity.triggerEvent("cosmos:shrink")
+		if (entity?.typeId.startsWith("cosmos:machine:")) entity.triggerEvent("cosmos:shrink")
 	})
 })

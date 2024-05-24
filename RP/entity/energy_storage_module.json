@@ -2,7 +2,7 @@
   "format_version": "1.10.0",
   "minecraft:client_entity": {
     "description": {
-      "identifier": "cosmos:energy_storage_module",
+      "identifier": "cosmos:machine:energy_storage_module",
       "materials": { "default": "shulker" },
       "textures": {
         "up": "textures/blocks/machine_blank",

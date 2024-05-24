@@ -1,7 +1,7 @@
 import {world, system, ItemStack} from "@minecraft/server";
 import AllMachineBlocks from "../machines/AllMachineBlocks"
 
-//function say(message='yes') {world.sendMessage(''+message)}
+function say(message='yes') {world.sendMessage(''+message)}
 
 const dimensions = ['overworld', 'nether', 'the_end'].map(dim => (world.getDimension(dim)))
 
@@ -42,7 +42,7 @@ function update_baterry(battery, charge) {
 function process_energy(store) {
 	//retrieve data
     const container = store.getComponent('minecraft:inventory').container;
-	const store_data = AllMachineBlocks[store.typeId]
+	const store_data = AllMachineBlocks[store.typeId.replace('cosmos:machine:', '')]
 	let energy = container.getItem(2) ? + container.getItem(2).nameTag?.replace("gJ", "") : 0
 	
 	//give energy to the output
@@ -53,7 +53,7 @@ function process_energy(store) {
 	})[0]
 	if ( output_entity && Math.min(energy, store_data.maxPower) > 0 ) {
 		const output_container = output_entity.getComponent('minecraft:inventory').container
-		const output_data = AllMachineBlocks[output_entity.typeId]
+		const output_data = AllMachineBlocks[output_entity.typeId.replace('cosmos:machine:', '')]
 		const power = Math.min(energy, store_data.maxPower)
 		const energy_slot = output_container.getItem(output_data.slots.energy)
 		const output_energy = energy_slot ? + energy_slot.nameTag?.replace("gJ", "") : output_data.capacity
@@ -73,7 +73,7 @@ function process_energy(store) {
 	})[0]
 	if ( input_entity && energy < store_data.capacity ) {
 		const input_container = input_entity.getComponent('minecraft:inventory').container
-		const input_data = AllMachineBlocks[input_entity.typeId]
+		const input_data = AllMachineBlocks[input_entity.typeId.replace('cosmos:machine:', '')]
 		const power_slot = input_container.getItem(input_data.slots.power)
 		const power = power_slot ? + power_slot.nameTag?.replace("gJ/t", "") : 0
 		const space = store_data.capacity - energy

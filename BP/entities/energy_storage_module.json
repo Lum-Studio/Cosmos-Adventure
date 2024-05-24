@@ -2,7 +2,7 @@
     "format_version": "1.20.0",
     "minecraft:entity": {
         "description": {
-            "identifier": "cosmos:energy_storage_module",
+            "identifier": "cosmos:machine:energy_storage_module",
             "is_summonable": true,
 			"properties": {
 				"cosmos:fill_level": {
