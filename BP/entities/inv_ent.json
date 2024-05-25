@@ -8,14 +8,14 @@
       "is_experimental": false
     },
     "component_groups": {
-        "minecraft:despawn": {
+        "despawn": {
             "minecraft:instant_despawn": {}
             }},
 	
     "components": {
 		"minecraft:tick_world":{
-		"never_despawn": false,
-		"radius": 2
+			"never_despawn": false,
+			"distance_to_players": 2
 		},
 		"minecraft:damage_sensor": {
         "triggers": {
@@ -57,9 +57,9 @@
       }
     },
     "events":{
-    "minecraft:despawn": {
+    "cosmos:despawn": {
             "add": {
-                "component_groups":["minecraft:despawn"]
+                "component_groups":["despawn"]
             }
         }
     }
