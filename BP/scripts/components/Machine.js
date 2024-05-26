@@ -1,6 +1,7 @@
 import { world, system, BlockPermutation } from "@minecraft/server"
 import AllMachineBlocks from "../core/machines/AllMachineBlocks"
 import { MachineInstances } from "../core/machines/MachineInstances"
+import { detach_wires, attach_wires } from "../wire_placement"
 
 const directions = ['south', 'west', 'north', 'east']
 const pickaxes = new Set([
@@ -11,6 +12,7 @@ const pickaxes = new Set([
 	"minecraft:diamond_pickaxe",
 	"minecraft:netherite_pickaxe",
 ])
+
 
 world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 	blockTypeRegistry.registerCustomComponent('cosmos:machine', {
@@ -24,11 +26,12 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 			const direction = directions[playerRotaion == 4 ? 0 : playerRotaion]
 			entity.setProperty("cosmos:direction", direction)
 			event.permutationToPlace = BlockPermutation.resolve(block_id, {"cosmos:invisible": true})
-			if ( machineType.class ) {
-				MachineInstances.add(dimension, location, new machineType.class(block, entity))
-			}
+			if ( machineType.class ) MachineInstances.add(dimension, location, new machineType.class(block, entity))
+			attach_wires(block, entity, direction)
+			
 		},
 		onPlayerDestroy ({block, dimension}) {
+			detach_wires(block)
 			const entity = dimension.getEntitiesAtBlockLocation(block.location)[0]
 			MachineInstances.get(dimension, entity.location)?.destroy()
 			if (entity) {

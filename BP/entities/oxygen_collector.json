@@ -42,6 +42,8 @@
             "minecraft:type_family": {
                 "family": [
                     "cosmos",
+					"power",
+					"oxygen",
 					"has_power_input"
                 ]
             },
@@ -55,7 +57,7 @@
             },
             "minecraft:inventory": {
                 "container_type": "container",
-                "inventory_size": 1
+                "inventory_size": 3
             },
             "minecraft:pushable": {
                 "is_pushable": false,

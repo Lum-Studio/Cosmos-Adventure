@@ -1,26 +1,72 @@
 import {world, system, ItemStack} from "@minecraft/server";
 import AllMachineBlocks from "../machines/AllMachineBlocks"
-
+function get_data(machine) {return AllMachineBlocks[machine.typeId.replace('cosmos:machine:', '')]}
+function str(object) { return JSON.stringify(object) }
 function say(message='yes') {world.sendMessage(''+message)}
+
+const sides = new Map([
+  ["cosmos:up", "above"],
+  ["cosmos:down", "below"],
+  ["cosmos:north", "north"],
+  ["cosmos:east", "east"],
+  ["cosmos:south", "south"],
+  ["cosmos:west", "west"],
+])
+
 
 const dimensions = ['overworld', 'nether', 'the_end'].map(dim => (world.getDimension(dim)))
 
 const TURN_BY = {
 	front: 0,
-	right: -Math.PI/2,
-	back: Math.PI,
 	left: Math.PI/2,
+	back: Math.PI,
+	right: -Math.PI/2,
 }
 const ROTATE_BY = {
+	west: 0,
 	north: Math.PI/2,
 	east: Math.PI,
 	south: -Math.PI/2,
-	west: 0,
 }
 
-function location_of(store, side) {
-	const location = store.location
-	const direction = ROTATE_BY[store.getProperty('cosmos:direction')]
+export function get_machine_connections(machine, direction=null) {
+	const machine_data = get_data(machine)
+	const output = direction ? location_of(machine, machine_data.energy_output, direction) : location_of(machine, machine_data.energy_output)
+	output.x -= 0.5; output.z -= 0.5
+	const input = direction ? location_of(machine, machine_data.energy_input, direction) : location_of(machine, machine_data.energy_input)
+	input.x -= 0.5; input.z -= 0.5
+	say(str(machine.getProperty('cosmos:direction')))
+	return [input, output]
+}
+
+function get_connected_wires(wire) {
+	const wires = []; const inputs = []; const outputs = []
+	const states = wire.permutation.getAllStates()
+	sides.forEach((value, key) => {
+		if (states[key]) {
+			const block = wire[value]()
+			if (block.typeId == "cosmos:aluminum_wire") {
+				wires.push(block)
+			} else {
+				const machine = wire.dimension.getEntities({
+					families: ["power"],
+					location: wire[value]().center(),
+					maxDistance: 0.5,
+				})[0]
+				if (machine) {
+					const [input_location, output_location] = get_machine_connections(machine)
+					if (str(output_location) == str(wire.location)) inputs.push(machine)
+					if (str(input_location) == str(wire.location)) outputs.push(machine)
+				}
+			}
+		}
+	})
+	return [wires, inputs, outputs]
+}
+
+export function location_of(machine, side, d=null) {
+	const location = machine.location
+	const direction = d ? ROTATE_BY[d] : ROTATE_BY[machine.getProperty('cosmos:direction')]
 	const x = Math.round(Math.cos(direction + TURN_BY[side]))
 	const z = Math.round(Math.sin(direction + TURN_BY[side]))
 	return {
@@ -29,6 +75,7 @@ function location_of(store, side) {
 		z: location.z + z
 	}
 }
+
 function update_baterry(battery, charge) {
 	battery.setLore([`§r§${
 		charge >= 10000 ? '2' :
@@ -42,18 +89,20 @@ function update_baterry(battery, charge) {
 function process_energy(store) {
 	//retrieve data
     const container = store.getComponent('minecraft:inventory').container;
-	const store_data = AllMachineBlocks[store.typeId.replace('cosmos:machine:', '')]
+	const store_data = get_data(store)
 	let energy = container.getItem(2) ? + container.getItem(2).nameTag?.replace("gJ", "") : 0
 	
 	//give energy to the output
+	const output_location = location_of(store, store_data.energy_output)
 	const output_entity = store.dimension.getEntities({
 		families: ["has_power_input"],
-		location: location_of(store, store_data.energy_output),
+		location: output_location,
 		maxDistance: 0.5,
 	})[0]
+	const output_wire = store.dimension.getBlock(output_location)
 	if ( output_entity && Math.min(energy, store_data.maxPower) > 0 ) {
 		const output_container = output_entity.getComponent('minecraft:inventory').container
-		const output_data = AllMachineBlocks[output_entity.typeId.replace('cosmos:machine:', '')]
+		const output_data = get_data(output_entity)
 		const power = Math.min(energy, store_data.maxPower)
 		const energy_slot = output_container.getItem(output_data.slots.energy)
 		const output_energy = energy_slot ? + energy_slot.nameTag?.replace("gJ", "") : output_data.capacity
@@ -63,6 +112,27 @@ function process_energy(store) {
 		if ( sx == iox && sy == ioy && sz == ioz ) {
 			energy -= Math.min(power, space)
 		}
+	} //this part deals with wires
+	else if (output_wire.typeId == "cosmos:aluminum_wire") {
+		const network = new Set()
+		const inputs = new Set()
+		const outputs = new Set()
+		function buildNetwork(wire) {
+			const {x, y, z} = wire.location
+			network.add(`${x} ${y} ${z}`)
+			const [wires, ins, outs] = get_connected_wires(wire)
+			ins.forEach(i => {
+				if (!inputs.has(i)) inputs.add(i)
+			})
+			outs.forEach(o => {
+				if (!outputs.has(o)) outputs.add(o)
+			})
+			wires.forEach(w => {
+				if (!network.has(`${w.x} ${w.y} ${w.z}`) && network.size < 32) buildNetwork(w)
+			})
+		}
+		buildNetwork(output_wire)
+		//say(`i have ${inputs.size} inputs and ${outputs.size} outputs`))
 	}
 	
 	//take power from the input energy input
@@ -73,7 +143,7 @@ function process_energy(store) {
 	})[0]
 	if ( input_entity && energy < store_data.capacity ) {
 		const input_container = input_entity.getComponent('minecraft:inventory').container
-		const input_data = AllMachineBlocks[input_entity.typeId.replace('cosmos:machine:', '')]
+		const input_data = get_data(input_entity)
 		const power_slot = input_container.getItem(input_data.slots.power)
 		const power = power_slot ? + power_slot.nameTag?.replace("gJ/t", "") : 0
 		const space = store_data.capacity - energy
