@@ -31,6 +31,9 @@
 					"width": 1,
 					"height": 1
 				}
+			},
+			"despawn": {
+				"minecraft:instant_despawn": {}
 			}
 		},
         "components": {
@@ -50,6 +53,11 @@
                 "width": 1,
                 "height": 1
             },
+			"minecraft:health": {
+				"value": 1,
+				"max": 1,
+				"min": 1
+			},
             "minecraft:knockback_resistance": {
                 "value": 100,
                 "max": 100
@@ -70,6 +78,11 @@
 			"cosmos:shrink": {
 				"add": {
 					"component_groups": ["shrink"]
+				}
+			},
+			"cosmos:despawn": {
+				"add": {
+					"component_groups": ["despawn"]
 				}
 			},
 			"cosmos:expand": {

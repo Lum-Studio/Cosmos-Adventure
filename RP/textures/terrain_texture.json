@@ -41,10 +41,10 @@
         "textures":"textures/blocks/coal_generator"
       },
       "energy_storage_module": {
-        "textures":"textures/blocks/energy_storage_module_16"
+        "textures":"textures/blocks/energy_storage_module/16"
       },
       "energy_storage_cluster": {
-        "textures":"textures/blocks/energy_storage_cluster_16"
+        "textures":"textures/blocks/energy_storage_cluster/16"
       },
       "oxygen_collector": {
         "textures":"textures/blocks/collector"

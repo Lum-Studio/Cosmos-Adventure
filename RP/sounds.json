@@ -1,0 +1,26 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"cosmos:machine:coal_generator": {
+				"events": {
+					"death": { "sound": "none", "volume": 0 }
+				}
+			},
+			"cosmos:machine:energy_storage_module": {
+				"events": {
+					"death": { "sound": "none", "volume": 0 }
+				}
+			},
+			"cosmos:machine:energy_storage_cluster": {
+				"events": {
+					"death": { "sound": "none", "volume": 0 }
+				}
+			},
+			"cosmos:machine:oxygen_collector": {
+				"events": {
+					"death": { "sound": "none", "volume": 0 }
+				}
+			}
+		}
+	}
+}

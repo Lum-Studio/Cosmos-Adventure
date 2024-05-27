@@ -33,18 +33,17 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 		},
 		onPlayerDestroy ({block, dimension}) {
 			detach_wires(block)
-			const entity = dimension.getEntitiesAtBlockLocation(block.location)[0]
+			const entity = dimension.getEntities({location: block.center(), distance: 0.5, families: ["cosmos"]})[0]
 			MachineInstances.get(dimension, entity?.location)?.destroy()
-			if (entity && entity.typeId.startsWith('cosmos:')) {
+			if (entity) {
 				const container = entity.getComponent('minecraft:inventory').container
 				for (let i=0; i<container.size; i++) {
 					if (container.getItem(i)?.typeId == 'minecraft:clock') {
 						container.setItem(i, undefined)
 					}
 				}
-				
 				entity.runCommand('kill @s')
-				entity.runCommand('tp  ~ -64 ~')  //I will replace this line with a proper death animation later
+				entity.triggerEvent('cosmos:despawn')
 			}
 		}
 	})

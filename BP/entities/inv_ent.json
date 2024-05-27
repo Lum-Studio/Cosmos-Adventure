@@ -9,8 +9,9 @@
     },
     "component_groups": {
         "despawn": {
-            "minecraft:instant_despawn": {}
-            }},
+				"minecraft:instant_despawn": {}
+        }
+	},
 	
     "components": {
 		"minecraft:tick_world":{

@@ -268,30 +268,3 @@ world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
 		select_solar_system(source, '')
 	}
 })
-
-//debug tools
-world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
-	if ( (itemStack.typeId === "minecraft:stick") ) {
-		const station = source.getDynamicProperty("has_space_station");
-		world.sendMessage(''+ station)
-	}
-})
-world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
-	if ( (itemStack.typeId === "minecraft:flint") ) {
-		source.setDynamicProperty("has_space_station", undefined)
-		world.setDynamicProperty("space_stations", JSON.stringify(JSON.parse(world.getDynamicProperty("space_stations") ?? '[]').filter(i => i.owner != source.nameTag)))
-	}
-})
-world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
-	if ( (itemStack.typeId === "minecraft:prismarine_shard") ) {
-		source.setDynamicProperty("has_space_station", undefined)
-		world.setDynamicProperty("space_stations", undefined)
-	}
-})
-world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
-	if ( (itemStack.typeId === "minecraft:blaze_rod") ) {
-		const stations = JSON.parse(world.getDynamicProperty("space_stations") ?? '[]')
-		stations.push({name: 'Space City', owner: 'Tom'})
-		world.setDynamicProperty("space_stations", JSON.stringify(stations))
-	}
-})
