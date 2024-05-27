@@ -3,16 +3,18 @@ import * as m from "./blocks/index"
 export default {
     "coal_generator":{
         tileEntity: "cosmos:machine:coal_generator",
+		ui: "§c§o§a§l§_§g§e§n§e§r§a§t§o§r",
         class: m.CoalGenerator,
-		slots: {burnTime: 1, heat: 2, power: 3},
+		lore: {slot: 3, power: 2},
 
 		energy_output: "right",
 		maxPower: 120,
     },
     "energy_storage_module":{
         tileEntity: "cosmos:machine:energy_storage_module",
+		ui: "§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§m§o§d§u§l§e",
         class: undefined,
-		slots: {energy: 2, power: 3},
+		lore: {slot: 3 , energy: 0, power: 1},
 		
 		energy_input: "left",
 		capacity: 500000,
@@ -22,8 +24,9 @@ export default {
     },
     "energy_storage_cluster":{
         tileEntity: "cosmos:machine:energy_storage_cluster",
+		ui: "§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§c§l§u§s§t§e§r",
         class: undefined,
-		slots: {energy: 2, power: 3},
+		lore: {slot: 4 , energy: 0, power: 1},
 
 		energy_output: "right",
 		maxPower: 1800,
@@ -33,8 +36,9 @@ export default {
     },
     "oxygen_collector":{
         tileEntity: "cosmos:machine:oxygen_collector",
+		ui: "",
         class: m.OxygenCollector,
-		slots: {energy: 1, o2: 2},
+		lore: {slot: 4, energy: 0, o2: 1},
 		
 		energy_input: "right",
 		capacity: 16000,

@@ -25,6 +25,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 			const playerRotaion = Math.round((player.getRotation().y + 180) / 90)
 			const direction = directions[playerRotaion == 4 ? 0 : playerRotaion]
 			entity.setProperty("cosmos:direction", direction)
+			entity.nameTag = machineType.ui
 			event.permutationToPlace = BlockPermutation.resolve(block_id, {"cosmos:invisible": true})
 			if ( machineType.class ) MachineInstances.add(dimension, location, new machineType.class(block, entity))
 			attach_wires(block, entity, direction)
@@ -33,11 +34,14 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 		onPlayerDestroy ({block, dimension}) {
 			detach_wires(block)
 			const entity = dimension.getEntitiesAtBlockLocation(block.location)[0]
-			MachineInstances.get(dimension, entity.location)?.destroy()
-			if (entity) {
+			MachineInstances.get(dimension, entity?.location)?.destroy()
+			if (entity && entity.typeId.startsWith('cosmos:')) {
 				const container = entity.getComponent('minecraft:inventory').container
-				const data_slots = AllMachineBlocks[entity.typeId.replace('cosmos:machine:', '')].slots
-				Object.values(data_slots).forEach(slot => container.setItem(slot, undefined))
+				for (let i=0; i<container.size; i++) {
+					if (container.getItem(i)?.typeId == 'minecraft:clock') {
+						container.setItem(i, undefined)
+					}
+				}
 				
 				entity.runCommand('kill @s')
 				entity.runCommand('tp  ~ -64 ~')  //I will replace this line with a proper death animation later

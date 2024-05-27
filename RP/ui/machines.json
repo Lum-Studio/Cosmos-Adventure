@@ -1,0 +1,325 @@
+{
+    "namespace": "machines",
+	
+	"slots_panel": {
+        "type": "panel",
+        "size": [ 18, 18 ],
+        "clips_children": true
+	},
+	"slots": {
+		"type": "grid",
+		"grid_item_template": "chest.chest_grid_item",
+        "collection_name": "container_items"
+	},
+	"texts": {
+		"type": "stack_panel",
+		"factory":{
+			"name": "buttons",
+			"control_name": "('machines.' + $machine + '_text')"
+		},
+		"collection_name": "container_items",
+		"bindings": [
+			{
+				"binding_name": "(#zero + 10)",
+				"binding_name_override": "#collection_length"
+			}
+		]
+	},
+	"fill_level": {
+		"type": "stack_panel",
+		"factory":{
+			"name": "buttons",
+			"control_name": "('machines.' + $machine + '_fill')"
+		},
+		"collection_name": "container_items",
+		"bindings": [
+			{
+				"binding_name": "(#zero + 10)",
+				"binding_name_override": "#collection_length"
+			}
+		]
+	},
+	"slot_overlay": {
+		"type": "panel",
+		"anchor_to": "center",
+		"anchor_from": "center",
+		"size": [ 18, 18 ],
+		"layer": 10,
+		"controls": [
+			{
+				"image": {
+					"type":"image",
+					"fill":true,
+					"size": [16, 16],
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
+					"texture": "$texture"
+				}
+			}
+        ]
+    },
+    "interface": {
+        "type": "panel",
+        "controls": [
+            { "container_gamepad_helpers@common.container_gamepad_helpers": {} },
+            { "flying_item_renderer@common.flying_item_renderer": { "layer": 14 } },
+            { "selected_item_details_factory@common.selected_item_details_factory": {} },
+            { "item_lock_notification_factory@common.item_lock_notification_factory": {} },
+            {
+                "root_panel@common.root_panel": {
+                    "layer": 1,
+                    "controls": [
+                        { "common_panel@common.common_panel": {} },
+                        {
+                            "panel": {
+                                "type": "panel",
+                                "layer": 5,
+                                "controls": [
+                                    { "top_half@machines.$machine": {} },
+                                    { "bottom_half@common.inventory_panel_bottom_half_with_label": {} },
+                                    { "hotbar_grid@common.hotbar_grid_template": {} },
+                                    { "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} }
+                                ]
+                            }
+                        },
+                        { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },
+                        { "gamepad_cursor@common.gamepad_cursor_button": {} }
+                    ]
+                }
+            }
+        ]
+    },
+	
+	"coal_generator_text@furnace.furnace_label": {
+		"anchor_to": "center",
+		"anchor_from": "center",
+		"text": "#text",
+		"bindings": [
+			{
+				"binding_name": "#hover_text",
+				"binding_name_override": "#heat",
+				"binding_type": "collection",
+				"binding_collection_name": "container_items"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "(#heat - 'cosmos:' - '§o' - '§f' )",
+				"target_property_name": "#text"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "(not(#heat - 'cosmos:' = #heat))",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+	
+	"energy_storage_text": {
+		"type": "label",
+		"text_alignment": "center",
+		"color": "$title_text_color",
+		"text": "#text",
+		"bindings": [
+			{
+				"binding_name": "#hover_text",
+				"binding_name_override": "#energy",
+				"binding_type": "collection",
+				"binding_collection_name": "container_items"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "(#energy - 'cosmos:' - '§o' - '§f')",
+				"target_property_name": "#text"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "(not(#energy - 'cosmos:§.' = #energy))",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+	
+	"energy_storage_fill": {
+		"type": "panel",
+		"size": [1, 0],
+		"anchor_to": "top_left",
+		"anchor_from": "top_left",
+		"controls": [
+			{
+				"image": {
+					"type": "image",
+					"texture": "textures/ui/cosmos/progress_bar_fill",
+					"size": [1, 5],
+					"anchor_to": "top_left",
+					"anchor_from": "top_left",
+					"bindings": [
+						{
+							"binding_name": "#hover_text",
+							"binding_name_override": "#energy",
+							"binding_type": "collection",
+							"binding_collection_name": "container_items"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "(#energy - 'cosmos:f' - '§o' - '§f' )",
+							"target_property_name": "#amount"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "(not(#energy - 'cosmos:f' = #energy))",
+							"target_property_name": "#visible"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "#amount",
+							"target_property_name": "#size_binding_x"
+						}
+					]
+				}
+			}
+		]
+	},
+    
+    "coal_generator@furnace.furnace_panel_top_half": {
+        "controls": [
+			{ "label@furnace.furnace_label": {
+				"text": "Coal Generator"
+			}},
+            {
+                "coal_input@machines.slots": {
+					"anchor_to": "center",
+					"anchor_from": "center",
+                    "offset": [ -50, 0 ],
+					"size": [ 18, 18 ],
+					"grid_dimensions": [ 1, 1 ],
+					"layer": 5
+                }
+            },
+            {
+                "fuel_overlay@machines.slot_overlay": {
+                    "offset": [ -50, 1 ],
+					"$texture": "textures/ui/extra_slots/fuel"
+                }
+            },
+			{
+				"arrow@crafting.crafting_arrow_large": {
+					"anchor_to": "center",
+					"anchor_from": "center",
+					"offset": [-20, 0]
+				}
+			},
+            {
+                "heat_and_power@machines.texts": {
+                    "offset": [ 10, 0 ],
+                    "size": [ 18, 18 ],
+					"layer": 4
+                }
+            }
+        ]
+    },
+    
+    "energy_storage@furnace.furnace_panel_top_half": {
+        "controls": [
+			{ "label@furnace.furnace_label": {
+				"text": "$label"
+			}},
+            {
+                "output_battery@machines.slots": {
+					"anchor_to": "center",
+					"anchor_from": "center",
+                    "offset": [ -50, -15 ],
+					"size": [ 18, 18 ],
+					"grid_dimensions": [ 1, 1 ],
+					"layer": 5
+                }
+            },
+            {
+                "input_battery@machines.slots_panel": {
+                    "offset": [ -50, 15 ],
+					"controls": [
+						{
+							"item@machines.slots": {
+								"offset": [ 0, -9 ],
+								"size": [ 18, 36 ],
+								"grid_dimensions": [ 1, 2 ],
+								"layer": 5
+							}
+						}
+					]
+                }
+            },
+            {
+                "output_overlay@machines.slot_overlay": {
+                    "offset": [ -50, -14 ],
+					"$texture": "textures/ui/extra_slots/power"
+                }
+            },
+            {
+                "input_overlay@machines.slot_overlay": {
+                    "offset": [ -50, 16 ],
+					"$texture": "textures/ui/extra_slots/power"
+                }
+            },
+			{
+				"output_arrow@crafting.crafting_arrow_large": {
+					"anchor_to": "center",
+					"anchor_from": "center",
+					"offset": [-20, -15],
+					"size": [ -22, 15 ]
+				}
+			},
+			{
+				"input_arrow@crafting.crafting_arrow_large": {
+					"anchor_to": "center",
+					"anchor_from": "center",
+					"offset": [-20, 15]
+				}
+			},
+            {
+                "energy@machines.texts": {
+                    "offset": [ 10, -10 ],
+                    "size": [ 18, 18 ],
+					"layer": 4
+                }
+            },
+            {
+                "capacity": {
+					"type": "image",
+					"texture": "textures/ui/cosmos/progress_bar",
+                    "offset": [ 40, 15 ],
+                    "size": [ 75, 5 ],
+					"controls": [
+						{
+							"energy@machines.fill_level": {
+								"anchor_from": "top_left",
+								"anchor_to": "top_left",
+								"layer": 4
+							}
+						}
+					]
+                }
+            },
+            {
+                "maxPower@furnace.furnace_label": {
+					"text": "$maxPower",
+					"anchor_to": "center",
+					"anchor_from": "center",
+                    "offset": [ 25, 30 ]
+                }
+            }
+        ]
+    },
+    "coal_generator_ui@machines.interface": {
+        "$machine": "coal_generator"
+    },
+    "energy_storege_module_ui@machines.interface": {
+        "$machine": "energy_storage",
+		"$label": "Energy Storage Module",
+		"$maxPower": "Max Output: 300 gJ/t"
+    },
+    "energy_storege_cluster_ui@machines.interface": {
+        "$machine": "energy_storage",
+		"$label": "Energy Storage Cluster",
+		"$maxPower": "Max Output: 1,800 gJ/t"
+    }
+}

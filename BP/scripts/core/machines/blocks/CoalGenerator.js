@@ -22,9 +22,9 @@ export class CoalGenerator extends MachineBlockEntity {
         const container = this.entity.getComponent('minecraft:inventory').container;
         const fuelItem = container.getItem(0);
 		const isCoalBlock = fuelItem?.typeId === 'minecraft:coal_block';
-        let burnTime = container.getItem(1) ? + container.getItem(1).nameTag?.replace("t", "") : 0
-		let heat = container.getItem(2) ? + container.getItem(2).nameTag?.replace("%", "") : 0
-		let power = container.getItem(3) ? + container.getItem(3).nameTag?.replace("gJ/t", "") : 0
+        let burnTime = container.getItem(3) ? + container.getItem(3).getLore()[0] : 0
+		let heat = container.getItem(3) ? + container.getItem(3).getLore()[1] : 0
+		let power = container.getItem(3) ? + container.getItem(3).getLore()[2] : 0
 		
         if ( this.fuelTypes.has(fuelItem?.typeId) && burnTime == 0) {
 			container.setItem(0, fuelItem.decrementStack())
@@ -41,11 +41,12 @@ export class CoalGenerator extends MachineBlockEntity {
 		if (burnTime == 0 && system.currentTick % 3 == 0 && power > 0) power--
 		
 		const counter = new ItemStack('clock')
-		counter.nameTag = `${burnTime}t`
+		counter.nameTag = `cosmos:${power == 0 ? 'Not Generating' : 'Generating'}`
 		container.setItem(1, counter)
-		counter.nameTag = `${heat}%`
+		counter.nameTag = `cosmos:${power == 0 ? ' Hull Heat: ' + heat + '%%' : '  §r' + power + ' gJ/t'}`
 		container.setItem(2, counter)
-		counter.nameTag = `${power}gJ/t`
+		counter.nameTag = ``
+		counter.setLore([''+burnTime, ''+heat, ''+power])
 		container.setItem(3, counter)
     }
 }

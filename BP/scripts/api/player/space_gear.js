@@ -84,16 +84,16 @@ world.afterEvents.entityDie.subscribe(({deadEntity:player})=> {
 	player.setDynamicProperty("space_gear", undefined);
 });
 
-// DELETING ENTITY ON LEAVING -- This doesn't work for some reason
-world.beforeEvents.playerLeave.subscribe(({player}) =>
+// DELETING ENTITY ON LEAVING -- This doesn't work for some reason -- craches the game 
+/*world.beforeEvents.playerLeave.subscribe(({player}) =>
 	player.dimension.getEntities({type: "cosmos:inv_ent"}).forEach(entity => {
 		if (entity.getDynamicProperty('owner') == player.nameTag) despawn(entity)
 	})
-)
+)*/
 
 
 // INVENTORY MANAGEMENT
-system.runInterval(async()=> {
+system.runInterval(()=> {
 	world.getAllPlayers().forEach((player) => {
 		// SNEAK DETECTION TO SPAWN THE ENTITY
 		if (!player.getComponent("equippable").getEquipment(EquipmentSlot.Mainhand) && player.isSneaking) {

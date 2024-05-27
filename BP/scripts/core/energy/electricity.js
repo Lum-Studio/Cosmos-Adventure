@@ -35,7 +35,6 @@ export function get_machine_connections(machine, direction=null) {
 	output.x -= 0.5; output.z -= 0.5
 	const input = direction ? location_of(machine, machine_data.energy_input, direction) : location_of(machine, machine_data.energy_input)
 	input.x -= 0.5; input.z -= 0.5
-	say(str(machine.getProperty('cosmos:direction')))
 	return [input, output]
 }
 
@@ -90,7 +89,7 @@ function process_energy(store) {
 	//retrieve data
     const container = store.getComponent('minecraft:inventory').container;
 	const store_data = get_data(store)
-	let energy = container.getItem(2) ? + container.getItem(2).nameTag?.replace("gJ", "") : 0
+	let energy = container.getItem(4) ? + container.getItem(4).getLore()[0] : 0
 	
 	//give energy to the output
 	const output_location = location_of(store, store_data.energy_output)
@@ -104,8 +103,8 @@ function process_energy(store) {
 		const output_container = output_entity.getComponent('minecraft:inventory').container
 		const output_data = get_data(output_entity)
 		const power = Math.min(energy, store_data.maxPower)
-		const energy_slot = output_container.getItem(output_data.slots.energy)
-		const output_energy = energy_slot ? + energy_slot.nameTag?.replace("gJ", "") : output_data.capacity
+		const data = output_container.getItem(output_data.lore.slot)?.getLore()
+		const output_energy = data ? + data[output_data.lore.energy] : output_data.capacity
 		const space = output_data.capacity - output_energy
 		const {sx, sy, sz} = store.location
 		const {iox, ioy, ioz} = location_of(output_entity, output_data.energy_input)
@@ -144,8 +143,8 @@ function process_energy(store) {
 	if ( input_entity && energy < store_data.capacity ) {
 		const input_container = input_entity.getComponent('minecraft:inventory').container
 		const input_data = get_data(input_entity)
-		const power_slot = input_container.getItem(input_data.slots.power)
-		const power = power_slot ? + power_slot.nameTag?.replace("gJ/t", "") : 0
+		const data = input_container.getItem(input_data.lore.slot)?.getLore()
+		const power = data ? + data[input_data.lore.power] : 0
 		const space = store_data.capacity - energy
 		const {sx, sy, sz} = store.location
 		const {iox, ioy, ioz} = location_of(input_entity, input_data.energy_output)
@@ -176,10 +175,13 @@ function process_energy(store) {
 	
 	//store and display data
 	const counter = new ItemStack('clock')
-	counter.nameTag = `${energy}gJ`
+	counter.nameTag = `cosmos:§. ${energy} gJ\nof ${store_data.capacity} gJ`
 	container.setItem(2, counter)
-	counter.nameTag = `${Math.min(energy, store_data.maxPower)}gJ/t`
+	counter.nameTag = `cosmos:f${Math.floor(energy * 75 / store_data.capacity)}`
 	container.setItem(3, counter)
+	counter.nameTag = ``
+	counter.setLore([''+energy, ''+Math.min(energy, store_data.maxPower)])
+	container.setItem(4, counter)
 }
 
 system.runInterval (()=> {

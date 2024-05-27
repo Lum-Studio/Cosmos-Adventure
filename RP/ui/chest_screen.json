@@ -19,6 +19,24 @@
                 "$screen_content": "space_gear.galax_panel",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§c§o§a§l§_§g§e§n§e§r§a§t§o§r') = $ct))",
+                "$screen_content": "machines.coal_generator_ui",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§m§o§d§u§l§e') = $ct))",
+                "$screen_content": "machines.energy_storege_module_ui",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§c§l§u§s§t§e§r') = $ct))",
+                "$screen_content": "machines.energy_storege_cluster_ui",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
             }
         ]
     }
