@@ -15,3 +15,7 @@ tile.cosmos:moon_turf.name=Moon Turf
 tile.cosmos:deco_block.name=Tin Decoration Block
 tile.cosmos:space_station.name=Space Station
 tile.cosmos:aluminum_wire.name=Aluminum Wire
+
+tile.cosmos:tin_ore.name=Tin Ore
+tile.cosmos:aluminum_ore.name=Aluminum Ore
+tile.cosmos:silicon_ore.name=Silicon Ore

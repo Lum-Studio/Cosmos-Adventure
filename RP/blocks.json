@@ -12,6 +12,33 @@
       "sound": "stone",
       "textures": "moon_middle"
    },
+   
+   "tin_ore": {
+      "sound": "stone",
+      "textures": "tin_ore"
+   },
+   "aluminum_ore": {
+      "sound": "stone",
+      "textures": "aluminum_ore"
+   },
+   "silicon_ore": {
+      "sound": "stone",
+      "textures": "silicon_ore"
+   },
+   
+   "tin_block": {
+      "sound": "stone",
+      "textures": "tin_block"
+   },
+   "aluminum_block": {
+      "sound": "stone",
+      "textures": "aluminum_block"
+   },
+   "silicon_block": {
+      "sound": "stone",
+      "textures": "silicon_block"
+   },
+   
    "moon_turf": {
       "sound": "stone",
       "textures": {

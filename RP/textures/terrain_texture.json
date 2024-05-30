@@ -25,6 +25,29 @@
          "textures": "textures/blocks/space_station_top"
       },
 	  
+	  
+      "tin_ore": {
+         "textures": "textures/blocks/tin_ore"
+      },
+      "aluminum_ore": {
+         "textures": "textures/blocks/aluminum_ore"
+      },
+      "silicon_ore": {
+         "textures": "textures/blocks/silicon_ore"
+      },
+	  
+	  
+      "tin_block": {
+         "textures": "textures/blocks/tin_block"
+      },
+      "aluminum_block": {
+         "textures": "textures/blocks/aluminum_block"
+      },
+      "silicon_block": {
+         "textures": "textures/blocks/silicon_block"
+      },
+	  
+	  
       "machine": {
         "textures":"textures/blocks/machine_blank"
       },

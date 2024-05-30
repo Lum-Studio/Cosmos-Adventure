@@ -2,7 +2,7 @@
   "format_version": "1.20.20",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:ingot_tin"
+      "identifier": "cosmos:tin_ingot"
     },
     "components": {
       "minecraft:display_name": {

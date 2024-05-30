@@ -2,14 +2,14 @@
   "format_version": "1.20.20",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:ingot_aluminum"
+      "identifier": "cosmos:raw_tin"
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Aluminum Ingot"
+        "value": "Raw Tin"
       },
       "minecraft:icon": {
-        "texture": "ingot_aluminum"
+        "texture": "raw_tin"
       }
     }
   }

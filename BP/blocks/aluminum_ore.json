@@ -1,0 +1,22 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cosmos:aluminum_ore",
+	  "menu_category": {
+		  "category": "nature",
+		  "group": "itemGroup.name.ore"
+	  }
+    },
+    "components": {
+      "minecraft:loot": "loot_tables/blocks/aluminum_ore.json",
+	  "minecraft:map_color": [112, 112, 112],
+      "minecraft:destructible_by_mining": {
+		  "seconds_to_destroy": 1
+	  },
+	  "minecraft:destructible_by_explosion": {
+		  "explosion_resistance": 12
+	  }
+    }
+  }
+}

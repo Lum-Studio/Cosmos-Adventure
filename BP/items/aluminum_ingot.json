@@ -2,14 +2,14 @@
   "format_version": "1.20.20",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:ingot_copper"
+      "identifier": "cosmos:aluminum_ingot"
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Copper Ingot"
+        "value": "Aluminum Ingot"
       },
       "minecraft:icon": {
-        "texture": "ingot_copper"
+        "texture": "ingot_aluminum"
       }
     }
   }

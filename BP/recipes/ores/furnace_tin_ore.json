@@ -1,0 +1,14 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_furnace": {
+    "description": {
+    "identifier": "cosmos:furnace_tin_ore"
+    },
+
+    
+    "tags": ["furnace", "blast_furnace"],
+    "input": "cosmos:tin_ore",
+    "output": "cosmos:tin_ingot"
+  }
+  
+}

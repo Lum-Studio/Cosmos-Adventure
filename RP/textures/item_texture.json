@@ -103,9 +103,6 @@
       "ingot_aluminum": {
          "textures": "textures/items/ingot_aluminum"
       },
-      "ingot_copper": {
-         "textures": "textures/items/ingot_copper"
-      },
       "ingot_tin": {
          "textures": "textures/items/ingot_tin"
       },
@@ -192,6 +189,12 @@
       },
       "raw_silicon": {
          "textures": "textures/items/raw_silicon"
+      },
+      "raw_tin": {
+         "textures": "textures/items/raw_tin"
+      },
+      "raw_aluminum": {
+         "textures": "textures/items/raw_aluminum"
       },
       "rocket_fins": {
          "textures": "textures/items/rocket_fins"
