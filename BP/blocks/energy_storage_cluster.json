@@ -55,7 +55,7 @@
       },
 	  
       {
-        "condition": "q.block_state('cosmos:fill_level') == 0",
+        "condition": "q.block_state('cosmos:fill_level') == 0 && !q.block_state('cosmos:full')",
         "components": {
 		  "minecraft:material_instances": {
 		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
@@ -258,6 +258,19 @@
 		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_15" },
 		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
 		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_15" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:full')",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster" },
 		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
 		  }
         }
