@@ -37,6 +37,24 @@
       "advanced_machine_side": {
         "textures":"textures/blocks/advanced_machine_side"
       },
+	  
+      "energy_input": {
+        "textures":"textures/blocks/energy_input"
+      },
+      "energy_output": {
+        "textures":"textures/blocks/energy_output"
+      },
+      "oxygen_output": {
+        "textures":"textures/blocks/oxygen_output"
+      },
+	  
+      "advanced_energy_input": {
+        "textures":"textures/blocks/advanced_energy_input"
+      },
+      "advanced_energy_output": {
+        "textures":"textures/blocks/advanced_energy_output"
+      },
+	  
       "coal_generator": {
         "textures":"textures/blocks/coal_generator"
       },
@@ -51,6 +69,104 @@
       },
       "aluminum_wire": {
         "textures":"textures/blocks/aluminum_wire"
+      },
+	  
+      "energy_storage_module_0": {
+        "textures":"textures/blocks/energy_storage_module/0"
+      },
+      "energy_storage_module_1": {
+        "textures":"textures/blocks/energy_storage_module/1"
+      },
+      "energy_storage_module_2": {
+        "textures":"textures/blocks/energy_storage_module/2"
+      },
+      "energy_storage_module_3": {
+        "textures":"textures/blocks/energy_storage_module/3"
+      },
+      "energy_storage_module_4": {
+        "textures":"textures/blocks/energy_storage_module/4"
+      },
+      "energy_storage_module_5": {
+        "textures":"textures/blocks/energy_storage_module/5"
+      },
+      "energy_storage_module_6": {
+        "textures":"textures/blocks/energy_storage_module/6"
+      },
+      "energy_storage_module_7": {
+        "textures":"textures/blocks/energy_storage_module/7"
+      },
+      "energy_storage_module_8": {
+        "textures":"textures/blocks/energy_storage_module/8"
+      },
+      "energy_storage_module_9": {
+        "textures":"textures/blocks/energy_storage_module/9"
+      },
+      "energy_storage_module_10": {
+        "textures":"textures/blocks/energy_storage_module/10"
+      },
+      "energy_storage_module_11": {
+        "textures":"textures/blocks/energy_storage_module/11"
+      },
+      "energy_storage_module_12": {
+        "textures":"textures/blocks/energy_storage_module/12"
+      },
+      "energy_storage_module_13": {
+        "textures":"textures/blocks/energy_storage_module/13"
+      },
+      "energy_storage_module_14": {
+        "textures":"textures/blocks/energy_storage_module/14"
+      },
+      "energy_storage_module_15": {
+        "textures":"textures/blocks/energy_storage_module/15"
+      },
+	  
+      "energy_storage_cluster_0": {
+        "textures":"textures/blocks/energy_storage_cluster/0"
+      },
+      "energy_storage_cluster_1": {
+        "textures":"textures/blocks/energy_storage_cluster/1"
+      },
+      "energy_storage_cluster_2": {
+        "textures":"textures/blocks/energy_storage_cluster/2"
+      },
+      "energy_storage_cluster_3": {
+        "textures":"textures/blocks/energy_storage_cluster/3"
+      },
+      "energy_storage_cluster_4": {
+        "textures":"textures/blocks/energy_storage_cluster/4"
+      },
+      "energy_storage_cluster_5": {
+        "textures":"textures/blocks/energy_storage_cluster/5"
+      },
+      "energy_storage_cluster_6": {
+        "textures":"textures/blocks/energy_storage_cluster/6"
+      },
+      "energy_storage_cluster_7": {
+        "textures":"textures/blocks/energy_storage_cluster/7"
+      },
+      "energy_storage_cluster_8": {
+        "textures":"textures/blocks/energy_storage_cluster/8"
+      },
+      "energy_storage_cluster_9": {
+        "textures":"textures/blocks/energy_storage_cluster/9"
+      },
+      "energy_storage_cluster_10": {
+        "textures":"textures/blocks/energy_storage_cluster/10"
+      },
+      "energy_storage_cluster_11": {
+        "textures":"textures/blocks/energy_storage_cluster/11"
+      },
+      "energy_storage_cluster_12": {
+        "textures":"textures/blocks/energy_storage_cluster/12"
+      },
+      "energy_storage_cluster_13": {
+        "textures":"textures/blocks/energy_storage_cluster/13"
+      },
+      "energy_storage_cluster_14": {
+        "textures":"textures/blocks/energy_storage_cluster/14"
+      },
+      "energy_storage_cluster_15": {
+        "textures":"textures/blocks/energy_storage_cluster/15"
       }
    },
    "texture_name": "atlas.terrain"

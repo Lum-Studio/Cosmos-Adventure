@@ -6,7 +6,16 @@
 	  "menu_category": {
 		  "category": "items"
 	  },
-	  "states": {"cosmos:invisible": [false, true]}
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": ["minecraft:cardinal_direction"],
+          "y_rotation_offset": 180
+        }
+      },
+	  "states": {
+		"cosmos:fill_level": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+		"cosmos:full": [true, false]
+	  }
     },
     "components": {
 	  "minecraft:custom_components": ["cosmos:machine"],
@@ -14,19 +23,245 @@
 		  "seconds_to_destroy": 0.5
 	  },
 	  "minecraft:destructible_by_explosion": false,
-	  "minecraft:collision_box": false,
-	  "minecraft:material_instances": {
-		  "*": {
-			"render_method": "opaque",
-			"texture": "energy_storage_cluster"
-		  }
-	  }
-    },
+	  "minecraft:collision_box": false
+	},
 	"permutations": [
-	  {
-	    "condition": "q.block_state('cosmos:invisible')",
-	    "components": {"minecraft:geometry": "geometry.invisible"}
-	  }
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+        "components": {
+          "minecraft:transformation": { "rotation": [0, 0, 0] },
+	      "minecraft:geometry": "minecraft:geometry.full_block"
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+        "components": {
+          "minecraft:transformation": { "rotation": [0, 90, 0] },
+	      "minecraft:geometry": "minecraft:geometry.full_block"
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'south' && !q.block_state('cosmos:full')",
+        "components": {
+	      "minecraft:geometry": "minecraft:geometry.full_block"
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+        "components": {
+          "minecraft:transformation": { "rotation": [0, -90, 0] },
+	      "minecraft:geometry": "minecraft:geometry.full_block"
+        }
+      },
+	  
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 0",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_0" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_0" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 1",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_1" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_1" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 2",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_2" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_2" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 3",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_3" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_3" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 4",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_4" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_4" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 5",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_5" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_5" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 6",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_6" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_6" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 7",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_7" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_7" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 8",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_8" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_8" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 9",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_9" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_9" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 10",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_10" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_10" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 11",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_11" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_11" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 12",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_12" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_12" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 13",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_13" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_13" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 14",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_14" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_14" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      },
+      {
+        "condition": "q.block_state('cosmos:fill_level') == 15",
+        "components": {
+		  "minecraft:material_instances": {
+		    "up": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "down": { "render_method": "opaque", "texture": "advanced_machine" },
+		    "north": { "render_method": "opaque", "texture": "energy_storage_cluster_15" },
+		    "east": { "render_method": "opaque", "texture": "advanced_energy_output" },
+		    "south": { "render_method": "opaque", "texture": "energy_storage_cluster_15" },
+		    "west": { "render_method": "opaque", "texture": "advanced_energy_input" }
+		  }
+        }
+      }
 	]
   }
 }

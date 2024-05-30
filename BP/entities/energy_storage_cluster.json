@@ -5,12 +5,6 @@
             "identifier": "cosmos:machine:energy_storage_cluster",
             "is_summonable": true,
 			"properties": {
-				"cosmos:fill_level": {
-					"type": "int",
-					"client_sync": true,
-					"range": [0, 16],
-					"default": 0
-				},
 				"cosmos:direction": {
 					"type": "enum",
 					"client_sync": true,

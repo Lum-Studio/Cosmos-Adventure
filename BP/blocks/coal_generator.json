@@ -6,7 +6,12 @@
 	  "menu_category": {
 		  "category": "items"
 	  },
-	  "states": {"cosmos:invisible": [false, true]}
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": ["minecraft:cardinal_direction"],
+          "y_rotation_offset": 180
+        }
+      }
 	},
 	"components": {
 	  "minecraft:custom_components": ["cosmos:machine"],
@@ -16,17 +21,36 @@
 	  "minecraft:destructible_by_explosion": false,
 	  "minecraft:collision_box": false,
 	  "minecraft:material_instances": {
-		  "*": {
-			"render_method": "opaque",
-			"texture": "coal_generator"
-		  }
+		  "up": { "render_method": "opaque", "texture": "machine" },
+		  "down": { "render_method": "opaque", "texture": "machine" },
+		  "north": { "render_method": "opaque", "texture": "coal_generator" },
+		  "east": { "render_method": "opaque", "texture": "energy_output" },
+		  "south": { "render_method": "opaque", "texture": "machine_side" },
+		  "west": { "render_method": "opaque", "texture": "machine_side" }
 	  }
 	},
 	"permutations": [
-	  {
-	    "condition": "q.block_state('cosmos:invisible')",
-	    "components": {"minecraft:geometry": "geometry.invisible"}
-	  }
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+        "components": {
+          "minecraft:transformation": { "rotation": [0, 0, 0] },
+	      "minecraft:geometry": "minecraft:geometry.full_block"
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+        "components": {
+          "minecraft:transformation": { "rotation": [0, 90, 0] },
+	      "minecraft:geometry": "minecraft:geometry.full_block"
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+        "components": {
+          "minecraft:transformation": { "rotation": [0, -90, 0] },
+	      "minecraft:geometry": "minecraft:geometry.full_block"
+        }
+      }
 	]
   }
 }

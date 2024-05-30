@@ -1,4 +1,4 @@
-import {world, system, ItemStack} from "@minecraft/server";
+import {world, system, ItemStack, BlockPermutation} from "@minecraft/server";
 import AllMachineBlocks from "../machines/AllMachineBlocks"
 function get_data(machine) {return AllMachineBlocks[machine.typeId.replace('cosmos:machine:', '')]}
 function str(object) { return JSON.stringify(object) }
@@ -12,7 +12,6 @@ const sides = new Map([
   ["cosmos:south", "south"],
   ["cosmos:west", "west"],
 ])
-
 
 const dimensions = ['overworld', 'nether', 'the_end'].map(dim => (world.getDimension(dim)))
 
@@ -62,7 +61,6 @@ function get_connected_wires(wire) {
 	})
 	return [wires, inputs, outputs]
 }
-
 export function location_of(machine, side, d=null) {
 	const location = machine.location
 	const direction = d ? ROTATE_BY[d] : ROTATE_BY[machine.getProperty('cosmos:direction')]
@@ -177,11 +175,27 @@ function process_energy(store) {
 	const counter = new ItemStack('clock')
 	counter.nameTag = `cosmos:§. ${energy} gJ\nof ${store_data.capacity} gJ`
 	container.setItem(2, counter)
-	counter.nameTag = `cosmos:f${Math.floor(energy * 75 / store_data.capacity)}`
+	counter.nameTag = `cosmos:f${Math.ceil((energy/ store_data.capacity) * 75 )}`
 	container.setItem(3, counter)
 	counter.nameTag = ``
 	counter.setLore([''+energy, ''+Math.min(energy, store_data.maxPower)])
 	container.setItem(4, counter)
+	
+	//change the block look
+	const fill_level = Math.round((energy/ store_data.capacity) * 16 )
+	const block = store.dimension.getBlock(store.location)
+	const direction = store.getProperty('cosmos:direction')
+	try {
+		if (fill_level == 16) {
+			block.setPermutation(BlockPermutation.resolve(block.typeId, {
+				"minecraft:cardinal_direction": direction,
+				"cosmos:full": true
+			}))
+		} else block.setPermutation(BlockPermutation.resolve(block.typeId, {
+			"cosmos:fill_level": fill_level, "minecraft:cardinal_direction": direction, 
+			"cosmos:full": false
+		}))
+	} catch (error) {null}
 }
 
 system.runInterval (()=> {

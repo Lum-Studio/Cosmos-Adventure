@@ -26,7 +26,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 			const direction = directions[playerRotaion == 4 ? 0 : playerRotaion]
 			entity.setProperty("cosmos:direction", direction)
 			entity.nameTag = machineType.ui
-			event.permutationToPlace = BlockPermutation.resolve(block_id, {"cosmos:invisible": true})
+			if (["cosmos:energy_storage_module", "cosmos:energy_storage_cluster"].includes(block_id)) event.permutationToPlace = BlockPermutation.resolve(block_id, {"cosmos:full": false, "minecraft:cardinal_direction": direction})
 			if ( machineType.class ) MachineInstances.add(dimension, location, new machineType.class(block, entity))
 			attach_wires(block, entity, direction)
 			
