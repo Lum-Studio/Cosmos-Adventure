@@ -93,6 +93,9 @@
       "oxygen_collector": {
         "textures":"textures/blocks/collector"
       },
+      "circuit_fabricator": {
+        "textures":"textures/blocks/circuit_fabricator"
+      },
       "aluminum_wire": {
         "textures":"textures/blocks/aluminum_wire"
       },

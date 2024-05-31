@@ -37,6 +37,40 @@ export function get_machine_connections(machine, direction=null) {
 	return [input, output]
 }
 
+export function charge_from_machine(machine, energy) {
+	const data = get_data(machine)
+	const input_entity = machine.dimension.getEntities({
+		families: ["has_power_output"],
+		location: location_of(machine, data.energy_input),
+		maxDistance: 0.5,
+	})[0]
+	if ( input_entity && energy < data.capacity ) {
+		const input_container = input_entity.getComponent('minecraft:inventory').container
+		const input_data = get_data(input_entity)
+		const lore = input_container.getItem(input_data.lore.slot)?.getLore()
+		const power = lore ? + lore[input_data.lore.power] : 0
+		const space = data.capacity - energy
+		const {sx, sy, sz} = machine.location
+		const {iox, ioy, ioz} = location_of(input_entity, input_data.energy_output)
+		if ( sx == iox && sy == ioy && sz == ioz && power > 0) {
+			energy += Math.min(data.maxInput, power, space)
+		}
+	} return energy
+}
+
+export function charge_from_battery(machine, energy, slot) {
+	const data = get_data(machine)
+	const container = input_entity.getComponent('minecraft:inventory').container
+	const battery = container.getItem(slot)
+	if (battery && energy < data.capacity && (battery.getDynamicProperty('energy') ?? 0) > 0) {
+		let charge = battery.getDynamicProperty('energy') ?? 0
+		const space = data.capacity - energy
+		energy += Math.min(data.maxInput, 200, charge, space)
+		charge -= Math.min(data.maxInput, 200, charge, space)
+		container.setItem(slot, update_baterry(battery, charge))
+	} return energy
+}
+
 function get_connected_wires(wire) {
 	const wires = []; const inputs = []; const outputs = []
 	const states = wire.permutation.getAllStates()
@@ -73,7 +107,7 @@ export function location_of(machine, side, d=null) {
 	}
 }
 
-function update_baterry(battery, charge) {
+export function update_baterry(battery, charge) {
 	battery.setLore([`§r§${
 		charge >= 10000 ? '2' :
 		charge < 5000 ? '4' : '6'
@@ -101,13 +135,13 @@ function process_energy(store) {
 		const output_container = output_entity.getComponent('minecraft:inventory').container
 		const output_data = get_data(output_entity)
 		const power = Math.min(energy, store_data.maxPower)
-		const data = output_container.getItem(output_data.lore.slot)?.getLore()
-		const output_energy = data ? + data[output_data.lore.energy] : output_data.capacity
+		const lore = output_container.getItem(output_data.lore.slot)?.getLore()
+		const output_energy = lore ? + lore[output_data.lore.energy] : output_data.capacity
 		const space = output_data.capacity - output_energy
 		const {sx, sy, sz} = store.location
 		const {iox, ioy, ioz} = location_of(output_entity, output_data.energy_input)
 		if ( sx == iox && sy == ioy && sz == ioz ) {
-			energy -= Math.min(power, space)
+			energy -= Math.min(output_data.maxInput, power, space)
 		}
 	} //this part deals with wires
 	else if (output_wire.typeId == "cosmos:aluminum_wire") {
@@ -133,23 +167,7 @@ function process_energy(store) {
 	}
 	
 	//take power from the input energy input
-	const input_entity = store.dimension.getEntities({
-		families: ["has_power_output"],
-		location: location_of(store, store_data.energy_input),
-		maxDistance: 0.5,
-	})[0]
-	if ( input_entity && energy < store_data.capacity ) {
-		const input_container = input_entity.getComponent('minecraft:inventory').container
-		const input_data = get_data(input_entity)
-		const data = input_container.getItem(input_data.lore.slot)?.getLore()
-		const power = data ? + data[input_data.lore.power] : 0
-		const space = store_data.capacity - energy
-		const {sx, sy, sz} = store.location
-		const {iox, ioy, ioz} = location_of(input_entity, input_data.energy_output)
-		if ( sx == iox && sy == ioy && sz == ioz && power > 0) {
-			energy += Math.min(power, space)
-		}
-	}
+	energy = charge_from_machine(store, energy)
 	
 	//charge output battery
 	const output_battery = container.getItem(0)
@@ -162,14 +180,7 @@ function process_energy(store) {
 	}
 	
 	//take energy from input battery
-	const input_battery = container.getItem(1)
-	if (input_battery && energy < store_data.capacity && (input_battery.getDynamicProperty('energy') ?? 0) > 0) {
-		let charge = input_battery.getDynamicProperty('energy') ?? 0
-		const space = store_data.capacity - energy
-		energy += Math.min(200, charge, space)
-		charge -= Math.min(200, charge, space)
-		container.setItem(1, update_baterry(input_battery, charge))
-	}
+	energy = charge_from_battery(store, energy, 1)
 	
 	//store and display data
 	const counter = new ItemStack('clock')

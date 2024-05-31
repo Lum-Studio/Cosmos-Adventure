@@ -88,13 +88,24 @@
          "south": "oxygen_collector"
       }
    },
+   "circuit_fabricator": {
+      "sound": "stone",
+      "textures": {
+         "up": "machine",
+         "down": "machine",
+         "north": "machine_side",
+         "east": "machine_side",
+         "west": "energy_input",
+         "south": "circuit_fabricator"
+      }
+   },
    "energy_storage_module": {
       "sound": "stone",
       "textures": {
          "up": "machine",
          "down": "machine",
          "north": "energy_storage_module",
-         "east": "machine_side",
+         "east": "energy_input",
          "west": "energy_output",
          "south": "energy_storage_module"
       }

@@ -76,9 +76,9 @@
 - rename the class in the 5th line
 - edit the main function
 
-- export your class to `BP\scripts\core\machines\blocks\index.js`
+- export your class to `BP\scripts\core\machines\index.js`
   ```js
-  export * from './Class'
+  export * from './blocks/Class'
   ```
 
 #### Recipes:

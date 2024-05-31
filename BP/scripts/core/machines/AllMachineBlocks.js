@@ -1,4 +1,4 @@
-import * as m from "./blocks/index"
+import * as m from "./index"
 
 export default {
     "coal_generator":{
@@ -27,6 +27,7 @@ export default {
 		
 		energy_output: "right",
 		maxPower: 300,
+		maxInput: 2000,
     },
     "energy_storage_cluster":{
         tileEntity: "cosmos:machine:energy_storage_cluster",
@@ -36,6 +37,7 @@ export default {
 
 		energy_output: "right",
 		maxPower: 1800,
+		maxInput: 2000,
 
 		energy_input: "left",
 		capacity: 2500000,
@@ -48,8 +50,19 @@ export default {
 		
 		energy_input: "right",
 		capacity: 16000,
+		maxInput: 50,
 		
 		oxygen_output: "left",
 		o2_capacity: 6000,
+    },
+    "circuit_fabricator":{
+        tileEntity: "cosmos:machine:circuit_fabricator",
+		ui: "§c§i§r§c§u§i§t§_§f§a§b§r§i§c§a§t§o§r",
+        class: m.CircuitFabricator,
+		lore: {slot: 12, energy: 0},
+		
+		energy_input: "right",
+		capacity: 16000,
+		maxInput: 50
     }
 }

@@ -25,6 +25,11 @@
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}
+			},
+			"cosmos:machine:circuit_fabricator": {
+				"events": {
+					"death": { "sound": "none", "volume": 0 }
+				}
 			}
 		}
 	}

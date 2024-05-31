@@ -9,7 +9,7 @@ function get_ingredients(container) {
 	} return ingredients
 }
 
-function compare_lists(list1, list2) {
+export function compare_lists(list1, list2) {
 	for (let i = 0; i < list1.length; i++) {
 		if (list1[i] != list2[i]) return false
 	} return true
@@ -79,7 +79,7 @@ export class Compressor extends MachineBlockEntity {
 			} else container.setItem(10, new ItemStack(output))
 		}
 		
-		const counter = new ItemStack('clock') //Math.ceil((energy/ store_data.capacity) * 75 )
+		const counter = new ItemStack('clock')
 		counter.nameTag = `cosmos:§burn${Math.round((burnTime / burnDuration) * 13)}`
 		container.setItem(11, counter)
 		counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`
