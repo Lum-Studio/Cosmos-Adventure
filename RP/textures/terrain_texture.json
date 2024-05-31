@@ -81,6 +81,9 @@
       "coal_generator": {
         "textures":"textures/blocks/coal_generator"
       },
+      "compressor": {
+        "textures":"textures/blocks/compressor"
+      },
       "energy_storage_module": {
         "textures":"textures/blocks/energy_storage_module/16"
       },

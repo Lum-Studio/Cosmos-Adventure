@@ -6,6 +6,11 @@
 					"death": { "sound": "none", "volume": 0 }
 				}
 			},
+			"cosmos:machine:compressor": {
+				"events": {
+					"death": { "sound": "none", "volume": 0 }
+				}
+			},
 			"cosmos:machine:energy_storage_module": {
 				"events": {
 					"death": { "sound": "none", "volume": 0 }

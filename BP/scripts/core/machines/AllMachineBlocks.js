@@ -10,6 +10,12 @@ export default {
 		energy_output: "right",
 		maxPower: 120,
     },
+    "compressor":{
+        tileEntity: "cosmos:machine:compressor",
+		ui: "§c§o§m§p§r§e§s§s§o§r",
+        class: m.Compressor,
+		lore: {slot: 13},
+    },
     "energy_storage_module":{
         tileEntity: "cosmos:machine:energy_storage_module",
 		ui: "§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§m§o§d§u§l§e",

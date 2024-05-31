@@ -66,6 +66,17 @@
          "south": "coal_generator"
       }
    },
+   "compressor": {
+      "sound": "stone",
+      "textures": {
+         "up": "machine",
+         "down": "machine",
+         "north": "machine_side",
+         "east": "machine_side",
+         "west": "machine_side",
+         "south": "compressor"
+      }
+   },
    "oxygen_collector": {
       "sound": "stone",
       "textures": {
