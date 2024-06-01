@@ -1,9 +1,10 @@
 
+import "./api/class_extentions.js"
 import "./api/player/celestial_selector.js"
-import "./components/Machine.js"
-import "./core/energy/electricity.js"
-import "./api/mixin.js"
-import "./wire_placement.js"
-import "./core/machines/index.js"
 import "./api/player/space_gear.js"
 
+import "./core/machines/Machine.js"
+import "./core/machines/index.js"
+import "./core/machines/wire_placement.js"
+
+import "./core/energy/electricity.js"

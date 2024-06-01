@@ -1,10 +1,10 @@
 import { system, world, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../base/MachineBlockEntity";
+import { MachineBlockEntity } from "../MachineBlockEntity";
 import { compare_lists } from "./Compressor.js";
 import { charge_from_battery, charge_from_machine } from "../../energy/electricity.js";
 import recipes from "../../../recipes/circuit_fabricator.js"
-import AllMachineBlocks from "../../machines/AllMachineBlocks"
-function get_data(machine) {return AllMachineBlocks[machine.typeId.replace('cosmos:machine:', '')]}
+import machine_data from "../AllMachineBlocks"
+function get_data(machine) {return machine_data[machine.typeId.replace('cosmos:machine:', '')]}
 
 export class CircuitFabricator extends MachineBlockEntity {
     constructor(block, entity) {
@@ -60,11 +60,15 @@ export class CircuitFabricator extends MachineBlockEntity {
 				output_item.amount += result[1]
 				container.setItem(6, output_item)
 			} else container.setItem(6, new ItemStack(result[0], result[1]))
+			world.playSound("random.anvil_land", this.entity.location)
 		}
 		
 		const counter = new ItemStack('clock')
+		counter.nameTag = `cosmos:§ener${Math.round((energy / data.capacity) * 55)}`
 		container.setItem(7, counter)
+		counter.nameTag = `cosmos:§prog${Math.round((progress / 300) * 51)}`
 		container.setItem(8, counter)
+		counter.nameTag = `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.capacity} gJ`
 		container.setItem(9, counter)
 		container.setItem(10, counter)
 		container.setItem(11, counter)

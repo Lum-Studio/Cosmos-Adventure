@@ -1,6 +1,6 @@
 import { world, system, BlockPermutation} from "@minecraft/server"
-import { get_machine_connections } from "./core/energy/electricity.js"
-import AllMachineBlocks from "./core/machines/AllMachineBlocks"
+import { get_machine_connections } from "../energy/electricity.js"
+import AllMachineBlocks from "./AllMachineBlocks"
 function str(object) { return JSON.stringify(object) }
 function say(message='yes') {world.sendMessage(''+message)}
 

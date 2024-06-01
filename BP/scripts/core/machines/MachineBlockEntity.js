@@ -1,4 +1,4 @@
-import { MachineInstances } from "../MachineInstances";
+import { MachineInstances } from "./MachineInstances";
 
 export class MachineBlockEntity {
     constructor(block,entity){

@@ -37,6 +37,12 @@
                 "$screen_content": "machines.energy_storege_cluster_ui",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§c§i§r§c§u§i§t§_§f§a§b§r§i§c§a§t§o§r') = $ct))",
+                "$screen_content": "machines.circuit_fabricator_ui",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
             }
         ]
     }

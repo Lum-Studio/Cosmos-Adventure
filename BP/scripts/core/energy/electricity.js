@@ -60,7 +60,7 @@ export function charge_from_machine(machine, energy) {
 
 export function charge_from_battery(machine, energy, slot) {
 	const data = get_data(machine)
-	const container = input_entity.getComponent('minecraft:inventory').container
+	const container = machine.getComponent('minecraft:inventory').container
 	const battery = container.getItem(slot)
 	if (battery && energy < data.capacity && (battery.getDynamicProperty('energy') ?? 0) > 0) {
 		let charge = battery.getDynamicProperty('energy') ?? 0
@@ -144,7 +144,7 @@ function process_energy(store) {
 			energy -= Math.min(output_data.maxInput, power, space)
 		}
 	} //this part deals with wires
-	else if (output_wire.typeId == "cosmos:aluminum_wire") {
+	/*else if (output_wire.typeId == "cosmos:aluminum_wire") {
 		const network = new Set()
 		const inputs = new Set()
 		const outputs = new Set()
@@ -164,7 +164,7 @@ function process_energy(store) {
 		}
 		buildNetwork(output_wire)
 		//say(`i have ${inputs.size} inputs and ${outputs.size} outputs`))
-	}
+	}*/
 	
 	//take power from the input energy input
 	energy = charge_from_machine(store, energy)

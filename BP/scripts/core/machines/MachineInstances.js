@@ -1,4 +1,4 @@
-import { MachineBlockEntity } from "./base/MachineBlockEntity";
+import { MachineBlockEntity } from "./MachineBlockEntity";
 /**
  * Handles the management of machine instances in various dimensions.
  */

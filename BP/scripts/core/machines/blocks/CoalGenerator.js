@@ -1,5 +1,5 @@
 import { system, world, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../base/MachineBlockEntity";
+import { MachineBlockEntity } from "../MachineBlockEntity";
 
 export class CoalGenerator extends MachineBlockEntity {
     constructor(block, entity) {
