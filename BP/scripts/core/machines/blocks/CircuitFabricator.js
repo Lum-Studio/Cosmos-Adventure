@@ -70,7 +70,9 @@ export class CircuitFabricator extends MachineBlockEntity {
 		container.setItem(8, counter)
 		counter.nameTag = `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.capacity} gJ`
 		container.setItem(9, counter)
+		counter.nameTag = `Progress: ${Math.round((progress / 300) * 100)}%`
 		container.setItem(10, counter)
+		counter.nameTag = ``
 		container.setItem(11, counter)
 		counter.nameTag = ``
 		counter.setLore([''+energy, ''+progress])
