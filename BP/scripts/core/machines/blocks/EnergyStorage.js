@@ -1,4 +1,4 @@
-import { system, world, ItemStack } from "@minecraft/server";
+import { system, world, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
 import { location_of, get_entity, charge_from_machine, charge_from_battery, update_baterry, } from "../../energy/electricity.js";
 import machines from "../AllMachineBlocks"
@@ -10,17 +10,18 @@ function say(message='yes') {world.sendMessage(''+message)}
 
 function charge_machine(machine, energy) {
 	const data = get_data(machine)
-	const output_entity = get_entity(machine.dimension, location_of(machine, data.energy_output), "has_power_input")
-	if ( output_entity && Math.min(energy, data.maxPower) > 0 ) {
-		const output_container = output_entity.getComponent('minecraft:inventory').container
-		const output_data = get_data(output_entity)
+	const output_machine = get_entity(machine.dimension, location_of(machine, data.energy_output), "has_power_input")
+	if ( output_machine && Math.min(energy, data.maxPower) > 0 ) {
+		const output_container = output_machine.getComponent('minecraft:inventory').container
+		const output_data = get_data(output_machine)
 		const power = Math.min(energy, data.maxPower)
 		const lore = output_container.getItem(output_data.lore.slot)?.getLore()
 		const output_energy = lore ? + lore[output_data.lore.energy] : output_data.capacity
 		const space = output_data.capacity - output_energy
-		const io = str(location_of(output_entity, output_data.energy_input))
+		const io = str(location_of(output_machine, output_data.energy_input))
 		if ( str(machine.location) == io ) {
-			energy -= Math.min(output_data.maxInput, power, space)
+			if (space == 0 && output_machine.typeId.includes('energy_storage')) energy = charge_machine(output_machine, energy)
+			else energy -= Math.min(output_data.maxInput, power, space)
 		}
 	} return energy
 }
@@ -83,7 +84,8 @@ export class EnergyStorage extends MachineBlockEntity {
 		//change the block look
 		const fill_level = Math.round((energy/ store_data.capacity) * 16 )
 		const direction = store.getProperty('cosmos:direction')
-		try { if (fill_level == 16) {
+		//try { 
+		if (fill_level == 16) {
 			this.block.setPermutation(BlockPermutation.resolve(this.block.typeId, {
 				"minecraft:cardinal_direction": direction,
 				"cosmos:full": true
@@ -91,7 +93,8 @@ export class EnergyStorage extends MachineBlockEntity {
 		} else this.block.setPermutation(BlockPermutation.resolve(this.block.typeId, {
 			"cosmos:fill_level": fill_level, "minecraft:cardinal_direction": direction, 
 			"cosmos:full": false
-		}))} catch (error) {null}
+		}))
+		//} catch (error) {null}
 	}
 }
 
