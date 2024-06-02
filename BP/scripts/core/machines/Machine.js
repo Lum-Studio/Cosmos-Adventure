@@ -40,7 +40,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 			if (entity) {
 				const container = entity.getComponent('minecraft:inventory').container
 				for (let i=0; i<container.size; i++) {
-					if (container.getItem(i)?.typeId == 'minecraft:clock') {
+					if (container.getItem(i)?.typeId == 'cosmos:ui') {
 						container.setItem(i, undefined)
 					}
 				}

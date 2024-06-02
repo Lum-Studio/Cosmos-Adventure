@@ -40,7 +40,7 @@ export class CoalGenerator extends MachineBlockEntity {
         
 		if (burnTime == 0 && system.currentTick % 3 == 0 && power > 0) power--
 		
-		const counter = new ItemStack('clock')
+		const counter = new ItemStack('cosmos:ui')
 		counter.nameTag = `cosmos:${power == 0 ? 'Not Generating' : 'Generating'}`
 		container.setItem(1, counter)
 		counter.nameTag = `cosmos:${power == 0 ? ' Hull Heat: ' + heat + '%%' : '  §r' + power + ' gJ/t'}`

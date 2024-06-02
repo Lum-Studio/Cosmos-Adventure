@@ -19,7 +19,7 @@ export default {
     "energy_storage_module":{
         tileEntity: "cosmos:machine:energy_storage_module",
 		ui: "§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§m§o§d§u§l§e",
-        class: undefined,
+        class: m.EnergyStorage,
 		lore: {slot: 4, energy: 0, power: 1},
 		
 		energy_input: "left",
@@ -32,7 +32,7 @@ export default {
     "energy_storage_cluster":{
         tileEntity: "cosmos:machine:energy_storage_cluster",
 		ui: "§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§c§l§u§s§t§e§r",
-        class: undefined,
+        class: m.EnergyStorage,
 		lore: {slot: 4, energy: 0, power: 1},
 
 		energy_output: "right",

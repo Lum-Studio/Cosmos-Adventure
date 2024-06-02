@@ -3,8 +3,8 @@ import { MachineBlockEntity } from "../MachineBlockEntity";
 import recipes from "../../../recipes/compressor"
 
 function get_ingredients(container) {
-	const ingredients = [null]
-	for (let i=1; i<10; i++) {
+	const ingredients = []
+	for (let i=0; i<9; i++) {
 		ingredients.push(container.getItem(i))
 	} return ingredients
 }
@@ -48,14 +48,14 @@ export class Compressor extends MachineBlockEntity {
 		const output = find_recipe(ingredients)
 		const output_item = container.getItem(10)
 		const has_space = !output_item || (output_item.typeId == output && output_item.amount < 64)
-        const fuelItem = container.getItem(0);
+        const fuelItem = container.getItem(9);
 		const isCoalBlock = fuelItem?.typeId === 'minecraft:coal_block';
         let burnTime = container.getItem(13) ? + container.getItem(13).getLore()[0] : 0
         let burnDuration = container.getItem(13) ? + container.getItem(13).getLore()[1] : 1
 		let progress = container.getItem(13) ? + container.getItem(13).getLore()[2] : 0
 		
         if ( this.fuelTypes.has(fuelItem?.typeId) && burnTime == 0 && output) {
-			container.setItem(0, fuelItem.decrementStack())
+			container.setItem(9, fuelItem.decrementStack())
 			burnTime = isCoalBlock ? 16010 : 1610
 			burnDuration = isCoalBlock ? 16010 : 1610
 		}
@@ -71,7 +71,7 @@ export class Compressor extends MachineBlockEntity {
 			
 		if (progress == 200) {
 			progress = 0
-			for (let i = 1; i<10; i++) {
+			for (let i = 0; i<9; i++) {
 				if (items[i]) container.setItem(i, items[i].decrementStack())
 			}
 			if (output_item?.typeId == output) {
@@ -79,7 +79,7 @@ export class Compressor extends MachineBlockEntity {
 			} else container.setItem(10, new ItemStack(output))
 		}
 		
-		const counter = new ItemStack('clock')
+		const counter = new ItemStack('cosmos:ui')
 		counter.nameTag = `cosmos:§burn${Math.round((burnTime / burnDuration) * 13)}`
 		container.setItem(11, counter)
 		counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`

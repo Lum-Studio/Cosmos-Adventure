@@ -63,7 +63,7 @@ export class CircuitFabricator extends MachineBlockEntity {
 			world.playSound("random.anvil_land", this.entity.location)
 		}
 		
-		const counter = new ItemStack('clock')
+		const counter = new ItemStack('cosmos:ui')
 		counter.nameTag = `cosmos:§ener${Math.round((energy / data.capacity) * 55)}`
 		container.setItem(7, counter)
 		counter.nameTag = `cosmos:§prog${Math.round((progress / 300) * 51)}`
