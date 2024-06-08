@@ -26,7 +26,14 @@
 		  "east": { "render_method": "opaque", "texture": "energy_output" },
 		  "south": { "render_method": "opaque", "texture": "machine_side" },
 		  "west": { "render_method": "opaque", "texture": "machine_side" }
-	  }
+	  },
+    "minecraft:queued_ticking": {
+       "looping": true,
+       "range": [
+          10,
+          10
+       ]
+    }
 	},
 	"permutations": [
       {

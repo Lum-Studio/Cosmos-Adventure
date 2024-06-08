@@ -1,5 +1,5 @@
 
-import "./api/class_extentions.js"
+import "./api/mixins.js"
 import "./api/player/celestial_selector.js"
 import "./api/player/space_gear.js"
 

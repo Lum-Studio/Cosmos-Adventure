@@ -1,7 +1,8 @@
 import { system, world, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
-import { location_of, get_entity, charge_from_machine, charge_from_battery, update_baterry, } from "../../energy/electricity.js";
+import { location_of, charge_from_machine, charge_from_battery, update_baterry, } from "../../energy/electricity.js";
 import machines from "../AllMachineBlocks"
+import { MachineInstances } from "../MachineInstances.js";
 
 function get_data(machine) {return machines[machine.typeId.replace('cosmos:machine:', '')]}
 function str(object) { return JSON.stringify(object) }
@@ -10,7 +11,7 @@ function say(message='yes') {world.sendMessage(''+message)}
 
 function charge_machine(machine, energy) {
 	const data = get_data(machine)
-	const output_machine = get_entity(machine.dimension, location_of(machine, data.energy_output), "has_power_input")
+	const output_machine = MachineInstances.get(machine.dimension, location_of(machine, data.energy_output), "has_power_input").entity
 	if ( output_machine && Math.min(energy, data.maxPower) > 0 ) {
 		const output_container = output_machine.getComponent('minecraft:inventory').container
 		const output_data = get_data(output_machine)

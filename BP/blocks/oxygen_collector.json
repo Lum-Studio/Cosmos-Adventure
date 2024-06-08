@@ -18,7 +18,14 @@
 	  "minecraft:destructible_by_explosion": false,
       "minecraft:destructible_by_mining": {
 		  "seconds_to_destroy": 0.5
-	  }
+	  },
+    "minecraft:queued_ticking": {
+       "looping": true,
+       "range": [
+          10,
+          10
+       ]
+    }
 	},
 	"permutations": [
       {
