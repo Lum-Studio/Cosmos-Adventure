@@ -1,5 +1,5 @@
 import { system, world, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../base/MachineBlockEntity";
+import { MachineBlockEntity } from "../MachineBlockEntity";
 // import recipes from "../../../recipes/id.js" if the machine uses recipes
 
 export class Class extends MachineBlockEntity {

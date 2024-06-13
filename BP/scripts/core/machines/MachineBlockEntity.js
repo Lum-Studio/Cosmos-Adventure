@@ -7,14 +7,18 @@ export class MachineBlockEntity {
         this.tier = 0;
     }
     destroy() {
-        MachineInstances.delete(this.block.dimension, this.block.location);
-        const container = this.entity.getComponent('minecraft:inventory').container
-        for (let i = 0; i < container.size; i++) {
-            if (container.getItem(i)?.typeId == 'cosmos:ui') {
-                container.setItem(i, undefined)
+        MachineInstances.destroy(this.block.dimension, this.block.location);
+        const container = this.entity.getComponent('minecraft:inventory')?.container
+        if (container) {
+            for (let i = 0; i < container.size; i++) {
+                if (container.getItem(i)?.typeId == 'cosmos:ui') {
+                    container.setItem(i, undefined)
+                }
             }
         }
-        this.entity.remove();
-        this.block.dimension.runCommandAsync(`setblock ${this.block.location.x} ${this.block.location.y} ${this.block.location.z} air destroy`);
+        try { // i use try in case the entity doesn't exist anymore (because this.entity will return an Entity for some reason)
+            this.entity.runCommand('kill @s')  //we kill the entity to drop its inventory.
+            this.entity.remove()
+        } catch (error) {null}
     }
 }

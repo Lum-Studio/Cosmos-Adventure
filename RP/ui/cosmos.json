@@ -599,7 +599,6 @@
 							}
 						}
 					],
-					"bindings": "$can_zoom",
 					"anims": [
 						"@cosmos.bring_up"
 					]

@@ -1,4 +1,4 @@
-import { CircuitFabricator, CoalGenerator, Compressor, EnergyStorage } from "./index"
+import { CircuitFabricator, CoalGenerator, Compressor, EnergyStorage, OxygenCollector } from "./index"
 
 export default {
 	"coal_generator": {

@@ -27,12 +27,9 @@
 		  "south": { "render_method": "opaque", "texture": "machine_side" },
 		  "west": { "render_method": "opaque", "texture": "machine_side" }
 	  },
-    "minecraft:queued_ticking": {
+    "minecraft:tick": {
        "looping": true,
-       "range": [
-          10,
-          10
-       ]
+       "interval_range": [1, 1]
     }
 	},
 	"permutations": [

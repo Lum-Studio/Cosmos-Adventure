@@ -28,6 +28,14 @@ const ROTATE_BY = {
 	south: -Math.PI / 2,
 }
 
+export function get_entity(dimension, location, family) {
+	return dimension.getEntities({
+		families: [family],
+		location: location,
+		maxDistance: 0.5,
+	})[0]
+}
+
 export function get_machine_connections(machine, direction = null) {
 	const machine_data = get_data(machine)
 	const output = direction ? location_of(machine, machine_data.energy_output, direction) : location_of(machine, machine_data.energy_output)
@@ -39,14 +47,13 @@ export function get_machine_connections(machine, direction = null) {
 
 export function charge_from_machine(machine, energy) {
 	const data = get_data(machine)
-	const input_entity = MachineInstances.get(machine.dimension, location_of(machine, data.energy_input), "has_power_output").entity
+	const input_entity = get_entity(machine.dimension, location_of(machine, data.energy_input), "has_power_output")
 	if ( input_entity && energy < data.capacity ) {
 		const input_container = input_entity.getComponent('minecraft:inventory').container
 		const input_data = get_data(input_entity)
 		const lore = input_container.getItem(input_data.lore.slot)?.getLore()
 		const power = lore ? + lore[input_data.lore.power] : 0
 		const space = data.capacity - energy
-		const {sx, sy, sz} = machine.location
 		const io = str(location_of(input_entity, input_data.energy_output))
 		if ( str(machine.location) == io && power > 0) {
 			energy += Math.min(data.maxInput, power, space)

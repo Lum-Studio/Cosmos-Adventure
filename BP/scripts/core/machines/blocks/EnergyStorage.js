@@ -1,6 +1,6 @@
 import { system, world, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
-import { location_of, charge_from_machine, charge_from_battery, update_baterry, } from "../../energy/electricity.js";
+import { get_entity, location_of, charge_from_machine, charge_from_battery, update_baterry, } from "../../energy/electricity.js";
 import machines from "../AllMachineBlocks"
 import { MachineInstances } from "../MachineInstances.js";
 
@@ -8,10 +8,9 @@ function get_data(machine) {return machines[machine.typeId.replace('cosmos:machi
 function str(object) { return JSON.stringify(object) }
 function say(message='yes') {world.sendMessage(''+message)}
 
-
 function charge_machine(machine, energy) {
 	const data = get_data(machine)
-	const output_machine = MachineInstances.get(machine.dimension, location_of(machine, data.energy_output), "has_power_input").entity
+	const output_machine = get_entity(machine.dimension, location_of(machine, data.energy_output), "has_power_input")
 	if ( output_machine && Math.min(energy, data.maxPower) > 0 ) {
 		const output_container = output_machine.getComponent('minecraft:inventory').container
 		const output_data = get_data(output_machine)
@@ -83,19 +82,19 @@ export class EnergyStorage extends MachineBlockEntity {
 		container.setItem(4, counter)
 		
 		//change the block look
-		const fill_level = Math.round((energy/ store_data.capacity) * 16 )
-		const direction = store.getProperty('cosmos:direction')
-		//try { 
-		if (fill_level == 16) {
-			this.block.setPermutation(BlockPermutation.resolve(this.block.typeId, {
-				"minecraft:cardinal_direction": direction,
-				"cosmos:full": true
+		if (this.block.typeId != "minecraft:air") {
+			const fill_level = Math.round((energy/ store_data.capacity) * 16 )
+			const direction = store.getProperty('cosmos:direction')
+			if (fill_level == 16) {
+				this.block.setPermutation(BlockPermutation.resolve(this.block.typeId, {
+					"minecraft:cardinal_direction": direction,
+					"cosmos:full": true
+				}))
+			} else this.block.setPermutation(BlockPermutation.resolve(this.block.typeId, {
+				"cosmos:fill_level": fill_level, "minecraft:cardinal_direction": direction, 
+				"cosmos:full": false
 			}))
-		} else this.block.setPermutation(BlockPermutation.resolve(this.block.typeId, {
-			"cosmos:fill_level": fill_level, "minecraft:cardinal_direction": direction, 
-			"cosmos:full": false
-		}))
-		//} catch (error) {null}
+		}
 	}
 }
 

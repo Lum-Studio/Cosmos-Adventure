@@ -8,10 +8,10 @@ const sides = ["above", "north", "east", "west", "south", "below"]
 const faces = ["cosmos:up", "cosmos:north", "cosmos:east", "cosmos:west", "cosmos:south", "cosmos:down"]
 
 
-export function attach_wires(machine, direction = null) {
+export function attach_wires(block, machine, direction = null) { // get_machine_connections takes and entity not a block.
 	const [input, output] = direction ? get_machine_connections(machine, direction) : get_machine_connections(machine)
 	/**@type {Block[]} */
-	const neighbors = machine.getNeighbors(6);
+	const neighbors = block.getNeighbors(6);
 	for (const [i, wire] of neighbors.entries()) {
 		if (wire.typeId == 'cosmos:aluminum_wire' && ([str(output), str(input)].includes(str(wire.location)))) {
 			const side_connections = wire.permutation.getAllStates()
