@@ -1,12 +1,7 @@
-import { system, world, ItemStack, BlockPermutation } from "@minecraft/server";
+import { system, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
 import { get_entity, location_of, charge_from_machine, charge_from_battery, update_baterry, } from "../../energy/electricity.js";
-import machines from "../AllMachineBlocks"
-import { MachineInstances } from "../MachineInstances.js";
-
-function get_data(machine) {return machines[machine.typeId.replace('cosmos:machine:', '')]}
-function str(object) { return JSON.stringify(object) }
-function say(message='yes') {world.sendMessage(''+message)}
+import { get_data, str } from "../../../api/utils/utils.js";
 
 function charge_machine(machine, energy) {
 	const data = get_data(machine)
@@ -42,7 +37,6 @@ function charge_battery(machine, energy, slot) {
 export class EnergyStorage extends MachineBlockEntity {
     constructor(block, entity) {
         super(block, entity);
-        this.fuelTypes = new Set(["minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"]);
         this.start();
     }
 

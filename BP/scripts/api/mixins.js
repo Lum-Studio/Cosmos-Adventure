@@ -50,7 +50,8 @@ Block.prototype.getNeighbors = function (maxSearch = 27) {
 }
 
 World.prototype.getAllDimensions = function (fn = null) {
- return ['overworld', 'nether', 'the_end'].map(dim => {
+    // dimension.getEntities returns a entity array, so flatMap to combine it into one array
+ return ['overworld', 'nether', 'the_end'].flatMap(dim => {
         const dimension = this.getDimension(dim);
         return fn ? fn(dimension) : dimension
     })
