@@ -1,7 +1,7 @@
 import { system, ItemStack } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
 import recipes from "../../../recipes/compressor"
-import { compare_lists } from "../../../api/utils/utils";
+import { compare_lists } from "../../../api/utils";
 
 function get_ingredients(container) {
 	const ingredients = []

@@ -1,7 +1,7 @@
 import { system, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
 import { get_entity, location_of, charge_from_machine, charge_from_battery, update_baterry, } from "../../energy/electricity.js";
-import { get_data, str } from "../../../api/utils/utils.js";
+import { get_data, str } from "../../../api/utils.js";
 
 function charge_machine(machine, energy) {
 	const data = get_data(machine)
@@ -22,7 +22,6 @@ function charge_machine(machine, energy) {
 }
 
 function charge_battery(machine, energy, slot) {
-	const data = get_data(machine)
 	const container = machine.getComponent('minecraft:inventory').container
 	const battery = container.getItem(slot)
 	if (battery && energy > 0 && (battery.getDynamicProperty('energy') ?? 0) < 15000 ) {

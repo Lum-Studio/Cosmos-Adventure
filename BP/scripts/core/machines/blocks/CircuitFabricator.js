@@ -3,7 +3,7 @@ import { MachineBlockEntity } from "../MachineBlockEntity";
 import { compare_lists } from "./Compressor.js";
 import { charge_from_battery, charge_from_machine } from "../../energy/electricity.js";
 import recipes from "../../../recipes/circuit_fabricator.js"
-import { get_data } from "../../../api/utils/utils.js";
+import { get_data } from "../../../api/utils.js";
 
 
 export class CircuitFabricator extends MachineBlockEntity {
