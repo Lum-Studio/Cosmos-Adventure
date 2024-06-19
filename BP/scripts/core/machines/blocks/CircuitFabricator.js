@@ -1,10 +1,10 @@
-import { system, world, ItemStack } from "@minecraft/server";
+import { system, ItemStack } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
-import { compare_lists } from "./Compressor.js";
+import { compare_lists } from "../../../api/utils.js";
 import { charge_from_battery, charge_from_machine } from "../../energy/electricity.js";
 import recipes from "../../../recipes/circuit_fabricator.js"
-import machine_data from "../AllMachineBlocks"
-function get_data(machine) {return machine_data[machine.typeId.replace('cosmos:machine:', '')]}
+import { get_data } from "../../../api/utils.js";
+
 
 export class CircuitFabricator extends MachineBlockEntity {
     constructor(block, entity) {
@@ -59,8 +59,9 @@ export class CircuitFabricator extends MachineBlockEntity {
 			if (output_item?.typeId == result[0]) {
 				output_item.amount += result[1]
 				container.setItem(6, output_item)
-			} else container.setItem(6, new ItemStack(result[0], result[1]))
-			world.playSound("random.anvil_land", this.entity.location)
+			} else container.setItem(6, new ItemStack(result[0], result[1]));
+			// world.playSound was deprecated
+			this.block.dimension.playSound("random.anvil_land", this.entity.location)
 		}
 		
 		const counter = new ItemStack('cosmos:ui')

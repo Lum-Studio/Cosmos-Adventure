@@ -1,6 +1,10 @@
 import { MachineInstances } from "./MachineInstances";
 
 export class MachineBlockEntity {
+    /**
+     * @param {import('@minecraft/server').Block} block 
+     * @param {import('@minecraft/server').Entity} entity
+     */
     constructor(block, entity) {
         this.block = block;
         this.entity = entity;
@@ -16,8 +20,8 @@ export class MachineBlockEntity {
                 }
             }
         }
-        try { // i use try in case the entity doesn't exist anymore (because this.entity will return an Entity for some reason)
-            this.entity.runCommand('kill @s')  //we kill the entity to drop its inventory.
+        try {
+            this.entity.runCommand('kill @s')
             this.entity.remove()
         } catch (error) {null}
     }

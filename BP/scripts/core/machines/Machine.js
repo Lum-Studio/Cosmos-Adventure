@@ -40,12 +40,10 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 			nearbyPlayers.forEach(player => {
 				const mainHand = player.getComponent("minecraft:equippable").getEquipment("Mainhand")
 				if (!pickaxes.has(mainHand?.typeId) && !(player.isSneaking && mainHand)) return;
-
 				const view_block = player.getBlockFromViewDirection()?.block //this is used to make the machine accessable if a player is holding a pickaxe or sneaking near the machine but not looking at it.
 				if (str(block.location) != str(view_block.location)) return;
 
-				//const entity = MachineInstances.get(dimension, block.location).entity //this might return an entity even if it doesn't exist
-				const entity = dimension.getEntitiesAtBlockLocation(block.location)[0]
+				const entity = MachineInstances.get(dimension, block.location)?.entity 
 				if (entity?.typeId.startsWith("cosmos:machine:")) entity.triggerEvent("cosmos:shrink")
 			})
 		}
@@ -64,26 +62,14 @@ world.afterEvents.entityLoad.subscribe(({ entity }) => {
 	if (machineType.class) MachineInstances.add(dimension, location, new machineType.class(block, entity))
 })
 
-//on reload
-const dimensions = new Set()
-world.getAllPlayers().forEach(player => dimensions.add(player.dimension))
-dimensions.forEach(dimension => dimension.getEntities().forEach(entity => {
-	const id = entity.typeId
-	if (!id.startsWith('cosmos:machine:')) return
-	const block = dimension.getBlock(entity.location)
-	const location = block.location
-	const machineType = machines[id.replace('cosmos:machine:', '')]
-	if ( machineType.class ) MachineInstances.add(dimension, location, new machineType.class(block, entity))
-}))
 
-/* This doesn't even work on /reload
-world.afterEvents.worldInitialize.subscribe(()=>{
-	world.getAllDimensions((dimension)=>dimension.getEntities()).forEach(entity=>{
-		const id = entity.typeId
+world.afterEvents.worldInitialize.subscribe(() => {
+	world.getDims((dimension) => dimension.getEntities()).forEach(entity => {
+		const id = entity?.typeId
 		if (!id.startsWith('cosmos:machine:')) return
-		const block = dimension.getBlock(entity.location)
+		const block = entity.dimension.getBlock(entity.location)
 		const location = block.location
 		const machineType = machines[id.replace('cosmos:machine:', '')]
 		if (machineType.class) MachineInstances.add(entity.dimension, location, new machineType.class(block, entity))
 	})
-})*/
+})
