@@ -63,11 +63,11 @@ world.afterEvents.entityLoad.subscribe(({ entity }) => {
 })
 
 
-world.afterEvents.worldInitialize.subscribe(()=>{
-	world.getAllDimensions((dimension)=>dimension.getEntities()).forEach(entity=>{
+world.afterEvents.worldInitialize.subscribe(() => {
+	world.getDims((dimension) => dimension.getEntities()).forEach(entity => {
 		const id = entity?.typeId
 		if (!id.startsWith('cosmos:machine:')) return
-		const block = dimension.getBlock(entity.location)
+		const block = entity.dimension.getBlock(entity.location)
 		const location = block.location
 		const machineType = machines[id.replace('cosmos:machine:', '')]
 		if (machineType.class) MachineInstances.add(entity.dimension, location, new machineType.class(block, entity))

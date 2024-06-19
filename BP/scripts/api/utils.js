@@ -1,4 +1,4 @@
-import machines from "../../core/machines/AllMachineBlocks"
+import machines from "../core/machines/AllMachineBlocks"
 
 function get_data(machine) { return machines[machine.typeId.replace('cosmos:machine:', '')] }
 function str(object) { return JSON.stringify(object) }
