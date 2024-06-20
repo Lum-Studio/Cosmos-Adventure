@@ -2,19 +2,10 @@ import { world, system, BlockPermutation } from "@minecraft/server"
 import machines from "./AllMachineBlocks"
 import { MachineInstances } from "./MachineInstances"
 import { detach_wires, attach_wires } from "./wire_placement"
+import { pickaxes } from "../../api/utils"
 function str(object) { return JSON.stringify(object) }
 
 const directions = ['south', 'west', 'north', 'east']
-const pickaxes = new Set([
-	"minecraft:wooden_pickaxe",
-	"minecraft:stone_pickaxe",
-	"minecraft:iron_pickaxe",
-	"minecraft:golden_pickaxe",
-	"minecraft:diamond_pickaxe",
-	"minecraft:netherite_pickaxe",
-])
-
-
 world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 	blockTypeRegistry.registerCustomComponent('cosmos:machine', {
 		beforeOnPlayerPlace(event) {

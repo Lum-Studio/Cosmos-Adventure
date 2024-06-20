@@ -6,50 +6,7 @@
 				{
                     "type": "item",
                     "name": "cosmos:raw_tin",
-                    "weight": 1,
-					"conditions": [
-						{
-							"condition": "match_tool",
-							"item": "minecraft:stone_pickaxe",
-							"count": 1
-						}
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "cosmos:raw_tin",
-                    "weight": 1,
-					"conditions": [
-						{
-							"condition": "match_tool",
-							"item": "minecraft:iron_pickaxe",
-							"count": 1
-						}
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "cosmos:raw_tin",
-                    "weight": 1,
-					"conditions": [
-						{
-							"condition": "match_tool",
-							"item": "minecraft:diamond_pickaxe",
-							"count": 1
-						}
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "cosmos:raw_tin",
-                    "weight": 1,
-					"conditions": [
-						{
-							"condition": "match_tool",
-							"item": "minecraft:netherite_pickaxe",
-							"count": 1
-						}
-					]
+                    "weight": 1
                 }
             ]
         }

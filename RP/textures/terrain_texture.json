@@ -99,6 +99,9 @@
       "aluminum_wire": {
         "textures":"textures/blocks/aluminum_wire"
       },
+      "fluid_tank": {
+        "textures":"textures/blocks/fluid_tank"
+      },
 	  
       "energy_storage_module_0": {
         "textures":"textures/blocks/energy_storage_module/0"

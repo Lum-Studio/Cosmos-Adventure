@@ -12,3 +12,11 @@ export {
     str,
     compare_lists
 }
+export const pickaxes = new Set([
+	"minecraft:wooden_pickaxe",
+	"minecraft:stone_pickaxe",
+	"minecraft:iron_pickaxe",
+	"minecraft:golden_pickaxe",
+	"minecraft:diamond_pickaxe",
+	"minecraft:netherite_pickaxe",
+])

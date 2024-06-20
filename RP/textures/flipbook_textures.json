@@ -1,0 +1,9 @@
+// Do not copy this file directly into your resource pack as a starter; instead, use this file as a reference or to copy specific JSON snippets.
+[
+  
+  {
+    "flipbook_texture": "textures/blocks/tank_water",
+    "atlas_tile": "tank_water",
+    "ticks_per_frame": 2
+  }
+]

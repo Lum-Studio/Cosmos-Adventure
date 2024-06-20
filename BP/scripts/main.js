@@ -8,3 +8,4 @@ import "./core/machines/index.js"
 import "./core/machines/wire_placement.js"
 
 import "./core/energy/electricity.js"
+import "./core/energy/soilds.js"

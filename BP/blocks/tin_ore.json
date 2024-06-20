@@ -3,20 +3,66 @@
   "minecraft:block": {
     "description": {
       "identifier": "cosmos:tin_ore",
-	  "menu_category": {
-		  "category": "nature",
-		  "group": "itemGroup.name.ore"
-	  }
+      "menu_category": {
+        "category": "nature",
+        "group": "itemGroup.name.ore"
+      },
+      "states": {
+         "cosmos:mining_speed": ["normal", "slow", "decreased", "fast", "rapid", "instant"]
+      }
     },
     "components": {
       "minecraft:loot": "loot_tables/blocks/tin_ore.json",
-	  "minecraft:map_color": [112, 112, 112],
+	    "minecraft:map_color": [112, 112, 112],
+      "tag:require_stone_pickaxe": {},
       "minecraft:destructible_by_mining": {
-		  "seconds_to_destroy": 1
-	  },
-	  "minecraft:destructible_by_explosion": {
-		  "explosion_resistance": 12
-	  }
-    }
+		    "seconds_to_destroy": 1
+	    },
+	    "minecraft:destructible_by_explosion": {
+		    "explosion_resistance": 12
+	    }
+    },
+    "permutations": [
+       {
+          "condition": "q.block_state('cosmos:mining_speed') == 'slow'",
+          "components": {
+             "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 10
+             }
+          }
+       },
+       {
+          "condition": "q.block_state('cosmos:mining_speed') == 'decreased'",
+          "components": {
+             "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 2
+             }
+          }
+       },
+       {
+          "condition": "q.block_state('cosmos:mining_speed') == 'fast'",
+          "components": {
+             "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0.5
+             }
+          }
+       },
+       {
+          "condition": "q.block_state('cosmos:mining_speed') == 'rapid'",
+          "components": {
+             "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0.25
+             }
+          }
+       },
+       {
+          "condition": "q.block_state('cosmos:mining_speed') == 'instant'",
+          "components": {
+             "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0
+             }
+          }
+       }
+    ]
   }
 }

@@ -1,0 +1,70 @@
+{
+   "format_version": "1.20.10",
+   "minecraft:block": {
+      "description": {
+         "identifier": "cosmos:fluid_tank",
+         "menu_category": {
+            "category": "none"
+         },
+			"states": {
+            "cosmos:connected_up": [false, true],
+            "cosmos:connected_down": [false, true],
+            "cosmos:fill_level": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+            "cosmos:fluid": ["water", "lava"]
+         }
+      },
+		"components": {
+			"minecraft:material_instances": {
+				"up": { "texture": "glass", "render_method": "blend" },
+				"down": { "texture": "glass", "render_method": "blend" },
+				"north": { "texture": "fluid_tank", "render_method": "blend" },
+				"east": { "texture": "fluid_tank", "render_method": "blend" },
+				"south": { "texture": "fluid_tank", "render_method": "blend" },
+				"west": { "texture": "fluid_tank", "render_method": "blend" },
+				"fluid": { "texture": "tank_water", "render_method": "blend" }
+			},
+			"minecraft:collision_box": { "origin": [-7, 0, -7], "size": [14, 16, 14] },
+			"minecraft:selection_box": { "origin": [-7, 0, -7], "size": [14, 16, 14] },
+			"minecraft:light_dampening": 0,
+			"minecraft:destructible_by_mining": { "seconds_to_destroy": 0.5 },
+			"minecraft:destructible_by_explosion": false,
+			//"minecraft:custom_components": ["cosmos:fluid_tank"],
+			"minecraft:geometry": {
+				"identifier": "geometry.fluid_tank",
+				"bone_visibility": {
+					"fill1": "q.block_state('cosmos:fill_level') == 1",
+					"fill2": "q.block_state('cosmos:fill_level') == 2",
+					"fill3": "q.block_state('cosmos:fill_level') == 3",
+					"fill4": "q.block_state('cosmos:fill_level') == 4",
+					"fill5": "q.block_state('cosmos:fill_level') == 5",
+					"fill6": "q.block_state('cosmos:fill_level') == 6",
+					"fill7": "q.block_state('cosmos:fill_level') == 7",
+					"fill8": "q.block_state('cosmos:fill_level') == 8",
+					"fill9": "q.block_state('cosmos:fill_level') == 9",
+					"fill10": "q.block_state('cosmos:fill_level') == 10",
+					"fill11": "q.block_state('cosmos:fill_level') == 11",
+					"fill12": "q.block_state('cosmos:fill_level') == 12",
+					"fill13": "q.block_state('cosmos:fill_level') == 13",
+					"fill14": "q.block_state('cosmos:fill_level') == 14",
+					"fill15": "q.block_state('cosmos:fill_level') == 15"
+				}
+			}
+		},
+		"permutations": [
+			{
+				"condition": "q.block_state('cosmos:fluid') == 'lava'",
+				"components": {
+					"minecraft:material_instances": {
+						"up": { "texture": "glass", "render_method": "blend" },
+						"down": { "texture": "glass", "render_method": "blend" },
+						"north": { "texture": "fluid_tank", "render_method": "blend" },
+						"east": { "texture": "fluid_tank", "render_method": "blend" },
+						"south": { "texture": "fluid_tank", "render_method": "blend" },
+						"west": { "texture": "fluid_tank", "render_method": "blend" },
+						"fluid": { "texture": "still_lava", "render_method": "blend" }
+					}
+				}
+			}
+		]
+	}
+}

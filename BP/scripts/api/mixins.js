@@ -26,7 +26,7 @@ Block.prototype.getNeighbors = function (maxSearch = 27) {
     const connectedBlocks = []
     const visted = new Set();
     const queue = [this.location]
-    while (connectedBlocks.length <= maxSearch) {
+    while (connectedBlocks.length < maxSearch) {
         const loc = queue.pop();
         const hash = `${loc.x},${loc.y},${loc.z}`
         if (!visted.has(hash)) {
@@ -45,8 +45,7 @@ Block.prototype.getNeighbors = function (maxSearch = 27) {
                 console.error(e, e.stack)
             }
         }
-    }
-    return connectedBlocks;
+    } return connectedBlocks;
 }
 
 World.prototype.getDims = function (fn = null) {

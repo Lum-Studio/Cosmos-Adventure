@@ -1,4 +1,4 @@
-import { world, system, BlockPermutation, Block } from "@minecraft/server"
+import { world, system, ItemStack, BlockPermutation, Block } from "@minecraft/server"
 import { get_machine_connections } from "../energy/electricity.js"
 import AllMachineBlocks from "./AllMachineBlocks"
 import { MachineInstances } from "./MachineInstances.js"
@@ -46,15 +46,29 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 					neighbors[i].setPermutation(BlockPermutation.resolve("cosmos:aluminum_wire", side_connections))
 					connections[faces[i]] = true
 				}
-				const machine = MachineInstances.get(dimension, wire.location).entity
+				const machine = dimension.getEntities({
+					families: ["power"],
+					location: neighbors[i].center(),
+					maxDistance: 0.5
+				})[0]
 				if (machine) {
 					const [input, output] = get_machine_connections(machine)
 					if (str(output) == str(location) || str(input) == str(location)) connections[faces[i]] = true
 				}
 			} event.permutationToPlace = BlockPermutation.resolve("cosmos:aluminum_wire", connections)
-		},
-		onPlayerDestroy(event) {
-			detach_wires(event.block)
 		}
 	})
+})
+
+world.beforeEvents.playerBreakBlock.subscribe((event) => {
+	const {block, dimension, player} = event
+	if (block.typeId == "cosmos:aluminum_wire") {
+		event.cancel = true
+		system.run(()=>{
+			if (!(player.getGameMode() == "creative")) dimension.spawnItem(new ItemStack("cosmos:aluminum_wire_item"), block.center()),
+			dimension.playSound("dig.cloth", block.location)
+			block.setPermutation(BlockPermutation.resolve("air"))
+			detach_wires(block)
+		})
+	}
 })
