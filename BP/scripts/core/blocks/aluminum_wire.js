@@ -1,10 +1,7 @@
 import { world, system, ItemStack, BlockPermutation, Block } from "@minecraft/server"
-import { get_machine_connections } from "../energy/electricity.js"
-import AllMachineBlocks from "./AllMachineBlocks"
-import { MachineInstances } from "./MachineInstances.js"
+import { get_machine_connections } from "../matter/electricity.js"
 function str(object) { return JSON.stringify(object) }
 
-const sides = ["above", "north", "east", "west", "south", "below"]
 const faces = ["cosmos:up", "cosmos:north", "cosmos:east", "cosmos:west", "cosmos:south", "cosmos:down"]
 
 
@@ -62,13 +59,14 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 
 world.beforeEvents.playerBreakBlock.subscribe((event) => {
 	const {block, dimension, player} = event
+	system.run(()=>{detach_wires(block)})
 	if (block.typeId == "cosmos:aluminum_wire") {
+		if ((player.getGameMode() == "creative")) return
 		event.cancel = true
 		system.run(()=>{
-			if (!(player.getGameMode() == "creative")) dimension.spawnItem(new ItemStack("cosmos:aluminum_wire_item"), block.center()),
+			dimension.spawnItem(new ItemStack("cosmos:aluminum_wire_item"), block.center()),
 			dimension.playSound("dig.cloth", block.location)
 			block.setPermutation(BlockPermutation.resolve("air"))
-			detach_wires(block)
 		})
 	}
 })

@@ -1,6 +1,6 @@
 import { system, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
-import { get_entity, location_of, charge_from_machine, charge_from_battery, update_baterry, } from "../../energy/electricity.js";
+import { get_entity, location_of, charge_from_machine, charge_from_battery, update_baterry, } from "../../matter/electricity.js";
 import { get_data, str } from "../../../api/utils.js";
 
 function charge_machine(machine, energy) {

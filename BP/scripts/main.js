@@ -5,7 +5,9 @@ import "./api/player/space_gear.js"
 
 import "./core/machines/Machine.js"
 import "./core/machines/index.js"
-import "./core/machines/wire_placement.js"
 
-import "./core/energy/electricity.js"
-import "./core/energy/soilds.js"
+import "./core/blocks/aluminum_wire.js"
+import "./core/blocks/fluid_tank.js"
+
+import "./core/matter/electricity.js"
+import "./core/matter/soilds.js"

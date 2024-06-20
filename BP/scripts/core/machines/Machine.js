@@ -1,7 +1,7 @@
 import { world, system, BlockPermutation } from "@minecraft/server"
 import machines from "./AllMachineBlocks"
 import { MachineInstances } from "./MachineInstances"
-import { detach_wires, attach_wires } from "./wire_placement"
+import { detach_wires, attach_wires } from "../blocks/aluminum_wire"
 import { pickaxes } from "../../api/utils"
 function str(object) { return JSON.stringify(object) }
 

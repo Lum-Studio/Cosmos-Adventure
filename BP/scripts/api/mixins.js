@@ -1,4 +1,4 @@
-import { Block, ItemStack, World } from "@minecraft/server";
+import { Block, ItemStack, World, Player } from "@minecraft/server";
 
 /**
  * Decrements the amount of the ItemStack by 1.
@@ -19,6 +19,14 @@ ItemStack.prototype.incrementStack = function () {
     if (this.amount < 64) {
         this.amount++;
     } return this;
+};
+
+//seamlessly giving a player an item or ejecting it infront of the player if inventory is full
+Player.prototype.give = function (item, amount=1, data=0) {
+    this.runCommand("gamerule sendcommandfeedback false")
+    this.runCommand(`give @s ${item} ${amount} ${data}`)
+    this.runCommand("stopsound @a random.pop")
+    this.runCommand("gamerule sendcommandfeedback true")
 };
 
 Block.prototype.getNeighbors = function (maxSearch = 27) {

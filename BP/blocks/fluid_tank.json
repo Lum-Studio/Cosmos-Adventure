@@ -4,7 +4,7 @@
       "description": {
          "identifier": "cosmos:fluid_tank",
          "menu_category": {
-            "category": "none"
+            "category": "items"
          },
 			"states": {
             "cosmos:connected_up": [false, true],
@@ -28,7 +28,7 @@
 			"minecraft:light_dampening": 0,
 			"minecraft:destructible_by_mining": { "seconds_to_destroy": 0.5 },
 			"minecraft:destructible_by_explosion": false,
-			//"minecraft:custom_components": ["cosmos:fluid_tank"],
+			"minecraft:custom_components": ["cosmos:fluid_tank"],
 			"minecraft:geometry": {
 				"identifier": "geometry.fluid_tank",
 				"bone_visibility": {
