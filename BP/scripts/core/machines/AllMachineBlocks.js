@@ -46,14 +46,15 @@ export default {
 		tileEntity: "cosmos:machine:oxygen_collector",
 		ui: "",
 		class: OxygenCollector,
-		lore: { slot: 4, energy: 0, o2: 1 },
-
+		lore: { slot: 3, energy: 0, o2: 1 },
+		
 		energy_input: "right",
-		capacity: 16000,
-		maxInput: 50,
-
 		oxygen_output: "left",
+
+		capacity: 16000,
 		o2_capacity: 6000,
+		maxInput: 25,
+		maxOutput: 40
 	},
 	"circuit_fabricator": {
 		tileEntity: "cosmos:machine:circuit_fabricator",
