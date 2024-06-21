@@ -7,14 +7,14 @@
       "air_vent": {
          "textures": "textures/items/air_vent"
       },
+      "aluminum_wire": {
+         "textures": "textures/items/aluminum_wire"
+      },
       "ambient_thermal_controller": {
          "textures": "textures/items/ambient_thermal_controller"
       },
       "battery": {
          "textures": "textures/items/battery"
-      },
-      "aluminum_wire": {
-         "textures": "textures/items/aluminum_wire"
       },
       "bucket_fuel": {
          "textures": "textures/items/bucket_fuel"
@@ -63,6 +63,9 @@
       },
       "compressed_tin": {
          "textures": "textures/items/compressed_tin"
+      },
+      "cosmos_test": {
+         "textures": "textures/items/cosmos_test_icon"
       },
       "dehydrated_apple": {
          "textures": "textures/items/dehydrated_apple"
@@ -187,14 +190,14 @@
       "parachute_yellow": {
          "textures": "textures/items/parachute_yellow"
       },
+      "raw_aluminum": {
+         "textures": "textures/items/raw_aluminum"
+      },
       "raw_silicon": {
          "textures": "textures/items/raw_silicon"
       },
       "raw_tin": {
          "textures": "textures/items/raw_tin"
-      },
-      "raw_aluminum": {
-         "textures": "textures/items/raw_aluminum"
       },
       "rocket_fins": {
          "textures": "textures/items/rocket_fins"
