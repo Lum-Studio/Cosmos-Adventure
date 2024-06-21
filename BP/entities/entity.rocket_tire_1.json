@@ -1,0 +1,60 @@
+{
+   "format_version": "1.8.0",
+   "minecraft:entity": {
+      "component_groups": {},
+      "components": {
+         "minecraft:collision_box": {
+            "height": 1.5,
+            "width": 1.5
+         },
+         "minecraft:fall_damage": {
+            "value": 0
+         },
+         "minecraft:fire_immune": true,
+         "minecraft:health": {
+            "max": 1,
+            "value": 1
+         },
+         "minecraft:knockback_resistance": {
+            "value": 1
+         },
+         "minecraft:push_through": {
+            "value": 1
+         },
+         "minecraft:pushable": {
+            "is_pushable": false,
+            "is_pushable_by_piston": false
+         },
+         "minecraft:rideable": {
+            "crouching_skip_interact": true,
+            "family_types": [
+               "player",
+               "Rider"
+            ],
+            "interact_text": "Ride",
+            "priority": 0,
+            "pull_in_entities": false,
+            "seat_count": 1,
+            "seats": {
+               "position": [
+                  0,
+                  0.3,
+                  0
+               ]
+            }
+         },
+         "minecraft:type_family": {
+            "family": [
+               "rocket"
+            ]
+         }
+      },
+      "description": {
+         "identifier": "cosmos:rocket_tire_1",
+         "is_experimental": false,
+         "is_spawnable": true,
+         "is_summonable": true
+      },
+      "events": {}
+   }
+}
