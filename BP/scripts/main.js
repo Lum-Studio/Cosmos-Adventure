@@ -8,6 +8,7 @@ import "./core/machines/index.js"
 
 import "./core/blocks/aluminum_wire.js"
 import "./core/blocks/fluid_tank.js"
+import "./core/blocks/stairs.js"
 
 import "./core/matter/electricity.js"
 import "./core/matter/soilds.js"

@@ -20,6 +20,7 @@ tile.cosmos:deco_block.name=Tin Decoration Block
 tile.cosmos:space_station.name=Space Station
 tile.cosmos:aluminum_wire.name=Aluminum Wire
 tile.cosmos:fluid_tank.name=Fluid Tank
+tile.cosmos:test_stairs.name=Stairs
 
 tile.cosmos:tin_ore.name=Tin Ore
 tile.cosmos:aluminum_ore.name=Aluminum Ore

@@ -13,7 +13,7 @@ ItemStack.prototype.decrementStack = function () {
 
 /**
  * Increments the amount of the ItemStack by 1.
- * @returns {ItemStack | undefined} The modified ItemStack or ItemStack if amount is 64.
+ * @returns {ItemStack} The modified ItemStack or same ItemStack if amount is 64.
  */
 ItemStack.prototype.incrementStack = function () {
     if (this.amount < 64) {

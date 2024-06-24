@@ -1,4 +1,4 @@
-import { system, world, BlockPermutation, MolangVariableMap } from "@minecraft/server"
+import { system, world, BlockPermutation } from "@minecraft/server"
 import { pickaxes } from "../../api/utils"
 
 const stone_tier = new Set([
