@@ -10,7 +10,7 @@
          }
       },
       "description": {
-         "identifier": "cosmos:canister.tin"
+         "identifier": "cosmos:tin_canister"
       }
    }
 }

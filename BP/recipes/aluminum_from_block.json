@@ -2,20 +2,20 @@
   "format_version": "1.20.10",
   "minecraft:recipe_shapeless": {
     "description": {
-	  "identifier": "cosmos:aluminum_from_block"
+      "identifier": "cosmos:aluminum_from_block"
     },
-
-    
-    "tags": [ "crafting_table" ],
+    "tags": [
+      "crafting_table"
+    ],
     "ingredients": [
       {
         "item": "cosmos:aluminum_block"
       }
     ],
-	"unlock": [
-        {
-            "item": "cosmos:aluminum_block"
-        }
+    "unlock": [
+      {
+        "item": "cosmos:aluminum_block"
+      }
     ],
     "result": {
       "item": "cosmos:aluminum_ingot",

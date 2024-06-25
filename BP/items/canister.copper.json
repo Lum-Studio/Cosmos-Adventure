@@ -10,7 +10,7 @@
          }
       },
       "description": {
-         "identifier": "cosmos:canister.copper"
+         "identifier": "cosmos:copper_canister"
       }
    }
 }

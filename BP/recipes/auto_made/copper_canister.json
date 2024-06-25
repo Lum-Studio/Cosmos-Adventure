@@ -2,28 +2,27 @@
   "format_version": "1.20.10",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "cosmos:aluminum_block"
+      "identifier": "cosmos:copper_canister"
     },
     "tags": [
       "crafting_table"
     ],
     "pattern": [
-      "###",
-      "###",
-      "###"
+      "I I",
+      "I I",
+      "III"
     ],
     "key": {
-      "#": {
-        "item": "cosmos:aluminum_ingot"
-      }
+      "I": "minecraft:copper_ingot"
     },
     "unlock": [
       {
-        "item": "cosmos:aluminum_ingot"
+        "item": "minecraft:copper_ingot"
       }
     ],
     "result": {
-      "item": "cosmos:aluminum_block"
+      "item": "cosmos:copper_canister",
+      "count": 2
     }
   }
 }

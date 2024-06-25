@@ -2,7 +2,7 @@
   "format_version": "1.20.20",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:engine.tier1booster"
+      "identifier": "cosmos:tier_1_booster"
     },
     "components": {
       "minecraft:display_name": {

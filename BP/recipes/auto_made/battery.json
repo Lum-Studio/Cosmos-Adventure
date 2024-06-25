@@ -2,28 +2,28 @@
   "format_version": "1.20.10",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "cosmos:aluminum_block"
+      "identifier": "cosmos:battery"
     },
     "tags": [
       "crafting_table"
     ],
     "pattern": [
-      "###",
-      "###",
-      "###"
+      " T ",
+      "TRT",
+      "TCT"
     ],
     "key": {
-      "#": {
-        "item": "cosmos:aluminum_ingot"
-      }
+      "T": "cosmos:compressed_tin",
+      "R": "minecraft:redstone",
+      "C": "minecraft:coal"
     },
     "unlock": [
       {
-        "item": "cosmos:aluminum_ingot"
+        "item": "cosmos:compressed_tin"
       }
     ],
     "result": {
-      "item": "cosmos:aluminum_block"
+      "item": "cosmos:battery"
     }
   }
 }

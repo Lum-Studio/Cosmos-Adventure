@@ -2,28 +2,27 @@
   "format_version": "1.20.10",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "cosmos:aluminum_block"
+      "identifier": "cosmos:rocket_fins"
     },
     "tags": [
       "crafting_table"
     ],
     "pattern": [
-      "###",
-      "###",
-      "###"
+      " S ",
+      "HSH",
+      "H H"
     ],
     "key": {
-      "#": {
-        "item": "cosmos:aluminum_ingot"
-      }
+      "H": "cosmos:heavy_duty_plate",
+      "S": "cosmos:compressed_steel"
     },
     "unlock": [
       {
-        "item": "cosmos:aluminum_ingot"
+        "item": "cosmos:heavy_duty_plate"
       }
     ],
     "result": {
-      "item": "cosmos:aluminum_block"
+      "item": "cosmos:rocket_fins"
     }
   }
 }

@@ -2,28 +2,27 @@
   "format_version": "1.20.10",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "cosmos:aluminum_block"
+      "identifier": "cosmos:tin_canister"
     },
     "tags": [
       "crafting_table"
     ],
     "pattern": [
-      "###",
-      "###",
-      "###"
+      "I I",
+      "I I",
+      "III"
     ],
     "key": {
-      "#": {
-        "item": "cosmos:aluminum_ingot"
-      }
+      "I": "cosmos:tin_ingot"
     },
     "unlock": [
       {
-        "item": "cosmos:aluminum_ingot"
+        "item": "cosmos:tin_ingot"
       }
     ],
     "result": {
-      "item": "cosmos:aluminum_block"
+      "item": "cosmos:tin_canister",
+      "count": 2
     }
   }
 }

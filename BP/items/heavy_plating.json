@@ -2,7 +2,7 @@
   "format_version": "1.20.20",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:heavy_plating"
+      "identifier": "cosmos:heavy_duty_plate"
     },
     "components": {
       "minecraft:display_name": {

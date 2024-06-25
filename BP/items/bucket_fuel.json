@@ -10,7 +10,7 @@
          }
       },
       "description": {
-         "identifier": "cosmos:bucket_fuel"
+         "identifier": "cosmos:fuel_bucket"
       }
    }
 }
