@@ -16,15 +16,28 @@ entity.cosmos:machine:circuit_fabricator.name=Circuit Fabricator
 tile.cosmos:moon_rock.name=Moon Rock
 tile.cosmos:moon_dirt.name=Moon Dirt
 tile.cosmos:moon_turf.name=Moon Turf
-tile.cosmos:deco_block.name=Tin Decoration Block
+tile.cosmos:mars_cobblestone.name=Mars Cobblestone
+tile.cosmos:tin_decoration_block.name=Tin Decoration Block
+tile.cosmos:detailed_tin_decoration_block.name=Detailed Tin Decoration Block
 tile.cosmos:space_station.name=Space Station
 tile.cosmos:aluminum_wire.name=Aluminum Wire
 tile.cosmos:fluid_tank.name=Fluid Tank
+tile.cosmos:mars_dungeon_bricks.name=Mars Dungeon Bricks
+tile.cosmos:moon_dungeon_bricks.name=Moon Dungeon Bricks
+
 tile.cosmos:test_stairs.name=Stairs
 
 tile.cosmos:tin_ore.name=Tin Ore
 tile.cosmos:aluminum_ore.name=Aluminum Ore
 tile.cosmos:silicon_ore.name=Silicon Ore
+
+## stairs
+tile.cosmos:mars_dungeon_bricks_stairs.name=Mars Dungeon Bricks Stairs
+tile.cosmos:moon_dungeon_bricks_stairs.name=Moon Dungeon Bricks Stairs
+tile.cosmos:mars_cobblestone_stairs.name=Mars Cobblestone Stairs
+tile.cosmos:moon_rock_stairs.name=Moon Rock Stairs
+tile.cosmos:tin_decoration_stairs.name=Tin Decoration Stairs
+tile.cosmos:detailed_tin_decoration_stairs.name=Detailed Tin Decoration Stairs
 
 tile.cosmos:tin_block.name=Tin Block
 tile.cosmos:aluminum_block.name=Aluminum Block

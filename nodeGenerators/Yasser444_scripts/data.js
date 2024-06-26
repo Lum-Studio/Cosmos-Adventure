@@ -18,6 +18,23 @@ const keys = {
     CO: "minecraft:coal",
 }
 
+const stairs = {
+    "cosmos:tin_decoration_stairs": {
+        texture: "tin_decoration_block",
+    },
+    "cosmos:detailed_tin_decoration_stairs": {
+        texture: "detailed_tin_decoration_block"
+    },
+    "cosmos:moon_rock_stairs": {},
+    "cosmos:mars_cobblestone_stairs": {},
+    "cosmos:moon_dungeon_bricks_stairs": {
+        unbreakable: true
+    },
+    "cosmos:mars_dungeon_bricks_stairs": {
+        unbreakable: true
+    },
+}
+
 //First property in key is the item used to unlock the recipe
 //Key properties can use item ids or short names from the above object
 //If name wasn't specified, the file name and the recipe id will use the resulting item id
@@ -129,7 +146,7 @@ const recipes = {
         ]
     },
     "cosmos:oxygen_collector": {
-        key: { C: "cosmos:oxygen_concentrator", A: "CoA", S: "CoS", F: "cosmos:oxygen_fan", V: "cosmos:oxygen_vent"},
+        key: { C: "cosmos:oxygen_concentrator", T: "cosmos:tin_canister", A: "CoA", S: "CoS", F: "cosmos:oxygen_fan", V: "cosmos:oxygen_vent"},
         shape: [
             "SSS",
             "FTV",
@@ -335,4 +352,4 @@ const recipes = {
 
 ]   */
 }
-module.exports = {keys, recipes}
+module.exports = {stairs, keys, recipes}

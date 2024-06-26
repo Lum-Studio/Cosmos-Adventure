@@ -1,16 +1,40 @@
 {
    "format_version": [1, 1, 0],
-   "deco_block": {
+   "tin_decoration_block": {
       "sound": "stone",
-      "textures": "deco_block"
+      "textures": "tin_decoration_block"
+   },
+   "detailed_tin_decoration_block": {
+      "sound": "stone",
+      "textures": "detailed_tin_decoration_block"
    },
    "moon_rock": {
       "sound": "stone",
-      "textures": "moon_bottom"
+      "textures": "moon_rock"
    },
    "moon_dirt": {
       "sound": "stone",
-      "textures": "moon_middle"
+      "textures": "moon_dirt"
+   },
+   "moon_turf": {
+      "sound": "stone",
+      "textures": {
+         "down": "moon_turf_side",
+         "side": "moon_turf_side",
+         "up": "moon_turf"
+      }
+   },
+   "mars_cobblestone": {
+      "sound": "stone",
+      "textures": "mars_cobblestone"
+   },
+   "moon_dungeon_bricks": {
+      "sound": "stone",
+      "textures": "moon_dungeon_bricks"
+   },
+   "mars_dungeon_bricks": {
+      "sound": "stone",
+      "textures": "mars_dungeon_bricks"
    },
    
    "tin_ore": {
@@ -39,14 +63,6 @@
       "textures": "silicon_block"
    },
    
-   "moon_turf": {
-      "sound": "stone",
-      "textures": {
-         "down": "moon_top_side",
-         "side": "moon_top_side",
-         "up": "moon_top"
-      }
-   },
    "space_station": {
       "sound": "stone",
       "textures": {
