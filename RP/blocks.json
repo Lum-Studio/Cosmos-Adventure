@@ -58,8 +58,8 @@
    "coal_generator": {
       "sound": "stone",
       "textures": {
-         "up": "machine",
-         "down": "machine",
+         "up": "machine_blank",
+         "down": "machine_blank",
          "north": "machine_side",
          "east": "machine_side",
          "west": "energy_output",
@@ -69,8 +69,8 @@
    "compressor": {
       "sound": "stone",
       "textures": {
-         "up": "machine",
-         "down": "machine",
+         "up": "machine_blank",
+         "down": "machine_blank",
          "north": "machine_side",
          "east": "machine_side",
          "west": "machine_side",
@@ -91,8 +91,8 @@
    "circuit_fabricator": {
       "sound": "stone",
       "textures": {
-         "up": "machine",
-         "down": "machine",
+         "up": "machine_blank",
+         "down": "machine_blank",
          "north": "machine_side",
          "east": "machine_side",
          "west": "energy_input",
@@ -102,23 +102,23 @@
    "energy_storage_module": {
       "sound": "stone",
       "textures": {
-         "up": "machine",
-         "down": "machine",
-         "north": "energy_storage_module",
+         "up": "machine_blank",
+         "down": "machine_blank",
+         "north": "energy_storage_module_16",
          "east": "energy_input",
          "west": "energy_output",
-         "south": "energy_storage_module"
+         "south": "energy_storage_module_16"
       }
    },
    "energy_storage_cluster": {
       "sound": "stone",
       "textures": {
-         "up": "advanced_machine",
-         "down": "advanced_machine",
-         "north": "energy_storage_cluster",
+         "up": "advanced_machine_blank",
+         "down": "advanced_machine_blank",
+         "north": "energy_storage_cluster_16",
          "east": "advanced_energy_input",
          "west": "advanced_energy_output",
-         "south": "energy_storage_cluster"
+         "south": "energy_storage_cluster_16"
       }
    },
    "aluminum_wire": {

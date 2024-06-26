@@ -20,8 +20,8 @@
 		  "seconds_to_destroy": 0.5
 	  },
 	  "minecraft:material_instances": {
-		  "up": { "render_method": "opaque", "texture": "machine" },
-		  "down": { "render_method": "opaque", "texture": "machine" },
+		  "up": { "render_method": "opaque", "texture": "machine_blank" },
+		  "down": { "render_method": "opaque", "texture": "machine_blank" },
 		  "north": { "render_method": "opaque", "texture": "coal_generator" },
 		  "east": { "render_method": "opaque", "texture": "energy_output" },
 		  "south": { "render_method": "opaque", "texture": "machine_side" },

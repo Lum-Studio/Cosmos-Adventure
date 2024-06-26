@@ -1,0 +1,198 @@
+{
+  "num_mip_levels": 4,
+  "padding": 8,
+  "resource_pack_name": "Cosmos-Adventure",
+  "texture_data": {
+    "aluminum_block": {
+      "textures": "textures/blocks/aluminum_block"
+    },
+    "aluminum_ore": {
+      "textures": "textures/blocks/aluminum_ore"
+    },
+    "aluminum_wire": {
+      "textures": "textures/blocks/aluminum_wire"
+    },
+    "deco_block": {
+      "textures": "textures/blocks/deco_block"
+    },
+    "fluid_tank": {
+      "textures": "textures/blocks/fluid_tank"
+    },
+    "silicon_block": {
+      "textures": "textures/blocks/silicon_block"
+    },
+    "silicon_ore": {
+      "textures": "textures/blocks/silicon_ore"
+    },
+    "space_station_side": {
+      "textures": "textures/blocks/space_station_side"
+    },
+    "space_station_top": {
+      "textures": "textures/blocks/space_station_top"
+    },
+    "tin_block": {
+      "textures": "textures/blocks/tin_block"
+    },
+    "tin_ore": {
+      "textures": "textures/blocks/tin_ore"
+    },
+
+    "advanced_energy_input": {
+      "textures": "textures/blocks/machines/advanced_energy_input"
+    },
+    "advanced_energy_output": {
+      "textures": "textures/blocks/machines/advanced_energy_output"
+    },
+    "advanced_machine_blank": {
+      "textures": "textures/blocks/machines/advanced_machine_blank"
+    },
+    "advanced_machine_side": {
+      "textures": "textures/blocks/machines/advanced_machine_side"
+    },
+    "circuit_fabricator": {
+      "textures": "textures/blocks/machines/circuit_fabricator"
+    },
+    "coal_generator": {
+      "textures": "textures/blocks/machines/coal_generator"
+    },
+    "collector": {
+      "textures": "textures/blocks/machines/collector"
+    },
+    "compressor": {
+      "textures": "textures/blocks/machines/compressor"
+    },
+    "energy_input": {
+      "textures": "textures/blocks/machines/energy_input"
+    },
+    "energy_output": {
+      "textures": "textures/blocks/machines/energy_output"
+    },
+    "machine_blank": {
+      "textures": "textures/blocks/machines/machine_blank"
+    },
+    "machine_side": {
+      "textures": "textures/blocks/machines/machine_side"
+    },
+    "oxygen_output": {
+      "textures": "textures/blocks/machines/oxygen_output"
+    },
+
+    "energy_storage_cluster_0": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_0"
+    },
+    "energy_storage_cluster_1": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_1"
+    },
+    "energy_storage_cluster_10": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_10"
+    },
+    "energy_storage_cluster_11": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_11"
+    },
+    "energy_storage_cluster_12": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_12"
+    },
+    "energy_storage_cluster_13": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_13"
+    },
+    "energy_storage_cluster_14": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_14"
+    },
+    "energy_storage_cluster_15": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_15"
+    },
+    "energy_storage_cluster_16": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_16"
+    },
+    "energy_storage_cluster_2": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_2"
+    },
+    "energy_storage_cluster_3": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_3"
+    },
+    "energy_storage_cluster_4": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_4"
+    },
+    "energy_storage_cluster_5": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_5"
+    },
+    "energy_storage_cluster_6": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_6"
+    },
+    "energy_storage_cluster_7": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_7"
+    },
+    "energy_storage_cluster_8": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_8"
+    },
+    "energy_storage_cluster_9": {
+      "textures": "textures/blocks/machines/energy_storage_cluster_9"
+    },
+
+    "energy_storage_module_0": {
+      "textures": "textures/blocks/machines/energy_storage_module_0"
+    },
+    "energy_storage_module_1": {
+      "textures": "textures/blocks/machines/energy_storage_module_1"
+    },
+    "energy_storage_module_10": {
+      "textures": "textures/blocks/machines/energy_storage_module_10"
+    },
+    "energy_storage_module_11": {
+      "textures": "textures/blocks/machines/energy_storage_module_11"
+    },
+    "energy_storage_module_12": {
+      "textures": "textures/blocks/machines/energy_storage_module_12"
+    },
+    "energy_storage_module_13": {
+      "textures": "textures/blocks/machines/energy_storage_module_13"
+    },
+    "energy_storage_module_14": {
+      "textures": "textures/blocks/machines/energy_storage_module_14"
+    },
+    "energy_storage_module_15": {
+      "textures": "textures/blocks/machines/energy_storage_module_15"
+    },
+    "energy_storage_module_16": {
+      "textures": "textures/blocks/machines/energy_storage_module_16"
+    },
+    "energy_storage_module_2": {
+      "textures": "textures/blocks/machines/energy_storage_module_2"
+    },
+    "energy_storage_module_3": {
+      "textures": "textures/blocks/machines/energy_storage_module_3"
+    },
+    "energy_storage_module_4": {
+      "textures": "textures/blocks/machines/energy_storage_module_4"
+    },
+    "energy_storage_module_5": {
+      "textures": "textures/blocks/machines/energy_storage_module_5"
+    },
+    "energy_storage_module_6": {
+      "textures": "textures/blocks/machines/energy_storage_module_6"
+    },
+    "energy_storage_module_7": {
+      "textures": "textures/blocks/machines/energy_storage_module_7"
+    },
+    "energy_storage_module_8": {
+      "textures": "textures/blocks/machines/energy_storage_module_8"
+    },
+    "energy_storage_module_9": {
+      "textures": "textures/blocks/machines/energy_storage_module_9"
+    },
+
+    "moon_bottom": {
+      "textures": "textures/blocks/terrain/moon_bottom"
+    },
+    "moon_middle": {
+      "textures": "textures/blocks/terrain/moon_middle"
+    },
+    "moon_top": {
+      "textures": "textures/blocks/terrain/moon_top"
+    },
+    "moon_top_side": {
+      "textures": "textures/blocks/terrain/moon_top_side"
+    }
+  },
+  "texture_name": "atlas.terrain"
+}
