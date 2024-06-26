@@ -1,0 +1,44 @@
+
+tile.cosmos:coal_generator.name=Угольный генератор
+tile.cosmos:compressor.name=Компрессор
+tile.cosmos:energy_storage_module.name=Энергетическое хранилище 
+tile.cosmos:energy_storage_cluster.name=Энергетический кластер
+tile.cosmos:oxygen_collector.name=Сборщик кислорода
+tile.cosmos:circuit_fabricator.name=Производитель микросхем
+
+entity.cosmos:machine:coal_generator.name=Угольный генератор
+entity.cosmos:machine:compressor.name=Компрессор
+entity.cosmos:machine:energy_storage_module.name=Энергетическое хранилище
+entity.cosmos:machine:energy_storage_cluster.name=Энергетический кластер
+entity.cosmos:machine:oxygen_collector.name=Сборщик кислорода
+entity.cosmos:machine:circuit_fabricator.name=Производитель микросхем
+
+tile.cosmos:moon_rock.name=Лунный камень
+tile.cosmos:moon_dirt.name=Лунная почва
+tile.cosmos:moon_turf.name=Лунный грунт
+tile.cosmos:mars_cobblestone.name=Марсианский булыжник
+tile.cosmos:tin_decoration_block.name=Оловянный декоративный блок
+tile.cosmos:detailed_tin_decoration_block.name=Украшенный оловянный блок
+tile.cosmos:space_station.name=Космическая станция
+tile.cosmos:aluminum_wire.name=Алюминиевый провод
+tile.cosmos:fluid_tank.name=Жидкостный резервуар
+tile.cosmos:mars_dungeon_bricks.name=Кирпич марсианского подземелья
+tile.cosmos:moon_dungeon_bricks.name=Кирпич лунного подземелья
+
+tile.cosmos:test_stairs.name=Ступеньки
+
+tile.cosmos:tin_ore.name=Оловянная руда
+tile.cosmos:aluminum_ore.name=Алюминиевая руда
+tile.cosmos:silicon_ore.name=Кремниевая руда
+
+## stairs
+tile.cosmos:mars_dungeon_bricks_stairs.name=Ступеньки из кирпича марсианского подземелья
+tile.cosmos:moon_dungeon_bricks_stairs.name=Ступеньки из кирпича лунного подземелья
+tile.cosmos:mars_cobblestone_stairs.name=Ступеньки из марсианского камня
+tile.cosmos:moon_rock_stairs.name=Ступеньки из лунного камня
+tile.cosmos:tin_decoration_stairs.name=Ступеньки из декоративного оловянного блока
+tile.cosmos:detailed_tin_decoration_stairs.name=Ступеньки из украшенного оловянного блока
+
+tile.cosmos:tin_block.name=Блок олова
+tile.cosmos:aluminum_block.name=Блок алюминия
+tile.cosmos:silicon_block.name=Блок кремния
