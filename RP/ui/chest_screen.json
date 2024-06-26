@@ -28,13 +28,19 @@
             },
             {
                 "requires": "(not (($ct - '§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§m§o§d§u§l§e') = $ct))",
-                "$screen_content": "machines.energy_storege_module_ui",
+                "$screen_content": "machines.energy_storage_module_ui",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },
             {
                 "requires": "(not (($ct - '§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§c§l§u§s§t§e§r') = $ct))",
-                "$screen_content": "machines.energy_storege_cluster_ui",
+                "$screen_content": "machines.energy_storage_cluster_ui",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§c§o§m§p§r§e§s§s§o§r') = $ct))",
+                "$screen_content": "machines.compressor_ui",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },

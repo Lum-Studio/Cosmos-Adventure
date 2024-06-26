@@ -1,1 +1,7 @@
-[{"atlas_tile":"tank_water","flipbook_texture":"textures/blocks/flipbooks/tank_water","ticks_per_frame":2}]
+[
+    {
+        "atlas_tile": "tank_water",
+        "flipbook_texture": "textures/blocks/flipbooks/tank_water",
+        "ticks_per_frame": 2
+    }
+]

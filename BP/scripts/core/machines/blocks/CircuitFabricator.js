@@ -73,7 +73,7 @@ export class CircuitFabricator extends MachineBlockEntity {
 		container.setItem(9, counter)
 		counter.nameTag = `Progress: ${Math.round((progress / 300) * 100)}%`
 		container.setItem(10, counter)
-		counter.nameTag = `!power ? '§4No Power' : progress ? '§aRunning' : '§6Idle'`
+		counter.nameTag = `cosmos:§stat${!energy ? '§4No Power' : progress ? '§aRunning' : '§6Idle'}`
 		container.setItem(11, counter)
 		counter.nameTag = ``
 		counter.setLore([''+energy, ''+progress])

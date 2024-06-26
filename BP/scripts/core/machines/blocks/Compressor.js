@@ -46,9 +46,9 @@ export class Compressor extends MachineBlockEntity {
 		const has_space = !output_item || (output_item.typeId == output && output_item.amount < 64)
 		const fuelItem = container.getItem(9);
 		const isCoalBlock = fuelItem?.typeId === 'minecraft:coal_block';
-		let burnTime = container.getItem(13) ? + container.getItem(13).getLore()[0] : 0
-		let burnDuration = container.getItem(13) ? + container.getItem(13).getLore()[1] : 1
-		let progress = container.getItem(13) ? + container.getItem(13).getLore()[2] : 0
+		let burnTime = container.getItem(14) ? + container.getItem(14).getLore()[0] : 0
+		let burnDuration = container.getItem(14) ? + container.getItem(14).getLore()[1] : 1
+		let progress = container.getItem(14) ? + container.getItem(14).getLore()[2] : 0
 
 		if (this.fuelTypes.has(fuelItem?.typeId) && burnTime == 0 && output) {
 			container.setItem(9, fuelItem.decrementStack())
@@ -80,9 +80,11 @@ export class Compressor extends MachineBlockEntity {
 		container.setItem(11, counter)
 		counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`
 		container.setItem(12, counter)
+		counter.nameTag = `cosmos:  Status:\n${!progress ? '    §6Idle' : '§aCompressing'}`
+		container.setItem(13, counter)
 		counter.nameTag = ``
 		counter.setLore(['' + burnTime, '' + burnDuration, '' + progress])
-		container.setItem(13, counter)
+		container.setItem(14, counter)
 	}
 }
 

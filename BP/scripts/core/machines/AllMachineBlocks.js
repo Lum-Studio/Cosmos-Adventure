@@ -14,7 +14,7 @@ export default {
 		tileEntity: "cosmos:machine:compressor",
 		ui: "§c§o§m§p§r§e§s§s§o§r",
 		class: Compressor,
-		lore: { slot: 13 },
+		lore: { slot: 14 },
 	},
 	"energy_storage_module": {
 		tileEntity: "cosmos:machine:energy_storage_module",
