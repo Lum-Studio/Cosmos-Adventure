@@ -2,14 +2,14 @@
   "format_version": "1.20.20",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:aluminum_ingot"
+      "identifier": "cosmos:meteoric_raw_iron"
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Aluminum Ingot"
+        "value": "Raw Meteoric Iron"
       },
       "minecraft:icon": {
-        "texture": "aluminum_ingot"
+        "texture": "meteoric_raw_iron"
       }
     }
   }

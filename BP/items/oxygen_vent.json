@@ -1,16 +1,16 @@
 {
-   "format_version": "1.20.20",
-   "minecraft:item": {
-      "components": {
-         "minecraft:display_name": {
-            "value": "Oxygen Vent"
-         },
-         "minecraft:icon": {
-            "texture": "air_vent"
-         }
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "components": {
+      "minecraft:display_name": {
+        "value": "Oxygen Vent"
       },
-      "description": {
-         "identifier": "cosmos:oxygen_vent"
+      "minecraft:icon": {
+        "texture": "oxygen_vent"
       }
-   }
+    },
+    "description": {
+      "identifier": "cosmos:oxygen_vent"
+    }
+  }
 }

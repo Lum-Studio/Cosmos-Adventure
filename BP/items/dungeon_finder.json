@@ -2,14 +2,14 @@
   "format_version": "1.20.20",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:aluminum_ingot"
+      "identifier": "cosmos:dungeon_finder"
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Aluminum Ingot"
+        "value": "Dungeon Locator"
       },
       "minecraft:icon": {
-        "texture": "aluminum_ingot"
+        "texture": "dungeon_finder"
       }
     }
   }

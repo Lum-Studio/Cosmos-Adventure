@@ -1,16 +1,16 @@
 {
   "format_version": "1.20.20",
   "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:aluminum_ingot"
-    },
     "components": {
       "minecraft:display_name": {
-        "value": "Aluminum Ingot"
+        "value": "Buggy Seat"
       },
       "minecraft:icon": {
-        "texture": "aluminum_ingot"
+        "texture": "buggy_seat"
       }
+    },
+    "description": {
+      "identifier": "cosmos:buggy_seat"
     }
   }
 }

@@ -2,14 +2,14 @@
   "format_version": "1.20.20",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:aluminum_ingot"
+      "identifier": "cosmos:rocket_engine"
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Aluminum Ingot"
+        "value": "Tier 1 Rocket Engine"
       },
       "minecraft:icon": {
-        "texture": "aluminum_ingot"
+        "texture": "rocket_engine"
       }
     }
   }

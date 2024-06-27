@@ -1,16 +1,16 @@
 {
   "format_version": "1.20.20",
   "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:aluminum_ingot"
-    },
     "components": {
       "minecraft:display_name": {
-        "value": "Aluminum Ingot"
+        "value": "Oil Bucket"
       },
       "minecraft:icon": {
-        "texture": "aluminum_ingot"
+        "texture": "oil_bucket"
       }
+    },
+    "description": {
+      "identifier": "cosmos:oil_bucket"
     }
   }
 }
