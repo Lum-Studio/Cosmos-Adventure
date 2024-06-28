@@ -157,5 +157,8 @@
    },
    "fluid_tank": {
       "sound": "glass"
+   },
+   "fluid_pipe": {
+      "sound": "glass"
    }
 }

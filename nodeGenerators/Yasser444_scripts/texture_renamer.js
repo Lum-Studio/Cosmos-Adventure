@@ -3,11 +3,11 @@ const fs = require("node:fs")
 const items = '../../BP/items';
 const item_shortnames = []
 fs.readdirSync(items).forEach(item=>{
+    if (!item.endsWith('.json')) return
     const path = [items,item].join('/')
     const content = JSON.parse(fs.readFileSync(path, {encoding:'utf8'}));
     const name = content['minecraft:item'].description.identifier.replace('cosmos:', '');
     const texture = content['minecraft:item'].components["minecraft:icon"].texture
-    if (name == "ui") return
     if (name == texture) return
     item_shortnames.push([name, texture])
     content['minecraft:item'].components["minecraft:icon"].texture = name

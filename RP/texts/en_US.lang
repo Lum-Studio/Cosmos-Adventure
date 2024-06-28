@@ -23,6 +23,7 @@ tile.cosmos:tin_decoration_block.name=Tin Decoration Block
 tile.cosmos:detailed_tin_decoration_block.name=Detailed Tin Decoration Block
 tile.cosmos:space_station.name=Space Station
 tile.cosmos:aluminum_wire.name=Aluminum Wire
+tile.cosmos:fluid_pipe.name=Fluid Pipe
 tile.cosmos:fluid_tank.name=Fluid Tank
 tile.cosmos:rocket_launch_pad.name=Rocket Launch Pad
 tile.cosmos:mars_dungeon_bricks.name=Mars Dungeon Bricks

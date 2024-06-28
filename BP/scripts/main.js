@@ -2,6 +2,7 @@
 import "./api/mixins.js"
 import "./api/player/celestial_selector.js"
 import "./api/player/space_gear.js"
+import "./api/player/debug_stick.js"
 
 import "./core/machines/Machine.js"
 import "./core/machines/index.js"

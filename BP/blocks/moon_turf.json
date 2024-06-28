@@ -14,23 +14,11 @@
          "minecraft:destructible_by_mining": {
             "seconds_to_destroy": 0.75
          },
-         "minecraft:loot": "loot_tables/blocks/empty.json",
          "minecraft:map_color": "#ffffff",
          "minecraft:material_instances": {
             "*": {
                "render_method": "opaque",
                "texture": "moon_turf"
-            }
-         },
-         "minecraft:on_player_destroyed": {
-            "condition": "query.equipped_item_any_tag('slot.weapon.mainhand','minecraft:is_pickaxe')",
-            "event": "destroy"
-         }
-      },
-      "events": {
-         "destroy": {
-            "spawn_loot": {
-               "table": "loot_tables/blocks/empty.json"
             }
          }
       }

@@ -6,6 +6,9 @@
     "aluminum_wire": {
       "textures": "textures/blocks/aluminum_wire"
     },
+    "fluid_pipe": {
+      "textures": "textures/blocks/fluid_pipe"
+    },
     "fluid_tank": {
       "textures": "textures/blocks/fluid_tank"
     },
