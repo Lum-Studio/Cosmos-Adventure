@@ -9,6 +9,9 @@
     "fluid_tank": {
       "textures": "textures/blocks/fluid_tank"
     },
+    "rocket_launch_pad": {
+      "textures": "textures/blocks/rocket_launch_pad"
+    },
     "space_station_side": {
       "textures": "textures/blocks/space_station_side"
     },
@@ -54,6 +57,9 @@
     },
     "compressor": {
       "textures": "textures/blocks/machines/compressor"
+    },
+    "cryo": {
+      "textures": "textures/blocks/machines/cryo"
     },
     "deconstructor": {
       "textures": "textures/blocks/machines/deconstructor"
@@ -108,6 +114,12 @@
     },
     "machine_side": {
       "textures": "textures/blocks/machines/machine_side"
+    },
+    "nasa_workbench_side": {
+      "textures": "textures/blocks/machines/nasa_workbench_side"
+    },
+    "nasa_workbench_top": {
+      "textures": "textures/blocks/machines/nasa_workbench_top"
     },
     "oxygen_collector": {
       "textures": "textures/blocks/machines/oxygen_collector"

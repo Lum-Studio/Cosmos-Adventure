@@ -1,11 +1,17 @@
 {
    "format_version": "1.8.0",
    "minecraft:entity": {
+      "description": {
+         "identifier": "cosmos:rocket_tire_1",
+         "is_experimental": false,
+         "is_spawnable": true,
+         "is_summonable": true
+      },
       "component_groups": {},
       "components": {
          "minecraft:collision_box": {
-            "height": 3,
-            "width": 3
+            "height": 4,
+            "width": 1
          },
          "minecraft:fall_damage": {
             "value": 0
@@ -25,6 +31,10 @@
             "is_pushable": false,
             "is_pushable_by_piston": false
          },
+         "minecraft:physics": {
+            "has_gravity": true,
+            "has_collision": true
+         },
          "minecraft:rideable": {
             "crouching_skip_interact": true,
             "family_types": [
@@ -38,7 +48,7 @@
             "seats": {
                "position": [
                   0,
-                  1.1,
+                  0.3,
                   0
                ]
             }
@@ -48,12 +58,6 @@
                "rocket"
             ]
          }
-      },
-      "description": {
-         "identifier": "cosmos:rocket_tire_2",
-         "is_experimental": false,
-         "is_spawnable": true,
-         "is_summonable": true
       },
       "events": {}
    }

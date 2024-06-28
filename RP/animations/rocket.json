@@ -1,0 +1,15 @@
+{
+    "format_version": "1.10.0",
+    "animations": {
+      "animation.rocket.hold": {
+        "loop": true,
+        "bones": {
+          "entity1": { "scale":[0, 0, 0] },
+          "entity2": { "scale":[0, 0, 0] },
+          "entity3": { "scale":[0, 0, 0] },
+          "entity4": { "scale":[0, 0, 0] },
+          "entity5": { "scale":[0, 0, 0] }
+        }
+      }
+    }
+  }

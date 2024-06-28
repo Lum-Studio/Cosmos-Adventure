@@ -34,8 +34,11 @@
     "compressed_tin": {
       "textures": "textures/items/compressed_tin"
     },
-    "cosmos_test": {
-      "textures": "textures/items/cosmos_test_icon"
+    "rocket_tier_1": {
+      "textures": "textures/items/rocket"
+    },
+    "rocket_tier_2": {
+      "textures": "textures/items/rocket"
     },
     "dehydrated_apple": {
       "textures": "textures/items/dehydrated_apple"

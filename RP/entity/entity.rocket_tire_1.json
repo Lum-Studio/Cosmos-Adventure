@@ -10,12 +10,8 @@
             "default": "skeleton"
          },
          "render_controllers": [
-            "controller.render.skeleton"
+            "controller.render.rocket"
          ],
-         "spawn_egg": {
-            "texture": "cosmos_test",
-            "texture_index": 0
-         },
          "textures": {
             "default": "textures/entity/rocket_tire_1"
          }
