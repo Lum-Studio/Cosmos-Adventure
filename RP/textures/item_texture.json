@@ -35,10 +35,10 @@
       "textures": "textures/items/compressed_tin"
     },
     "rocket_tier_1": {
-      "textures": "textures/items/rocket"
+      "textures": "textures/items/rocket_tire_1"
     },
     "rocket_tier_2": {
-      "textures": "textures/items/rocket"
+      "textures": "textures/items/rocket_tire_2"
     },
     "dehydrated_apple": {
       "textures": "textures/items/dehydrated_apple"
