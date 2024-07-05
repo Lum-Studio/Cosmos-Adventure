@@ -3,9 +3,9 @@
    "minecraft:client_entity": {
       "description": {
          "geometry": {
-            "default": "geometry.rocket_tire_2"
+            "default": "geometry.rocket_tier_2"
          },
-         "identifier": "cosmos:rocket_tire_2",
+         "identifier": "cosmos:rocket_tier_2",
          "materials": {
             "default": "skeleton"
          },
@@ -13,7 +13,7 @@
             "controller.render.rocket"
          ],
          "textures": {
-            "default": "textures/entity/rocket_tire_2"
+            "default": "textures/entity/rocket_tier_2"
          }
       }
    }

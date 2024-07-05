@@ -5,15 +5,6 @@
         "is_hurt_color": {},
         "on_fire_color": {},
         "geometry": "Geometry.default",
-        "part_visibility": [
-          {
-            "item1": false,
-            "item2": false,
-            "item3": false,
-            "item4": false,
-            "item5": false
-          }
-        ],
         "materials": [ { "*": "Material.default" } ],
         "textures": [ "Texture.default" ]
       }

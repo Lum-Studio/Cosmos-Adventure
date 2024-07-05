@@ -1,4 +1,4 @@
-import { world } from "@minecraft/server";
+import { ItemStack, world } from "@minecraft/server";
 
 function assemble(block) {
 	for (let x of [-1, 0, 1]) {
@@ -10,8 +10,11 @@ function assemble(block) {
 }
 function destroy(block) {
 	const dimension = block.dimension
-	const {x, y, z} = block.center()
-	dimension.runCommandAsync(`execute positioned ${x} ${y} ${z} run kill @e[c=1, r=1, type=cosmos:rocket_tire_1]`)
+	const rocket = dimension.getEntities({location: block.center(), maxDistance: 1, type: 'cosmos:rocket_tier_1'})[0]
+	if (rocket) {
+		rocket.remove()
+		dimension.spawnItem(new ItemStack("cosmos:rocket_tier_1_item"), block.center())
+	}
 	for (let i of [-1, 0, 1]) {
 		for (let j of [-1, 0, 1]) {
 			const target = block.offset({x:i, y:0, z:j})
@@ -32,20 +35,6 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 				}
 			}
 		},
-		onPlayerInteract({block, player, dimension}) {
-			const pad = block.permutation
-			const center = pad.getState("cosmos:center")
-			const equipment = player.getComponent("minecraft:equippable")
-			const item = equipment.getEquipment("Mainhand")
-
-			if (item?.typeId != "cosmos:rocket_tier_1" || !center) return
-			if (dimension.getEntities({ location: block.center(), maxDistance: 1 }).length) return
-
-			const {x, y, z} = block.center()
-			const rotation = Math.round(player.getRotation().y / 90) * 90 + 180
-			dimension.runCommand(`summon cosmos:rocket_tire_1 ${x} ${y - 0.3} ${z} ${rotation}`)
-			if (player.getGameMode() != "creative") equipment.setEquipment("Mainhand", item.decrementStack())
-		},
 		onPlayerDestroy({block, destroyedBlockPermutation: pad}) {
 			if (pad.getState("cosmos:center")) {
 				destroy(block); return
@@ -61,4 +50,22 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 			}
 		}
 	})
+})
+
+world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
+    itemComponentRegistry.registerCustomComponent("cosmos:rocket", {
+        onUseOn({block, source:player, usedOnBlockPermutation:pad, itemStack:item}) {
+			if (block.typeId != "cosmos:rocket_launch_pad") return
+			if (!pad.getState("cosmos:center")) return
+			if (item.typeId != "cosmos:rocket_tier_1_item") return
+			if (player.dimension.getEntities({ location: block.center(), maxDistance: 1 }).length) return
+
+			const {x, y, z} = block.center()
+			const rotation = Math.round(player.getRotation().y / 90) * 90 + 180
+			const equipment = player.getComponent("minecraft:equippable")
+			
+			player.runCommand(`summon cosmos:rocket_tier_1 ${x} ${y - 0.3} ${z} ${rotation}`)
+			if (player.getGameMode() != "creative") equipment.setEquipment("Mainhand", item.decrementStack())
+        }
+    })
 })

@@ -4,7 +4,7 @@
      "description": {
        "identifier": "cosmos:rocket_tier_2",
         "geometry": {
-           "default": "geometry.rocket_tire_2"
+           "default": "geometry.rocket_tier_2"
         },
         "materials": {
            "default": "skeleton"
@@ -21,7 +21,7 @@
           ]
         },
         "textures": {
-           "default": "textures/entity/rocket_tire_2"
+           "default": "textures/entity/rocket_tier_2"
         }
      }
   }

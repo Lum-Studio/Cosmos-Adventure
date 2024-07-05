@@ -7,8 +7,7 @@
       },
       "minecraft:icon": {
         "texture": "oxygen_gear"
-      },
-      "tag:csm:gear": {}
+      }
     },
     "description": {
       "identifier": "cosmos:oxygen_gear"

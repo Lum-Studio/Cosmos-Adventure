@@ -7,8 +7,7 @@
       },
       "minecraft:icon": {
         "texture": "shield_controller"
-      },
-      "tag:csm:thermal": {}
+      }
     },
     "description": {
       "identifier": "cosmos:shield_controller"

@@ -18,8 +18,9 @@
 		},
 		"components": {
 			"minecraft:material_instances": {
-				"*": { "texture": "fluid_pipe", "render_method": "blend" },
-				"fluid": { "texture": "still_lava", "render_method": "blend" }
+				"*": { "texture": "fluid_pipe", "render_method": "alpha_test" },
+				"fluid": { "texture": "still_lava", "render_method": "blend" },
+				"color": { "texture": "fluid_pipe_color", "render_method": "alpha_test" }
 			},
 			"minecraft:collision_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
 			"minecraft:selection_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
@@ -45,6 +46,7 @@
 					"fluid_south": "q.block_state('cosmos:south') && q.block_state('cosmos:filled')",
 					"fluid_west": "q.block_state('cosmos:west') && q.block_state('cosmos:filled')",
 
+					"white": "q.block_state('cosmos:color') == 'white'",
 					"silver": "q.block_state('cosmos:color') == 'silver'",
 					"gray": "q.block_state('cosmos:color') == 'gray'",
 					"black": "q.block_state('cosmos:color') == 'black'",

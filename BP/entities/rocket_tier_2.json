@@ -2,9 +2,7 @@
    "format_version": "1.8.0",
    "minecraft:entity": {
       "description": {
-         "identifier": "cosmos:rocket_tire_2",
-         "is_experimental": false,
-         "is_spawnable": true,
+         "identifier": "cosmos:rocket_tier_2",
          "is_summonable": true
       },
       "component_groups": {},

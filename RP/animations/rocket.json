@@ -1,1 +1,14 @@
-{"animations":{"animation.rocket.hold":{"bones":{"entity1":{"scale":[0,0,0]},"entity2":{"scale":[0,0,0]},"entity3":{"scale":[0,0,0]},"entity4":{"scale":[0,0,0]},"entity5":{"scale":[0,0,0]},"item":{"position":[0,"-2 + !q.is_on_ground * 3.5 - q.is_sneaking * !q.is_on_ground * 3.5",0]}},"loop":true}},"format_version":"1.10.0"}
+{
+	"animations": {
+		"animation.rocket.hold": {
+			"loop": true,
+			"bones": {
+				"entity": {
+					"rotation": [-183, 65, -273],
+					"position": [27, "(37 - 2 * c.is_first_person)", -6]
+				}
+			}
+		}
+	},
+	"format_version": "1.10.0"
+}

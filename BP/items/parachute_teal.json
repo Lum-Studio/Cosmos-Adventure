@@ -8,8 +8,7 @@
       "minecraft:icon": {
         "texture": "parachute_teal"
       },
-      "minecraft:max_stack_size": 1,
-      "tag:csm:parachute": {}
+      "minecraft:max_stack_size": 1
     },
     "description": {
       "identifier": "cosmos:parachute_teal"

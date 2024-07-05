@@ -2,16 +2,19 @@
   "format_version": "1.10.0",
   "minecraft:attachable": {
      "description": {
-       "identifier": "cosmos:rocket_tier_1",
+       "identifier": "cosmos:rocket_tier_1_item",
         "geometry": {
-           "default": "geometry.rocket_tire_1"
+           "default": "geometry.rocket_tier_1"
         },
         "materials": {
            "default": "skeleton"
         },
         "textures": {
-           "default": "textures/entity/rocket_tire_1"
+           "default": "textures/entity/rocket_tier_1"
         },
+        "render_controllers": [
+           "controller.render.rocket"
+        ],
         "animations": {
           "hold": "animation.rocket.hold"
         },
@@ -19,10 +22,7 @@
           "animate": [
             "hold"
           ]
-        },
-        "render_controllers": [
-           "controller.render.attachables"
-        ]
+        }
      }
   }
 }

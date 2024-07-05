@@ -1,0 +1,15 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:rocket_tier_1_item"
+    },
+    "components": {
+      "minecraft:custom_components": ["cosmos:rocket"],
+      "minecraft:display_name": {
+        "value": "Tier 1 Rocket"
+      },
+      "minecraft:icon": "rocket_tier_1"
+    }
+  }
+}

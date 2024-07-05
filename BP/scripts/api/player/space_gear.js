@@ -1,8 +1,19 @@
 import { world, system, EquipmentSlot, ItemStack } from '@minecraft/server';
 
 // This code is better now, but it still normal
-const slots = [ "head","body","legs","feet","tank1","tank2","frequency","mask","parachute","thermal","gear" ];
-const prefix = "csm:"; //prefix for item tags
+const slots = {
+	head: ["cosmos:thermal_helmet"],
+	body: ["cosmos:thermal_chestplate"],
+	legs: ["cosmos:thermal_leggings"],
+	feet: ["cosmos:thermal_boots"],
+	tank1: ["cosmos:oxygen_tank_heavy_full", "cosmos:oxygen_tank_med_full", "cosmos:oxygen_tank_light_full"],
+	tank2: ["cosmos:oxygen_tank_heavy_full", "cosmos:oxygen_tank_med_full", "cosmos:oxygen_tank_light_full"],
+	frequency: ["cosmos:frequency_module"],
+	mask: ["cosmos:oxygen_mask"],
+	parachute: ["cosmos:parachute_black", "cosmos:parachute_blue", "cosmos:parachute_brown", "cosmos:parachute_darkblue", "cosmos:parachute_darkgray", "cosmos:parachute_darkgreen", "cosmos:parachute_gray", "cosmos:parachute_lime", "cosmos:parachute_magenta", "cosmos:parachute_orange", "cosmos:parachute_pink", "cosmos:parachute_plain", "cosmos:parachute_purple", "cosmos:parachute_red", "cosmos:parachute_teal", "cosmos:parachute_yellow"],
+	thermal: ["cosmos:shield_controller"],
+	gear: "cosmos:oxygen_gear"
+};
 
 /* unused
 const maskTag = "mask(-)cosmos:oxygen_mask";
@@ -30,8 +41,8 @@ function despawn(entity, kill=false) {
 function setItems(player, entity) {
 	const container = entity.getComponent("inventory").container
 	const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}')
-	for (let i=0; i<slots.length; i++) {
-		const slot = slots[i]
+	for (let i=0; i<Object.keys(slots).length; i++) {
+		const slot = Object.keys(slots)[i]
 		if (space_gear[slot]) {
 			const [item_id, fill_level] = space_gear[slot].split(' ')
 			const item = new ItemStack(item_id)
@@ -45,8 +56,8 @@ function setItems(player, entity) {
 // UPDATE SPACE GEAR DYNAMIC PROPERTY
 function update(player, container) {
 	const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}')
-	for (let i=0; i<slots.length; i++) {
-		const slot = slots[i];
+	for (let i=0; i<Object.keys(slots).length; i++) {
+		const slot = Object.keys(slots)[i];
 		const item = container.getItem(i);
 		if (item) {
 			const durability = item.getComponent("minecraft:durability")
@@ -84,7 +95,7 @@ world.afterEvents.entityDie.subscribe(({deadEntity:player})=> {
 	player.setDynamicProperty("space_gear", undefined);
 });
 
-// DELETING ENTITY ON LEAVING -- This doesn't work for some reason -- craches the game 
+// DELETING ENTITY ON LEAVING -- This doesn't work for some reason -- crashes the game 
 /*world.beforeEvents.playerLeave.subscribe(({player}) =>
 	player.dimension.getEntities({type: "cosmos:inv_ent"}).forEach(entity => {
 		if (entity.getDynamicProperty('owner') == player.nameTag) despawn(entity)
@@ -115,26 +126,26 @@ system.runInterval(()=> {
 			const location = player.location
 			entity.teleport(location, {dimension: player.dimension});
 			
-			// REGECT ITEMS AND UPDATE THE INVENTORY
+			// REJECT ITEMS AND UPDATE THE INVENTORY
 			const container = entity.getComponent("inventory").container;
 			//let haveOxyFirst = false; let tank1; let tank2;
-			for (let i=0; i<slots.length; i++) {
+			for (let i=0; i<Object.values(slots).length; i++) {
 				let item = container.getItem(i);
 				if (!item) continue;
-				if (!(item.hasTag(prefix + slots[i]) || ([4,5].includes(i) && item.hasTag(prefix + "tank")))) { // drops disallowed items
+				if (!Object.values(slots)[i].includes(item.typeId)) {
 					player.dimension.spawnItem(item, location);
 					container.setItem(i)
-				} else if (item.amount > 1) { //allows 1 accepted item to be equip
+				} else if (item.amount > 1) { //allows 1 accepted item to be equipped
 					item.amount -= 1;
 					player.dimension.spawnItem(item, location);
 					item.amount = 1;
 					container.setItem(i, item)
 				}/* unused
-				if (checkOxygen(player) && system.currentTick%20 == 0 && ["tank1","tank2"].includes(slots[i])){
-					if (slots[i]==="tank1") {
+				if (checkOxygen(player) && system.currentTick%20 == 0 && ["tank1","tank2"].includes(Object.keys(slots)[i])){
+					if (Object.keys(slots)[i]==="tank1") {
 						tank1 = i;
 					};
-					if (slots[i]==="tank2") {
+					if (Object.keys(slots)[i]==="tank2") {
 						tank2 = i;
 					}
 				};
@@ -189,7 +200,7 @@ function checkOxygen(p){
 	return p.hasTag("oxy_test") // it's only for testing 
 }
 
-//RESET DURABILTY SYSTEM
+//RESET DURABILITY SYSTEM
 system.afterEvents.scriptEventReceive.subscribe((event)=> {
 	if (event.id !== "delete:durability") return;
     let {sourceEntity:p} = event;

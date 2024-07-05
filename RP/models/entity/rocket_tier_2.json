@@ -894,7 +894,7 @@
             }
          ],
          "description": {
-            "identifier": "geometry.rocket_tire_2",
+            "identifier": "geometry.rocket_tier_2",
             "recreated_by": "Sonichec0",
             "texture_height": 256,
             "texture_width": 256,

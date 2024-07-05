@@ -9,6 +9,9 @@
     "fluid_pipe": {
       "textures": "textures/blocks/fluid_pipe"
     },
+    "fluid_pipe_color": {
+      "textures": "textures/blocks/fluid_pipe_color"
+    },
     "fluid_tank": {
       "textures": "textures/blocks/fluid_tank"
     },
