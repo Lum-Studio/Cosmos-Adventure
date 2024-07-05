@@ -15,7 +15,7 @@ const slots = {
 	tank1: Object.keys(tanks),
 	tank2: Object.keys(tanks),
 	frequency: ["cosmos:frequency_module"],
-	mask: ["cosmos:oxygen_mask"],
+	mask: "cosmos:oxygen_mask",
 	parachute: ["cosmos:parachute_black", "cosmos:parachute_blue", "cosmos:parachute_brown", "cosmos:parachute_darkblue", "cosmos:parachute_darkgray", "cosmos:parachute_darkgreen", "cosmos:parachute_gray", "cosmos:parachute_lime", "cosmos:parachute_magenta", "cosmos:parachute_orange", "cosmos:parachute_pink", "cosmos:parachute_plain", "cosmos:parachute_purple", "cosmos:parachute_red", "cosmos:parachute_teal", "cosmos:parachute_yellow"],
 	thermal: ["cosmos:shield_controller"],
 	gear: "cosmos:oxygen_gear"
@@ -67,6 +67,9 @@ function update(player, container) {
 		const item = container.getItem(i);
 		if (slot == 'gear') {
 			player.setProperty("cosmos:oxygen_gear", item?.typeId == "cosmos:oxygen_gear")
+                                }
+                                if (slot == 'mask') {
+			player.setProperty("cosmos:oxygen_mask", item?.typeId == "cosmos:oxygen_mask")
 		}
 		if (slot == 'tank1') {
 			player.setProperty("cosmos:tank1", tanks[item?.typeId] ?? 'no_tank')
