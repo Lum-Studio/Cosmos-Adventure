@@ -192,6 +192,11 @@ world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
 				space_gear.gear = item.typeId; sound = true
 				player.setProperty("cosmos:oxygen_gear", true)
 			}
+			if (!player.getProperty("cosmos:oxygen_mask") && item.typeId == "cosmos:oxygen_mask") {
+				player.runCommand(`clear @s cosmos:oxygen_mask 0 1`)
+				space_gear.mask = item.typeId; sound = true
+				player.setProperty("cosmos:oxygen_mask", true)
+			}
 			if (Object.keys(tanks).includes(item.typeId)) {
 				let tank = undefined 
 				if (player.getProperty("cosmos:tank1") == 'no_tank') tank = "tank1"

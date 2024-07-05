@@ -10,6 +10,26 @@
                     "default": false ,
                     "client_sync": true
                 },
+                "cosmos:oxygen_mask": {
+                    "type": "bool", 
+                    "default": false ,
+                    "client_sync": true
+                },
+                "cosmos:thermal_helmet": {
+                    "type": "bool", 
+                    "default": false ,
+                    "client_sync": true
+                },
+                "cosmos:thermal_chestplate": {
+                    "type": "bool", 
+                    "default": false ,
+                    "client_sync": true
+                },
+                "cosmos:thermal_boots": {
+                    "type": "bool", 
+                    "default": false ,
+                    "client_sync": true
+                },
                 "cosmos:tank1": {
 					"type": "enum",
 					"values": ["no_tank", "light", "medium", "heavy"],
