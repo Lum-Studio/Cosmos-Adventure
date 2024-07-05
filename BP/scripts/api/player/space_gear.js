@@ -1,13 +1,19 @@
 import { world, system, EquipmentSlot, ItemStack } from '@minecraft/server';
 
 // This code is better now, but it still normal
+const tanks = {
+	"cosmos:oxygen_tank_light_full": "light",
+	"cosmos:oxygen_tank_med_full": "medium",
+	"cosmos:oxygen_tank_heavy_full": "heavy"
+}
+
 const slots = {
 	head: ["cosmos:thermal_helmet"],
 	body: ["cosmos:thermal_chestplate"],
 	legs: ["cosmos:thermal_leggings"],
 	feet: ["cosmos:thermal_boots"],
-	tank1: ["cosmos:oxygen_tank_heavy_full", "cosmos:oxygen_tank_med_full", "cosmos:oxygen_tank_light_full"],
-	tank2: ["cosmos:oxygen_tank_heavy_full", "cosmos:oxygen_tank_med_full", "cosmos:oxygen_tank_light_full"],
+	tank1: Object.keys(tanks),
+	tank2: Object.keys(tanks),
 	frequency: ["cosmos:frequency_module"],
 	mask: ["cosmos:oxygen_mask"],
 	parachute: ["cosmos:parachute_black", "cosmos:parachute_blue", "cosmos:parachute_brown", "cosmos:parachute_darkblue", "cosmos:parachute_darkgray", "cosmos:parachute_darkgreen", "cosmos:parachute_gray", "cosmos:parachute_lime", "cosmos:parachute_magenta", "cosmos:parachute_orange", "cosmos:parachute_pink", "cosmos:parachute_plain", "cosmos:parachute_purple", "cosmos:parachute_red", "cosmos:parachute_teal", "cosmos:parachute_yellow"],
@@ -53,13 +59,22 @@ function setItems(player, entity) {
 	}
 }
 
-// UPDATE SPACE GEAR DYNAMIC PROPERTY
+// UPDATE SPACE GEAR DYNAMIC PROPERTY AND PLAYER PROPERTIES
 function update(player, container) {
 	const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}')
 	for (let i=0; i<Object.keys(slots).length; i++) {
 		const slot = Object.keys(slots)[i];
 		const item = container.getItem(i);
 		if (item) {
+			if (slot == 'gear') {
+				player.setProperty("cosmos:oxygen_gear", item?.typeId == "cosmos:oxygen_gear")
+			}
+			if (slot == 'tank1') {
+				player.setProperty("cosmos:tank1", tanks[item?.typeId] ?? 'no_tank')
+			}
+			if (slot == 'tank2') {
+				player.setProperty("cosmos:tank2", tanks[item?.typeId] ?? 'no_tank')
+			}
 			const durability = item.getComponent("minecraft:durability")
 			space_gear[slot] = item.typeId + (durability ? ' ' + durability.damage : '')
 		} else delete space_gear[slot]

@@ -1,1 +1,21 @@
-{"format_version":"1.20.80","render_controllers":{"controller.render.oxygen_part":{"geometry":"geometry.oxygen_part","materials":[{"*":"material.default"}],"part_visibility":[{"gear":"query.property('cosmos:has_gear') == 1"},{"tank_11":"query.property('cosmos:has_tank_11') == 1"},{"tank_12":"query.property('cosmos:has_tank_12') == 1"},{"tank_13":"query.property('cosmos:has_tank_13') == 1"},{"tank_21":"query.property('cosmos:has_tank_21') == 1"},{"tank_22":"query.property('cosmos:has_tank_22') == 1"},{"tank_23":"query.property('cosmos:has_tank_23') == 1"}],"textures":["texture.oxygen_part"]}}}ture.oxygen_part"]}}}
+{
+    "format_version": "1.20.80",
+    "render_controllers": {
+        "controller.render.oxygen_part": {
+            "geometry": "geometry.oxygen_part",
+            "materials": [ { "*": "material.default" } ],
+            "part_visibility": [
+                {"gear": "query.property('cosmos:oxygen_gear')"},
+                { "tank_11": "query.property('cosmos:tank1') == 'light'" },
+                { "tank_12": "query.property('cosmos:tank1') == 'medium'" },
+                { "tank_13": "query.property('cosmos:tank1') == 'heavy'" },
+                { "tank_21": "query.property('cosmos:tank2') == 'light'" },
+                { "tank_22": "query.property('cosmos:tank2') == 'medium'" },
+                { "tank_23": "query.property('cosmos:tank2') == 'heavy'" }
+            ],
+            "textures": [
+                "texture.oxygen_part"
+            ]
+        }
+    }
+}
