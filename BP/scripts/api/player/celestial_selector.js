@@ -16,7 +16,7 @@ function set_planet_locations() {
 		solar_system[planet].y = coods.y
 	}
 }
-function set_astroids_location() {
+function set_asteroids_location() {
 	const middle = {x:200, y:101};
 	const random_angle = Math.random() * 360;
 	const coods = angle_to_vector(random_angle, solar_system.Asteroids.distance, middle);
@@ -50,9 +50,9 @@ function read_inventory(player) {
 	let results = ['§','f','§','f','§','f','§','f'];
 	const materials = [0, 0, 0, 0];
 	items.forEach((item)=> {
-		if (item.id == 'minecraft:gold_ingot') {materials[0] += item.amount};
-		if (item.id == 'minecraft:heart_of_the_sea') {{materials[1] += item.amount}};
-		if (item.id == 'minecraft:copper_ingot') {{materials[2] += item.amount}};
+		if (item.id == 'cosmos:aluminum_ingot') {materials[0] += item.amount};
+		if (item.id == 'cosmos:advanced_wafer') {{materials[1] += item.amount}};
+		if (item.id == 'cosmos:tin_ingot') {{materials[2] += item.amount}};
 		if (item.id == 'minecraft:iron_ingot') {{materials[3] += item.amount}};
 	})
 	results[1] = materials[0] >= 16 ? 't' : 'f'
@@ -255,16 +255,16 @@ function create_station(player, planet) {
 	const stations = JSON.parse(world.getDynamicProperty("space_stations") ?? '[]')
 	stations.push({name: `${player.nameTag}'s station`, owner: player.nameTag})
 	world.setDynamicProperty("space_stations", JSON.stringify(stations))
-	player.runCommand("clear @s gold_ingot 0 16");
-	player.runCommand("clear @s heart_of_the_sea 0 1");
-	player.runCommand("clear @s copper_ingot 0 32");
+	player.runCommand("clear @s cosmos:aluminum_ingot 0 16");
+	player.runCommand("clear @s cosmos:advanced_wafer 0 1");
+	player.runCommand("clear @s cosmos:tin_ingot 0 32");
 	player.runCommand("clear @s iron_ingot 0 24");
 	zoom_at(player, planet, planet)
 }
 
 world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
 	if ( (itemStack.typeId === "minecraft:compass") ) {
-		set_astroids_location()
+		set_asteroids_location()
 		select_solar_system(source, '')
 	}
 })

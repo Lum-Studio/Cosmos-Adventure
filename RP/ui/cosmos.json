@@ -157,7 +157,7 @@
 												},
 												{
 													"aluminum@cosmos.material": {
-														"$id": "ingot_aluminum",
+														"$id": "aluminum_ingot",
 														"$name": "Aluminum Ingot",
 														"$condition": "$has_aluminum",
 														"$amount": "16"
@@ -165,7 +165,7 @@
 												},
 												{
 													"wafer@cosmos.material": {
-														"$id": "wafer_advanced",
+														"$id": "advanced_wafer",
 														"$name": "Advanced Wafer",
 														"$condition": "$has_wafer",
 														"$amount": "1"
@@ -173,7 +173,7 @@
 												},
 												{
 													"tin@cosmos.material": {
-														"$id": "ingot_tin",
+														"$id": "tin_ingot",
 														"$name": "Tin Ingot",
 														"$condition": "$has_tin",
 														"$amount": "32"

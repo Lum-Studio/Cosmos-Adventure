@@ -65,16 +65,16 @@ function update(player, container) {
 	for (let i=0; i<Object.keys(slots).length; i++) {
 		const slot = Object.keys(slots)[i];
 		const item = container.getItem(i);
+		if (slot == 'gear') {
+			player.setProperty("cosmos:oxygen_gear", item?.typeId == "cosmos:oxygen_gear")
+		}
+		if (slot == 'tank1') {
+			player.setProperty("cosmos:tank1", tanks[item?.typeId] ?? 'no_tank')
+		}
+		if (slot == 'tank2') {
+			player.setProperty("cosmos:tank2", tanks[item?.typeId] ?? 'no_tank')
+		}
 		if (item) {
-			if (slot == 'gear') {
-				player.setProperty("cosmos:oxygen_gear", item?.typeId == "cosmos:oxygen_gear")
-			}
-			if (slot == 'tank1') {
-				player.setProperty("cosmos:tank1", tanks[item?.typeId] ?? 'no_tank')
-			}
-			if (slot == 'tank2') {
-				player.setProperty("cosmos:tank2", tanks[item?.typeId] ?? 'no_tank')
-			}
 			const durability = item.getComponent("minecraft:durability")
 			space_gear[slot] = item.typeId + (durability ? ' ' + durability.damage : '')
 		} else delete space_gear[slot]
@@ -180,6 +180,33 @@ system.runInterval(()=> {
 			} update(player, container)
 		})
 	})
+})
+
+//EQUIP ITEMS
+world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
+    itemComponentRegistry.registerCustomComponent("cosmos:space_gear", {
+        onUse({source:player, itemStack:item}) {
+			const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}'); let sound = false
+			if (!player.getProperty("cosmos:oxygen_gear") && item.typeId == "cosmos:oxygen_gear") {
+				player.runCommand(`clear @s cosmos:oxygen_gear 0 1`)
+				space_gear.gear = item.typeId; sound = true
+				player.setProperty("cosmos:oxygen_gear", true)
+			}
+			if (Object.keys(tanks).includes(item.typeId)) {
+				let tank = undefined 
+				if (player.getProperty("cosmos:tank1") == 'no_tank') tank = "tank1"
+				else if (player.getProperty("cosmos:tank2") == 'no_tank') tank = "tank2"
+				if (tank) { 
+					const durability = item.getComponent("minecraft:durability")
+					player.runCommand(`clear @s ${item.typeId} -1 1`)
+					space_gear[tank] = item.typeId + (durability ? ' ' + durability.damage : ''); sound = true
+					player.setProperty(`cosmos:${tank}`, tanks[item.typeId])
+				}
+			}
+			if (sound) player.dimension.playSound("armor.equip_iron", player.location)
+			player.setDynamicProperty("space_gear", JSON.stringify(space_gear))
+        }
+    })
 })
 
 /* OXYGEN AND UNUSED FUNCTIONS - preserved for later use 
