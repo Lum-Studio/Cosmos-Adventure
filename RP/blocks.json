@@ -9,7 +9,7 @@
       "textures": {
          "down": "detailed_tin_decoration_block_top",
          "side": "detailed_tin_decoration_block",
-         "up": "detailed_tin_decoration_block_top"
+         "up": "tin_decoration_block"
       }
    },
    "moon_rock": {
