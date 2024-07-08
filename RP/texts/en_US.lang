@@ -1,4 +1,3 @@
-
 tile.cosmos:coal_generator.name=Coal Generator
 tile.cosmos:compressor.name=Compressor
 tile.cosmos:energy_storage_module.name=Energy Storage Module
@@ -6,7 +5,6 @@ tile.cosmos:energy_storage_cluster.name=Energy Storage Cluster
 tile.cosmos:oxygen_collector.name=Oxygen Collector
 tile.cosmos:circuit_fabricator.name=Circuit Fabricator
 tile.cosmos:nasa_workbench.name=NASA Workbench
-
 entity.cosmos:machine:coal_generator.name=Coal Generator
 entity.cosmos:machine:compressor.name=Compressor
 entity.cosmos:machine:energy_storage_module.name=Energy Storage Module
@@ -14,7 +12,6 @@ entity.cosmos:machine:energy_storage_cluster.name=Energy Storage Cluster
 entity.cosmos:machine:oxygen_collector.name=Oxygen Collector
 entity.cosmos:machine:circuit_fabricator.name=Circuit Fabricator
 entity.cosmos:nasa_workbench.name=NASA Workbench
-
 tile.cosmos:moon_rock.name=Moon Rock
 tile.cosmos:moon_dirt.name=Moon Dirt
 tile.cosmos:moon_turf.name=Moon Turf
@@ -28,21 +25,16 @@ tile.cosmos:fluid_tank.name=Fluid Tank
 tile.cosmos:rocket_launch_pad.name=Rocket Launch Pad
 tile.cosmos:mars_dungeon_bricks.name=Mars Dungeon Bricks
 tile.cosmos:moon_dungeon_bricks.name=Moon Dungeon Bricks
-
 tile.cosmos:test_stairs.name=Stairs
-
 tile.cosmos:tin_ore.name=Tin Ore
 tile.cosmos:aluminum_ore.name=Aluminum Ore
 tile.cosmos:silicon_ore.name=Silicon Ore
-
-## stairs
 tile.cosmos:mars_dungeon_bricks_stairs.name=Mars Dungeon Bricks Stairs
 tile.cosmos:moon_dungeon_bricks_stairs.name=Moon Dungeon Bricks Stairs
 tile.cosmos:mars_cobblestone_stairs.name=Mars Cobblestone Stairs
 tile.cosmos:moon_rock_stairs.name=Moon Rock Stairs
 tile.cosmos:tin_decoration_stairs.name=Tin Decoration Stairs
 tile.cosmos:detailed_tin_decoration_stairs.name=Detailed Tin Decoration Stairs
-
+tile.cosmos:silicon_block.name=Silicon Block
 tile.cosmos:tin_block.name=Tin Block
 tile.cosmos:aluminum_block.name=Aluminum Block
-tile.cosmos:silicon_block.name=Silicon Block

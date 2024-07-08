@@ -1,44 +1,40 @@
-
-tile.cosmos:coal_generator.name=Угольный генератор
-tile.cosmos:compressor.name=Компрессор
-tile.cosmos:energy_storage_module.name=Энергетическое хранилище 
-tile.cosmos:energy_storage_cluster.name=Энергетический кластер
-tile.cosmos:oxygen_collector.name=Сборщик кислорода
-tile.cosmos:circuit_fabricator.name=Производитель микросхем
-
-entity.cosmos:machine:coal_generator.name=Угольный генератор
-entity.cosmos:machine:compressor.name=Компрессор
-entity.cosmos:machine:energy_storage_module.name=Энергетическое хранилище
-entity.cosmos:machine:energy_storage_cluster.name=Энергетический кластер
-entity.cosmos:machine:oxygen_collector.name=Сборщик кислорода
-entity.cosmos:machine:circuit_fabricator.name=Производитель микросхем
-
-tile.cosmos:moon_rock.name=Лунный камень
-tile.cosmos:moon_dirt.name=Лунная почва
-tile.cosmos:moon_turf.name=Лунный грунт
-tile.cosmos:mars_cobblestone.name=Марсианский булыжник
-tile.cosmos:tin_decoration_block.name=Оловянный декоративный блок
-tile.cosmos:detailed_tin_decoration_block.name=Украшенный оловянный блок
-tile.cosmos:space_station.name=Космическая станция
-tile.cosmos:aluminum_wire.name=Алюминиевый провод
-tile.cosmos:fluid_tank.name=Жидкостный резервуар
-tile.cosmos:mars_dungeon_bricks.name=Кирпич марсианского подземелья
-tile.cosmos:moon_dungeon_bricks.name=Кирпич лунного подземелья
-
-tile.cosmos:test_stairs.name=Ступеньки
-
-tile.cosmos:tin_ore.name=Оловянная руда
-tile.cosmos:aluminum_ore.name=Алюминиевая руда
-tile.cosmos:silicon_ore.name=Кремниевая руда
-
-## stairs
-tile.cosmos:mars_dungeon_bricks_stairs.name=Ступеньки из кирпича марсианского подземелья
-tile.cosmos:moon_dungeon_bricks_stairs.name=Ступеньки из кирпича лунного подземелья
-tile.cosmos:mars_cobblestone_stairs.name=Ступеньки из марсианского камня
-tile.cosmos:moon_rock_stairs.name=Ступеньки из лунного камня
-tile.cosmos:tin_decoration_stairs.name=Ступеньки из декоративного оловянного блока
-tile.cosmos:detailed_tin_decoration_stairs.name=Ступеньки из украшенного оловянного блока
-
-tile.cosmos:tin_block.name=Блок олова
-tile.cosmos:aluminum_block.name=Блок алюминия
-tile.cosmos:silicon_block.name=Блок кремния
+tile.cosmos:coal_generator.name=РЈРіРѕР»СЊРЅС‹Р№ РіРµРЅРµСЂР°С‚РѕСЂ
+tile.cosmos:compressor.name=РљРѕРјРїСЂРµСЃСЃРѕСЂ
+tile.cosmos:energy_storage_module.name=РњРѕРґСѓР»СЊ С…СЂР°РЅРµРЅРёСЏ СЌРЅРµСЂРіРёРё
+tile.cosmos:energy_storage_cluster.name=РљР»Р°СЃС‚РµСЂ С…СЂР°РЅРµРЅРёСЏ СЌРЅРµСЂРіРёРё
+tile.cosmos:oxygen_collector.name=РЎР±РѕСЂС‰РёРє РєРёСЃР»РѕСЂРѕРґР°
+tile.cosmos:circuit_fabricator.name=РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊ РјРёРєСЂРѕСЃС…РµРј
+tile.cosmos:nasa_workbench.name=Р’РµСЂСЃС‚Р°Рє РќРђРЎРђ
+entity.cosmos:machine:coal_generator.name=РЈРіРѕР»СЊРЅС‹Р№ РіРµРЅРµСЂР°С‚РѕСЂ
+entity.cosmos:machine:compressor.name=РљРѕРјРїСЂРµСЃСЃРѕСЂ
+entity.cosmos:machine:energy_storage_module.name=РњРѕРґСѓР»СЊ С…СЂР°РЅРµРЅРёСЏ СЌРЅРµСЂРіРёРё
+entity.cosmos:machine:energy_storage_cluster.name=РљР»Р°СЃС‚РµСЂ С…СЂР°РЅРµРЅРёСЏ СЌРЅРµСЂРіРёРё
+entity.cosmos:machine:oxygen_collector.name=РЎР±РѕСЂС‰РёРє РєРёСЃР»РѕСЂРѕРґР°
+entity.cosmos:machine:circuit_fabricator.name=РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊ РјРёРєСЂРѕСЃС…РµРј
+entity.cosmos:nasa_workbench.name=Р’РµСЂСЃС‚Р°Рє РќРђРЎРђ
+tile.cosmos:moon_rock.name=Р›СѓРЅРЅС‹Р№ РєР°РјРµРЅСЊ
+tile.cosmos:moon_dirt.name=Р›СѓРЅРЅР°СЏ РіСЂСЏР·СЊ
+tile.cosmos:moon_turf.name=Р›СѓРЅРЅР°СЏ РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ
+tile.cosmos:mars_cobblestone.name=РњР°СЂСЃРёР°РЅСЃРєРёР№ Р±СѓР»С‹Р¶РЅРёРє
+tile.cosmos:tin_decoration_block.name=РћР»РѕРІСЏРЅРЅС‹Р№ РґРµРєРѕСЂР°С‚РёРІРЅС‹Р№ Р±Р»РѕРє
+tile.cosmos:detailed_tin_decoration_block.name=Р”РµС‚Р°Р»СЊРЅС‹Р№ Р±Р»РѕРє РґРµРєРѕСЂР° РёР· РѕР»РѕРІР°
+tile.cosmos:space_station.name=РљРѕСЃРјРёС‡РµСЃРєР°СЏ СЃС‚Р°РЅС†РёСЏ
+tile.cosmos:aluminum_wire.name=РђР»СЋРјРёРЅРёРµРІС‹Р№ РїСЂРѕРІРѕРґ
+tile.cosmos:fluid_pipe.name=Р–РёРґРєРѕСЃС‚РЅР°СЏ С‚СЂСѓР±Р°
+tile.cosmos:fluid_tank.name=Р–РёРґРєРѕСЃС‚РЅС‹Р№ Р±Р°Рє
+tile.cosmos:rocket_launch_pad.name=РЎС‚Р°СЂС‚РѕРІР°СЏ РїР»РѕС‰Р°РґРєР° РґР»СЏ СЂР°РєРµС‚
+tile.cosmos:mars_dungeon_bricks.name=РљРёСЂРїРёС‡Рё РњР°СЂСЃРёР°РЅСЃРєРѕРіРѕ РџРѕРґР·РµРјРµР»СЊСЏ
+tile.cosmos:moon_dungeon_bricks.name=РљРёСЂРїРёС‡Рё Р›СѓРЅРЅРѕРіРѕ РџРѕРґР·РµРјРµР»СЊСЏ
+tile.cosmos:test_stairs.name=Р›РµСЃС‚РЅРёС†Р°
+tile.cosmos:tin_ore.name=РћР»РѕРІСЏРЅРЅР°СЏ СЂСѓРґР°
+tile.cosmos:aluminum_ore.name=РђР»СЋРјРёРЅРёРµРІР°СЏ СЂСѓРґР°
+tile.cosmos:silicon_ore.name=РљСЂРµРјРЅРёРµРІР°СЏ СЂСѓРґР°
+tile.cosmos:mars_dungeon_bricks_stairs.name=Р›РµСЃС‚РЅРёС†Р° РёР· РєРёСЂРїРёС‡РµР№ РјР°СЂСЃРёР°РЅСЃРєРѕРіРѕ РїРѕРґР·РµРјРµР»СЊСЏ
+tile.cosmos:moon_dungeon_bricks_stairs.name=Р›РµСЃС‚РЅРёС†Р° РёР· РєРёСЂРїРёС‡РµР№ Р»СѓРЅРЅРѕРіРѕ РїРѕРґР·РµРјРµР»СЊСЏ
+tile.cosmos:mars_cobblestone_stairs.name=Р›РµСЃС‚РЅРёС†Р° РёР· РњР°СЂСЃРёР°РЅСЃРєРѕРіРѕ РєР°РјРЅСЏ
+tile.cosmos:moon_rock_stairs.name=Р›РµСЃС‚РЅРёС†Р° РёР· Р›СѓРЅРЅРѕРіРѕ РєР°РјРЅСЏ
+tile.cosmos:tin_decoration_stairs.name=РћР»РѕРІСЏРЅРЅР°СЏ СѓРєСЂР°С€РµРЅРЅР°СЏ Р»РµСЃС‚РЅРёС†Р°
+tile.cosmos:detailed_tin_decoration_stairs.name=Р”РµС‚Р°Р»СЊРЅР°СЏ Р»РµСЃС‚РЅРёС†Р° СЃ РѕР»РѕРІСЏРЅРЅС‹Рј СѓРєСЂР°С€РµРЅРёРµРј
+tile.cosmos:silicon_block.name=РљСЂРµРјРЅРёРµРІС‹Р№ Р±Р»РѕРє
+tile.cosmos:tin_block.name=РћР»РѕРІСЏРЅРЅС‹Р№ Р‘Р»РѕРє
+tile.cosmos:aluminum_block.name=РђР»СЋРјРёРЅРёРµРІС‹Р№ Р±Р»РѕРє
