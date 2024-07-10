@@ -6,6 +6,12 @@
     "aluminum_wire": {
       "textures": "textures/blocks/aluminum_wire"
     },
+    "arc_lamp_off": {
+      "textures": "textures/blocks/arc_lamp/arc_lamp_off"
+    },
+    "arc_lamp_on": {
+      "textures": "textures/blocks/arc_lamp/arc_lamp_on"
+    },
     "fluid_pipe": {
       "textures": "textures/blocks/fluid_pipe"
     },
