@@ -1,0 +1,105 @@
+{
+    "format_version": "1.20.60",
+    "minecraft:block": {
+        "description":{
+            "identifier": "cosmos:arc_lamp",
+            "menu_category": {"category": "items"},
+            "states":{
+                "cosmos:lamp_direction": [0, 1, 2, 3],
+                "cosmos:lamp_active": [false, true]
+            },
+            "traits" : {
+                "minecraft:placement_position": {
+                    "enabled_states": ["minecraft:block_face"]
+                }
+            }
+        },
+        "components":{
+            "minecraft:collision_box": false,
+            "minecraft:selection_box": {
+                "origin": [-5, 0, -5],
+                "size": [10, 9, 10]
+            },
+            "minecraft:geometry": {
+				"identifier": "geometry.arc_lamp",
+				"bone_visibility": {
+					"lamp_north_direction": "q.block_state('cosmos:lamp_direction') == 0",
+                    "lamp_south_direction": "q.block_state('cosmos:lamp_direction') == 1",
+                    "lamp_west_direction": "q.block_state('cosmos:lamp_direction')  == 2",
+                    "lamp_east_direction": "q.block_state('cosmos:lamp_direction') == 3"
+				}
+			},
+            "minecraft:material_instances": {
+                "*": { "texture": "arc_lamp_on", "render_method": "opaque" }
+            }
+        },
+        "permutations":[
+            {
+                "condition": "query.block_state('minecraft:block_face') == 'up'",
+                "components":{
+                    "minecraft:transformation":{
+                        "rotation":[0, 0, 0]
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('minecraft:block_face') == 'down'",
+                "components":{
+                    "minecraft:transformation":{
+                        "rotation":[0, 0, -180]
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('minecraft:block_face') == 'east'",
+                "components":{
+                    "minecraft:transformation":{
+                        "rotation":[0, -90, -90]
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('minecraft:block_face') == 'north'",
+                "components":{
+                    "minecraft:transformation":{
+                        "rotation":[-90, 0, 0]
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('minecraft:block_face') == 'west'",
+                "components":{
+                    "minecraft:transformation":{
+                        "rotation":[0, 90, 90]
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('minecraft:block_face') == 'south'",
+                "components":{
+                    "minecraft:transformation":{
+                        "rotation":[90, 0, -180]
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('cosmos:lamp_active') == true",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": { "texture": "arc_lamp_off", "render_method": "opaque" }
+                    },
+                    "minecraft:light_emission": 0
+                }
+            },
+            {
+                "condition": "query.block_state('cosmos:lamp_active') == false",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": { "texture": "arc_lamp_on", "render_method": "opaque" }
+                    },
+                    "minecraft:light_emission": 15
+                }
+            }
+        ]
+    }
+}
