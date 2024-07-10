@@ -21,13 +21,7 @@
                 "size": [10, 9, 10]
             },
             "minecraft:geometry": {
-				"identifier": "geometry.arc_lamp",
-				"bone_visibility": {
-					"lamp_north_direction": "q.block_state('cosmos:lamp_direction') == 0",
-                    "lamp_south_direction": "q.block_state('cosmos:lamp_direction') == 1",
-                    "lamp_west_direction": "q.block_state('cosmos:lamp_direction')  == 2",
-                    "lamp_east_direction": "q.block_state('cosmos:lamp_direction') == 3"
-				}
+				"identifier": "geometry.arc_lamp_item"
 			},
             "minecraft:material_instances": {
                 "*": { "texture": "arc_lamp_on", "render_method": "opaque" }
@@ -88,7 +82,16 @@
                     "minecraft:material_instances": {
                         "*": { "texture": "arc_lamp_off", "render_method": "opaque" }
                     },
-                    "minecraft:light_emission": 0
+                    "minecraft:light_emission": 0,
+                    "minecraft:geometry": {
+                        "identifier": "geometry.arc_lamp",
+                        "bone_visibility": {
+                            "lamp_north_direction": "q.block_state('cosmos:lamp_direction') == 0",
+                            "lamp_south_direction": "q.block_state('cosmos:lamp_direction') == 1",
+                            "lamp_west_direction": "q.block_state('cosmos:lamp_direction')  == 2",
+                            "lamp_east_direction": "q.block_state('cosmos:lamp_direction') == 3"
+                        }
+                    }
                 }
             },
             {
@@ -97,7 +100,16 @@
                     "minecraft:material_instances": {
                         "*": { "texture": "arc_lamp_on", "render_method": "opaque" }
                     },
-                    "minecraft:light_emission": 15
+                    "minecraft:light_emission": 15,
+                    "minecraft:geometry": {
+                        "identifier": "geometry.arc_lamp",
+                        "bone_visibility": {
+                            "lamp_north_direction": "q.block_state('cosmos:lamp_direction') == 0",
+                            "lamp_south_direction": "q.block_state('cosmos:lamp_direction') == 1",
+                            "lamp_west_direction": "q.block_state('cosmos:lamp_direction')  == 2",
+                            "lamp_east_direction": "q.block_state('cosmos:lamp_direction') == 3"
+                        }
+                    }
                 }
             }
         ]
