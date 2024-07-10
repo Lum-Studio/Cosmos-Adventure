@@ -11,6 +11,7 @@ import "./core/blocks/aluminum_wire.js"
 import "./core/blocks/fluid_tank.js"
 import "./core/blocks/stairs.js"
 import "./core/blocks/rocket_launch_pad.js"
+import "./core/blocks/arc_lamp.js"
 
 import "./core/matter/electricity.js"
 import "./core/matter/soilds.js"
