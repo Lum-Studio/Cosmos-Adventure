@@ -40,6 +40,14 @@ world.beforeEvents.playerBreakBlock.subscribe((event) => {
 	}
 })
 
+world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
+	blockTypeRegistry.registerCustomComponent("cosmos:placed", {
+        beforeOnPlayerPlace(e){
+            e.permutationToPlace = e.permutationToPlace.withState("cosmos:placed", true);
+        },
+    });
+})
+
 system.runInterval(()=> {
 	world.getAllPlayers().forEach(player => {
 		const item = player.getComponent("minecraft:equippable").getEquipment("Mainhand")?.typeId
