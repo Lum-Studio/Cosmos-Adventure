@@ -109,8 +109,8 @@ world.afterEvents.entityHitEntity.subscribe(({hitEntity:entity, damagingEntity:p
 world.afterEvents.entityDie.subscribe(({deadEntity:player})=> {
 	if (player.typeId != "minecraft:player") return
 	const entities = player.dimension.getEntities({type: "cosmos:inv_ent"})//.filter(entity => entity.getDynamicProperty('owner') != player.nameTag)
-	entities.length == 0 ? despawn(spawn(player), true) : entities.forEach(entity=> despawn(entity, true))
-	player.setDynamicProperty("space_gear", undefined);
+	entities.length == 0 ? despawn(spawn(player), !world.gameRules.keepInventory) : entities.forEach(entity=> despawn(entity, !world.gameRules.keepInventory))
+    if(!world.gameRules.keepInventory) player.setDynamicProperty("space_gear", undefined);
 });
 
 // DELETING ENTITY ON LEAVING -- This doesn't work for some reason -- crashes the game 
