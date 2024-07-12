@@ -88,6 +88,9 @@
     "energy_output": {
       "textures": "textures/blocks/machines/energy_output"
     },
+    "glowstone_torch": {
+      "textures": "textures/blocks/glowstone_torch"
+    },
     "machine_blank": {
       "textures": "textures/blocks/machines/machine_blank"
     },

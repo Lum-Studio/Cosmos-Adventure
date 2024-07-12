@@ -1,0 +1,14 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+				{
+                    "type": "item",
+                    "name": "cosmos:glowstone_torch",
+                    "weight": 1
+                }
+            ]
+        }
+    ]
+}

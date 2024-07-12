@@ -34,6 +34,9 @@
     "compressed_tin": {
       "textures": "textures/items/compressed_tin"
     },
+    "glowstone_torch": {
+      "textures": "textures/blocks/glowstone_torch"
+    },
     "rocket_tier_1": {
       "textures": "textures/items/rocket_tier_1"
     },
