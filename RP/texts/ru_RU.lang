@@ -23,6 +23,7 @@ tile.cosmos:space_station.name=Космическая станция
 tile.cosmos:aluminum_wire.name=Алюминиевый провод
 tile.cosmos:fluid_pipe.name=Жидкостная труба
 tile.cosmos:fluid_tank.name=Жидкостный бак
+item.cosmos:glowstone_torch.name=Факел из светопыли
 tile.cosmos:rocket_launch_pad.name=Стартовая площадка для ракет
 tile.cosmos:mars_dungeon_bricks.name=Кирпичи Марсианского Подземелья
 tile.cosmos:moon_dungeon_bricks.name=Кирпичи Лунного Подземелья

@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Glowstone Torch"
+        "value": "item.cosmos:glowstone_torch.name"
       },
       "minecraft:icon": {
         "texture": "glowstone_torch"
