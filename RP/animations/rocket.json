@@ -4,8 +4,8 @@
 			"loop": true,
 			"bones": {
 				"entity": {
-					"rotation": ["-183 + 399 * c.is_first_person", "65 + 35 * c.is_first_person", "-273 + 581 * c.is_first_person"],
-					"position": ["27 - 50 * c.is_first_person", "31 + 14 * c.is_first_person + 4 * !q.is_on_ground + 4 * !q.is_sneaking", "-6 + 20 * c.is_first_person"]
+					"rotation": ["-180.5 + 400 * c.is_first_person", "65 + 35 * c.is_first_person", "-273 + 581 * c.is_first_person"],
+					"position": ["23 - 51 * c.is_first_person", "39 + 10 * c.is_first_person - 3.5 * q.is_on_ground * !c.is_first_person - 3.5 * q.is_sneaking * !c.is_first_person + 3.5 * q.is_sneaking * q.is_on_ground * !c.is_first_person ", "-6 + 25 * c.is_first_person"]
 				}
 			}
 		}
