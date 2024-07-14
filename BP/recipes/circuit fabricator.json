@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:circuit_fabricator"
+    },
+    "key": {
+      "B": "minecraft:stone_button",
+      "F": "minecraft:furnace",
+      "I": "cosmos:aluminum_ingot",
+      "L": "minecraft:lever",
+      "T": "minecraft:redstone_torch",
+      "W": "cosmos:aluminum_wire_item"
+    },
+    "pattern": [
+      "ILI",
+      "BFB",
+      "WTW"
+    ],
+    "result": {
+      "item": "cosmos:circuit_fabricator"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "unlock": [
+      {
+        "item": "cosmos:aluminum_wire_item"
+      }
+    ]
+  }
+}
