@@ -1,11 +1,35 @@
 {
   "resource_pack_name": "Cosmos_Adventure",
   "texture_data": {
+    "advanced_wafer": {
+      "textures": "textures/items/advanced_wafer"
+    },
+    "aluminum_ingot": {
+      "textures": "textures/items/aluminum_ingot"
+    },
+    "aluminum_wire_item": {
+      "textures": "textures/items/aluminum_wire_item"
+    },
     "ambient_thermal_controller": {
       "textures": "textures/items/ambient_thermal_controller"
     },
+    "basic_wafer": {
+      "textures": "textures/items/basic_wafer"
+    },
     "battery": {
       "textures": "textures/items/battery"
+    },
+    "blue_solar_wafer": {
+      "textures": "textures/items/blue_solar_wafer"
+    },
+    "buggy_seat": {
+      "textures": "textures/items/buggy_seat"
+    },
+    "buggy_storage": {
+      "textures": "textures/items/buggy_storage"
+    },
+    "buggy_wheel": {
+      "textures": "textures/items/buggy_wheel"
     },
     "canvas": {
       "textures": "textures/items/canvas"
@@ -34,14 +58,8 @@
     "compressed_tin": {
       "textures": "textures/items/compressed_tin"
     },
-    "glowstone_torch": {
-      "textures": "textures/blocks/glowstone_torch"
-    },
-    "rocket_tier_1": {
-      "textures": "textures/items/rocket_tier_1"
-    },
-    "rocket_tier_2": {
-      "textures": "textures/items/rocket_tier_2"
+    "copper_canister": {
+      "textures": "textures/items/copper_canister"
     },
     "dehydrated_apple": {
       "textures": "textures/items/dehydrated_apple"
@@ -55,6 +73,9 @@
     "dehydrated_potato": {
       "textures": "textures/items/dehydrated_potato"
     },
+    "dungeon_finder": {
+      "textures": "textures/items/dungeon_finder"
+    },
     "emergency_kit": {
       "textures": "textures/items/emergency_kit"
     },
@@ -64,8 +85,17 @@
     "frequency_module": {
       "textures": "textures/items/frequency_module"
     },
+    "fuel_bucket": {
+      "textures": "textures/items/fuel_bucket"
+    },
     "fuel_canister_partial_0": {
       "textures": "textures/items/fuel_canister_partial_0"
+    },
+    "glowstone_torch": {
+      "textures": "textures/blocks/glowstone_torch"
+    },
+    "heavy_duty_plate": {
+      "textures": "textures/items/heavy_duty_plate"
     },
     "lunar_sapphire": {
       "textures": "textures/items/lunar_sapphire"
@@ -73,14 +103,23 @@
     "meteoric_iron_ingot": {
       "textures": "textures/items/meteoric_iron_ingot"
     },
+    "meteoric_raw_iron": {
+      "textures": "textures/items/meteoric_raw_iron"
+    },
     "nose_cone": {
       "textures": "textures/items/nose_cone"
+    },
+    "oil_bucket": {
+      "textures": "textures/items/oil_bucket"
     },
     "oil_canister_partial_0": {
       "textures": "textures/items/oil_canister_partial_0"
     },
     "oxygen_concentrator": {
       "textures": "textures/items/oxygen_concentrator"
+    },
+    "oxygen_fan": {
+      "textures": "textures/items/oxygen_fan"
     },
     "oxygen_gear": {
       "textures": "textures/items/oxygen_gear"
@@ -96,6 +135,9 @@
     },
     "oxygen_tank_med_full": {
       "textures": "textures/items/oxygen_tank_med_full"
+    },
+    "oxygen_vent": {
+      "textures": "textures/items/oxygen_vent"
     },
     "parachute_black": {
       "textures": "textures/items/parachute_black"
@@ -154,8 +196,17 @@
     "raw_tin": {
       "textures": "textures/items/raw_tin"
     },
+    "rocket_engine": {
+      "textures": "textures/items/rocket_engine"
+    },
     "rocket_fins": {
       "textures": "textures/items/rocket_fins"
+    },
+    "rocket_tier_1": {
+      "textures": "textures/items/rocket_tier_1"
+    },
+    "rocket_tier_2": {
+      "textures": "textures/items/rocket_tier_2"
     },
     "schematic_buggy": {
       "textures": "textures/items/schematic_buggy"
@@ -168,6 +219,9 @@
     },
     "shield_controller": {
       "textures": "textures/items/shield_controller"
+    },
+    "solar_dust": {
+      "textures": "textures/items/solar_dust"
     },
     "solar_module_0": {
       "textures": "textures/items/solar_module_0"
@@ -220,65 +274,17 @@
     "thermal_leggings": {
       "textures": "textures/items/thermal_leggings"
     },
-    "aluminum_ingot": {
-      "textures": "textures/items/aluminum_ingot"
-    },
-    "aluminum_wire_item": {
-      "textures": "textures/items/aluminum_wire_item"
-    },
-    "fuel_bucket": {
-      "textures": "textures/items/fuel_bucket"
-    },
-    "oil_bucket": {
-      "textures": "textures/items/oil_bucket"
-    },
-    "buggy_seat": {
-      "textures": "textures/items/buggy_seat"
-    },
-    "buggy_storage": {
-      "textures": "textures/items/buggy_storage"
-    },
-    "buggy_wheel": {
-      "textures": "textures/items/buggy_wheel"
-    },
-    "copper_canister": {
-      "textures": "textures/items/copper_canister"
-    },
-    "tin_canister": {
-      "textures": "textures/items/tin_canister"
-    },
-    "dungeon_finder": {
-      "textures": "textures/items/dungeon_finder"
+    "thin_solar_wafer": {
+      "textures": "textures/items/thin_solar_wafer"
     },
     "tier_1_booster": {
       "textures": "textures/items/tier_1_booster"
     },
-    "rocket_engine": {
-      "textures": "textures/items/rocket_engine"
-    },
-    "heavy_duty_plate": {
-      "textures": "textures/items/heavy_duty_plate"
-    },
-    "meteoric_raw_iron": {
-      "textures": "textures/items/meteoric_raw_iron"
-    },
-    "oxygen_fan": {
-      "textures": "textures/items/oxygen_fan"
-    },
-    "oxygen_vent": {
-      "textures": "textures/items/oxygen_vent"
+    "tin_canister": {
+      "textures": "textures/items/tin_canister"
     },
     "tin_ingot": {
       "textures": "textures/items/tin_ingot"
-    },
-    "advanced_wafer": {
-      "textures": "textures/items/advanced_wafer"
-    },
-    "basic_wafer": {
-      "textures": "textures/items/basic_wafer"
-    },
-    "blue_solar_wafer": {
-      "textures": "textures/items/blue_solar_wafer"
     }
   },
   "texture_name": "atlas.items"
