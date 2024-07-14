@@ -4,8 +4,8 @@
 			"loop": true,
 			"bones": {
 				"entity": {
-					"rotation": [-183, 65, -273],
-					"position": [27, "(37 - 2 * c.is_first_person)", -6]
+					"rotation": ["-183 + 399 * c.is_first_person", "65 + 35 * c.is_first_person", "-273 + 581 * c.is_first_person"],
+					"position": ["27 - 50 * c.is_first_person", "31 + 14 * c.is_first_person + 4 * !q.is_on_ground + 4 * !q.is_sneaking", "-6 + 20 * c.is_first_person"]
 				}
 			}
 		}
