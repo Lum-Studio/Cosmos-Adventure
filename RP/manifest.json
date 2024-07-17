@@ -4,7 +4,8 @@
     "description": "prototype 717(17.07.24)\nstaff roll:\n-Sonichec0(first development director, programmer)\n-Theshadowsen(second development director, studio owner, main repository editor)\n-Yasser(programmer)\n-error404(programmer)\n-Node(CryptoKing)(programmer, lead repository editor)\n\nthx for all\n\nThe programmer has a nap, holdout, programmer!\n\nthis is a placeholder of manifest for non-compiler user!",
     "min_engine_version": [
       1,
-      21
+      21,
+      0
     ],
     "name": "Cosmos Adventure(717)",
     "uuid": "c00f1945-b2c6-24e7-57ae-32ab091945ab",
