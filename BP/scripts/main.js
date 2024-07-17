@@ -13,5 +13,7 @@ import "./core/blocks/stairs.js"
 import "./core/blocks/rocket_launch_pad.js"
 import "./core/blocks/arc_lamp.js"
 
+import "./core/items/grapple.js"
+
 import "./core/matter/electricity.js"
 import "./core/matter/soilds.js"
