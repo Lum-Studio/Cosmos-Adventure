@@ -13,7 +13,7 @@ function grappleProjectileStop(projectile){
 world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
     itemComponentRegistry.registerCustomComponent("cosmos:grapple", {
         onUse(data){
-            let visualProjectile = data.source.dimension.spawnEntity('cosmos:vgrapple', data.source.location);
+            let visualProjectile = data.source.dimension.spawnEntity('cosmos:vgrapple', {x: data.source.location.x, y: data.source.location.y + 1, z: data.source.location.z});
             visualProjectile.getComponent('minecraft:projectile').shoot(data.source.getViewDirection());
             visualProjectile.setDynamicProperty('owner', data.source.id);
         },
