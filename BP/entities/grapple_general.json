@@ -59,7 +59,7 @@
       "always_show": false
 	  },
     "minecraft:physics": {
-		"has_collision": false,
+		"has_collision": true,
 	    "has_gravity": false
       },
 	  "minecraft:conditional_bandwidth_optimization": {
