@@ -25,7 +25,7 @@
         },
       "minecraft:tick_world":{
 			"never_despawn": false,
-			"distance_to_players": 100
+			"distance_to_players": 256
 		},
 		"minecraft:damage_sensor": {
       "triggers": {
