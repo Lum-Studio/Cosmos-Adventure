@@ -1,0 +1,22 @@
+{
+  "animations": {
+    "animation.grapple.hold": {
+      "bones": {
+        "root": {
+          "position": [
+            0,
+            25,
+            40
+          ],
+          "rotation": [
+            90,
+            180,
+            0
+          ]
+        }
+      },
+      "loop": true
+    }
+  },
+  "format_version": "1.10.0"
+}
