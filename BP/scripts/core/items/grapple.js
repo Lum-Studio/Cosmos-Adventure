@@ -3,7 +3,8 @@ import {world} from "@minecraft/server";
 function grappleProjectileStop(location, projectile){
     let owner = world.getEntity(projectile.getDynamicProperty('owner'))
 	let generalProjectile = owner.dimension.spawnEntity('cosmos:gengrapple', owner.location);
-    let direction = {x: (location.x - owner.location.x)/Math.sqrt((location.x - owner.location.x) ** 2), y: (location.y - owner.location.y)/Math.sqrt((location.y - owner.location.y) ** 2), z: (location.z - owner.location.z)/Math.sqrt((location.z - owner.location.z) ** 2)};
+    let dirLenght = 1/Math.sqrt(((location.x - owner.location.x) * (location.x - owner.location.x)) + ((location.y - owner.location.y) * (location.y - owner.location.y)) + ((location.z - owner.location.z) * (location.z - owner.location.z)));
+    let direction = {x: (location.x - owner.location.x) * dirLenght, y: (location.y - owner.location.y) * dirLenght, z: (location.z - owner.location.z) * dirLenght};
     generalProjectile.getComponent('minecraft:rideable').addRider(owner);
     generalProjectile.getComponent('minecraft:projectile').shoot(direction);
     projectile.setDynamicProperty('generalGrappleProjectile', generalProjectile.id);
