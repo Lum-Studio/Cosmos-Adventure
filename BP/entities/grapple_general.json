@@ -3,6 +3,7 @@
   "minecraft:entity": {
     "description": {
       "identifier": "cosmos:gengrapple",
+      "runtime_identifier": "minecraft:arrow",
       "is_spawnable": false,
       "is_summonable": true,
       "is_experimental": false
@@ -59,7 +60,7 @@
       "always_show": false
 	  },
     "minecraft:physics": {
-		"has_collision": true,
+		"has_collision": false,
 	    "has_gravity": false
       },
 	  "minecraft:conditional_bandwidth_optimization": {
