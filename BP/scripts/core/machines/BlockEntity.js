@@ -3,9 +3,13 @@ import { Entity, system, world } from "@minecraft/server";
 class BlockEntity {
   position;
   runId;
+  block;
+  entity;
   constructor(block, entity) {
     BlockEntityData.className[entity] = this;
+    this.block = {id: block};
     this.position = entity.location;
+    this.entity = entity;
     this.tick = this.runId = system.runInterval(() => {
       if (!this.entity.isValid()) { 
         this.destroy();
@@ -24,6 +28,19 @@ class BlockEntity {
     const BlockEntitySelf = BlockEntityData.getByCoords(this.position);
     BlockEntitySelf?.destroy();
     BlockEntityData.list.delete(this.position);
+    this.clearContainer();
+    this.entity.remove();
+    this.entity.runCommand("/kill @s")
+  };
+  clearContainer() {
+    const container = this.entity.getComponent('minecraft:inventory')?.container;
+    if(container) {
+      for(let i = 0; i < container.size; i++) {
+        if (container.getItem(i)?.typeId == 'cosmos:ui') {
+          container.setItem(i, undefined)
+      }
+      }
+    }
   }
 }
 
