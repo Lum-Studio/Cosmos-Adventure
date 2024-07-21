@@ -10,13 +10,13 @@ class BlockEntity {
     this.block = {id: block};
     this.position = entity.location;
     this.entity = entity;
-    this.tick = this.runId = system.runInterval(() => {
+    this.runId = system.runInterval(() => {
       if (!this.entity.isValid()) { 
         this.destroy();
         system.clearRun(this.runId);
         return;
       };
-      return this.tick();
+      return this.onTick();
     });
   }
   onLoad() {}
@@ -25,7 +25,7 @@ class BlockEntity {
   onPlace() {}
   onDestroy() {}
   destroy() {
-    const BlockEntitySelf = BlockEntityData.getByCoords(this.position);
+    const BlockEntitySelf = BlockEntityData.getFromCoords(this.position);
     BlockEntitySelf?.destroy();
     BlockEntityData.list.delete(this.position);
     this.clearContainer();
@@ -62,7 +62,7 @@ class BlockEntityData {
    *
    * @param {Vector3} coords
    */
-  static getByCoords(coords) {
+  static getFromCoords(coords) {
     if (!this.list.has(coords)) return null;
     return this.list.get(coords);
   }
@@ -80,15 +80,16 @@ class BlockEntityData {
             `cosmos:${block}`
           )
         );
-        const result = this.getByCoords(block.location);
-        result?.init();
+        const result = this.getFromCoords(block.location);
+        result?.onInit();
       }
     });
 
     world.afterEvents.playerBreakBlock.subscribe((descriptor) => {
       const coords = descriptor.block.location;
-      const BlockEntity = this.getByCoords(coords);
+      const BlockEntity = this.getFromCoords(coords);
       if (BlockEntity) {
+        BlockEntity?.onDestroy();
         BlockEntity?.destroy();
         this.list.delete(coords);
       }
