@@ -11,11 +11,11 @@ class BlockEntity {
     this.position = entity.location;
     this.entity = entity;
     this.runId = system.runInterval(() => {
-      if (!this.entity.isValid()) { 
-        this.destroy();
-        system.clearRun(this.runId);
-        return;
-      };
+      // if (!this.entity.isValid()) { 
+      //   this.destroy();
+      //   system.clearRun(this.runId);
+      //   return;
+      // };
       return this.onTick();
     });
   }
