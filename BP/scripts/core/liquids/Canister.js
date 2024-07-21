@@ -27,17 +27,18 @@ class Canister {
     };
     /**
      * 
-     * @param {string} liquid 
+     * @param {number} liquid 
      * @param {Container} container 
      * @param {number} slot 
      */
-    extract(liquid, container, slot) {
+    extract(liquid_param, container, slot) {
        const canister_slot = container.getItem(slot);
        const liquid_level = this.getFilling(canister_slot);
+       const liquid = container.getItem(0).getLore()[liquid_param]; 
        if(liquid >= 150 || liquid_level >= Canister.full) return;
        if(system.currentTick % 10 === 0) {
         container.setItem(slot, this.get(liquid_level+1));
-        liquid-=150;
+        container.getItem(0).getLore()[liquid_param] = String(Number(liquid)-150);
        };
     };
 
