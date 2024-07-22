@@ -42,7 +42,8 @@
             {
                 "fuel_overlay@machines.item_image": {
                     "offset": [ -50, 0 ],
-					"texture": "textures/ui/extra_slots/fuel"
+					"texture": "textures/items/coal",
+					"alpha": 0.25
                 }
             },
 			{
