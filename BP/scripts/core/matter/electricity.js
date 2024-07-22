@@ -4,6 +4,9 @@ import { MachineInstances } from "../machines/MachineInstances";
 function get_data(machine) { return AllMachineBlocks[machine.typeId.replace('cosmos:machine:', '')] }
 function str(object) { return JSON.stringify(object) }
 function say(message = 'yes') { world.sendMessage('' + message) }
+function compare_position(a, b){
+	return a.x == b.x && a.y == b.y && a.z == b.z
+}
 
 const sides = new Map([
 	["cosmos:up", "above"],
@@ -54,8 +57,8 @@ export function charge_from_machine(machine, energy) {
 		const lore = input_container.getItem(input_data.lore.slot)?.getLore()
 		const power = lore ? + lore[input_data.lore.power] : 0
 		const space = data.capacity - energy
-		const io = str(location_of(input_entity, input_data.energy_output))
-		if ( str(machine.location) == io && power > 0) {
+		const io = location_of(input_entity, input_data.energy_output)
+        if(compare_position(machine.location, io) && power > 0){
 			energy += Math.min(data.maxInput, power, space)
 		}
 	} return energy
