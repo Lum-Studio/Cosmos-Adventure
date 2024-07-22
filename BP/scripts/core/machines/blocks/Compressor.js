@@ -1,7 +1,7 @@
 import { system, ItemStack } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
 import recipes from "../../../recipes/compressor"
-import { compare_lists } from "../../../api/utils";
+import { compare_lists, get_vars } from "../../../api/utils";
 
 function get_ingredients(container) {
 	const ingredients = []
@@ -46,9 +46,10 @@ export class Compressor extends MachineBlockEntity {
 		const has_space = !output_item || (output_item.typeId == output && output_item.amount < 64)
 		const fuelItem = container.getItem(9);
 		const isCoalBlock = fuelItem?.typeId === 'minecraft:coal_block';
-		let burnTime = container.getItem(14) ? + container.getItem(14).getLore()[0] : 0
-		let burnDuration = container.getItem(14) ? + container.getItem(14).getLore()[1] : 1
-		let progress = container.getItem(14) ? + container.getItem(14).getLore()[2] : 0
+	        const vars_item = container.getItem(14)
+	        let burnTime = get_vars(vars_item, 0)
+		let burnDuration = get_vars(vars_item, 1, 1)
+	        let progress = get_vars(vars_item, 2)
 
 		if (this.fuelTypes.has(fuelItem?.typeId) && burnTime == 0 && output) {
 			container.setItem(9, fuelItem.decrementStack())
