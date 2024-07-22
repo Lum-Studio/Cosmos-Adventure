@@ -3,7 +3,7 @@ import { MachineBlockEntity } from "../MachineBlockEntity";
 import { compare_lists } from "../../../api/utils.js";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
 import recipes from "../../../recipes/circuit_fabricator.js"
-import { get_data } from "../../../api/utils.js";
+import { get_data, get_vars } from "../../../api/utils.js";
 
 
 export class CircuitFabricator extends MachineBlockEntity {
@@ -29,15 +29,17 @@ export class CircuitFabricator extends MachineBlockEntity {
 		const [raw_item, output_item] = [4,6].map(i=> container.getItem(i))
 		const result = recipes.get(raw_item?.typeId)
 		const has_space = !output_item || (result && output_item.typeId == result[0] && result[1] + output_item.amount <= 64)
-        let energy = container.getItem(12) ? + container.getItem(12).getLore()[0] : 0
-		let progress = container.getItem(12) ? + container.getItem(12).getLore()[1] : 0
 		const is_loaded = compare_lists(materials.map(i=> i?.typeId), [
 			"minecraft:diamond",
 			"cosmos:raw_silicon",
 			"cosmos:raw_silicon",
 			"minecraft:redstone"
 		])
-		energy = charge_from_machine(this.entity, energy)
+	        const vars_item = container.getItem(12)
+	        let energy = get_vars(vars_item, 0)
+		let progress = get_vars(vars_item, 1)
+		
+	        energy = charge_from_machine(this.entity, energy)
 		
 		energy = charge_from_battery(this.entity, energy, 5)
 		
