@@ -1,5 +1,6 @@
 import { system, world, ItemStack } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
+import { get_vars } from "../../../api/utils.js"
 
 export class CoalGenerator extends MachineBlockEntity {
     constructor(block, entity) {
@@ -22,9 +23,10 @@ export class CoalGenerator extends MachineBlockEntity {
         const container = this.entity.getComponent('minecraft:inventory').container;
         const fuelItem = container.getItem(0);
 		const isCoalBlock = fuelItem?.typeId === 'minecraft:coal_block';
-        let burnTime = container.getItem(3) ? + container.getItem(3).getLore()[0] : 0
-		let heat = container.getItem(3) ? + container.getItem(3).getLore()[1] : 0
-		let power = container.getItem(3) ? + container.getItem(3).getLore()[2] : 0
+	        const vars_item = container.getItem(3)
+                let burnTime = get_vars(vars_item, 0)
+		let heat = get_vars(vars_item, 1)
+		let power = get_vars(vars_item, 2)
 		
         if ( this.fuelTypes.has(fuelItem?.typeId) && burnTime == 0) {
 			container.setItem(0, fuelItem.decrementStack())
