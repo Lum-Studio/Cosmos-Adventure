@@ -1,9 +1,8 @@
 { 
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "cosmos:gengrapple",
-      "runtime_identifier": "minecraft:arrow",
       "is_spawnable": false,
       "is_summonable": true,
       "is_experimental": false
@@ -25,16 +24,6 @@
 					}
 				]
 			},
-      "minecraft:projectile": {
-          "on_hit": {
-            "stick_in_ground": {
-              "shake_time" : 0
-            }
-          },
-          "power": 1.3,
-          "gravity": 0.0,
-          "anchor": 1
-        },
       "minecraft:tick_world":{
 			"never_despawn": false,
 			"distance_to_players": 256
@@ -52,8 +41,8 @@
       "min": 1
     },
     "minecraft:collision_box":{
-      "height": 0.3,
-      "width": 0.3
+      "height": 0.25,
+      "width": 0.25
     },
     "minecraft:nameable":{
       "allow_name_tag_renaming": false,
