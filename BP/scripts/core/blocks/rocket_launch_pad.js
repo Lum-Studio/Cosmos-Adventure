@@ -5,6 +5,7 @@ function assemble(block) {
 		for (let z of [-1, 0, 1]) {
 			const target = block.offset({x:x, y:0, z:z})
 			if (target.typeId != "cosmos:rocket_launch_pad") return
+			if (target.permutation.getState("cosmos:center")) return
 		}
 	} block.setPermutation(block.permutation.withState( 'cosmos:center', true))
 }
