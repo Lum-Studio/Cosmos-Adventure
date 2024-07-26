@@ -1,5 +1,5 @@
 { 
-  "format_version": "1.18.20",
+  "format_version": "1.20.0",
   "minecraft:entity": {
     "description": {
       "identifier": "cosmos:vgrapple",
@@ -9,7 +9,7 @@
       "properties": {
         "cosmos:lenght": {
           "type": "float",
-          "range": [-400.0, 400.0],
+          "range": [-9999.0, 9999.0],
           "default": 0.0
         } 
       }
