@@ -1,11 +1,18 @@
 { 
-  "format_version": "1.16.0",
+  "format_version": "1.18.20",
   "minecraft:entity": {
     "description": {
       "identifier": "cosmos:vgrapple",
       "is_spawnable": false,
       "is_summonable": true,
-      "is_experimental": false
+      "is_experimental": false,
+      "properties": {
+        "cosmos:lenght": {
+          "type": "float",
+          "range": [-400.0, 400.0],
+          "default": 0.0
+        } 
+      }
     },
     "component_groups": {
         "despawn": {
