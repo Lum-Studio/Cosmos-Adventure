@@ -10,6 +10,7 @@
         "cosmos:lenght": {
           "type": "float",
           "range": [-9999.0, 9999.0],
+          "client_sync": true,
           "default": 0.0
         } 
       }
