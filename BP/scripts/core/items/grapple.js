@@ -10,8 +10,6 @@ function grappleProjectileFlying(projectile, source){
             system.clearRun(fly)
             return;
         };
-        let distanceGen = ((projectile.location.x - source.location.x) ** 2) + ((projectile.location.y - source.location.y) ** 2) + ((projectile.location.z - source.location.z) ** 2);
-        projectile.setProperty("cosmos:lenght", distanceGen);
         let targetBlock = (generalProjectile.isValid() && generalProjectile.dimension.getBlockFromRay(generalProjectile.location, {x: (projectileLocation.x - generalProjectile.location.x), y: (projectileLocation.y - generalProjectile.location.y), z: (projectileLocation.z - generalProjectile.location.z)})?.block != undefined)? generalProjectile.dimension.getBlockFromRay(generalProjectile.location, {x: (projectileLocation.x - generalProjectile.location.x), y: (projectileLocation.y - generalProjectile.location.y), z: (projectileLocation.z - generalProjectile.location.z)})?.block.location:
         projectileLocation;
         let cof = (targetBlock == undefined)? 1: 
@@ -42,8 +40,6 @@ function grappleVisualProjectileFly(source){
             system.clearRun(flyVisual);
             return;
         }
-        let distance = ((visualProjectile.location.x - source.location.x) ** 2) + ((visualProjectile.location.y - source.location.y) ** 2) + ((visualProjectile.location.z - source.location.z) ** 2);
-        visualProjectile.setProperty("cosmos:lenght", distance);
         let targetV = (direction != undefined)? direction:
         (visualProjectile.dimension.getBlockFromRay({x: visualProjectile.location.x, y: visualProjectile.location.y + 1, z: visualProjectile.location.z}, vDirection)?.block != undefined)?
         visualProjectile.dimension.getBlockFromRay({x: visualProjectile.location.x, y: visualProjectile.location.y + 1, z: visualProjectile.location.z}, vDirection)?.block:
