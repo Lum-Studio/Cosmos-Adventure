@@ -1,30 +1,22 @@
 import {world, system} from "@minecraft/server";
 
-function grappleProjectileStop(projectile){
-    let owner = world.getEntity(projectile.getDynamicProperty('owner'))
+function grappleProjectileFlying(projectile, source){
+    let owner = source;
 	let generalProjectile = owner.dimension.spawnEntity('cosmos:gengrapple', {x: owner.location.x, y: owner.location.y + 1, z: owner.location.z});
-    let dirLenght = 1/Math.sqrt(((projectile.location.x - owner.location.x) ** 2) + ((projectile.location.y - (owner.location.y + 1)) ** 2) + ((projectile.location.z - owner.location.z) ** 2));
-    let direction = {x: (projectile.location.x - owner.location.x) * dirLenght, y: (projectile.location.y - (owner.location.y + 1)) * dirLenght, z: (projectile.location.z - owner.location.z) * dirLenght};
     generalProjectile.getComponent('minecraft:rideable').addRider(owner);
-    generalProjectile.getComponent('minecraft:projectile').shoot(direction);
-    projectile.setDynamicProperty('generalGrappleProjectile', generalProjectile.id);
-    //this function made for launching projectile with player to hook position|эта функция нужна для запуска снаряда с игроком к позиции крюка
-}
-function grappleProjectileFlying(projectile){
-    let owner = world.getEntity(projectile.getDynamicProperty('owner'))
-	let generalProjectile = owner.dimension.spawnEntity('cosmos:gengrapple', {x: owner.location.x, y: owner.location.y + 1, z: owner.location.z});
-    generalProjectile.setDynamicProperty('stopLocation', projectile.location);
-    let projectileLocation = generalProjectile.getDynamicProperty('stopLocation');
-    generalProjectile.getComponent('minecraft:rideable').addRider(owner);
+    let projectileLocation = projectile.location;
     let fly = system.runInterval(() => {
-        if(!projectile.isValid() && !generalProjectile.isValid()) system.clearRun(fly);
-        let targetBlock = (generalProjectile.isValid() || generalProjectile.dimension.getBlockFromRay(generalProjectile.location, {x: (projectileLocation.x - generalProjectile.location.x), y: (projectileLocation.y - generalProjectile.location.y), z: (projectileLocation.z - generalProjectile.location.z)})?.block != undefined)? generalProjectile.dimension.getBlockFromRay(generalProjectile.location, {x: (projectileLocation.x - generalProjectile.location.x), y: (projectileLocation.y - generalProjectile.location.y), z: (projectileLocation.z - generalProjectile.location.z)})?.block.location:
+        if(!projectile.isValid() && !generalProjectile.isValid()){
+            system.clearRun(fly)
+            return;
+        };
+        let targetBlock = (generalProjectile.isValid() && generalProjectile.dimension.getBlockFromRay(generalProjectile.location, {x: (projectileLocation.x - generalProjectile.location.x), y: (projectileLocation.y - generalProjectile.location.y), z: (projectileLocation.z - generalProjectile.location.z)})?.block != undefined)? generalProjectile.dimension.getBlockFromRay(generalProjectile.location, {x: (projectileLocation.x - generalProjectile.location.x), y: (projectileLocation.y - generalProjectile.location.y), z: (projectileLocation.z - generalProjectile.location.z)})?.block.location:
         projectileLocation;
         let cof = (targetBlock == undefined)? 1: 
-        (Math.abs(targetBlock.x - generalProjectile.location.x) <= 3 && Math.abs(targetBlock.y - generalProjectile.location.y) <= 3 && Math.abs(targetBlock.z - generalProjectile.location.z) <= 3)? 0.5:
-        (Math.abs(targetBlock.x - generalProjectile.location.x) <= 1.5 && Math.abs(targetBlock.y - generalProjectile.location.y) <= 1.5 && Math.abs(targetBlock.z - generalProjectile.location.z) <= 1.5)? 0.25:
+        (Math.abs(targetBlock.x - generalProjectile.location.x) <= 11 && Math.abs(targetBlock.y - generalProjectile.location.y) <= 11 && Math.abs(targetBlock.z - generalProjectile.location.z) <= 11)? 1:
+        (Math.abs(targetBlock.x - generalProjectile.location.x) <= 5 && Math.abs(targetBlock.y - generalProjectile.location.y) <= 5 && Math.abs(targetBlock.z - generalProjectile.location.z) <= 5)? 0.5:
         (Math.abs(targetBlock.x - generalProjectile.location.x) <= 1 && Math.abs(targetBlock.y - generalProjectile.location.y) <= 1 && Math.abs(targetBlock.z - generalProjectile.location.z) <= 1)? 0:
-        1;
+        2;
         let dirLenght = cof/Math.sqrt(((projectileLocation.x - generalProjectile.location.x) ** 2) + ((projectileLocation.y - generalProjectile.location.y) ** 2) + ((projectileLocation.z - generalProjectile.location.z) ** 2));
         let direction = {x: (projectileLocation.x - generalProjectile.location.x) * dirLenght, y: (projectileLocation.y - generalProjectile.location.y) * dirLenght, z: (projectileLocation.z - generalProjectile.location.z) * dirLenght};
         generalProjectile.clearVelocity();
@@ -39,16 +31,41 @@ function grappleProjectileFlying(projectile){
         }
     },2);
 }
+function grappleVisualProjectileFly(source){
+    let visualProjectile = source.dimension.spawnEntity('cosmos:vgrapple', {x: source.location.x, y: source.location.y + 1, z: source.location.z});
+    let direction = source.getBlockFromViewDirection()?.block;
+    let vDirection = source.getViewDirection();
+    let flyVisual = system.runInterval(() => {
+        if(!visualProjectile.isValid()){
+            system.clearRun(flyVisual);
+            return;
+        }
+        let targetV = (direction != undefined)? direction:
+        (visualProjectile.dimension.getBlockFromRay({x: visualProjectile.location.x, y: visualProjectile.location.y + 1, z: visualProjectile.location.z}, vDirection)?.block != undefined)?
+        visualProjectile.dimension.getBlockFromRay({x: visualProjectile.location.x, y: visualProjectile.location.y + 1, z: visualProjectile.location.z}, vDirection)?.block:
+        undefined;
+        if(targetV == undefined){
+            visualProjectile.clearVelocity();
+            visualProjectile.applyImpulse(vDirection);
+            return;
+        }
+        let dirLenghtV = 1/Math.sqrt(((targetV.location.x - visualProjectile.location.x) ** 2) + ((targetV.location.y - visualProjectile.location.y) ** 2) + ((targetV.location.z - visualProjectile.location.z) ** 2));
+        if(targetV != undefined){
+            visualProjectile.clearVelocity();
+            visualProjectile.applyImpulse({x: (targetV.location.x - visualProjectile.location.x) * dirLenghtV, y: (targetV.location.y - visualProjectile.location.y) * dirLenghtV, z: (targetV.location.z - visualProjectile.location.z) * dirLenghtV});
+        }
+        if(visualProjectile.isValid() && targetV != undefined && Math.abs(targetV.location.x - visualProjectile.location.x) <= 1 && Math.abs(targetV.location.y - visualProjectile.location.y) <= 1 && Math.abs(targetV.location.z - visualProjectile.location.z) <= 1){
+            visualProjectile.clearVelocity();
+            system.clearRun(flyVisual);
+            return grappleProjectileFlying(visualProjectile, source);
+        }
+        else if(!visualProjectile.isValid()) system.clearRun(flyVisual)
+    },2);
+}
 world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
     itemComponentRegistry.registerCustomComponent("cosmos:grapple", {
         onUse(data){
-            let visualProjectile = data.source.dimension.spawnEntity('cosmos:vgrapple', {x: data.source.location.x, y: data.source.location.y + 1, z: data.source.location.z});
-            visualProjectile.getComponent('minecraft:projectile').shoot(data.source.getViewDirection());
-            visualProjectile.setDynamicProperty('owner', data.source.id);
+            return grappleVisualProjectileFly(data.source);
         },
     })
 })
-world.afterEvents.projectileHitBlock.subscribe((data) => {
-    if(data.projectile.typeId != 'cosmos:vgrapple' && data.projectile.typeId != 'cosmos:gengrapple') return;
-    if(data.projectile.typeId === 'cosmos:vgrapple') grappleProjectileFlying(data.projectile);
-});

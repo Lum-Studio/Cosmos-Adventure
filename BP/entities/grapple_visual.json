@@ -3,7 +3,6 @@
   "minecraft:entity": {
     "description": {
       "identifier": "cosmos:vgrapple",
-      "runtime_identifier": "minecraft:arrow",
       "is_spawnable": false,
       "is_summonable": true,
       "is_experimental": false
@@ -14,16 +13,6 @@
         }
       },
     "components": {
-      "minecraft:projectile": {
-          "on_hit": {
-            "stick_in_ground": {
-              "shake_time" : 0
-            }
-          },
-          "power": 1.3,
-          "gravity": 0.0,
-          "anchor": 1
-        },
       "minecraft:tick_world":{
 			"never_despawn": false,
 			"distance_to_players": 256
