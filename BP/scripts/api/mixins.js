@@ -16,7 +16,7 @@ ItemStack.prototype.decrementStack = function(decrementItemAmount=1) {
  * @returns {ItemStack} The modified ItemStack or same ItemStack if amount is 64.
  */
 ItemStack.prototype.incrementStack = function(incrementItemMax=64, incrementItemAmount=1) {
-    if (this.amount < incrementItemMax) {
+    if ((incrementItemMax === 64)? this.amount < incrementItemMax: this.amount <= incrementItemMax) {
         this.amount = this.amount + incrementItemAmount;
     } return this;
 };
