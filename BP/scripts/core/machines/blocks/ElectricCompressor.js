@@ -56,6 +56,7 @@ export class ElectricCompressor extends MachineBlockEntity {
 
 		if ((energy == 0 || (!one_has_space(64) && !two_has_space(64))) && progress > 0) progress = progress - 5
         if (progress == 200) {
+			this.block.dimension.playSound("random.anvil_land", this.entity.location)
 			progress = 0
 			energy = energy - 2000
 			if(items.every((element) => (element === undefined || element.amount == 1)) && (one_has_space(64) || two_has_space(64)) && (!one_has_space(63) && !two_has_space(63))){
