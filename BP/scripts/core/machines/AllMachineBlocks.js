@@ -1,4 +1,4 @@
-import { CircuitFabricator, CoalGenerator, Compressor, EnergyStorage, OxygenCollector } from "./index"
+import { CircuitFabricator, CoalGenerator, Compressor, EnergyStorage, OxygenCollector, ElectricCompressor} from "./index"
 
 export default {
 	"coal_generator": {
@@ -41,6 +41,16 @@ export default {
 
 		energy_input: "left",
 		capacity: 2500000,
+	},
+	"electric_compressor":{
+		tileEntity: "cosmos:machine:electric_compressor",
+		ui: "",
+		class: ElectricCompressor,
+		lore: {slot: 4, energy: 0},
+
+		energy_input: "right",
+		capacity: 16000,
+		maxInput: 1500
 	},
 	"oxygen_collector": {
 		tileEntity: "cosmos:machine:oxygen_collector",

@@ -21,6 +21,11 @@
 					"death": { "sound": "none", "volume": 0 }
 				}
 			},
+			"cosmos:machine:electric_compressor": {
+				"events": {
+					"death": { "sound": "none", "volume": 0 }
+				}
+			},
 			"cosmos:machine:oxygen_collector": {
 				"events": {
 					"death": { "sound": "none", "volume": 0 }

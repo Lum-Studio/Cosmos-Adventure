@@ -97,6 +97,17 @@
          "south": "compressor"
       }
    },
+   "electric_compressor": {
+      "sound": "stone",
+      "textures": {
+         "up": "machine_blank",
+         "down": "machine_blank",
+         "north": "machine_side",
+         "east": "machine_side",
+         "west": "energy_input",
+         "south": "electric_compressor"
+      }
+   },
    "oxygen_collector": {
       "sound": "stone",
       "textures": {
