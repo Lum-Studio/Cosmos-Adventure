@@ -4,9 +4,9 @@ import { Block, ItemStack, World, Player } from "@minecraft/server";
  * Decrements the amount of the ItemStack by 1.
  * @returns {ItemStack | undefined} The modified ItemStack or undefined if amount is 1.
  */
-ItemStack.prototype.decrementStack = function () {
-    if (this.amount > 1) {
-        this.amount--;
+ItemStack.prototype.decrementStack = function(decrementItemAmount=1) {
+    if (this.amount > decrementItemAmount) {
+        this.amount = this.amount - decrementItemAmount;
         return this;
     } else return undefined;
 };
@@ -15,9 +15,9 @@ ItemStack.prototype.decrementStack = function () {
  * Increments the amount of the ItemStack by 1.
  * @returns {ItemStack} The modified ItemStack or same ItemStack if amount is 64.
  */
-ItemStack.prototype.incrementStack = function () {
-    if (this.amount < 64) {
-        this.amount++;
+ItemStack.prototype.incrementStack = function(incrementItemMax=64, incrementItemAmount=1) {
+    if (this.amount < incrementItemMax) {
+        this.amount = this.amount + incrementItemAmount;
     } return this;
 };
 
