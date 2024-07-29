@@ -59,7 +59,14 @@ export class ElectricCompressor extends MachineBlockEntity {
 			this.block.dimension.playSound("random.anvil_land", this.entity.location)
 			progress = 0
 			energy = energy - 2000
-			if(items.every((element) => (element === undefined || element.amount < 2)) && (one_has_space(64) || two_has_space(64))){
+			let itemsWithout = items.filter((itemWithout) => itemWithout != undefined)
+			let min = itemsWithout[0].amount;
+			for (const item of itemsWithout) {
+				if(item.amount < min){
+					min = item.amount;
+				}
+			}
+			if((min < 2) && (one_has_space(64) || two_has_space(64))){
 			for (let i = 0; i < 9; i++){
 				if (items[i]) container.setItem(i, items[i].decrementStack(1))
 			}
@@ -74,7 +81,7 @@ export class ElectricCompressor extends MachineBlockEntity {
 				} else container.setItem(10, new ItemStack(output))
 			}
 			}
-			else if(items.every((element) => (element === undefined || element.amount >= 2)) && (one_has_space(63) || two_has_space(63))){
+			else if((min >= 2) && (one_has_space(63) || two_has_space(63))){
 				for (let i = 0; i < 9; i++){
 					if (items[i]) container.setItem(i, items[i].decrementStack(2))
 				}
