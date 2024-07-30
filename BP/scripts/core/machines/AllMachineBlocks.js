@@ -44,7 +44,7 @@ export default {
 	},
 	"electric_compressor":{
 		tileEntity: "cosmos:machine:electric_compressor",
-		ui: "",
+		ui: "§e§l§e§c§t§r§i§c§_§c§o§m§p§r§e§s§s§o§r",
 		class: ElectricCompressor,
 		lore: {slot: 4, energy: 0},
 

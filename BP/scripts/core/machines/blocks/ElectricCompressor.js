@@ -39,11 +39,11 @@ export class ElectricCompressor extends MachineBlockEntity {
     compress(){
 		const container = this.entity.getComponent('minecraft:inventory').container;
 		const data = get_data(this.entity);
-        const vars_item = container.getItem(14)
+        const vars_item = container.getItem(15)
         let energy = get_vars(vars_item, 0)
 		let progress = get_vars(vars_item, 1)
 		energy = charge_from_machine(this.entity, energy)
-		energy = charge_from_battery(this.entity, energy, 5);
+		energy = charge_from_battery(this.entity, energy, 11);
         energy = (energy>0)? energy - 0.0125:
 		energy;
 		const items = get_ingredients(container)
@@ -107,13 +107,15 @@ export class ElectricCompressor extends MachineBlockEntity {
 		}
 		const counter = new ItemStack('cosmos:ui')
 		counter.nameTag = `cosmos:§ener${Math.round((energy / data.capacity) * 55)}`
-		container.setItem(11, counter)
-		counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`
 		container.setItem(12, counter)
-		counter.nameTag = `cosmos:  Status:\n${!progress ? '    §6Idle' : '§aCompressing'}`
+		counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`
 		container.setItem(13, counter)
+		counter.nameTag = `cosmos:  Status:\n${!progress ? '    §6Idle' : '§aCompressing'}`
+		container.setItem(14, counter)
 		counter.nameTag = ``
 		counter.setLore(['' +energy, '' +progress])
-		container.setItem(14, counter)
+		container.setItem(15, counter)
+		counter.nameTag = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.capacity} gJ`
+		container.setItem(16, counter)
     }
 }

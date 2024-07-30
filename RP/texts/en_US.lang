@@ -1,6 +1,7 @@
 tile.cosmos:arc_lamp.name=Arc Lamp
 tile.cosmos:coal_generator.name=Coal Generator
 tile.cosmos:compressor.name=Compressor
+tile.cosmos:electric_compressor.name=Electric Compressor
 tile.cosmos:energy_storage_module.name=Energy Storage Module
 tile.cosmos:energy_storage_cluster.name=Energy Storage Cluster
 tile.cosmos:oxygen_collector.name=Oxygen Collector
@@ -9,6 +10,7 @@ item.cosmos:glowstone_torch.name=Glowstone Torch
 tile.cosmos:nasa_workbench.name=NASA Workbench
 entity.cosmos:machine:coal_generator.name=Coal Generator
 entity.cosmos:machine:compressor.name=Compressor
+entity.cosmos:machine:electric_compressor.name=Electric Compressor
 entity.cosmos:machine:energy_storage_module.name=Energy Storage Module
 entity.cosmos:machine:energy_storage_cluster.name=Energy Storage Cluster
 entity.cosmos:machine:oxygen_collector.name=Oxygen Collector

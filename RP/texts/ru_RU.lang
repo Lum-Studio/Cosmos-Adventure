@@ -1,6 +1,7 @@
 tile.cosmos:arc_lamp.name=Дуговая лампа
 tile.cosmos:coal_generator.name=Угольный генератор
 tile.cosmos:compressor.name=Компрессор
+tile.cosmos:electric_compressor.name=Электрический компрессор 
 tile.cosmos:energy_storage_module.name=Модуль хранения энергии
 tile.cosmos:energy_storage_cluster.name=Кластер хранения энергии
 tile.cosmos:oxygen_collector.name=Сборщик кислорода
@@ -8,6 +9,7 @@ tile.cosmos:circuit_fabricator.name=Производитель микросхе�
 tile.cosmos:nasa_workbench.name=Верстак НАСА
 entity.cosmos:machine:coal_generator.name=Угольный генератор
 entity.cosmos:machine:compressor.name=Компрессор
+entity.cosmos:machine:electric_compressor.name=Электрический компрессор 
 entity.cosmos:machine:energy_storage_module.name=Модуль хранения энергии
 entity.cosmos:machine:energy_storage_cluster.name=Кластер хранения энергии
 entity.cosmos:machine:oxygen_collector.name=Сборщик кислорода

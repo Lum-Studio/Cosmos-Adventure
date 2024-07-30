@@ -142,5 +142,10 @@
     "circuit_fabricator_ui@machines.interface": {
 		"$screen": "circuit_fabricator_screen",
 		"$size": ["100%", "120%"]
+    },
+	"electric_compressor_screen@electric_compressor.main": {},
+    "electric_compressor_ui@machines.interface": {
+		"$screen": "electric_compressor_screen",
+		"$size": ["100%", "120%"]
     }
 }
