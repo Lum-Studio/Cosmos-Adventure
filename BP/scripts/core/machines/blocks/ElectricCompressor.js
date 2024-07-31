@@ -39,7 +39,7 @@ export class ElectricCompressor extends MachineBlockEntity {
     compress(){
 		const container = this.entity.getComponent('minecraft:inventory').container;
 		const data = get_data(this.entity);
-        const vars_item = container.getItem(15)
+        const vars_item = container.getItem(16)
         let energy = get_vars(vars_item, 0)
 		let progress = get_vars(vars_item, 1)
 		energy = charge_from_machine(this.entity, energy)
@@ -112,10 +112,10 @@ export class ElectricCompressor extends MachineBlockEntity {
 		container.setItem(13, counter)
 		counter.nameTag = `cosmos:  Status:\n${!progress ? '    §6Idle' : '§aCompressing'}`
 		container.setItem(14, counter)
+		counter.nameTag = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.capacity} gJ`
+		container.setItem(15, counter)
 		counter.nameTag = ``
 		counter.setLore(['' +energy, '' +progress])
-		container.setItem(15, counter)
-		counter.nameTag = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.capacity} gJ`
 		container.setItem(16, counter)
     }
 }
