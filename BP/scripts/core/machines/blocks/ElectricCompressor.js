@@ -105,7 +105,6 @@ export class ElectricCompressor extends MachineBlockEntity {
 				}
 			}
 		}
-	        energy = Math.floor(energy);
 		const counter = new ItemStack('cosmos:ui')
 		counter.nameTag = `cosmos:§ener${Math.round((energy / data.capacity) * 55)}`
 		container.setItem(12, counter)
