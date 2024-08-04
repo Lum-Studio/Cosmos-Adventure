@@ -61,7 +61,6 @@ export class ElectricCompressor extends MachineBlockEntity {
         if (progress == 200) {
 			this.block.dimension.playSound("random.anvil_land", this.entity.location)
 			progress = 0
-			energy = energy - 2000
 			let itemsWithout = items.filter((itemWithout) => itemWithout != undefined)
 			let min = itemsWithout[0].amount;
 			for (const item of itemsWithout) {
