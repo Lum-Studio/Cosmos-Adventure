@@ -52,7 +52,10 @@ export class ElectricCompressor extends MachineBlockEntity {
 		const output_items = [container.getItem(9), container.getItem(10)];
 		const one_has_space = (oneItemMax) => (!output_items[0] || (output_items[0].typeId == output && ((oneItemMax === 64)? output_items[0].amount < oneItemMax: output_items[0].amount <= oneItemMax)))
 		const two_has_space = (twoItemMax) => (!output_items[1] || (output_items[1].typeId == output && ((twoItemMax === 64)? output_items[1].amount < twoItemMax: output_items[1].amount <= twoItemMax)))
-        if (energy > 0 && progress < 200 && output && (one_has_space(64) || two_has_space(64))) progress = progress + 5
+        if (energy > 0 && progress < 200 && output && (one_has_space(64) || two_has_space(64))) {
+		progress = progress + 5;
+		energy -= Math.min(50, energy);
+	}
 
 		if ((energy == 0 || (!one_has_space(64) && !two_has_space(64))) && progress > 0) progress = progress - 5
         if (progress == 200) {
