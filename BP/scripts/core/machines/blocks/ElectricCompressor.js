@@ -44,8 +44,7 @@ export class ElectricCompressor extends MachineBlockEntity {
 		let progress = get_vars(vars_item, 1)
 		energy = charge_from_machine(this.entity, energy)
 		energy = charge_from_battery(this.entity, energy, 11);
-        energy = (energy>0)? energy - 0.0125:
-		energy;
+                energy -= Math.min(0.0125, energy);
 		const items = get_ingredients(container)
 		const ingredients = [...items.map(i => i?.typeId)].filter(i => i).sort()
 		const output = find_recipe(ingredients)
