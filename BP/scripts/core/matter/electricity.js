@@ -4,7 +4,7 @@ import { MachineInstances } from "../machines/MachineInstances";
 function get_data(machine) { return AllMachineBlocks[machine.typeId.replace('cosmos:machine:', '')] }
 function str(object) { return JSON.stringify(object) }
 function say(message = 'yes') { world.sendMessage('' + message) }
-function compare_position(a, b){
+export function compare_position(a, b){
 	return a.x == b.x && a.y == b.y && a.z == b.z
 }
 

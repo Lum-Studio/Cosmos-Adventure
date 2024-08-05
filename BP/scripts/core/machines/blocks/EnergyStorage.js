@@ -1,6 +1,6 @@
 import { system, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
-import { get_entity, location_of, charge_from_machine, charge_from_battery, update_baterry, } from "../../matter/electricity.js";
+import { compare_position, get_entity, location_of, charge_from_machine, charge_from_battery, update_baterry, } from "../../matter/electricity.js";
 import { get_data, str } from "../../../api/utils.js";
 
 function charge_machine(machine, energy) {
@@ -13,8 +13,8 @@ function charge_machine(machine, energy) {
 		const lore = output_container.getItem(output_data.lore.slot)?.getLore()
 		const output_energy = lore ? + lore[output_data.lore.energy] : output_data.capacity
 		const space = output_data.capacity - output_energy
-		const io = str(location_of(output_machine, output_data.energy_input))
-		if ( str(machine.location) == io ) {
+		const io = location_of(output_machine, output_data.energy_input)
+		if (compare_position(machine.location, io)) {
 			if (space == 0 && output_machine.typeId.includes('energy_storage')) energy = charge_machine(output_machine, energy)
 			else energy -= Math.min(output_data.maxInput, power, space)
 		}
@@ -90,4 +90,3 @@ export class EnergyStorage extends MachineBlockEntity {
 		}
 	}
 }
-
