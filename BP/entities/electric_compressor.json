@@ -51,9 +51,11 @@
                     "deals_damage": false
                 }
             },
-            "minecraft:type_family": {
+			"minecraft:type_family": {
                 "family": [
-                    "cosmos"
+                    "cosmos",
+					"power",
+					"has_power_input"
                 ]
             },
             "minecraft:collision_box": {
