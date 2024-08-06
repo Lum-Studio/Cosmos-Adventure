@@ -42,9 +42,12 @@ export class ElectricCompressor extends MachineBlockEntity {
         const vars_item = container.getItem(16)
         let energy = get_vars(vars_item, 0)
 		let progress = get_vars(vars_item, 1)
+		let timer = get_vars(vars_item, 2)
+		timer = (timer < 80)? timer + 1:
+		0;
 		energy = charge_from_machine(this.entity, energy)
 		energy = charge_from_battery(this.entity, energy, 11);
-                /*energy -= Math.min(0.0125, energy); currently not in use due to problems with non-integer values in machines(на данный момент не используется из-за проблем с числами имеющими значения после запятой в механизмах)*/
+        if(timer === 0) energy -= Math.min(1, energy)
 		const items = get_ingredients(container)
 		const ingredients = [...items.map(i => i?.typeId)].filter(i => i).sort()
 		const output = find_recipe(ingredients)
@@ -116,7 +119,7 @@ export class ElectricCompressor extends MachineBlockEntity {
 		counter.nameTag = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.capacity} gJ`
 		container.setItem(15, counter)
 		counter.nameTag = ``
-		counter.setLore(['' +energy, '' +progress])
+		counter.setLore(['' +energy, '' +progress, '' +timer])
 		container.setItem(16, counter)
     }
 }
