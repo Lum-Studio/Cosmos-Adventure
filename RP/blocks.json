@@ -166,6 +166,9 @@
    "aluminum_wire": {
       "sound": "cloth"
    },
+   "cheese_block": {
+      "sound": "cloth"
+   },
    "fluid_tank": {
       "sound": "glass"
    },

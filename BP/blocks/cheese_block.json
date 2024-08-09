@@ -31,6 +31,10 @@
             },
             "minecraft:material_instances": {
                 "*": { "texture": "cheese_block", "render_method": "alpha_test"}
+            },
+            "minecraft:loot":"empty.json",
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0.2
             }
         },
         "permutations":[
@@ -122,7 +126,8 @@
                     "minecraft:selection_box":{
                         "origin":[-7, 0, -7],
                         "size":[14, 8, 14]
-                    }
+                    },
+                    "minecraft:loot":"loot_tables/blocks/cheese_block.json"
                 }
             }
         ]

@@ -7,7 +7,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
             if(e.block.permutation.getState('cosmos:cheese_part_visibility') > 0){
                 e.block.setPermutation(e.block.permutation.withState('cosmos:cheese_part_visibility', e.block.permutation.getState('cosmos:cheese_part_visibility') - 1))
             }else if(e.block.permutation.getState('cosmos:cheese_part_visibility') === 0) e.block.setPermutation(BlockPermutation.resolve("minecraft:air"))
-            e.player.addEffect("saturation", 5, {amplifier: 1, showParticles: false})
+            e.player.addEffect("saturation", 1, {amplifier: 1, showParticles: false})
             e.dimension.playSound("random.burp", e.player.location)
         },
     });
