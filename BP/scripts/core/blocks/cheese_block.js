@@ -1,14 +1,16 @@
 import {world, BlockPermutation} from "@minecraft/server";
 
+const air = BlockPermutation.resolve("minecraft:air")
+
 world.beforeEvents.worldInitialize.subscribe(({ blockTypeRegistry }) => {
 	blockTypeRegistry.registerCustomComponent("cosmos:cheese_block", {
-        onPlayerInteract(e){
-            if(e.player.getGameMode() === 'creative' || e.player.getGameMode() === 'spectator' || !e.block) return
-            if(e.block.permutation.getState('cosmos:cheese_part_visibility') > 0){
-                e.block.setPermutation(e.block.permutation.withState('cosmos:cheese_part_visibility', e.block.permutation.getState('cosmos:cheese_part_visibility') - 1))
-            }else if(e.block.permutation.getState('cosmos:cheese_part_visibility') === 0) e.block.setPermutation(BlockPermutation.resolve("minecraft:air"))
-            e.player.addEffect("saturation", 1, {amplifier: 1, showParticles: false})
-            e.dimension.playSound("random.burp", e.player.location)
-        },
-    });
+        onPlayerInteract({player, block, dimension}) {
+            if(['creative', 'spectator'].includes(player.getGameMode()) || !block) return
+	    const cheese = block.permutation
+	    const size = cheese.getState('cosmos:cheese_part_visibility')
+            block.setPermutation(size > 0 ? cheese.withState('cosmos:cheese_part_visibility', size - 1) : air)
+            player.addEffect("saturation", 1, {amplifier: 1, showParticles: false})
+            dimension.playSound("random.burp", player.location)
+        }
+    })
 })
