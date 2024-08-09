@@ -1,4 +1,3 @@
-
 import "./api/mixins.js"
 import "./api/player/celestial_selector.js"
 import "./api/player/space_gear.js"
@@ -12,6 +11,7 @@ import "./core/blocks/fluid_tank.js"
 import "./core/blocks/stairs.js"
 import "./core/blocks/rocket_launch_pad.js"
 import "./core/blocks/arc_lamp.js"
+import "./core/blocks/cheese_block.js"
 
 import "./core/items/grapple.js"
 

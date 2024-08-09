@@ -12,6 +12,9 @@
     "arc_lamp_on": {
       "textures": "textures/blocks/arc_lamp/arc_lamp_on"
     },
+    "cheese_block": {
+      "textures": "textures/blocks/cheese_block"
+    },
     "fluid_pipe": {
       "textures": "textures/blocks/fluid_pipe"
     },
