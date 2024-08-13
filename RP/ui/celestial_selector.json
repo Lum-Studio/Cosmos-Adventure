@@ -1,0 +1,88 @@
+{
+  "namespace": "selector",
+  
+	"space_object": {
+		"type": "panel",
+		"size": [8, 8],
+		"$selection_size": [16, 16],
+		"anchor_to": "top_left",
+		"anchor_from": "top_left",
+		"offset": "$offset",
+		"$size": [8, 8],
+		"bindings": "$set_coords",
+		"controls": [
+			{
+				"button@cosmos.button": {
+					"size": [16, 16],
+					"$selection_size": "$selection_size",
+					"$action": "button.form_button_click",
+					"anchor_to": "center",
+					"anchor_from": "bottom_right",
+					"controls": [
+						{
+							"selection_box": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/selection_box",
+								"color": [0.2, 0.8, 1],
+								"size": "$selection_size",
+								"layer": 6,
+								"bindings": "$is_selected",
+								"anims": [
+									"@cosmos.size_down"
+								]
+							}
+						},
+						{
+							"hover": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/selection_box",
+								"color": [1, 1, 0],
+								"size": "$selection_size",
+								"layer": 7,
+								"anims": [
+									"@cosmos.fade_out",
+									"@cosmos.size_down"
+								]
+							}
+						}
+					],
+					"bindings": "$read_buttons"
+				}
+			},
+			{
+				"planet_image": {
+					"type": "image",
+					"texture": "$texture",
+					"size": "$size",
+					"anchor_to": "center",
+					"anchor_from": "bottom_right",
+					"layer": 3
+				}
+			},
+			{
+				"asteroid_image": {
+					"type": "image",
+					"texture": "textures/ui/cosmos/spin_asteroid",
+					"size": [10, 10],
+					"uv_size": [ 80, 80 ],
+					"anchor_to": "center",
+					"anchor_from": "bottom_right",
+					"layer": 4,
+					"anims": [
+						{
+							"animation": {
+								"anim_type": "flip_book",
+								"fps": 4,
+								"frame_count": 12,
+								"frame_step": 80
+							}
+						}
+					],
+					"bindings": "$is_asteroid_render"
+				}
+			}
+		]
+	},
+  
+  "footer": {}
+}

@@ -9,6 +9,8 @@
 					"type": "image",
 					"size": [401, 202],
 					"texture": "textures/ui/cosmos/solar_system_orbits",
+					"$condition": "(#title_text - 'Celestial Panel ' = 'Solar System')",
+					"bindings": "$visibility",
 					"controls": [
 						{
 							"planets@cosmos.form_buttons": {
@@ -17,14 +19,15 @@
 								"anchor_to": "top_left"
 							}
 						}
-					],
-					"bindings": "$is_solar_system"
+					]
 				}
 			},
 			{
 				"zoomed_planet": {
 					"type": "panel",
 					"size": [1, 1],
+					"$condition": "(not(#title_text - 'Celestial Panel ' = 'Solar System'))",
+					"bindings": "$visibility",
 					"controls": [
 						{
 							"planets@cosmos.form_buttons": {
@@ -33,8 +36,7 @@
 								"anchor_to": "top_left"
 							}
 						}
-					],
-					"bindings": "$not_solar_system"
+					]
 				}
 			},
 			{
@@ -221,7 +223,8 @@
 					"anchor_to": "top_right",
 					"offset": [-5, 5],
 					"layer": 8,
-					"bindings": "$is_station",
+					"$condition": "((#title_text - 'Celestial Panel ' = 'Solar System') and not(#form_text = ''))",
+					"bindings": "$visibility",
 					"controls": [
 						{
 							"green_launch_button": {
@@ -361,7 +364,8 @@
 								"anchor_from": "top_left",
 								"anchor_to": "top_left",
 								"offset": [8, 34],
-								"bindings": "$is_solar_system"
+								"$condition": "(#title_text - 'Celestial Panel ' = 'Solar System')",
+								"bindings": "$visibility"
 							}
 						},
 						{
@@ -381,7 +385,8 @@
 								"anchor_from": "top_left",
 								"anchor_to": "top_left",
 								"offset": [8, 34],
-								"bindings": "$is_station"
+								"$condition": "((#title_text - 'Celestial Panel ' = 'Solar System') and not(#form_text = ''))",
+								"bindings": "$visibility"
 							}
 						},
 						{
@@ -434,7 +439,8 @@
 											"anchor_to": "top_left",
 											"offset": [4, 1],
 											"layer": 3,
-											"bindings": "$is_solar_system"
+      								"$condition": "(#title_text - 'Celestial Panel ' = 'Solar System')",
+      								"bindings": "$visibility"
 										}
 									}
 								]
@@ -446,7 +452,8 @@
 								"anchor_from": "top_left",
 								"anchor_to": "top_left",
 								"offset": [2, 49],
-								"bindings": "$is_solar_system",
+								"$condition": "(#title_text - 'Celestial Panel ' = 'Solar System')",
+								"bindings": "$visibility",
 								"controls": [
 									{
 										"solar_system_planets@cosmos.form_buttons": {
@@ -605,11 +612,6 @@
 				}
 			}
 		]
-	},
-	"celestial_panel_background": {
-		"type": "image",
-		"texture": "textures/ui/cosmos/space",
-		"layer": 2
 	},
 
 	"catalog_planet_button@cosmos.button": {
@@ -932,7 +934,7 @@
 		"size": [16, 12],
 		"bindings": "$condition"
 	},
-	
+
 	"planet": {
 		"type": "panel",
 		"size": [1, 1],
@@ -961,7 +963,7 @@
 				}
 			},
 			{
-				"Overworld@cosmos.space_object": {
+				"Overworld@selector.space_object": {
 					"$offset": [0, -3],
 					"$name": "Overworld",
 					"$texture": "textures/ui/cosmos/earth"
@@ -1288,7 +1290,6 @@
 		]
 	},
 	
-	
 	"form_buttons": {
 		"type": "stack_panel",
 		"factory":{
@@ -1328,9 +1329,7 @@
 			}
 		]
 	},
-	
-	// animations
-	
+// animations {
 	"size_down": {
 		"anim_type": "size",
 		"duration": 0.5,
@@ -1392,6 +1391,7 @@
 		"from": 1,
 		"to": 0,
 		"next": "@cosmos.text_fade_in"
-	}
-	
+	},
+//}
+  "footer": {}
 }

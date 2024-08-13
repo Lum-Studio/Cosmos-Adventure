@@ -41,7 +41,10 @@
 				}
 			},
 			{
-				"celestial_panel@cosmos.celestial_panel_background": {
+				"celestial_panel": {
+					"type": "image",
+          "texture": "textures/ui/cosmos/space",
+          "layer": 2,
 					"controls": [{"content@cosmos.celestial_panel_content":{}}],
 					"bindings": [
 						{ "binding_name": "#form_title" },

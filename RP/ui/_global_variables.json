@@ -1,26 +1,38 @@
 {
 	//bindings ************************************************************
-	"$is_solar_system": [
-		{
+  "$visibility": [
+    {
 			"binding_type": "view",
-			"source_property_name": "(#title_text - 'Celestial Panel ' = 'Solar System')",
+			"source_property_name": "$condition",
 			"target_property_name": "#visible"
 		}
-	],
-	"$not_solar_system": [
+  ],
+	"$read_buttons": [
 		{
-			"binding_type": "view",
-			"source_property_name": "(not(#title_text - 'Celestial Panel ' = 'Solar System'))",
-			"target_property_name": "#visible"
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
 		}
 	],
-	"$can_zoom": [
-		{
-			"binding_type": "view",
-			"source_property_name": "((#title_text - 'Celestial Panel ' = 'Solar System') and not(#form_text = ''))",
-			"target_property_name": "#visible"
-		}
-	],
+// celestial selection
+// 	"$not_solar_system": [
+// 		{
+// 			"binding_type": "view",
+// 			"source_property_name": "(not(#title_text - 'Celestial Panel ' = 'Solar System'))",
+// 			"target_property_name": "#visible"
+// 		}
+// 	],
+// 	"$can_zoom": [
+// 		{
+// 			"binding_type": "view",
+// 			"source_property_name": "((#title_text - 'Celestial Panel ' = 'Solar System') and not(#form_text = ''))",
+// 			"target_property_name": "#visible"
+// 		}
+// 	],
 	"$is_planet": [
 		{
 			"binding_type": "view",
@@ -51,14 +63,14 @@
 			"source_property_name": "(#title_text - ('%.19s' * #title_text))",
 			"target_property_name": "#planet"
 		}
-	],
-	"$is_station": [
-		{
-			"binding_type": "view",
-			"source_property_name": "(not (#title_text = #title_text - 'Space Station')",
-			"target_property_name": "#visible"
-		}
-	],
+ 	],
+// 	"$is_station": [
+// 		{
+// 			"binding_type": "view",
+// 			"source_property_name": "(not (#title_text = #title_text - 'Space Station')",
+// 			"target_property_name": "#visible"
+// 		}
+// 	],
 	"$is_station_selected": [
 		{
 			"binding_type": "view",
@@ -542,17 +554,6 @@
 			"binding_type": "view",
 			"source_property_name": "(not (#form_button_text - $name = #form_button_text))",
 			"target_property_name": "#visible"
-		}
-	],
-	"$read_buttons": [
-		{
-			"binding_type": "collection_details",
-			"binding_collection_name": "form_buttons"
-		},
-		{
-			"binding_name": "#form_button_text",
-			"binding_type": "collection",
-			"binding_collection_name": "form_buttons"
 		}
 	]
 }

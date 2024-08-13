@@ -31,16 +31,16 @@
                     "client_sync": true
                 },
                 "cosmos:tank1": {
-					"type": "enum",
-					"values": ["no_tank", "light", "medium", "heavy"],
-					"default": "no_tank",
-					"client_sync": true
+                  "type": "enum",
+                  "values": ["no_tank", "light", "medium", "heavy"],
+                  "default": "no_tank",
+                  "client_sync": true
                 },
                 "cosmos:tank2": {
-					"type": "enum",
-					"values": ["no_tank", "light", "medium", "heavy"],
-					"default": "no_tank",
-					"client_sync": true
+                  "type": "enum",
+                  "values": ["no_tank", "light", "medium", "heavy"],
+                  "default": "no_tank",
+                  "client_sync": true
                 }
             }
         },
