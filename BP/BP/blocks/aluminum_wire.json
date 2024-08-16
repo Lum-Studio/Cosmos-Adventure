@@ -1,0 +1,118 @@
+{
+	"format_version": "1.20.60",
+	"minecraft:block": {
+		"description": {
+			"identifier": "cosmos:aluminum_wire",
+			"menu_category": {"category": "none"},
+			"states": {
+				"cosmos:up": [false, true],
+				"cosmos:down": [false, true],
+				"cosmos:north": [false, true],
+				"cosmos:east": [false, true],
+				"cosmos:south": [false, true],
+				"cosmos:west": [false, true]
+			}
+		},
+		"components": {
+			"minecraft:material_instances": { "*": { "texture": "aluminum_wire", "render_method": "blend" } },
+			"minecraft:collision_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
+			"minecraft:selection_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
+			"minecraft:light_dampening": 0,
+			"minecraft:destructible_by_mining": { "seconds_to_destroy": 0.5 },
+			"minecraft:destructible_by_explosion": false,
+			"minecraft:custom_components": ["cosmos:wire_placement"],
+			"minecraft:geometry": {
+				"identifier": "geometry.aluminum_wire",
+				"bone_visibility": {
+					"up": "q.block_state('cosmos:up')",
+					"down": "q.block_state('cosmos:down')",
+					"north": "q.block_state('cosmos:north')",
+					"east": "q.block_state('cosmos:east')",
+					"south": "q.block_state('cosmos:south')",
+					"west": "q.block_state('cosmos:west')"
+				}
+			}
+		}/*,  //there is 63 possible boxes
+		"permutations": [
+			{ //up
+				"condition": "q.block_state('cosmos:up') && !q.block_state('cosmos:down') && !q.block_state('cosmos:north') && !q.block_state('cosmos:east') && !q.block_state('cosmos:south') && !q.block_state('cosmos:west')",
+				"components": {
+					"minecraft:collision_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 10.5, 5] },
+					"minecraft:selection_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 10.5, 5] }
+				}
+			},
+			{ //down
+				"condition": "!q.block_state('cosmos:up') && q.block_state('cosmos:down') && !q.block_state('cosmos:north') && !q.block_state('cosmos:east') && !q.block_state('cosmos:south') && !q.block_state('cosmos:west')",
+				"components": {
+					"minecraft:collision_box": { "origin": [-2.5, 0, -2.5], "size": [5, 10.5, 5] },
+					"minecraft:selection_box": { "origin": [-2.5, 0, -2.5], "size": [5, 10.5, 5] }
+				}
+			},
+			{ //north
+				"condition": "!q.block_state('cosmos:up') && !q.block_state('cosmos:down') && q.block_state('cosmos:north') && !q.block_state('cosmos:east') && !q.block_state('cosmos:south') && !q.block_state('cosmos:west')",
+				"components": {
+					"minecraft:collision_box": { "origin": [-2.5, 5.5, -8], "size": [5, 5, 10.5] },
+					"minecraft:selection_box": { "origin": [-2.5, 5.5, -8], "size": [5, 5, 10.5] }
+				}
+			},
+			{ //east
+				"condition": "!q.block_state('cosmos:up') && !q.block_state('cosmos:down') && !q.block_state('cosmos:north') && q.block_state('cosmos:east') && !q.block_state('cosmos:south') && !q.block_state('cosmos:west')",
+				"components": {
+					"minecraft:collision_box": { "origin": [-8, 5.5, -2.5], "size": [10.5, 5, 5] },
+					"minecraft:selection_box": { "origin": [-8, 5.5, -2.5], "size": [10.5, 5, 5] }
+				}
+			},
+			{ //south
+				"condition": "!q.block_state('cosmos:up') && !q.block_state('cosmos:down') && !q.block_state('cosmos:north') && !q.block_state('cosmos:east') && q.block_state('cosmos:south') && !q.block_state('cosmos:west')",
+				"components": {
+					"minecraft:collision_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 10.5] },
+					"minecraft:selection_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 10.5] }
+				}
+			},
+			{ //west
+				"condition": "!q.block_state('cosmos:up') && !q.block_state('cosmos:down') && !q.block_state('cosmos:north') && !q.block_state('cosmos:east') && !q.block_state('cosmos:south') && q.block_state('cosmos:west')",
+				"components": {
+					"minecraft:collision_box": { "origin": [-2.5, 5.5, -2.5], "size": [10.5, 5, 5] },
+					"minecraft:selection_box": { "origin": [-2.5, 5.5, -2.5], "size": [10.5, 5, 5] }
+				}
+			},
+			// 2 connections
+			{ //up down
+				"condition": "q.block_state('cosmos:up') && q.block_state('cosmos:down') && !q.block_state('cosmos:north') && !q.block_state('cosmos:east') && !q.block_state('cosmos:south') && !q.block_state('cosmos:west')",
+				"components": {
+					"minecraft:collision_box": { "origin": [-2.5, 0, -2.5], "size": [5, 16, 5] },
+					"minecraft:selection_box": { "origin": [-2.5, 0, -2.5], "size": [5, 16, 5] }
+				}
+			},
+			{ //up north
+				"condition": "q.block_state('cosmos:up') && !q.block_state('cosmos:down') && q.block_state('cosmos:north') && !q.block_state('cosmos:east') && !q.block_state('cosmos:south') && !q.block_state('cosmos:west')",
+				"components": {
+					"minecraft:collision_box": { "origin": [-2.5, 5.5, -8], "size": [5, 16, 5] },
+					"minecraft:selection_box": { "origin": [-2.5, 5.5, -8], "size": [5, 16, 5] }
+				}
+			}
+		]*/
+	}
+}
+//sizes
+//lines
+//DU [5, 16, 5]
+//NS [5, 5, 16]
+//EW [16, 5, 5]
+
+//planes
+//DU [16, 5, 16]
+//NS [16, 16, 5]
+//EW [5, 16, 16]
+
+//sqares
+//DU [10.5, 5, 10.5]
+//NS [10.5, 10.5, 5]
+//EW [5, 10.5, 10.5]
+
+//corner [10.5, 10.5, 10.5]
+
+//rectangles
+//DU [10.5, 5, 10.5]
+//NS [10.5, 10.5, 5]
+//EW [5, 10.5, 10.5]

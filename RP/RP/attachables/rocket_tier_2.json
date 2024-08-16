@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+     "description": {
+       "identifier": "cosmos:rocket_tier_2",
+        "geometry": {
+           "default": "geometry.rocket_tier_2"
+        },
+        "materials": {
+           "default": "skeleton"
+        },
+        "render_controllers": [
+           "controller.render.skeleton"
+        ],
+        "animations": {
+          "hold": "animation.rocket.hold"
+        },
+        "scripts": {
+          "animate": [
+            "hold"
+          ]
+        },
+        "textures": {
+           "default": "textures/entity/rocket_tier_2"
+        }
+     }
+  }
+}

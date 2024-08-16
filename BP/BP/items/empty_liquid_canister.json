@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:empty_liquid_canister"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Empty Canister"
+      },
+      "minecraft:icon": {
+        "texture": "empty_liquid_canister"
+      }
+    }
+  }
+}

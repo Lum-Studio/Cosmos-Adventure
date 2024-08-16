@@ -1,0 +1,69 @@
+{
+	"format_version": "1.20.60",
+	"minecraft:block": {
+		"description": {
+			"identifier": "cosmos:fluid_pipe",
+			"menu_category": {"category": "items"},
+			"states": {
+				"cosmos:up": [true, false],
+				"cosmos:down": [true, false],
+				"cosmos:north": [true, false],
+				"cosmos:east": [true, false],
+				"cosmos:south": [true, false],
+				"cosmos:west": [true, false],
+				"cosmos:color": ["white", "silver", "gray", "black", "brown", "red", "orange", "yellow", "lime", "green", "light_blue", "cyan", "blue", "purple", "magenta", "pink"],
+				"cosmos:fluid": ["empty", "water", "lava"],
+				"cosmos:filled": [false, true]
+			}
+		},
+		"components": {
+			"minecraft:material_instances": {
+				"*": { "texture": "fluid_pipe", "render_method": "alpha_test" },
+				"fluid": { "texture": "still_lava", "render_method": "blend" },
+				"color": { "texture": "fluid_pipe_color", "render_method": "alpha_test" }
+			},
+			"minecraft:collision_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
+			"minecraft:selection_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
+			"minecraft:light_dampening": 0,
+			"minecraft:destructible_by_mining": { "seconds_to_destroy": 0.5 },
+			"minecraft:destructible_by_explosion": false,
+			//"minecraft:custom_components": ["cosmos:fluid_pipe"],
+			"minecraft:geometry": {
+				"identifier": "geometry.fluid_pipe",
+				"bone_visibility": {
+					"up": "q.block_state('cosmos:up')",
+					"down": "q.block_state('cosmos:down')",
+					"north": "q.block_state('cosmos:north')",
+					"east": "q.block_state('cosmos:east')",
+					"south": "q.block_state('cosmos:south')",
+					"west": "q.block_state('cosmos:west')",
+					
+					"fluid_middle": "q.block_state('cosmos:filled')",
+					"fluid_up": "q.block_state('cosmos:up') && q.block_state('cosmos:filled')",
+					"fluid_down": "q.block_state('cosmos:down') && q.block_state('cosmos:filled')",
+					"fluid_north": "q.block_state('cosmos:north') && q.block_state('cosmos:filled')",
+					"fluid_east": "q.block_state('cosmos:east') && q.block_state('cosmos:filled')",
+					"fluid_south": "q.block_state('cosmos:south') && q.block_state('cosmos:filled')",
+					"fluid_west": "q.block_state('cosmos:west') && q.block_state('cosmos:filled')",
+
+					"white": "q.block_state('cosmos:color') == 'white'",
+					"silver": "q.block_state('cosmos:color') == 'silver'",
+					"gray": "q.block_state('cosmos:color') == 'gray'",
+					"black": "q.block_state('cosmos:color') == 'black'",
+					"brown": "q.block_state('cosmos:color') == 'brown'",
+					"red": "q.block_state('cosmos:color') == 'red'",
+					"orange": "q.block_state('cosmos:color') == 'orange'",
+					"yellow": "q.block_state('cosmos:color') == 'yellow'",
+					"lime": "q.block_state('cosmos:color') == 'lime'",
+					"green": "q.block_state('cosmos:color') == 'green'",
+					"light_blue": "q.block_state('cosmos:color') == 'light_blue'",
+					"cyan": "q.block_state('cosmos:color') == 'cyan'",
+					"blue": "q.block_state('cosmos:color') == 'blue'",
+					"purple": "q.block_state('cosmos:color') == 'purple'",
+					"magenta": "q.block_state('cosmos:color') == 'magenta'",
+					"pink": "q.block_state('cosmos:color') == 'pink'"
+				}
+			}
+		}
+	}
+}

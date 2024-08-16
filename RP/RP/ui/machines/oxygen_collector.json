@@ -1,0 +1,10 @@
+{
+    "namespace": "oxygen_collector",
+
+    "main@machines.small_screen": {
+        "$machine": "oxygen_collector",
+        "controls": [
+            {"test@machines.screen_filler": {}}
+        ]
+    }
+}

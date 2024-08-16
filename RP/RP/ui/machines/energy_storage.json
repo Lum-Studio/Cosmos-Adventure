@@ -1,0 +1,152 @@
+{
+    "namespace": "energy_storage",
+	
+	"stored_energy@machines.text": {
+		"text": "#text",
+		"bindings": [
+			{
+				"binding_name": "#hover_text",
+				"binding_name_override": "#energy",
+				"binding_type": "collection",
+				"binding_collection_name": "container_items"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "(#energy - 'cosmos:' - '§o' - '§f')",
+				"target_property_name": "#text"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "(not(#energy - 'cosmos:§.' = #energy))",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+    
+	"capacity": {
+		"type": "panel",
+		"size": [1, 0],
+		"anchor_to": "top_left",
+		"anchor_from": "top_left",
+		"controls": [
+			{
+				"image": {
+					"type": "image",
+					"texture": "textures/ui/cosmos/progress_bar_fill",
+					"color": [0, 0.8, 0],
+					"size": [1, 5],
+					"anchor_to": "top_left",
+					"anchor_from": "top_left",
+					"bindings": [
+						{
+							"binding_name": "#hover_text",
+							"binding_name_override": "#energy",
+							"binding_type": "collection",
+							"binding_collection_name": "container_items"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "(#energy - 'cosmos:f' - '§o' - '§f' )",
+							"target_property_name": "#amount"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "(not(#energy - 'cosmos:f' = #energy))",
+							"target_property_name": "#visible"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "#amount",
+							"target_property_name": "#size_binding_x"
+						}
+					]
+				}
+			}
+		]
+	},
+
+    "main@machines.small_screen": {
+        "$machine": "energy_storage",
+        "controls": [
+            // {"test@machines.screen_filler": {}},
+			{ "label@machines.text": {
+                "offset": [ 0, 5 ],
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+				"text": "$label"
+			}},
+            {
+                "output_battery@machines.item_grid": {
+                    "offset": [ -50, -8 ],
+					"grid_dimensions": [ 1, 1 ]
+                }
+            },
+            {
+                "input_battery@machines.clipper": {
+                    "offset": [ -50, 16 ],
+                    "$grid_size": [ 1, 2 ],
+                    "$grid_pixels": [18, 36]
+                }
+            },
+            {
+                "input_overlay@machines.item_image": {
+                    "offset": [ -50, -8 ],
+                    "texture": "textures/ui/extra_slots/power"
+                }
+            },
+            {
+                "input_overlay@machines.item_image": {
+                    "offset": [ -50, 16 ],
+                    "texture": "textures/ui/extra_slots/power"
+                }
+            },
+			{
+				"output_arrow@crafting.crafting_arrow_large": {
+					"anchor_to": "center",
+					"anchor_from": "center",
+					"offset": [-20, -8],
+					"size": [ -22, 15 ]
+				}
+			},
+			{
+				"input_arrow@crafting.crafting_arrow_large": {
+					"anchor_to": "center",
+					"anchor_from": "center",
+					"offset": [-20, 16]
+				}
+			},
+            {
+                "stored_energy@machines.item_data": {
+                    "$name": "stored_energy",
+                    "offset": [ 10, -5 ],
+                    "size": [ 18, 18 ],
+					"layer": 4
+                }
+            },
+            {
+                "maxPower@machines.text": {
+					"text": "$maxPower",
+                    "offset": [ 25, 30 ]
+                }
+            },
+            {
+                "capacity@machines.image": {
+					"texture": "textures/ui/cosmos/progress_bar",
+                    "offset": [ 40, 16 ],
+                    "size": [ 75, 5 ],
+                    "layer": 3,
+					"controls": [
+						{
+							"energy@machines.item_data": {
+                                "$name": "capacity",
+								"anchor_from": "top_left",
+								"anchor_to": "top_left",
+								"layer": 4
+							}
+						}
+					]
+                }
+            }
+        ]
+    }
+}

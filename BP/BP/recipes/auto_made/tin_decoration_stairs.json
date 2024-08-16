@@ -1,0 +1,30 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:tin_decoration_stairs"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "key": {
+      "#": {
+        "item": "cosmos:tin_decoration_block"
+      }
+    },
+    "unlock": [
+      {
+        "item": "cosmos:tin_decoration_block"
+      }
+    ],
+    "result": {
+      "item": "cosmos:tin_decoration_stairs",
+      "count": 4
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+   "format_version": "1.20.10",
+   "minecraft:block": {
+      "description": {
+         "identifier": "cosmos:silicon_block",
+         "menu_category": {
+            "category": "construction"
+         },
+         "states": {
+            "cosmos:mining_speed": ["normal", "slow", "decreased", "fast", "rapid", "instant"]
+         }
+      },
+      "components": {
+         "minecraft:destructible_by_explosion": {
+            "explosion_resistance": 12
+         },
+         "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 1
+         },
+         "minecraft:map_color": "#ffffff",
+         "tag:require_iron_pickaxe": {}
+      },
+      "permutations": [
+         {
+            "condition": "q.block_state('cosmos:mining_speed') == 'slow'",
+            "components": {
+               "minecraft:destructible_by_mining": {
+                  "seconds_to_destroy": 10
+               }
+            }
+         },
+         {
+            "condition": "q.block_state('cosmos:mining_speed') == 'decreased'",
+            "components": {
+               "minecraft:destructible_by_mining": {
+                  "seconds_to_destroy": 2
+               }
+            }
+         },
+         {
+            "condition": "q.block_state('cosmos:mining_speed') == 'fast'",
+            "components": {
+               "minecraft:destructible_by_mining": {
+                  "seconds_to_destroy": 0.5
+               }
+            }
+         },
+         {
+            "condition": "q.block_state('cosmos:mining_speed') == 'rapid'",
+            "components": {
+               "minecraft:destructible_by_mining": {
+                  "seconds_to_destroy": 0.25
+               }
+            }
+         },
+         {
+            "condition": "q.block_state('cosmos:mining_speed') == 'instant'",
+            "components": {
+               "minecraft:destructible_by_mining": {
+                  "seconds_to_destroy": 0
+               }
+            }
+         }
+      ]
+   }
+}

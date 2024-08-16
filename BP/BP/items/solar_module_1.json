@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:solar_module_1"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Full Solar Panel"
+      },
+      "minecraft:icon": {
+        "texture": "solar_module_1"
+      }
+    }
+  }
+}

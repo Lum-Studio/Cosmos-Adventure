@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:rocket_engine_from_copper"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " FB",
+      "HCH",
+      "HOH"
+    ],
+    "key": {
+      "O": "cosmos:oxygen_vent",
+      "F": "minecraft:flint_and_steel",
+      "H": "cosmos:heavy_duty_plate",
+      "B": "minecraft:stone_button",
+      "C": "cosmos:copper_canister"
+    },
+    "unlock": [
+      {
+        "item": "cosmos:oxygen_vent"
+      }
+    ],
+    "result": {
+      "item": "cosmos:rocket_engine"
+    }
+  }
+}

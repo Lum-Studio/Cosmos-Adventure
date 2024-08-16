@@ -1,0 +1,14 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_furnace": {
+    "description": {
+    "identifier": "cosmos:furnace_aluminum_raw"
+    },
+
+    
+    "tags": ["furnace", "blast_furnace"],
+    "input": "cosmos:raw_aluminum",
+    "output": "cosmos:aluminum_ingot"
+  }
+  
+}

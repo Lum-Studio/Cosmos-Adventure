@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:rocket_fins"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Rocket Fins"
+      },
+      "minecraft:icon": {
+        "texture": "rocket_fins"
+      }
+    }
+  }
+}

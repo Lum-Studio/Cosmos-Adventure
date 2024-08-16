@@ -1,0 +1,15 @@
+{
+  "ui_defs": [
+    "ui/cosmos.json",
+    "ui/celestial_selector.json",
+    "ui/space_gear.json",
+    "ui/machines.json",
+    
+    "ui/machines/coal_generator.json",
+    "ui/machines/energy_storage.json",
+    "ui/machines/compressor.json",
+    "ui/machines/circuit_fabricator.json",
+    "ui/machines/oxygen_collector.json",
+    "ui/machines/electric_compressor.json"
+  ]
+}

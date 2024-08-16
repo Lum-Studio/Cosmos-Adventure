@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:tier_1_booster"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Tier 1 Booster"
+      },
+      "minecraft:icon": {
+        "texture": "tier_1_booster"
+      }
+    }
+  }
+}

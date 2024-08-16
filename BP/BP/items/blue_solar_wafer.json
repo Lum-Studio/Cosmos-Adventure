@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:blue_solar_wafer"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Blue Solar Wafer"
+      },
+      "minecraft:icon": {
+        "texture": "blue_solar_wafer"
+      }
+    }
+  }
+}

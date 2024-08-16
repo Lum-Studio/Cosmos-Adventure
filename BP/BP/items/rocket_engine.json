@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:rocket_engine"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Tier 1 Rocket Engine"
+      },
+      "minecraft:icon": {
+        "texture": "rocket_engine"
+      }
+    }
+  }
+}

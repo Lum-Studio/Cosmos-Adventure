@@ -1,0 +1,24 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cosmos:stonecutting_mars_cobblestone_stairs"
+    },
+    "tags": [
+      "stonecutter"
+    ],
+    "ingredients": [
+      {
+        "item": "cosmos:mars_cobblestone"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "cosmos:mars_cobblestone"
+      }
+    ],
+    "result": {
+      "item": "cosmos:mars_cobblestone_stairs"
+    }
+  }
+}

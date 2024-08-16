@@ -1,0 +1,20 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "cosmos:nasa_workbench",
+            "materials": {
+                "default": "shulker"
+            },
+            "textures": {
+                "default": "textures/entity/assembly"
+            },
+            "geometry": {
+                "default": "geometry.nasa_workbench"
+            },
+            "render_controllers": [
+                "controller.render.nasa_workbench"
+            ]
+        }
+    }
+}

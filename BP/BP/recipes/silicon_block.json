@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "cosmos:silicon_block"
+    },
+
+    
+    "tags": [ "crafting_table" ],
+    "pattern": [
+      "###",
+      "###",
+      "###"
+    ],
+    "key": {
+      "#": {
+        "item": "cosmos:raw_silicon"
+      }
+    },
+	"unlock": [
+        { "item": "cosmos:raw_silicon" }
+    ],
+    "result": {
+      "item": "cosmos:silicon_block"
+    }
+  }
+}

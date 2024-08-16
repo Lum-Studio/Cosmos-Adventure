@@ -1,0 +1,20 @@
+{
+   "format_version": "1.8.0",
+   "minecraft:client_entity": {
+      "description": {
+         "geometry": {
+            "default": "geometry.rocket_tier_2"
+         },
+         "identifier": "cosmos:rocket_tier_2",
+         "materials": {
+            "default": "skeleton"
+         },
+         "render_controllers": [
+            "controller.render.rocket"
+         ],
+         "textures": {
+            "default": "textures/entity/rocket_tier_2"
+         }
+      }
+   }
+}

@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:dehydrated_carrot"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Dehydrated Carrots"
+      },
+      "minecraft:icon": {
+        "texture": "dehydrated_carrot"
+      }
+    }
+  }
+}

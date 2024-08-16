@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "components": {
+      "minecraft:display_name": {
+        "value": "Shield Controller"
+      },
+      "minecraft:icon": {
+        "texture": "shield_controller"
+      }
+    },
+    "description": {
+      "identifier": "cosmos:shield_controller"
+    }
+  }
+}

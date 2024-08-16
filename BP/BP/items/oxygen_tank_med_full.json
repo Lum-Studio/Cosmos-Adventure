@@ -1,0 +1,23 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:oxygen_tank_med_full"
+    },
+    "components": {
+      "minecraft:custom_components": ["cosmos:space_gear"],
+      "minecraft:display_name": {
+        "value": "Medium Oxygen Tank"
+      },
+      "minecraft:durability": {
+        "damage_chance": {
+          "max": 100,
+          "min": 60
+        },
+        "max_durability": 1800
+      },
+      "minecraft:icon": "oxygen_tank_med_full",
+      "minecraft:max_stack_size": 1
+    }
+  }
+}

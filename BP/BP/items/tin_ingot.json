@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:tin_ingot"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Tin Ingot"
+      },
+      "minecraft:icon": {
+        "texture": "tin_ingot"
+      }
+    }
+  }
+}

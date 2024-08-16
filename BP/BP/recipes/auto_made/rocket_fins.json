@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:rocket_fins"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " S ",
+      "HSH",
+      "H H"
+    ],
+    "key": {
+      "H": "cosmos:heavy_duty_plate",
+      "S": "cosmos:compressed_steel"
+    },
+    "unlock": [
+      {
+        "item": "cosmos:heavy_duty_plate"
+      }
+    ],
+    "result": {
+      "item": "cosmos:rocket_fins"
+    }
+  }
+}

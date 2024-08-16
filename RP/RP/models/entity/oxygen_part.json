@@ -1,0 +1,113 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.oxygen_part",
+				"texture_width": 130,
+				"texture_height": 99,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "gear",
+					"parent": "body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [2.5, 20, 2.8], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [2.5, 21.05, 2.8], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [2.5, 22.1, 2.6], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [2.5, 23.15, 2.2], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [2.5, 24.2, 1.6], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [2.5, 25.25, 0.8], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [2.5, 26.3, -0.25], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [-3.5, 20, 2.8], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [-3.5, 21.05, 2.8], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [-3.5, 22.1, 2.6], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [-3.5, 23.15, 2.2], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [-3.5, 24.2, 1.6], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [-3.5, 25.25, 0.8], "size": [1, 1, 1], "uv": [1, 1], "mirror": true},
+						{"origin": [-3.5, 26.3, -0.25], "size": [1, 1, 1], "uv": [1, 1], "mirror": true}
+					]
+				},
+				{
+					"name": "tank_11",
+					"parent": "body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [1.5, 13.5, 2.3], "size": [3, 7, 3], "uv": [5, 1], "mirror": true}
+					]
+				},
+				{
+					"name": "tank_12",
+					"parent": "body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [1.5, 13.5, 2.3], "size": [3, 7, 3], "uv": [17, 1], "mirror": true}
+					]
+				},
+				{
+					"name": "tank_13",
+					"parent": "body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [1.5, 13.5, 2.3], "size": [3, 7, 3], "uv": [29, 1], "mirror": true}
+					]
+				},
+				{
+					"name": "tank_21",
+					"parent": "body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4.5, 13.5, 2.3], "size": [3, 7, 3], "uv": [5, 1], "mirror": true}
+					]
+				},
+				{
+					"name": "tank_22",
+					"parent": "body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4.5, 13.5, 2.3], "size": [3, 7, 3], "uv": [17, 1], "mirror": true}
+					]
+				},
+				{
+					"name": "tank_23",
+					"parent": "body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4.5, 13.5, 2.3], "size": [3, 7, 3], "uv": [29, 1], "mirror": true}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "body",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "mask",
+					"parent": "head",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4, 24, -4], "size": [8, 8, 8], "inflate": 0.7, "uv": [1, 66]}
+					]
+				}
+			]
+		}
+	]
+}

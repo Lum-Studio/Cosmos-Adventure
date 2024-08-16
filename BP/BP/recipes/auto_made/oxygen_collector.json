@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:oxygen_collector"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "SSS",
+      "FTV",
+      "ACA"
+    ],
+    "key": {
+      "C": "cosmos:oxygen_concentrator",
+      "T": "cosmos:tin_canister",
+      "A": "cosmos:compressed_aluminum",
+      "S": "cosmos:compressed_steel",
+      "F": "cosmos:oxygen_fan",
+      "V": "cosmos:oxygen_vent"
+    },
+    "unlock": [
+      {
+        "item": "cosmos:oxygen_concentrator"
+      }
+    ],
+    "result": {
+      "item": "cosmos:oxygen_collector"
+    }
+  }
+}
