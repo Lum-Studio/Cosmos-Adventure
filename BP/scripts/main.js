@@ -1,7 +1,6 @@
 import "./api/mixins.js"
 import "./api/player/celestial_selector.js"
 import "./api/player/space_gear.js"
-import "./api/player/debug_stick.js"
 
 import "./core/machines/Machine.js"
 import "./core/machines/index.js"
@@ -13,6 +12,8 @@ import "./core/blocks/rocket_launch_pad.js"
 import "./core/blocks/arc_lamp.js"
 import "./core/blocks/cheese_block.js"
 
+import "./core/items/debug_stick.js"
+import "./core/items/wrench.js"
 import "./core/items/grapple.js"
 
 import "./core/matter/electricity.js"
