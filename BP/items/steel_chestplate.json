@@ -1,16 +1,32 @@
 {
-  "format_version": "1.20.20",
+  "format_version": "1.20.80",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:steel_chestplate"
+      "identifier": "cosmos:steel_chestplate",
+      "menu_category": {
+        "category": "equipment"
+      }
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Heavy Duty Chestplate"
-      },
-      "minecraft:icon": {
-        "texture": "steel_chestplate"
-      }
+        "minecraft:max_stack_size": 1,
+        "minecraft:icon": {
+            "textures": {
+                "default": "steel_chestplate"
+            }
+        },
+        "minecraft:wearable": {
+            "slot": "slot.armor.chest"
+        },
+        "minecraft:creative_category": {
+            "parent": "itemGroup.name.chestplate"
+        },
+        "minecraft:display_name": {
+            "value": "Heavy Duty Chestplate"
+        },
+        "minecraft:enchantable": {
+            "slot": "armor_torso",
+            "value": 10
+        }
     }
   }
 }
