@@ -214,6 +214,18 @@
     "schematic_buggy": {
       "textures": "textures/items/schematic_buggy"
     },
+    "schematic_rocket_t2": {
+      "textures": "textures/items/schematic_rocket_t2"
+    },
+    "schematic_rocket_t3": {
+      "textures": "textures/items/schematic_rocket_t3"
+    },
+    "schematic_rocket_cargo": {
+      "textures": "textures/items/schematic_rocket_cargo"
+    },
+    "schematic_astro_miner": {
+      "textures": "textures/items/schematic_astro_miner"
+    },
     "sensor_glasses": {
       "textures": "textures/items/sensor_glasses"
     },
