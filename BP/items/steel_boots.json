@@ -4,7 +4,8 @@
     "description": {
       "identifier": "cosmos:steel_boots",
       "menu_category": {
-        "category": "equipment"
+        "category": "equipment",
+        "group": "itemGroup.name.boots"
       }
     },
     "components": {
@@ -16,9 +17,6 @@
         },
         "minecraft:wearable": {
             "slot": "slot.armor.feet"
-        },
-        "minecraft:creative_category": {
-            "parent": "itemGroup.name.boots"
         },
         "minecraft:display_name": {
             "value": "Heavy Duty Boots"

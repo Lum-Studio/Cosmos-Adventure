@@ -4,7 +4,8 @@
     "description": {
       "identifier": "cosmos:steel_leggings",
       "menu_category": {
-        "category": "equipment"
+        "category": "equipment",
+        "group": "itemGroup.name.leggings"
       }
     },
     "components": {
@@ -16,9 +17,6 @@
         },
         "minecraft:wearable": {
             "slot": "slot.armor.legs"
-        },
-        "minecraft:creative_category": {
-            "parent": "itemGroup.name.leggings"
         },
         "minecraft:display_name": {
             "value": "Heavy Duty Leggings"

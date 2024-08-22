@@ -2,14 +2,14 @@
   "format_version": "1.20.20",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:schematic_buggy"
+      "identifier": "cosmos:schematic_rocket_t2"
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%name.schematic.item\n§7%description.schematic_buggy.item"
+        "value": "§1%name.schematic.item\n§7%description.schematic_rocket_t2.item"
       },
       "minecraft:icon": {
-        "texture": "schematic_buggy"
+        "texture": "schematic_rocket_t2"
       }
     }
   }

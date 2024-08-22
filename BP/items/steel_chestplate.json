@@ -4,7 +4,8 @@
     "description": {
       "identifier": "cosmos:steel_chestplate",
       "menu_category": {
-        "category": "equipment"
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
       }
     },
     "components": {
@@ -16,9 +17,6 @@
         },
         "minecraft:wearable": {
             "slot": "slot.armor.chest"
-        },
-        "minecraft:creative_category": {
-            "parent": "itemGroup.name.chestplate"
         },
         "minecraft:display_name": {
             "value": "Heavy Duty Chestplate"

@@ -4,7 +4,8 @@
     "description": {
       "identifier": "cosmos:steel_helmet",
       "menu_category": {
-        "category": "equipment"
+        "category": "equipment",
+        "group": "itemGroup.name.helmet"
       }
     },
     "components": {
@@ -16,9 +17,6 @@
         },
         "minecraft:wearable": {
             "slot": "slot.armor.head"
-        },
-        "minecraft:creative_category": {
-            "parent": "itemGroup.name.helmet"
         },
         "minecraft:display_name": {
             "value": "Heavy Duty Helmet"
