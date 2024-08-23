@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Aluminum Wire"
+        "value": "§1%tile.aluminum_wire.alu_wire.name\n§7%tile.aluminum_wire.alu_wire.description"
       },
       "minecraft:icon": {
         "texture": "aluminum_wire_item"

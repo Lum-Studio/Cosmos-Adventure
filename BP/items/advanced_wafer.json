@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Advanced Wafer"
+        "value": "§1%item.basic_item.wafer_advanced.name"
       },
       "minecraft:icon": {
         "texture": "advanced_wafer"

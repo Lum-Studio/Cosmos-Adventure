@@ -3,7 +3,7 @@
    "minecraft:item": {
       "components": {
          "minecraft:display_name": {
-            "value": "Cheese Curd"
+            "value": "§1%item.cheese_curd.name"
          },
          "minecraft:icon": {
             "texture": "cheese_curd"

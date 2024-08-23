@@ -6,7 +6,7 @@
         },
         "components": {
             "minecraft:display_name": {
-                "value": "Battery"
+                "value": "§1%item.battery.name"
             },
             "minecraft:icon": {
                 "texture": "battery"
