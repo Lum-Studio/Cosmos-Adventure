@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Tier 1 Rocket Engine"
+        "value": "§1%item.engine.tier1engine.name"
       },
       "minecraft:icon": {
         "texture": "rocket_engine"
