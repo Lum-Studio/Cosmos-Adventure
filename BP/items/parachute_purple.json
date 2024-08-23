@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.parachute_purple.name"
+        "value": "%item.parachute_purple.name"
       },
       "minecraft:icon": {
         "texture": "parachute_purple"

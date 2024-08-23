@@ -4,7 +4,7 @@
     "components": {
       "minecraft:custom_components": ["cosmos:space_gear"],
       "minecraft:display_name": {
-        "value": "§1%item.thermal_leggings.name"
+        "value": "%item.thermal_leggings.name"
       },
       "minecraft:icon": {
         "texture": "thermal_leggings"

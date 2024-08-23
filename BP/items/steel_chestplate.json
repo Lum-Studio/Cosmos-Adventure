@@ -19,7 +19,7 @@
             "slot": "slot.armor.chest"
         },
         "minecraft:display_name": {
-            "value": "§1%item.steel_chestplate.name"
+            "value": "%item.steel_chestplate.name"
         },
         "minecraft:enchantable": {
             "slot": "armor_torso",

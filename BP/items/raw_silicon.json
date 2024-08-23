@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.basic_item.raw_silicon.name"
+        "value": "%item.basic_item.raw_silicon.name"
       },
       "minecraft:icon": {
         "texture": "raw_silicon"

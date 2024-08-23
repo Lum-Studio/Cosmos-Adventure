@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.schematic.name\n§7%schematic.rocket_t3.name"
+        "value": "%item.schematic.name\n§7%schematic.rocket_t3.name"
       },
       "minecraft:icon": {
         "texture": "schematic_rocket_t3"

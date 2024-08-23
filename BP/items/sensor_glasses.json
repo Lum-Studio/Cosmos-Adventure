@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.sensor_glasses.name"
+        "value": "%item.sensor_glasses.name"
       },
       "minecraft:icon": {
         "texture": "sensor_glasses"

@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.steel_pickaxe.name"
+        "value": "%item.steel_pickaxe.name"
       },
       "minecraft:icon": {
         "texture": "steel_pickaxe"

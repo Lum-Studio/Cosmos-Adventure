@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.rocket_fins.name"
+        "value": "%item.rocket_fins.name"
       },
       "minecraft:icon": {
         "texture": "rocket_fins"

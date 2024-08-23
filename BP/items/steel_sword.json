@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.steel_sword.name"
+        "value": "%item.steel_sword.name"
       },
       "minecraft:icon": {
         "texture": "steel_sword"

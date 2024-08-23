@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.shield_controller.name\n§7%item.shield_controller.description"
+        "value": "%item.shield_controller.name\n§7%item.shield_controller.description"
       },
       "minecraft:icon": {
         "texture": "shield_controller"

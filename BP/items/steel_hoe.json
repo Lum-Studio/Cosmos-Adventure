@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.steel_hoe.name"
+        "value": "%item.steel_hoe.name"
       },
       "minecraft:icon": {
         "texture": "steel_hoe"

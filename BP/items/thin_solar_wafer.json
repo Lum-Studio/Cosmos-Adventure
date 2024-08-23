@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.thin_solar_wafer.name"
+        "value": "%item.thin_solar_wafer.name"
       },
       "minecraft:icon": {
         "texture": "thin_solar_wafer"

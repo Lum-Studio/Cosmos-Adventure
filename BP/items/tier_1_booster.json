@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.engine.tier1booster.name"
+        "value": "%item.engine.tier1booster.name"
       },
       "minecraft:icon": {
         "texture": "tier_1_booster"

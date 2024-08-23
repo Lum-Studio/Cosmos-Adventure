@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.steel_pole.name"
+        "value": "%item.steel_pole.name"
       },
       "minecraft:icon": {
         "texture": "steel_pole"
