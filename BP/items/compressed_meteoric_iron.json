@@ -3,7 +3,7 @@
    "minecraft:item": {
       "components": {
          "minecraft:display_name": {
-            "value": "Compressed Meteoric Iron"
+            "value": "§1%item.compressed_meteoric_iron.name"
          },
          "minecraft:icon": {
             "texture": "compressed_meteoric_iron"

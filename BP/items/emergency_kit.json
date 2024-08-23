@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Space Emergency Kit"
+        "value": "§1%item.emergency_kit.name\n§1%item.emergency_kit.description"
       },
       "minecraft:icon": {
         "texture": "emergency_kit"

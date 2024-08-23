@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Dehydrated Potatoes"
+        "value": "§1%item.basic_item.dehydrated_potato.name"
       },
       "minecraft:icon": {
         "texture": "dehydrated_potato"

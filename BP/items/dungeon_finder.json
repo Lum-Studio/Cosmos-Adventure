@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Dungeon Locator"
+        "value": "§1%item.dungeonfinder.name\n§4%gui.creative_only.desc"
       },
       "minecraft:icon": {
         "texture": "dungeon_finder"

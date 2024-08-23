@@ -3,7 +3,7 @@
    "minecraft:item": {
       "components": {
          "minecraft:display_name": {
-            "value": "Compressed Copper"
+            "value": "§1%item.basic_item.compressed_copper.name"
          },
          "minecraft:icon": {
             "texture": "compressed_copper"

@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Dehydrated Melons"
+        "value": "§1%item.basic_item.dehydrated_melon.name"
       },
       "minecraft:icon": {
         "texture": "dehydrated_melon"

@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Dehydrated Apples"
+        "value": "§1%item.basic_item.dehydrated_apple.name"
       },
       "minecraft:icon": {
         "texture": "dehydrated_apple"

@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Dehydrated Carrots"
+        "value": "§1%item.basic_item.dehydrated_carrot.name"
       },
       "minecraft:icon": {
         "texture": "dehydrated_carrot"

@@ -3,7 +3,7 @@
    "minecraft:item": {
       "components": {
          "minecraft:display_name": {
-            "value": "Compressed Bronze"
+            "value": "§1%item.basic_item.compressed_bronze.name"
          },
          "minecraft:icon": {
             "texture": "compressed_bronze"
