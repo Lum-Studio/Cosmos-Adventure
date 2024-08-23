@@ -11,6 +11,7 @@
         }
       },
       "components": {
+        "minecraft:display_name": "%tile.dummyblock.launch_pad.name\n§7%tile.landing_pad.description",
         "minecraft:geometry": {
           "identifier": "geometry.rocket_launch_pad",
           "bone_visibility": {

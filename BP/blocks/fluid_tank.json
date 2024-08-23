@@ -14,6 +14,7 @@
          }
       },
 		"components": {
+                                                "minecraft:display_name": "%tile.fluid_tank.name\n§7%tile.fluid_tank.description",
 			"minecraft:material_instances": {
 				"up": { "texture": "glass", "render_method": "blend" },
 				"down": { "texture": "glass", "render_method": "blend" },
@@ -54,6 +55,7 @@
 			{
 				"condition": "q.block_state('cosmos:fluid') == 'lava'",
 				"components": {
+                                                                                "minecraft:display_name": "%tile.dummyblock.nasa_workbench.name\n§7%tile.rocket_workbench.description",
 					"minecraft:material_instances": {
 						"up": { "texture": "glass", "render_method": "blend" },
 						"down": { "texture": "glass", "render_method": "blend" },

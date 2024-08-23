@@ -9,6 +9,7 @@
             }
         },
         "components":{
+            "minecraft:display_name": "%tile.cheese.name\n§7%tile.cheese.description",
             "minecraft:custom_components":["cosmos:cheese_block"],
             "minecraft:placement_filter":{
                 "conditions":[

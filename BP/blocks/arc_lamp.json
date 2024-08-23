@@ -114,6 +114,7 @@
             }
         ],
         "components":{
+            "minecraft:display_name": "%tile.arclamp.name\n§7%tile.arclamp.description",
             "minecraft:custom_components": ["cosmos:placed"],
             "minecraft:collision_box": false,
             "minecraft:selection_box": {

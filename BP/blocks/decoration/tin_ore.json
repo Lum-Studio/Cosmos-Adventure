@@ -12,6 +12,7 @@
       }
     },
     "components": {
+      "minecraft:display_name": "%tile.basic_block_core.ore_tin_gc.name",
       "minecraft:loot": "loot_tables/blocks/tin_ore.json",
 	    "minecraft:map_color": [112, 112, 112],
       "tag:require_stone_pickaxe": {},
