@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.fuel_canister_partial.name"
+        "value": "%item.fuel_canister_partial.name"
       },
       "minecraft:icon": {
         "texture": "fuel_canister_partial_0"

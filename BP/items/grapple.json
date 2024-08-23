@@ -6,7 +6,7 @@
         "cosmos:grapple"
       ],
       "minecraft:display_name": {
-        "value": "§1%item.grapple.name"
+        "value": "%item.grapple.name"
       },
       "minecraft:icon": "grapple",
       "minecraft:max_stack_size": {

@@ -5,7 +5,7 @@
       "minecraft:custom_components": ["cosmos:space_gear"],
       "minecraft:icon": "oxygen_gear",
       "minecraft:display_name": {
-        "value": "§1%item.oxygen_gear.name"
+        "value": "%item.oxygen_gear.name"
       }
     },
     "description": {

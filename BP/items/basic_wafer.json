@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.basic_item.wafer_basic.name"
+        "value": "%item.basic_item.wafer_basic.name"
       },
       "minecraft:icon": {
         "texture": "basic_wafer"

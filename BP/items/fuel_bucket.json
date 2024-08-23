@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.bucket_fuel.name"
+        "value": "%item.bucket_fuel.name"
       },
       "minecraft:icon": {
         "texture": "fuel_bucket"

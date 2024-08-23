@@ -3,7 +3,7 @@
    "minecraft:item": {
       "components": {
          "minecraft:display_name": {
-            "value": "§1%item.canvas.name"
+            "value": "%item.canvas.name"
          },
          "minecraft:icon": {
             "texture": "canvas"

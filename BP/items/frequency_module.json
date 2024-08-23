@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.basic_item.frequency_module.name\n§7%gui.frequency_module.desc.0\n§7%gui.frequency_module.desc.1"
+        "value": "%item.basic_item.frequency_module.name\n§b%gui.frequency_module.desc.0\n§b%gui.frequency_module.desc.1"
       },
       "minecraft:icon": {
         "texture": "frequency_module"

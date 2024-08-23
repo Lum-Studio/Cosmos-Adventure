@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.basic_item.wafer_solar.name"
+        "value": "%item.basic_item.wafer_solar.name"
       },
       "minecraft:icon": {
         "texture": "blue_solar_wafer"

@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.empty_liquid_canister.name"
+        "value": "%item.empty_liquid_canister.name"
       },
       "minecraft:icon": {
         "texture": "empty_liquid_canister"

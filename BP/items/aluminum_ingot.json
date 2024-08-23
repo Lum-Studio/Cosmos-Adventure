@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.basic_item.ingot_aluminum.name"
+        "value": "%item.basic_item.ingot_aluminum.name"
       },
       "minecraft:icon": {
         "texture": "aluminum_ingot"

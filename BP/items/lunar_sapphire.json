@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.lunar_sapphire.name\n§7%item.lunar_sapphire.description"
+        "value": "%item.lunar_sapphire.name\n§7%item.lunar_sapphire.description"
       },
       "minecraft:icon": {
         "texture": "lunar_sapphire"

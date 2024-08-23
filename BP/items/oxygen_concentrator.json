@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.oxygen_concentrator.name"
+        "value": "%item.oxygen_concentrator.name"
       },
       "minecraft:icon": {
         "texture": "oxygen_concentrator"

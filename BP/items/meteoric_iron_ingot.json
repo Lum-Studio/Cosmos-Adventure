@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.meteoric_iron_ingot.name"
+        "value": "%item.meteoric_iron_ingot.name"
       },
       "minecraft:icon": {
         "texture": "meteoric_iron_ingot"

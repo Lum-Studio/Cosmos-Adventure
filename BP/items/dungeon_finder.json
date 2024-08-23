@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.dungeonfinder.name\n§4%gui.creative_only.desc"
+        "value": "%item.dungeonfinder.name\n§c%gui.creative_only.desc"
       },
       "minecraft:icon": {
         "texture": "dungeon_finder"

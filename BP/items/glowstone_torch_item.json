@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%tile.glowstone_torch.name\n§7%tile.glowstone_torch.description"
+        "value": "%tile.glowstone_torch.name\n§7%tile.glowstone_torch.description"
       },
       "minecraft:icon": {
         "texture": "glowstone_torch"

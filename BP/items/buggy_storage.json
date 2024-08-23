@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.buggymat.storage.name"
+        "value": "%item.buggymat.storage.name"
       },
       "minecraft:icon": {
         "texture": "buggy_storage"

@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.air_fan.name"
+        "value": "%item.air_fan.name"
       },
       "minecraft:icon": {
         "texture": "oxygen_fan"

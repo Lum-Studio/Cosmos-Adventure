@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.heavy_plating.name"
+        "value": "%item.heavy_plating.name"
       },
       "minecraft:icon": {
         "texture": "heavy_duty_plate"

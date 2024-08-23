@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "§1%item.buggymat.wheel.name"
+        "value": "%item.buggymat.wheel.name"
       },
       "minecraft:icon": {
         "texture": "buggy_wheel"

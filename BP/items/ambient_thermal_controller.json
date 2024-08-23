@@ -3,7 +3,7 @@
    "minecraft:item": {
       "components": {
          "minecraft:display_name": {
-            "value": "§1%item.basic_item.ambient_thermal_controller.name"
+            "value": "%item.basic_item.ambient_thermal_controller.name"
          },
          "minecraft:icon": {
             "texture": "ambient_thermal_controller"
