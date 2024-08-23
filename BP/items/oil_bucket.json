@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "Oil Bucket"
+        "value": "§1%item.bucket_oil.name"
       },
       "minecraft:icon": {
         "texture": "oil_bucket"
