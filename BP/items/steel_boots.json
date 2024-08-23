@@ -19,7 +19,7 @@
             "slot": "slot.armor.feet"
         },
         "minecraft:display_name": {
-            "value": "Heavy Duty Boots"
+            "value": "§1%item.steel_boots.name"
         },
         "minecraft:enchantable": {
             "slot": "armor_feet",

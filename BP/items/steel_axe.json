@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Heavy Duty Axe"
+        "value": "§1%item.steel_axe.name"
       },
       "minecraft:icon": {
         "texture": "steel_axe"

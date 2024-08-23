@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Single Solar Module"
+        "value": "§1%item.basic_item.solar_module_0.name"
       },
       "minecraft:icon": {
         "texture": "solar_module_0"

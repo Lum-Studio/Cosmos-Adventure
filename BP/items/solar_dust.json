@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "Solar Dust"
+        "value": "§1%item.solar_dust.name"
       },
       "minecraft:icon": {
         "texture": "solar_dust"

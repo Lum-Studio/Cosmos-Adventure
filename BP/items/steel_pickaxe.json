@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Heavy Duty Pickaxe"
+        "value": "§1%item.steel_pickaxe.name"
       },
       "minecraft:icon": {
         "texture": "steel_pickaxe"

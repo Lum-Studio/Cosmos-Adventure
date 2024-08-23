@@ -19,7 +19,7 @@
             "slot": "slot.armor.legs"
         },
         "minecraft:display_name": {
-            "value": "Heavy Duty Leggings"
+            "value": "§1%item.steel_leggings.name"
         },
         "minecraft:enchantable": {
             "slot": "armor_legs",

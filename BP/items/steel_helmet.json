@@ -19,7 +19,7 @@
             "slot": "slot.armor.head"
         },
         "minecraft:display_name": {
-            "value": "Heavy Duty Helmet"
+            "value": "§1%item.steel_helmet.name"
         },
         "minecraft:enchantable": {
             "slot": "armor_head",

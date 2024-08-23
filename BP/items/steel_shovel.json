@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Heavy Duty Shovel"
+        "value": "§1%item.steel_shovel.name"
       },
       "minecraft:icon": {
         "texture": "steel_shovel"
