@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§1%name.schematic.item\n§7%description.schematic_astro_miner.item"
+        "value": "§1%item.schematic.name\n§7%schematic.astro_miner.name"
       },
       "minecraft:icon": {
         "texture": "schematic_astro_miner"

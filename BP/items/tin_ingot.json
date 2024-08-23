@@ -6,7 +6,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Tin Ingot"
+        "value": "§1%item.basic_item.ingot_tin.name"
       },
       "minecraft:icon": {
         "texture": "tin_ingot"

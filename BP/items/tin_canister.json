@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "Tin Canister"
+        "value": "§1%item.canister.tin.name"
       },
       "minecraft:icon": {
         "texture": "tin_canister"
