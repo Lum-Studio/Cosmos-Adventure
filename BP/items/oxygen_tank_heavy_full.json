@@ -4,7 +4,7 @@
     "components": {
       "minecraft:custom_components": ["cosmos:space_gear"],
       "minecraft:display_name": {
-        "value": "Heavy Oxygen Tank"
+        "value": "§1%item.oxygen_tank_heavy_full.name"
       },
       "minecraft:durability": {
         "damage_chance": {

@@ -3,7 +3,7 @@
   "minecraft:item": {
     "components": {
       "minecraft:display_name": {
-        "value": "Oxygen Vent"
+        "value": "§1%item.air_vent.name"
       },
       "minecraft:icon": {
         "texture": "oxygen_vent"
