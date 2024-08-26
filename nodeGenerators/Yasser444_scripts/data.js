@@ -34,6 +34,22 @@ const stairs = {
         unbreakable: true
     },
 }
+const walls = {
+    "cosmos:tin_decoration_wall": {
+        texture: "tin_decoration_block",
+    },
+    "cosmos:detailed_tin_decoration_wall": {
+        texture: "detailed_tin_decoration_block"
+    },
+    "cosmos:moon_rock_wall": {},
+    "cosmos:mars_cobblestone_wall": {},
+    "cosmos:moon_dungeon_bricks_wall": {
+        unbreakable: true
+    },
+    "cosmos:mars_dungeon_bricks_wall": {
+        unbreakable: true
+    },
+}
 
 //First property in key is the item used to unlock the recipe
 //Key properties can use item ids or short names from the above object
