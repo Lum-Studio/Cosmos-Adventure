@@ -38,6 +38,7 @@
       }
     },
     "components": {
+      "minecraft:display_name": "%tile.mars_stairs_cobblestone.name",
       "minecraft:geometry": {
         "identifier": "geometry.stairs",
         "bone_visibility": {

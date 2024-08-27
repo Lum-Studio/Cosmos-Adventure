@@ -38,6 +38,7 @@
       }
     },
     "components": {
+      "minecraft:display_name": "%tile.mars_stairs_brick.name",
       "minecraft:geometry": {
         "identifier": "geometry.stairs",
         "bone_visibility": {

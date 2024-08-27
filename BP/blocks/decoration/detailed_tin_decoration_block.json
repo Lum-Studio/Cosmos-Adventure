@@ -8,6 +8,7 @@
          }
       },
       "components": {
+         "minecraft:display_name": "%tile.basic_block_core.deco_block_0.name",
          "minecraft:destructible_by_explosion": {
             "explosion_resistance": 12
          },

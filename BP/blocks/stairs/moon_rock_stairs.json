@@ -38,6 +38,7 @@
       }
     },
     "components": {
+      "minecraft:display_name": "%tile.moon_stairs_stone.name",
       "minecraft:geometry": {
         "identifier": "geometry.stairs",
         "bone_visibility": {

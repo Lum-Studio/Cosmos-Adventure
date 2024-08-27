@@ -38,6 +38,7 @@
       }
     },
     "components": {
+      "minecraft:display_name": "%tile.tin_stairs_2.name",
       "minecraft:geometry": {
         "identifier": "geometry.stairs",
         "bone_visibility": {

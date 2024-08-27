@@ -8,6 +8,7 @@
          }
       },
       "components": {
+         "minecraft:display_name": "%tile.basic_block_moon.moongrass.name",
          "minecraft:destructible_by_explosion": {
             "explosion_resistance": 1
          },
