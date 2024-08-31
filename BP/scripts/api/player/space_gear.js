@@ -14,7 +14,7 @@ const slots = {
 	feet: ["cosmos:thermal_boots"],
 	tank1: Object.keys(tanks),
 	tank2: Object.keys(tanks),
-	frequency: ["cosmos:frequency_module"],
+	frequency_module: "cosmos:frequency_module",
 	mask: "cosmos:oxygen_mask",
 	parachute: ["cosmos:parachute_black", "cosmos:parachute_blue", "cosmos:parachute_brown", "cosmos:parachute_darkblue", "cosmos:parachute_darkgray", "cosmos:parachute_darkgreen", "cosmos:parachute_gray", "cosmos:parachute_lime", "cosmos:parachute_magenta", "cosmos:parachute_orange", "cosmos:parachute_pink", "cosmos:parachute_plain", "cosmos:parachute_purple", "cosmos:parachute_red", "cosmos:parachute_teal", "cosmos:parachute_yellow"],
 	thermal: ["cosmos:shield_controller"],
@@ -65,6 +65,9 @@ function update(player, container) {
 	for (let i=0; i<Object.keys(slots).length; i++) {
 		const slot = Object.keys(slots)[i];
 		const item = container.getItem(i);
+		if (slot == 'frequency_module') {
+			player.setProperty("cosmos:frequency_module", item?.typeId == "cosmos:frequency_module")
+                                }
 		if (slot == 'gear') {
 			player.setProperty("cosmos:oxygen_gear", item?.typeId == "cosmos:oxygen_gear")
                                 }
@@ -199,6 +202,11 @@ world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
 				player.runCommand(`clear @s cosmos:oxygen_mask 0 1`)
 				space_gear.mask = item.typeId; sound = true
 				player.setProperty("cosmos:oxygen_mask", true)
+                                                }
+			if (!player.getProperty("cosmos:frequency_module") && item.typeId == "cosmos:frequency_module") {
+				player.runCommand(`clear @s cosmos:frequency_module 0 1`)
+				space_gear.frequency_module = item.typeId; sound = true
+				player.setProperty("cosmos:frequency_module", true)
 			}
 			if (Object.keys(tanks).includes(item.typeId)) {
 				let tank = undefined 
