@@ -48,6 +48,7 @@
         "riding.arms": "animation.player.riding.arms",
         "riding.legs": "animation.player.riding.legs",
         "rocket_player_hold": "animation.player.rocket_player_hold",
+        "frequency": "animation.frequency.radar",
         "root": "controller.animation.player.root",
         "shield_block_main_hand": "animation.player.shield_block_main_hand",
         "shield_block_off_hand": "animation.player.shield_block_off_hand",
@@ -65,7 +66,8 @@
       "geometry": {
         "cape": "geometry.cape",
         "default": "geometry.humanoid.custom",
-        "oxygen_part": "geometry.oxygen_part"
+        "oxygen_part": "geometry.oxygen_part",
+        "frequency": "geometry.frequency"
       },
       "identifier": "minecraft:player",
       "materials": {
@@ -75,6 +77,9 @@
         "spectator": "player_spectator"
       },
       "render_controllers": [
+        {
+          "controller.render.frequency": "!variable.is_first_person && !variable.map_face_icon && !query.is_spectator"
+        },
         {
           "controller.render.oxygen_part": "!variable.is_first_person && !variable.map_face_icon && !query.is_spectator"
         },
@@ -99,6 +104,9 @@
           "root",
           {
             "rocket_player_hold": "variable.rocket_player_hold"
+          },
+          {
+            "frequency": "variable.frequency"
           }
         ],
         "initialize": [
@@ -118,14 +126,16 @@
           "variable.hand_bob = query.life_time < 0.01 ? 0.0 : variable.hand_bob + ((query.is_on_ground && query.is_alive ? math.clamp(math.sqrt(math.pow(query.position_delta(0), 2.0) + math.pow(query.position_delta(2), 2.0)), 0.0, 0.1) : 0.0) - variable.hand_bob) * 0.02;",
           "variable.map_angle = math.clamp(1 - variable.player_x_rotation / 45.1, 0.0, 1.0);",
           "variable.item_use_normalized = query.main_hand_item_use_duration / query.main_hand_item_max_duration;",
-          "v.rocket_player_hold = query.get_equipped_item_name('main_hand') == 'rocket_tier_1_item';"
+          "v.rocket_player_hold = query.get_equipped_item_name('main_hand') == 'rocket_tier_1_item';",
+          "v.frequency = query.property('cosmos:frequency_module');"
         ],
         "scale": "0.9375"
       },
       "textures": {
         "cape": "textures/entity/cape_invisible",
         "default": "textures/entity/steve",
-        "oxygen_part": "textures/entity/oxygen_part"
+        "oxygen_part": "textures/entity/oxygen_part",
+        "frequency": "textures/entity/frequency"
       }
     }
   }
