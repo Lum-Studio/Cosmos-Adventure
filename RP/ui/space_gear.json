@@ -117,7 +117,7 @@
 				}
 			},
 			{
-				"frequency@space_gear.slot_overlay": {
+				"frequency_module@space_gear.slot_overlay": {
 					"texture": "textures/ui/extra_slots/frequency",
 					"offset": [ -18, 18 ]
 				}
