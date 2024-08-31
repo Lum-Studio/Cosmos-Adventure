@@ -1,0 +1,24 @@
+{
+  "format_version": "1.20.80",
+  "render_controllers": {
+    "controller.render.frequency": {
+      "geometry": "geometry.frequency",
+      "materials": [
+        {
+          "*": "material.default"
+        }
+      ],
+      "part_visibility": [
+        {
+          "frequency": "query.property('cosmos:frequency_module')"
+        },
+        {
+          "frequency_radar": "query.property('cosmos:frequency_module')"
+        }
+      ],
+      "textures": [
+        "texture.frequency"
+      ]
+    }
+  }
+}
