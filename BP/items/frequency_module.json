@@ -1,12 +1,11 @@
 {
-  "format_version": "1.20.20",
+  "format_version": "1.20.80",
   "minecraft:item": {
     "components": {
+      "minecraft:custom_components": ["cosmos:space_gear"],
+      "minecraft:icon": "frequency_module",
       "minecraft:display_name": {
-        "value": "%item.basic_item.frequency_module.name\nÂ§b%gui.frequency_module.desc.0\nÂ§b%gui.frequency_module.desc.1"
-      },
-      "minecraft:icon": {
-        "texture": "frequency_module"
+        "value": "%item.basic_item.frequency_module.name\n§b%gui.frequency_module.desc.0\n§b%gui.frequency_module.desc.1"
       }
     },
     "description": {
