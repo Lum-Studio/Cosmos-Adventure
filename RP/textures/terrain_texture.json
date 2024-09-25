@@ -357,6 +357,9 @@
     },
     "venus_dungeon_brick_2": {
       "textures": "textures/blocks/terrain/venus_dungeon_brick_2"
+    },
+    "hydraulic_platform": {
+      "textures": "textures/blocks/hydraulic_platform"
     }
   },
   "texture_name": "atlas.terrain"

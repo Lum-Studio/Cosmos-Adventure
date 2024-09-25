@@ -1,0 +1,33 @@
+{ 
+  "format_version": "1.20.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "cosmos:hydraulic_platform",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+		"minecraft:damage_sensor": {
+      "triggers": {
+        "cause": "all",
+        "deals_damage": false
+      }
+    },
+    "minecraft:fire_immune": true,
+    "minecraft:health": {
+      "value": 1,
+      "max": 1,
+      "min": 1
+    },
+    "minecraft:collision_box":{
+      "height": 0,
+      "width": 0
+    },
+    "minecraft:physics": {
+		"has_collision": false,
+	    "has_gravity": true
+      }
+    }
+  }
+}

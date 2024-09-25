@@ -1,0 +1,66 @@
+{ 
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "cosmos:player_seat",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:movement.basic": {},
+      "minecraft:movement": {
+        "value": 0.05
+      },
+      "minecraft:behavior.controlled_by_player": {
+        "fractional_rotation": 1.0,
+        "fractional_rotation_limit": 360.0,
+        "priority": 9999
+      },
+      "minecraft:is_stackable":{},
+      "minecraft:input_ground_controlled": {},
+      "minecraft:type_family":{
+        "family":["mob"]
+      },
+      "minecraft:can_climb": {},
+      "minecraft:rideable":{
+        "seat_count": 1,
+        "seats":[
+          {
+						"position":[0.0, 0.4, 0.0]
+					}
+        ]
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "on_damage": {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "player"
+            }
+          },
+          "deals_damage": false
+        }
+      },
+      "minecraft:fire_immune": true,
+      "minecraft:health": {
+        "value": 1,
+        "max": 1,
+        "min": 1
+      },
+      "minecraft:collision_box": {
+        "width": 0.0,
+        "height": 0.0
+      },
+      "minecraft:nameable":{
+        "allow_name_tag_renaming": false,
+        "always_show": false
+      },
+      "minecraft:physics": {
+        "has_collision": false,
+        "has_gravity": false
+      }
+    } 
+  }
+}

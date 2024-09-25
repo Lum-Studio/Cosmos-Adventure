@@ -1,0 +1,35 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.hydraulic_platform_model",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "bb_main",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{
+							"origin": [-9, 0.25, -9],
+							"size": [18, 2.75, 18],
+							"uv": {
+								"north": {"uv": [18, 0], "uv_size": [18, 3]},
+								"east": {"uv": [18, 3], "uv_size": [18, 3]},
+								"south": {"uv": [18, 6], "uv_size": [18, 3]},
+								"west": {"uv": [18, 9], "uv_size": [18, 3]},
+								"up": {"uv": [0, 0], "uv_size": [18, 18]},
+								"down": {"uv": [0, 36], "uv_size": [18, -18]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
