@@ -8,7 +8,7 @@ function HydraulicPlatformMotion(player, loc, entity, effect){
         player.teleport(playerSeat.location);
         playerSeat.getComponent('minecraft:rideable').addRider(player);
         let motion = system.runInterval(() => {
-            if(!entity.isValid() || !playerSeat.isValid() || (effect == 'slow_falling')?((Math.abs(location.y) + 1.2) - Math.abs(entity.location.y)) <= 0: (Math.abs(entity.location.y) - Math.abs(location.y)) <= 0){
+            if(!entity.isValid() || !playerSeat.isValid() || (effect == 'slow_falling')?((Math.abs(location.y-entity.location.y))) <= 0.2: (Math.abs(entity.location.y - location.y)) <= 0.2){
                  let blockMotionStart = JSON.parse(entity.getDynamicProperty("blocksStart"));
                  let blockMotionEnd = JSON.parse(entity.getDynamicProperty("blocksEnd"));
                  blockMotionStart.forEach((element) => entity.dimension.getBlock(element).setPermutation(entity.dimension.getBlock(element).permutation.withState("cosmos:is_open", false)))
@@ -18,13 +18,14 @@ function HydraulicPlatformMotion(player, loc, entity, effect){
                  playerSeat?.remove()
                  entity?.remove()
                  system.clearRun(motion)
+                 return;
             }
             if(playerSeat.isValid() && !playerSeat.getComponent('minecraft:rideable').getRiders()[0]) playerSeat.getComponent('minecraft:rideable').addRider(player);
             playerSeat.clearVelocity();
             playerSeat.applyImpulse({x:0, y: entity.getVelocity().y, z:0})
             
         },1)
-    },1);
+    },2);
 }
 function getHydraulicPlatformBlock(block){
     let blockH = {blockZero: [block.north(), block.west(), block.offset({x: -1, y: 0, z: -1})], blockOne: [block.west(), block.south(), block.offset({x:-1, y: 0, z: 1})], blockTwo: [block.north(), block.east(), block.offset({x: 1, y: 0, z: -1})], blockThree: [block.south(), block.east(), block.offset({x:1, y: 0, z: 1})]}
@@ -107,7 +108,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
                                 let blocksUpEdited = [blocksUp[0].location, blocksUp[1].location, blocksUp[2].location, blockUp.location]
                                 platform.setDynamicProperty("blocksStart", JSON.stringify(blocksEdited))
                                 platform.setDynamicProperty("blocksEnd", JSON.stringify(blocksUpEdited))
-                                platform.setDynamicProperty("end", {x: centerUp.x, y: centerUp.y + 0.8, z: centerUp.z})
+                                platform.setDynamicProperty("end", {x: centerUp.x, y: centerUp.y + 1.2, z: centerUp.z})
                                 HydraulicPlatformMotion(players[0], {x: players[0].location.x, y: players[0].location.y, z: players[0].location.z}, platform, "levitation")
                             }
                         }
@@ -130,7 +131,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
                                 let blocksDownEdited = [blocksDown[0].location, blocksDown[1].location, blocksDown[2].location, blockDown.location]
                                 platform.setDynamicProperty("blocksStart", JSON.stringify(blocksEdited))
                                 platform.setDynamicProperty("blocksEnd", JSON.stringify(blocksDownEdited))
-                                platform.setDynamicProperty("end", {x: centerDown.x, y: centerDown.y + 0.2, z: centerDown.z})
+                                platform.setDynamicProperty("end", {x: centerDown.x, y: centerDown.y - 1.2, z: centerDown.z})
                                 HydraulicPlatformMotion(players[0], {x: players[0].location.x, y: players[0].location.y, z: players[0].location.z}, platform, "slow_falling")
                             }
                         }
