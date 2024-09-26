@@ -7,13 +7,13 @@
       },
       "identifier": "cosmos:hydraulic_platform",
       "materials": {
-        "default": "skeleton"
+        "default": "phantom"
       },
       "render_controllers": [
         "controller.render.default"
       ],
       "textures": {
-        "default": "textures/entity/hydraulic_platform"
+        "default": "textures/blocks/hydraulic_platform"
       }
     }
   }
