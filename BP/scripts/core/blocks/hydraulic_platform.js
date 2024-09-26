@@ -108,7 +108,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
                                 let blocksUpEdited = [blocksUp[0].location, blocksUp[1].location, blocksUp[2].location, blockUp.location]
                                 platform.setDynamicProperty("blocksStart", JSON.stringify(blocksEdited))
                                 platform.setDynamicProperty("blocksEnd", JSON.stringify(blocksUpEdited))
-                                platform.setDynamicProperty("end", {x: centerUp.x, y: centerUp.y + 1.2, z: centerUp.z})
+                                platform.setDynamicProperty("end", {x: centerUp.x, y: centerUp.y + 1, z: centerUp.z})
                                 HydraulicPlatformMotion(players[0], {x: players[0].location.x, y: players[0].location.y, z: players[0].location.z}, platform, "levitation")
                             }
                         }
@@ -131,7 +131,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
                                 let blocksDownEdited = [blocksDown[0].location, blocksDown[1].location, blocksDown[2].location, blockDown.location]
                                 platform.setDynamicProperty("blocksStart", JSON.stringify(blocksEdited))
                                 platform.setDynamicProperty("blocksEnd", JSON.stringify(blocksDownEdited))
-                                platform.setDynamicProperty("end", {x: centerDown.x, y: centerDown.y - 1.2, z: centerDown.z})
+                                platform.setDynamicProperty("end", {x: centerDown.x, y: centerDown.y - 1.4, z: centerDown.z})
                                 HydraulicPlatformMotion(players[0], {x: players[0].location.x, y: players[0].location.y, z: players[0].location.z}, platform, "slow_falling")
                             }
                         }
