@@ -5,12 +5,13 @@
             "identifier": "cosmos:nasa_workbench",
             "is_summonable": true
         },
-        "component_groups": {
-			"despawn": {
-				"minecraft:instant_despawn": {}
-			}
-		},
         "components": {
+            "minecraft:timer": {
+				"time": 1,
+				"time_down_event": {
+					"event":"cosmos:tick"
+				}
+            },
             "minecraft:damage_sensor": {
                 "triggers": {
                     "deals_damage": false
@@ -31,7 +32,7 @@
             },
             "minecraft:inventory": {
                 "container_type": "container",
-                "inventory_size": 100
+                "inventory_size": 60
             },
             "minecraft:pushable": {
                 "is_pushable": false,
@@ -43,10 +44,15 @@
             }
         },
 		"events": {
+            "cosmos:tick": {
+                "queue_command": {
+                    "command": "scriptevent cosmos:nasa_workbench tick"
+                }
+            },
 			"cosmos:despawn": {
-				"add": {
-					"component_groups": ["despawn"]
-				}
+                "queue_command": {
+                    "command": "scriptevent cosmos:nasa_workbench despawn"
+                }
 			},
 			"cosmos:highlight": {
 				"add": {

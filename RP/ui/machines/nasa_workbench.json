@@ -1,0 +1,99 @@
+{
+    "namespace": "nasa_workbench",
+
+    "main@machines.taller_screen": {
+        "$machine": "nasa_workbench",
+        "controls": [
+            //{"test@machines.pixel_counter": {}},
+			{ "label@machines.text": {
+				"text": "Tier 1 Rocket",
+				"offset": [ 10, 5 ],
+				"anchor_from": "top_left",
+				"anchor_to": "top_left"
+			}},
+            {
+                "body@machines.item_grid": {
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+                    "offset": [ 38, 36 ],
+                    "size": [ 36, 72 ],
+					"grid_dimensions": [ 2, 4 ]
+                }
+            },
+            {
+                "left_fin@machines.clipper": {
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+                    "offset": [ 20, 90 ],
+                    "size": [ 18, 36 ],
+					"$grid_size": [ 1, 10 ],
+                    "$grid_pixels": [18, 180]
+                }
+            },
+            {
+                "right_fin@machines.clipper": {
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+                    "offset": [ 74, 90 ],
+                    "size": [ 18, 36 ],
+					"$grid_size": [ 1, 12 ],
+                    "$grid_pixels": [18, 216]
+                }
+            },
+            {
+                "engine@machines.clipper": {
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+                    "offset": [ 47, 108 ],
+					"$grid_size": [ 1, 13 ],
+                    "$grid_pixels": [18, 234]
+                }
+            },
+            {
+                "cone@machines.clipper": {
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+                    "offset": [ 47, 18 ],
+					"$grid_size": [ 1, 14 ],
+                    "$grid_pixels": [18, 252]
+                }
+            },
+            {
+                "chest1@machines.clipper": {
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+                    "offset": [ 92, 14 ],
+					"$grid_size": [ 1, 57 ],
+                    "$grid_pixels": [18, 1026]
+                }
+            },
+            {
+                "chest2@machines.clipper": {
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+                    "offset": [ 118, 14 ],
+					"$grid_size": [ 1, 58 ],
+                    "$grid_pixels": [18, 1044]
+                }
+            },
+            {
+                "chest3@machines.clipper": {
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+                    "offset": [ 144, 14 ],
+					"$grid_size": [ 1, 59 ],
+                    "$grid_pixels": [18, 1062]
+                }
+            },
+            {
+                "output@machines.clipper": {
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+                    "offset": [ 138, 92 ],
+					"$grid_size": [ 1, 60 ],
+                    "$grid_pixels": [18, 1080]
+                }
+            }
+        ]
+    }
+}

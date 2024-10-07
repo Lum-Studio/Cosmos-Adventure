@@ -12,6 +12,7 @@ import "./core/blocks/rocket_launch_pad.js"
 import "./core/blocks/arc_lamp.js"
 import "./core/blocks/cheese_block.js"
 import "./core/blocks/hydraulic_platform.js"
+import "./core/blocks/nasa_workbench.js"
 
 import "./core/items/debug_stick.js"
 import "./core/items/wrench.js"

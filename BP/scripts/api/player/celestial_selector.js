@@ -268,3 +268,9 @@ world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
 		select_solar_system(source, '')
 	}
 })
+
+
+// RENAME TOUCH
+// world.afterEvents.playerInteractWithEntity.subscribe(({target}) => {
+// 	target.nameTag = 'name'
+// })

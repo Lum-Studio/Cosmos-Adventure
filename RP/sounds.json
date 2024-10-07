@@ -35,6 +35,11 @@
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}
+			},
+			"cosmos:nasa_workbench": {
+				"events": {
+					"death": { "sound": "none", "volume": 0 }
+				}
 			}
 		}
 	}

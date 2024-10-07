@@ -29,6 +29,14 @@
 		"size": ["100%", "50% + 33px"]
 	},
 
+	"taller_screen": {
+		"type": "panel",
+		"anchor_from": "top_left",
+		"anchor_to": "top_left",
+		"offset": [0, -53],
+		"size": ["100%", "50% + 53px"]
+	},
+
 	"text": {
 		"type": "label",
 		"color": "$title_text_color",
@@ -60,7 +68,8 @@
 	"item_grid": { // 1(18) 2(36) 3(54) 4(72) 5(90) 6(108) 7(126) 8(144) 9(162) 10(180) 11(198) 12(216) 13(234) 14(252) 15(270) 16(288) 17(306) 18(324) 19(342) 20(360) 
 		"type": "grid",
 		"size": [ 18, 18 ],
-		"grid_item_template": "chest.chest_grid_item",
+		"$template": "chest.chest_grid_item",
+		"grid_item_template": "$template",
         "collection_name": "container_items",
 		"layer": 5
 	},
@@ -147,5 +156,10 @@
     "electric_compressor_ui@machines.interface": {
 		"$screen": "electric_compressor_screen",
 		"$size": ["100%", "120%"]
+    },
+	"nasa_workbench_screen@nasa_workbench.main": {},
+    "nasa_workbench_ui@machines.interface": {
+		"$screen": "nasa_workbench_screen",
+		"$size": ["100%", "120% + 20px"]
     }
 }
