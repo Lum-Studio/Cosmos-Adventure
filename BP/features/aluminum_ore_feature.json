@@ -1,0 +1,19 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:ore_feature": {
+    "description": {
+      "identifier": "cosmos:aluminum_ore_feature"
+    },
+    "count": 8,
+    "replace_rules": [
+      {
+        "places_block": "cosmos:aluminum_ore",
+        "may_replace": [
+          {
+            "name": "minecraft:stone"
+          }
+        ]
+      }
+    ]
+  }
+}

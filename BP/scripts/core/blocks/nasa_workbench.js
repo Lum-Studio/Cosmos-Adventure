@@ -40,6 +40,7 @@ function tick(workbench) {
     for (const recipe of Object.keys(recipes)) {
         output = recipe
         for (const [index, item] of recipes[recipe].entries()) {
+            if (!item) continue
             if (recipe_slots[index] != item) output = undefined
         }
     }
@@ -48,7 +49,7 @@ function tick(workbench) {
     const chests = [56, 57, 58].map(i => inventory.getItem(i)?.typeId == "minecraft:chest" ? 18 : 0)
     const space = chests[0] + chests[1] + chests[2]
     if (spacecraft && space) spacecraft.setLore([`§r§7Storage Space: ${space}`])
-
+    if (spacecraft) spacecraft.setDynamicProperty("workbench_id", workbench.id)
     inventory.setItem(59, spacecraft)
 }
 

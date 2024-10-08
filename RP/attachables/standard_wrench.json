@@ -15,7 +15,7 @@
         "default": "geometry.item32"
       },
       "animations": {
-        "hold": "animation.item32.hold"
+        "hold": "animation.item32.wrench"
       },
       "scripts": {
         "animate": [

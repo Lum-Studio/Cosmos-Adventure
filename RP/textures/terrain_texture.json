@@ -21,6 +21,9 @@
     "fluid_pipe_color": {
       "textures": "textures/blocks/fluid_pipe_color"
     },
+    "fluid_pipe_pull": {
+      "textures": "textures/blocks/fluid_pipe_pull"
+    },
     "fluid_tank": {
       "textures": "textures/blocks/fluid_tank"
     },

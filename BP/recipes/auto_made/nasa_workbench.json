@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:nasa_workbench"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "SCS",
+      "LWL",
+      "SRS"
+    ],
+    "key": {
+      "A": "cosmos:advanced_wafer",
+      "C": "minecraft:crafting_table",
+      "S": "cosmos:compressed_steel",
+      "L": "minecraft:lever",
+      "R": "minecraft:redstone_torch"
+    },
+    "unlock": [
+      {
+        "item": "cosmos:advanced_wafer"
+      }
+    ],
+    "result": {
+      "item": "cosmos:nasa_workbench"
+    }
+  }
+}

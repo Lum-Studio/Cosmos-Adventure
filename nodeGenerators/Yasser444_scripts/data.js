@@ -127,6 +127,22 @@ const recipes = {
             "IWI"
         ]
     },
+    "cosmos:compressor": {
+        key: { W: "cosmos:basic_wafer", I: "AI", C: "CI", A: "minecraft:anvil"},
+        shape: [
+            "IAI",
+            "ICI",
+            "IWI"
+        ]
+    },
+    "cosmos:circuit_fabricator": {
+        key: { L: "minecraft:lever", A: "AI", F: "minecraft:furnace", B: "minecraft:stone_button", W: "cosmos:aluminum_wire_item", T: "minecraft:redstone_torch"},
+        shape: [
+            "ALA",
+            "BFB",
+            "WTW"
+        ]
+    },
     "cosmos:aluminum_wire_item": {
         name: "aluminum_wire",
         key: { A: "AI", W: "minecraft:wool"},
@@ -169,7 +185,6 @@ const recipes = {
             "ACA"
         ]
     },
-    /* not made yet
     "cosmos:rocket_launch_pad": {
         key: { C: "CoI", I: "minecraft:iron_block"},
         amount: 9,
@@ -178,6 +193,27 @@ const recipes = {
             "III"
         ]
     },
+    "cosmos:nasa_workbench": [
+        {
+            name: "nasa_workbench",
+            key: { A: "cosmos:advanced_wafer", C: "minecraft:crafting_table", S: "CoS", L: "minecraft:lever", R: "minecraft:redstone_torch"},
+            shape: [
+                "SCS",
+                "LWL",
+                "SRS"
+            ]
+        },/*
+        {
+            name: "uncompact_nasa_workbench",
+            key: { W: "cosmos:compact_nasa_workbench"},
+            shape: [ "W" ]
+        }*/
+    ],/*
+    "cosmos:compact_nasa_workbench": {
+        key: { W: "cosmos:nasa_workbench"},
+        shape: [ "W" ]
+    },*/
+    /* not made yet
     "cosmos:buggy_fuling_pad": {
         key: { C: "CoS", I: "minecraft:iron_block"},
         amount: 9,
@@ -311,26 +347,6 @@ const recipes = {
             "ACA",
             "SHS"
         ]
-    },
-    "cosmos:nasa_workbench": [
-        {
-            name: "nasa_workbench",
-            key: { A: "cosmos:advanced_wafer", C: "minecraft:crafting_table", S: "CoS", L: "minecraft:lever", R: "minecraft:redstone_torch"},
-            items: ['
-                "SCS",
-                "LWL",
-                "SRS"
-            ']
-        },
-        {
-            name: "uncompact_nasa_workbench",
-            key: { W: "cosmos:compact_nasa_workbench"},
-            shape: [ "W" ]
-        }
-    ],
-    "cosmos:compact_nasa_workbench": {
-        key: { W: "cosmos:nasa_workbench"},
-        shape: [ "W" ]
     },
     "cosmos:air_lock_frame": {
         key: { C: "cosmos:oxygen_concentrator", A: "CoA", S: "CoS"},

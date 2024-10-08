@@ -13,22 +13,24 @@
 				"cosmos:west": [true, false],
 				"cosmos:color": ["white", "silver", "gray", "black", "brown", "red", "orange", "yellow", "lime", "green", "light_blue", "cyan", "blue", "purple", "magenta", "pink"],
 				"cosmos:fluid": ["empty", "water", "lava"],
-				"cosmos:filled": [false, true]
+				"cosmos:filled": [false, true],
+				"cosmos:pull": [false, true]
 			}
 		},
 		"components": {
-                                                "minecraft:display_name": "%tile.fluid_pipe.name\n§7%tile.fluid_pipe.description",
+			"minecraft:display_name": "%tile.fluid_pipe.name\n§7%tile.fluid_pipe.description",
 			"minecraft:material_instances": {
 				"*": { "texture": "fluid_pipe", "render_method": "alpha_test" },
 				"fluid": { "texture": "still_lava", "render_method": "blend" },
-				"color": { "texture": "fluid_pipe_color", "render_method": "alpha_test" }
+				"color": { "texture": "fluid_pipe_color", "render_method": "alpha_test" },
+				"pull": { "texture": "fluid_pipe_pull", "render_method": "alpha_test" }
 			},
 			"minecraft:collision_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
-			"minecraft:selection_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
+			"minecraft:selection_box": { "origin": [-5, 3, -5], "size": [10, 10, 10] },
 			"minecraft:light_dampening": 0,
 			"minecraft:destructible_by_mining": { "seconds_to_destroy": 0.5 },
 			"minecraft:destructible_by_explosion": false,
-			//"minecraft:custom_components": ["cosmos:fluid_pipe"],
+			"minecraft:custom_components": ["cosmos:fluid_pipe"],
 			"minecraft:geometry": {
 				"identifier": "geometry.fluid_pipe",
 				"bone_visibility": {
@@ -46,6 +48,13 @@
 					"fluid_east": "q.block_state('cosmos:east') && q.block_state('cosmos:filled')",
 					"fluid_south": "q.block_state('cosmos:south') && q.block_state('cosmos:filled')",
 					"fluid_west": "q.block_state('cosmos:west') && q.block_state('cosmos:filled')",
+					
+					"pull_up": "q.block_state('cosmos:up') && q.block_state('cosmos:pull')",
+					"pull_down": "q.block_state('cosmos:down') && q.block_state('cosmos:pull')",
+					"pull_north": "q.block_state('cosmos:north') && q.block_state('cosmos:pull')",
+					"pull_east": "q.block_state('cosmos:east') && q.block_state('cosmos:pull')",
+					"pull_south": "q.block_state('cosmos:south') && q.block_state('cosmos:pull')",
+					"pull_west": "q.block_state('cosmos:west') && q.block_state('cosmos:pull')",
 
 					"white": "q.block_state('cosmos:color') == 'white'",
 					"silver": "q.block_state('cosmos:color') == 'silver'",

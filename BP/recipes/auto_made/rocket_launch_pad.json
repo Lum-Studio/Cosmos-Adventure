@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:rocket_launch_pad"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CCC",
+      "III"
+    ],
+    "key": {
+      "C": "cosmos:compressed_iron",
+      "I": "minecraft:iron_block"
+    },
+    "unlock": [
+      {
+        "item": "cosmos:compressed_iron"
+      }
+    ],
+    "result": {
+      "item": "cosmos:rocket_launch_pad",
+      "count": 9
+    }
+  }
+}

@@ -1,4 +1,5 @@
-import { world, system, ItemStack, BlockPermutation, Block } from "@minecraft/server"
+import { world, ItemStack, BlockPermutation } from "@minecraft/server"
+import { attach_pipes } from "./fluid_pipe"
 
 const buckets = new Map([
 	["water", "minecraft:water_bucket"],
@@ -62,9 +63,11 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 			}
 		},
 		onPlayerDestroy({block, destroyedBlockPermutation:tank}) {
+			attach_pipes(block, false)
 			if (!tank.getState("cosmos:fill_level")) return
 			const liquid = liquids.get(tank.getState("cosmos:fluid"))
 			block.setPermutation(BlockPermutation.resolve(liquid))
-		}
+		},
+		onPlace({block}) {attach_pipes(block)}
 	})
 })

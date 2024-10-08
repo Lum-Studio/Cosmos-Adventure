@@ -1,0 +1,19 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:ore_feature": {
+    "description": {
+      "identifier": "cosmos:tin_ore_feature"
+    },
+    "count": 9,
+    "replace_rules": [
+      {
+        "places_block": "cosmos:tin_ore",
+        "may_replace": [
+          {
+            "name": "minecraft:stone"
+          }
+        ]
+      }
+    ]
+  }
+}
