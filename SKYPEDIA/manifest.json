@@ -1,0 +1,17 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "In-Game Wikipedia for Minecraft Bedrock Edition addons.\n§7Developed by Yasser444",
+        "name": "Skypedia for Cosmos-Adventure",
+        "uuid": "f3a43d66-07a2-4403-b8a8-ed53b495ab27",
+        "version": [1, 0, 0],
+        "min_engine_version": [ 1, 21, 0 ]
+    },
+    "modules": [
+        {
+            "type": "resources",
+            "uuid": "419f4eee-ba26-41f9-ba13-424d86443173",
+            "version": [1, 0, 0]
+        }
+    ]
+}

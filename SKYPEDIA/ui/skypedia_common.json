@@ -1,0 +1,195 @@
+{
+  "namespace": "skypedia_common",
+  
+  "black_canvas": {
+    "type": "screen",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_tab_left",
+        "to_button_id": "button.menu_tab_left",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_tab_right",
+        "to_button_id": "button.menu_tab_right",
+        "mapping_type": "global",
+        "scope": "view"
+      }
+    ],
+    "controls": [
+      {
+        "input_panel": {
+          "type": "input_panel",
+          "hover_enabled": false,
+          "prevent_touch_input": false,
+          "button_mappings": [
+            {
+              "from_button_id": "button.menu_up",
+              "to_button_id": "button.menu_up",
+              "mapping_type": "global",
+              "scope": "view"
+            },
+            {
+              "from_button_id": "button.menu_down",
+              "to_button_id": "button.menu_down",
+              "mapping_type": "global",
+              "scope": "view"
+            },
+            {
+              "from_button_id": "button.menu_left",
+              "to_button_id": "button.menu_left",
+              "mapping_type": "global",
+              "scope": "view"
+            },
+            {
+              "from_button_id": "button.menu_right",
+              "to_button_id": "button.menu_right",
+              "mapping_type": "global",
+              "scope": "view"
+            }
+          ],
+          "controls": [
+            {
+              "content@$screen_content": {
+                "layer": 2
+              }
+            },
+            {
+              "screen_background": {
+                "type": "image",
+                "layer": -1,
+                "texture": "$image",  "$image": "textures/ui/White",
+                "color": "$color",  "$color": [0, 0, 0],
+                "alpha": "$alpha", "$alpha": 1
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "toggle": {
+    "type": "toggle",
+    "sound_name": "random.click",
+    "checked_control": "checked",
+    "unchecked_control": "unchecked",
+    "checked_hover_control": "checked_hover",
+    "unchecked_hover_control": "unchecked_hover",
+    "radio_toggle_group": true,
+    "toggle_name": "this_toggle",
+
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.menu_select",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.menu_ok",
+        "mapping_type": "focused"
+      }
+    ],
+    "$unchecked": [{"image": {"type": "image", "texture": "textures/ui/button_borderless_light"}}],
+    "$checked": [{"image": {"type": "image", "texture": "textures/ui/button_borderless_lightpressednohover"}}],
+    "$unchecked_hover": [{"image": {"type": "image", "texture": "textures/ui/button_borderless_lighthover"}}],
+    "$checked_hover": [{"image": {"type": "image", "texture": "textures/ui/button_borderless_lightpressed"}}],
+    "controls": [
+      {"unchecked": {
+        "type": "panel",
+        "layer": 1,
+        "controls": "$unchecked"
+      }},
+      {"checked": {
+        "type": "panel",
+        "layer": 2,
+        "controls": "$checked"
+      }},
+      {"unchecked_hover": {
+        "type": "panel",
+        "layer": 3,
+        "controls": "$unchecked_hover"
+      }},
+      {"checked_hover": {
+        "type": "panel",
+        "layer": 4,
+        "controls": "$checked_hover"
+      }}
+    ]
+  },
+
+  "info_card" : {
+    "type": "image",
+    "texture": "textures/ui/White",
+    "color": [0, 1, 1],
+    "bindings": "$is_selected",
+    "controls": [
+      {
+        "icon": {
+          "type": "image",
+          "texture": "textures/ui/White",
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "size": [100, "100%"],
+          "color": [0, 0, 1],
+          "controls":  [
+            {
+              "icon": {
+                "type": "image",
+                "texture": "$icon",
+                "size": [64, 64]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name_and_description": {
+          "type": "stack_panel",
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "size": ["100% - 100px", "100%"],
+          "offset": [100, 0],
+          "layer": 2,
+          "controls": [
+            {
+              "name": {
+                "type": "label",
+                "text": "$name",
+                "font_size": "large",
+                "color": "$5_color_format",
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "size": ["100%", "default"]
+              }
+            },
+            {
+              "description": {
+                "type": "label",
+                "text": "$description",
+                "color": "$7_color_format",
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "size": ["100%", "fill"]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  
+  "grid_toggle@skypedia_common.toggle": {
+    "toggle_name": "items_grid",
+    "size": [ 32, 32 ],
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left"
+  }
+}

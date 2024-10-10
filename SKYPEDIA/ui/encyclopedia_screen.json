@@ -1,0 +1,7 @@
+{
+  "namespace": "encyclopedia",
+
+  "encyclopedia_screen@skypedia_common.black_canvas": {
+    "$screen_content": "how_to_play.skypedia"
+  }
+}

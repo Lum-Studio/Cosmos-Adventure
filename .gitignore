@@ -1,10 +1,6 @@
-/build
-/.regolith
-package.json
-package-lock.json
-node_modules
-ItemGenerator.js
-/items
-thingsToDoMySelf.js
-/models
-/blocks
+SKYPEDIA/skypedia.js
+SKYPEDIA/data
+SKYPEDIA/output
+run.js
+.regolith
+SKYPEDIA/ui/skypedia_library.json
