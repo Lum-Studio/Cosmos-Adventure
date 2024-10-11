@@ -188,8 +188,53 @@
   
   "grid_toggle@skypedia_common.toggle": {
     "toggle_name": "items_grid",
-    "size": [ 32, 32 ],
+    "size": [ 20, 20 ],
     "anchor_from": "bottom_left",
-    "anchor_to": "bottom_left"
+    "anchor_to": "bottom_left",
+    "controls": [
+      {"unchecked": {
+        "type": "image",
+        "texture": "textures/ui/grid_item",
+        "layer": 1
+      }},
+      {"checked": {
+        "type": "image",
+        "texture": "textures/ui/grid_item_pressed",
+        "layer": 2
+      }},
+      {"unchecked_hover": {
+        "type": "image",
+        "texture": "textures/ui/grid_item_hover",
+        "layer": 3,
+        "controls": [{"hover@skypedia_common.hovering_text": {}}]
+      }},
+      {"checked_hover": {
+        "type": "image",
+        "texture": "textures/ui/grid_item_hover_pressed",
+        "layer": 4,
+        "controls": [{"hover@skypedia_common.hovering_text": {}}]
+      }},
+      {"icon": {
+        "type": "image",
+        "size": [ 16, 16 ],
+        "texture": "$texture",
+        "layer": 5
+      }}
+    ]
+  },
+  "hovering_text": {
+    "type": "image",
+    "layer": 6,
+    "texture": "textures/ui/hover_background",
+    "size": ["100%c + 10px", "100%c + 8px"],
+    "anchor_to":"top_left",
+    "controls": [
+      {
+        "text": {
+          "type": "label",
+          "text": "$text"
+        }
+      }
+    ]
   }
 }
