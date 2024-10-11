@@ -10,11 +10,7 @@
     },
     "components": {
         "minecraft:max_stack_size": 1,
-        "minecraft:icon": {
-            "textures": {
-                "default": "steel_boots"
-            }
-        },
+        "minecraft:icon": "steel_boots",
         "minecraft:wearable": {
             "slot": "slot.armor.feet"
         },

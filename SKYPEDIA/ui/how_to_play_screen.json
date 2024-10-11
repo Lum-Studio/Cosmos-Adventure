@@ -224,7 +224,7 @@
     {
       "cosmos:glowstone_torch@skypedia_common.grid_toggle": {
         "toggle_group_forced_index": 31,
-        "$texture": "textures/items/glowstone_torch",
+        "$texture": "textures/blocks/glowstone_torch",
         "$text": "Glowstone Torch"
       }
     },
@@ -588,21 +588,21 @@
     {
       "cosmos:steel_boots@skypedia_common.grid_toggle": {
         "toggle_group_forced_index": 83,
-        "$texture": "textures/items/undefined",
+        "$texture": "textures/items/steel_boots",
         "$text": "item.steel_boots.name"
       }
     },
     {
       "cosmos:steel_chestplate@skypedia_common.grid_toggle": {
         "toggle_group_forced_index": 84,
-        "$texture": "textures/items/undefined",
+        "$texture": "textures/items/steel_chestplate",
         "$text": "item.steel_chestplate.name"
       }
     },
     {
       "cosmos:steel_helmet@skypedia_common.grid_toggle": {
         "toggle_group_forced_index": 85,
-        "$texture": "textures/items/undefined",
+        "$texture": "textures/items/steel_helmet",
         "$text": "item.steel_helmet.name"
       }
     },
@@ -616,7 +616,7 @@
     {
       "cosmos:steel_leggings@skypedia_common.grid_toggle": {
         "toggle_group_forced_index": 87,
-        "$texture": "textures/items/undefined",
+        "$texture": "textures/items/steel_leggings",
         "$text": "item.steel_leggings.name"
       }
     },
@@ -706,831 +706,828 @@
     }
   ],
   "$item_cards": [
-    // {
-    //   "cosmos:advanced_wafer@skypedia_common.info_card": {
-    //     "$icon": "textures/items/advanced_wafer",
-    //     "$name": "Advanced Wafer",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:advanced_wafer"
-    //   }
-    // },
-    // {
-    //   "cosmos:aluminum_ingot@skypedia_common.info_card": {
-    //     "$icon": "textures/items/aluminum_ingot",
-    //     "$name": "item.aluminum_ingot.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:aluminum_ingot"
-    //   }
-    // },
-    // {
-    //   "cosmos:aluminum_wire_item@skypedia_common.info_card": {
-    //     "$icon": "textures/items/aluminum_wire_item",
-    //     "$name": "tile.aluminum_wire.alu_wire.name",
-    //     "$description": "tile.aluminum_wire.alu_wire.description",
-    //     "$toggle_name": "cosmos:aluminum_wire_item"
-    //   }
-    // },
-    // {
-    //   "cosmos:ambient_thermal_controller@skypedia_common.info_card": {
-    //     "$icon": "textures/items/ambient_thermal_controller",
-    //     "$name": "Ambient Thermal Controller",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:ambient_thermal_controller"
-    //   }
-    // },
-    // {
-    //   "cosmos:basic_wafer@skypedia_common.info_card": {
-    //     "$icon": "textures/items/basic_wafer",
-    //     "$name": "Basic Wafer",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:basic_wafer"
-    //   }
-    // },
-    // {
-    //   "cosmos:battery@skypedia_common.info_card": {
-    //     "$icon": "textures/items/battery",
-    //     "$name": "item.battery.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:battery"
-    //   }
-    // },
-    // {
-    //   "cosmos:blue_solar_wafer@skypedia_common.info_card": {
-    //     "$icon": "textures/items/blue_solar_wafer",
-    //     "$name": "Blue Solar Wafer",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:blue_solar_wafer"
-    //   }
-    // },
-    // {
-    //   "cosmos:buggy_seat@skypedia_common.info_card": {
-    //     "$icon": "textures/items/buggy_seat",
-    //     "$name": "Buggy Seat",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:buggy_seat"
-    //   }
-    // },
-    // {
-    //   "cosmos:buggy_storage@skypedia_common.info_card": {
-    //     "$icon": "textures/items/buggy_storage",
-    //     "$name": "Buggy Storage",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:buggy_storage"
-    //   }
-    // },
-    // {
-    //   "cosmos:buggy_wheel@skypedia_common.info_card": {
-    //     "$icon": "textures/items/buggy_wheel",
-    //     "$name": "Buggy Wheel",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:buggy_wheel"
-    //   }
-    // },
-    // {
-    //   "cosmos:canvas@skypedia_common.info_card": {
-    //     "$icon": "textures/items/canvas",
-    //     "$name": "item.canvas.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:canvas"
-    //   }
-    // },
-    // {
-    //   "cosmos:cheese_curd@skypedia_common.info_card": {
-    //     "$icon": "textures/items/cheese_curd",
-    //     "$name": "item.cheese_curd.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:cheese_curd"
-    //   }
-    // },
-    // {
-    //   "cosmos:compressed_aluminum@skypedia_common.info_card": {
-    //     "$icon": "textures/items/compressed_aluminum",
-    //     "$name": "Compressed Aluminum",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:compressed_aluminum"
-    //   }
-    // },
-    // {
-    //   "cosmos:compressed_bronze@skypedia_common.info_card": {
-    //     "$icon": "textures/items/compressed_bronze",
-    //     "$name": "Compressed Bronze",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:compressed_bronze"
-    //   }
-    // },
-    // {
-    //   "cosmos:compressed_copper@skypedia_common.info_card": {
-    //     "$icon": "textures/items/compressed_copper",
-    //     "$name": "Compressed Copper",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:compressed_copper"
-    //   }
-    // },
-    // {
-    //   "cosmos:compressed_iron@skypedia_common.info_card": {
-    //     "$icon": "textures/items/compressed_iron",
-    //     "$name": "Compressed Iron",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:compressed_iron"
-    //   }
-    // },
-    // {
-    //   "cosmos:compressed_meteoric_iron@skypedia_common.info_card": {
-    //     "$icon": "textures/items/compressed_meteoric_iron",
-    //     "$name": "item.compressed_meteoric_iron.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:compressed_meteoric_iron"
-    //   }
-    // },
-    // {
-    //   "cosmos:compressed_steel@skypedia_common.info_card": {
-    //     "$icon": "textures/items/compressed_steel",
-    //     "$name": "Compressed Steel",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:compressed_steel"
-    //   }
-    // },
-    // {
-    //   "cosmos:compressed_tin@skypedia_common.info_card": {
-    //     "$icon": "textures/items/compressed_tin",
-    //     "$name": "Compressed Tin",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:compressed_tin"
-    //   }
-    // },
-    // {
-    //   "cosmos:copper_canister@skypedia_common.info_card": {
-    //     "$icon": "textures/items/copper_canister",
-    //     "$name": "Copper Canister",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:copper_canister"
-    //   }
-    // },
-    // {
-    //   "cosmos:dehydrated_apple@skypedia_common.info_card": {
-    //     "$icon": "textures/items/dehydrated_apple",
-    //     "$name": "Dehydrated Apple",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:dehydrated_apple"
-    //   }
-    // },
-    // {
-    //   "cosmos:dehydrated_carrot@skypedia_common.info_card": {
-    //     "$icon": "textures/items/dehydrated_carrot",
-    //     "$name": "Dehydrated Carrot",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:dehydrated_carrot"
-    //   }
-    // },
-    // {
-    //   "cosmos:dehydrated_melon@skypedia_common.info_card": {
-    //     "$icon": "textures/items/dehydrated_melon",
-    //     "$name": "Dehydrated Melon",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:dehydrated_melon"
-    //   }
-    // },
-    // {
-    //   "cosmos:dehydrated_potato@skypedia_common.info_card": {
-    //     "$icon": "textures/items/dehydrated_potato",
-    //     "$name": "Dehydrated Potato",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:dehydrated_potato"
-    //   }
-    // },
-    // {
-    //   "cosmos:dungeon_finder@skypedia_common.info_card": {
-    //     "$icon": "textures/items/dungeon_finder",
-    //     "$name": "Dungeon Finder",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:dungeon_finder"
-    //   }
-    // },
-    // {
-    //   "cosmos:emergency_kit@skypedia_common.info_card": {
-    //     "$icon": "textures/items/emergency_kit",
-    //     "$name": "item.emergency_kit.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:emergency_kit"
-    //   }
-    // },
-    // {
-    //   "cosmos:empty_liquid_canister@skypedia_common.info_card": {
-    //     "$icon": "textures/items/empty_liquid_canister",
-    //     "$name": "item.empty_liquid_canister.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:empty_liquid_canister"
-    //   }
-    // },
-    // {
-    //   "cosmos:frequency_module@skypedia_common.info_card": {
-    //     "$icon": "textures/items/frequency_module",
-    //     "$name": "Frequency Module",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:frequency_module"
-    //   }
-    // },
-    // {
-    //   "cosmos:fuel_bucket@skypedia_common.info_card": {
-    //     "$icon": "textures/items/fuel_bucket",
-    //     "$name": "Fuel Bucket",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:fuel_bucket"
-    //   }
-    // },
-    // {
-    //   "cosmos:fuel_canister_partial_0@skypedia_common.info_card": {
-    //     "$icon": "textures/items/fuel_canister_partial_0",
-    //     "$name": "Fuel Canister Partial 0",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:fuel_canister_partial_0"
-    //   }
-    // },
-    // {
-    //   "cosmos:glowstone_torch@skypedia_common.info_card": {
-    //     "$icon": "textures/items/glowstone_torch",
-    //     "$name": "Glowstone Torch",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:glowstone_torch"
-    //   }
-    // },
-    // {
-    //   "cosmos:grapple@skypedia_common.info_card": {
-    //     "$icon": "textures/items/grapple",
-    //     "$name": "item.grapple.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:grapple"
-    //   }
-    // },
-    // {
-    //   "cosmos:heavy_duty_plate@skypedia_common.info_card": {
-    //     "$icon": "textures/items/heavy_duty_plate",
-    //     "$name": "Heavy Duty Plate",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:heavy_duty_plate"
-    //   }
-    // },
-    // {
-    //   "cosmos:lunar_sapphire@skypedia_common.info_card": {
-    //     "$icon": "textures/items/lunar_sapphire",
-    //     "$name": "item.lunar_sapphire.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:lunar_sapphire"
-    //   }
-    // },
-    // {
-    //   "cosmos:meteoric_iron_ingot@skypedia_common.info_card": {
-    //     "$icon": "textures/items/meteoric_iron_ingot",
-    //     "$name": "item.meteoric_iron_ingot.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:meteoric_iron_ingot"
-    //   }
-    // },
-    // {
-    //   "cosmos:meteoric_raw_iron@skypedia_common.info_card": {
-    //     "$icon": "textures/items/meteoric_raw_iron",
-    //     "$name": "Meteoric Raw Iron",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:meteoric_raw_iron"
-    //   }
-    // },
-    // {
-    //   "cosmos:nose_cone@skypedia_common.info_card": {
-    //     "$icon": "textures/items/nose_cone",
-    //     "$name": "item.nose_cone.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:nose_cone"
-    //   }
-    // },
-    // {
-    //   "cosmos:oil_bucket@skypedia_common.info_card": {
-    //     "$icon": "textures/items/oil_bucket",
-    //     "$name": "Oil Bucket",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:oil_bucket"
-    //   }
-    // },
-    // {
-    //   "cosmos:oil_canister_partial_0@skypedia_common.info_card": {
-    //     "$icon": "textures/items/oil_canister_partial_0",
-    //     "$name": "Oil Canister Partial 0",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:oil_canister_partial_0"
-    //   }
-    // },
-    // {
-    //   "cosmos:oxygen_concentrator@skypedia_common.info_card": {
-    //     "$icon": "textures/items/oxygen_concentrator",
-    //     "$name": "item.oxygen_concentrator.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:oxygen_concentrator"
-    //   }
-    // },
-    // {
-    //   "cosmos:oxygen_fan@skypedia_common.info_card": {
-    //     "$icon": "textures/items/oxygen_fan",
-    //     "$name": "Oxygen Fan",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:oxygen_fan"
-    //   }
-    // },
-    // {
-    //   "cosmos:oxygen_gear@skypedia_common.info_card": {
-    //     "$icon": "textures/items/oxygen_gear",
-    //     "$name": "item.oxygen_gear.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:oxygen_gear"
-    //   }
-    // },
-    // {
-    //   "cosmos:oxygen_mask@skypedia_common.info_card": {
-    //     "$icon": "textures/items/oxygen_mask",
-    //     "$name": "item.oxygen_mask.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:oxygen_mask"
-    //   }
-    // },
-    // {
-    //   "cosmos:oxygen_tank_heavy_full@skypedia_common.info_card": {
-    //     "$icon": "textures/items/oxygen_tank_heavy_full",
-    //     "$name": "item.oxygen_tank_heavy_full.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:oxygen_tank_heavy_full"
-    //   }
-    // },
-    // {
-    //   "cosmos:oxygen_tank_light_full@skypedia_common.info_card": {
-    //     "$icon": "textures/items/oxygen_tank_light_full",
-    //     "$name": "item.oxygen_tank_light_full.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:oxygen_tank_light_full"
-    //   }
-    // },
-    // {
-    //   "cosmos:oxygen_tank_med_full@skypedia_common.info_card": {
-    //     "$icon": "textures/items/oxygen_tank_med_full",
-    //     "$name": "item.oxygen_tank_med_full.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:oxygen_tank_med_full"
-    //   }
-    // },
-    // {
-    //   "cosmos:oxygen_vent@skypedia_common.info_card": {
-    //     "$icon": "textures/items/oxygen_vent",
-    //     "$name": "Oxygen Vent",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:oxygen_vent"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_black@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_black",
-    //     "$name": "item.parachute_black.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_black"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_blue@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_blue",
-    //     "$name": "item.parachute_blue.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_blue"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_brown@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_brown",
-    //     "$name": "item.parachute_brown.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_brown"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_darkblue@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_darkblue",
-    //     "$name": "item.parachute_darkblue.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_darkblue"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_darkgray@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_darkgray",
-    //     "$name": "item.parachute_darkgray.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_darkgray"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_darkgreen@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_darkgreen",
-    //     "$name": "item.parachute_darkgreen.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_darkgreen"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_gray@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_gray",
-    //     "$name": "item.parachute_gray.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_gray"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_lime@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_lime",
-    //     "$name": "item.parachute_lime.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_lime"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_magenta@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_magenta",
-    //     "$name": "item.parachute_magenta.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_magenta"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_orange@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_orange",
-    //     "$name": "item.parachute_orange.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_orange"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_pink@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_pink",
-    //     "$name": "item.parachute_pink.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_pink"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_plain@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_plain",
-    //     "$name": "item.parachute_plain.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_plain"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_purple@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_purple",
-    //     "$name": "item.parachute_purple.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_purple"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_red@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_red",
-    //     "$name": "item.parachute_red.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_red"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_teal@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_teal",
-    //     "$name": "item.parachute_teal.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_teal"
-    //   }
-    // },
-    // {
-    //   "cosmos:parachute_yellow@skypedia_common.info_card": {
-    //     "$icon": "textures/items/parachute_yellow",
-    //     "$name": "item.parachute_yellow.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:parachute_yellow"
-    //   }
-    // },
-    // {
-    //   "cosmos:raw_aluminum@skypedia_common.info_card": {
-    //     "$icon": "textures/items/raw_aluminum",
-    //     "$name": "Raw Aluminum",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:raw_aluminum"
-    //   }
-    // },
-    // {
-    //   "cosmos:raw_silicon@skypedia_common.info_card": {
-    //     "$icon": "textures/items/raw_silicon",
-    //     "$name": "Raw Silicon",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:raw_silicon"
-    //   }
-    // },
-    // {
-    //   "cosmos:raw_tin@skypedia_common.info_card": {
-    //     "$icon": "textures/items/raw_tin",
-    //     "$name": "Raw Tin",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:raw_tin"
-    //   }
-    // },
-    // {
-    //   "cosmos:rocket_engine@skypedia_common.info_card": {
-    //     "$icon": "textures/items/rocket_engine",
-    //     "$name": "Rocket Engine",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:rocket_engine"
-    //   }
-    // },
-    // {
-    //   "cosmos:rocket_fins@skypedia_common.info_card": {
-    //     "$icon": "textures/items/rocket_fins",
-    //     "$name": "item.rocket_fins.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:rocket_fins"
-    //   }
-    // },
-    // {
-    //   "cosmos:rocket_tier_1_item@skypedia_common.info_card": {
-    //     "$icon": "textures/items/rocket_tier_1",
-    //     "$name": "Rocket Tier 1 Item",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:rocket_tier_1_item"
-    //   }
-    // },
-    // {
-    //   "cosmos:schematic_astro_miner@skypedia_common.info_card": {
-    //     "$icon": "textures/items/schematic_astro_miner",
-    //     "$name": "Schematic Astro Miner",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:schematic_astro_miner"
-    //   }
-    // },
-    // {
-    //   "cosmos:schematic_buggy@skypedia_common.info_card": {
-    //     "$icon": "textures/items/schematic_buggy",
-    //     "$name": "Schematic Buggy",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:schematic_buggy"
-    //   }
-    // },
-    // {
-    //   "cosmos:schematic_rocket_cargo@skypedia_common.info_card": {
-    //     "$icon": "textures/items/schematic_rocket_cargo",
-    //     "$name": "Schematic Rocket Cargo",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:schematic_rocket_cargo"
-    //   }
-    // },
-    // {
-    //   "cosmos:schematic_rocket_t2@skypedia_common.info_card": {
-    //     "$icon": "textures/items/schematic_rocket_t2",
-    //     "$name": "Schematic Rocket T2",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:schematic_rocket_t2"
-    //   }
-    // },
-    // {
-    //   "cosmos:schematic_rocket_t3@skypedia_common.info_card": {
-    //     "$icon": "textures/items/schematic_rocket_t3",
-    //     "$name": "Schematic Rocket T3",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:schematic_rocket_t3"
-    //   }
-    // },
-    // {
-    //   "cosmos:sensor_glasses@skypedia_common.info_card": {
-    //     "$icon": "textures/items/sensor_glasses",
-    //     "$name": "item.sensor_glasses.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:sensor_glasses"
-    //   }
-    // },
-    // {
-    //   "cosmos:sensor_lens@skypedia_common.info_card": {
-    //     "$icon": "textures/items/sensor_lens",
-    //     "$name": "item.sensor_lens.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:sensor_lens"
-    //   }
-    // },
-    // {
-    //   "cosmos:shield_controller@skypedia_common.info_card": {
-    //     "$icon": "textures/items/shield_controller",
-    //     "$name": "item.shield_controller.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:shield_controller"
-    //   }
-    // },
-    // {
-    //   "cosmos:solar_dust@skypedia_common.info_card": {
-    //     "$icon": "textures/items/solar_dust",
-    //     "$name": "item.solar_dust.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:solar_dust"
-    //   }
-    // },
-    // {
-    //   "cosmos:solar_module_0@skypedia_common.info_card": {
-    //     "$icon": "textures/items/solar_module_0",
-    //     "$name": "Solar Module 0",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:solar_module_0"
-    //   }
-    // },
-    // {
-    //   "cosmos:solar_module_1@skypedia_common.info_card": {
-    //     "$icon": "textures/items/solar_module_1",
-    //     "$name": "Solar Module 1",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:solar_module_1"
-    //   }
-    // },
-    // {
-    //   "cosmos:standard_wrench@skypedia_common.info_card": {
-    //     "$icon": "textures/items/standard_wrench",
-    //     "$name": "item.standard_wrench.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:standard_wrench"
-    //   }
-    // },
-    // {
-    //   "cosmos:steel_axe@skypedia_common.info_card": {
-    //     "$icon": "textures/items/steel_axe",
-    //     "$name": "item.steel_axe.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:steel_axe"
-    //   }
-    // },
-    // {
-    //   "cosmos:steel_boots@skypedia_common.info_card": {
-    //     "$icon": "textures/items/undefined",
-    //     "$name": "item.steel_boots.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:steel_boots"
-    //   }
-    // },
-    // {
-    //   "cosmos:steel_chestplate@skypedia_common.info_card": {
-    //     "$icon": "textures/items/undefined",
-    //     "$name": "item.steel_chestplate.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:steel_chestplate"
-    //   }
-    // },
-    // {
-    //   "cosmos:steel_helmet@skypedia_common.info_card": {
-    //     "$icon": "textures/items/undefined",
-    //     "$name": "item.steel_helmet.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:steel_helmet"
-    //   }
-    // },
-    // {
-    //   "cosmos:steel_hoe@skypedia_common.info_card": {
-    //     "$icon": "textures/items/steel_hoe",
-    //     "$name": "item.steel_hoe.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:steel_hoe"
-    //   }
-    // },
-    // {
-    //   "cosmos:steel_leggings@skypedia_common.info_card": {
-    //     "$icon": "textures/items/undefined",
-    //     "$name": "item.steel_leggings.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:steel_leggings"
-    //   }
-    // },
-    // {
-    //   "cosmos:steel_pickaxe@skypedia_common.info_card": {
-    //     "$icon": "textures/items/steel_pickaxe",
-    //     "$name": "item.steel_pickaxe.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:steel_pickaxe"
-    //   }
-    // },
-    // {
-    //   "cosmos:steel_pole@skypedia_common.info_card": {
-    //     "$icon": "textures/items/steel_pole",
-    //     "$name": "item.steel_pole.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:steel_pole"
-    //   }
-    // },
-    // {
-    //   "cosmos:steel_shovel@skypedia_common.info_card": {
-    //     "$icon": "textures/items/steel_shovel",
-    //     "$name": "item.steel_shovel.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:steel_shovel"
-    //   }
-    // },
-    // {
-    //   "cosmos:steel_sword@skypedia_common.info_card": {
-    //     "$icon": "textures/items/steel_sword",
-    //     "$name": "item.steel_sword.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:steel_sword"
-    //   }
-    // },
-    // {
-    //   "cosmos:thermal_boots@skypedia_common.info_card": {
-    //     "$icon": "textures/items/thermal_boots",
-    //     "$name": "item.thermal_boots.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:thermal_boots"
-    //   }
-    // },
-    // {
-    //   "cosmos:thermal_chestplate@skypedia_common.info_card": {
-    //     "$icon": "textures/items/thermal_chestplate",
-    //     "$name": "item.thermal_chestplate.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:thermal_chestplate"
-    //   }
-    // },
-    // {
-    //   "cosmos:thermal_helmet@skypedia_common.info_card": {
-    //     "$icon": "textures/items/thermal_helmet",
-    //     "$name": "Thermal Helmet",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:thermal_helmet"
-    //   }
-    // },
-    // {
-    //   "cosmos:thermal_leggings@skypedia_common.info_card": {
-    //     "$icon": "textures/items/thermal_leggings",
-    //     "$name": "item.thermal_leggings.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:thermal_leggings"
-    //   }
-    // },
-    // {
-    //   "cosmos:thin_solar_wafer@skypedia_common.info_card": {
-    //     "$icon": "textures/items/thin_solar_wafer",
-    //     "$name": "item.thin_solar_wafer.name",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:thin_solar_wafer"
-    //   }
-    // },
-    // {
-    //   "cosmos:tier_1_booster@skypedia_common.info_card": {
-    //     "$icon": "textures/items/tier_1_booster",
-    //     "$name": "Tier 1 Booster",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:tier_1_booster"
-    //   }
-    // },
-    // {
-    //   "cosmos:tin_canister@skypedia_common.info_card": {
-    //     "$icon": "textures/items/tin_canister",
-    //     "$name": "Tin Canister",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:tin_canister"
-    //   }
-    // },
-    // {
-    //   "cosmos:tin_ingot@skypedia_common.info_card": {
-    //     "$icon": "textures/items/tin_ingot",
-    //     "$name": "Tin Ingot",
-    //     "$description": "",
-    //     "$toggle_name": "cosmos:tin_ingot"
-    //   }
-    // }
+    {
+      "cosmos:advanced_wafer@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/advanced_wafer",
+        "$name": "Advanced Wafer",
+        "$description": "",
+        "$toggle_name": "cosmos:advanced_wafer"
+      }
+    },
+    {
+      "cosmos:aluminum_ingot@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/aluminum_ingot",
+        "$name": "item.aluminum_ingot.name",
+        "$description": "",
+        "$toggle_name": "cosmos:aluminum_ingot"
+      }
+    },
+    {
+      "cosmos:aluminum_wire_item@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/aluminum_wire_item",
+        "$name": "tile.aluminum_wire.alu_wire.name",
+        "$description": "tile.aluminum_wire.alu_wire.description",
+        "$toggle_name": "cosmos:aluminum_wire_item"
+      }
+    },
+    {
+      "cosmos:ambient_thermal_controller@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/ambient_thermal_controller",
+        "$name": "Ambient Thermal Controller",
+        "$description": "",
+        "$toggle_name": "cosmos:ambient_thermal_controller"
+      }
+    },
+    {
+      "cosmos:basic_wafer@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/basic_wafer",
+        "$name": "Basic Wafer",
+        "$description": "",
+        "$toggle_name": "cosmos:basic_wafer"
+      }
+    },
+    {
+      "cosmos:battery@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/battery",
+        "$name": "item.battery.name",
+        "$description": "",
+        "$toggle_name": "cosmos:battery"
+      }
+    },
+    {
+      "cosmos:blue_solar_wafer@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/blue_solar_wafer",
+        "$name": "Blue Solar Wafer",
+        "$description": "",
+        "$toggle_name": "cosmos:blue_solar_wafer"
+      }
+    },
+    {
+      "cosmos:buggy_seat@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/buggy_seat",
+        "$name": "Buggy Seat",
+        "$description": "",
+        "$toggle_name": "cosmos:buggy_seat"
+      }
+    },
+    {
+      "cosmos:buggy_storage@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/buggy_storage",
+        "$name": "Buggy Storage",
+        "$description": "",
+        "$toggle_name": "cosmos:buggy_storage"
+      }
+    },
+    {
+      "cosmos:buggy_wheel@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/buggy_wheel",
+        "$name": "Buggy Wheel",
+        "$description": "",
+        "$toggle_name": "cosmos:buggy_wheel"
+      }
+    },
+    {
+      "cosmos:canvas@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/canvas",
+        "$name": "item.canvas.name",
+        "$description": "",
+        "$toggle_name": "cosmos:canvas"
+      }
+    },
+    {
+      "cosmos:cheese_curd@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/cheese_curd",
+        "$name": "item.cheese_curd.name",
+        "$description": "",
+        "$toggle_name": "cosmos:cheese_curd"
+      }
+    },
+    {
+      "cosmos:compressed_aluminum@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/compressed_aluminum",
+        "$name": "Compressed Aluminum",
+        "$description": "",
+        "$toggle_name": "cosmos:compressed_aluminum"
+      }
+    },
+    {
+      "cosmos:compressed_bronze@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/compressed_bronze",
+        "$name": "Compressed Bronze",
+        "$description": "",
+        "$toggle_name": "cosmos:compressed_bronze"
+      }
+    },
+    {
+      "cosmos:compressed_copper@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/compressed_copper",
+        "$name": "Compressed Copper",
+        "$description": "",
+        "$toggle_name": "cosmos:compressed_copper"
+      }
+    },
+    {
+      "cosmos:compressed_iron@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/compressed_iron",
+        "$name": "Compressed Iron",
+        "$description": "",
+        "$toggle_name": "cosmos:compressed_iron"
+      }
+    },
+    {
+      "cosmos:compressed_meteoric_iron@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/compressed_meteoric_iron",
+        "$name": "item.compressed_meteoric_iron.name",
+        "$description": "",
+        "$toggle_name": "cosmos:compressed_meteoric_iron"
+      }
+    },
+    {
+      "cosmos:compressed_steel@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/compressed_steel",
+        "$name": "Compressed Steel",
+        "$description": "",
+        "$toggle_name": "cosmos:compressed_steel"
+      }
+    },
+    {
+      "cosmos:compressed_tin@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/compressed_tin",
+        "$name": "Compressed Tin",
+        "$description": "",
+        "$toggle_name": "cosmos:compressed_tin"
+      }
+    },
+    {
+      "cosmos:copper_canister@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/copper_canister",
+        "$name": "Copper Canister",
+        "$description": "",
+        "$toggle_name": "cosmos:copper_canister"
+      }
+    },
+    {
+      "cosmos:dehydrated_apple@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/dehydrated_apple",
+        "$name": "Dehydrated Apple",
+        "$description": "",
+        "$toggle_name": "cosmos:dehydrated_apple"
+      }
+    },
+    {
+      "cosmos:dehydrated_carrot@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/dehydrated_carrot",
+        "$name": "Dehydrated Carrot",
+        "$description": "",
+        "$toggle_name": "cosmos:dehydrated_carrot"
+      }
+    },
+    {
+      "cosmos:dehydrated_melon@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/dehydrated_melon",
+        "$name": "Dehydrated Melon",
+        "$description": "",
+        "$toggle_name": "cosmos:dehydrated_melon"
+      }
+    },
+    {
+      "cosmos:dehydrated_potato@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/dehydrated_potato",
+        "$name": "Dehydrated Potato",
+        "$description": "",
+        "$toggle_name": "cosmos:dehydrated_potato"
+      }
+    },
+    {
+      "cosmos:dungeon_finder@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/dungeon_finder",
+        "$name": "Dungeon Finder",
+        "$description": "",
+        "$toggle_name": "cosmos:dungeon_finder"
+      }
+    },
+    {
+      "cosmos:emergency_kit@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/emergency_kit",
+        "$name": "item.emergency_kit.name",
+        "$description": "",
+        "$toggle_name": "cosmos:emergency_kit"
+      }
+    },
+    {
+      "cosmos:empty_liquid_canister@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/empty_liquid_canister",
+        "$name": "item.empty_liquid_canister.name",
+        "$description": "",
+        "$toggle_name": "cosmos:empty_liquid_canister"
+      }
+    },
+    {
+      "cosmos:frequency_module@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/frequency_module",
+        "$name": "Frequency Module",
+        "$description": "",
+        "$toggle_name": "cosmos:frequency_module"
+      }
+    },
+    {
+      "cosmos:fuel_bucket@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/fuel_bucket",
+        "$name": "Fuel Bucket",
+        "$description": "",
+        "$toggle_name": "cosmos:fuel_bucket"
+      }
+    },
+    {
+      "cosmos:fuel_canister_partial_0@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/fuel_canister_partial_0",
+        "$name": "Fuel Canister Partial 0",
+        "$description": "",
+        "$toggle_name": "cosmos:fuel_canister_partial_0"
+      }
+    },
+    {
+      "cosmos:glowstone_torch@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/blocks/glowstone_torch",
+        "$name": "Glowstone Torch",
+        "$description": "",
+        "$toggle_name": "cosmos:glowstone_torch"
+      }
+    },
+    {
+      "cosmos:grapple@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/grapple",
+        "$name": "item.grapple.name",
+        "$description": "",
+        "$toggle_name": "cosmos:grapple"
+      }
+    },
+    {
+      "cosmos:heavy_duty_plate@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/heavy_duty_plate",
+        "$name": "Heavy Duty Plate",
+        "$description": "",
+        "$toggle_name": "cosmos:heavy_duty_plate"
+      }
+    },
+    {
+      "cosmos:lunar_sapphire@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/lunar_sapphire",
+        "$name": "item.lunar_sapphire.name",
+        "$description": "",
+        "$toggle_name": "cosmos:lunar_sapphire"
+      }
+    },
+    {
+      "cosmos:meteoric_iron_ingot@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/meteoric_iron_ingot",
+        "$name": "item.meteoric_iron_ingot.name",
+        "$description": "",
+        "$toggle_name": "cosmos:meteoric_iron_ingot"
+      }
+    },
+    {
+      "cosmos:meteoric_raw_iron@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/meteoric_raw_iron",
+        "$name": "Meteoric Raw Iron",
+        "$description": "",
+        "$toggle_name": "cosmos:meteoric_raw_iron"
+      }
+    },
+    {
+      "cosmos:nose_cone@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/nose_cone",
+        "$name": "item.nose_cone.name",
+        "$description": "",
+        "$toggle_name": "cosmos:nose_cone"
+      }
+    },
+    {
+      "cosmos:oil_bucket@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/oil_bucket",
+        "$name": "Oil Bucket",
+        "$description": "",
+        "$toggle_name": "cosmos:oil_bucket"
+      }
+    },
+    {
+      "cosmos:oil_canister_partial_0@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/oil_canister_partial_0",
+        "$name": "Oil Canister Partial 0",
+        "$description": "",
+        "$toggle_name": "cosmos:oil_canister_partial_0"
+      }
+    },
+    {
+      "cosmos:oxygen_concentrator@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/oxygen_concentrator",
+        "$name": "item.oxygen_concentrator.name",
+        "$description": "",
+        "$toggle_name": "cosmos:oxygen_concentrator"
+      }
+    },
+    {
+      "cosmos:oxygen_fan@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/oxygen_fan",
+        "$name": "Oxygen Fan",
+        "$description": "",
+        "$toggle_name": "cosmos:oxygen_fan"
+      }
+    },
+    {
+      "cosmos:oxygen_gear@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/oxygen_gear",
+        "$name": "item.oxygen_gear.name",
+        "$description": "",
+        "$toggle_name": "cosmos:oxygen_gear"
+      }
+    },
+    {
+      "cosmos:oxygen_mask@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/oxygen_mask",
+        "$name": "item.oxygen_mask.name",
+        "$description": "",
+        "$toggle_name": "cosmos:oxygen_mask"
+      }
+    },
+    {
+      "cosmos:oxygen_tank_heavy_full@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/oxygen_tank_heavy_full",
+        "$name": "item.oxygen_tank_heavy_full.name",
+        "$description": "",
+        "$toggle_name": "cosmos:oxygen_tank_heavy_full"
+      }
+    },
+    {
+      "cosmos:oxygen_tank_light_full@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/oxygen_tank_light_full",
+        "$name": "item.oxygen_tank_light_full.name",
+        "$description": "",
+        "$toggle_name": "cosmos:oxygen_tank_light_full"
+      }
+    },
+    {
+      "cosmos:oxygen_tank_med_full@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/oxygen_tank_med_full",
+        "$name": "item.oxygen_tank_med_full.name",
+        "$description": "",
+        "$toggle_name": "cosmos:oxygen_tank_med_full"
+      }
+    },
+    {
+      "cosmos:oxygen_vent@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/oxygen_vent",
+        "$name": "Oxygen Vent",
+        "$description": "",
+        "$toggle_name": "cosmos:oxygen_vent"
+      }
+    },
+    {
+      "cosmos:parachute_black@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_black",
+        "$name": "item.parachute_black.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_black"
+      }
+    },
+    {
+      "cosmos:parachute_blue@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_blue",
+        "$name": "item.parachute_blue.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_blue"
+      }
+    },
+    {
+      "cosmos:parachute_brown@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_brown",
+        "$name": "item.parachute_brown.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_brown"
+      }
+    },
+    {
+      "cosmos:parachute_darkblue@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_darkblue",
+        "$name": "item.parachute_darkblue.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_darkblue"
+      }
+    },
+    {
+      "cosmos:parachute_darkgray@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_darkgray",
+        "$name": "item.parachute_darkgray.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_darkgray"
+      }
+    },
+    {
+      "cosmos:parachute_darkgreen@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_darkgreen",
+        "$name": "item.parachute_darkgreen.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_darkgreen"
+      }
+    },
+    {
+      "cosmos:parachute_gray@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_gray",
+        "$name": "item.parachute_gray.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_gray"
+      }
+    },
+    {
+      "cosmos:parachute_lime@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_lime",
+        "$name": "item.parachute_lime.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_lime"
+      }
+    },
+    {
+      "cosmos:parachute_magenta@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_magenta",
+        "$name": "item.parachute_magenta.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_magenta"
+      }
+    },
+    {
+      "cosmos:parachute_orange@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_orange",
+        "$name": "item.parachute_orange.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_orange"
+      }
+    },
+    {
+      "cosmos:parachute_pink@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_pink",
+        "$name": "item.parachute_pink.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_pink"
+      }
+    },
+    {
+      "cosmos:parachute_plain@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_plain",
+        "$name": "item.parachute_plain.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_plain"
+      }
+    },
+    {
+      "cosmos:parachute_purple@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_purple",
+        "$name": "item.parachute_purple.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_purple"
+      }
+    },
+    {
+      "cosmos:parachute_red@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_red",
+        "$name": "item.parachute_red.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_red"
+      }
+    },
+    {
+      "cosmos:parachute_teal@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_teal",
+        "$name": "item.parachute_teal.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_teal"
+      }
+    },
+    {
+      "cosmos:parachute_yellow@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/parachute_yellow",
+        "$name": "item.parachute_yellow.name",
+        "$description": "",
+        "$toggle_name": "cosmos:parachute_yellow"
+      }
+    },
+    {
+      "cosmos:raw_aluminum@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/raw_aluminum",
+        "$name": "Raw Aluminum",
+        "$description": "",
+        "$toggle_name": "cosmos:raw_aluminum"
+      }
+    },
+    {
+      "cosmos:raw_silicon@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/raw_silicon",
+        "$name": "Raw Silicon",
+        "$description": "",
+        "$toggle_name": "cosmos:raw_silicon"
+      }
+    },
+    {
+      "cosmos:raw_tin@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/raw_tin",
+        "$name": "Raw Tin",
+        "$description": "",
+        "$toggle_name": "cosmos:raw_tin"
+      }
+    },
+    {
+      "cosmos:rocket_engine@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/rocket_engine",
+        "$name": "Rocket Engine",
+        "$description": "",
+        "$toggle_name": "cosmos:rocket_engine"
+      }
+    },
+    {
+      "cosmos:rocket_fins@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/rocket_fins",
+        "$name": "item.rocket_fins.name",
+        "$description": "",
+        "$toggle_name": "cosmos:rocket_fins"
+      }
+    },
+    {
+      "cosmos:rocket_tier_1_item@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/rocket_tier_1",
+        "$name": "Rocket Tier 1 Item",
+        "$description": "",
+        "$toggle_name": "cosmos:rocket_tier_1_item"
+      }
+    },
+    {
+      "cosmos:schematic_astro_miner@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/schematic_astro_miner",
+        "$name": "Schematic Astro Miner",
+        "$description": "",
+        "$toggle_name": "cosmos:schematic_astro_miner"
+      }
+    },
+    {
+      "cosmos:schematic_buggy@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/schematic_buggy",
+        "$name": "Schematic Buggy",
+        "$description": "",
+        "$toggle_name": "cosmos:schematic_buggy"
+      }
+    },
+    {
+      "cosmos:schematic_rocket_cargo@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/schematic_rocket_cargo",
+        "$name": "Schematic Rocket Cargo",
+        "$description": "",
+        "$toggle_name": "cosmos:schematic_rocket_cargo"
+      }
+    },
+    {
+      "cosmos:schematic_rocket_t2@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/schematic_rocket_t2",
+        "$name": "Schematic Rocket T2",
+        "$description": "",
+        "$toggle_name": "cosmos:schematic_rocket_t2"
+      }
+    },
+    {
+      "cosmos:schematic_rocket_t3@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/schematic_rocket_t3",
+        "$name": "Schematic Rocket T3",
+        "$description": "",
+        "$toggle_name": "cosmos:schematic_rocket_t3"
+      }
+    },
+    {
+      "cosmos:sensor_glasses@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/sensor_glasses",
+        "$name": "item.sensor_glasses.name",
+        "$description": "",
+        "$toggle_name": "cosmos:sensor_glasses"
+      }
+    },
+    {
+      "cosmos:sensor_lens@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/sensor_lens",
+        "$name": "item.sensor_lens.name",
+        "$description": "",
+        "$toggle_name": "cosmos:sensor_lens"
+      }
+    },
+    {
+      "cosmos:shield_controller@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/shield_controller",
+        "$name": "item.shield_controller.name",
+        "$description": "",
+        "$toggle_name": "cosmos:shield_controller"
+      }
+    },
+    {
+      "cosmos:solar_dust@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/solar_dust",
+        "$name": "item.solar_dust.name",
+        "$description": "",
+        "$toggle_name": "cosmos:solar_dust"
+      }
+    },
+    {
+      "cosmos:solar_module_0@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/solar_module_0",
+        "$name": "Solar Module 0",
+        "$description": "",
+        "$toggle_name": "cosmos:solar_module_0"
+      }
+    },
+    {
+      "cosmos:solar_module_1@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/solar_module_1",
+        "$name": "Solar Module 1",
+        "$description": "",
+        "$toggle_name": "cosmos:solar_module_1"
+      }
+    },
+    {
+      "cosmos:standard_wrench@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/standard_wrench",
+        "$name": "item.standard_wrench.name",
+        "$description": "",
+        "$toggle_name": "cosmos:standard_wrench"
+      }
+    },
+    {
+      "cosmos:steel_axe@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/steel_axe",
+        "$name": "item.steel_axe.name",
+        "$description": "",
+        "$toggle_name": "cosmos:steel_axe"
+      }
+    },
+    {
+      "cosmos:steel_boots@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/steel_boots",
+        "$name": "item.steel_boots.name",
+        "$description": "",
+        "$toggle_name": "cosmos:steel_boots"
+      }
+    },
+    {
+      "cosmos:steel_chestplate@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/steel_chestplate",
+        "$name": "item.steel_chestplate.name",
+        "$description": "",
+        "$toggle_name": "cosmos:steel_chestplate"
+      }
+    },
+    {
+      "cosmos:steel_helmet@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/steel_helmet",
+        "$name": "item.steel_helmet.name",
+        "$description": "",
+        "$toggle_name": "cosmos:steel_helmet"
+      }
+    },
+    {
+      "cosmos:steel_hoe@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/steel_hoe",
+        "$name": "item.steel_hoe.name",
+        "$description": "",
+        "$toggle_name": "cosmos:steel_hoe"
+      }
+    },
+    {
+      "cosmos:steel_leggings@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/steel_leggings",
+        "$name": "item.steel_leggings.name",
+        "$description": "",
+        "$toggle_name": "cosmos:steel_leggings"
+      }
+    },
+    {
+      "cosmos:steel_pickaxe@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/steel_pickaxe",
+        "$name": "item.steel_pickaxe.name",
+        "$description": "",
+        "$toggle_name": "cosmos:steel_pickaxe"
+      }
+    },
+    {
+      "cosmos:steel_pole@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/steel_pole",
+        "$name": "item.steel_pole.name",
+        "$description": "",
+        "$toggle_name": "cosmos:steel_pole"
+      }
+    },
+    {
+      "cosmos:steel_shovel@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/steel_shovel",
+        "$name": "item.steel_shovel.name",
+        "$description": "",
+        "$toggle_name": "cosmos:steel_shovel"
+      }
+    },
+    {
+      "cosmos:steel_sword@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/steel_sword",
+        "$name": "item.steel_sword.name",
+        "$description": "",
+        "$toggle_name": "cosmos:steel_sword"
+      }
+    },
+    {
+      "cosmos:thermal_boots@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/thermal_boots",
+        "$name": "item.thermal_boots.name",
+        "$description": "",
+        "$toggle_name": "cosmos:thermal_boots"
+      }
+    },
+    {
+      "cosmos:thermal_chestplate@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/thermal_chestplate",
+        "$name": "item.thermal_chestplate.name",
+        "$description": "",
+        "$toggle_name": "cosmos:thermal_chestplate"
+      }
+    },
+    {
+      "cosmos:thermal_helmet@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/thermal_helmet",
+        "$name": "Thermal Helmet",
+        "$description": "",
+        "$toggle_name": "cosmos:thermal_helmet"
+      }
+    },
+    {
+      "cosmos:thermal_leggings@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/thermal_leggings",
+        "$name": "item.thermal_leggings.name",
+        "$description": "",
+        "$toggle_name": "cosmos:thermal_leggings"
+      }
+    },
+    {
+      "cosmos:thin_solar_wafer@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/thin_solar_wafer",
+        "$name": "item.thin_solar_wafer.name",
+        "$description": "",
+        "$toggle_name": "cosmos:thin_solar_wafer"
+      }
+    },
+    {
+      "cosmos:tier_1_booster@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/tier_1_booster",
+        "$name": "Tier 1 Booster",
+        "$description": "",
+        "$toggle_name": "cosmos:tier_1_booster"
+      }
+    },
+    {
+      "cosmos:tin_canister@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/tin_canister",
+        "$name": "Tin Canister",
+        "$description": "",
+        "$toggle_name": "cosmos:tin_canister"
+      }
+    },
+    {
+      "cosmos:tin_ingot@skypedia_common.info_card": {
+        "$icon": "textures/items/textures/items/tin_ingot",
+        "$name": "Tin Ingot",
+        "$description": "",
+        "$toggle_name": "cosmos:tin_ingot"
+      }
+    }
   ],
     "controls": [
+      {
+        "item_grid": {
+          "type": "panel",
+          "size": ["35%", "100%"],
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "controls": [
+            { "grid@how_to_play.items_grid": {} }
+          ]
+        }
+      },
       // {
-      //   "scrolling_content": {
-      //     "type": "stack_panel",
-      //     "anchor_from": "top_left",
-      //     "anchor_to": "top_left",
-      //     "controls": "$items_grid",
+      //   "item_grid@common.scrolling_panel": {
+      //     "$show_background": true,
+      //     "$scrolling_content": "how_to_play.items_grid",
+      //     "$scroll_size": [ 5, "100% - 4px" ],
+      //     "$scrolling_pane_size": [ "100% - 4px", "100% - 2px" ],
+      //     "$scrolling_pane_offset": [ 2, 0 ],
+      //     "$scroll_bar_right_padding_size": [ 0, 0 ],
 
-      //     "layer": 1,
-      //     "$scrolling_content_anchor_from|default": "top_left",
-      //     "$scrolling_content_anchor_to|default": "top_left"
+      //     "size": ["35%", "100%"],
+      //     "anchor_from": "bottom_right",
+      //     "anchor_to": "bottom_right"
       //   }
       // },
       {
-        "item_grid@common.scrolling_panel": {
-          "$show_background": true,
-          "$scrolling_content": "how_to_play.items_grid",
-          "$scroll_size": [ 5, "100% - 4px" ],
-          "$scrolling_pane_size": [ "100% - 4px", "100% - 2px" ],
-          "$scrolling_pane_offset": [ 2, 0 ],
-          "$scroll_bar_right_padding_size": [ 0, 0 ],
-
-          "size": ["35%", "100%"],
-          "anchor_from": "bottom_right",
-          "anchor_to": "bottom_right"
-        }
-      },
-      {
         "item_screen": {
-          "type": "image",
-          "texture": "textures/ui/White",
-          "color": [0, 1, 0],
+          "type": "panel",
           "size": ["60%", "100%"],
           "anchor_from": "bottom_left",
           "anchor_to": "bottom_left",
@@ -1544,9 +1541,7 @@
             }},
             {
               "details" : {
-                "type": "image",
-                "texture": "textures/ui/White",
-                "color": [1, 0, 1],
+                "type": "panel",
                 "size": ["100%", "100% - 100px"],
                 "anchor_from": "bottom_left",
                 "anchor_to": "bottom_left",
@@ -1554,13 +1549,80 @@
                   {
                     "content_box": {
                       "type": "image",
-                      "texture": "textures/ui/White",
-                      "color": [0, 1, 0.5],
+                      "texture": "textures/ui/background_image",
                       "size": ["100% - 32px", "100% - 32px"],
                       "anchor_from": "bottom_right",
                       "anchor_to": "bottom_right",
                       "layer": 1,
                       "controls": [
+                        {
+                          "top_tabs": {
+                            "type": "stack_panel",
+                            "orientation": "horizontal",
+                            "size": ["100%c", 32],
+                            "offset": [0, 3],
+                            "anchor_from": "top_left",
+                            "anchor_to": "bottom_left",
+                            "controls": [
+                              {
+                                "recipes@skypedia_common.top_toggle": {
+                                  "toggle_group_forced_index": 0,
+                                  "$letter": "R"
+                                }
+                              },
+                              {
+                                "side_tab1@skypedia_common.top_toggle": {
+                                  "toggle_group_forced_index": 1,
+                                  "$letter": "U"
+                                }
+                              },
+                              {
+                                "side_tab1@skypedia_common.top_toggle": {
+                                  "toggle_group_forced_index": 2,
+                                  "$letter": "O"
+                                }
+                              },
+                              {
+                                "side_tab1@skypedia_common.top_toggle": {
+                                  "toggle_group_forced_index": 3,
+                                  "$letter": "P"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "side_tabs": {
+                            "type": "stack_panel",
+                            "size": [32, "100%c"],
+                            "offset": [3, 0],
+                            "anchor_from": "top_left",
+                            "anchor_to": "top_right",
+                            "controls": [
+                              {
+                                "side_tab1@skypedia_common.side_toggle": {
+                                  "toggle_group_forced_index": 0,
+                                  "$texture": "textures/blocks/crafting_table_front",
+                                  "$toggle_name": "recipes"
+                                }
+                              },
+                              {
+                                "side_tab1@skypedia_common.side_toggle": {
+                                  "toggle_group_forced_index": 1,
+                                  "$texture": "textures/blocks/machines/compressor",
+                                  "$toggle_name": "recipes"
+                                }
+                              },
+                              {
+                                "side_tab1@skypedia_common.side_toggle": {
+                                  "toggle_group_forced_index": 2,
+                                  "$texture": "textures/blocks/machines/circuit_fabricator",
+                                  "$toggle_name": "recipes"
+                                }
+                              }
+                            ]
+                          }
+                        }
                       ]
                     }
                   }
@@ -1573,7 +1635,13 @@
     ]
   },
   "items_grid": {
-    "type": "stack_panel",
+    "type": "grid",
+    "grid_dimensions": [10, 10],
+    "grid_fill_direction": "horizontal",
+    "grid_rescaling_type": "horizontal",
+    "grid_item_template": "skypedia_common.grid_holder",
+    "maximum_grid_items": 100,
+    "size": ["100%", "100%c"],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "controls": "$items_grid"

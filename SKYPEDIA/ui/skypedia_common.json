@@ -126,19 +126,16 @@
   },
 
   "info_card" : {
-    "type": "image",
-    "texture": "textures/ui/White",
-    "color": [0, 1, 1],
+    "type": "panel",
     "bindings": "$is_selected",
     "controls": [
       {
         "icon": {
           "type": "image",
-          "texture": "textures/ui/White",
-          "anchor_from": "bottom_left",
-          "anchor_to": "bottom_left",
-          "size": [100, "100%"],
-          "color": [0, 0, 1],
+          "texture": "textures/ui/grid_item",
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "size": [80, 80],
           "controls":  [
             {
               "icon": {
@@ -155,8 +152,8 @@
           "type": "stack_panel",
           "anchor_from": "bottom_left",
           "anchor_to": "bottom_left",
-          "size": ["100% - 100px", "100%"],
-          "offset": [100, 0],
+          "size": ["100% - 100px", "100% - 10px"],
+          "offset": [100, 5],
           "layer": 2,
           "controls": [
             {
@@ -164,7 +161,6 @@
                 "type": "label",
                 "text": "$name",
                 "font_size": "large",
-                "color": "$5_color_format",
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
                 "size": ["100%", "default"]
@@ -186,11 +182,84 @@
     ]
   },
   
+  "top_toggle@skypedia_common.side_toggle": {
+    "toggle_name": "top_tabs",
+    "size": [34, 32],
+    "$tab_texture": "textures/ui/TabTopFront",
+    "$content": [
+      {
+        "icon": {
+          "type": "label",
+          "text_alignment": "center",
+          "font_size": "large",
+          "color": "$8_color_format",
+          "size": [ 20, 20 ],
+          "text": "$letter",
+          "layer": 5
+        }
+      }
+    ]
+  },
+
+  "side_toggle@skypedia_common.toggle": {
+    "toggle_name": "side_tabs",
+    "size": [32, 34],
+    "$tab_texture": "textures/ui/pocket_tab_left_side",
+    "$toggle_name": "always_visible",
+    "bindings": "$is_selected",
+    "$content": [
+      {
+        "icon": {
+          "type": "image",
+          "size": [ 20, 20 ],
+          "texture": "$texture",
+          "layer": 5
+        }
+      }
+    ],
+    "controls": [
+      {"unchecked": {
+        "type": "image",
+        "texture": "$tab_texture",
+        "size": [32, 32],
+        "layer": -1
+      }},
+      {"checked": {
+        "type": "image",
+        "texture": "$tab_texture",
+        "size": [32, 32]
+      }},
+      {"unchecked_hover": {
+        "type": "image",
+        "texture": "$tab_texture",
+        "size": [32, 32],
+        "layer": -1
+      }},
+      {"checked_hover": {
+        "type": "image",
+        "texture": "$tab_texture",
+        "size": [32, 32]
+      }},
+      {"content": {
+        "type": "panel",
+        "size": [32, 32],
+        "controls": "$content"
+      }}
+    ]
+  },
+  
+  "grid_holder": {
+    "type": "panel",
+    "size": [ 20, 20 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left"
+  },
+  
   "grid_toggle@skypedia_common.toggle": {
     "toggle_name": "items_grid",
     "size": [ 20, 20 ],
-    "anchor_from": "bottom_left",
-    "anchor_to": "bottom_left",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
     "controls": [
       {"unchecked": {
         "type": "image",
@@ -227,7 +296,7 @@
     "layer": 6,
     "texture": "textures/ui/hover_background",
     "size": ["100%c + 10px", "100%c + 8px"],
-    "anchor_to":"top_left",
+    "anchor_to":"top_right",
     "controls": [
       {
         "text": {
