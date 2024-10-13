@@ -1,7 +1,7 @@
 import { world, system, ItemStack, BlockPermutation } from "@minecraft/server";
 import AllMachineBlocks from "../machines/AllMachineBlocks"
 import { MachineInstances } from "../machines/MachineInstances";
-function get_data(machine) { return AllMachineBlocks[machine.typeId.replace('cosmos:machine:', '')] }
+export function get_data(machine) { return AllMachineBlocks[machine.typeId.replace('cosmos:machine:', '')] }
 function str(object) { return JSON.stringify(object) }
 function say(message = 'yes') { world.sendMessage('' + message) }
 export function compare_position(a, b){
@@ -50,18 +50,36 @@ export function get_machine_connections(machine, direction = null) {
 
 export function charge_from_machine(machine, energy) {
 	const data = get_data(machine)
-	const input_entity = get_entity(machine.dimension, location_of(machine, data.energy_input), "has_power_output")
-	if ( input_entity && energy < data.capacity ) {
-		const input_container = input_entity.getComponent('minecraft:inventory').container
-		const input_data = get_data(input_entity)
-		const lore = input_container.getItem(input_data.lore.slot)?.getLore()
-		const power = lore ? + lore[input_data.lore.power] : 0
-		const space = data.capacity - energy
-		const io = location_of(input_entity, input_data.energy_output)
-        if(compare_position(machine.location, io) && power > 0){
-			energy += Math.min(data.maxInput, power, space)
+	let connectedMachines = (machine.getDynamicProperty("connected_machines"))? JSON.parse(machine.getDynamicProperty("connected_machines")):
+	undefined;
+	if ( connectedMachines && connectedMachines.length > 1 && energy < data.capacity ) {
+		for(let input_entity_id of connectedMachines){
+			if(world.getEntity(input_entity_id[0]) && input_entity_id[0] != machine.id && input_entity_id[1] == "output"){
+				let input_entity = world.getEntity(input_entity_id[0])
+				const input_container = input_entity.getComponent('minecraft:inventory').container
+				const input_data = get_data(input_entity)
+				const lore = input_container.getItem(input_data.lore.slot)?.getLore()
+				const power = lore ? + lore[input_data.lore.power] : 0
+				const space = data.capacity - energy
+				if(power > 0){
+					energy += Math.min(data.maxInput, power, space)
+				}
+			}
 		}
-	} return energy
+	}else{
+		const input_entity = get_entity(machine.dimension, location_of(machine, data.energy_input), "has_power_output")
+		if ( input_entity && energy < data.capacity ) {
+			const input_container = input_entity.getComponent('minecraft:inventory').container
+			const input_data = get_data(input_entity)
+			const lore = input_container.getItem(input_data.lore.slot)?.getLore()
+			const power = lore ? + lore[input_data.lore.power] : 0
+			const space = data.capacity - energy
+			const io = location_of(input_entity, input_data.energy_output)
+			if(compare_position(machine.location, io) && power > 0){
+				energy += Math.min(data.maxInput, power, space)
+			}
+		}
+	}return energy
 }
 
 export function charge_from_battery(machine, energy, slot) {
