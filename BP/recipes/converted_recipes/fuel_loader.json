@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:fuel_loader"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "XZX",
+      "WYW"
+    ],
+    "key": {
+      "W": "cosmos:compressed_tin",
+      "X": "cosmos:compressed_copper",
+      "Y": "cosmos:basic_wafer",
+      "Z": "cosmos:tin_canister"
+    },
+    "unlock": [
+      "cosmos:compressed_tin"
+    ],
+    "result": {
+      "item": "cosmos:fuel_loader"
+    }
+  }
+}

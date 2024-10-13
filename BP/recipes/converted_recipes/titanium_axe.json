@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:titanium_axe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "YY ",
+      "YX ",
+      " X "
+    ],
+    "key": {
+      "X": "minecraft:iron_ingot",
+      "Y": "cosmos:compressed_titanium"
+    },
+    "unlock": [
+      "cosmos:compressed_titanium"
+    ],
+    "result": {
+      "item": "cosmos:titanium_axe"
+    }
+  }
+}

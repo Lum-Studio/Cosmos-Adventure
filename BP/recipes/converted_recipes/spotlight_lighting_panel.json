@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:spotlight_lighting_panel"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "X X",
+      " Y ",
+      "XZX"
+    ],
+    "key": {
+      "X": "minecraft:glass_pane",
+      "Y": "cosmos:glowstone_torch",
+      "Z": "cosmos:compressed_steel"
+    },
+    "unlock": [
+      "cosmos:glowstone_torch"
+    ],
+    "result": {
+      "item": "cosmos:spotlight_lighting_panel"
+    }
+  }
+}

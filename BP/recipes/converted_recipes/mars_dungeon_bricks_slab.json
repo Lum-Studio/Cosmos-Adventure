@@ -1,0 +1,24 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:mars_dungeon_bricks_slab"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX"
+    ],
+    "key": {
+      "X": "cosmos:mars_dungeon_bricks"
+    },
+    "unlock": [
+      "cosmos:mars_dungeon_bricks"
+    ],
+    "result": {
+      "item": "cosmos:mars_dungeon_bricks_slab",
+      "count": 6
+    }
+  }
+}

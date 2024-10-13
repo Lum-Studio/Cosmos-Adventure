@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:advanced_solar_panel"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XYX",
+      "XZX",
+      "VWV"
+    ],
+    "key": {
+      "V": "cosmos:heavy_aluminum_wire_item",
+      "W": "cosmos:advanced_wafer",
+      "X": "cosmos:compressed_steel",
+      "Y": "cosmos:solar_module_1",
+      "Z": "cosmos:steel_pole"
+    },
+    "unlock": [
+      "cosmos:heavy_aluminum_wire_item"
+    ],
+    "result": {
+      "item": "cosmos:advanced_solar_panel"
+    }
+  }
+}

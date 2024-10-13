@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:geothermal_generator"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XVX",
+      "WGW",
+      "XYX"
+    ],
+    "key": {
+      "V": "cosmos:atmospheric_valve",
+      "W": "cosmos:aluminum_wire_item",
+      "G": "cosmos:coal_generator",
+      "X": "cosmos:compressed_bronze",
+      "Y": "cosmos:lead_ingot"
+    },
+    "unlock": [
+      "cosmos:atmospheric_valve"
+    ],
+    "result": {
+      "item": "cosmos:geothermal_generator"
+    }
+  }
+}

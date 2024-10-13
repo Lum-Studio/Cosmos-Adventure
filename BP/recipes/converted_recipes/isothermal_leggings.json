@@ -1,0 +1,25 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:isothermal_leggings"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "X X",
+      "X X"
+    ],
+    "key": {
+      "X": "cosmos:isothermal_fabric"
+    },
+    "unlock": [
+      "cosmos:isothermal_fabric"
+    ],
+    "result": {
+      "item": "cosmos:isothermal_leggings"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:atomic_battery"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "XYX",
+      "XXX"
+    ],
+    "key": {
+      "X": "cosmos:lead_ingot",
+      "Y": "cosmos:radioactive_core"
+    },
+    "unlock": [
+      "cosmos:lead_ingot"
+    ],
+    "result": {
+      "item": "cosmos:atomic_battery"
+    }
+  }
+}

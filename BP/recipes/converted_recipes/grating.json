@@ -1,0 +1,24 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cosmos:grating"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      "minecraft:iron_bars",
+      "minecraft:iron_bars",
+      "minecraft:iron_bars",
+      "minecraft:iron_bars"
+    ],
+    "unlock": [
+      "minecraft:iron_bars"
+    ],
+    "result": {
+      "item": "cosmos:grating",
+      "count": 4
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cosmos:fragmented_carbon_alt"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      "minecraft:coal:1",
+      "minecraft:coal:1",
+      "minecraft:coal:1",
+      "minecraft:coal:1"
+    ],
+    "unlock": [
+      "minecraft:coal:1"
+    ],
+    "result": {
+      "item": "cosmos:fragmented_carbon",
+      "count": 16
+    }
+  }
+}

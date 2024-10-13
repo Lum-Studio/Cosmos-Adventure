@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:steel_sword"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " Y ",
+      " Y ",
+      " X "
+    ],
+    "key": {
+      "X": "minecraft:stick",
+      "Y": "cosmos:compressed_steel"
+    },
+    "unlock": [
+      "cosmos:compressed_steel"
+    ],
+    "result": {
+      "item": "cosmos:steel_sword"
+    }
+  }
+}

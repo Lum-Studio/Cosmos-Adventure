@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:heavy_rocket_engine"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " YV",
+      "XWX",
+      "XZX"
+    ],
+    "key": {
+      "V": "minecraft:stone_button",
+      "W": "cosmos:empty_liquid_canister",
+      "X": "cosmos:heavy_duty_plate_tier3",
+      "Y": "minecraft:flint_and_steel",
+      "Z": "cosmos:oxygen_vent"
+    },
+    "unlock": [
+      "cosmos:empty_liquid_canister"
+    ],
+    "result": {
+      "item": "cosmos:heavy_rocket_engine"
+    }
+  }
+}

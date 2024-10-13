@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:chromatic_applicator"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": "minecraft:red_dye",
+      "B": "minecraft:magenta_dye",
+      "C": "minecraft:blue_dye",
+      "D": "minecraft:orange_dye",
+      "E": "cosmos:compressed_steel",
+      "F": "minecraft:cyan_dye",
+      "G": "minecraft:yellow_dye",
+      "H": "minecraft:lime_dye",
+      "I": "minecraft:green_dye"
+    },
+    "unlock": [
+      "cosmos:compressed_steel"
+    ],
+    "result": {
+      "item": "cosmos:chromatic_applicator"
+    }
+  }
+}

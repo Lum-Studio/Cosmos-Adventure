@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:telemetry_unit"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XFX",
+      "XWX",
+      "YYY"
+    ],
+    "key": {
+      "F": "cosmos:frequency_module",
+      "W": "cosmos:basic_wafer",
+      "X": "cosmos:compressed_tin",
+      "Y": "cosmos:compressed_copper"
+    },
+    "unlock": [
+      "cosmos:frequency_module"
+    ],
+    "result": {
+      "item": "cosmos:telemetry_unit"
+    }
+  }
+}

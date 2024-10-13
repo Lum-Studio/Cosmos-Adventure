@@ -1,0 +1,25 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:desh_leggings"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "X X",
+      "X X"
+    ],
+    "key": {
+      "X": "cosmos:desh_ingot"
+    },
+    "unlock": [
+      "cosmos:desh_ingot"
+    ],
+    "result": {
+      "item": "cosmos:desh_leggings"
+    }
+  }
+}

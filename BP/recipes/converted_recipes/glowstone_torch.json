@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:glowstone_torch"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "Y",
+      "X"
+    ],
+    "key": {
+      "X": "minecraft:stick",
+      "Y": "minecraft:glowstone_dust"
+    },
+    "unlock": [
+      "minecraft:stick"
+    ],
+    "result": {
+      "item": "cosmos:glowstone_torch",
+      "count": 4
+    }
+  }
+}

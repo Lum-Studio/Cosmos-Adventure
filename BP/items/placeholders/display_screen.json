@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:display_screen"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Placeholder"
+      },
+      "minecraft:icon": {
+        "texture": "paper"
+      }
+    }
+  }
+}

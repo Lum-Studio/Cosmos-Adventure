@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "minecraft:slime_ball"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XFX",
+      "FEF",
+      "XFX"
+    ],
+    "key": {
+      "E": "cosmos:cheese_curd",
+      "F": "minecraft:sugar",
+      "X": "minecraft:dye:2"
+    },
+    "unlock": [
+      "cosmos:cheese_curd"
+    ],
+    "result": {
+      "item": "minecraft:slime_ball"
+    }
+  }
+}

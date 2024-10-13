@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:ambient_thermal_controller"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "WVW",
+      "YXY",
+      "YZY"
+    ],
+    "key": {
+      "V": "cosmos:oxygen_vent",
+      "W": "minecraft:redstone",
+      "X": "cosmos:compressed_steel",
+      "Y": "cosmos:compressed_bronze",
+      "Z": "cosmos:basic_wafer"
+    },
+    "unlock": [
+      "cosmos:oxygen_vent"
+    ],
+    "result": {
+      "item": "cosmos:ambient_thermal_controller"
+    }
+  }
+}

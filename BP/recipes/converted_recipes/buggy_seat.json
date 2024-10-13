@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:buggy_seat"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "  Y",
+      " ZY",
+      "XXX"
+    ],
+    "key": {
+      "X": "cosmos:compressed_steel",
+      "Y": "cosmos:compressed_steel",
+      "Z": "cosmos:compressed_iron"
+    },
+    "unlock": [
+      "cosmos:compressed_steel"
+    ],
+    "result": {
+      "item": "cosmos:buggy_seat"
+    }
+  }
+}

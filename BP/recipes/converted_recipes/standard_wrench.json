@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:standard_wrench"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "  Y",
+      " X ",
+      "X  "
+    ],
+    "key": {
+      "X": "cosmos:compressed_bronze",
+      "Y": "cosmos:compressed_steel"
+    },
+    "unlock": [
+      "cosmos:compressed_bronze"
+    ],
+    "result": {
+      "item": "cosmos:standard_wrench"
+    }
+  }
+}

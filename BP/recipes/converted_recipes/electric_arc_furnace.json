@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:electric_arc_furnace"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "XZX",
+      "WYW"
+    ],
+    "key": {
+      "W": "cosmos:meteoric_iron_ingot",
+      "X": "cosmos:heavy_duty_plate",
+      "Y": "cosmos:advanced_wafer",
+      "Z": "cosmos:electric_furnace"
+    },
+    "unlock": [
+      "cosmos:meteoric_iron_ingot"
+    ],
+    "result": {
+      "item": "cosmos:electric_arc_furnace"
+    }
+  }
+}

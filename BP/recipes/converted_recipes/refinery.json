@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:refinery"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " Z ",
+      "WZW",
+      "XYX"
+    ],
+    "key": {
+      "W": "minecraft:stone",
+      "X": "cosmos:compressed_steel",
+      "Y": "minecraft:furnace",
+      "Z": "cosmos:copper_canister"
+    },
+    "unlock": [
+      "cosmos:compressed_steel"
+    ],
+    "result": {
+      "item": "cosmos:refinery"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:cargo_loader"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XWX",
+      "YZY",
+      "XXX"
+    ],
+    "key": {
+      "W": "minecraft:hopper",
+      "X": "cosmos:compressed_steel",
+      "Y": "cosmos:compressed_aluminum",
+      "Z": "minecraft:chest"
+    },
+    "unlock": [
+      "cosmos:compressed_steel"
+    ],
+    "result": {
+      "item": "cosmos:cargo_loader"
+    }
+  }
+}

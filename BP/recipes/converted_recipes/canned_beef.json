@@ -1,0 +1,22 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cosmos:canned_beef"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      "cosmos:tin_canister",
+      "cosmos:ground_beef",
+      "cosmos:ground_beef"
+    ],
+    "unlock": [
+      "cosmos:tin_canister"
+    ],
+    "result": {
+      "item": "cosmos:canned_beef"
+    }
+  }
+}

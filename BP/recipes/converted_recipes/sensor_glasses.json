@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:sensor_glasses"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ZWZ",
+      "Z Z",
+      "XYX"
+    ],
+    "key": {
+      "W": "minecraft:diamond",
+      "X": "cosmos:sensor_lens",
+      "Y": "cosmos:meteoric_iron_ingot",
+      "Z": "minecraft:string"
+    },
+    "unlock": [
+      "cosmos:sensor_lens"
+    ],
+    "result": {
+      "item": "cosmos:sensor_glasses"
+    }
+  }
+}

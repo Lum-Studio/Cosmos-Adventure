@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:hydraulic_platform"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PAP",
+      "BXB",
+      "PAP"
+    ],
+    "key": {
+      "X": "cosmos:basic_wafer",
+      "A": "minecraft:glowstone_dust",
+      "B": "cosmos:compressed_steel",
+      "P": "minecraft:piston"
+    },
+    "unlock": [
+      "cosmos:basic_wafer"
+    ],
+    "result": {
+      "item": "cosmos:hydraulic_platform",
+      "count": 4
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:heavy_rocket_engine"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Placeholder"
+      },
+      "minecraft:icon": {
+        "texture": "paper"
+      }
+    }
+  }
+}

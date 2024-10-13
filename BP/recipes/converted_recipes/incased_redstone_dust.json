@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:incased_redstone_dust"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " X ",
+      "XYX",
+      " X "
+    ],
+    "key": {
+      "X": "cosmos:tin_decoration_block",
+      "Y": "minecraft:redstone"
+    },
+    "unlock": [
+      "cosmos:tin_decoration_block"
+    ],
+    "result": {
+      "item": "cosmos:incased_redstone_dust",
+      "count": 4
+    }
+  }
+}

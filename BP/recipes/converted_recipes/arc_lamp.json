@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:arc_lamp"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XYX",
+      "YZY",
+      "XYX"
+    ],
+    "key": {
+      "X": "cosmos:desh_ingot",
+      "Y": "minecraft:glowstone_dust",
+      "Z": "cosmos:battery"
+    },
+    "unlock": [
+      "cosmos:desh_ingot"
+    ],
+    "result": {
+      "item": "cosmos:arc_lamp"
+    }
+  }
+}

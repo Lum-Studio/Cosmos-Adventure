@@ -1,0 +1,22 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "minecraft:cobblestone"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      "cosmos:asteroids_dirt",
+      "cosmos:asteroids_turf"
+    ],
+    "unlock": [
+      "cosmos:asteroids_dirt"
+    ],
+    "result": {
+      "item": "minecraft:cobblestone",
+      "count": 2
+    }
+  }
+}

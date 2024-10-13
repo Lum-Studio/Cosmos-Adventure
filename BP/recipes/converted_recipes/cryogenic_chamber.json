@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:cryogenic_chamber"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XYX",
+      "XZX",
+      "XYX"
+    ],
+    "key": {
+      "X": "cosmos:compressed_desh",
+      "Y": "cosmos:heavy_duty_plate_tier2",
+      "Z": "minecraft:bed"
+    },
+    "unlock": [
+      "cosmos:compressed_desh"
+    ],
+    "result": {
+      "item": "cosmos:cryogenic_chamber"
+    }
+  }
+}

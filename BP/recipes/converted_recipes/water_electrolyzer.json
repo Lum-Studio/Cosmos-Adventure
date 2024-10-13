@@ -1,0 +1,30 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:water_electrolyzer"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "TVT",
+      "FWF",
+      "BXB"
+    ],
+    "key": {
+      "B": "cosmos:compressed_copper",
+      "T": "cosmos:oxygen_tank_heavy_full",
+      "V": "cosmos:oxygen_vent",
+      "F": "cosmos:fluid_pipe",
+      "W": "cosmos:fluid_manifulator",
+      "X": "cosmos:compressed_bronze"
+    },
+    "unlock": [
+      "cosmos:compressed_copper"
+    ],
+    "result": {
+      "item": "cosmos:water_electrolyzer"
+    }
+  }
+}

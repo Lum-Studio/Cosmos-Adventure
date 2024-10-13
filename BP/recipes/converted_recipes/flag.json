@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:flag"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XYY",
+      "XYY",
+      "X  "
+    ],
+    "key": {
+      "X": "cosmos:steel_pole",
+      "Y": "cosmos:canvas"
+    },
+    "unlock": [
+      "cosmos:steel_pole"
+    ],
+    "result": {
+      "item": "cosmos:flag"
+    }
+  }
+}

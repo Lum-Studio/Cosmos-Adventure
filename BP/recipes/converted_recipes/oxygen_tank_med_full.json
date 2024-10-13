@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:oxygen_tank_med_full"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ZZ",
+      "XX",
+      "YY"
+    ],
+    "key": {
+      "X": "cosmos:tin_canister",
+      "Y": "cosmos:compressed_tin",
+      "Z": "minecraft:wool:1"
+    },
+    "unlock": [
+      "cosmos:tin_canister"
+    ],
+    "result": {
+      "item": "cosmos:oxygen_tank_med_full"
+    }
+  }
+}

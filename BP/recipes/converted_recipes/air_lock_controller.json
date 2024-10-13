@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:air_lock_controller"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "YYY",
+      "WZW",
+      "YYY"
+    ],
+    "key": {
+      "W": "cosmos:compressed_meteoric_iron",
+      "Y": "cosmos:compressed_steel",
+      "Z": "cosmos:basic_wafer"
+    },
+    "unlock": [
+      "cosmos:compressed_meteoric_iron"
+    ],
+    "result": {
+      "item": "cosmos:air_lock_controller"
+    }
+  }
+}

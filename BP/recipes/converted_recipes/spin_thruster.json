@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:spin_thruster"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "   ",
+      "YWZ",
+      "PXP"
+    ],
+    "key": {
+      "P": "cosmos:compressed_steel",
+      "W": "cosmos:advanced_wafer",
+      "X": "cosmos:meteoric_iron_ingot",
+      "Y": "cosmos:fuel_canister",
+      "Z": "cosmos:rocket_engine"
+    },
+    "unlock": [
+      "cosmos:compressed_steel"
+    ],
+    "result": {
+      "item": "cosmos:spin_thruster"
+    }
+  }
+}

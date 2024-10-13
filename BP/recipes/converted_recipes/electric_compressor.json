@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:electric_compressor"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "WXW",
+      "WYW",
+      "VZV"
+    ],
+    "key": {
+      "V": "cosmos:aluminum_wire_item",
+      "W": "cosmos:compressed_steel",
+      "X": "minecraft:anvil",
+      "Y": "cosmos:compressed_bronze",
+      "Z": "cosmos:advanced_wafer"
+    },
+    "unlock": [
+      "cosmos:aluminum_wire_item"
+    ],
+    "result": {
+      "item": "cosmos:electric_compressor"
+    }
+  }
+}

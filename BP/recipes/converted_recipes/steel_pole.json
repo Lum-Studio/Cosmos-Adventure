@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:steel_pole"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "X",
+      "X",
+      "X"
+    ],
+    "key": {
+      "X": "cosmos:compressed_steel"
+    },
+    "unlock": [
+      "cosmos:compressed_steel"
+    ],
+    "result": {
+      "item": "cosmos:steel_pole",
+      "count": 2
+    }
+  }
+}

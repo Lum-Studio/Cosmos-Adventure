@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:tier_1_booster"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ZYZ",
+      "ZWZ",
+      "XVX"
+    ],
+    "key": {
+      "V": "cosmos:oxygen_vent",
+      "W": "cosmos:fuel_canister",
+      "X": "cosmos:heavy_duty_plate",
+      "Y": "minecraft:wool:4",
+      "Z": "cosmos:compressed_meteoric_iron"
+    },
+    "unlock": [
+      "cosmos:oxygen_vent"
+    ],
+    "result": {
+      "item": "cosmos:tier_1_booster"
+    }
+  }
+}

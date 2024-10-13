@@ -182,17 +182,40 @@
     ]
   },
   
-  "top_toggle@skypedia_common.side_toggle": {
-    "toggle_name": "top_tabs",
-    "size": [34, 32],
-    "$tab_texture": "textures/ui/TabTopFront",
+  "content_box": {
+    "type": "panel",
+    "size": ["100% - 32px", "100% - 32px"],
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+    "bindings": "$is_selected",
+    "layer": 1,
+
+    "$crafting": [],
+
+    "controls": [
+      {
+        "crafting_recipes": {
+          "type": "stack_panel",
+          "size": ["100%c","80%"],
+          "controls": "$crafting"
+        }
+      }
+    ]
+  },
+
+  "side_toggle@skypedia_common.top_toggle": {
+    "toggle_name": "side_tabs",
+    "size": [32, 34],
+    "$tab_texture": "textures/ui/TabLeftFront",
+    "$back_tab_texture": "textures/ui/TabLeftBack",
+    "bindings": [],
     "$content": [
       {
         "icon": {
           "type": "label",
           "text_alignment": "center",
           "font_size": "large",
-          "color": "$8_color_format",
+          "color": [0,0,0],
           "size": [ 20, 20 ],
           "text": "$letter",
           "layer": 5
@@ -200,13 +223,11 @@
       }
     ]
   },
-
-  "side_toggle@skypedia_common.toggle": {
-    "toggle_name": "side_tabs",
-    "size": [32, 34],
-    "$tab_texture": "textures/ui/pocket_tab_left_side",
-    "$toggle_name": "always_visible",
-    "bindings": "$is_selected",
+  "top_toggle@skypedia_common.toggle": {
+    "toggle_name": "top_tabs",
+    "size": [34, 32],
+    "$tab_texture": "textures/ui/TabTopFront",
+    "$back_tab_texture": "textures/ui/TabTopBack",
     "$content": [
       {
         "icon": {
@@ -217,10 +238,29 @@
         }
       }
     ],
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "made_by_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#r_toggle"
+      },
+      {
+        "binding_type": "view",
+        "source_control_name": "used_in_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#u_toggle"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#r_toggle or #u_toggle)",
+        "target_property_name": "#visible"
+      }
+    ],
     "controls": [
       {"unchecked": {
         "type": "image",
-        "texture": "$tab_texture",
+        "texture": "$back_tab_texture",
         "size": [32, 32],
         "layer": -1
       }},
@@ -231,7 +271,7 @@
       }},
       {"unchecked_hover": {
         "type": "image",
-        "texture": "$tab_texture",
+        "texture": "$back_tab_texture",
         "size": [32, 32],
         "layer": -1
       }},
@@ -291,6 +331,7 @@
       }}
     ]
   },
+
   "hovering_text": {
     "type": "image",
     "layer": 6,
@@ -305,5 +346,79 @@
         }
       }
     ]
-  }
+  },
+
+  "crafting_recipe": {
+    "type": "stack_panel",
+    "size": ["100%c", "100%c"],
+
+    "$input1": "", "$input2": "", "$input3": "",
+    "$input4": "", "$input5": "", "$input6": "",
+    "$input7": "", "$input8": "", "$input9": "",
+    "$output": "", "$count": "",
+    "controls": [
+      {
+        "input1": {
+          "type": "label",
+          "text": "('A: ' + $input1)"
+        }
+      },
+      {
+        "input1": {
+          "type": "label",
+          "text": "('B: ' + $input2)"
+        }
+      },
+      {
+        "input1": {
+          "type": "label",
+          "text": "('C: ' + $input3)"
+        }
+      },
+      {
+        "input1": {
+          "type": "label",
+          "text": "('D: ' + $input4)"
+        }
+      },
+      {
+        "input1": {
+          "type": "label",
+          "text": "('E: ' + $input5)"
+        }
+      },
+      {
+        "input1": {
+          "type": "label",
+          "text": "('F: ' + $input6)"
+        }
+      },
+      {
+        "input1": {
+          "type": "label",
+          "text": "('H: ' + $input7)"
+        }
+      },
+      {
+        "input1": {
+          "type": "label",
+          "text": "('I: ' + $input8)"
+        }
+      },
+      {
+        "input1": {
+          "type": "label",
+          "text": "('J: ' + $input9)"
+        }
+      },
+      {
+        "output": {
+          "type": "label",
+          "text": "('Output: ' + $count + ' ' + $output)"
+        }
+      }
+    ]
+  },
+
+  "footer": {}
 }

@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:oxegen_storage_module"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "SSS",
+      "BBB",
+      "SSS"
+    ],
+    "key": {
+      "B": "cosmos:oxygen_tank_heavy_full",
+      "S": "cosmos:compressed_steel"
+    },
+    "unlock": [
+      "cosmos:oxygen_tank_heavy_full"
+    ],
+    "result": {
+      "item": "cosmos:oxegen_storage_module"
+    }
+  }
+}

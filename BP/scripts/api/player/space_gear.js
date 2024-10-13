@@ -28,7 +28,10 @@ const gearTag = "gear(-)cosmos:oxygen_gear";
 
 // SPAWNS, NAMES, AND GIVES ITEMS TO THE ENTITY
 function spawn(player){
-	const entity = player.dimension.spawnEntity("cosmos:inv_ent", player.location);
+	const in_bounds_location = player.location
+	const {min, max} = player.dimension.heightRange
+	in_bounds_location.y = Math.min(Math.max(in_bounds_location.y, min), max)
+	const entity = player.dimension.spawnEntity("cosmos:inv_ent", in_bounds_location);
 	entity.nameTag = "space_gear(-)"; // needed for condition in UI
 	entity.setDynamicProperty('owner', player.nameTag)
 	setItems(player, entity)

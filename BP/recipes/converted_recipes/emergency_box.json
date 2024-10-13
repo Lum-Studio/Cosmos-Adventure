@@ -1,0 +1,21 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cosmos:emergency_box"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      "cosmos:emergency_post",
+      "cosmos:emergency_kit"
+    ],
+    "unlock": [
+      "cosmos:emergency_post"
+    ],
+    "result": {
+      "item": "cosmos:emergency_box"
+    }
+  }
+}

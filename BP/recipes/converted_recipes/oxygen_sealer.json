@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:oxygen_sealer"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "UZU",
+      "YXY",
+      "UZU"
+    ],
+    "key": {
+      "U": "cosmos:compressed_aluminum",
+      "X": "cosmos:oxygen_fan",
+      "Y": "cosmos:oxygen_vent",
+      "Z": "cosmos:compressed_steel"
+    },
+    "unlock": [
+      "cosmos:compressed_aluminum"
+    ],
+    "result": {
+      "item": "cosmos:oxygen_sealer"
+    }
+  }
+}

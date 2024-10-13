@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:buggy_storage"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "YZY",
+      "XXX"
+    ],
+    "key": {
+      "X": "cosmos:compressed_steel",
+      "Y": "cosmos:compressed_iron",
+      "Z": "minecraft:chest"
+    },
+    "unlock": [
+      "cosmos:compressed_steel"
+    ],
+    "result": {
+      "item": "cosmos:buggy_storage"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:desh_ingot"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "X"
+    ],
+    "key": {
+      "X": "cosmos:desh_block"
+    },
+    "unlock": [
+      "cosmos:desh_block"
+    ],
+    "result": {
+      "item": "cosmos:desh_ingot",
+      "count": 9
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:fluid_pipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "   ",
+      "XXX"
+    ],
+    "key": {
+      "X": "minecraft:glass_pane"
+    },
+    "unlock": [
+      "minecraft:glass_pane"
+    ],
+    "result": {
+      "item": "cosmos:fluid_pipe",
+      "count": 6
+    }
+  }
+}

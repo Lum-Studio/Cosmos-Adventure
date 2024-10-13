@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:desh_shovel"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "X",
+      "Y",
+      "Y"
+    ],
+    "key": {
+      "X": "cosmos:desh_ingot",
+      "Y": "cosmos:desh_stick"
+    },
+    "unlock": [
+      "cosmos:desh_ingot"
+    ],
+    "result": {
+      "item": "cosmos:desh_shovel"
+    }
+  }
+}

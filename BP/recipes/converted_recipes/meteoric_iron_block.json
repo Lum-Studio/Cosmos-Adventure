@@ -1,0 +1,25 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:meteoric_iron_block"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "YYY",
+      "YYY",
+      "YYY"
+    ],
+    "key": {
+      "Y": "cosmos:meteoric_iron_ingot"
+    },
+    "unlock": [
+      "cosmos:meteoric_iron_ingot"
+    ],
+    "result": {
+      "item": "cosmos:meteoric_iron_block"
+    }
+  }
+}

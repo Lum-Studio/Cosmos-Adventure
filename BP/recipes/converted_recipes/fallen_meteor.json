@@ -1,0 +1,21 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cosmos:fallen_meteor"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      "cosmos:meteoric_raw_iron"
+    ],
+    "unlock": [
+      "cosmos:meteoric_raw_iron"
+    ],
+    "result": {
+      "item": "cosmos:fallen_meteor",
+      "count": 3
+    }
+  }
+}

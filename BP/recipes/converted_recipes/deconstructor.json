@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:deconstructor"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "WCW",
+      "VAV",
+      "WBW"
+    ],
+    "key": {
+      "A": "minecraft:anvil",
+      "B": "minecraft:furnace",
+      "C": "minecraft:shears",
+      "V": "cosmos:aluminum_wire_item",
+      "W": "cosmos:compressed_steel"
+    },
+    "unlock": [
+      "cosmos:aluminum_wire_item"
+    ],
+    "result": {
+      "item": "cosmos:deconstructor"
+    }
+  }
+}

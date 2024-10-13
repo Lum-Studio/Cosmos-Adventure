@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:tin_vacuum_glass"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "YXY",
+      "XXX",
+      "YXY"
+    ],
+    "key": {
+      "X": "cosmos:vacuum_glass",
+      "Y": "cosmos:tin_decoration_block"
+    },
+    "unlock": [
+      "cosmos:vacuum_glass"
+    ],
+    "result": {
+      "item": "cosmos:tin_vacuum_glass",
+      "count": 5
+    }
+  }
+}

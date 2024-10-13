@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:launch_controller"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ZVZ",
+      "YXY",
+      "ZWZ"
+    ],
+    "key": {
+      "V": "cosmos:frequency_module",
+      "W": "cosmos:aluminum_wire_item",
+      "X": "cosmos:advanced_wafer",
+      "Y": "cosmos:compressed_desh",
+      "Z": "cosmos:desh_ingot"
+    },
+    "unlock": [
+      "cosmos:frequency_module"
+    ],
+    "result": {
+      "item": "cosmos:launch_controller"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:aluminum_ingot"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "X"
+    ],
+    "key": {
+      "X": "cosmos:aluminum_block"
+    },
+    "unlock": [
+      "cosmos:aluminum_block"
+    ],
+    "result": {
+      "item": "cosmos:aluminum_ingot",
+      "count": 9
+    }
+  }
+}

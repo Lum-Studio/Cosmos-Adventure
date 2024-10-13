@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:oxygen_decompressor"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XVX",
+      "WZW",
+      "XYX"
+    ],
+    "key": {
+      "V": "cosmos:oxygen_fan",
+      "W": "cosmos:compressed_aluminum",
+      "X": "cosmos:compressed_steel",
+      "Y": "minecraft:redstone_torch",
+      "Z": "cosmos:oxygen_concentrator"
+    },
+    "unlock": [
+      "cosmos:oxygen_fan"
+    ],
+    "result": {
+      "item": "cosmos:oxygen_decompressor"
+    }
+  }
+}

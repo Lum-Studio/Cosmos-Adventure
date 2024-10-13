@@ -1,0 +1,22 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cosmos:cheese_burger"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      "cosmos:cheese_slice",
+      "cosmos:beef_patty",
+      "cosmos:burger_bun"
+    ],
+    "unlock": [
+      "cosmos:cheese_slice"
+    ],
+    "result": {
+      "item": "cosmos:cheese_burger"
+    }
+  }
+}

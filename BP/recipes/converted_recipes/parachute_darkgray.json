@@ -1,0 +1,21 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cosmos:parachute_darkgray"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      "minecraft:dye:8",
+      "cosmos:parachute_plain"
+    ],
+    "unlock": [
+      "cosmos:parachute_plain"
+    ],
+    "result": {
+      "item": "cosmos:parachute_darkgray"
+    }
+  }
+}

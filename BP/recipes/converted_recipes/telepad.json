@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:telepad"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XWX",
+      "ZYZ",
+      "XXX"
+    ],
+    "key": {
+      "W": "cosmos:beam_core",
+      "X": "cosmos:compressed_titanium",
+      "Y": "minecraft:redstone",
+      "Z": "minecraft:ender_pearl"
+    },
+    "unlock": [
+      "cosmos:beam_core"
+    ],
+    "result": {
+      "item": "cosmos:telepad"
+    }
+  }
+}

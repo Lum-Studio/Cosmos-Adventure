@@ -1,0 +1,22 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cosmos:dehydrated_potato"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      "cosmos:tin_canister",
+      "minecraft:potato",
+      "minecraft:potato"
+    ],
+    "unlock": [
+      "cosmos:tin_canister"
+    ],
+    "result": {
+      "item": "cosmos:dehydrated_potato"
+    }
+  }
+}

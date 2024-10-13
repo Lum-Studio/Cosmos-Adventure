@@ -1,0 +1,22 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "cosmos:dehydrated_melon_alt"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      "cosmos:tin_canister",
+      "minecraft:melon",
+      "minecraft:melon"
+    ],
+    "unlock": [
+      "cosmos:tin_canister"
+    ],
+    "result": {
+      "item": "cosmos:dehydrated_melon"
+    }
+  }
+}

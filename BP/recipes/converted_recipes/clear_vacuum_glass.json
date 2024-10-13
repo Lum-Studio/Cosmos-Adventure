@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:clear_vacuum_glass"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "YXY",
+      "XXX",
+      "YXY"
+    ],
+    "key": {
+      "X": "minecraft:glass",
+      "Y": "cosmos:aluminum_ingot"
+    },
+    "unlock": [
+      "cosmos:aluminum_ingot"
+    ],
+    "result": {
+      "item": "cosmos:clear_vacuum_glass",
+      "count": 5
+    }
+  }
+}

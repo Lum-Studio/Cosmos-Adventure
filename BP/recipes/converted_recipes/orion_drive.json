@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:orion_drive"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DOE",
+      "FGH"
+    ],
+    "key": {
+      "A": "minecraft:diamond_ore",
+      "B": "minecraft:lapis_ore",
+      "C": "minecraft:gold_ore",
+      "D": "minecraft:redstone_ore",
+      "E": "minecraft:coal_ore",
+      "F": "cosmos:cheese_ore",
+      "G": "cosmos:desh_ore",
+      "H": "cosmos:ilmenite_ore",
+      "O": "cosmos:beam_core"
+    },
+    "unlock": [
+      "cosmos:cheese_ore"
+    ],
+    "result": {
+      "item": "cosmos:orion_drive"
+    }
+  }
+}
