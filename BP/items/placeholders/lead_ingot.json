@@ -5,11 +5,8 @@
       "identifier": "cosmos:lead_ingot"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "lead_ingot"
       }
     }
   }

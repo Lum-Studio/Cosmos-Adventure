@@ -2,8 +2,12 @@ const fs = require('node:fs')
 const { ids:id_map } = require("./java_to_bedrock_map.js")
 
 //UTILITY FUNCTIONS
+function id_to_name(id) {
+    if (id) return id.split(':')[1].replaceAll('_', ' ').replace(/\b\w/g, s => s.toUpperCase())
+}
+
 function strip_json(string) {
-  return string.replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g, (m, g) => g ? "" : m)
+    return string.replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g, (m, g) => g ? "" : m)
 }
 function clean_array(array) {
     return [...new Set(array)]
@@ -147,11 +151,8 @@ function generate_placeholders() {
                     identifier: id
                 },
                 components: {
-                    "minecraft:display_name": {
-                        "value": "Placeholder"
-                    },
                     "minecraft:icon": {
-                        "texture": "paper"
+                        "texture": id.split(':')[1]
                     }
                 }
             }
@@ -160,6 +161,42 @@ function generate_placeholders() {
     })
 }
 
-generate_bedrock_recipe()
+function generate_lang_keys() {
+    const keys = []
+    fs.readdirSync("../../BP/items/placeholders/").forEach(file_name => {
+        if (!file_name.endsWith('.json')) return
+        const item_json = JSON.parse(strip_json(fs.readFileSync("../../BP/items/placeholders/" + file_name, { encoding: 'utf8' })))
+        const id = item_json["minecraft:item"].description.identifier
+        keys.push('item.' + id + '=' + id_to_name(id))
+        fs.writeFileSync('en_US.lang', keys.join('\n'))
+    })
+}
+
+function generate_textures() {
+    const textures = {}
+    fs.readdirSync("../../BP/items/placeholders/").forEach(file_name => {
+        if (!file_name.endsWith('.json')) return
+        const item_json = JSON.parse(strip_json(fs.readFileSync("../../BP/items/placeholders/" + file_name, { encoding: 'utf8' })))
+        const id = item_json["minecraft:item"].description.identifier
+        textures[id.split(':')[1]] = { textures: "textures/items/" + [id.split(':')[1]] }
+        fs.writeFileSync('item_textures.json', JSON.stringify(textures, null, 2))
+    })
+}
+
+// generate_bedrock_recipe()
 // extract_ids_from_recipes()
 // generate_placeholders()
+// generate_lang_keys()
+//generate_textures()
+
+
+//QUICK MASS FILE EDITOR
+const path = '../../BP/blocks/block_placeholders/'
+fs.readdirSync(path).forEach(file => {
+    const json = JSON.parse(fs.readFileSync(path + file, { encoding: 'utf8' }))
+    //{
+    json.format_version = "1.20.80"
+    //}
+    fs.writeFileSync(path + file, JSON.stringify(json, null, 2))
+})
+

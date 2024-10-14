@@ -5,11 +5,8 @@
       "identifier": "cosmos:basic_solar_panel"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "basic_solar_panel"
       }
     }
   }

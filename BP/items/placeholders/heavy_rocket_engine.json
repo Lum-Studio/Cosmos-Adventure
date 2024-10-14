@@ -5,11 +5,8 @@
       "identifier": "cosmos:heavy_rocket_engine"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "heavy_rocket_engine"
       }
     }
   }

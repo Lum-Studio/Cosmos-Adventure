@@ -5,11 +5,8 @@
       "identifier": "cosmos:heavy_duty_plate_tier2"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "heavy_duty_plate_tier2"
       }
     }
   }

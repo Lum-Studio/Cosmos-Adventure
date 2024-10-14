@@ -5,11 +5,8 @@
       "identifier": "cosmos:astro_miner_item"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "astro_miner_item"
       }
     }
   }

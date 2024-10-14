@@ -5,11 +5,8 @@
       "identifier": "cosmos:slimeling_bag"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "slimeling_bag"
       }
     }
   }

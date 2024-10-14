@@ -5,11 +5,8 @@
       "identifier": "cosmos:solar_array_module"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "solar_array_module"
       }
     }
   }

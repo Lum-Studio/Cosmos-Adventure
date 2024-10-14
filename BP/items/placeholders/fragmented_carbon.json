@@ -5,11 +5,8 @@
       "identifier": "cosmos:fragmented_carbon"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "fragmented_carbon"
       }
     }
   }

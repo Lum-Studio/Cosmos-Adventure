@@ -5,11 +5,8 @@
       "identifier": "cosmos:spin_thruster"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "spin_thruster"
       }
     }
   }

@@ -5,11 +5,8 @@
       "identifier": "cosmos:titanium_sword"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "titanium_sword"
       }
     }
   }

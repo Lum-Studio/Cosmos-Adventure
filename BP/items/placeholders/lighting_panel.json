@@ -5,11 +5,8 @@
       "identifier": "cosmos:lighting_panel"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "lighting_panel"
       }
     }
   }

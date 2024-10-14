@@ -5,11 +5,8 @@
       "identifier": "cosmos:beam_core"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "beam_core"
       }
     }
   }

@@ -1,0 +1,437 @@
+{
+  "advanced_compressor": {
+    "textures": "textures/items/advanced_compressor"
+  },
+  "advanced_solar_panel": {
+    "textures": "textures/items/advanced_solar_panel"
+  },
+  "air_lock_controller": {
+    "textures": "textures/items/air_lock_controller"
+  },
+  "air_lock_frame": {
+    "textures": "textures/items/air_lock_frame"
+  },
+  "asteroids_dirt": {
+    "textures": "textures/items/asteroids_dirt"
+  },
+  "asteroids_rock": {
+    "textures": "textures/items/asteroids_rock"
+  },
+  "asteroids_turf": {
+    "textures": "textures/items/asteroids_turf"
+  },
+  "astro_miner_base": {
+    "textures": "textures/items/astro_miner_base"
+  },
+  "astro_miner_item": {
+    "textures": "textures/items/astro_miner_item"
+  },
+  "atmospheric_valve": {
+    "textures": "textures/items/atmospheric_valve"
+  },
+  "atomic_battery": {
+    "textures": "textures/items/atomic_battery"
+  },
+  "basic_solar_panel": {
+    "textures": "textures/items/basic_solar_panel"
+  },
+  "beam_core": {
+    "textures": "textures/items/beam_core"
+  },
+  "beam_receiver": {
+    "textures": "textures/items/beam_receiver"
+  },
+  "beam_reflector": {
+    "textures": "textures/items/beam_reflector"
+  },
+  "beef_patty": {
+    "textures": "textures/items/beef_patty"
+  },
+  "buggy_fueling_pad": {
+    "textures": "textures/items/buggy_fueling_pad"
+  },
+  "burger_bun": {
+    "textures": "textures/items/burger_bun"
+  },
+  "canned_beef": {
+    "textures": "textures/items/canned_beef"
+  },
+  "cargo_loader": {
+    "textures": "textures/items/cargo_loader"
+  },
+  "cargo_unloader": {
+    "textures": "textures/items/cargo_unloader"
+  },
+  "cheese_burger": {
+    "textures": "textures/items/cheese_burger"
+  },
+  "cheese_ore": {
+    "textures": "textures/items/cheese_ore"
+  },
+  "cheese_slice": {
+    "textures": "textures/items/cheese_slice"
+  },
+  "chromatic_applicator": {
+    "textures": "textures/items/chromatic_applicator"
+  },
+  "clear_tin_vacuum_glass": {
+    "textures": "textures/items/clear_tin_vacuum_glass"
+  },
+  "clear_vacuum_glass": {
+    "textures": "textures/items/clear_vacuum_glass"
+  },
+  "communications_dish": {
+    "textures": "textures/items/communications_dish"
+  },
+  "compressed_desh": {
+    "textures": "textures/items/compressed_desh"
+  },
+  "compressed_titanium": {
+    "textures": "textures/items/compressed_titanium"
+  },
+  "corner_lighting_panel": {
+    "textures": "textures/items/corner_lighting_panel"
+  },
+  "cryogenic_chamber": {
+    "textures": "textures/items/cryogenic_chamber"
+  },
+  "dark_decoration_slab": {
+    "textures": "textures/items/dark_decoration_slab"
+  },
+  "dark_lighting_panel": {
+    "textures": "textures/items/dark_lighting_panel"
+  },
+  "deconstructor": {
+    "textures": "textures/items/deconstructor"
+  },
+  "desh_axe": {
+    "textures": "textures/items/desh_axe"
+  },
+  "desh_block": {
+    "textures": "textures/items/desh_block"
+  },
+  "desh_boots": {
+    "textures": "textures/items/desh_boots"
+  },
+  "desh_chestplate": {
+    "textures": "textures/items/desh_chestplate"
+  },
+  "desh_helmet": {
+    "textures": "textures/items/desh_helmet"
+  },
+  "desh_hoe": {
+    "textures": "textures/items/desh_hoe"
+  },
+  "desh_ingot": {
+    "textures": "textures/items/desh_ingot"
+  },
+  "desh_leggings": {
+    "textures": "textures/items/desh_leggings"
+  },
+  "desh_ore": {
+    "textures": "textures/items/desh_ore"
+  },
+  "desh_pickaxe": {
+    "textures": "textures/items/desh_pickaxe"
+  },
+  "desh_shovel": {
+    "textures": "textures/items/desh_shovel"
+  },
+  "desh_stick": {
+    "textures": "textures/items/desh_stick"
+  },
+  "desh_sword": {
+    "textures": "textures/items/desh_sword"
+  },
+  "detailed_tin_decoration_slab": {
+    "textures": "textures/items/detailed_tin_decoration_slab"
+  },
+  "detailed_tin_decoration_wall": {
+    "textures": "textures/items/detailed_tin_decoration_wall"
+  },
+  "display_screen": {
+    "textures": "textures/items/display_screen"
+  },
+  "electric_arc_furnace": {
+    "textures": "textures/items/electric_arc_furnace"
+  },
+  "electric_furnace": {
+    "textures": "textures/items/electric_furnace"
+  },
+  "emergency_box": {
+    "textures": "textures/items/emergency_box"
+  },
+  "emergency_post": {
+    "textures": "textures/items/emergency_post"
+  },
+  "fallen_meteor": {
+    "textures": "textures/items/fallen_meteor"
+  },
+  "flag": {
+    "textures": "textures/items/flag"
+  },
+  "fluid_manifulator": {
+    "textures": "textures/items/fluid_manifulator"
+  },
+  "fragmented_carbon": {
+    "textures": "textures/items/fragmented_carbon"
+  },
+  "fuel_canister": {
+    "textures": "textures/items/fuel_canister"
+  },
+  "fuel_loader": {
+    "textures": "textures/items/fuel_loader"
+  },
+  "gas_liquefier": {
+    "textures": "textures/items/gas_liquefier"
+  },
+  "geothermal_generator": {
+    "textures": "textures/items/geothermal_generator"
+  },
+  "grating": {
+    "textures": "textures/items/grating"
+  },
+  "ground_beef": {
+    "textures": "textures/items/ground_beef"
+  },
+  "heavy_aluminum_wire_item": {
+    "textures": "textures/items/heavy_aluminum_wire_item"
+  },
+  "heavy_duty_plate_tier2": {
+    "textures": "textures/items/heavy_duty_plate_tier2"
+  },
+  "heavy_duty_plate_tier3": {
+    "textures": "textures/items/heavy_duty_plate_tier3"
+  },
+  "heavy_nose_cone": {
+    "textures": "textures/items/heavy_nose_cone"
+  },
+  "heavy_rocket_engine": {
+    "textures": "textures/items/heavy_rocket_engine"
+  },
+  "heavy_rocket_fins": {
+    "textures": "textures/items/heavy_rocket_fins"
+  },
+  "ilmenite_ore": {
+    "textures": "textures/items/ilmenite_ore"
+  },
+  "incased_redstone_dust": {
+    "textures": "textures/items/incased_redstone_dust"
+  },
+  "incased_redstone_repeater": {
+    "textures": "textures/items/incased_redstone_repeater"
+  },
+  "iron_shard": {
+    "textures": "textures/items/iron_shard"
+  },
+  "isothermal_boots": {
+    "textures": "textures/items/isothermal_boots"
+  },
+  "isothermal_chestplate": {
+    "textures": "textures/items/isothermal_chestplate"
+  },
+  "isothermal_fabric": {
+    "textures": "textures/items/isothermal_fabric"
+  },
+  "isothermal_helmet": {
+    "textures": "textures/items/isothermal_helmet"
+  },
+  "isothermal_leggings": {
+    "textures": "textures/items/isothermal_leggings"
+  },
+  "launch_controller": {
+    "textures": "textures/items/launch_controller"
+  },
+  "lead_block": {
+    "textures": "textures/items/lead_block"
+  },
+  "lead_ingot": {
+    "textures": "textures/items/lead_ingot"
+  },
+  "liftoff_checklist": {
+    "textures": "textures/items/liftoff_checklist"
+  },
+  "lighting_panel": {
+    "textures": "textures/items/lighting_panel"
+  },
+  "linear_lighting_panel": {
+    "textures": "textures/items/linear_lighting_panel"
+  },
+  "mars_cobblestone_slab": {
+    "textures": "textures/items/mars_cobblestone_slab"
+  },
+  "mars_cobblestone_wall": {
+    "textures": "textures/items/mars_cobblestone_wall"
+  },
+  "mars_dungeon_bricks_slab": {
+    "textures": "textures/items/mars_dungeon_bricks_slab"
+  },
+  "mars_dungeon_bricks_wall": {
+    "textures": "textures/items/mars_dungeon_bricks_wall"
+  },
+  "meteoric_iron_block": {
+    "textures": "textures/items/meteoric_iron_block"
+  },
+  "methane_synthesizer": {
+    "textures": "textures/items/methane_synthesizer"
+  },
+  "moon_dungeon_bricks_slab": {
+    "textures": "textures/items/moon_dungeon_bricks_slab"
+  },
+  "moon_dungeon_bricks_wall": {
+    "textures": "textures/items/moon_dungeon_bricks_wall"
+  },
+  "moon_rock_slab": {
+    "textures": "textures/items/moon_rock_slab"
+  },
+  "moon_rock_wall": {
+    "textures": "textures/items/moon_rock_wall"
+  },
+  "oil_canister": {
+    "textures": "textures/items/oil_canister"
+  },
+  "orion_drive": {
+    "textures": "textures/items/orion_drive"
+  },
+  "oxegen_storage_module": {
+    "textures": "textures/items/oxegen_storage_module"
+  },
+  "oxygen_bubble_distributor": {
+    "textures": "textures/items/oxygen_bubble_distributor"
+  },
+  "oxygen_compressor": {
+    "textures": "textures/items/oxygen_compressor"
+  },
+  "oxygen_decompressor": {
+    "textures": "textures/items/oxygen_decompressor"
+  },
+  "oxygen_detector": {
+    "textures": "textures/items/oxygen_detector"
+  },
+  "oxygen_sealer": {
+    "textures": "textures/items/oxygen_sealer"
+  },
+  "pipe_walkway": {
+    "textures": "textures/items/pipe_walkway"
+  },
+  "radioactive_core": {
+    "textures": "textures/items/radioactive_core"
+  },
+  "refinery": {
+    "textures": "textures/items/refinery"
+  },
+  "rocket_tier_2_item": {
+    "textures": "textures/items/rocket_tier_2_item"
+  },
+  "rocket_tier_3_item": {
+    "textures": "textures/items/rocket_tier_3_item"
+  },
+  "sealed_aluminum_wire": {
+    "textures": "textures/items/sealed_aluminum_wire"
+  },
+  "sealed_fluid_pipe": {
+    "textures": "textures/items/sealed_fluid_pipe"
+  },
+  "sealed_heavy_aluminum_wire": {
+    "textures": "textures/items/sealed_heavy_aluminum_wire"
+  },
+  "slimeling_bag": {
+    "textures": "textures/items/slimeling_bag"
+  },
+  "solar_array_controller": {
+    "textures": "textures/items/solar_array_controller"
+  },
+  "solar_array_module": {
+    "textures": "textures/items/solar_array_module"
+  },
+  "solar_array_panel": {
+    "textures": "textures/items/solar_array_panel"
+  },
+  "spin_thruster": {
+    "textures": "textures/items/spin_thruster"
+  },
+  "spotlight_lighting_panel": {
+    "textures": "textures/items/spotlight_lighting_panel"
+  },
+  "strong_tin_vacuum_glass": {
+    "textures": "textures/items/strong_tin_vacuum_glass"
+  },
+  "strong_vacuum_glass": {
+    "textures": "textures/items/strong_vacuum_glass"
+  },
+  "switchable_aluminum_wire_item": {
+    "textures": "textures/items/switchable_aluminum_wire_item"
+  },
+  "switchable_heavy_aluminum_wire_item": {
+    "textures": "textures/items/switchable_heavy_aluminum_wire_item"
+  },
+  "telemetry_unit": {
+    "textures": "textures/items/telemetry_unit"
+  },
+  "telepad": {
+    "textures": "textures/items/telepad"
+  },
+  "terraformer": {
+    "textures": "textures/items/terraformer"
+  },
+  "thermal_cloth": {
+    "textures": "textures/items/thermal_cloth"
+  },
+  "tin_decoration_slab": {
+    "textures": "textures/items/tin_decoration_slab"
+  },
+  "tin_decoration_wall": {
+    "textures": "textures/items/tin_decoration_wall"
+  },
+  "tin_vacuum_glass": {
+    "textures": "textures/items/tin_vacuum_glass"
+  },
+  "titanium_axe": {
+    "textures": "textures/items/titanium_axe"
+  },
+  "titanium_block": {
+    "textures": "textures/items/titanium_block"
+  },
+  "titanium_boots": {
+    "textures": "textures/items/titanium_boots"
+  },
+  "titanium_chestplate": {
+    "textures": "textures/items/titanium_chestplate"
+  },
+  "titanium_helmet": {
+    "textures": "textures/items/titanium_helmet"
+  },
+  "titanium_hoe": {
+    "textures": "textures/items/titanium_hoe"
+  },
+  "titanium_ingot": {
+    "textures": "textures/items/titanium_ingot"
+  },
+  "titanium_leggings": {
+    "textures": "textures/items/titanium_leggings"
+  },
+  "titanium_pickaxe": {
+    "textures": "textures/items/titanium_pickaxe"
+  },
+  "titanium_shard": {
+    "textures": "textures/items/titanium_shard"
+  },
+  "titanium_shovel": {
+    "textures": "textures/items/titanium_shovel"
+  },
+  "titanium_sword": {
+    "textures": "textures/items/titanium_sword"
+  },
+  "vacuum_glass": {
+    "textures": "textures/items/vacuum_glass"
+  },
+  "walkway": {
+    "textures": "textures/items/walkway"
+  },
+  "water_electrolyzer": {
+    "textures": "textures/items/water_electrolyzer"
+  },
+  "wire_walkway": {
+    "textures": "textures/items/wire_walkway"
+  }
+}

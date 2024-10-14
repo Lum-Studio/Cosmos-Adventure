@@ -5,11 +5,8 @@
       "identifier": "cosmos:titanium_shovel"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "titanium_shovel"
       }
     }
   }

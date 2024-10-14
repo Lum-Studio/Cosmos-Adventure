@@ -5,11 +5,8 @@
       "identifier": "cosmos:orion_drive"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "orion_drive"
       }
     }
   }

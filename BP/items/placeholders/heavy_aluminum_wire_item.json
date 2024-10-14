@@ -5,11 +5,8 @@
       "identifier": "cosmos:heavy_aluminum_wire_item"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "heavy_aluminum_wire_item"
       }
     }
   }

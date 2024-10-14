@@ -5,11 +5,8 @@
       "identifier": "cosmos:vacuum_glass"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "vacuum_glass"
       }
     }
   }

@@ -5,11 +5,8 @@
       "identifier": "cosmos:thermal_cloth"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "thermal_cloth"
       }
     }
   }

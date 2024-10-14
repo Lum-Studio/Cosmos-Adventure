@@ -5,11 +5,8 @@
       "identifier": "cosmos:ground_beef"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "ground_beef"
       }
     }
   }

@@ -5,11 +5,8 @@
       "identifier": "cosmos:atomic_battery"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "atomic_battery"
       }
     }
   }

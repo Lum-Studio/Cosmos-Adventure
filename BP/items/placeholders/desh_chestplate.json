@@ -5,11 +5,8 @@
       "identifier": "cosmos:desh_chestplate"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "desh_chestplate"
       }
     }
   }

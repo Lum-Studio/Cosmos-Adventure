@@ -5,11 +5,8 @@
       "identifier": "cosmos:flag"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "flag"
       }
     }
   }

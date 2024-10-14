@@ -5,11 +5,8 @@
       "identifier": "cosmos:compressed_desh"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "compressed_desh"
       }
     }
   }

@@ -5,11 +5,8 @@
       "identifier": "cosmos:rocket_tier_3_item"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "rocket_tier_3_item"
       }
     }
   }

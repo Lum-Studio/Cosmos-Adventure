@@ -5,11 +5,8 @@
       "identifier": "cosmos:iron_shard"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "iron_shard"
       }
     }
   }

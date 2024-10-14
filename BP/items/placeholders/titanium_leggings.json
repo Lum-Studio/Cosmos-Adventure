@@ -5,11 +5,8 @@
       "identifier": "cosmos:titanium_leggings"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "titanium_leggings"
       }
     }
   }

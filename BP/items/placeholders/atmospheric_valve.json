@@ -5,11 +5,8 @@
       "identifier": "cosmos:atmospheric_valve"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Placeholder"
-      },
       "minecraft:icon": {
-        "texture": "paper"
+        "texture": "atmospheric_valve"
       }
     }
   }
