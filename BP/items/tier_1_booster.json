@@ -5,9 +5,6 @@
       "identifier": "cosmos:tier_1_booster"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.engine.tier1booster.name"
-      },
       "minecraft:icon": {
         "texture": "tier_1_booster"
       }

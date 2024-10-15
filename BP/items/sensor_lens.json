@@ -5,9 +5,6 @@
       "identifier": "cosmos:sensor_lens"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.sensor_lens.name"
-      },
       "minecraft:icon": {
         "texture": "sensor_lens"
       }

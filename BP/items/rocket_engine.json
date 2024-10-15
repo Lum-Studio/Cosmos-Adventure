@@ -5,9 +5,6 @@
       "identifier": "cosmos:rocket_engine"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.engine.tier1engine.name"
-      },
       "minecraft:icon": {
         "texture": "rocket_engine"
       }

@@ -5,9 +5,6 @@
       "identifier": "cosmos:sensor_glasses"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.sensor_glasses.name"
-      },
       "minecraft:icon": {
         "texture": "sensor_glasses"
       }

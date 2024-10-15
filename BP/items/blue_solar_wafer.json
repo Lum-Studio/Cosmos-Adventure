@@ -5,9 +5,6 @@
       "identifier": "cosmos:blue_solar_wafer"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.basic_item.wafer_solar.name"
-      },
       "minecraft:icon": {
         "texture": "blue_solar_wafer"
       }

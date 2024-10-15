@@ -5,10 +5,9 @@
       "identifier": "cosmos:oxygen_tank_med_full"
     },
     "components": {
-      "minecraft:custom_components": ["cosmos:space_gear"],
-      "minecraft:display_name": {
-        "value": "%item.oxygen_tank_med_full.name"
-      },
+      "minecraft:custom_components": [
+        "cosmos:space_gear"
+      ],
       "minecraft:durability": {
         "damage_chance": {
           "max": 100,

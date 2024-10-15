@@ -1,17 +1,14 @@
 {
   "format_version": "1.21.10",
   "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:frequency_module"
+    },
     "components": {
       "minecraft:custom_components": [
         "cosmos:space_gear"
       ],
-      "minecraft:display_name": {
-        "value": "%item.basic_item.frequency_module.name\n§b%gui.frequency_module.desc.0\n§b%gui.frequency_module.desc.1"
-      },
       "minecraft:icon": "frequency_module"
-    },
-    "description": {
-      "identifier": "cosmos:frequency_module"
     }
   }
 }

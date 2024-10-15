@@ -1,16 +1,13 @@
 {
   "format_version": "1.20.20",
   "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:fuel_bucket"
+    },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.bucket_fuel.name"
-      },
       "minecraft:icon": {
         "texture": "fuel_bucket"
       }
-    },
-    "description": {
-      "identifier": "cosmos:fuel_bucket"
     }
   }
 }

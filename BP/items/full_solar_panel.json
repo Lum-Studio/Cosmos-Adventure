@@ -1,0 +1,13 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:full_solar_panel"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "full_solar_panel"
+      }
+    }
+  }
+}

@@ -1,16 +1,13 @@
 {
-   "format_version": "1.20.20",
-   "minecraft:item": {
-      "components": {
-         "minecraft:display_name": {
-            "value": "%item.basic_item.compressed_bronze.name"
-         },
-         "minecraft:icon": {
-            "texture": "compressed_bronze"
-         }
-      },
-      "description": {
-         "identifier": "cosmos:compressed_bronze"
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:compressed_bronze"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "compressed_bronze"
       }
-   }
+    }
+  }
 }

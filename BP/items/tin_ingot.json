@@ -5,9 +5,6 @@
       "identifier": "cosmos:tin_ingot"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.basic_item.ingot_tin.name"
-      },
       "minecraft:icon": {
         "texture": "tin_ingot"
       }

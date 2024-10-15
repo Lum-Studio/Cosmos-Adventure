@@ -1,15 +1,14 @@
 {
   "format_version": "1.20.80",
   "minecraft:item": {
-    "components": {
-      "minecraft:custom_components": ["cosmos:space_gear"],
-      "minecraft:icon": "oxygen_gear",
-      "minecraft:display_name": {
-        "value": "%item.oxygen_gear.name"
-      }
-    },
     "description": {
       "identifier": "cosmos:oxygen_gear"
+    },
+    "components": {
+      "minecraft:custom_components": [
+        "cosmos:space_gear"
+      ],
+      "minecraft:icon": "oxygen_gear"
     }
   }
 }

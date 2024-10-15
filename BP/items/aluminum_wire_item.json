@@ -5,11 +5,8 @@
       "identifier": "cosmos:aluminum_wire_item"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%tile.aluminum_wire.alu_wire.name\n§7%tile.aluminum_wire.alu_wire.description"
-      },
       "minecraft:icon": {
-        "texture": "aluminum_wire_item"
+        "texture": "aluminum_wire"
       },
       "minecraft:block_placer": {
         "block": "cosmos:aluminum_wire",

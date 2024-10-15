@@ -5,9 +5,6 @@
       "identifier": "cosmos:raw_tin"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "Raw Tin"
-      },
       "minecraft:icon": {
         "texture": "raw_tin"
       }

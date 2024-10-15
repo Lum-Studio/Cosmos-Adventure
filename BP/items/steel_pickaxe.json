@@ -5,9 +5,6 @@
       "identifier": "cosmos:steel_pickaxe"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.steel_pickaxe.name"
-      },
       "minecraft:icon": {
         "texture": "steel_pickaxe"
       }

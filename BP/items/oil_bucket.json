@@ -1,16 +1,13 @@
 {
   "format_version": "1.20.20",
   "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:oil_bucket"
+    },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.bucket_oil.name"
-      },
       "minecraft:icon": {
         "texture": "oil_bucket"
       }
-    },
-    "description": {
-      "identifier": "cosmos:oil_bucket"
     }
   }
 }

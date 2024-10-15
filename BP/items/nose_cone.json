@@ -5,9 +5,6 @@
       "identifier": "cosmos:nose_cone"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.nose_cone.name"
-      },
       "minecraft:icon": {
         "texture": "nose_cone"
       }

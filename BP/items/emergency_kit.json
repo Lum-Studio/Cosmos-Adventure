@@ -5,9 +5,6 @@
       "identifier": "cosmos:emergency_kit"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.emergency_kit.name\n§7%item.emergency_kit.description"
-      },
       "minecraft:icon": {
         "texture": "emergency_kit"
       }

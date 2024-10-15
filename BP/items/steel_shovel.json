@@ -5,9 +5,6 @@
       "identifier": "cosmos:steel_shovel"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.steel_shovel.name"
-      },
       "minecraft:icon": {
         "texture": "steel_shovel"
       }

@@ -1,16 +1,13 @@
 {
   "format_version": "1.20.20",
   "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:oxygen_fan"
+    },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.air_fan.name"
-      },
       "minecraft:icon": {
         "texture": "oxygen_fan"
       }
-    },
-    "description": {
-      "identifier": "cosmos:oxygen_fan"
     }
   }
 }

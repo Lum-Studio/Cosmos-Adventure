@@ -5,12 +5,13 @@
       "identifier": "cosmos:standard_wrench"
     },
     "components": {
-      "minecraft:custom_components": ["cosmos:wrench"],
+      "minecraft:custom_components": [
+        "cosmos:wrench"
+      ],
       "minecraft:hand_equipped": true,
       "minecraft:icon": "standard_wrench",
-      "minecraft:max_stack_size": { "value": 1 },
-      "minecraft:display_name": {
-        "value": "%item.standard_wrench.name"
+      "minecraft:max_stack_size": {
+        "value": 1
       }
     }
   }

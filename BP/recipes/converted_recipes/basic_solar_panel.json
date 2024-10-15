@@ -16,11 +16,11 @@
       "V": "cosmos:aluminum_wire_item",
       "W": "cosmos:basic_wafer",
       "X": "cosmos:compressed_steel",
-      "Y": "cosmos:solar_module_1",
+      "Y": "cosmos:full_solar_panel",
       "Z": "cosmos:steel_pole"
     },
     "unlock": [
-      "cosmos:aluminum_wire_item"
+      "cosmos:full_solar_panel"
     ],
     "result": {
       "item": "cosmos:basic_solar_panel"

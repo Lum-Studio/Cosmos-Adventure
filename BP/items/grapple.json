@@ -1,13 +1,16 @@
 {
   "format_version": "1.20.80",
   "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:grapple",
+      "menu_category": {
+        "category": "items"
+      }
+    },
     "components": {
       "minecraft:custom_components": [
         "cosmos:grapple"
       ],
-      "minecraft:display_name": {
-        "value": "%item.grapple.name"
-      },
       "minecraft:icon": "grapple",
       "minecraft:max_stack_size": {
         "value": 1
@@ -15,12 +18,6 @@
       "minecraft:use_animation": "bow",
       "minecraft:use_modifiers": {
         "use_duration": 9999
-      }
-    },
-    "description": {
-      "identifier": "cosmos:grapple",
-      "menu_category": {
-        "category": "items"
       }
     }
   }

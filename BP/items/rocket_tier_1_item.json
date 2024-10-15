@@ -5,10 +5,9 @@
       "identifier": "cosmos:rocket_tier_1_item"
     },
     "components": {
-      "minecraft:custom_components": ["cosmos:rocket"],
-      "minecraft:display_name": {
-        "value": "%item.rocket_t1.name"
-      },
+      "minecraft:custom_components": [
+        "cosmos:rocket"
+      ],
       "minecraft:icon": "rocket_tier_1"
     }
   }

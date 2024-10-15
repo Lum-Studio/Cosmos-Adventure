@@ -5,9 +5,6 @@
       "identifier": "cosmos:lunar_sapphire"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.lunar_sapphire.name\n§7%item.lunar_sapphire.description"
-      },
       "minecraft:icon": {
         "texture": "lunar_sapphire"
       }

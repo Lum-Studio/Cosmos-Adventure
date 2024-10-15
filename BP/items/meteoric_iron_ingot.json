@@ -5,9 +5,6 @@
       "identifier": "cosmos:meteoric_iron_ingot"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.meteoric_iron_ingot.name"
-      },
       "minecraft:icon": {
         "texture": "meteoric_iron_ingot"
       }

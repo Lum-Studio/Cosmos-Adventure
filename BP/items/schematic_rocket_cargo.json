@@ -5,9 +5,6 @@
       "identifier": "cosmos:schematic_rocket_cargo"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.schematic.name\n§7%schematic.cargo_rocket.name"
-      },
       "minecraft:icon": {
         "texture": "schematic_rocket_cargo"
       }

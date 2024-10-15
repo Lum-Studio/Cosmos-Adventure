@@ -1,0 +1,13 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:heavy_aluminum_wire_item"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "heavy_aluminum_wire"
+      }
+    }
+  }
+}

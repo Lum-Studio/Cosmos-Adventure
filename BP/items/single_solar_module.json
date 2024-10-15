@@ -1,0 +1,13 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:single_solar_module"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "single_solar_module"
+      }
+    }
+  }
+}

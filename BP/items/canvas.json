@@ -1,16 +1,13 @@
 {
-   "format_version": "1.20.20",
-   "minecraft:item": {
-      "components": {
-         "minecraft:display_name": {
-            "value": "%item.canvas.name"
-         },
-         "minecraft:icon": {
-            "texture": "canvas"
-         }
-      },
-      "description": {
-         "identifier": "cosmos:canvas"
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:canvas"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "canvas"
       }
-   }
+    }
+  }
 }

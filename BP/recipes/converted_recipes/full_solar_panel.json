@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cosmos:full_solar_panel"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "YYY",
+      "XXX"
+    ],
+    "key": {
+      "X": "cosmos:single_solar_module",
+      "Y": "cosmos:aluminum_wire_item"
+    },
+    "unlock": [
+      "cosmos:single_solar_module"
+    ],
+    "result": {
+      "item": "cosmos:full_solar_panel"
+    }
+  }
+}

@@ -1538,6 +1538,17 @@
           "anchor_to": "bottom_right",
           "controls": [
             { "grid@how_to_play.items_grid": {} }
+          ], "ignored": true
+        }
+      },
+      {
+        "item_grid": {
+          "type": "panel",
+          "size": ["35%", "100%"],
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "controls": [
+            { "grid@how_to_play.items_grid": {} }
           ]
         }
       },/*

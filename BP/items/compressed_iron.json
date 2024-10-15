@@ -1,16 +1,13 @@
 {
-   "format_version": "1.20.20",
-   "minecraft:item": {
-      "components": {
-         "minecraft:display_name": {
-            "value": "%item.basic_item.compressed_iron.name"
-         },
-         "minecraft:icon": {
-            "texture": "compressed_iron"
-         }
-      },
-      "description": {
-         "identifier": "cosmos:compressed_iron"
+  "format_version": "1.20.20",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:compressed_iron"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "compressed_iron"
       }
-   }
+    }
+  }
 }

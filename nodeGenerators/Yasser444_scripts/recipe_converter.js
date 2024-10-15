@@ -1,5 +1,6 @@
 const fs = require('node:fs')
 const { ids:id_map } = require("./java_to_bedrock_map.js")
+const { text } = require('stream/consumers')
 
 //UTILITY FUNCTIONS
 function id_to_name(id) {
@@ -7,6 +8,7 @@ function id_to_name(id) {
 }
 
 function strip_json(string) {
+    if (typeof string != 'string') return
     return string.replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g, (m, g) => g ? "" : m)
 }
 function clean_array(array) {
@@ -187,16 +189,57 @@ function generate_textures() {
 // extract_ids_from_recipes()
 // generate_placeholders()
 // generate_lang_keys()
-//generate_textures()
+// generate_textures()
 
 
-//QUICK MASS FILE EDITOR
-const path = '../../BP/blocks/block_placeholders/'
-fs.readdirSync(path).forEach(file => {
-    const json = JSON.parse(fs.readFileSync(path + file, { encoding: 'utf8' }))
-    //{
-    json.format_version = "1.20.80"
-    //}
-    fs.writeFileSync(path + file, JSON.stringify(json, null, 2))
-})
+//QUICK MASS EDITOR (be careful, there is no undo lol)
 
+// const json = JSON.parse(strip_json(fs.readFileSync('../../RP/textures/item_texture.json', { encoding: 'utf8' })))
+// const existing_textures = Object.values(json.texture_data)
+//const texture_shortnames = Object.keys(json.texture_data)
+
+//texture_shortnames.forEach(name => console.log(name))
+
+// const existing_shortnames = ``.split('\n')
+// texture_shortnames.forEach(shortname => {
+//     if (!existing_shortnames.includes(shortname)) delete json.texture_data[shortname]
+// })
+// fs.writeFileSync('../../RP/textures/item_texture.json', JSON.stringify(json, null, 2))
+
+//existing_textures.map(t => t.textures).forEach(t => console.log(t))
+// const path = '../../RP/textures/items/'
+// fs.readdirSync(path).forEach(file => {
+//     if (!file.endsWith('.png')) return
+//     const texture = 'textures/items/' + (file.replace('.png', ''))
+//     //console.log(texture)
+//     if (!existing_textures.map(t => t.textures).includes(texture)) fs.rmSync('../../RP/textures/items/' + file)
+//     // if (!file.endsWith('.json')) return
+//     // const json = JSON.parse(fs.readFileSync(path + file, { encoding: 'utf8' }))
+//     // //{
+//     // const components = json['minecraft:item'].components
+//     // delete json['minecraft:item'].components
+//     // delete components["minecraft:display_name"]
+//     // json['minecraft:item'].components = components
+//     // //}
+//     // fs.writeFileSync(path + file, JSON.stringify(json, null, 2))
+// })
+
+
+
+//RECRUSIVE MASS EDITOR (be careful, there is no undo lol)
+//const path = '../../BP/items/'
+// function recrute(path) {
+//     fs.readdirSync(path).forEach(file => {
+//         if (fs.lstatSync(path + file).isDirectory()) recrute(path + file + '/')
+//         else {
+//             const json = JSON.parse(strip_json(fs.readFileSync(path + file, { encoding: 'utf8' })))
+//             //{
+//             let icon = json["minecraft:item"].components["minecraft:icon"]
+//             icon = typeof icon == 'string' ? icon : icon.texture
+//             console.log(icon)
+//             //}
+//             //fs.writeFileSync(path + file, JSON.stringify(json, null, 2))
+//         } 
+//     })
+// }
+// recrute(path)

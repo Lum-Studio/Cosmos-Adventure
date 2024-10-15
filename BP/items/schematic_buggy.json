@@ -5,9 +5,6 @@
       "identifier": "cosmos:schematic_buggy"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.schematic.name\n§7%schematic.moonbuggy.name"
-      },
       "minecraft:icon": {
         "texture": "schematic_buggy"
       }

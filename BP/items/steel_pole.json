@@ -5,9 +5,6 @@
       "identifier": "cosmos:steel_pole"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.steel_pole.name"
-      },
       "minecraft:icon": {
         "texture": "steel_pole"
       }

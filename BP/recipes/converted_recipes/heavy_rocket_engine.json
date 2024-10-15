@@ -14,13 +14,13 @@
     ],
     "key": {
       "V": "minecraft:stone_button",
-      "W": "cosmos:empty_liquid_canister",
+      "W": "cosmos:empty_canister",
       "X": "cosmos:heavy_duty_plate_tier3",
       "Y": "minecraft:flint_and_steel",
       "Z": "cosmos:oxygen_vent"
     },
     "unlock": [
-      "cosmos:empty_liquid_canister"
+      "cosmos:empty_canister"
     ],
     "result": {
       "item": "cosmos:heavy_rocket_engine"

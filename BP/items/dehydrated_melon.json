@@ -5,9 +5,6 @@
       "identifier": "cosmos:dehydrated_melon"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.basic_item.canned_food.name\n§a%item.basic_item.dehydrated_melon.name"
-      },
       "minecraft:icon": {
         "texture": "dehydrated_melon"
       }

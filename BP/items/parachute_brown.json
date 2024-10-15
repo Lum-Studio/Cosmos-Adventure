@@ -1,17 +1,14 @@
 {
   "format_version": "1.20.20",
   "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:parachute_brown"
+    },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.parachute_brown.name"
-      },
       "minecraft:icon": {
         "texture": "parachute_brown"
       },
       "minecraft:max_stack_size": 1
-    },
-    "description": {
-      "identifier": "cosmos:parachute_brown"
     }
   }
 }

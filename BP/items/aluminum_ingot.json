@@ -5,9 +5,6 @@
       "identifier": "cosmos:aluminum_ingot"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.basic_item.ingot_aluminum.name"
-      },
       "minecraft:icon": {
         "texture": "aluminum_ingot"
       }

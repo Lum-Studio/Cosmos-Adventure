@@ -1,17 +1,14 @@
 {
   "format_version": "1.20.20",
   "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:parachute_yellow"
+    },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.parachute_yellow.name"
-      },
       "minecraft:icon": {
         "texture": "parachute_yellow"
       },
       "minecraft:max_stack_size": 1
-    },
-    "description": {
-      "identifier": "cosmos:parachute_yellow"
     }
   }
 }

@@ -5,9 +5,6 @@
       "identifier": "cosmos:schematic_astro_miner"
     },
     "components": {
-      "minecraft:display_name": {
-        "value": "%item.schematic.name\n§7%schematic.astro_miner.name"
-      },
       "minecraft:icon": {
         "texture": "schematic_astro_miner"
       }
