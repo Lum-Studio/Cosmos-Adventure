@@ -1,0 +1,114 @@
+{
+  "format_version": "1.20.80",
+  "render_controllers": {
+    "controller.render.item_df": {
+      "geometry": "geometry.default",
+      "materials": [
+        {
+          "*": "variable.is_enchanted ? material.enchanted : material.default"
+        }
+      ],
+      "part_visibility": [
+        {
+          "d_1": "query.property('cosmos:dungeon_finder') == 0"
+        },
+        {
+          "d_2": "query.property('cosmos:dungeon_finder') == 1"
+        },
+        {
+          "d_3": "query.property('cosmos:dungeon_finder') == 2"
+        },
+        {
+          "d_4": "query.property('cosmos:dungeon_finder') == 3"
+        },
+        {
+          "d_5": "query.property('cosmos:dungeon_finder') == 4"
+        },
+        {
+          "d_6": "query.property('cosmos:dungeon_finder') == 5"
+        },
+        {
+          "d_7": "query.property('cosmos:dungeon_finder') == 6"
+        },
+        {
+          "d_8": "query.property('cosmos:dungeon_finder') == 7"
+        },
+        {
+          "d_9": "query.property('cosmos:dungeon_finder') == 8"
+        },
+        {
+          "d_10": "query.property('cosmos:dungeon_finder') == 9"
+        },
+        {
+          "d_11": "query.property('cosmos:dungeon_finder') == 10"
+        },
+        {
+          "d_12": "query.property('cosmos:dungeon_finder') == 11"
+        },
+        {
+          "d_13": "query.property('cosmos:dungeon_finder') == 12"
+        },
+        {
+          "d_14": "query.property('cosmos:dungeon_finder') == 13"
+        },
+        {
+          "d_15": "query.property('cosmos:dungeon_finder') == 14"
+        },
+        {
+          "d_16": "query.property('cosmos:dungeon_finder') == 15"
+        },
+        {
+          "d_17": "query.property('cosmos:dungeon_finder') == 16"
+        },
+        {
+          "d_18": "query.property('cosmos:dungeon_finder') == 17"
+        },
+        {
+          "d_19": "query.property('cosmos:dungeon_finder') == 18"
+        },
+        {
+          "d_20": "query.property('cosmos:dungeon_finder') == 19"
+        },
+        {
+          "d_21": "query.property('cosmos:dungeon_finder') == 20"
+        },
+        {
+          "d_22": "query.property('cosmos:dungeon_finder') == 21"
+        },
+        {
+          "d_23": "query.property('cosmos:dungeon_finder') == 22"
+        },
+        {
+          "d_24": "query.property('cosmos:dungeon_finder') == 23"
+        },
+        {
+          "d_25": "query.property('cosmos:dungeon_finder') == 24"
+        },
+        {
+          "d_26": "query.property('cosmos:dungeon_finder') == 25"
+        },
+        {
+          "d_27": "query.property('cosmos:dungeon_finder') == 26"
+        },
+        {
+          "d_28": "query.property('cosmos:dungeon_finder') == 27"
+        },
+        {
+          "d_29": "query.property('cosmos:dungeon_finder') == 28"
+        },
+        {
+          "d_30": "query.property('cosmos:dungeon_finder') == 29"
+        },
+        {
+          "d_31": "query.property('cosmos:dungeon_finder') == 30"
+        },
+        {
+          "d_32": "query.property('cosmos:dungeon_finder') == 31"
+        }
+      ],
+      "textures": [
+        "texture.default", "texture.enchanted"
+      ]
+    }
+  }
+}
