@@ -290,14 +290,14 @@
   
   "grid_holder": {
     "type": "panel",
-    "size": [ 20, 20 ],
+    "size": [ "10%", "100%x" ],
     "anchor_from": "top_left",
     "anchor_to": "top_left"
   },
   
   "grid_toggle@skypedia_common.toggle": {
     "toggle_name": "items_grid",
-    "size": [ 20, 20 ],
+    "size": [ "10%", "100%x" ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "controls": [
@@ -325,7 +325,7 @@
       }},
       {"icon": {
         "type": "image",
-        "size": [ 16, 16 ],
+        "size": [ "80%", "80%" ],
         "texture": "$texture",
         "layer": 5
       }}

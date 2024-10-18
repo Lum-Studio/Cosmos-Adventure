@@ -1,0 +1,6 @@
+{
+  "ui_defs": [
+    "ui/skypedia.json",
+    "ui/skypedia_common.json"
+  ]
+}

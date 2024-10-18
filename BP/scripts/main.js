@@ -18,6 +18,7 @@ import "./core/blocks/nasa_workbench.js"
 import "./core/items/debug_stick.js"
 import "./core/items/wrench.js"
 import "./core/items/grapple.js"
+import "./core/items/dungeon_finder"
 
 import "./core/matter/electricity.js"
 import "./core/matter/soilds.js"

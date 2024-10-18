@@ -46,6 +46,12 @@
                   "values": ["no_tank", "light", "medium", "heavy"],
                   "default": "no_tank",
                   "client_sync": true
+                },
+                "cosmos:dungeon_finder": {
+                  "type": "int",
+                  "range": [0, 31],
+                  "default": 0,
+                  "client_sync": true
                 }
             }
         },

@@ -1,0 +1,177 @@
+{
+  "namespace": "how_to_play",
+
+  "how_to_play_screen@skypedia_common.black_canvas": {
+    "$screen_content": "how_to_play.skypedia"
+  },
+
+  "skypedia@skypedia.skypedia": {
+    "type": "panel",
+    "size": ["100% -20px", "100% -20px"],
+
+    "controls": [
+      {
+        "item_grid": {
+          "type": "panel",
+          "size": ["35%", "100%"],
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "controls": [
+            { "grid@how_to_play.items_grid": {} }
+          ], "ignored": true
+        }
+      },/*
+      {
+        "item_grid": {
+          "type": "panel",
+          "size": ["35%", "100%"],
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "controls": [
+            { "grid@how_to_play.items_grid": {} }
+          ]
+        }
+      },*/
+      {  //This part is for the Scrolling panels, i will activate it once i figure out how to make it work.
+        "item_grid@common.scrolling_panel": {
+          "$show_background": true,
+          "$scrolling_content": "how_to_play.items_grid",
+          "$scroll_size": [ 5, "100% - 4px" ],
+          "$scrolling_pane_size": [ "100% - 4px", "100% - 2px" ],
+          "$scrolling_pane_offset": [ 2, 0 ],
+          "$scroll_bar_right_padding_size": [ 0, 0 ],
+
+          "size": ["35%", "100%"],
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right"
+        }
+      },
+      {
+        "item_screen": {
+          "type": "panel",
+          "size": ["60%", "100%"],
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "controls": [
+            {"item_card": {
+              "type": "panel",
+              "size": ["100%", 100],
+              "anchor_from": "top_left",
+              "anchor_to": "top_left",
+              "controls": "$item_cards"
+            }},
+            {
+              "details" : {
+                "type": "panel",
+                "size": ["100%", "100% - 100px"],
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
+                "controls": [
+                  {
+                    "screen": {
+                      "type": "image",
+                      "texture": "textures/ui/background_image",
+                      "size": ["100% - 32px", "100% - 32px"],
+                      "anchor_from": "bottom_right",
+                      "anchor_to": "bottom_right",
+                      "controls": [
+                        {
+                          "side_tabs": {
+                            "type": "stack_panel",
+                            "size": [32, "100%c"],
+                            "offset": [3, -1],
+                            "anchor_from": "top_left",
+                            "anchor_to": "top_right",
+                            "controls": [
+                              {
+                                "made_by_toggle@skypedia_common.side_toggle": {
+                                  "toggle_group_forced_index": 0,
+                                  "$letter": "R"
+                                }
+                              },
+                              {
+                                "used_in_toggle@skypedia_common.side_toggle": {
+                                  "toggle_group_forced_index": 1,
+                                  "$letter": "U"
+                                }
+                              },
+                              {
+                                "side_tab1@skypedia_common.side_toggle": {
+                                  "toggle_group_forced_index": 2,
+                                  "$letter": "O"
+                                }
+                              },
+                              {
+                                "side_tab1@skypedia_common.side_toggle": {
+                                  "toggle_group_forced_index": 3,
+                                  "$letter": "P"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "top_tabs": {
+                            "type": "stack_panel",
+                            "orientation": "horizontal",
+                            "size": ["100%c", 32],
+                            "offset": [-1, 3],
+                            "anchor_from": "top_left",
+                            "anchor_to": "bottom_left",
+                            "controls": [
+                              // vanilla recipes
+                              {
+                                "crafting_recipes@skypedia_common.top_toggle": {
+                                  "toggle_group_forced_index": 0,
+                                  "$texture": "textures/blocks/crafting_table_front"
+                                }
+                              },
+                              // }
+                              // addon recipes: {
+                              {
+                                "compressing_recipes@skypedia_common.top_toggle": {
+                                  "toggle_group_forced_index": 1,
+                                  "$texture": "textures/blocks/machines/compressor"
+                                }
+                              },
+                              {
+                                "fabricating_recipes@skypedia_common.top_toggle": {
+                                  "toggle_group_forced_index": 2,
+                                  "$texture": "textures/blocks/machines/circuit_fabricator"
+                                }
+                              }
+                              // }
+                            ]
+                          }
+                        },
+                        {
+                          "content": {
+                            "type": "panel",
+                            "controls": "$item_screens"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "items_grid": {
+    "type": "grid",
+    "grid_dimensions": [1, 1],
+    "grid_fill_direction": "horizontal",
+    "grid_rescaling_type": "horizontal",
+    "grid_item_template": "skypedia_common.grid_holder",
+    "maximum_grid_items": 1000,
+    "size": ["100%", "100%c"],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": "$items_grid"
+  }
+  
+}
