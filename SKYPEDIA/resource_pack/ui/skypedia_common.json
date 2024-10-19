@@ -127,7 +127,7 @@
 
   "info_card" : {
     "type": "panel",
-    "bindings": "$is_selected",
+    "bindings": "$is_toggle_pressed",
     "controls": [
       {
         "icon": {
@@ -187,7 +187,7 @@
     "size": ["100% - 32px", "100% - 32px"],
     "anchor_from": "bottom_right",
     "anchor_to": "bottom_right",
-    "bindings": "$is_selected",
+    "bindings": "$is_toggle_pressed",
     "layer": 1,
 
     "$crafting": [],

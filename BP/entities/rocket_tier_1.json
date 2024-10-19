@@ -3,10 +3,24 @@
    "minecraft:entity": {
       "description": {
          "identifier": "cosmos:rocket_tier_1",
-         "is_summonable": true
+         "is_summonable": true,
+         "scripts": {
+            "animate": [
+               { "ignite": "query.is_jumping" }
+            ]
+         },
+         "animations": {
+            "ignite": "controller.animation.rocket_ignite"
+         }
       },
       "component_groups": {},
       "components": {
+         "minecraft:timer": {
+				"time": 1,
+				"time_down_event": {
+					"event": "cosmos:tick"
+				}
+         },
          "minecraft:collision_box": {
             "height": 4,
             "width": 1
@@ -57,6 +71,12 @@
             ]
          }
       },
-      "events": {}
+      "events": {
+         "cosmos:tick": {
+             "queue_command": {
+                  "command": "scriptevent cosmos:rocket tick"
+             }
+         }
+      }
    }
 }

@@ -207,7 +207,7 @@ function select_solar_system(player, focused) {
 	const station = player.getDynamicProperty("has_space_station");
 	let form = new ActionFormData()
 	.title("Celestial Panel Solar System")
-	if (focused != '') {
+	if (focused) {
 		form.body(
 			`§${rocket_tier >= solar_system[focused].tier ? 't' : 'f'}`+
 			`§${station ? 't' : 'f'}`+
@@ -229,8 +229,7 @@ function select_solar_system(player, focused) {
 	.show(player)
 	.then((response) => {
 		if (response.canceled) {
-			//select_solar_system(player, ''); return; //disabled for testing
-			return;
+			select_solar_system(player); return
 		}
 		switch (response.selection) {
 			case 10: launch(player, focused); return;
@@ -243,6 +242,7 @@ function select_solar_system(player, focused) {
 }
 
 function launch(player, planet) {
+	player.setDynamicProperty("in_celestial_selector")
 	player.sendMessage(`Launch ${player.nameTag} to ${planet}`)
 }
 
@@ -262,12 +262,21 @@ function create_station(player, planet) {
 	zoom_at(player, planet, planet)
 }
 
-world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
-	if ( (itemStack.typeId === "minecraft:compass") ) {
-		set_asteroids_location()
-		select_solar_system(source, '')
-	}
-})
+export function start_celestial_selector(player) {
+	player.setDynamicProperty('in_celestial_selector', true)
+	player.runCommand('hud @s hide all')
+	const fade = system.runInterval(()=> {
+		if (player.getDynamicProperty('in_celestial_selector')) {
+			player.camera.fade({fadeTime: {fadeInTime: 0, fadeOutTime: 0.5, holdTime: 2}})
+			player.teleport({x: player.location.x, y: 10000, z: player.location.z})
+		} else {
+			player.runCommand('hud @s reset')
+			system.clearRun(fade)
+		}
+	}, 20)
+	set_asteroids_location()
+	select_solar_system(player)
+}
 
 
 // RENAME TOUCH

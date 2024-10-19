@@ -1,5 +1,5 @@
 {
-	"$is_selected": [
+	"$is_toggle_pressed": [
 		{
 			"binding_type": "view",
 			"source_control_name": "$toggle_name",

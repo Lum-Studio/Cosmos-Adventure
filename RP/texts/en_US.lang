@@ -1329,6 +1329,9 @@ item.cosmos:tin_ingot=Tin Ingot
 ## some of the keys here point to blocks and should be removed
 ## once a key here is checked by a human, move it to the #items section above
 
+
+action.hint.exit.cosmos:rocket_tier_1=Sneak to Exit, Jump to Launch
+
 item.cosmos:astro_miner_item=Astro Miner
 item.cosmos:atmospheric_valve=Atmospheric Valve
 item.cosmos:basic_solar_panel=Basic Solar Panel
