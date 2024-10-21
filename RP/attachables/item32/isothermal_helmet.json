@@ -2,20 +2,20 @@
   "format_version": "1.10.0",
   "minecraft:attachable": {
     "description": {
-      "identifier": "cosmos:standard_wrench",
+      "identifier": "cosmos:isothermal_helmet",
       "materials": {
         "default": "entity_alphatest",
         "enchanted": "entity_alphatest_glint"
       },
       "textures": {
-        "default": "textures/items/standard_wrench",
+        "default": "textures/items/isothermal_helmet",
         "enchanted": "textures/misc/enchanted_item_glint"
       },
       "geometry": {
         "default": "geometry.item32"
       },
       "animations": {
-        "hold": "animation.item32.wrench"
+        "hold": "animation.item32.hold"
       },
       "scripts": {
         "animate": [

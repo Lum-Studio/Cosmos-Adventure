@@ -2,7 +2,6 @@
 const fs = require('node:fs')
 
 const {id_to_name, read_json, get_folders, make_comments} = require('./utils.js')
-const { group } = require('node:console')
 
 function generate_block_names() {
     const path = '../../BP/blocks/block_placeholders/'
