@@ -22,5 +22,5 @@ import "./core/items/grapple.js"
 import "./core/items/dungeon_finder"
 
 import "./core/matter/electricity.js"
-import "./core/matter/soilds.js"
+import "./core/matter/solids.js"
 //import "./core/matter/liquids.js"

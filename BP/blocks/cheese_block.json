@@ -33,7 +33,6 @@
             "minecraft:material_instances": {
                 "*": { "texture": "cheese_block", "render_method": "alpha_test"}
             },
-            "minecraft:loot":"empty.json",
             "minecraft:destructible_by_mining": {
                 "seconds_to_destroy": 0.2
             }
@@ -46,6 +45,7 @@
                         "origin":[5, 0, -7],
                         "size":[2, 8, 14]
                     },
+                    "minecraft:loot":"empty.json",
                     "minecraft:selection_box":{
                         "origin":[5, 0, -7],
                         "size":[2, 8, 14]
@@ -59,6 +59,7 @@
                         "origin":[3, 0, -7],
                         "size":[4, 8, 14]
                     },
+                    "minecraft:loot":"empty.json",
                     "minecraft:selection_box":{
                         "origin":[3, 0, -7],
                         "size":[4, 8, 14]
@@ -72,6 +73,7 @@
                         "origin":[1, 0, -7],
                         "size":[6, 8, 14]
                     },
+                    "minecraft:loot":"empty.json",
                     "minecraft:selection_box":{
                         "origin":[1, 0, -7],
                         "size":[6, 8, 14]
@@ -85,6 +87,7 @@
                         "origin":[-1, 0, -7],
                         "size":[8, 8, 14]
                     },
+                    "minecraft:loot":"empty.json",
                     "minecraft:selection_box":{
                         "origin":[-1, 0, -7],
                         "size":[8, 8, 14]
@@ -98,6 +101,7 @@
                         "origin":[-3, 0, -7],
                         "size":[10, 8, 14]
                     },
+                    "minecraft:loot":"empty.json",
                     "minecraft:selection_box":{
                         "origin":[-3, 0, -7],
                         "size":[10, 8, 14]
@@ -111,6 +115,7 @@
                         "origin":[-5, 0, -7],
                         "size":[12, 8, 14]
                     },
+                    "minecraft:loot":"empty.json",
                     "minecraft:selection_box":{
                         "origin":[-5, 0, -7],
                         "size":[12, 8, 14]
@@ -127,8 +132,7 @@
                     "minecraft:selection_box":{
                         "origin":[-7, 0, -7],
                         "size":[14, 8, 14]
-                    },
-                    "minecraft:loot":"loot_tables/blocks/cheese_block.json"
+                    }
                 }
             }
         ]

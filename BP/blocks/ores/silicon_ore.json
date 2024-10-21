@@ -14,8 +14,9 @@
     "components": {
       "minecraft:loot": "loot_tables/blocks/silicon_ore.json",
 	    "minecraft:map_color": [112, 112, 112],
+      "tag:take_durability": {},
       "tag:require_iron_pickaxe": {},
-        "minecraft:destructible_by_mining": {
+      "minecraft:destructible_by_mining": {
 		    "seconds_to_destroy": 1
 	    },
 	    "minecraft:destructible_by_explosion": {

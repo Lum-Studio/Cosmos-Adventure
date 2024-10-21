@@ -26,9 +26,12 @@ function wrong_tool(block, item) {
 	|| (block.hasTag("require_diamond_pickaxe") && !diamond_tier.has(item))
 }
 
+
+//if the block should drop items or not
 world.beforeEvents.playerBreakBlock.subscribe((event) => {
 	const {block, dimension, player, itemStack} = event
 	const item = itemStack?.typeId
+	
 	if (!(player.getGameMode() == "creative") && wrong_tool(block, item)) {
 		event.cancel = true
 		system.run(()=>{
@@ -40,6 +43,22 @@ world.beforeEvents.playerBreakBlock.subscribe((event) => {
 	}
 })
 
+//durability system
+world.afterEvents.playerBreakBlock.subscribe(({brokenBlockPermutation:block, itemStackBeforeBreak:item, player}) => {
+	if (!item || !block.hasTag("take_durability")) return
+	const unbreaking = item.getComponent('enchantable')?.getEnchantment('unbreaking')?.level ?? 0
+	const durability = item.getComponent('durability')
+	if (!durability) return
+	if (Math.random() * (unbreaking + 1) >= 1) return
+	const breaks = durability.maxDurability == durability.damage
+	if (breaks) {
+		item = undefined
+		player.dimension.playSound('random.break', player.location)
+	} else durability.damage++
+	player.getComponent('equippable').setEquipment('Mainhand', item)
+})
+
+// to remove the item model
 world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 	blockComponentRegistry.registerCustomComponent("cosmos:placed", {
         beforeOnPlayerPlace(e){
@@ -48,12 +67,14 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
     });
 })
 
+
+//determines how fast the block will take to mine
 system.runInterval(()=> {
 	world.getAllPlayers().forEach(player => {
 		const item = player.getComponent("minecraft:equippable").getEquipment("Mainhand")?.typeId
 		const block = player.getBlockFromViewDirection({
 			includeTags: ["require_pickaxe", "require_stone_pickaxe", "require_iron_pickaxe", "require_diamond_pickaxe"],
-			maxDistance: 6
+			maxDistance: 7
 		})?.block
 		if (!block) return
 		const permutation = block.permutation
