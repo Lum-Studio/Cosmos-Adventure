@@ -3,15 +3,7 @@
    "minecraft:entity": {
       "description": {
          "identifier": "cosmos:rocket_tier_1",
-         "is_summonable": true,
-         "scripts": {
-            "animate": [
-               { "ignite": "query.is_jumping" }
-            ]
-         },
-         "animations": {
-            "ignite": "controller.animation.rocket_ignite"
-         }
+         "is_summonable": true
       },
       "component_groups": {},
       "components": {
@@ -21,6 +13,11 @@
 					"event": "cosmos:tick"
 				}
          },
+         "minecraft:can_power_jump": {},
+         "minecraft:input_ground_controlled": {},
+         "minecraft:movement": { "value": 0.0 },
+         "minecraft:horse.jump_strength": { "value": 0.0 },
+         
          "minecraft:collision_box": {
             "height": 4,
             "width": 1
@@ -58,11 +55,7 @@
             "pull_in_entities": false,
             "seat_count": 1,
             "seats": {
-               "position": [
-                  0,
-                  0.3,
-                  0
-               ]
+               "position": [0, 0.3, 0]
             }
          },
          "minecraft:type_family": {

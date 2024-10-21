@@ -5,9 +5,7 @@
       "identifier": "cosmos:oxygen_mask"
     },
     "components": {
-      "minecraft:custom_components": [
-        "cosmos:space_gear"
-      ],
+      "minecraft:custom_components": ["cosmos:space_gear"],
       "minecraft:icon": "oxygen_mask"
     }
   }

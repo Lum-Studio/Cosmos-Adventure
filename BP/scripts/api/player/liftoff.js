@@ -2,13 +2,15 @@ import { world, system } from "@minecraft/server"
 import { start_celestial_selector } from "./celestial_selector"
 
 function start_countdown(rocket, player) {
-    const title = player.onScreenDisplay
     rocket.setDynamicProperty('active', true)
-    let countdown = 2 //20
+    let countdown = 20
     const counter = system.runInterval(()=> {
+        if (!rocket || !rocket.isValid()) {
+            system.clearRun(counter)
+        }
         if (countdown - 1) {
             countdown--
-            title.setTitle('§c' + countdown, {fadeInDuration: 0, fadeOutDuration: 0, stayDuration: 20})
+            player.onScreenDisplay.setTitle('§c' + countdown, {fadeInDuration: 0, fadeOutDuration: 0, stayDuration: 20})
         } else {
             world.sendMessage('Liftoff!')
             system.clearRun(counter)
@@ -19,6 +21,7 @@ function start_countdown(rocket, player) {
 }
 
 function break_pad(rocket) {
+    if (!rocket || !rocket.isValid()) return
     const {location:{x,y,z}, dimension} = rocket
     world.gameRules.doTileDrops = false
     dimension.runCommand(`fill ${x-1} ${y} ${z-1} ${x+1} ${y} ${z+1} air destroy`)
@@ -38,6 +41,7 @@ function rocket_fly(rocket) {
     const a = 30; const b = 10
     system.runInterval(() => { t++
         if (!rocket || !rocket.isValid()) return
+        if (v >= 10) rocket.setDynamicProperty('rocket_launched', true)
         v = Math.ceil((a - 1) * (1 - Math.pow(Math.E, (-t/(20 * b)))))
         rocket.addEffect('levitation', 2000, {showParticles: false, amplifier: v})
     })
@@ -58,6 +62,18 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
         //camera shake
         if (rider && active) {
             rider.runCommand(`camerashake add @s 0.1 1`)
+        }
+        //ignite the engine when the player jumps
+        if (rider?.isJumping) {
+            if (rocket.getDynamicProperty('active')) return
+            const space_gear = JSON.parse(rider.getDynamicProperty("space_gear") ?? '{}')
+            if (space_gear.parachute || rocket.getDynamicProperty('ready')) {
+                start_countdown(rocket, rider)
+            } else {
+                rider.sendMessage("You do not have a parachute.")
+                rider.sendMessage("Press jump again to start the countdown.")
+                rocket.setDynamicProperty('ready', true)
+            }
         }
         //set the camera and the player in the rocket      
         if (rider && !rider.getDynamicProperty('in_the_rocket')) {
@@ -88,18 +104,6 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
             if (current_rider) {
                 start_celestial_selector(current_rider)
             }
-        }
-    }
-    if (message == "ignite") {
-        if (!rider || rider.typeId != "minecraft:player") return
-        if (rocket.getDynamicProperty('active')) return
-        const space_gear = JSON.parse(rider.getDynamicProperty("space_gear") ?? '{}')
-        if (space_gear.parachute || rocket.getDynamicProperty('ready')) {
-            start_countdown(rocket, rider)
-        } else {
-            rider.sendMessage("You do not have a parachute.")
-            rider.sendMessage("Press jump again to start the countdown.")
-            rocket.setDynamicProperty('ready', true)
         }
     }
 })

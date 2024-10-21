@@ -1,6 +1,5 @@
 const fs = require('node:fs')
 const { ids:id_map } = require("./java_to_bedrock_map.js")
-const { text } = require('stream/consumers')
 
 //UTILITY FUNCTIONS
 function id_to_name(id) {

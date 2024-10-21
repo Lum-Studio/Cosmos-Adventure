@@ -1,13 +1,12 @@
 {
-  "format_version": "1.20.20",
+  "format_version": "1.20.80",
   "minecraft:item": {
     "description": {
       "identifier": "cosmos:parachute_magenta"
     },
     "components": {
-      "minecraft:icon": {
-        "texture": "parachute_magenta"
-      },
+      "minecraft:custom_components": ["cosmos:space_gear"],
+      "minecraft:icon": "parachute_magenta",
       "minecraft:max_stack_size": 1
     }
   }

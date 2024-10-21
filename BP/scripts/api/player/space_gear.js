@@ -205,11 +205,15 @@ world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
 				player.runCommand(`clear @s cosmos:oxygen_mask 0 1`)
 				space_gear.mask = item.typeId; sound = true
 				player.setProperty("cosmos:oxygen_mask", true)
-                                                }
+			}
 			if (!player.getProperty("cosmos:frequency_module") && item.typeId == "cosmos:frequency_module") {
 				player.runCommand(`clear @s cosmos:frequency_module 0 1`)
 				space_gear.frequency_module = item.typeId; sound = true
 				player.setProperty("cosmos:frequency_module", true)
+			}
+			if (!space_gear.parachute && slots.parachute.includes(item.typeId)) {
+				player.runCommand(`clear @s ${item.typeId} 0 1`)
+				space_gear.parachute = item.typeId; sound = true
 			}
 			if (Object.keys(tanks).includes(item.typeId)) {
 				let tank = undefined 

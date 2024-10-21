@@ -2,15 +2,10 @@
   "num_mip_levels": 4,
   "padding": 8,
   "resource_pack_name": "Cosmos-Adventure",
+  "texture_name": "atlas.terrain",
   "texture_data": {
     "aluminum_wire": {
       "textures": "textures/blocks/aluminum_wire"
-    },
-    "arc_lamp_off": {
-      "textures": "textures/blocks/arc_lamp/arc_lamp_off"
-    },
-    "arc_lamp_on": {
-      "textures": "textures/blocks/arc_lamp/arc_lamp_on"
     },
     "cheese_block": {
       "textures": "textures/blocks/cheese_block"
@@ -27,6 +22,12 @@
     "fluid_tank": {
       "textures": "textures/blocks/fluid_tank"
     },
+    "glowstone_torch": {
+      "textures": "textures/blocks/glowstone_torch"
+    },
+    "hydraulic_platform": {
+      "textures": "textures/blocks/hydraulic_platform"
+    },
     "rocket_launch_pad": {
       "textures": "textures/blocks/rocket_launch_pad"
     },
@@ -37,6 +38,15 @@
       "textures": "textures/blocks/space_station_top"
     },
 
+    //arc_lamp
+    "arc_lamp_off": {
+      "textures": "textures/blocks/arc_lamp/arc_lamp_off"
+    },
+    "arc_lamp_on": {
+      "textures": "textures/blocks/arc_lamp/arc_lamp_on"
+    },
+
+    //machines
     "advanced_energy_input": {
       "textures": "textures/blocks/machines/advanced_energy_input"
     },
@@ -93,9 +103,6 @@
     },
     "energy_output": {
       "textures": "textures/blocks/machines/energy_output"
-    },
-    "glowstone_torch": {
-      "textures": "textures/blocks/glowstone_torch"
     },
     "machine_blank": {
       "textures": "textures/blocks/machines/machine_blank"
@@ -295,6 +302,7 @@
       "textures": "textures/blocks/machines/energy_storage_module/16"
     },
 
+    //terrain
     "aluminum_block": {
       "textures": "textures/blocks/terrain/aluminum_block"
     },
@@ -360,10 +368,6 @@
     },
     "venus_dungeon_brick_2": {
       "textures": "textures/blocks/terrain/venus_dungeon_brick_2"
-    },
-    "hydraulic_platform": {
-      "textures": "textures/blocks/hydraulic_platform"
     }
-  },
-  "texture_name": "atlas.terrain"
+  }
 }
