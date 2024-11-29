@@ -15,33 +15,29 @@ export function attach_wires(block, machine, direction = null) { // get_machine_
 		const side_connections = wire.permutation.getAllStates()
 		side_connections[faces[5 - i]] = attach
 		wire.setPermutation(BlockPermutation.resolve("cosmos:aluminum_wire", side_connections))
-		let machines = wiresDFS(wire)
-		machines.forEach((element) => {
-			let final = world.getEntity(element[0])
-			let finalData = get_data(final)
-			let finalConnected = wiresDFS(final.dimension.getBlock(location_of(final, (element[1] == "output")? finalData.energy_output: finalData.energy_input)))
-			final.setDynamicProperty("connected_machines", JSON.stringify(finalConnected))
-		})
 	}
+	system.run(() => {
+	let dataOfMachine = get_data(machine)
+	let machineOutputWire = (dataOfMachine.energy_output)? machine.dimension.getBlock(location_of(machine, dataOfMachine.energy_output)):
+	undefined;
+	let machineInputWire = (dataOfMachine.energy_input)? machine.dimension.getBlock(location_of(machine, dataOfMachine.energy_input)):
+	undefined;
+	if(machineOutputWire && !machineOutputWire.isAir && machineOutputWire.typeId == 'cosmos:aluminum_wire') machinesSearch(wiresDFS(machineOutputWire))
+	if(machineInputWire && !machineInputWire.isAir && machineInputWire.typeId == 'cosmos:aluminum_wire') machinesSearch(wiresDFS(machineInputWire))
+	});
 }
 
 export function detach_wires(wire) {
+    let machines = wiresDFS(wire)
 	const neighbors = wire.getNeighbors(6);
 	for (const [i, wireNeighbor] of neighbors.entries()) {
 		if (wireNeighbor.typeId == 'cosmos:aluminum_wire') {
 			const side_connections = wireNeighbor.permutation.getAllStates()
 			side_connections[faces[5 - i]] = false
 			wireNeighbor.setPermutation(BlockPermutation.resolve("cosmos:aluminum_wire", side_connections))
-			let machines = wiresDFS(wireNeighbor)
-			machines.forEach((element) => {
-				let final = world.getEntity(element[0])
-				let finalData = get_data(final)
-				let finalConnected = wiresDFS(final.dimension.getBlock(location_of(final, (element[1] == "output")? finalData.energy_output: finalData.energy_input)))
-				final.setDynamicProperty("connected_machines", JSON.stringify(finalConnected))
-			})
-
 		}
 	}
+	machinesSearch(machines)
 }
 function getSides(wireOs, wireOsDone, permutation){
 	let sides = []
@@ -88,7 +84,23 @@ function wiresDFS(wire, perm = wire.permutation){
 	}
 	return machines
 }
-
+export function machinesSearch(machines){
+	machines.forEach((element) => {
+		let final = world.getEntity(element[0])
+		let finalData = get_data(final)
+		let inputSide = (finalData.energy_input)? final.dimension.getBlock(location_of(final, finalData.energy_input)):
+		undefined;
+		let outputSide = (finalData.energy_output)? final.dimension.getBlock(location_of(final, finalData.energy_output)):
+		undefined;
+		
+		let connectedInputSide = (inputSide && !inputSide.isAir && inputSide.typeId == 'cosmos:aluminum_wire')? wiresDFS(inputSide): undefined;
+		let connectedOutputSide = (outputSide && !outputSide.isAir && outputSide.typeId == 'cosmos:aluminum_wire')? wiresDFS(outputSide): undefined;
+		let finalConnectedInputSide = (connectedInputSide)? connectedInputSide.filter((element) => element[0] != final.id): undefined;
+		let finalConnectedOutputSide = (connectedOutputSide)? connectedOutputSide.filter((element) => element[0] != final.id): undefined;
+		final.setDynamicProperty("input_connected_machines", JSON.stringify(finalConnectedInputSide))
+		final.setDynamicProperty("output_connected_machines", JSON.stringify(finalConnectedOutputSide))
+	});
+}
 world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 	blockComponentRegistry.registerCustomComponent('cosmos:wire_placement', {
 		beforeOnPlayerPlace(event) {
@@ -115,13 +127,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 			} event.permutationToPlace = BlockPermutation.resolve("cosmos:aluminum_wire", connections)
 		},
 		onPlayerDestroy(event){
-			let machines = wiresDFS(event.block, event.destroyedBlockPermutation)
-			machines.forEach((element) => {
-				let final = world.getEntity(element[0])
-				let finalData = get_data(final)
-				let finalConnected = wiresDFS(final.dimension.getBlock(location_of(final, (element[1] == "output")? finalData.energy_output: finalData.energy_input)))
-				final.setDynamicProperty("connected_machines", JSON.stringify(finalConnected))
-			})
+			machinesSearch(wiresDFS(event.block, event.destroyedBlockPermutation))
 		}
 	})
 })
@@ -141,11 +147,5 @@ world.beforeEvents.playerBreakBlock.subscribe((event) => {
 })
 world.afterEvents.playerPlaceBlock.subscribe((event) => {
 	if(event.block.typeId != "cosmos:aluminum_wire") return;
-	let machines = wiresDFS(event.block)
-	machines.forEach((element) => {
-		let final = world.getEntity(element[0])
-		let finalData = get_data(final)
-		let finalConnected = wiresDFS(final.dimension.getBlock(location_of(final, (element[1] == "output")? finalData.energy_output: finalData.energy_input)))
-		final.setDynamicProperty("connected_machines", JSON.stringify(finalConnected))
-	})
+	machinesSearch(wiresDFS(event.block))
 }) 
