@@ -50,7 +50,7 @@ export function get_machine_connections(machine, direction = null) {
 
 export function charge_from_machine(machine, energy) {
 	const data = get_data(machine)
-	let connectedMachines = (machine.getDynamicProperty("connected_machines"))? JSON.parse(machine.getDynamicProperty("connected_machines")):
+	let connectedMachines = (machine.getDynamicProperty("input_connected_machines"))? JSON.parse(machine.getDynamicProperty("input_connected_machines")):
 	undefined;
 	if ( connectedMachines && connectedMachines.length > 1 && energy < data.capacity ) {
 		for(let input_entity_id of connectedMachines){
