@@ -18,44 +18,36 @@
 	  }
     },
     "components": {
-                  "minecraft:display_name": "%tile.machine.8.name\n§7%tile.energy_storage_module_tier2.description",
-	  "tag:machine": {},
-	  "minecraft:custom_components": ["cosmos:machine"],
-	  "minecraft:destructible_by_explosion": false,
-      "minecraft:destructible_by_mining": {
-		  "seconds_to_destroy": 0.5
-	  },
-	  "minecraft:tick": {
-		 "looping": true,
-		 "interval_range": [1, 1]
-	  }
+        // "minecraft:display_name": "%tile.machine.8.name\n§7%tile.energy_storage_module_tier2.description",
+		"tag:machine": {},
+		"minecraft:custom_components": ["cosmos:machine"],
+		"minecraft:geometry": "minecraft:geometry.full_block",
+		"minecraft:destructible_by_explosion": false,
+		"minecraft:destructible_by_mining": {
+			"seconds_to_destroy": 0.5
+		},
+		"minecraft:tick": {
+			"looping": true,
+			"interval_range": [1, 1]
+		}
 	},
 	"permutations": [
-      {
-        "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
-        "components": {
-          "minecraft:transformation": { "rotation": [0, 0, 0] },
-	      "minecraft:geometry": "minecraft:geometry.full_block"
-        }
-      },
+		{
+		  "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+		  "components": {
+			"minecraft:transformation": { "rotation": [0, 180, 0] }
+		  }
+		},
       {
         "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
         "components": {
-          "minecraft:transformation": { "rotation": [0, 90, 0] },
-	      "minecraft:geometry": "minecraft:geometry.full_block"
-        }
-      },
-      {
-        "condition": "q.block_state('minecraft:cardinal_direction') == 'south' && !q.block_state('cosmos:full')",
-        "components": {
-	      "minecraft:geometry": "minecraft:geometry.full_block"
+          "minecraft:transformation": { "rotation": [0, 90, 0] }
         }
       },
       {
         "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
         "components": {
-          "minecraft:transformation": { "rotation": [0, -90, 0] },
-	      "minecraft:geometry": "minecraft:geometry.full_block"
+          "minecraft:transformation": { "rotation": [0, -90, 0] }
         }
       },
 	  

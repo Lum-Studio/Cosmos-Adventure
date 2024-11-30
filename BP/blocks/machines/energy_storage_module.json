@@ -18,9 +18,10 @@
 	  }
     },
     "components": {
-                  "minecraft:display_name": "%tile.machine.1.name\n§7%tile.energy_storage_module_tier1.description",
+	  // "minecraft:display_name": "%tile.machine.1.name\n§7%tile.energy_storage_module_tier1.description",
 	  "tag:machine": {},
 	  "minecraft:custom_components": ["cosmos:machine"],
+	  "minecraft:geometry": "minecraft:geometry.full_block",
 	  "minecraft:destructible_by_explosion": false,
       "minecraft:destructible_by_mining": {
 		  "seconds_to_destroy": 0.5
@@ -31,33 +32,24 @@
 	  }
 	},
 	"permutations": [
-      {
-        "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
-        "components": {
-          "minecraft:transformation": { "rotation": [0, 0, 0] },
-	      "minecraft:geometry": "minecraft:geometry.full_block"
-        }
-      },
-      {
-        "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
-        "components": {
-          "minecraft:transformation": { "rotation": [0, 90, 0] },
-	      "minecraft:geometry": "minecraft:geometry.full_block"
-        }
-      },
-      {
-        "condition": "q.block_state('minecraft:cardinal_direction') == 'south' && !q.block_state('cosmos:full')",
-        "components": {
-	      "minecraft:geometry": "minecraft:geometry.full_block"
-        }
-      },
-      {
-        "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
-        "components": {
-          "minecraft:transformation": { "rotation": [0, -90, 0] },
-	      "minecraft:geometry": "minecraft:geometry.full_block"
-        }
-      },
+		{
+			"condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+			"components": {
+				"minecraft:transformation": { "rotation": [0, 180, 0] }
+			}
+		},
+		{
+			"condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+			"components": {
+				"minecraft:transformation": { "rotation": [0, 90, 0] }
+			}
+		},
+		{
+			"condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+			"components": {
+				"minecraft:transformation": { "rotation": [0, -90, 0] }
+			}
+		},
 	  
       {
         "condition": "q.block_state('cosmos:fill_level') == 0 && !q.block_state('cosmos:full')",

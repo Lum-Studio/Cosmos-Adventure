@@ -14,13 +14,14 @@
     }
 	},
 	"components": {
-                  "minecraft:display_name": "%tile.machine.0.name\n§7%tile.coal_generator.description",
+    // "minecraft:display_name": "%tile.machine.0.name\n§7%tile.coal_generator.description",
 	  "tag:machine": {},
 	  "minecraft:custom_components": ["cosmos:machine"],
 	  "minecraft:destructible_by_explosion": false,
 	  "minecraft:destructible_by_mining": {
 		  "seconds_to_destroy": 0.5
 	  },
+    "minecraft:geometry": "minecraft:geometry.full_block",
 	  "minecraft:material_instances": {
 		  "up": { "render_method": "opaque", "texture": "machine_blank" },
 		  "down": { "render_method": "opaque", "texture": "machine_blank" },
@@ -36,24 +37,21 @@
 	},
 	"permutations": [
       {
-        "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
         "components": {
-          "minecraft:transformation": { "rotation": [0, 0, 0] },
-	      "minecraft:geometry": "minecraft:geometry.full_block"
+          "minecraft:transformation": { "rotation": [0, 180, 0] }
         }
       },
       {
         "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
         "components": {
-          "minecraft:transformation": { "rotation": [0, 90, 0] },
-	      "minecraft:geometry": "minecraft:geometry.full_block"
+          "minecraft:transformation": { "rotation": [0, 90, 0] }
         }
       },
       {
         "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
         "components": {
-          "minecraft:transformation": { "rotation": [0, -90, 0] },
-	      "minecraft:geometry": "minecraft:geometry.full_block"
+          "minecraft:transformation": { "rotation": [0, -90, 0] }
         }
       }
 	]

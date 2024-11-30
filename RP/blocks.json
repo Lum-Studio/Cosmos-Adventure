@@ -28,18 +28,18 @@
          "up": "moon_turf"
       }
    },
-   "moon_bedrock": {
-      "textures": "moon_bedrock"
-   },
-   "mars_bedrock": {
-      "textures": "mars_bedrock"
-   },
-   "venus_bedrock": {
-      "textures": "venus_bedrock"
-   },
-   "space_bedrock": {
-      "textures": "space_bedrock"
-   },
+   // "moon_bedrock": {
+   //    "textures": "moon_bedrock"
+   // },
+   // "mars_bedrock": {
+   //    "textures": "mars_bedrock"
+   // },
+   // "venus_bedrock": {
+   //    "textures": "venus_bedrock"
+   // },
+   // "space_bedrock": {
+   //    "textures": "space_bedrock"
+   // },
    "mars_cobblestone": {
       "sound": "stone",
       "textures": "mars_cobblestone"
@@ -88,15 +88,13 @@
       }
    },
    "coal_generator": {
-      "sound": "stone",
-      "textures": {
-         "up": "machine_blank",
-         "down": "machine_blank",
-         "north": "machine_side",
-         "east": "machine_side",
-         "west": "energy_output",
-         "south": "coal_generator"
-      }
+      "sound": "stone"
+   },
+   "energy_storage_module": {
+      "sound": "stone"
+   },
+   "energy_storage_cluster": {
+      "sound": "stone"
    },
    "compressor": {
       "sound": "stone",
@@ -151,28 +149,6 @@
          "east": "nasa_workbench_side",
          "west": "nasa_workbench_side",
          "south": "nasa_workbench_side"
-      }
-   },
-   "energy_storage_module": {
-      "sound": "stone",
-      "textures": {
-         "up": "machine_blank",
-         "down": "machine_blank",
-         "north": "energy_storage_module_16",
-         "east": "energy_input",
-         "west": "energy_output",
-         "south": "energy_storage_module_16"
-      }
-   },
-   "energy_storage_cluster": {
-      "sound": "stone",
-      "textures": {
-         "up": "advanced_machine_blank",
-         "down": "advanced_machine_blank",
-         "north": "energy_storage_cluster_16",
-         "east": "advanced_energy_input",
-         "west": "advanced_energy_output",
-         "south": "energy_storage_cluster_16"
       }
    },
    "aluminum_wire": {

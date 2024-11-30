@@ -18,18 +18,6 @@ const sides = new Map([
 ])
 
 
-const TURN_BY = {
-	front: 0,
-	left: Math.PI / 2,
-	back: Math.PI,
-	right: -Math.PI / 2,
-}
-const ROTATE_BY = {
-	west: 0,
-	north: Math.PI / 2,
-	east: Math.PI,
-	south: -Math.PI / 2,
-}
 
 export function get_entity(dimension, location, family) {
 	return dimension.getEntities({
@@ -94,9 +82,37 @@ export function charge_from_battery(machine, energy, slot) {
 		container.setItem(slot, update_baterry(battery, charge))
 	} return energy
 }
+
+const TURN_BY = {
+	front: 0,
+	left: Math.PI / 2,
+	back: Math.PI,
+	right: -Math.PI / 2,
+}
+const ROTATE_BY = {
+	west: 0,
+	north: Math.PI / 2,
+	east: Math.PI,
+	south: -Math.PI / 2,
+}
+
 export function location_of(machine, side, d=null) {
 	const location = machine.location
 	const direction = d ? ROTATE_BY[d] : ROTATE_BY[machine.getProperty('cosmos:direction')]
+	const x = Math.round(Math.cos(direction + TURN_BY[side]))
+	const z = Math.round(Math.sin(direction + TURN_BY[side]))
+	return {
+		x: location.x + x,
+		y: location.y,
+		z: location.z + z
+	}
+}
+
+// this function takes a Block and a Side (left, right, back, or front) and returns a location {x, y, z}
+export function location_of_side({location, permutation}, side) {
+	if (!side) return
+	const facing = permutation.getState("minecraft:cardinal_direction")
+	const direction = ROTATE_BY[facing]
 	const x = Math.round(Math.cos(direction + TURN_BY[side]))
 	const z = Math.round(Math.sin(direction + TURN_BY[side]))
 	return {

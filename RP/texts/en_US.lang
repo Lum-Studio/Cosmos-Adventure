@@ -1395,6 +1395,9 @@ item.cosmos:titanium_sword=Titanium Sword
 tile.cosmos:tin_ore.name=Tin Ore
 tile.cosmos:aluminum_ore.name=Aluminum Ore
 tile.cosmos:silicon_ore.name=Silicon Ore
+tile.cosmos:coal_generator.name=Coal Generator
+tile.cosmos:energy_storage_module.name=Energy Storage Module
+tile.cosmos:energy_storage_cluster.name=Energy Storage Cluster
 
 ## actions
 action.hint.exit.cosmos:rocket_tier_1=Press SNEAK to Exit, Hold JUMP to Launch
