@@ -29,6 +29,8 @@ Player.prototype.give = function (item, amount=1, data=0) {
     this.runCommand("gamerule sendcommandfeedback true")
 };
 
+
+//WTF is this?
 Block.prototype.getNeighbors = function (maxSearch = 27) {
     const directions = ["above", "north", "east", "west", "south", "below"]
     const connectedBlocks = []
@@ -54,6 +56,20 @@ Block.prototype.getNeighbors = function (maxSearch = 27) {
             }
         }
     } return connectedBlocks;
+}
+
+// returns an object eg: { north: Block, east: Block, west: Block, ...}
+Block.prototype.four_neighbors = function(sides=["north", "east", "west", "south"]) {
+    const blocks = {}
+    sides.forEach(side => {
+        blocks[side] = this[side]()
+    })
+    return blocks
+}
+
+// returns an object eg: { above: Block, north: Block, east: Block, ...}
+Block.prototype.six_neighbors = function() {
+    return this.four_neighbors(["above", "north", "east", "west", "south", "below"])
 }
 
 World.prototype.getDims = function (fn = null) {

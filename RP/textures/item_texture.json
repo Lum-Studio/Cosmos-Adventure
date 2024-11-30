@@ -38,6 +38,9 @@
     "canvas": {
       "textures": "textures/items/canvas"
     },
+    "cheese_block": {
+      "textures": "textures/items/cheese_block"
+    },
     "cheese_curd": {
       "textures": "textures/items/cheese_curd"
     },

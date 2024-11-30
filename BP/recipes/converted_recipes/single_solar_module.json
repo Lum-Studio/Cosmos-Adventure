@@ -15,7 +15,7 @@
     "key": {
       "X": "minecraft:glass",
       "Y": "cosmos:blue_solar_wafer",
-      "Z": "cosmos:aluminum_wire_item"
+      "Z": "cosmos:aluminum_wire"
     },
     "unlock": [
       "cosmos:blue_solar_wafer"

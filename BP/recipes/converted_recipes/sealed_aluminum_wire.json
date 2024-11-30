@@ -12,7 +12,7 @@
     ],
     "key": {
       "X": "cosmos:tin_decoration_block",
-      "Y": "cosmos:aluminum_wire_item"
+      "Y": "cosmos:aluminum_wire"
     },
     "unlock": [
       "cosmos:tin_decoration_block"

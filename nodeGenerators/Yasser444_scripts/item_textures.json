@@ -194,8 +194,8 @@
   "ground_beef": {
     "textures": "textures/items/ground_beef"
   },
-  "heavy_aluminum_wire_item": {
-    "textures": "textures/items/heavy_aluminum_wire_item"
+  "heavy_aluminum_wire": {
+    "textures": "textures/items/heavy_aluminum_wire"
   },
   "heavy_duty_plate_tier2": {
     "textures": "textures/items/heavy_duty_plate_tier2"
@@ -359,11 +359,11 @@
   "strong_vacuum_glass": {
     "textures": "textures/items/strong_vacuum_glass"
   },
-  "switchable_aluminum_wire_item": {
-    "textures": "textures/items/switchable_aluminum_wire_item"
+  "switchable_aluminum_wire": {
+    "textures": "textures/items/switchable_aluminum_wire"
   },
-  "switchable_heavy_aluminum_wire_item": {
-    "textures": "textures/items/switchable_heavy_aluminum_wire_item"
+  "switchable_heavy_aluminum_wire": {
+    "textures": "textures/items/switchable_heavy_aluminum_wire"
   },
   "telemetry_unit": {
     "textures": "textures/items/telemetry_unit"

@@ -120,7 +120,7 @@ const recipes = {
         items: ['T', 'T', 'T', 'S']
     },
     "cosmos:coal_generator": {
-        key: { W: "cosmos:aluminum_wire_item", I: "II", C: "CI", F: "minecraft:furnace"},
+        key: { W: "cosmos:aluminum_wire", I: "II", C: "CI", F: "minecraft:furnace"},
         shape: [
             "CCC",
             "IFI",
@@ -136,14 +136,14 @@ const recipes = {
         ]
     },
     "cosmos:circuit_fabricator": {
-        key: { L: "minecraft:lever", A: "AI", F: "minecraft:furnace", B: "minecraft:stone_button", W: "cosmos:aluminum_wire_item", T: "minecraft:redstone_torch"},
+        key: { L: "minecraft:lever", A: "AI", F: "minecraft:furnace", B: "minecraft:stone_button", W: "cosmos:aluminum_wire", T: "minecraft:redstone_torch"},
         shape: [
             "ALA",
             "BFB",
             "WTW"
         ]
     },
-    "cosmos:aluminum_wire_item": {
+    "cosmos:aluminum_wire": {
         name: "aluminum_wire",
         key: { A: "AI", W: "minecraft:wool"},
         amount: 6,
@@ -262,10 +262,10 @@ const recipes = {
             "RAR"
         ]
     },
-    "cosmos:heavy_aluminum_wire_item": [
+    "cosmos:heavy_aluminum_wire": [
         {
             name: "heavy_aluminum_wire_up",
-            key: { A: "AI", W: "minecraft:wool", C: "cosmos:aluminum_wire_item"},
+            key: { A: "AI", W: "minecraft:wool", C: "cosmos:aluminum_wire"},
             shape: [
                 "A",
                 "C",
@@ -274,7 +274,7 @@ const recipes = {
         },
         {
             name: "heavy_aluminum_wire_down",
-            key: { A: "AI", W: "minecraft:wool", C: "cosmos:aluminum_wire_item"},
+            key: { A: "AI", W: "minecraft:wool", C: "cosmos:aluminum_wire"},
             shape: [
                 "W",
                 "C",
@@ -283,11 +283,11 @@ const recipes = {
         }
     ],
     "cosmos:switch_aluminum_wire": {
-        key: { W: "cosmos:aluminum_wire_item", R: "minecraft:redstone_repeater"},
+        key: { W: "cosmos:aluminum_wire", R: "minecraft:redstone_repeater"},
         items: ['W', 'R']
     },
     "cosmos:switch_heavy_aluminum_wire": {
-        key: { W: "cosmos:heavy_aluminum_wire_item", R: "minecraft:redstone_repeater"},
+        key: { W: "cosmos:heavy_aluminum_wire", R: "minecraft:redstone_repeater"},
         items: ['W', 'R']
     },
     "cosmos:fluid_pipe": {
@@ -299,13 +299,13 @@ const recipes = {
         ]
     },
     "cosmos:sealable_aluminum_wire": {
-        key: { T: "cosmos:tin_wall_block", W: "cosmos:aluminum_wire_item"},
+        key: { T: "cosmos:tin_wall_block", W: "cosmos:aluminum_wire"},
         shape: [
             "TWT"
         ]
     },
     "cosmos:sealable_heavy_aluminum_wire": {
-        key: { T: "cosmos:tin_wall_block", W: "cosmos:heavy_aluminum_wire_item"},
+        key: { T: "cosmos:tin_wall_block", W: "cosmos:heavy_aluminum_wire"},
         shape: [
             "TWT"
         ]
@@ -366,7 +366,7 @@ const recipes = {
         ]
     },
     "cosmos:basic_solar_panel": {
-        key: { F: "cosmos:full_solar_panel", P: "cosmos:steel_pole", S: "CoS", W: "cosmos:basic_wafer", C: "cosmos:aluminum_wire_item" },
+        key: { F: "cosmos:full_solar_panel", P: "cosmos:steel_pole", S: "CoS", W: "cosmos:basic_wafer", C: "cosmos:aluminum_wire" },
         shape: [
             "SFS",
             "SPS",
@@ -374,7 +374,7 @@ const recipes = {
         ]
     },
     "cosmos:advanced_solar_panel": {
-        key: { F: "cosmos:full_solar_panel", P: "cosmos:steel_pole", S: "CoS", W: "cosmos:advanced_wafer", C: "cosmos:heavy_aluminum_wire_item" },
+        key: { F: "cosmos:full_solar_panel", P: "cosmos:steel_pole", S: "CoS", W: "cosmos:advanced_wafer", C: "cosmos:heavy_aluminum_wire" },
         shape: [
             "SFS",
             "SPS",

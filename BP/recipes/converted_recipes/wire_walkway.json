@@ -14,7 +14,7 @@
     ],
     "key": {
       "X": "cosmos:compressed_titanium",
-      "Y": "cosmos:heavy_aluminum_wire_item"
+      "Y": "cosmos:heavy_aluminum_wire"
     },
     "unlock": [
       "cosmos:compressed_titanium"

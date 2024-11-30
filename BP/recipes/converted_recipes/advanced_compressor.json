@@ -13,14 +13,14 @@
       "VZV"
     ],
     "key": {
-      "V": "cosmos:aluminum_wire_item",
+      "V": "cosmos:aluminum_wire",
       "W": "cosmos:compressed_steel",
       "X": "minecraft:anvil",
       "Y": "cosmos:compressed_meteoric_iron",
       "Z": "cosmos:advanced_wafer"
     },
     "unlock": [
-      "cosmos:aluminum_wire_item"
+      "cosmos:aluminum_wire"
     ],
     "result": {
       "item": "cosmos:advanced_compressor"

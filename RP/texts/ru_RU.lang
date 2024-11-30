@@ -1232,7 +1232,7 @@ achievement.venus.desc=Отправьте ракету 3-го уровня на 
 ##items
 item.cosmos:advanced_wafer=
 item.cosmos:aluminum_ingot=
-item.cosmos:aluminum_wire_item=
+item.cosmos:aluminum_wire=
 item.cosmos:ambient_thermal_controller=
 item.cosmos:atomic_battery=
 item.cosmos:basic_wafer=
@@ -1356,7 +1356,7 @@ item.cosmos:fragmented_carbon=
 item.cosmos:fuel_canister=
 item.cosmos:full_solar_panel=
 item.cosmos:ground_beef=
-item.cosmos:heavy_aluminum_wire_item=
+item.cosmos:heavy_aluminum_wire=
 item.cosmos:heavy_duty_plate=
 item.cosmos:heavy_duty_plate_tier2=
 item.cosmos:heavy_duty_plate_tier3=

@@ -17,7 +17,7 @@
       "A": "cosmos:aluminum_ingot",
       "F": "minecraft:furnace",
       "B": "minecraft:stone_button",
-      "W": "cosmos:aluminum_wire_item",
+      "W": "cosmos:aluminum_wire",
       "T": "minecraft:redstone_torch"
     },
     "unlock": [

@@ -16,11 +16,11 @@
       "A": "minecraft:anvil",
       "B": "minecraft:furnace",
       "C": "minecraft:shears",
-      "V": "cosmos:aluminum_wire_item",
+      "V": "cosmos:aluminum_wire",
       "W": "cosmos:compressed_steel"
     },
     "unlock": [
-      "cosmos:aluminum_wire_item"
+      "cosmos:aluminum_wire"
     ],
     "result": {
       "item": "cosmos:deconstructor"

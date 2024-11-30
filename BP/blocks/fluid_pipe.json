@@ -18,7 +18,7 @@
 			}
 		},
 		"components": {
-			"minecraft:display_name": "%tile.fluid_pipe.name\n§7%tile.fluid_pipe.description",
+			//"minecraft:display_name": "%tile.fluid_pipe.name\n§7%tile.fluid_pipe.description",
 			"minecraft:material_instances": {
 				"*": { "texture": "fluid_pipe", "render_method": "alpha_test" },
 				"fluid": { "texture": "still_lava", "render_method": "blend" },

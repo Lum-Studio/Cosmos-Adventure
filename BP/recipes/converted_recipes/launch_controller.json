@@ -14,7 +14,7 @@
     ],
     "key": {
       "V": "cosmos:frequency_module",
-      "W": "cosmos:aluminum_wire_item",
+      "W": "cosmos:aluminum_wire",
       "X": "cosmos:advanced_wafer",
       "Y": "cosmos:compressed_desh",
       "Z": "cosmos:desh_ingot"

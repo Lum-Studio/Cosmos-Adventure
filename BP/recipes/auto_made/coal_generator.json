@@ -13,14 +13,14 @@
       "IWI"
     ],
     "key": {
-      "W": "cosmos:aluminum_wire_item",
+      "W": "cosmos:aluminum_wire",
       "I": "minecraft:iron_ingot",
       "C": "minecraft:copper_ingot",
       "F": "minecraft:furnace"
     },
     "unlock": [
       {
-        "item": "cosmos:aluminum_wire_item"
+        "item": "cosmos:aluminum_wire"
       }
     ],
     "result": {

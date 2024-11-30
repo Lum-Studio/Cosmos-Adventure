@@ -2,20 +2,20 @@
   "format_version": "1.20.10",
   "minecraft:recipe_shapeless": {
     "description": {
-      "identifier": "cosmos:switchable_aluminum_wire_item"
+      "identifier": "cosmos:switchable_aluminum_wire"
     },
     "tags": [
       "crafting_table"
     ],
     "ingredients": [
-      "cosmos:aluminum_wire_item",
+      "cosmos:aluminum_wire",
       "minecraft:repeater"
     ],
     "unlock": [
-      "cosmos:aluminum_wire_item"
+      "cosmos:aluminum_wire"
     ],
     "result": {
-      "item": "cosmos:switchable_aluminum_wire_item"
+      "item": "cosmos:switchable_aluminum_wire"
     }
   }
 }

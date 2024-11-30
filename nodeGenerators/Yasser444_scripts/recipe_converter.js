@@ -64,7 +64,7 @@ function extract_ids_from_recipes() {
 
 
 function generate_bedrock_recipe() {
-    existing_recipes = ['aluminum_wire_item.json']
+    existing_recipes = ['aluminum_wire.json']
     
     const find_recipes = (path) => {
         fs.readdirSync(path).forEach(file => {

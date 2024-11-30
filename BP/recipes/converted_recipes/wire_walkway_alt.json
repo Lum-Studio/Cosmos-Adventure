@@ -9,7 +9,7 @@
     ],
     "ingredients": [
       "cosmos:walkway",
-      "cosmos:heavy_aluminum_wire_item"
+      "cosmos:heavy_aluminum_wire"
     ],
     "unlock": [
       "cosmos:walkway"

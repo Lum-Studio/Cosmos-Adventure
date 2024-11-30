@@ -14,7 +14,7 @@
          }
       },
 		"components": {
-                                                "minecraft:display_name": "%tile.fluid_tank.name\n§7%tile.fluid_tank.description",
+            //"minecraft:display_name": "%tile.fluid_tank.name\n§7%tile.fluid_tank.description",
 			"minecraft:material_instances": {
 				"up": { "texture": "glass", "render_method": "blend" },
 				"down": { "texture": "glass", "render_method": "blend" },

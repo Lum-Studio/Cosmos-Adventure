@@ -14,7 +14,7 @@
     ],
     "key": {
       "V": "cosmos:atmospheric_valve",
-      "W": "cosmos:aluminum_wire_item",
+      "W": "cosmos:aluminum_wire",
       "G": "cosmos:coal_generator",
       "X": "cosmos:compressed_bronze",
       "Y": "cosmos:lead_ingot"

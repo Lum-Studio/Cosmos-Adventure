@@ -59,7 +59,10 @@ world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
     itemComponentRegistry.registerCustomComponent("cosmos:debug_stick", {
         onUseOn({block, source:player, usedOnBlockPermutation:perm}) {
             const mode = player.getComponent('inventory').container.getItem(8)?.typeId
-            if (mode == "minecraft:redstone") {
+            if (mode == "minecraft:name_tag") {
+                world.sendMessage(block.typeId)
+            } 
+            else if (mode == "minecraft:redstone") {
                 show_connections(block)
             } else change_state(player, block, perm)
         }

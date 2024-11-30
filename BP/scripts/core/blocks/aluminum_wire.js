@@ -1,6 +1,12 @@
-import { world, system, ItemStack, BlockPermutation, Block } from "@minecraft/server"
-import { get_machine_connections, compare_position, get_entity, get_data, location_of} from "../matter/electricity.js"
-function str(object) { return JSON.stringify(object) }
+import { world, system, BlockPermutation } from "@minecraft/server"
+import { get_machine_connections, compare_position, get_entity, get_data, location_of, location_of_side} from "../matter/electricity.js"
+import machines from "../machines/AllMachineBlocks.js"
+
+function str_pos(location) {
+	if (!location) return
+	const {x, y, z} = location
+	return`${x} ${y} ${z}`
+}
 
 const faces = ["cosmos:up", "cosmos:north", "cosmos:east", "cosmos:west", "cosmos:south", "cosmos:down"]
 
@@ -39,6 +45,7 @@ export function detach_wires(wire) {
 	}
 	machinesSearch(machines)
 }
+
 function getSides(wireOs, wireOsDone, permutation){
 	let sides = []
 	if(permutation.getState("cosmos:north") && !wireOsDone.includes(JSON.stringify(wireOs.north().location))) sides.push(wireOs.north().location)
@@ -101,51 +108,58 @@ export function machinesSearch(machines){
 		final.setDynamicProperty("output_connected_machines", JSON.stringify(finalConnectedOutputSide))
 	});
 }
+
+const same_side = {
+	above: "cosmos:up",
+	below: "cosmos:down",
+	north: "cosmos:north",
+	south: "cosmos:south",
+	east: "cosmos:east",
+	west: "cosmos:west", 
+}
+const opposite_side = {
+	above: "cosmos:down",
+	below: "cosmos:up",
+	north: "cosmos:south",
+	south: "cosmos:north",
+	east: "cosmos:west", 
+	west: "cosmos:east",
+}
+
+function connect_wires(wire) {
+	const neighbors = wire.six_neighbors()
+	const states = {}
+	for (const [side, block] of Object.entries(neighbors)) {
+		if (block.typeId == 'cosmos:aluminum_wire') {
+			block.setPermutation(block.permutation.withState(opposite_side[side], true))
+			states[same_side[side]] = true
+		}
+		const machine_type = block.typeId.split(':').pop()
+		if (Object.keys(machines).includes(machine_type)) {
+			const machine = machines[machine_type]
+			const connections = [
+				str_pos(location_of_side(block, machine.energy_input)),
+				str_pos(location_of_side(block, machine.energy_output))
+			]
+			if (connections.includes(str_pos(wire.location))) states[same_side[side]] = true
+		}
+	}
+	wire.setPermutation(BlockPermutation.resolve("cosmos:aluminum_wire", states))
+}
+
 world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
-	blockComponentRegistry.registerCustomComponent('cosmos:wire_placement', {
-		beforeOnPlayerPlace(event) {
-			const { block } = event;
-			const { location, dimension } = block;
-			const neighbors = block.getNeighbors(6);
-			const connections = {}
-			for (const [i, wire] of neighbors.entries()) {
-				if (wire.typeId == 'cosmos:aluminum_wire') {
-					const side_connections = wire.permutation.getAllStates()
-					side_connections[faces[5 - i]] = true
-					wire.setPermutation(BlockPermutation.resolve("cosmos:aluminum_wire", side_connections))
-					connections[faces[i]] = true
-				}
-				const machine = dimension.getEntities({
-					families: ["power"],
-					location: wire.center(),
-					maxDistance: 0.5
-				})[0]
-				if (machine) {
-					const [input, output] = get_machine_connections(machine)
-					if (compare_position(location, input) || compare_position(location, output)) connections[faces[i]] = true
-				}
-			} event.permutationToPlace = BlockPermutation.resolve("cosmos:aluminum_wire", connections)
+	blockComponentRegistry.registerCustomComponent('cosmos:aluminum_wire', {
+		onPlace({block}) {
+			connect_wires(block)
 		},
 		onPlayerDestroy(event){
+			detach_wires(event.block)
 			machinesSearch(wiresDFS(event.block, event.destroyedBlockPermutation))
 		}
 	})
 })
 
-world.beforeEvents.playerBreakBlock.subscribe((event) => {
-	const {block, dimension, player} = event
-	system.run(()=>{detach_wires(block)})
-	if (block.typeId == "cosmos:aluminum_wire") {
-		if ((player.getGameMode() == "creative")) return
-		event.cancel = true
-		system.run(()=>{
-			dimension.spawnItem(new ItemStack("cosmos:aluminum_wire_item"), block.center()),
-			dimension.playSound("dig.cloth", block.location)
-			block.setPermutation(BlockPermutation.resolve("air"))
-		})
-	}
-})
 world.afterEvents.playerPlaceBlock.subscribe((event) => {
 	if(event.block.typeId != "cosmos:aluminum_wire") return;
 	machinesSearch(wiresDFS(event.block))
-}) 
+})

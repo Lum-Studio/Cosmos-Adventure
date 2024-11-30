@@ -13,14 +13,14 @@
       "VZV"
     ],
     "key": {
-      "V": "cosmos:aluminum_wire_item",
+      "V": "cosmos:aluminum_wire",
       "W": "cosmos:compressed_steel",
       "X": "cosmos:compressed_tin",
       "Y": "cosmos:compressor",
       "Z": "cosmos:advanced_wafer"
     },
     "unlock": [
-      "cosmos:aluminum_wire_item"
+      "cosmos:aluminum_wire"
     ],
     "result": {
       "item": "cosmos:electric_compressor"
