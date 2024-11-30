@@ -309,17 +309,38 @@
     "aluminum_ore": {
       "textures": "textures/blocks/terrain/aluminum_ore"
     },
+    "dense_ice": {
+      "textures": "textures/blocks/terrain/dense_ice"
+    },
+    "desh_ore": {
+      "textures": "textures/blocks/terrain/desh_ore"
+    },
     "detailed_tin_decoration_block": {
       "textures": "textures/blocks/terrain/detailed_tin_decoration_block"
     },
     "detailed_tin_decoration_block_top": {
       "textures": "textures/blocks/terrain/detailed_tin_decoration_block_top"
     },
+    "mars_bedrock": {
+      "textures": "textures/blocks/terrain/mars_bedrock"
+    },
     "mars_cobblestone": {
       "textures": "textures/blocks/terrain/mars_cobblestone"
     },
     "mars_dungeon_bricks": {
       "textures": "textures/blocks/terrain/mars_dungeon_bricks"
+    },
+    "mars_fine_regolith": {
+      "textures": "textures/blocks/terrain/mars_fine_regolith"
+    },
+    "mars_regolith": {
+      "textures": "textures/blocks/terrain/mars_regolith"
+    },
+    "mars_stone": {
+      "textures": "textures/blocks/terrain/mars_stone"
+    },
+    "moon_bedrock": {
+      "textures": "textures/blocks/terrain/moon_bedrock"
     },
     "moon_cheese_ore": {
       "textures": "textures/blocks/terrain/moon_cheese_ore"
@@ -348,11 +369,20 @@
     "moon_turf_side": {
       "textures": "textures/blocks/terrain/moon_turf_side"
     },
+    "pumice": {
+      "textures": "textures/blocks/terrain/pumice"
+    },
+    "scorched_venus_rock": {
+      "textures": "textures/blocks/terrain/scorched_venus_rock"
+    },
     "silicon_block": {
       "textures": "textures/blocks/terrain/silicon_block"
     },
     "silicon_ore": {
       "textures": "textures/blocks/terrain/silicon_ore"
+    },
+    "space_bedrock": {
+      "textures": "textures/blocks/terrain/space_bedrock"
     },
     "tin_block": {
       "textures": "textures/blocks/terrain/tin_block"
@@ -363,11 +393,26 @@
     "tin_ore": {
       "textures": "textures/blocks/terrain/tin_ore"
     },
+    "vapor_spout": {
+      "textures": "textures/blocks/terrain/vapor_spout"
+    },
+    "venus_bedrock": {
+      "textures": "textures/blocks/terrain/venus_bedrock"
+    },
     "venus_dungeon_brick_1": {
       "textures": "textures/blocks/terrain/venus_dungeon_brick_1"
     },
     "venus_dungeon_brick_2": {
       "textures": "textures/blocks/terrain/venus_dungeon_brick_2"
+    },
+    "venus_hard_rock": {
+      "textures": "textures/blocks/terrain/venus_hard_rock"
+    },
+    "venus_soft_rock": {
+      "textures": "textures/blocks/terrain/venus_soft_rock"
+    },
+    "venus_volcanic_roc": {
+      "textures": "textures/blocks/terrain/venus_volcanic_roc"
     }
   }
 }

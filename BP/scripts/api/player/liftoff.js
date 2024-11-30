@@ -14,8 +14,8 @@ function start_countdown(rocket, player) {
         } else {
             world.sendMessage('Liftoff!')
             system.clearRun(counter)
+            rocket_flight(rocket)
             break_pad(rocket)
-            rocket_fly(rocket)
         }
     }, 20)
 }
@@ -34,15 +34,16 @@ function dismount(player) {
     player.camera.clear()
 }
 
-function rocket_fly(rocket) {
+function rocket_flight(rocket) {
     if (!rocket || !rocket.isValid()) return
     rocket.addEffect('levitation', 2000, {showParticles: false})
     let t = 0; let v
     const a = 30; const b = 10
     system.runInterval(() => { t++
+        if (t == 40) world.sendMessage('§7Do not save & quit or disconnect while flying the rocket or in the celesetial selector.')
         if (!rocket || !rocket.isValid()) return
         if (v >= 10) rocket.setDynamicProperty('rocket_launched', true)
-        v = Math.ceil((a - 1) * (1 - Math.pow(Math.E, (-t/(20 * b)))))
+        v = Math.floor((a) * (1 - Math.pow(Math.E, (-t/(20 * b)))))
         rocket.addEffect('levitation', 2000, {showParticles: false, amplifier: v})
     })
 }

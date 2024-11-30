@@ -50,7 +50,7 @@ Block.prototype.getNeighbors = function (maxSearch = 27) {
                     }
                 }
             } catch (e) {
-                console.error(e, e.stack)
+                null//console.error(e, e.stack)
             }
         }
     } return connectedBlocks;

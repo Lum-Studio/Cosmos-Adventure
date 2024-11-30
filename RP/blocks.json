@@ -28,6 +28,18 @@
          "up": "moon_turf"
       }
    },
+   "moon_bedrock": {
+      "textures": "moon_bedrock"
+   },
+   "mars_bedrock": {
+      "textures": "mars_bedrock"
+   },
+   "venus_bedrock": {
+      "textures": "venus_bedrock"
+   },
+   "space_bedrock": {
+      "textures": "space_bedrock"
+   },
    "mars_cobblestone": {
       "sound": "stone",
       "textures": "mars_cobblestone"

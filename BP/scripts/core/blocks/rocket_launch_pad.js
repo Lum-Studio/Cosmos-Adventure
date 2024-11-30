@@ -36,7 +36,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 				}
 			}
 		},
-		onPlayerDestroy({block, destroyedBlockPermutation: pad}) {
+		onPlayerDestroy({block, player, destroyedBlockPermutation: pad}) {
 			if (pad.getState("cosmos:center")) {
 				destroy(block); return
 			}
@@ -45,7 +45,9 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 					const target = block.offset({x: x, y: 0, z: z})
 					if (target.typeId != "cosmos:rocket_launch_pad") continue
 					if (target.permutation.getState("cosmos:center")) {
-						destroy(target); return
+						if (player.getGameMode() == 'creative') world.gameRules.doTileDrops = false
+						destroy(target)
+						world.gameRules.doTileDrops = true; return
 					}
 				}
 			}
