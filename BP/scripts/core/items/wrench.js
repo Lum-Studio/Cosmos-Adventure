@@ -1,5 +1,5 @@
 import {world, system} from "@minecraft/server";
-import {detach_wires, attach_wires} from "../blocks/aluminum_wire"
+import {detach_wires, attachWires, attach_to_wires} from "../blocks/aluminum_wire"
 import { MachineInstances } from "../machines/MachineInstances"
 
 const directions = ["north", "east", "south", "west"]
@@ -14,7 +14,10 @@ function rotate(block, machine) {
 	})[0]
 	block.setPermutation(machine.withState("minecraft:cardinal_direction", turn_to))
 	entity.setProperty("cosmos:direction", turn_to)
-	system.runTimeout(()=>{attach_wires(block, entity)}, 1)
+	system.runTimeout(()=>{
+    attach_to_wires(block)
+    attachWires(entity)
+  }, 1)
 }
 
 function remove(block) {

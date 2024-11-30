@@ -1,7 +1,7 @@
-import { world, BlockPermutation } from "@minecraft/server"
+import { world, system, BlockPermutation } from "@minecraft/server"
 import machines from "./AllMachineBlocks"
 import { MachineInstances } from "./MachineInstances"
-import { detach_wires, attach_wires } from "../blocks/aluminum_wire"
+import { detach_wires, attach_to_wires, attachWires } from "../blocks/aluminum_wire"
 import { pickaxes } from "../../api/utils"
 function str(object) { return JSON.stringify(object) }
 
@@ -13,15 +13,17 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 			const block_id = permutationToPlace.type.id  //please look where else was this variable used before modifing it (used twice in line 29)
 			const machineType = machines[block_id.replace('cosmos:', '')]
 			const entity = dimension.spawnEntity(machineType.tileEntity, { ...block.center(), y: block.y })
-			const location = block.location
 			const playerRotaion = Math.round((player.getRotation().y + 180) / 90)
 			const direction = directions[playerRotaion == 4 ? 0 : playerRotaion]
 			entity.setProperty("cosmos:direction", direction)
 			entity.nameTag = machineType.ui
 			if (["cosmos:energy_storage_module", "cosmos:energy_storage_cluster"].includes(block_id))
 			event.permutationToPlace = BlockPermutation.resolve(block_id, { "cosmos:full": false, "minecraft:cardinal_direction": direction })
-			if (machineType.class) MachineInstances.add(dimension, location, new machineType.class(block, entity))
-			attach_wires(block, entity, direction)
+			if (machineType.class) MachineInstances.add(dimension, block.location, new machineType.class(block, entity))
+			system.run(() => {
+				attach_to_wires(block)
+				attachWires(entity)
+			})
 		},
 		onPlayerDestroy({ block, dimension }) {
 			detach_wires(block)
