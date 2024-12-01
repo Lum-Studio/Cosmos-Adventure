@@ -103,7 +103,7 @@ const opposite_side = {
 	west: "cosmos:east",
 }
 
-// get_machine_connections takes an entity not a block.
+// this function takes a Block (A Machine Block)
 export function attach_to_wires(block) {
 	const machine_type = block.typeId.split(':').pop()
 	if (!Object.keys(machines).includes(machine_type)) return
@@ -119,6 +119,7 @@ export function attach_to_wires(block) {
 	}
 }
 
+// this function takes an Entity (A Machine Entity)
 export function attachWires(machine) {
 	let dataOfMachine = get_data(machine)
 	let machineOutputWire = (dataOfMachine.energy_output)? machine.dimension.getBlock(location_of(machine, dataOfMachine.energy_output)):
@@ -129,7 +130,7 @@ export function attachWires(machine) {
 	if(machineInputWire && !machineInputWire.isAir && machineInputWire.typeId == 'cosmos:aluminum_wire') machinesSearch(wiresDFS(machineInputWire))
 }
 
-// takes a Block
+// this function takes a Block (A Wire)
 function connect_wires(wire) {
 	const neighbors = wire.six_neighbors()
 	const states = {}
