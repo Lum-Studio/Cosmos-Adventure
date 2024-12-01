@@ -11,14 +11,14 @@
   "air_lock_frame": {
     "textures": "textures/items/air_lock_frame"
   },
-  "asteroids_dirt": {
-    "textures": "textures/items/asteroids_dirt"
-  },
   "asteroids_rock": {
     "textures": "textures/items/asteroids_rock"
   },
-  "asteroids_turf": {
-    "textures": "textures/items/asteroids_turf"
+  "asteroids_hard_rock": {
+    "textures": "textures/items/asteroids_hard_rock"
+  },
+  "asteroids_soft_rock": {
+    "textures": "textures/items/asteroids_soft_rock"
   },
   "astro_miner_base": {
     "textures": "textures/items/astro_miner_base"
@@ -292,9 +292,6 @@
   },
   "orion_drive": {
     "textures": "textures/items/orion_drive"
-  },
-  "oxegen_storage_module": {
-    "textures": "textures/items/oxegen_storage_module"
   },
   "oxygen_bubble_distributor": {
     "textures": "textures/items/oxygen_bubble_distributor"

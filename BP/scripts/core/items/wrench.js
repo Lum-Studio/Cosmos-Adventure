@@ -13,10 +13,10 @@ function rotate(block, machine) {
 		maxDistance: 0.5
 	})[0]
 	block.setPermutation(machine.withState("minecraft:cardinal_direction", turn_to))
-	entity.setProperty("cosmos:direction", turn_to)
+	entity?.setProperty("cosmos:direction", turn_to) //remove this once we get rid of the cosmos:direction property
 	system.runTimeout(()=>{
     attach_to_wires(block)
-    attachWires(entity)
+    entity ? attachWires(entity) : null
   }, 1)
 }
 

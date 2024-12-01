@@ -59,8 +59,20 @@
     "advanced_machine_side": {
       "textures": "textures/blocks/machines/advanced_machine_side"
     },
-    "advaned_electric_furnace": {
-      "textures": "textures/blocks/machines/advaned_electric_furnace"
+    "advanced_oxygen_input": {
+      "textures": "textures/blocks/machines/advanced_oxygen_input"
+    },
+    "advanced_oxygen_output": {
+      "textures": "textures/blocks/machines/advanced_oxygen_output"
+    },
+    "advanced_solar_panel": {
+      "textures": "textures/blocks/machines/advanced_solar_panel"
+    },
+    "advanced_solar_panel_top": {
+      "textures": "textures/blocks/machines/advanced_solar_panel_top"
+    },
+    "advanced_water_input": {
+      "textures": "textures/blocks/machines/advanced_water_input"
     },
     "advansed_electric_compressor": {
       "textures": "textures/blocks/machines/advansed_electric_compressor"
@@ -71,11 +83,32 @@
     "air_lock_controller_off": {
       "textures": "textures/blocks/machines/air_lock_controller_off"
     },
+    "air_lock_frame": {
+      "textures": "textures/blocks/machines/air_lock_frame"
+    },
+    "astro_miner_base": {
+      "textures": "textures/blocks/machines/astro_miner_base"
+    },
+    "basic_solar_panel": {
+      "textures": "textures/blocks/machines/basic_solar_panel"
+    },
+    "basic_solar_panel_top": {
+      "textures": "textures/blocks/machines/basic_solar_panel_top"
+    },
     "buggy_pad_full": {
       "textures": "textures/blocks/machines/buggy_pad_full"
     },
+    "cargo_loader": {
+      "textures": "textures/blocks/machines/cargo_loader"
+    },
     "cargo_pad": {
       "textures": "textures/blocks/machines/cargo_pad"
+    },
+    "cargo_unloader": {
+      "textures": "textures/blocks/machines/cargo_unloader"
+    },
+    "chromatic_applicator": {
+      "textures": "textures/blocks/machines/chromatic_applicator"
     },
     "circuit_fabricator": {
       "textures": "textures/blocks/machines/circuit_fabricator"
@@ -92,6 +125,9 @@
     "deconstructor": {
       "textures": "textures/blocks/machines/deconstructor"
     },
+    "electric_arc_furnace": {
+      "textures": "textures/blocks/machines/electric_arc_furnace"
+    },
     "electric_compressor": {
       "textures": "textures/blocks/machines/electric_compressor"
     },
@@ -104,20 +140,41 @@
     "energy_output": {
       "textures": "textures/blocks/machines/energy_output"
     },
+    "fuel_input": {
+      "textures": "textures/blocks/machines/fuel_input"
+    },
+    "fuel_loader": {
+      "textures": "textures/blocks/machines/fuel_loader"
+    },
+    "fuel_output": {
+      "textures": "textures/blocks/machines/fuel_output"
+    },
+    "gas_input": {
+      "textures": "textures/blocks/machines/gas_input"
+    },
+    "gas_liquefier": {
+      "textures": "textures/blocks/machines/gas_liquefier"
+    },
+    "gas_machine_side": {
+      "textures": "textures/blocks/machines/gas_machine_side"
+    },
+    "gas_output": {
+      "textures": "textures/blocks/machines/gas_output"
+    },
+    "gas_water_input": {
+      "textures": "textures/blocks/machines/gas_water_input"
+    },
+    "geothermal_generator": {
+      "textures": "textures/blocks/machines/geothermal_generator"
+    },
+    "geothermal_generator_top": {
+      "textures": "textures/blocks/machines/geothermal_generator_top"
+    },
+    "launch_controller": {
+      "textures": "textures/blocks/machines/launch_controller"
+    },
     "machine_blank": {
       "textures": "textures/blocks/machines/machine_blank"
-    },
-    "machine_cargoloader": {
-      "textures": "textures/blocks/machines/machine_cargoloader"
-    },
-    "machine_cargounloader": {
-      "textures": "textures/blocks/machines/machine_cargounloader"
-    },
-    "machine_fuelloader": {
-      "textures": "textures/blocks/machines/machine_fuelloader"
-    },
-    "machine_fuel_input": {
-      "textures": "textures/blocks/machines/machine_fuel_input"
     },
     "machine_input": {
       "textures": "textures/blocks/machines/machine_input"
@@ -128,20 +185,11 @@
     "machine_item_output": {
       "textures": "textures/blocks/machines/machine_item_output"
     },
-    "machine_oil_input": {
-      "textures": "textures/blocks/machines/machine_oil_input"
-    },
-    "machine_oxygen_input": {
-      "textures": "textures/blocks/machines/machine_oxygen_input"
-    },
-    "machine_painter": {
-      "textures": "textures/blocks/machines/machine_painter"
-    },
-    "machine_sealer": {
-      "textures": "textures/blocks/machines/machine_sealer"
-    },
     "machine_side": {
       "textures": "textures/blocks/machines/machine_side"
+    },
+    "methane_synthesizer": {
+      "textures": "textures/blocks/machines/methane_synthesizer"
     },
     "nasa_workbench_side": {
       "textures": "textures/blocks/machines/nasa_workbench_side"
@@ -161,8 +209,8 @@
     "oxygen_decompressor": {
       "textures": "textures/blocks/machines/oxygen_decompressor"
     },
-    "oxygen_detector_side": {
-      "textures": "textures/blocks/machines/oxygen_detector_side"
+    "oxygen_detector": {
+      "textures": "textures/blocks/machines/oxygen_detector"
     },
     "oxygen_distributor": {
       "textures": "textures/blocks/machines/oxygen_distributor"
@@ -170,32 +218,41 @@
     "oxygen_distributor_side": {
       "textures": "textures/blocks/machines/oxygen_distributor_side"
     },
+    "oxygen_input": {
+      "textures": "textures/blocks/machines/oxygen_input"
+    },
     "oxygen_output": {
       "textures": "textures/blocks/machines/oxygen_output"
+    },
+    "oxygen_sealer": {
+      "textures": "textures/blocks/machines/oxygen_sealer"
     },
     "oxygen_storage_module_full": {
       "textures": "textures/blocks/machines/oxygen_storage_module_full"
     },
-    "refinery_front": {
-      "textures": "textures/blocks/machines/refinery_front"
+    "refinery": {
+      "textures": "textures/blocks/machines/refinery"
     },
-    "refinery_side": {
-      "textures": "textures/blocks/machines/refinery_side"
+    "refinery_back": {
+      "textures": "textures/blocks/machines/refinery_back"
     },
-    "refinery_top": {
-      "textures": "textures/blocks/machines/refinery_top"
+    "sealed_aluminum_wire": {
+      "textures": "textures/blocks/machines/sealed_aluminum_wire"
     },
-    "solar_advanced_0": {
-      "textures": "textures/blocks/machines/solar_advanced_0"
+    "sealed_fluid_pipe": {
+      "textures": "textures/blocks/machines/sealed_fluid_pipe"
     },
-    "solar_advanced_1": {
-      "textures": "textures/blocks/machines/solar_advanced_1"
+    "sealed_heavy_aluminum_wire": {
+      "textures": "textures/blocks/machines/sealed_heavy_aluminum_wire"
     },
-    "solar_basic_0": {
-      "textures": "textures/blocks/machines/solar_basic_0"
+    "telemetry_unit": {
+      "textures": "textures/blocks/machines/telemetry_unit"
     },
-    "solar_basic_1": {
-      "textures": "textures/blocks/machines/solar_basic_1"
+    "terraformer": {
+      "textures": "textures/blocks/machines/terraformer"
+    },
+    "water_electrolyzer": {
+      "textures": "textures/blocks/machines/water_electrolyzer"
     },
 
     "energy_storage_cluster_00": {
@@ -302,6 +359,25 @@
       "textures": "textures/blocks/machines/energy_storage_module/16"
     },
 
+    "lighting_panel_corner": {
+      "textures": "textures/blocks/machines/lighting_panel/corner"
+    },
+    "lighting_panel_dark": {
+      "textures": "textures/blocks/machines/lighting_panel/dark"
+    },
+    "lighting_panel_linear": {
+      "textures": "textures/blocks/machines/lighting_panel/linear"
+    },
+    "lighting_panel_side": {
+      "textures": "textures/blocks/machines/lighting_panel/side"
+    },
+    "lighting_panel_spotlight": {
+      "textures": "textures/blocks/machines/lighting_panel/spotlight"
+    },
+    "lighting_panel_square": {
+      "textures": "textures/blocks/machines/lighting_panel/square"
+    },
+
     //terrain
     "aluminum_block": {
       "textures": "textures/blocks/terrain/aluminum_block"
@@ -309,8 +385,26 @@
     "aluminum_ore": {
       "textures": "textures/blocks/terrain/aluminum_ore"
     },
+    "asteroids_aluminum_ore": {
+      "textures": "textures/blocks/terrain/asteroids_aluminum_ore"
+    },
+    "asteroids_hard_rock": {
+      "textures": "textures/blocks/terrain/asteroids_hard_rock"
+    },
+    "asteroids_iron_ore": {
+      "textures": "textures/blocks/terrain/asteroids_iron_ore"
+    },
+    "asteroids_rock": {
+      "textures": "textures/blocks/terrain/asteroids_rock"
+    },
+    "asteroids_soft_rock": {
+      "textures": "textures/blocks/terrain/asteroids_soft_rock"
+    },
     "dense_ice": {
       "textures": "textures/blocks/terrain/dense_ice"
+    },
+    "desh_block": {
+      "textures": "textures/blocks/terrain/desh_block"
     },
     "desh_ore": {
       "textures": "textures/blocks/terrain/desh_ore"
@@ -321,11 +415,23 @@
     "detailed_tin_decoration_block_top": {
       "textures": "textures/blocks/terrain/detailed_tin_decoration_block_top"
     },
+    "galena_ore": {
+      "textures": "textures/blocks/terrain/galena_ore"
+    },
+    "ilmenite_ore": {
+      "textures": "textures/blocks/terrain/ilmenite_ore"
+    },
+    "lead_block": {
+      "textures": "textures/blocks/terrain/lead_block"
+    },
     "mars_bedrock": {
       "textures": "textures/blocks/terrain/mars_bedrock"
     },
     "mars_cobblestone": {
       "textures": "textures/blocks/terrain/mars_cobblestone"
+    },
+    "mars_copper_ore": {
+      "textures": "textures/blocks/terrain/mars_copper_ore"
     },
     "mars_dungeon_bricks": {
       "textures": "textures/blocks/terrain/mars_dungeon_bricks"
@@ -333,11 +439,20 @@
     "mars_fine_regolith": {
       "textures": "textures/blocks/terrain/mars_fine_regolith"
     },
+    "mars_iron_ore": {
+      "textures": "textures/blocks/terrain/mars_iron_ore"
+    },
     "mars_regolith": {
       "textures": "textures/blocks/terrain/mars_regolith"
     },
     "mars_stone": {
       "textures": "textures/blocks/terrain/mars_stone"
+    },
+    "mars_tin_ore": {
+      "textures": "textures/blocks/terrain/mars_tin_ore"
+    },
+    "meteoric_iron_block": {
+      "textures": "textures/blocks/terrain/meteoric_iron_block"
     },
     "moon_bedrock": {
       "textures": "textures/blocks/terrain/moon_bedrock"
@@ -381,6 +496,9 @@
     "silicon_ore": {
       "textures": "textures/blocks/terrain/silicon_ore"
     },
+    "solar_ore": {
+      "textures": "textures/blocks/terrain/solar_ore"
+    },
     "space_bedrock": {
       "textures": "textures/blocks/terrain/space_bedrock"
     },
@@ -393,11 +511,20 @@
     "tin_ore": {
       "textures": "textures/blocks/terrain/tin_ore"
     },
+    "titanium_block": {
+      "textures": "textures/blocks/terrain/titanium_block"
+    },
     "vapor_spout": {
       "textures": "textures/blocks/terrain/vapor_spout"
     },
+    "venus_aluminum_ore": {
+      "textures": "textures/blocks/terrain/venus_aluminum_ore"
+    },
     "venus_bedrock": {
       "textures": "textures/blocks/terrain/venus_bedrock"
+    },
+    "venus_copper_ore": {
+      "textures": "textures/blocks/terrain/venus_copper_ore"
     },
     "venus_dungeon_brick_1": {
       "textures": "textures/blocks/terrain/venus_dungeon_brick_1"
@@ -408,8 +535,17 @@
     "venus_hard_rock": {
       "textures": "textures/blocks/terrain/venus_hard_rock"
     },
+    "venus_quartz_ore": {
+      "textures": "textures/blocks/terrain/venus_quartz_ore"
+    },
+    "venus_silicon_ore": {
+      "textures": "textures/blocks/terrain/venus_silicon_ore"
+    },
     "venus_soft_rock": {
       "textures": "textures/blocks/terrain/venus_soft_rock"
+    },
+    "venus_tin_ore": {
+      "textures": "textures/blocks/terrain/venus_tin_ore"
     },
     "venus_volcanic_roc": {
       "textures": "textures/blocks/terrain/venus_volcanic_roc"

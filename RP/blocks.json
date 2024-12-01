@@ -1,6 +1,15 @@
 {
    "format_version": [1, 1, 0],
+
    "tin_decoration_block": {
+      "sound": "stone",
+      "textures": "tin_decoration_block"
+   },
+   "incased_redstone_dust": {
+      "sound": "stone",
+      "textures": "tin_decoration_block"
+   },
+   "incased_redstone_repeater": {
       "sound": "stone",
       "textures": "tin_decoration_block"
    },
@@ -23,10 +32,22 @@
    "moon_turf": {
       "sound": "stone",
       "textures": {
-         "down": "moon_turf_side",
+         "down": "moon_dirt",
          "side": "moon_turf_side",
          "up": "moon_turf"
       }
+   },
+   "asteroids_rock": {
+      "sound": "stone",
+      "textures": "asteroids_rock"
+   },
+   "asteroids_hard_rock": {
+      "sound": "stone",
+      "textures": "asteroids_hard_rock"
+   },
+   "asteroids_soft_rock": {
+      "sound": "stone",
+      "textures": "asteroids_soft_rock"
    },
    // "moon_bedrock": {
    //    "textures": "moon_bedrock"
@@ -65,6 +86,55 @@
       "sound": "stone",
       "textures": "silicon_ore"
    },
+   "cheese_ore": {
+      "sound": "stone",
+      "textures": "moon_cheese_ore"
+   },
+   "desh_ore": {
+      "sound": "stone",
+      "textures": "desh_ore"
+   },
+   "ilmenite_ore": {
+      "sound": "stone",
+      "textures": "ilmenite_ore"
+   },
+
+   "oxygen_detector": {
+      "sound": "stone",
+      "textures": {
+         "side": "oxygen_detector",
+         "down": "machine_blank",
+         "up": "machine_blank"
+      }
+   },
+   "air_lock_controller": {
+      "sound": "stone",
+      "textures": {
+         "side": "air_lock_controller",
+         "down": "air_lock_frame",
+         "up": "air_lock_frame"
+      }
+   },
+   "air_lock_frame": {
+      "sound": "stone",
+      "textures": "air_lock_frame"
+   },
+   "telemetry_unit": {
+      "sound": "stone",
+      "textures": "telemetry_unit"
+   },
+   "sealed_aluminum_wire": {
+      "sound": "stone",
+      "textures": "sealed_aluminum_wire"
+   },
+   "sealed_heavy_aluminum_wire": {
+      "sound": "stone",
+      "textures": "sealed_heavy_aluminum_wire"
+   },
+   "sealed_fluid_pipe": {
+      "sound": "stone",
+      "textures": "sealed_fluid_pipe"
+   },
 
    "tin_block": {
       "sound": "stone",
@@ -77,6 +147,22 @@
    "silicon_block": {
       "sound": "stone",
       "textures": "silicon_block"
+   },
+   "desh_block": {
+      "sound": "stone",
+      "textures": "desh_block"
+   },
+   "titanium_block": {
+      "sound": "stone",
+      "textures": "titanium_block"
+   },
+   "meteoric_iron_block": {
+      "sound": "stone",
+      "textures": "meteoric_iron_block"
+   },
+   "lead_block": {
+      "sound": "stone",
+      "textures": "lead_block"
    },
 
    "space_station": {
@@ -94,6 +180,15 @@
       "sound": "stone"
    },
    "energy_storage_cluster": {
+      "sound": "stone"
+   },
+   "advanced_compressor": {
+      "sound": "stone"
+   },
+   "advanced_solar_panel": {
+      "sound": "stone"
+   },
+   "basic_solar_panel": {
       "sound": "stone"
    },
    "compressor": {

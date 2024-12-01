@@ -8,11 +8,11 @@
       "crafting_table"
     ],
     "ingredients": [
-      "cosmos:asteroids_turf",
+      "cosmos:asteroids_soft_rock",
       "cosmos:asteroids_rock"
     ],
     "unlock": [
-      "cosmos:asteroids_turf"
+      "cosmos:asteroids_soft_rock"
     ],
     "result": {
       "item": "minecraft:cobblestone",

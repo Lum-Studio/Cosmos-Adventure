@@ -89,6 +89,9 @@
     "empty_canister": {
       "textures": "textures/items/empty_canister"
     },
+    "fluid_manifulator": {
+      "textures": "textures/items/fluid_manifulator"
+    },
     "frequency_module": {
       "textures": "textures/items/frequency_module"
     },

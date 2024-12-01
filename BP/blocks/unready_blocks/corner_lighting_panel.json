@@ -1,0 +1,35 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cosmos:corner_lighting_panel",
+      "menu_category": {
+        "category": "items"
+      },
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": ["minecraft:facing_direction"]
+        }
+      }
+    },
+    "components": {
+      "tag:machine": {},
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:destructible_by_explosion": false,
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.5
+      },
+      "minecraft:material_instances": {
+        "up": { "render_method": "opaque", "texture": "lighting_panel_side" },
+        "down": { "render_method": "opaque", "texture": "lighting_panel_side" },
+        "north": { "render_method": "opaque", "texture": "lighting_panel_side" },
+        "east": { "render_method": "opaque", "texture": "lighting_panel_side" },
+        "south": { "render_method": "opaque", "texture": "lighting_panel_corner" },
+        "west": { "render_method": "opaque", "texture": "lighting_panel_side" }
+      }
+    },
+    "permutations": [
+      //will be done later
+    ]
+  }
+}
