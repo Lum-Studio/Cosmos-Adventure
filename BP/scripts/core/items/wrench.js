@@ -1,5 +1,5 @@
 import {world, system} from "@minecraft/server";
-import {detach_wires, attachWires, attach_to_wires} from "../blocks/aluminum_wire"
+import {detach_wires, attach_to_wires} from "../blocks/aluminum_wire"
 import { MachineInstances } from "../machines/MachineInstances"
 
 const directions = ["north", "east", "south", "west"]
@@ -16,7 +16,6 @@ function rotate(block, machine) {
 	entity?.setProperty("cosmos:direction", turn_to) //remove this once we get rid of the cosmos:direction property
 	system.runTimeout(()=>{
     attach_to_wires(block)
-    entity ? attachWires(entity) : null
   }, 1)
 }
 
