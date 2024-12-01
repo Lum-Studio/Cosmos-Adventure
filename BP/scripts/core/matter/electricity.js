@@ -40,7 +40,7 @@ export function charge_from_machine(machine, energy) {
 	const data = get_data(machine)
 	let connectedMachines = (machine.getDynamicProperty("input_connected_machines"))? JSON.parse(machine.getDynamicProperty("input_connected_machines")):
 	undefined;
-	if ( connectedMachines && connectedMachines.length > 1 && energy < data.capacity ) {
+	if ( connectedMachines && connectedMachines.length > 0 && energy < data.capacity ) {
 		for(let input_entity_id of connectedMachines){
 			if(world.getEntity(input_entity_id[0]) && input_entity_id[0] != machine.id && input_entity_id[1] == "output"){
 				let input_entity = world.getEntity(input_entity_id[0])
