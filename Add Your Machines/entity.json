@@ -3,15 +3,8 @@
     "minecraft:entity": {
         "description": {
             "identifier": "cosmos:machine:id",
-            "is_summonable": true,
-			"properties": {
-				"cosmos:direction": {
-					"type": "enum",
-					"client_sync": true,
-					"values": ["north", "east", "south", "west"],
-					"default": "north"
-				} 
-			}
+			// "properties": {},
+            "is_summonable": true
         },
         "component_groups": {
 			"shrink": {
@@ -100,7 +93,7 @@
 				"add": {
 					"component_groups": ["expand"]
 				}
-			}
+			},
 			"cosmos:highlight": {
 				"add": {
 					"component_groups": ["highlight"]

@@ -35,11 +35,11 @@ export class CircuitFabricator extends MachineBlockEntity {
 			"cosmos:raw_silicon",
 			"minecraft:redstone"
 		])
-	        const vars_item = container.getItem(12)
-	        let energy = get_vars(vars_item, 0)
+		const vars_item = container.getItem(12)
+		let energy = get_vars(vars_item, 0)
 		let progress = get_vars(vars_item, 1)
 		
-	        energy = charge_from_machine(this.entity, energy)
+	    energy = charge_from_machine(this.entity, this.block, energy)
 		
 		energy = charge_from_battery(this.entity, energy, 5)
 		

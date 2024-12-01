@@ -3,15 +3,8 @@
     "minecraft:entity": {
         "description": {
             "identifier": "cosmos:machine:oxygen_collector",
-            "is_summonable": true,
-			"properties": {
-				"cosmos:direction": {
-					"type": "enum",
-					"client_sync": true,
-					"values": ["north", "east", "south", "west"],
-					"default": "north"
-				}
-			}
+			// "properties": {},
+            "is_summonable": true
         },
         "component_groups": {
 			"shrink": {

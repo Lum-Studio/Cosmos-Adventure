@@ -45,7 +45,7 @@ export class ElectricCompressor extends MachineBlockEntity {
 		let timer = get_vars(vars_item, 2)
 		timer = (timer < 80)? timer + 1:
 		0;
-		energy = charge_from_machine(this.entity, energy)
+		energy = charge_from_machine(this.entity, this.block, energy)
 		energy = charge_from_battery(this.entity, energy, 11);
         if(timer === 0) energy -= Math.min(1, energy)
 		const items = get_ingredients(container)

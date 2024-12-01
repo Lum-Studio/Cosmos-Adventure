@@ -29,7 +29,7 @@ export class OxygenCompressor extends MachineBlockEntity {
         const space = data.o2_capacity - o2
         const speed = in_overworld && energy ? Math.min(186, space) : 0
 		
-		energy = charge_from_machine(this.entity, energy)
+		energy = charge_from_machine(this.entity, this.block, energy)
 		
 		energy = charge_from_battery(this.entity, energy, 0)
 

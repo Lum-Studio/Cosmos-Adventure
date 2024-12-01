@@ -15,7 +15,6 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 			const entity = dimension.spawnEntity(machineType.tileEntity, { ...block.center(), y: block.y })
 			const playerRotaion = Math.round((player.getRotation().y + 180) / 90)
 			const direction = directions[playerRotaion == 4 ? 0 : playerRotaion]
-			entity.setProperty("cosmos:direction", direction)
 			entity.nameTag = machineType.ui
 			if (["cosmos:energy_storage_module", "cosmos:energy_storage_cluster"].includes(block_id))
 			event.permutationToPlace = BlockPermutation.resolve(block_id, { "cosmos:full": false, "minecraft:cardinal_direction": direction })

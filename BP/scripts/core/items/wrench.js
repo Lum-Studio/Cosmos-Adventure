@@ -4,17 +4,12 @@ import { MachineInstances } from "../machines/MachineInstances"
 
 const directions = ["north", "east", "south", "west"]
 
-function rotate(block, machine) {
-  const direction = machine.getState("minecraft:cardinal_direction")
+function rotate(block, perm) {
+  const direction = perm.getState("minecraft:cardinal_direction")
   const turn_to = directions[directions.indexOf(direction) + 1] ?? "north"
-  const entity = block.dimension.getEntities({
-		families: ["power"],
-		location: block.center(),
-		maxDistance: 0.5
-	})[0]
-	block.setPermutation(machine.withState("minecraft:cardinal_direction", turn_to))
-	entity?.setProperty("cosmos:direction", turn_to) //remove this once we get rid of the cosmos:direction property
+	block.setPermutation(perm.withState("minecraft:cardinal_direction", turn_to))
 	system.runTimeout(()=>{
+    detach_wires(block)
     attach_to_wires(block)
   }, 1)
 }
@@ -29,10 +24,10 @@ function remove(block) {
 
 world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
     itemComponentRegistry.registerCustomComponent("cosmos:wrench", {
-        onUseOn({block, source:player, usedOnBlockPermutation:machine}){
+        onUseOn({block, source:player, usedOnBlockPermutation:perm}){
           if (!block.hasTag("machine")) return
           if (player.isSneaking) remove(block)
-          else rotate(block, machine)
+          else rotate(block, perm)
         }
     })
 })
