@@ -1,7 +1,7 @@
 import { world, system, BlockPermutation } from "@minecraft/server"
 import machines from "./AllMachineBlocks"
 import { MachineInstances } from "./MachineInstances"
-import { detach_wires, attach_to_wires, attachWires } from "../blocks/aluminum_wire"
+import { detach_wires, attach_to_wires } from "../blocks/aluminum_wire"
 import { pickaxes } from "../../api/utils"
 function str(object) { return JSON.stringify(object) }
 
@@ -22,7 +22,6 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 			if (machineType.class) MachineInstances.add(dimension, block.location, new machineType.class(block, entity))
 			system.run(() => {
 				attach_to_wires(block)
-				attachWires(entity)
 			})
 		},
 		onPlayerDestroy({ block, dimension }) {
