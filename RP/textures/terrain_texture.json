@@ -25,6 +25,9 @@
     "glowstone_torch": {
       "textures": "textures/blocks/glowstone_torch"
     },
+    "grating": {
+      "textures": "textures/blocks/grating"
+    },
     "hydraulic_platform": {
       "textures": "textures/blocks/hydraulic_platform"
     },
