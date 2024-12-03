@@ -1,12 +1,11 @@
 import { system, ItemStack } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
-import { compare_lists } from "../../../api/utils.js";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
 import recipes from "../../../recipes/circuit_fabricator.js"
-import { get_data, get_vars } from "../../../api/utils.js";
+import { get_data, get_vars, compare_lists } from "../../../api/utils.js";
 
 
-export class CircuitFabricator extends MachineBlockEntity {
+export default class extends MachineBlockEntity {
     constructor(block, entity) {
         super(block, entity);
         this.start();
@@ -23,7 +22,7 @@ export class CircuitFabricator extends MachineBlockEntity {
     }
 
     fabricate() {
-        const container = this.entity.getComponent('minecraft:inventory').container;
+        const container = this.entity.getComponent('minecraft:inventory').container
 		const data = get_data(this.entity)
 		const materials = [0, 1, 2, 3].map(i=> container.getItem(i))
 		const [raw_item, output_item] = [4,6].map(i=> container.getItem(i))

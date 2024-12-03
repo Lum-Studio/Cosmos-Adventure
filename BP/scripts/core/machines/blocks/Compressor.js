@@ -20,7 +20,7 @@ function find_recipe(ingredients) {
 	} return undefined
 }
 
-export class Compressor extends MachineBlockEntity {
+export default class extends MachineBlockEntity {
 	constructor(block, entity) {
 		super(block, entity);
 		this.fuelTypes = new Set(["minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"]);

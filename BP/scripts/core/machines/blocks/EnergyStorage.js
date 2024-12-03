@@ -35,7 +35,7 @@ function charge_battery(machine, energy, slot) {
 	} return energy
 }
 
-export class EnergyStorage extends MachineBlockEntity {
+export default class  extends MachineBlockEntity {
     constructor(block, entity) {
         super(block, entity);
         this.start();

@@ -175,6 +175,10 @@
 		]
 	},
 
+    "interface@machines.interface": {
+		"$screen": "circuit_fabricator.main",
+		"$size": ["100%", "120%"]
+    },
     "main@machines.tall_screen": {
         "$machine": "circuit_fabricator",
         "controls": [

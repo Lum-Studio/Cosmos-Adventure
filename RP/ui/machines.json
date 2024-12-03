@@ -109,7 +109,7 @@
                                 "type": "panel",
                                 "layer": 5,
                                 "controls": [
-                                    { "top_half@machines.$screen": {} },
+                                    { "top_half@$screen": {} },
                                     { "bottom_half@common.inventory_panel_bottom_half_with_label": {} },
                                     { "hotbar_grid@common.hotbar_grid_template": {} },
                                     { "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} }
@@ -122,44 +122,5 @@
                 }
             }
         ]
-    },
-    
-	"coal_generator_screen@coal_generator.main": {},
-    "coal_generator_ui@machines.interface": {
-        "$screen": "coal_generator_screen"
-    },
-
-	"energy_storage_screen@energy_storage.main": {},
-    "energy_storage_module_ui@machines.interface": {
-        "$screen": "energy_storage_screen",
-		"$label": "Energy Storage Module",
-		"$maxPower": "Max Output: 300 gJ/t"
-    },
-    "energy_storage_cluster_ui@machines.interface": {
-        "$screen": "energy_storage_screen",
-		"$label": "Energy Storage Cluster",
-		"$maxPower": "Max Output: 1,800 gJ/t"
-    },
-
-	"compressor_screen@compressor.main": {},
-    "compressor_ui@machines.interface": {
-        "$screen": "compressor_screen",
-		"$size": ["100%", "120%"]
-    },
-
-	"circuit_fabricator_screen@circuit_fabricator.main": {},
-    "circuit_fabricator_ui@machines.interface": {
-		"$screen": "circuit_fabricator_screen",
-		"$size": ["100%", "120%"]
-    },
-	"electric_compressor_screen@electric_compressor.main": {},
-    "electric_compressor_ui@machines.interface": {
-		"$screen": "electric_compressor_screen",
-		"$size": ["100%", "120%"]
-    },
-	"nasa_workbench_screen@nasa_workbench.main": {},
-    "nasa_workbench_ui@machines.interface": {
-		"$screen": "nasa_workbench_screen",
-		"$size": ["100%", "120% + 20px"]
     }
 }

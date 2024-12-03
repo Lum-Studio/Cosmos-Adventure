@@ -22,6 +22,10 @@
 			}
 		]
 	},
+
+    "interface@machines.interface": {
+        "$screen": "coal_generator.main"
+    },
     
     "main@machines.small_screen": {
         "$machine": "coal_generator",

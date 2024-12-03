@@ -151,6 +151,11 @@
 			}
 		]
 	},
+
+    "interface@machines.interface": {
+        "$screen": "compressor.main",
+		"$size": ["100%", "120%"]
+    },
     "main@machines.tall_screen": {
         "$machine": "compressor",
         "controls": [

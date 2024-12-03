@@ -178,6 +178,11 @@
 			}
 		]
 	},
+
+    "interface@machines.interface": {
+		"$screen": "electric_compressor.main",
+		"$size": ["100%", "120%"]
+    },
     "main@machines.tall_screen": {
         "$machine": "electric_compressor",
         "controls": [

@@ -2,8 +2,7 @@
     "format_version": "1.20.0",
     "minecraft:entity": {
         "description": {
-            "identifier": "cosmos:machine:id",
-			// "properties": {},
+            "identifier": "cosmos:machine:refinery",
             "is_summonable": true
         },
         "component_groups": {
@@ -39,15 +38,21 @@
 			}
 		},
         "components": {
+            "minecraft:inventory": {
+                "container_type": "container",
+                "inventory_size": 13
+            },
+            "minecraft:type_family": {
+                "family": [
+                    "cosmos",
+					"has_power_input"
+                ]
+            },
+
             "minecraft:damage_sensor": {
                 "triggers": {
                     "deals_damage": false
                 }
-            },
-            "minecraft:type_family": {
-                "family": [
-                    "cosmos"
-                ]
             },
             "minecraft:collision_box": {
                 "width": 1,
@@ -61,10 +66,6 @@
             "minecraft:knockback_resistance": {
                 "value": 100,
                 "max": 100
-            },
-            "minecraft:inventory": {
-                "container_type": "container",
-                "inventory_size": 3
             },
             "minecraft:pushable": {
                 "is_pushable": false,
@@ -102,26 +103,26 @@
 			"cosmos:highlight_paricles": {
 				"queue_command": {
 					"command": [
-						"particle \"minecraft:villager_happy\" ~-0.5 ~0.5 ~-0.5",
-						"particle \"minecraft:villager_happy\" ~-0.5 ~0.5 ~0.5",
-						"particle \"minecraft:villager_happy\" ~0.5 ~0.5 ~-0.5",
 						"particle \"minecraft:villager_happy\" ~-0.5 ~1 ~-0.5",
-						"particle \"minecraft:villager_happy\" ~0.5 ~0.5 ~0.5",
-						"particle \"minecraft:villager_happy\" ~-0.5 ~ ~-0.5",
 						"particle \"minecraft:villager_happy\" ~-0.5 ~1 ~0.5",
 						"particle \"minecraft:villager_happy\" ~0.5 ~1 ~-0.5",
 						"particle \"minecraft:villager_happy\" ~0.5 ~1 ~0.5",
+						"particle \"minecraft:villager_happy\" ~-0.5 ~1 ~",
+						"particle \"minecraft:villager_happy\" ~ ~1 ~-0.5",
+						"particle \"minecraft:villager_happy\" ~ ~1 ~0.5",
+						"particle \"minecraft:villager_happy\" ~0.5 ~1 ~",
+						"particle \"minecraft:villager_happy\" ~-0.5 ~ ~-0.5",
 						"particle \"minecraft:villager_happy\" ~-0.5 ~ ~0.5",
 						"particle \"minecraft:villager_happy\" ~0.5 ~ ~-0.5",
 						"particle \"minecraft:villager_happy\" ~0.5 ~ ~0.5",
-						"particle \"minecraft:villager_happy\" ~-0.5 ~1 ~",
-						"particle \"minecraft:villager_happy\" ~ ~1 ~-0.5",
 						"particle \"minecraft:villager_happy\" ~-0.5 ~ ~",
 						"particle \"minecraft:villager_happy\" ~ ~ ~-0.5",
-						"particle \"minecraft:villager_happy\" ~ ~1 ~0.5",
-						"particle \"minecraft:villager_happy\" ~0.5 ~1 ~",
 						"particle \"minecraft:villager_happy\" ~ ~ ~0.5",
-						"particle \"minecraft:villager_happy\" ~0.5 ~ ~"
+						"particle \"minecraft:villager_happy\" ~0.5 ~ ~",
+						"particle \"minecraft:villager_happy\" ~-0.5 ~0.5 ~-0.5",
+						"particle \"minecraft:villager_happy\" ~-0.5 ~0.5 ~0.5",
+						"particle \"minecraft:villager_happy\" ~0.5 ~0.5 ~-0.5",
+						"particle \"minecraft:villager_happy\" ~0.5 ~0.5 ~0.5"
 					]
 				}
 			}

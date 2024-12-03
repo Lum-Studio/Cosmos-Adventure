@@ -15,6 +15,11 @@ export function get_vars(item, index, def = 0) {
     return item ? + item.getLore()[index] : def
 }
 
+export function get_lore(container, data, name, def=0) {
+	const lore_item = container.getItem(data.lore.slot)
+	return lore_item ? + lore_item?.getLore()?.[data.lore[name]] : def
+}
+
 export const pickaxes = new Set([
 	"minecraft:wooden_pickaxe",
 	"minecraft:stone_pickaxe",

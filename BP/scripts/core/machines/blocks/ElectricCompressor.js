@@ -20,7 +20,7 @@ function find_recipe(ingredients) {
 		} else return result
 	} return undefined
 }
-export class ElectricCompressor extends MachineBlockEntity {
+export default class extends MachineBlockEntity {
     constructor(block, entity) {
         super(block, entity);
         this.start();

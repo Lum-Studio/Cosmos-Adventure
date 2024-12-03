@@ -65,6 +65,16 @@
 		]
 	},
 
+    "module_interface@machines.interface": {
+        "$screen": "energy_storage.main",
+		"$label": "Energy Storage Module",
+		"$maxPower": "Max Output: 300 gJ/t"
+    },
+    "cluster_interface@machines.interface": {
+        "$screen": "energy_storage.main",
+		"$label": "Energy Storage Cluster",
+		"$maxPower": "Max Output: 1,800 gJ/t"
+    },
     "main@machines.small_screen": {
         "$machine": "energy_storage",
         "controls": [

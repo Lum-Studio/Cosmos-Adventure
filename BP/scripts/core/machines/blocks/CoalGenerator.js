@@ -2,7 +2,7 @@ import { system, world, ItemStack } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
 import { get_vars } from "../../../api/utils.js"
 
-export class CoalGenerator extends MachineBlockEntity {
+export default class extends MachineBlockEntity {
     constructor(block, entity) {
         super(block, entity);
         this.fuelTypes = new Set(["minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"]);
