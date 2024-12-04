@@ -4,13 +4,22 @@ export function get_data(machine) { return AllMachineBlocks[machine.typeId.repla
 function str(object) { return JSON.stringify(object) }
 function say(message = 'yes') { world.sendMessage('' + message) }
 export function compare_position(a, b){
+	if (!a || !b) return
 	return a.x == b.x && a.y == b.y && a.z == b.z
+}
+export function floor_position({x, y, z}) {
+	return {x: Math.floor(x), y: Math.floor(y), z: Math.floor(z)}
 }
 
 export function get_entity(dimension, location, family) {
+	if (!location) return
 	return dimension.getEntities({
 		families: [family],
-		location: location,
+		location: {
+			x: Math.floor(location.x) + 0.5,
+			y: Math.floor(location.y) + 0.5,
+			z: Math.floor(location.z) + 0.5,
+		},
 		maxDistance: 0.5,
 	})[0]
 }
@@ -44,7 +53,7 @@ export function charge_from_machine(entity, block, energy) {
 			const power = lore ? + lore[input_data.lore.power] : 0
 			const space = data.capacity - energy
 			const io = location_of_side(input_block, input_data.energy_output)
-			if(compare_position(entity.location, io) && power > 0){
+			if(compare_position(floor_position(entity.location), io) && power > 0){
 				energy += Math.min(data.maxInput, power, space)
 			}
 		}

@@ -19,8 +19,9 @@
     "unlock": [
       "minecraft:milk_bucket"
     ],
-    "result": {
-      "item": "cosmos:cheese_block"
-    }
+    "result": [
+      {"item": "cosmos:cheese_block"},
+      {"item": "bucket"}
+    ]
   }
 }
