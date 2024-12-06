@@ -110,7 +110,7 @@ export default class extends MachineBlockEntity {
 			}
 		}
 		const counter = new ItemStack('cosmos:ui')
-		counter.nameTag = `cosmos:§ener${Math.round((energy / data.capacity) * 55)}`
+		counter.nameTag = `cosmos:§energy${Math.round((energy / data.capacity) * 55)}`
 		container.setItem(12, counter)
 		counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`
 		container.setItem(13, counter)

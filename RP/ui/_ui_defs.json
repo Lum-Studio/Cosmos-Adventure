@@ -11,6 +11,7 @@
     "ui/machines/circuit_fabricator.json",
     "ui/machines/oxygen_collector.json",
     "ui/machines/nasa_workbench.json",
-    "ui/machines/electric_compressor.json"
+    "ui/machines/electric_compressor.json",
+    "ui/machines/refinery.json"
   ]
 }

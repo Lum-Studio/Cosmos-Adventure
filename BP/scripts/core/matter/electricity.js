@@ -87,8 +87,9 @@ const ROTATE_BY = {
 }
 
 // this function takes a Block and a Side (above, below, left, right, back, or front) and returns a location {x, y, z}
-export function location_of_side({location, permutation}, side) {
-	if (!side) return
+export function location_of_side(block, side) {
+	if (!block || !block.isValid() || !side) return
+	const {location, permutation} = block
 	if (side == "above") return {...location, y: location.y + 1}
 	if (side == "below") return {...location, y: location.y - 1}
 	const facing = permutation.getState("minecraft:cardinal_direction")

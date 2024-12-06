@@ -38,6 +38,7 @@ export default class extends MachineBlockEntity {
 		const input = container.getItem(0)
 		const output = container.getItem(1)
 		const data = get_data(this.entity)
+		const dimension = this.entity.dimension
 		
 		let energy = get_lore(container, data, "energy")
 		let oil = get_lore(container, data, "oil")
@@ -53,21 +54,53 @@ export default class extends MachineBlockEntity {
 			container.setItem(0, new ItemStack('bucket'))
 			oil += 1000
 		}
+
+		const player_location = dimension.getPlayers({
+			location: this.entity.location,
+			closest: 1,
+			maxDistance: 6
+		})[0]?.location
+		if (input && input.typeId != "cosmos:oil_bucket" && player_location) {
+			dimension.spawnItem(input, player_location)
+			container.setItem(0)
+		}
+
 		if (fuel >= 1000 && output?.typeId == "minecraft:bucket" && output.amount == 1) {
 			container.setItem(1, new ItemStack('cosmos:fuel_bucket'))
 			fuel -= 1000
 		}
 
 		if (!stopped && system.currentTick % 2 == 0 && oil > 0 && energy > 0 && fuel < data.fuel_capacity) {
-			if (energy > 120) {oil-- ; fuel++}
+			if (energy >= 120) {oil-- ; fuel++; energy -= 120 }
 			if (system.currentTick % 20 == 0) make_smoke(this.block)
-			energy -= Math.min(120, energy) 
 		}
 
+		const status =
+		energy == 0 ? "§4No Power" : 
+		oil == 0 ? "§cNo Oil" :
+		energy < 120 ? "§6Not Enough Power" : 
+		fuel == data.fuel_capacity ? "§cFull" :
+		stopped ? "§6Ready" : 
+		"§2Refining"
+
 		const counter = new ItemStack('cosmos:ui')
+		counter.nameTag = `cosmos:§energy${Math.round((energy / data.capacity) * 55)}`
+		container.setItem(3, counter)
+		counter.nameTag = `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.capacity} gJ`
+		container.setItem(4, counter)
+		counter.nameTag = `cosmos:§fill_level${Math.ceil((Math.ceil(oil / 1000) / (data.oil_capacity / 1000)) * 38)}§liquid:oil`
+		container.setItem(5, counter)
+		counter.nameTag = `Oil Storage\n§eOil: ${oil} / ${data.oil_capacity} mB`
+		container.setItem(6, counter)
+		counter.nameTag = `cosmos:§fill_level${Math.ceil((Math.ceil(fuel / 1000) / (data.fuel_capacity / 1000)) * 38)}§liquid:fuel`
+		container.setItem(7, counter)
+		counter.nameTag = `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel_capacity} mB`
+		container.setItem(8, counter)
+		counter.nameTag = `Status:\n${status}`
+		container.setItem(9, counter)
 		counter.nameTag = ``
 		counter.setLore([''+energy, ''+oil, ''+fuel])
-		container.setItem(12, counter)
+		container.setItem(data.lore.slot, counter)
 	}
 }
 

@@ -66,7 +66,7 @@ export default class extends MachineBlockEntity {
 		}
 		
 		const counter = new ItemStack('cosmos:ui')
-		counter.nameTag = `cosmos:§ener${Math.round((energy / data.capacity) * 55)}`
+		counter.nameTag = `cosmos:§energy${Math.round((energy / data.capacity) * 55)}`
 		container.setItem(7, counter)
 		counter.nameTag = `cosmos:§prog${Math.round((progress / 300) * 51)}`
 		container.setItem(8, counter)
@@ -78,7 +78,7 @@ export default class extends MachineBlockEntity {
 		container.setItem(11, counter)
 		counter.nameTag = ``
 		counter.setLore([''+energy, ''+progress])
-		container.setItem(12, counter)
+		container.setItem(data.lore.slot, counter)
 	}
 }
 

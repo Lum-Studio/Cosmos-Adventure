@@ -61,6 +61,12 @@
                 "$screen_content": "nasa_workbench.interface",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§r§e§f§i§n§e§r§y') = $ct))",
+                "$screen_content": "refinery.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
             }
         ]
     }

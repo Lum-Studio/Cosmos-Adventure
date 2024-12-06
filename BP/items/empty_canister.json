@@ -1,13 +1,15 @@
 {
-  "format_version": "1.20.20",
+  "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
       "identifier": "cosmos:empty_canister"
     },
     "components": {
-      "minecraft:icon": {
-        "texture": "empty_canister"
-      }
+      "minecraft:icon": "empty_canister",
+      "minecraft:durability": {
+        "max_durability": 1000
+      },
+      "minecraft:max_stack_size": 1
     }
   }
 }
