@@ -49,6 +49,17 @@
       "textures": "textures/blocks/arc_lamp/arc_lamp_on"
     },
 
+    //fluids
+    "tank_water": {
+      "textures": "textures/blocks/water_placeholder"
+    },
+    "fuel": {
+      "textures": "textures/blocks/fluids/fuel"
+    },
+    "oil": {
+      "textures": "textures/blocks/fluids/oil"
+    },
+
     //machines
     "advanced_energy_input": {
       "textures": "textures/blocks/machines/advanced_energy_input"

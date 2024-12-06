@@ -25,4 +25,4 @@ import "./core/items/dungeon_finder"
 
 import "./core/matter/electricity.js"
 import "./core/matter/solids.js"
-//import "./core/matter/liquids.js"
+import "./core/matter/liquids.js"

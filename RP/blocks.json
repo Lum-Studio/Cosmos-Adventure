@@ -21,6 +21,11 @@
          "up": "tin_decoration_block"
       }
    },
+
+   "oil": {
+      "textures": "oil"
+   },
+
    "moon_rock": {
       "sound": "stone",
       "textures": "moon_rock"
