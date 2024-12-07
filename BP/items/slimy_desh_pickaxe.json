@@ -1,0 +1,11 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:slimy_desh_pickaxe"
+    },
+    "components": {
+      "minecraft:icon": "slimy_desh_pickaxe"
+    }
+  }
+}

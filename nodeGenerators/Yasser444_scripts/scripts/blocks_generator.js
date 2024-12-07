@@ -51,4 +51,39 @@ function generate_terrain_textures() {
     fs.writeFileSync(`../../RP/textures/terrain_texture.json`, make_comments(JSON.stringify(content, null, 2))) 
 }
 
-module.exports = {generate_block_names, generate_terrain_textures}
+function find_unused() {
+    const terrain_texture = read_json('../../RP/textures/terrain_texture.json')
+    const all_textures = Object.keys(terrain_texture.texture_data)
+
+    let rp_blocks = read_json('../../RP/blocks.json')
+    delete rp_blocks.format_version
+    rp_blocks = Object.values(rp_blocks).map(block => block.textures)
+    .map(block => typeof block == 'object' ? Object.values(block) : block)
+    .filter(i => i).flat().sort()
+    rp_blocks = [...new Set(rp_blocks)]
+
+    function get_blocks(path) {
+        const blocks = []
+        fs.readdirSync(path).forEach(file => {
+            if (file.endsWith('.json')) blocks.push(path + file)
+            else blocks.push(get_blocks(path + file + '/'))
+        })
+        return blocks.flat()
+    }
+
+    let bp_blocks = get_blocks('../../BP/blocks/').map(file => {
+        const materials = read_json(file)['minecraft:block'].components['minecraft:material_instances']
+        let permutations = read_json(file)['minecraft:block'].permutations
+        if (permutations) permutations = permutations.map(perm => perm.components?.['minecraft:material_instances'])
+        const all_materials = [materials, permutations].flat()
+        return all_materials.filter(i => i).map(material => Object.values(material).map(material => material.texture))
+    }).flat().flat().sort()
+    bp_blocks = [...new Set(bp_blocks)]
+
+    const used_textures = bp_blocks.concat(rp_blocks)
+
+    const unused_textures = all_textures.filter(texture => !used_textures.includes(texture))
+    console.log(unused_textures)
+}
+
+module.exports = {generate_block_names, generate_terrain_textures, find_unused}

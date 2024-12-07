@@ -1,0 +1,138 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "cosmos:titanium_shard",
+                    "weight": 1
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "cosmos:titanium_shard",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "enchantments": [
+                        { "enchantment": "fortune", "levels": { "range_min": 1 }}
+                    ]
+                },
+                { "condition": "random_chance", "chance": 0.05 }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "cosmos:titanium_shard",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "enchantments": [
+                        { "enchantment": "fortune", "levels": { "range_min": 2 }}
+                    ]
+                },
+                { "condition": "random_chance", "chance": 0.2 }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "cosmos:titanium_shard",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "enchantments": [
+                        { "enchantment": "fortune", "levels": { "range_min": 3 }}
+                    ]
+                },
+                { "condition": "random_chance", "chance": 0.5 }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "cosmos:iron_shard",
+                    "weight": 1
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "cosmos:iron_shard",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "enchantments": [
+                        { "enchantment": "fortune", "levels": { "range_min": 1 }}
+                    ]
+                },
+                { "condition": "random_chance", "chance": 0.05 }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "cosmos:iron_shard",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "enchantments": [
+                        { "enchantment": "fortune", "levels": { "range_min": 2 }}
+                    ]
+                },
+                { "condition": "random_chance", "chance": 0.2 }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "cosmos:iron_shard",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "enchantments": [
+                        { "enchantment": "fortune", "levels": { "range_min": 3 }}
+                    ]
+                },
+                { "condition": "random_chance", "chance": 0.5 }
+            ]
+        }
+    ]
+}

@@ -50,9 +50,6 @@
     },
 
     //fluids
-    "tank_water": {
-      "textures": "textures/blocks/water_placeholder"
-    },
     "fuel": {
       "textures": "textures/blocks/fluids/fuel"
     },
@@ -561,8 +558,8 @@
     "venus_tin_ore": {
       "textures": "textures/blocks/terrain/venus_tin_ore"
     },
-    "venus_volcanic_roc": {
-      "textures": "textures/blocks/terrain/venus_volcanic_roc"
+    "venus_volcanic_rock": {
+      "textures": "textures/blocks/terrain/venus_volcanic_rock"
     }
   }
 }

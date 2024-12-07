@@ -69,7 +69,9 @@ world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
         onUseOn({source:player, itemStack:item, blockFace, block}) {
             const against = block[faces[blockFace]]()
             if (against.typeId != 'minecraft:air') return
-            against.setType(liquids.find(liquid => liquid.bucket == item.typeId).block)
+            const liquid = liquids.find(liquid => liquid.bucket == item.typeId)
+            if (!liquid) return
+            against.setType(liquid.block)
             if (player.getGameMode() == 'creative') return
             player.getComponent('equippable').setEquipment('Mainhand', new ItemStack('bucket'))
         }

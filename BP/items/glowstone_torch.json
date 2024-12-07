@@ -9,8 +9,8 @@
         "texture": "glowstone_torch"
       },
       "minecraft:block_placer": {
-        "block": "cosmos:glowstone_torch_block",
-        "use_on": []
+        // "replace_block_item": true,
+        "block": "cosmos:glowstone_torch"
       }
     }
   }

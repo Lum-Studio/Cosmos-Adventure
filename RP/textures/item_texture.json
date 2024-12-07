@@ -203,6 +203,27 @@
     "raw_tin": {
       "textures": "textures/items/raw_tin"
     },
+    "raw_lead": {
+      "textures": "textures/items/raw_lead"
+    },
+    "communications_dish": {
+      "textures": "textures/items/communications_dish"
+    },
+    "sulphuric_acid_bucket": {
+      "textures": "textures/items/sulphuric_acid_bucket"
+    },
+    "bacterial_sludge_bucket": {
+      "textures": "textures/items/bacterial_sludge_bucket"
+    },
+    "slimy_desh_pickaxe": {
+      "textures": "textures/items/slimy_desh_pickaxe"
+    },
+    "titanium_dust": {
+      "textures": "textures/items/titanium_dust"
+    },
+    "unfired_desh": {
+      "textures": "textures/items/unfired_desh"
+    },
     "rocket_engine": {
       "textures": "textures/items/rocket_engine"
     },

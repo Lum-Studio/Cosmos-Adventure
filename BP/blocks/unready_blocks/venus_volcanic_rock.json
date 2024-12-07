@@ -2,7 +2,7 @@
   "format_version": "1.20.80",
   "minecraft:block": {
     "description": {
-      "identifier": "cosmos:ilmenite_ore",
+      "identifier": "cosmos:venus_volcanic_rock",
       "menu_category": {
         "category": "items"
       }
