@@ -80,6 +80,13 @@
                   "offset": [ 0, 20 ]
                 }
             },
+			      {
+                "refine_button@machines.ui_button": {
+                  "size": [0, 0],
+                  "anchor_from": "top_middle",  
+                  "offset": [ 0, 36 ]
+                }
+            },
             {
                 "status@machines.item_data": {
                     "$name": "status",

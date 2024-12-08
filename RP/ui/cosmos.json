@@ -1323,6 +1323,11 @@
 				"from_button_id": "button.menu_select",
 				"to_button_id": "$action",
 				"mapping_type": "pressed"
+			},
+			{
+				"from_button_id": "button.menu_ok",
+				"to_button_id": "$action",
+				"mapping_type": "pressed"
 			}
 		],
 		"controls": [

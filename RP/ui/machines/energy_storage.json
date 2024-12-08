@@ -33,7 +33,7 @@
 				"image": {
 					"type": "image",
 					"texture": "textures/ui/cosmos/progress_bar_fill",
-					"color": [0, 0.8, 0],
+					"color": [0, 0.7, 0],
 					"size": [1, 5],
 					"anchor_to": "top_left",
 					"anchor_from": "top_left",

@@ -1,0 +1,15 @@
+{
+   "format_version": "1.21.40",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:ui_button"
+      },
+      "components": {
+         "minecraft:display_name": {
+            "value": "§."
+         },
+         "minecraft:icon": "none",
+         "minecraft:max_stack_size": 1
+      }
+   }
+}

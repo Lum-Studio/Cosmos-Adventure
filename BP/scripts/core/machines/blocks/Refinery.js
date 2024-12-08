@@ -98,6 +98,12 @@ export default class extends MachineBlockEntity {
 		container.setItem(8, counter)
 		counter.nameTag = `Status:\n${status}`
 		container.setItem(9, counter)
+		const ui_button = new ItemStack('cosmos:ui_button')
+		ui_button.nameTag = `§button${stopped ? 'Stop Refining' : 'Refine'}`
+		if (!container.getItem(10)) {
+			container.setItem(10, ui_button);
+			this.entity.setDynamicProperty('stopped', !stopped)
+		}
 		counter.nameTag = ``
 		counter.setLore([''+energy, ''+oil, ''+fuel])
 		container.setItem(data.lore.slot, counter)
