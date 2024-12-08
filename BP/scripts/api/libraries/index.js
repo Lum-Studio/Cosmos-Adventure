@@ -1,9 +1,147 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.EntityCustomComponentRegistry = void 0;
-
 const mc = require("@minecraft/server");
 
+import {
+    EntityCCOnDie,
+    EntityCCOnHealthChanged,
+    EntityCCOnHitBlock,
+    EntityCCOnHitEntity,
+    EntityCCOnHurt,
+    EntityCCOnLoad,
+    EntityCCOnRemove,
+    EntityCCOnSpawn,
+    EntityCCOnTick,
+    EntityCCOnInteract,
+    EntityCustomComponentFilter,
+    EntityCCOnDataDrivenEventTrigger,
+    EntityCCOnProjectileHit,
+    EntityCCProjectileHitData,
+  } from "./interfaces.js";
+  import * as mc from "@minecraft/server";
+  
+/*
+TODO LIST
+
+[x] onHitBlock
+[x] onHitEntity
+[x] onHurt
+[x] onTick
+[x] onDie
+[x] onHealthChanged
+[x] onLoad
+[x] onRemove
+[x] onSpawn
+[x] onInteract
+[x] onDataDrivenEventTrigger
+[x] onProjectileHit
+
+
+"use strict";
+const mc = require("@minecraft/server");
+
+/**
+ * Add custom components to Entities
+ */
+class EntityCustomComponent {
+    /**
+     * The way to apply the CC. You can use tags, name tags or types.
+     */
+    constructor(filter) {
+        this.filter = filter;
+    }
+
+    /**
+     * Called when the entity hits a block. Contains information about the entity and the block that was hit.
+     */
+    onHitBlock(data) {
+        // Optional implementation
+    }
+
+    /**
+     * Called every tick.
+     */
+    onTick(data) {
+        // Optional implementation
+    }
+
+    /**
+     * Called when the entity hits another entity.
+     */
+    onHitEntity(data) {
+        // Optional implementation
+    }
+
+    /**
+     * Called when the entity is being hurt.
+     */
+    onHurt(data) {
+        // Optional implementation
+    }
+
+    /**
+     * Called when the entity dies.
+     */
+    onDie(data) {
+        // Optional implementation
+    }
+
+    /**
+     * Called when the entity's health is changed.
+     */
+    onHealthChanged(data) {
+        // Optional implementation
+    }
+
+    /**
+     * Called when the entity is loaded.
+     */
+    onLoad(data) {
+        // Optional implementation
+    }
+
+    /**
+     * Called when the entity is removed.
+     */
+    onRemove(data) {
+        // Optional implementation
+    }
+
+    /**
+     * Called when the entity is spawned.
+     */
+    onSpawn(data) {
+        // Optional implementation
+    }
+
+    /**
+     * Called when a player interacts with the entity.
+     */
+    onInteract(data) {
+        // Optional implementation
+    }
+
+    /**
+     * Called when a data driven event is triggered (an event in entity's JSON definition).
+     * Contains information about the entity and the event.
+     */
+    onDataDrivenEventTrigger(data) {
+        // Optional implementation
+    }
+
+    /**
+     * Called when a projectile hits the entity.
+     */
+    onProjectileHit(data) {
+        // Optional implementation
+    }
+}
+
+
+/**
+ * Add custom components to Entities
+ */
 class EntityCustomComponentRegistry {
     constructor() {
         this.entityCustomComponents = [];
@@ -19,6 +157,7 @@ class EntityCustomComponentRegistry {
             console.error(err);
             return this;
         }
+
         this.entityCustomComponents.push(component);
         this.init();
         return this;
@@ -28,11 +167,6 @@ class EntityCustomComponentRegistry {
         if (this.initialized) return;
         this.initialized = true;
 
-        // Register all event handlers
-        this.registerEventHandlers();
-    }
-
-    registerEventHandlers() {
         this.handleOnTick();
         this.handleOnHurt();
         this.handleOnHitBlock();
@@ -48,10 +182,9 @@ class EntityCustomComponentRegistry {
     }
 
     handleForErrorsInCustomComponent(component) {
-        const types = component.filter.types || [];
-        for (const typeId of types) {
+        for (const typeId of component.filter.types || []) {
             if (!mc.EntityTypes.get(typeId)) {
-                return new Error(`Invalid typeId "${typeId}" is in the \`types\` field. The custom component will not be registered.`);
+                return new Error(`Invalid typeId "${typeId}" is in the 'types' field.`);
             }
         }
         return undefined;
@@ -59,185 +192,233 @@ class EntityCustomComponentRegistry {
 
     handleOnTick() {
         mc.system.runInterval(() => {
-            this.processEntities(mc.world.getDimension("overworld").getEntities());
-            this.processEntities(mc.world.getDimension("nether").getEntities());
-            this.processEntities(mc.world.getDimension("the_end").getEntities());
+            const cc = this.entityCustomComponents;
+
+            const handle = (entity) => {
+                for (const component of cc) {
+                    if (!component.onTick) return;
+                    if ((!component.filter.types || component.filter.types.includes(entity.typeId)) &&
+                        (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag))) {
+                        component.onTick({ entity });
+                    }
+                }
+            };
+
+            for (const dimension of ["overworld", "nether", "the_end"]) {
+                for (const entity of mc.world.getDimension(dimension).getEntities()) {
+                    handle(entity);
+                }
+            }
         });
     }
 
-    processEntities(entities) {
-        for (const entity of entities) {
-            this.entityCustomComponents.forEach(component => {
-                if (component.onTick && this.isEntityValid(component, entity)) {
-                    component.onTick({ entity });
-                }
-            });
-        }
-    }
-
-    isEntityValid(component, entity) {
-        return (!component.filter.types || component.filter.types.includes(entity.typeId)) &&
-               (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag));
-    }
-
     handleOnHurt() {
-        mc.world.afterEvents.entityHurt.subscribe(data => {
-            this.entityCustomComponents.forEach(component => {
-                if (component.onHurt && this.isEntityValid(component, data.hurtEntity)) {
+        mc.world.afterEvents.entityHurt.subscribe((data) => {
+            const cc = this.entityCustomComponents;
+            const entity = data.hurtEntity;
+            for (const component of cc) {
+                if (!component.onHurt) continue;
+                if ((!component.filter.types || component.filter.types.includes(entity.typeId)) &&
+                    (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag))) {
                     component.onHurt({
-                        entity: data.hurtEntity,
-                        damage: { amount: data.damage, source: data.damageSource }
+                        entity,
+                        damage: {
+                            amount: data.damage,
+                            source: data.damageSource,
+                        },
                     });
                 }
-            });
+            }
         });
     }
 
     handleOnHitBlock() {
-        mc.world.afterEvents.entityHitBlock.subscribe(data => {
-            this.entityCustomComponents.forEach(component => {
-                if (component.onHitBlock && this.isEntityValid(component, data.damagingEntity)) {
+        mc.world.afterEvents.entityHitBlock.subscribe((data) => {
+            const cc = this.entityCustomComponents;
+            const entity = data.damagingEntity;
+            for (const component of cc) {
+                if (!component.onHitBlock) continue;
+                if ((!component.filter.types || component.filter.types.includes(entity.typeId)) &&
+                    (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag))) {
                     component.onHitBlock({
-                        entity: data.damagingEntity,
+                        entity,
                         blockData: {
                             block: data.hitBlock,
                             permutation: data.hitBlockPermutation,
-                            face: data.blockFace
-                        }
+                            face: data.blockFace,
+                        },
                     });
                 }
-            });
+            }
         });
     }
 
     handleOnHitEntity() {
-        mc.world.afterEvents.entityHitEntity.subscribe(data => {
-            this.entityCustomComponents.forEach(component => {
-                if (component.onHitEntity && this.isEntityValid(component, data.damagingEntity)) {
+        mc.world.afterEvents.entityHitEntity.subscribe((data) => {
+            const cc = this.entityCustomComponents;
+            const entity = data.damagingEntity;
+            const hitEntity = data.hitEntity;
+            for (const component of cc) {
+                if (!component.onHitEntity) continue;
+                if ((!component.filter.types || component.filter.types.includes(entity.typeId)) &&
+                    (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag))) {
                     component.onHitEntity({
-                        entity: data.damagingEntity,
-                        hitEntity: data.hitEntity
+                        entity,
+                        hitEntity,
                     });
                 }
-            });
+            }
         });
     }
 
     handleOnDie() {
-        mc.world.afterEvents.entityDie.subscribe(data => {
-            this.entityCustomComponents.forEach(component => {
-                if (component.onDie && this.isEntityValid(component, data.deadEntity)) {
-                    component.onDie({ entity: data.deadEntity });
+        mc.world.afterEvents.entityDie.subscribe((data) => {
+            const cc = this.entityCustomComponents;
+            const entity = data.deadEntity;
+            for (const component of cc) {
+                if (!component.onDie) continue;
+                if ((!component.filter.types || component.filter.types.includes(entity.typeId)) &&
+                    (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag))) {
+                    component.onDie({ entity });
                 }
-            });
+            }
         });
     }
 
     handleOnHealthChanged() {
-        mc.world.afterEvents.entityHealthChanged.subscribe(data => {
-            this.entityCustomComponents.forEach(component => {
-                if (component.onHealthChanged && this.isEntityValid(component, data.entity)) {
+        mc.world.afterEvents.entityHealthChanged.subscribe((data) => {
+            const cc = this.entityCustomComponents;
+            const entity = data.entity;
+            const { oldValue, newValue } = data;
+            for (const component of cc) {
+                if (!component.onHealthChanged) continue;
+                if ((!component.filter.types || component.filter.types.includes(entity.typeId)) &&
+                    (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag))) {
                     component.onHealthChanged({
-                        entity: data.entity,
-                        values: [data.oldValue, data.newValue]
+                        entity,
+                        values: [oldValue, newValue],
                     });
                 }
-            });
+            }
         });
     }
 
     handleOnLoad() {
-        mc.world.afterEvents.entityLoad.subscribe(data => {
-            this.entityCustomComponents.forEach(component => {
-                if (component.onLoad && this.isEntityValid(component, data.entity)) {
-                    component.onLoad({ entity: data.entity });
+        mc.world.afterEvents.entityLoad.subscribe((data) => {
+            const cc = this.entityCustomComponents;
+            const entity = data.entity;
+            for (const component of cc) {
+                if (!component.onLoad) continue;
+                if ((!component.filter.types || component.filter.types.includes(entity.typeId)) &&
+                    (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag))) {
+                    component.onLoad({ entity });
                 }
-            });
+            }
         });
     }
 
     handleOnRemove() {
-        mc.world.afterEvents.entityRemove.subscribe(data => {
-            this.entityCustomComponents.forEach(component => {
-                if (component.onRemove && this.isEntityValidType(component, data.typeId)) {
+        mc.world.afterEvents.entityRemove.subscribe((data) => {
+            const cc = this.entityCustomComponents;
+            for (const component of cc) {
+                if (!component.onRemove) continue;
+                if (!component.filter.types || component.filter.types.includes(data.typeId)) {
                     component.onRemove({
                         entityRuntimeId: data.removedEntityId,
-                        entityTypeId: data.typeId
+                        entityTypeId: data.typeId,
                     });
                 }
-            });
+            }
         });
     }
 
     handleOnSpawn() {
-        mc.world.afterEvents.entitySpawn.subscribe(data => {
-            this.entityCustomComponents.forEach(component => {
-                if (component.onSpawn && this.isEntityValid(component, data.entity)) {
+        mc.world.afterEvents.entitySpawn.subscribe((data) => {
+            const cc = this.entityCustomComponents;
+            const { entity, cause } = data;
+            for (const component of cc) {
+                if (!component.onSpawn) continue;
+                if ((!component.filter.types || component.filter.types.includes(entity.typeId)) &&
+                    (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag))) {
                     component.onSpawn({
-                        entity: data.entity,
-                        cause: data.cause
+                        entity,
+                        cause,
                     });
                 }
-            });
+            }
         });
     }
 
     handleOnInteract() {
-        mc.world.beforeEvents.playerInteractWithEntity.subscribe(data => {
-            const { target: entity, player, itemStack: itemStackBeforeInteraction } = data;
-            this.entityCustomComponents.forEach(component => {
-                if (component.onInteract && this.isEntityValid(component, entity)) {
+        mc.world.beforeEvents.playerInteractWithEntity.subscribe((data) => {
+            const cc = this.entityCustomComponents;
+            const entity = data.target;
+            const player = data.player;
+            const itemStackBeforeInteraction = data.itemStack;
+            let itemStackAfterInteraction;
+            for (const component of cc) {
+                if (!component.onInteract) continue;
+                if ((!component.filter.types || component.filter.types.includes(entity.typeId)) &&
+                    (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag))) {
                     mc.system.run(() => {
-                        const itemStackAfterInteraction = player.getComponent("equippable").getEquipment(mc.EquipmentSlot.Mainhand);
+                        itemStackAfterInteraction = player.getComponent("equippable").getEquipment(mc.EquipmentSlot.Mainhand);
+                        if (!component.onInteract) return;
                         component.onInteract({
                             entity,
                             player,
                             itemStackBeforeInteraction,
-                            itemStackAfterInteraction
+                            itemStackAfterInteraction,
                         });
                     });
                 }
-            });
+            }
         });
     }
 
     handleOnDataDrivenEventTrigger() {
-        mc.world.afterEvents.dataDrivenEntityTrigger.subscribe(data => {
-            this.entityCustomComponents.forEach(component => {
-                if (component.onDataDrivenEventTrigger && this.isEntityValid(component, data.entity)) {
+        mc.world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
+            const cc = this.entityCustomComponents;
+            const entity = data.entity;
+            const eventId = data.eventId;
+            const modifiers = data.getModifiers();
+            for (const component of cc) {
+                if (!component.onDataDrivenEventTrigger) continue;
+                if ((!component.filter.types || component.filter.types.includes(entity.typeId)) &&
+                    (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag))) {
                     component.onDataDrivenEventTrigger({
-                        entity: data.entity,
-                        eventId: data.eventId,
-                        modifiers: data.getModifiers()
+                        entity,
+                        eventId,
+                        modifiers,
                     });
                 }
-            });
+            }
         });
     }
 
     handleOnProjectileHit() {
-        mc.world.afterEvents.projectileHitEntity.subscribe(data => {
+        mc.world.afterEvents.projectileHitEntity.subscribe((data) => {
+            const cc = this.entityCustomComponents;
             const entity = data.getEntityHit().entity;
+            const { location, dimension, hitVector, projectile } = data;
+            const source = data.source;
             const projectileData = {
-                projectile: data.projectile,
-                hitVector: data.hitVector,
-                dimension: data.dimension,
-                location: data.location,
-                source: data.source
+                projectile,
+                hitVector,
+                dimension,
+                location,
+                source,
             };
-            this.entityCustomComponents.forEach(component => {
-                if (component.onProjectileHit && this.isEntityValid(component, entity)) {
+            for (const component of cc) {
+                if (!component.onProjectileHit) continue;
+                if ((!component.filter.types || component.filter.types.includes(entity.typeId)) &&
+                    (!component.filter.nameTags || component.filter.nameTags.includes(entity.nameTag))) {
                     component.onProjectileHit({
                         entity,
-                        projectileData
+                        projectileData,
                     });
                 }
-            });
+            }
         });
-    }
-
-    isEntityValidType(component, typeId) {
-        return !component.filter.types || component.filter.types.includes(typeId);
     }
 }
 
