@@ -1,4 +1,11 @@
-import { CircuitFabricator, CoalGenerator, Compressor, EnergyStorage, OxygenCollector, ElectricCompressor} from "./index"
+import CoalGenerator from './blocks/CoalGenerator'
+import EnergyStorage from './blocks/EnergyStorage'
+import OxygenCollector from './blocks/OxygenCollector'
+import Compressor from './blocks/Compressor'
+import CircuitFabricator from './blocks/CircuitFabricator'
+import Refinery from './blocks/Refinery'
+import ElectricCompressor from './blocks/ElectricCompressor'
+import OxygenCompressor from './blocks/OxygenCompressor'
 
 export default {
 	"coal_generator": {
@@ -75,5 +82,19 @@ export default {
 		energy_input: "right",
 		capacity: 16000,
 		maxInput: 50
+	},
+	"refinery": {
+		tileEntity: "cosmos:machine:refinery",
+		ui: "§r§e§f§i§n§e§r§y",
+		class: Refinery,
+		lore: { slot: 12, energy: 0, oil: 1, fuel: 2},
+
+		energy_input: "above",
+		oil_input: "right",
+		fuel_output: "left",
+		capacity: 16000,
+		oil_capacity: 24000,
+		fuel_capacity: 24000,
+		maxInput: 120
 	}
 }

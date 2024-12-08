@@ -16,13 +16,7 @@
          "minecraft:destructible_by_mining": {
             "seconds_to_destroy": 0.75
          },
-         "minecraft:map_color": "#ffffff",
-         "minecraft:material_instances": {
-            "*": {
-               "render_method": "opaque",
-               "texture": "moon_turf"
-            }
-         }
+         "minecraft:map_color": "#ffffff"
       }
    }
 }

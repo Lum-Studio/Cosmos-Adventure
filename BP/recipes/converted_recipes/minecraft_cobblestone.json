@@ -2,7 +2,7 @@
   "format_version": "1.20.10",
   "minecraft:recipe_shapeless": {
     "description": {
-      "identifier": "minecraft:cobblestone"
+      "identifier": "cosmos:cobblestone"
     },
     "tags": [
       "crafting_table"

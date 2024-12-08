@@ -1,6 +1,10 @@
 {
     "namespace": "nasa_workbench",
 
+    "interface@machines.interface": {
+		"$screen": "nasa_workbench.main",
+		"$size": ["100%", "120% + 20px"]
+    },
     "main@machines.taller_screen": {
         "$machine": "nasa_workbench",
         "controls": [

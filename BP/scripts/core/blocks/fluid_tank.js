@@ -3,23 +3,33 @@ import { attach_pipes } from "./fluid_pipe"
 
 const buckets = new Map([
 	["water", "minecraft:water_bucket"],
-	["lava", "minecraft:lava_bucket"]
+	["lava", "minecraft:lava_bucket"],
+    ['oil', 'cosmos:oil_bucket'],
+    ['fuel', 'cosmos:fuel_bucket']
 ])
 const fluids = new Map([
 	["minecraft:water_bucket", "water"],
-	["minecraft:lava_bucket", "lava"]
+	["minecraft:lava_bucket", "lava"],
+    ['cosmos:oil_bucket', 'oil'],
+    ['cosmos:fuel_bucket', 'fuel']
 ])
 const liquids = new Map([
 	["water", "minecraft:flowing_water"],
-	["lava", "minecraft:flowing_lava"]
+	["lava", "minecraft:flowing_lava"],
+    ['oil', 'cosmos:oil'],
+    ['fuel', 'cosmos:fuel']
 ])
 const pickup_sounds = new Map([
 	["water", "bucket.fill_water"],
-	["lava", "bucket.fill_lava"]
+	["lava", "bucket.fill_lava"],
+	["oil", "bucket.fill_water"],
+	["fuel", "bucket.fill_water"],
 ])
 const empty_sounds = new Map([
 	["minecraft:water_bucket", "bucket.empty_water"],
-	["minecraft:lava_bucket", "bucket.empty_lava"]
+	["minecraft:lava_bucket", "bucket.empty_lava"],
+	["cosmos:oil_bucket", "bucket.empty_water"],
+	["cosmos:fuel_bucket", "bucket.empty_water"],
 ])
 
 world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {

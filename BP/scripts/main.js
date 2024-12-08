@@ -4,7 +4,6 @@ import "./api/player/space_gear.js"
 import "./api/player/liftoff.js"
 
 import "./core/machines/Machine.js"
-import "./core/machines/index.js"
 
 import "./core/blocks/aluminum_wire.js"
 import "./core/blocks/fluid_tank.js"
@@ -26,4 +25,4 @@ import "./core/items/dungeon_finder"
 
 import "./core/matter/electricity.js"
 import "./core/matter/solids.js"
-//import "./core/matter/liquids.js"
+import "./core/matter/liquids.js"

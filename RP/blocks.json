@@ -21,6 +21,11 @@
          "up": "tin_decoration_block"
       }
    },
+
+   "oil": {
+      "textures": "oil"
+   },
+
    "moon_rock": {
       "sound": "stone",
       "textures": "moon_rock"
@@ -37,6 +42,14 @@
          "up": "moon_turf"
       }
    },
+   "vapor_spout": {
+      "sound": "stone",
+      "textures": {
+         "side": "venus_soft_rock",
+         "down": "venus_soft_rock",
+         "up": "vapor_spout"
+      }
+   },
    "asteroids_rock": {
       "sound": "stone",
       "textures": "asteroids_rock"
@@ -48,6 +61,102 @@
    "asteroids_soft_rock": {
       "sound": "stone",
       "textures": "asteroids_soft_rock"
+   },
+   "asteroids_aluminum_ore": {
+     "sound": "stone",
+     "textures": "asteroids_aluminum_ore"
+   },
+   "asteroids_iron_ore": {
+     "sound": "stone",
+     "textures": "asteroids_iron_ore"
+   },
+   "dense_ice": {
+     "sound": "stone",
+     "textures": "dense_ice"
+   },
+   "galena_ore": {
+     "sound": "stone",
+     "textures": "galena_ore"
+   },
+   "mars_copper_ore": {
+     "sound": "stone",
+     "textures": "mars_copper_ore"
+   },
+   "mars_fine_regolith": {
+     "sound": "stone",
+     "textures": "mars_fine_regolith"
+   },
+   "mars_iron_ore": {
+     "sound": "stone",
+     "textures": "mars_iron_ore"
+   },
+   "mars_regolith": {
+     "sound": "stone",
+     "textures": "mars_regolith"
+   },
+   "mars_stone": {
+     "sound": "stone",
+     "textures": "mars_stone"
+   },
+   "mars_tin_ore": {
+     "sound": "stone",
+     "textures": "mars_tin_ore"
+   },
+   "moon_copper_ore": {
+     "sound": "stone",
+     "textures": "moon_copper_ore"
+   },
+   "moon_sapphire_ore": {
+     "sound": "stone",
+     "textures": "moon_sapphire_ore"
+   },
+   "moon_tin_ore": {
+     "sound": "stone",
+     "textures": "moon_tin_ore"
+   },
+   "pumice": {
+     "sound": "stone",
+     "textures": "pumice"
+   },
+   "scorched_venus_rock": {
+     "sound": "stone",
+     "textures": "scorched_venus_rock"
+   },
+   "solar_ore": {
+     "sound": "stone",
+     "textures": "solar_ore"
+   },
+   "venus_aluminum_ore": {
+     "sound": "stone",
+     "textures": "venus_aluminum_ore"
+   },
+   "venus_hard_rock": {
+     "sound": "stone",
+     "textures": "venus_hard_rock"
+   },
+   "venus_quartz_ore": {
+     "sound": "stone",
+     "textures": "venus_quartz_ore"
+   },
+   "venus_silicon_ore": {
+     "sound": "stone",
+     "textures": "venus_silicon_ore"
+   },
+   "venus_soft_rock": {
+     "sound": "stone",
+     "textures": "venus_soft_rock"
+   },
+   "venus_tin_ore": {
+     "sound": "stone",
+     "textures": "venus_tin_ore"
+   },
+   "venus_copper_ore": {
+     "sound": "stone",
+     "textures": "venus_copper_ore"
+   },
+   "venus_volcanic_rock": {
+     "sound": "stone",
+     "textures": "venus_volcanic_rock"
    },
    // "moon_bedrock": {
    //    "textures": "moon_bedrock"

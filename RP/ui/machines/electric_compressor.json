@@ -1,45 +1,6 @@
 {
     "namespace": "electric_compressor",
 
-	"energy_hover@cosmos.button": {
-		"$action": "",
-		"size": [53, 9],
-		"anchor_from": "top_left",
-		"anchor_to": "top_left",
-		"controls": [
-			{
-				"hover": {
-					"type": "custom",
-					"renderer": "hover_text_renderer",
-					"layer": 50,
-					"bindings": [
-						{
-							"binding_name": "#hover_text",
-							"binding_type": "collection",
-							"binding_collection_name": "container_items"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(#hover_text - '§o')",
-							"target_property_name": "#hover_text"
-						}
-					]
-				}
-			}
-		],
-		"bindings": [
-			{
-				"binding_name": "#hover_text",
-				"binding_type": "collection",
-				"binding_collection_name": "container_items"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(not(#hover_text - 'Energy Storage' = #hover_text))",
-				"target_property_name": "#visible"
-			}
-		]
-	},
 	"status@machines.text": {
 		"text": "#text",
 		"bindings": [
@@ -114,47 +75,7 @@
 			}
 		]
 	},
-	"capacity": {
-		"type": "panel",
-		"size": [1, 0],
-		"anchor_to": "top_left",
-		"anchor_from": "top_left",
-		"controls": [
-			{
-				"image": {
-					"type": "image",
-					"texture": "textures/ui/cosmos/progress_bar_fill",
-					"color": [0.75, 0.66, 0.14],
-					"size": [1, 9],
-					"anchor_to": "top_left",
-					"anchor_from": "top_left",
-					"bindings": [
-						{
-							"binding_name": "#hover_text",
-							"binding_name_override": "#energy",
-							"binding_type": "collection",
-							"binding_collection_name": "container_items"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(#energy - 'cosmos:§ener' - '§o' - '§f' )",
-							"target_property_name": "#amount"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(not(#energy - 'cosmos:§ener' = #energy))",
-							"target_property_name": "#visible"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "#amount",
-							"target_property_name": "#size_binding_x"
-						}
-					]
-				}
-			}
-		]
-	},
+
 	"hammering": {
 		"type": "image",
 		"texture": "textures/ui/cosmos/compressor_on",
@@ -178,6 +99,11 @@
 			}
 		]
 	},
+
+    "interface@machines.interface": {
+		"$screen": "electric_compressor.main",
+		"$size": ["100%", "120%"]
+    },
     "main@machines.tall_screen": {
         "$machine": "electric_compressor",
         "controls": [
@@ -199,15 +125,10 @@
                 "battery@machines.clipper": {
                     "offset": [ -19, 30],
                     "$grid_size": [ 1, 12 ],
-                    "$grid_pixels": [18, 215]
+                    "$grid_pixels": [18, 215],
+                	"$overlay": "textures/ui/extra_slots/power"
                 }
             },
-			{
-				"battery_overlay@machines.item_image": {
-                    "offset": [-19, 29.5],
-					"texture": "textures/ui/extra_slots/power"
-				}
-			},
             {
                 "output_slot@machines.clipper": {
                     "offset": [ 63, -15 ],
@@ -223,7 +144,8 @@
 				}
 		    },
             {
-                "progress@machines.image": {
+                "progress": {
+					"type":"image",
 					"texture": "textures/ui/cosmos/electric_compressor_bar",
                     "offset": [ 18, -9 ],
                     "size": [ 52, 25 ],
@@ -255,33 +177,8 @@
                 }
             },
 			{
-                "capacity@machines.image": {
-					"texture": "textures/ui/cosmos/progress_bar",
-                    "offset": [ -38, 45 ],
-                    "size": [ 55, 9 ],
-					"controls": [
-						{
-							"overlay@machines.item_image": {
-                                "anchor_from": "left_middle",
-                                "anchor_to": "right_middle",
-								"color": [0.9, 0.9, 0.9],
-								"texture": "textures/ui/extra_slots/power"
-							}
-						},
-						{
-							"energy@machines.item_data": {
-								"$name": "capacity",
-								"anchor_from": "top_left",
-								"anchor_to": "top_left",
-								"layer": 4
-							}
-						},
-						{
-							"energy_text@machines.item_data": {
-								"$name": "energy_hover"
-							}
-						}
-					]
+                "capacity@machines.energy_bar": {
+                    "offset": [ -38, 45 ]
                 }
             }
         ]

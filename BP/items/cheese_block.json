@@ -1,5 +1,5 @@
 {
-    "format_version": "1.21.40",
+    "format_version": "1.21.50",
     "minecraft:item": {
         "description": {
             "identifier": "cosmos:cheese_block"
@@ -7,8 +7,8 @@
         "components": {
             "minecraft:icon": "cheese_block",
             "minecraft:block_placer": {
-                "block": "cosmos:cheese_block",
-                "replace_block_item": true
+                // "replace_block_item": true,
+                "block": "cosmos:cheese_block"
             }
         }
     }

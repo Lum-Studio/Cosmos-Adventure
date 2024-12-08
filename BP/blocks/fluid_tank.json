@@ -10,7 +10,7 @@
             "cosmos:connected_up": [false, true],
             "cosmos:connected_down": [false, true],
             "cosmos:fill_level": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-            "cosmos:fluid": ["water", "lava"]
+            "cosmos:fluid": ["water", "lava", "oil", "fuel"]
          }
       },
 		"components": {
@@ -55,7 +55,6 @@
 			{
 				"condition": "q.block_state('cosmos:fluid') == 'lava'",
 				"components": {
-                                                                                "minecraft:display_name": "%tile.dummyblock.nasa_workbench.name\n§7%tile.rocket_workbench.description",
 					"minecraft:material_instances": {
 						"up": { "texture": "glass", "render_method": "blend" },
 						"down": { "texture": "glass", "render_method": "blend" },
@@ -64,6 +63,34 @@
 						"south": { "texture": "fluid_tank", "render_method": "blend" },
 						"west": { "texture": "fluid_tank", "render_method": "blend" },
 						"fluid": { "texture": "still_lava", "render_method": "blend" }
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('cosmos:fluid') == 'oil'",
+				"components": {
+					"minecraft:material_instances": {
+						"up": { "texture": "glass", "render_method": "blend" },
+						"down": { "texture": "glass", "render_method": "blend" },
+						"north": { "texture": "fluid_tank", "render_method": "blend" },
+						"east": { "texture": "fluid_tank", "render_method": "blend" },
+						"south": { "texture": "fluid_tank", "render_method": "blend" },
+						"west": { "texture": "fluid_tank", "render_method": "blend" },
+						"fluid": { "texture": "oil", "render_method": "blend" }
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('cosmos:fluid') == 'fuel'",
+				"components": {
+					"minecraft:material_instances": {
+						"up": { "texture": "glass", "render_method": "blend" },
+						"down": { "texture": "glass", "render_method": "blend" },
+						"north": { "texture": "fluid_tank", "render_method": "blend" },
+						"east": { "texture": "fluid_tank", "render_method": "blend" },
+						"south": { "texture": "fluid_tank", "render_method": "blend" },
+						"west": { "texture": "fluid_tank", "render_method": "blend" },
+						"fluid": { "texture": "fuel", "render_method": "blend" }
 					}
 				}
 			}

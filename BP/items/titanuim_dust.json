@@ -1,0 +1,11 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:titanium_dust"
+    },
+    "components": {
+      "minecraft:icon": "titanium_dust"
+    }
+  }
+}

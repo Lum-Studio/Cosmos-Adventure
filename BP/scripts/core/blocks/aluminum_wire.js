@@ -45,8 +45,8 @@ function wiresDFS(wire, perm = wire.permutation){
 		let slot = wireOb.filter((element) => typeof element === "string")[0]
 		cleaned.forEach((blockGeneral) =>{
 			let block = wire.dimension.getBlock(blockGeneral)
-			if(block.typeId != "cosmos:aluminum_wire" && get_entity(block.dimension, block.center(), "cosmos")){
-				let machineEntity = get_entity(block.dimension, block.center(), "cosmos");
+			let machineEntity = get_entity(block.dimension, block.center(), "cosmos");
+			if(block.typeId != "cosmos:aluminum_wire" && machineEntity){
 				let machineData = get_data(machineEntity)
 				let input = (machineData.energy_input)? machineEntity.dimension.getBlock(location_of_side(block, machineData.energy_input)).location:
 				undefined;

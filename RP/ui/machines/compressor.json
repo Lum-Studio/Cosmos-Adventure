@@ -151,6 +151,11 @@
 			}
 		]
 	},
+
+    "interface@machines.interface": {
+        "$screen": "compressor.main",
+		"$size": ["100%", "120%"]
+    },
     "main@machines.tall_screen": {
         "$machine": "compressor",
         "controls": [
@@ -183,7 +188,8 @@
                 }
             },
             {
-                "progress@machines.image": {
+                "progress": {
+					"type":"image",
 					"texture": "textures/ui/cosmos/compressor_bar",
                     "offset": [ 18, -5 ],
                     "size": [ 52, 25 ],

@@ -3,6 +3,7 @@ import { start_celestial_selector } from "./celestial_selector"
 
 function start_countdown(rocket, player) {
     rocket.setDynamicProperty('active', true)
+    player.inputPermissions.setPermissionCategory(2, false)
     let countdown = 20
     const counter = system.runInterval(()=> {
         if (!rocket || !rocket.isValid()) {
@@ -32,6 +33,8 @@ function dismount(player) {
     player.setDynamicProperty('in_the_rocket')
     player.onScreenDisplay.setTitle('')
     player.camera.clear()
+    player.inputPermissions.setPermissionCategory(2, true)
+    player.inputPermissions.setPermissionCategory(6, true)
 }
 
 function rocket_flight(rocket) {
@@ -60,12 +63,16 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
     .find(rider => rider.typeId == "minecraft:player")
     if (message == "tick") {
         const active = rocket.getDynamicProperty('active')
+        //disable jumping
+        if(rider){
+            rider.inputPermissions.setPermissionCategory(6, false)
+        }
         //camera shake
         if (rider && active) {
             rider.runCommand(`camerashake add @s 0.1 1`)
         }
         //ignite the engine when the player jumps
-        if (rider?.isJumping) {
+        if (rider?.inputInfo.getButtonState("Jump") == "Pressed") {
             if (rocket.getDynamicProperty('active')) return
             const space_gear = JSON.parse(rider.getDynamicProperty("space_gear") ?? '{}')
             if (space_gear.parachute || rocket.getDynamicProperty('ready')) {
@@ -78,7 +85,7 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
         }
         //set the camera and the player in the rocket      
         if (rider && !rider.getDynamicProperty('in_the_rocket')) {
-            rider.camera.setCamera("minecraft:third_person_front")
+            rider.camera.setCamera("minecraft:follow_orbit", { radius: 20 })
             rider.setDynamicProperty('in_the_rocket', rocket.id)
             //display the countdown timer
             if (!active) rider.onScreenDisplay.setTitle('§c20', {fadeInDuration: 0, fadeOutDuration: 0, stayDuration: 20000})

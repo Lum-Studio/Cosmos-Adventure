@@ -65,6 +65,16 @@
 		]
 	},
 
+    "module_interface@machines.interface": {
+        "$screen": "energy_storage.main",
+		"$label": "Energy Storage Module",
+		"$maxPower": "Max Output: 300 gJ/t"
+    },
+    "cluster_interface@machines.interface": {
+        "$screen": "energy_storage.main",
+		"$label": "Energy Storage Cluster",
+		"$maxPower": "Max Output: 1,800 gJ/t"
+    },
     "main@machines.small_screen": {
         "$machine": "energy_storage",
         "controls": [
@@ -82,22 +92,17 @@
                 }
             },
             {
+                "output_overlay@machines.item_image": {
+                    "offset": [ -49, -8 ],
+                    "texture": "textures/ui/extra_slots/power"
+                }
+            },
+            {
                 "input_battery@machines.clipper": {
                     "offset": [ -50, 16 ],
                     "$grid_size": [ 1, 2 ],
-                    "$grid_pixels": [18, 36]
-                }
-            },
-            {
-                "input_overlay@machines.item_image": {
-                    "offset": [ -50, -8 ],
-                    "texture": "textures/ui/extra_slots/power"
-                }
-            },
-            {
-                "input_overlay@machines.item_image": {
-                    "offset": [ -50, 16 ],
-                    "texture": "textures/ui/extra_slots/power"
+                    "$grid_pixels": [18, 36],
+                	"$overlay": "textures/ui/extra_slots/power"
                 }
             },
 			{
@@ -130,7 +135,8 @@
                 }
             },
             {
-                "capacity@machines.image": {
+                "capacity": {
+					"type":"image",
 					"texture": "textures/ui/cosmos/progress_bar",
                     "offset": [ 40, 16 ],
                     "size": [ 75, 5 ],

@@ -43,10 +43,8 @@
 		"layer": 2
 	},
 
-	"image": {
-		"type":"image"
-	},
-	"item_image@machines.image": {
+	"item_image": {
+		"type":"image",
 		"fill":true,
 		"size": [16, 16],
 		"uv_size": [16, 16],
@@ -57,14 +55,22 @@
 		"size": [ 20, 18 ],
 		"$offset": [ 0, 0 ],
 		"clips_children": true,
+		"$overlay": "", "$uv": [0, 0],
 		"controls": [{"grid@machines.item_grid": {
 			"anchor_from": "bottom_left",
 			"anchor_to": "bottom_left",
 			"grid_dimensions" : "$grid_size",
 			"size" : "$grid_pixels",
 			"offset": "$offset"
+		}},
+		{"overlay": {
+			"type":"image",
+			"size": [16, 16],
+			"texture": "$overlay",
+			"layer": 10
 		}}]
 	},
+
 	"item_grid": { // 1(18) 2(36) 3(54) 4(72) 5(90) 6(108) 7(126) 8(144) 9(162) 10(180) 11(198) 12(216) 13(234) 14(252) 15(270) 16(288) 17(306) 18(324) 19(342) 20(360) 
 		"type": "grid",
 		"size": [ 18, 18 ],
@@ -84,6 +90,170 @@
 			{
 				"binding_name": "(#zero + 20)",
 				"binding_name_override": "#collection_length"
+			}
+		]
+	},
+
+	"new_item_data": {
+		"type": "stack_panel",
+		"factory":{
+			"name": "buttons",
+			"control_name": "('machines.' + $name)"
+		},
+		"collection_name": "container_items",
+		"bindings": [
+			{
+				"binding_name": "(#zero + 20)",
+				"binding_name_override": "#collection_length"
+			}
+		]
+	},
+	"liquid_tank": {
+		"type":"image",
+		"texture": "textures/ui/cosmos/tank_back",
+		"layer": 2,
+		"size": [ 18, 40 ],
+		"controls": [
+			{
+				"liquid@machines.new_item_data": {
+					"orientation": "horizontal",
+					"$name": "liquid_bar",
+					"layer": 3
+				}
+			},
+			{
+				"tank_front": {
+					"type": "image",
+					"layer": 4,
+					"texture": "textures/ui/cosmos/tank_front"
+				}
+			},
+			{
+				"tank_hover@machines.new_item_data": {
+					"$name": "tank_hover"
+				}
+			}
+		]
+	},
+	"tank_hover@cosmos.button": {
+		"size": [ 18, 40 ],
+		"controls": [{
+			"hover": {
+				"type": "custom",
+				"renderer": "hover_text_renderer",
+				"layer": 50,
+				"bindings": "$fetch_item_hover"
+			}
+		}],
+		"bindings": [
+			{
+				"binding_name": "#hover_text",
+				"binding_type": "collection",
+				"binding_collection_name": "container_items"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "(not(#hover_text - $tank_name = #hover_text))",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+
+	"liquid_bar": {
+		"type": "panel",
+		"size": [ 18, 40 ],
+		"bindings": "$if_liquid",
+		"controls": [
+			{"unit": {
+				"type": "panel",
+				"size": [0, 1],
+				"anchor_from": "bottom_left",
+				"anchor_to": "bottom_left",
+				"controls": [
+					{
+						"image": {
+							"type": "image",
+							"tiled": true,
+							"texture": "('textures/ui/liquids/' + $liquid)",
+							"anchor_from": "bottom_left",
+							"anchor_to": "bottom_left",
+							"size": [18, 1],
+							"bindings": "$set_bar_height"
+						}
+					}
+				]
+			}}
+		]
+	},
+
+	"energy_bar": {
+		"type":"image",
+		"texture": "textures/ui/cosmos/progress_bar",
+		"layer": 2,
+		"size": [ 55, 9 ],
+		"controls": [
+			{
+				"overlay@machines.item_image": {
+					"anchor_from": "left_middle",
+					"anchor_to": "right_middle",
+					"color": [0.9, 0.9, 0.9],
+					"texture": "textures/ui/extra_slots/power"
+				}
+			},
+			{
+				"energy@machines.new_item_data": {
+					"$name": "progress_bar",
+					"anchor_from": "top_left",
+					"anchor_to": "top_left"
+				}
+			},
+			{
+				"energy_text@machines.new_item_data": {
+					"$name": "energy_hover"
+				}
+			}
+		]
+	},
+	"energy_hover@cosmos.button": {
+		"size": [ 55, 9 ],
+		"controls": [{
+			"hover": {
+				"type": "custom",
+				"renderer": "hover_text_renderer",
+				"layer": 50,
+				"bindings": "$fetch_item_hover"
+			}
+		}],
+		"bindings": [
+			{
+				"binding_name": "#hover_text",
+				"binding_type": "collection",
+				"binding_collection_name": "container_items"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "(not(#hover_text - 'Energy Storage' = #hover_text))",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+	"progress_bar": {
+		"type": "panel",
+		"size": [1, 0],
+		"anchor_to": "top_left",
+		"anchor_from": "top_left",
+		"controls": [
+			{
+				"image": {
+					"type": "image",
+					"texture": "textures/ui/cosmos/progress_bar_fill",
+					"color": [0.75, 0.66, 0.14],
+					"size": [1, 9],
+					"anchor_to": "top_left",
+					"anchor_from": "top_left",
+					"bindings": "$set_bar_weight",
+					"$prefix": "cosmos:§energy"
+				}
 			}
 		]
 	},
@@ -109,7 +279,7 @@
                                 "type": "panel",
                                 "layer": 5,
                                 "controls": [
-                                    { "top_half@machines.$screen": {} },
+                                    { "top_half@$screen": {} },
                                     { "bottom_half@common.inventory_panel_bottom_half_with_label": {} },
                                     { "hotbar_grid@common.hotbar_grid_template": {} },
                                     { "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} }
@@ -122,44 +292,5 @@
                 }
             }
         ]
-    },
-    
-	"coal_generator_screen@coal_generator.main": {},
-    "coal_generator_ui@machines.interface": {
-        "$screen": "coal_generator_screen"
-    },
-
-	"energy_storage_screen@energy_storage.main": {},
-    "energy_storage_module_ui@machines.interface": {
-        "$screen": "energy_storage_screen",
-		"$label": "Energy Storage Module",
-		"$maxPower": "Max Output: 300 gJ/t"
-    },
-    "energy_storage_cluster_ui@machines.interface": {
-        "$screen": "energy_storage_screen",
-		"$label": "Energy Storage Cluster",
-		"$maxPower": "Max Output: 1,800 gJ/t"
-    },
-
-	"compressor_screen@compressor.main": {},
-    "compressor_ui@machines.interface": {
-        "$screen": "compressor_screen",
-		"$size": ["100%", "120%"]
-    },
-
-	"circuit_fabricator_screen@circuit_fabricator.main": {},
-    "circuit_fabricator_ui@machines.interface": {
-		"$screen": "circuit_fabricator_screen",
-		"$size": ["100%", "120%"]
-    },
-	"electric_compressor_screen@electric_compressor.main": {},
-    "electric_compressor_ui@machines.interface": {
-		"$screen": "electric_compressor_screen",
-		"$size": ["100%", "120%"]
-    },
-	"nasa_workbench_screen@nasa_workbench.main": {},
-    "nasa_workbench_ui@machines.interface": {
-		"$screen": "nasa_workbench_screen",
-		"$size": ["100%", "120% + 20px"]
     }
 }

@@ -18,6 +18,85 @@
 			"binding_collection_name": "form_buttons"
 		}
 	],
+	"$fetch_item_hover": [
+		{
+			"binding_name": "#hover_text",
+			"binding_type": "collection",
+			"binding_collection_name": "container_items"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#hover_text - '§o')",
+			"target_property_name": "#hover_text"
+		}
+	],
+	"$if_liquid": [
+		{
+			"binding_name": "#hover_text",
+			"binding_name_override": "#text",
+			"binding_type": "collection",
+			"binding_collection_name": "container_items"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(not(#text - cosmos:§fill_level = #text))",
+			"target_property_name": "#is_liquid"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(not(#text - ('§liquid:' + $liquid) = #text))",
+			"target_property_name": "#right_liquid"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#is_liquid and #right_liquid)",
+			"target_property_name": "#visible"
+		}
+	],
+	"$visible_by_hover": [
+		{
+			"binding_name": "#hover_text",
+			"binding_name_override": "#text",
+			"binding_type": "collection",
+			"binding_collection_name": "container_items"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(not(#text - $prefix = #text))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$set_bar_height": [
+		{
+			"binding_name": "#hover_text",
+			"binding_name_override": "#text",
+			"binding_type": "collection",
+			"binding_collection_name": "container_items"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "((#text - 'cosmos:§fill_level') - '§o' - '§f' )",
+			"target_property_name": "#size_binding_y"
+		}
+	],
+	"$set_bar_weight": [
+		{
+			"binding_name": "#hover_text",
+			"binding_name_override": "#text",
+			"binding_type": "collection",
+			"binding_collection_name": "container_items"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(not(#text - $prefix = #text))",
+			"target_property_name": "#visible"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "((#text - $prefix) - '§o' - '§f' )",
+			"target_property_name": "#size_binding_x"
+		}
+	],
 // celestial selection
 // 	"$not_solar_system": [
 // 		{

@@ -3,7 +3,7 @@ import { MachineBlockEntity } from "../MachineBlockEntity";
 import { get_data } from "../../../api/utils";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity";
 
-export class OxygenCompressor extends MachineBlockEntity {
+export default class extends MachineBlockEntity {
     constructor(block, entity) {
         super(block, entity);
         this.start();

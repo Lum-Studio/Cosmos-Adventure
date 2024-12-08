@@ -13,11 +13,6 @@
 					"event": "cosmos:tick"
 				}
          },
-         "minecraft:can_power_jump": {},
-         "minecraft:input_ground_controlled": {},
-         "minecraft:movement": { "value": 0.0 },
-         "minecraft:horse.jump_strength": { "value": 0.0 },
-         
          "minecraft:collision_box": {
             "height": 4,
             "width": 1

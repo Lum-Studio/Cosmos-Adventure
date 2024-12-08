@@ -1,1 +1,51 @@
-{"format_version":"1.8.0","minecraft:entity":{"component_groups":{},"components":{"minecraft:collision_box":{"height":4,"width":2},"minecraft:fall_damage":{"value":0},"minecraft:fire_immune":true,"minecraft:health":{"max":1,"value":1},"minecraft:knockback_resistance":{"value":1},"minecraft:physics":{"has_collision":true,"has_gravity":true},"minecraft:push_through":{"value":1},"minecraft:pushable":{"is_pushable":false,"is_pushable_by_piston":false},"minecraft:rideable":{"crouching_skip_interact":true,"family_types":["player","Rider"],"interact_text":"Ride","priority":0,"pull_in_entities":false,"seat_count":1,"seats":{"position":[0,2,0]}}},"description":{"identifier":"cosmos:lander","is_experimental":false,"is_spawnable":true,"is_summonable":true},"events":{}}}ifier":"minecraft:chicken"},"events":{}}}
+{
+    "format_version": "1.8.0",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "cosmos:lander",
+            "is_summonable": true
+        },
+        "components": {
+            "minecraft:collision_box": {
+                "height": 4,
+                "width": 2
+            },
+            "minecraft:fall_damage": {
+                "value": 0
+            },
+            "minecraft:fire_immune": true,
+            "minecraft:health": {
+                "max": 1,
+                "value": 1
+            },
+            "minecraft:knockback_resistance": {
+                "value": 1
+            },
+            "minecraft:physics": {
+                "has_collision": true,
+                "has_gravity": true
+            },
+            "minecraft:push_through": {
+                "value": 1
+            },
+            "minecraft:pushable": {
+                "is_pushable": false,
+                "is_pushable_by_piston": false
+            },
+            "minecraft:rideable": {
+                "crouching_skip_interact": true,
+                "family_types": [
+                    "player",
+                    "Rider"
+                ],
+                "interact_text": "Ride",
+                "priority": 0,
+                "pull_in_entities": false,
+                "seat_count": 1,
+                "seats": {
+                    "position": [ 0, 2, 0]
+                }
+            }
+        }
+    }
+}

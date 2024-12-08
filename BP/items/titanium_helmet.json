@@ -1,12 +1,22 @@
 {
-  "format_version": "1.20.20",
+  "format_version": "1.20.80",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:titanium_helmet"
+      "identifier": "cosmos:titanium_helmet",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.helmet"
+      }
     },
     "components": {
-      "minecraft:icon": {
-        "texture": "titanium_helmet"
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": "titanium_helmet",
+      "minecraft:wearable": {
+        "slot": "slot.armor.head"
+      },
+      "minecraft:enchantable": {
+        "slot": "armor_head",
+        "value": 10
       }
     }
   }

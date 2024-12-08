@@ -8,5 +8,10 @@
         "atlas_tile": "oil",
         "flipbook_texture": "textures/blocks/flipbooks/oil_still",
         "ticks_per_frame": 2
+    },
+    {
+        "atlas_tile": "fuel",
+        "flipbook_texture": "textures/blocks/flipbooks/fuel_still",
+        "ticks_per_frame": 2
     }
 ]
