@@ -2,10 +2,10 @@
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:schematic_buggy"
+      "identifier": "cosmos:schematic_cargo_rocket"
     },
     "components": {
-      "minecraft:icon": "schematic_buggy",
+      "minecraft:icon": "schematic_cargo_rocket",
       "minecraft:max_stack_size": 1
     }
   }

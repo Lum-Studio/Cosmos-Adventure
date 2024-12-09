@@ -1,5 +1,5 @@
 
-import { world, player, container, system, EnchantmentType, Player } from "@minecraft/server";
+import { world, EnchantmentType } from "@minecraft/server";
 
 
 class EnchantDeshPickaxe {

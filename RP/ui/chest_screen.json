@@ -2,6 +2,7 @@
     "namespace": "chest",
     "small_chest_screen@common.inventory_screen_common": {
         "$ct": "$container_title",
+        "$debug": true,
         "variables": [
             {
                 "requires": "$desktop_screen",
@@ -65,6 +66,12 @@
             {
                 "requires": "(not (($ct - '§r§e§f§i§n§e§r§y') = $ct))",
                 "$screen_content": "refinery.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "$debug",
+                "$screen_content": "machines.debugging_interface",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             }

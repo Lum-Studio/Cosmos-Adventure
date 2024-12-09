@@ -1,4 +1,4 @@
-import { Block, ItemStack, World, Player } from "@minecraft/server";
+import { Block, ItemStack, World, Player, Container } from "@minecraft/server";
 
 /**
  * Decrements the amount of the ItemStack by 1.
@@ -78,4 +78,17 @@ World.prototype.getDims = function (fn = null) {
         const dimension = this.getDimension(dim);
         return fn ? fn(dimension) : dimension
     })
+};
+
+Container.prototype.add_ui_button = function (slot, text, lore) {
+	const button = new ItemStack('cosmos:ui_button')
+	button.nameTag = text ?? ''
+    if (lore) button.setLore(lore)
+	this.setItem(slot, button)
+}
+
+Container.prototype.add_ui_display = function (slot, text) {
+	const button = new ItemStack('cosmos:ui')
+	button.nameTag = text ?? ''
+	this.setItem(slot, button)
 }

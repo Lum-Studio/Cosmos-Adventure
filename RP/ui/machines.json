@@ -344,6 +344,23 @@
 		]
 	},
 
+    "debugging_interface@machines.interface": {
+		"$screen": "machines.debugger",
+		"$size": ["100%", "120% + 20px"]
+    },
+    "debugger": {
+		"type": "panel",
+		"controls": [
+			{
+				"input_grid@machines.item_grid": {
+					"offset": [0, -80],
+					"size": [ 360, 144 ],
+					"grid_dimensions": [ 20, 8 ]
+				}
+			}
+		]
+	},
+
     "interface": {
         "type": "panel",
 		"$size": ["100%", "100%"],
