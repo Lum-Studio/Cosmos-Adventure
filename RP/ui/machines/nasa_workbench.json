@@ -1,103 +1,410 @@
 {
     "namespace": "nasa_workbench",
 
-    "interface@machines.interface": {
-		"$screen": "nasa_workbench.main",
-		"$size": ["100%", "120% + 20px"]
-    },
-    "main@machines.taller_screen": {
-        "$machine": "nasa_workbench",
+	"left_side_button": {
+		"type":"panel",
+		"size": [ 85, 24 ],
+		"bindings": "$visible_by_hover",
+        "$prefix": "§side_button:",
+		"controls": [
+			{ "button@machines.old_button": {
+                "$tag": "$prefix"
+            }}
+		]
+	},
+
+    "interface": {
+        "type": "panel",
         "controls": [
-            //{"test@machines.pixel_counter": {}},
-			{ "label@machines.text": {
-				"text": "Tier 1 Rocket",
-				"offset": [ 10, 5 ],
-				"anchor_from": "top_left",
-				"anchor_to": "top_left"
-			}},
-            {
-                "body@machines.item_grid": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 38, 36 ],
-                    "size": [ 36, 72 ],
-					"grid_dimensions": [ 2, 4 ]
-                }
-            },
-            {
-                "left_fin@machines.clipper": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 20, 90 ],
-                    "size": [ 18, 36 ],
-					"$grid_size": [ 1, 10 ],
-                    "$grid_pixels": [18, 180]
-                }
-            },
-            {
-                "right_fin@machines.clipper": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 74, 90 ],
-                    "size": [ 18, 36 ],
-					"$grid_size": [ 1, 12 ],
-                    "$grid_pixels": [18, 216]
-                }
-            },
-            {
-                "engine@machines.clipper": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 47, 108 ],
-					"$grid_size": [ 1, 13 ],
-                    "$grid_pixels": [18, 234]
-                }
-            },
-            {
-                "cone@machines.clipper": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 47, 18 ],
-					"$grid_size": [ 1, 14 ],
-                    "$grid_pixels": [18, 252]
-                }
-            },
-            {
-                "chest1@machines.clipper": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 92, 14 ],
-					"$grid_size": [ 1, 57 ],
-                    "$grid_pixels": [18, 1026]
-                }
-            },
-            {
-                "chest2@machines.clipper": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 118, 14 ],
-					"$grid_size": [ 1, 58 ],
-                    "$grid_pixels": [18, 1044]
-                }
-            },
-            {
-                "chest3@machines.clipper": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 144, 14 ],
-					"$grid_size": [ 1, 59 ],
-                    "$grid_pixels": [18, 1062]
-                }
-            },
-            {
-                "output@machines.clipper": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 138, 92 ],
-					"$grid_size": [ 1, 60 ],
-                    "$grid_pixels": [18, 1080]
-                }
-            }
+            { "content@machines.dynamic_interface": {
+                "$size": ["100%", 240],
+                "$content": [
+                    { "title@machines.specific_slot": {
+                        "anchor_from": "top_left",
+                        "anchor_to": "top_left",
+                        "offset": [ 10, 5 ],
+                        "controls": [
+                            {"title_text@machines.text": {
+                                "collection_index": 36,
+                                "text": "#text",
+                                "$tag": "",
+                                "bindings": "$fetch_hover_text"
+                            }}
+                        ]
+                    }},
+                    { "side_buttons@machines.specific_slot": {
+                        "type": "stack_panel",
+                        "size": [85, "100%"],
+                        "anchor_from": "top_left", 
+                        "anchor_to": "top_right",
+                        "controls": [
+                            { "button1@nasa_workbench.left_side_button": {
+                                "collection_index": 23
+                            }},
+                            { "button2@nasa_workbench.left_side_button": {
+                                "collection_index": 24
+                            }},
+                            { "button3@nasa_workbench.left_side_button": {
+                                "collection_index": 25
+                            }},
+                            { "button4@nasa_workbench.left_side_button": {
+                                "collection_index": 26
+                            }},
+                            { "button5@nasa_workbench.left_side_button": {
+                                "collection_index": 27
+                            }},
+                            { "button6@nasa_workbench.left_side_button": {
+                                "collection_index": 28
+                            }},
+                            { "button7@nasa_workbench.left_side_button": {
+                                "collection_index": 29
+                            }}
+                        ]
+                    }},
+                    {"added_chests@machines.specific_screen": {
+                        "type": "collection_panel",
+                        "$condition": "(not ((#data = 6) or (#data = 7)))",
+                        "offset": [ 74, 0 ],
+                        "anchor_from": "top_left",
+                        "anchor_to": "top_left",
+                        "$screen_index": 36,
+                        "$screen_content": [
+                            { "chest1": {
+                                "type": "image",
+                                "texture": "textures/ui/cosmos/chest_slot_border",
+                                "size": [20, 20],
+                                "controls": [{
+                                    "slot@machines.specific_slot": {
+                                        "$index": 18
+                                    }
+                                }]
+                            }},
+                            { "chest2": {
+                                "type": "image",
+                                "texture": "textures/ui/cosmos/chest_slot_border",
+                                "size": [20, 20],
+                                "offset": [ 26, 0 ],
+                                "controls": [{
+                                    "slot@machines.specific_slot": {
+                                        "$index": 19
+                                    }
+                                }]
+                            }},
+                            { "chest3": {
+                                "type": "image",
+                                "texture": "textures/ui/cosmos/chest_slot_border",
+                                "size": [20, 20],
+                                "offset": [ 52, 0 ],
+                                "controls": [{
+                                    "slot@machines.specific_slot": {
+                                        "$index": 20
+                                    }
+                                }]
+                            }}
+                        ]
+                    }},
+                    {"basic_rocket_shape@machines.specific_screen": {
+                        "$condition": "(#data = 1)",
+                        "$screen_index": 36,
+                        "anchor_from": "top_left",
+                        "anchor_to": "top_left",
+                        "offset": [ 9, 9 ],
+                        "$screen_content": [
+                            {
+                                "body@machines.item_grid": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 18, 36 ],
+                                    "size": [ 36, 72 ],
+                                    "grid_dimensions": [ 2, 4 ]
+                                }
+                            },
+                            {
+                                "left_fin@machines.clipper": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 0, 90 ],
+                                    "size": [ 18, 36 ],
+                                    "$grid_size": [ 1, 10 ],
+                                    "$grid_pixels": [18, 180]
+                                }
+                            },
+                            {
+                                "right_fin@machines.clipper": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 54, 90 ],
+                                    "size": [ 18, 36 ],
+                                    "$grid_size": [ 1, 12 ],
+                                    "$grid_pixels": [18, 216]
+                                }
+                            },
+                            { "engine@machines.specific_slot": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [ 27, 108 ],
+                                "$index": 12
+                            }},
+                            { "cone@machines.specific_slot": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [ 27, 18 ],
+                                "$index": 13
+                            }}
+                        ]
+                    }},
+                    {"advanced_rocket_shape@machines.specific_screen": {
+                        "$condition": "((#data = 2) or (#data = 3))",
+                        "$screen_index": 36,
+                        "anchor_from": "top_left",
+                        "anchor_to": "top_left",
+                        "offset": [ 9, 18 ],
+                        "$screen_content": [
+                            {
+                                "body@machines.item_grid": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 18, 18 ],
+                                    "size": [ 36, 90 ],
+                                    "grid_dimensions": [ 2, 5 ]
+                                }
+                            },
+                            {
+                                "left_fin@machines.clipper": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 0, 72 ],
+                                    "size": [ 18, 54 ],
+                                    "$grid_size": [ 1, 13 ],
+                                    "$grid_pixels": [18, 234]
+                                }
+                            },
+                            {
+                                "right_fin@machines.clipper": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 54, 72 ],
+                                    "size": [ 18, 54 ],
+                                    "$grid_size": [ 1, 16 ],
+                                    "$grid_pixels": [18, 288]
+                                }
+                            },
+                            { "engine@machines.specific_slot": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [ 27, 108 ],
+                                "$index": 16
+                            }},
+                            { "cone@machines.specific_slot": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [ 27, 0 ],
+                                "$index": 17
+                            }}
+                        ]
+                    }},
+                    {"buggy_shape@machines.specific_screen": {
+                        "$condition": "(#data = 4)",
+                        "$screen_index": 36,
+                        "anchor_from": "top_left",
+                        "anchor_to": "top_left",
+                        "offset": [ 9, 20 ],
+                        "$screen_content": [
+                            {
+                                "body@machines.item_grid": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 18, 36 ],
+                                    "size": [ 54, 72 ],
+                                    "grid_dimensions": [ 3, 4 ]
+                                }
+                            },
+                            { "wheel1@machines.specific_slot": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [ 0, 36 ],
+                                "$index": 12
+                            }},
+                            { "wheel2@machines.specific_slot": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [ 72, 36 ],
+                                "$index": 13
+                            }},
+                            { "wheel1@machines.specific_slot": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [ 0, 90 ],
+                                "$index": 14
+                            }},
+                            { "wheel1@machines.specific_slot": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [ 72, 90 ],
+                                "$index": 15
+                            }}
+                        ]
+                    }},
+                    {"cargo_rocket_shape@machines.specific_screen": {
+                        "$condition": "(#data = 5)",
+                        "$screen_index": 36,
+                        "anchor_from": "top_left",
+                        "anchor_to": "top_left",
+                        "offset": [ 9, 10 ],
+                        "$screen_content": [
+                            {
+                                "body@machines.item_grid": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 18, 54 ],
+                                    "size": [ 36, 54 ],
+                                    "grid_dimensions": [ 2, 3 ]
+                                }
+                            },
+                            {
+                                "left_fin@machines.clipper": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 0, 90 ],
+                                    "size": [ 18, 36 ],
+                                    "$grid_size": [ 1, 8 ],
+                                    "$grid_pixels": [18, 144]
+                                }
+                            },
+                            {
+                                "right_fin@machines.clipper": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 54, 90 ],
+                                    "size": [ 18, 36 ],
+                                    "$grid_size": [ 1, 10 ],
+                                    "$grid_pixels": [18, 180]
+                                }
+                            },
+                            { "engine@machines.specific_slot": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [ 27, 108 ],
+                                "$index": 10
+                            }},
+                            { "wafer@machines.specific_slot": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [ 27, 36 ],
+                                "$index": 11
+                            }},
+                            { "cone@machines.specific_slot": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [ 27, 18 ],
+                                "$index": 12
+                            }}
+                        ]
+                    }},
+                    {"astro_miner_shape@machines.specific_screen": {
+                        "$condition": "(#data = 6)",
+                        "$screen_index": 36,
+                        "offset": [ 9, 30 ],
+                        "anchor_from": "top_left",
+                        "anchor_to": "top_left",
+                        "$screen_content": [
+                            {
+                                "top@machines.item_grid": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 18, 36 ],
+                                    "size": [ 72, 18 ],
+                                    "grid_dimensions": [ 4, 1 ]
+                                }
+                            },
+                            {
+                                "middle@machines.clipper": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 9, 54 ],
+                                    "size": [ 90, 18 ],
+                                    "$grid_size": [ 9, 1 ],
+                                    "$grid_pixels": [162, 18]
+                                }
+                            },
+                            {
+                                "bottom@machines.clipper": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 36, 72 ],
+                                    "size": [ 54, 18 ],
+                                    "$grid_size": [ 12, 1 ],
+                                    "$grid_pixels": [216, 18]
+                                }
+                            },
+                            {
+                                "tail@machines.clipper": {
+                                    "anchor_from": "top_left",
+                                    "anchor_to": "top_left",
+                                    "offset": [ 0, 81 ],
+                                    "size": [ 36, 18 ],
+                                    "$grid_size": [ 14, 1 ],
+                                    "$grid_pixels": [252, 18]
+                                }
+                            }
+                        ]
+                    }},
+                    {"schematics_screen@machines.specific_screen": {
+                        "$condition": "(#data = 7)",
+                        "$screen_index": 36,
+                        "$screen_content": [
+                            {"background": {
+                                "type": "image",
+                                "texture": "textures/ui/cosmos/schematic_slot",
+                                "offset": [0, -45],
+                                "size": [57, 40],
+                                "controls": [
+                                    { "schematic_input@machines.specific_slot": {
+                                        "$index": 21
+                                    }},
+                                    { "unlock_button@machines.specific_slot": {
+                                        "offset": [0, 30],
+                                        "controls": [
+                                            { "button@machines.old_button": {
+                                                "collection_index": 30
+                                            }}
+                                        ]
+                                    }}
+                                ]
+                            }}
+                        ]
+                    }},
+                    {"crafting_button@machines.specific_screen": {
+                        "$condition": "(not (#data = 7))",
+                        "$screen_index": 36,
+                        "$screen_content": [
+                            {"crafting_slot": {
+                                "type": "image",
+                                "texture": "textures/ui/cosmos/nasa_workbench_output",
+                                "offset": [62, -10],
+                                "size": [34, 34],
+                                "controls": [
+                                    { "crafting_arrow": {
+                                        "type": "image",
+                                        "texture": "textures/ui/cosmos/diagonal_arrow",
+                                        "size": [16, 16],
+                                        "anchor_from": "top_left",
+                                        "anchor_to": "bottom_right"
+                                    }},
+                                    { "crafting_button@machines.specific_slot": {
+                                        "controls": [
+                                            { "button@machines.old_button": {
+                                                "layer": 2,
+                                                "collection_index": 22
+                                            }}
+                                        ]
+                                    }}
+                                ]
+                            }}
+                        ]
+                    }}
+                ]
+            }}
         ]
     }
 }

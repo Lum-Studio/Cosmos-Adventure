@@ -1,126 +1,15 @@
 import { world, ItemStack, system } from "@minecraft/server"
-
+import recipes  from "../../recipes/nasa_workbench"
 
 /* SLOT DEBUGGER
 world.afterEvents.playerInteractWithEntity.subscribe(({target}) => {
-	const container = target.getComponent("minecraft:inventory").container
+    const container = target.getComponent("minecraft:inventory").container
     const slotItem = new ItemStack("cosmos:ui")
     for (let i = 0; i < container.size; i++) {
         slotItem.nameTag = '§r§u' + ( i + 1 )
         container.setItem(i, slotItem)
     }
 }) */
-
-const recipes = {
-    "cosmos:rocket_tier_1_item": [
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:rocket_fins",
-        "cosmos:rocket_fins",
-        "cosmos:rocket_fins",
-        "cosmos:rocket_fins",
-        "cosmos:rocket_engine",
-        "cosmos:nose_cone",
-    ], //14 items
-    "cosmos:rocket_tier_2_item": [
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:tier_1_booster",
-        "cosmos:rocket_fins",
-        "cosmos:rocket_fins",
-        "cosmos:tier_1_booster",
-        "cosmos:rocket_fins",
-        "cosmos:rocket_fins",
-        "cosmos:rocket_engine",
-        "cosmos:nose_cone",
-    ], //18 items
-    "cosmos:rocket_tier_3_item": [
-        "cosmos:heavy_duty_plate_tier3",
-        "cosmos:heavy_duty_plate_tier3",
-        "cosmos:heavy_duty_plate_tier3",
-        "cosmos:heavy_duty_plate_tier3",
-        "cosmos:heavy_duty_plate_tier3",
-        "cosmos:heavy_duty_plate_tier3",
-        "cosmos:heavy_duty_plate_tier3",
-        "cosmos:heavy_duty_plate_tier3",
-        "cosmos:heavy_duty_plate_tier3",
-        "cosmos:heavy_duty_plate_tier3",
-        "cosmos:tier_1_booster",
-        "cosmos:heavy_rocket_fins",
-        "cosmos:heavy_rocket_fins",
-        "cosmos:tier_1_booster",
-        "cosmos:heavy_rocket_fins",
-        "cosmos:heavy_rocket_fins",
-        "cosmos:heavy_rocket_engine",
-        "cosmos:heavy_nose_cone",
-    ], //18 items
-    "cosmos:buggy": [
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:buggy_seat",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:heavy_duty_plate",
-        "cosmos:buggy_wheel",
-        "cosmos:buggy_wheel",
-        "cosmos:buggy_wheel",
-        "cosmos:buggy_wheel",
-    ], //14 items
-    "cosmos:cargo_rocket": [
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:heavy_duty_plate_tier2",
-        "cosmos:rocket_fins",
-        "cosmos:rocket_fins",
-        "cosmos:rocket_fins",
-        "cosmos:rocket_fins",
-        "cosmos:nose_cone",
-        "cosmos:advanced_wafer",
-        "cosmos:rocket_engine",
-    ], //13 items
-    "cosmos:astro_miner": [
-        "cosmos:heavy_duty_plate",
-        "cosmos:orion_drive",
-        "cosmos:heavy_duty_plate",
-        "cosmos:orion_drive",
-
-        "cosmos:heavy_duty_plate",
-        "cosmos:advanced_wafer",
-        "minecraft:chest",
-        "minecraft:chest",
-        "cosmos:orion_drive",
-
-        "cosmos:orion_drive",
-        "cosmos:heavy_duty_plate",
-        "cosmos:orion_drive",
-
-        "cosmos:beam_core",
-        "cosmos:steel_pole",
-    ]//14 items
-}
 
 const schematics = {
     'cosmos:schematic_rocket_t2': 'cosmos:rocket_tier_2_item',
@@ -138,10 +27,18 @@ const SCHEMAS = SCHEMA + 2
 function select_recipe(recipe, workbench, player) {
     workbench.setDynamicProperty('recipe', recipe)
     const inventory = workbench.getComponent("minecraft:inventory").container
-    for (let i = 0; i < MAXSIZE; i++) {
+    for (let i = 0; i < MAXSIZE + 3; i++) {
         const item = inventory.getItem(i)
         if (player && item && item.typeId != 'cosmos:ui') workbench.dimension.spawnItem(item, player.location)
-        inventory.setItem(i, i < recipes[recipe].length ? undefined : new ItemStack('cosmos:ui'))
+        inventory.setItem(i, i < recipes[recipe].length || i >= MAXSIZE ? undefined : new ItemStack('cosmos:ui'))
+    }
+}
+function block_all_slots(workbench, player) {
+    const inventory = workbench.getComponent("minecraft:inventory").container
+    for (let i = 0; i < MAXSIZE + 3; i++) {
+        const item = inventory.getItem(i)
+        if (player && item && item.typeId != 'cosmos:ui') workbench.dimension.spawnItem(item, player.location)
+        inventory.setItem(i, new ItemStack('cosmos:ui'))
     }
 }
 
@@ -226,58 +123,47 @@ function tick(workbench) {
     const button_names = ['Tier 1 Rocket', 'Tier 2 Rocket', 'Tier 3 Rocket', 'Moon Buggy', 'Cargo Rocket', 'Astro Miner']
     for (let i in button_names) {
         const side_button = inventory.getItem(BUTTONS + +i)
+        //detect a button press
         if (!side_button) {
+            //reset the button
             workbench.runCommand('clear @a cosmos:ui_button')
+            //return the items to the nearest player and change the selected recipe
             select_recipe(Object.keys(recipes)[i], workbench, nearest_player)
+            inventory.add_ui_display(SCHEMAS + schematic_names.length, button_names[i], +i+1)
         }
+        //set up the button
         const button_name = unlocked_schematics[i] ? `§side_button:${button_names[i]}` : ''
         if (inventory.getItem(BUTTONS + +i)?.nameTag != button_name) inventory.add_ui_button(BUTTONS + +i, button_name)
     }
-    inventory.add_ui_button(SCHEMA, `§side_button:Add Schematics`)
 
+    //the button that takes you to the schmatic insertion screen
+    const schematic_button = inventory.getItem(SCHEMA)
+    // if the button got pressed
+    if (!schematic_button) {
+        //reset the button
+        workbench.runCommand('clear @a cosmos:ui_button')
+        block_all_slots(workbench, nearest_player)
+        inventory.add_ui_display(SCHEMAS + schematic_names.length, 'Add New Schematics', 7)
+    }
+    //reset the button
+    const unlock_button_name = unlocked_schematics.includes(false) ? `§side_button:Add Schemas` : ''
+    if (inventory.getItem(SCHEMA)?.nameTag != unlock_button_name) inventory.add_ui_button(SCHEMA, unlock_button_name)
+
+    //detect pressing the unlock button
     const unlock_button = inventory.getItem(SCHEMA + 1)
     if (!unlock_button) {
+        //reset the button
         workbench.runCommand('clear @a cosmos:ui_button')
-        inventory.add_ui_button(SCHEMA + 1, `§unlock_button:Unlock`)
+        inventory.add_ui_button(SCHEMA + 1, 'Unlock')
+        //get the placed schematic and make sure its new
         if (!schematic) return
         if (!schematic_names.includes(schematic.typeId)) return
         const schematic_place = schematic_names.indexOf(schematic.typeId)
         if (inventory.getItem(SCHEMAS + schematic_place)?.typeId == schematic.typeId) return
+        //move the schematic to its permenant slot
         inventory.setItem(SCHEMAS + schematic_place, schematic)
         inventory.setItem(MAXSIZE + 3)
-        //select_recipe(schematics[schematic.typeId], workbench, nearest_player)
     }
-
-    // ui_button.nameTag = `§side_button:Tier 1 Rocket`
-    // inventory.setItem(MAXSIZE + 9, ui_button)
-    // ui_button.nameTag = unlocked[0] ? `§side_button:Tier 2 Rocket` : ''
-    // inventory.setItem(MAXSIZE + 10, ui_button)
-    // ui_button.nameTag = unlocked[1] ? `§side_button:Tier 3 Rocket` : ''
-    // inventory.setItem(MAXSIZE + 11, ui_button)
-    // ui_button.nameTag = unlocked[2] ? `§side_button:Moon Buggy` : ''
-    // inventory.setItem(MAXSIZE + 12, ui_button)
-    // ui_button.nameTag = unlocked[3] ? `§side_button:Cargo Rocket` : ''
-    // inventory.setItem(MAXSIZE + 13, ui_button)
-    // ui_button.nameTag = unlocked[4] ? `§side_button:Astro Miner` : ''
-    // inventory.setItem(MAXSIZE + 14, ui_button)
-    // ui_button.nameTag = !unlocked.includes(undefined) ? `§side_button:Add Schematic` : ''
-    // inventory.setItem(MAXSIZE + 15, ui_button)
-
-    //old code
-    // for (const recipe of Object.keys(recipes)) {
-    //     output = recipe
-    //     for (const [index, item] of recipes[recipe].entries()) {
-    //         if (!item) continue
-    //         if (recipe_slots[index] != item) output = undefined
-    //     }
-    // }
-    // const spacecraft = output ? new ItemStack(output) : undefined
-
-    // const chests = [56, 57, 58].map(i => inventory.getItem(i)?.typeId == "minecraft:chest" ? 18 : 0)
-    // const space = chests[0] + chests[1] + chests[2]
-    // if (spacecraft && space) spacecraft.setLore([`§r§7Storage Space: ${space}`])
-    // //if (spacecraft) spacecraft.setDynamicProperty("workbench_id", workbench.id)
-    // inventory.setItem(59, spacecraft)
 }
 
 system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:workbench, message}) => {
@@ -314,8 +200,9 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
             select_recipe('cosmos:rocket_tier_1_item', entity)
             const inventory = entity.getComponent('inventory').container
             for (let i = SCHEMAS; i < SCHEMAS + 9; i++) inventory.add_ui_display(i)
-            for (let i = BUTTONS - 1; i < BUTTONS + 8; i++) inventory.add_ui_button(i)
-            inventory.add_ui_button(SCHEMA + 1, `§unlock_button:Unlock`)
+                for (let i = BUTTONS - 1; i < BUTTONS + 8; i++) inventory.add_ui_button(i)
+            inventory.add_ui_button(SCHEMA + 1, 'Unlock')
+            inventory.add_ui_display(SCHEMAS + 5, 'Tier 1 Rocket', 1)
         },
         onPlayerDestroy({block, dimension}){
             const entities = dimension.getEntities({

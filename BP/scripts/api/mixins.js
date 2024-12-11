@@ -87,8 +87,12 @@ Container.prototype.add_ui_button = function (slot, text, lore) {
 	this.setItem(slot, button)
 }
 
-Container.prototype.add_ui_display = function (slot, text) {
+Container.prototype.add_ui_display = function (slot, text, damage) {
 	const button = new ItemStack('cosmos:ui')
+    if (damage) {
+        const durability = button.getComponent('durability')
+        durability.damage = durability.maxDurability - damage
+    }
 	button.nameTag = text ?? ''
 	this.setItem(slot, button)
 }

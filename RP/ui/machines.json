@@ -1,19 +1,85 @@
 {
     "namespace": "machines",
-	
-	"screen_filler": {
-		"type": "image",
-		"texture": "textures/ui/cosmos/space",
-		"alpha": 0.5,
-		"layer": 20
+
+	//up-to-date elements
+	"specific_slot": {
+		"type": "collection_panel",
+		"collection_name": "container_items",
+		"size": ["100%c", "100%c"],
+		"controls": [{"slot@chest.chest_grid_item": {
+			"collection_index": "$index"
+		}}]
 	},
 
-	"pixel_counter": {
-		"type": "image",
-		"texture": "textures/ui/pixel_unit",
-		"tiled": true
+	"specific_screen@machines.specific_slot": {
+		"controls": [ { "condition": {
+			"type": "panel",
+			"size": ["100%c", "100%c"],
+			"collection_index": "$screen_index",
+			"controls": "$screen_content",
+			"bindings": "$conditional_durability"
+		}}]
 	},
 
+	"stack_factory": {
+		"type": "stack_panel",
+		"collection_name": "container_items",
+		"factory":{
+			"name": "slots",
+			"control_name": "$refrence"
+		},
+		"bindings": [
+			{
+				"binding_name": "(#zero + 100)",
+				"binding_name_override": "#collection_length"
+			}
+		]
+	},
+
+	"text": {
+		"type": "label",
+		"color": "$title_text_color",
+		"layer": 2
+	},
+
+	"old_button": {
+		"type": "button",
+		"size": [75, 18],
+		"default_control": "default",
+		"hover_control": "hover",
+		"pressed_control": "pressed",
+		"sound_name": "random.click",
+		"bindings": "$fetch_container_slot",
+		"$tag": "",
+		"button_mappings": [
+			{
+				"from_button_id": "button.menu_select",
+				"to_button_id": "button.container_auto_place",
+				"mapping_type": "pressed"
+			},
+			{
+				"from_button_id": "button.menu_ok",
+				"to_button_id": "button.container_auto_place",
+				"mapping_type": "pressed"
+			}
+		],
+		"controls": [
+			{ "default": { "type": "image", "texture": "textures/ui/cosmos/old_button" } },
+			{ "hover": { "type": "image", "texture": "textures/ui/cosmos/old_button_hover" } },
+			{ "pressed": { "type": "image", "texture": "textures/ui/cosmos/old_button_pressed" } },
+			{
+				"text": {
+					"type": "label",
+					"text": "#text",
+					"layer": 6,
+					"shadow": true,
+					"bindings": "$fetch_hover_text"
+				}
+			}
+		]
+	},
+
+	// outdated elements
 	"small_screen": {
 		"type": "panel",
 		"anchor_from": "top_left",
@@ -27,20 +93,6 @@
 		"anchor_to": "top_left",
 		"offset": [0, -33],
 		"size": ["100%", "50% + 33px"]
-	},
-
-	"taller_screen": {
-		"type": "panel",
-		"anchor_from": "top_left",
-		"anchor_to": "top_left",
-		"offset": [0, -53],
-		"size": ["100%", "50% + 53px"]
-	},
-
-	"text": {
-		"type": "label",
-		"color": "$title_text_color",
-		"layer": 2
 	},
 
 	"item_image": {
@@ -57,8 +109,8 @@
 		"clips_children": true,
 		"$overlay": "", "$uv": [0, 0],
 		"controls": [{"grid@machines.item_grid": {
-			"anchor_from": "bottom_left",
-			"anchor_to": "bottom_left",
+			"anchor_from": "bottom_right",
+			"anchor_to": "bottom_right",
 			"grid_dimensions" : "$grid_size",
 			"size" : "$grid_pixels",
 			"offset": "$offset"
@@ -79,22 +131,9 @@
         "collection_name": "container_items",
 		"layer": 5
 	},
-	"item_data": {
-		"type": "stack_panel",
-		"factory":{
-			"name": "buttons",
-			"control_name": "($machine + '.' + $name)"
-		},
-		"collection_name": "container_items",
-		"bindings": [
-			{
-				"binding_name": "(#zero + 20)",
-				"binding_name_override": "#collection_length"
-			}
-		]
-	},
 
 	"ui_button@machines.new_item_data": {
+		"$button_tag": "§button",
 		"$name": "ui_button_button"
 	},
 	
@@ -102,6 +141,7 @@
 		"type": "panel",
 		"size": [0, 0],
 		"controls": [{ "button@cosmos.button": {
+			"$button_tag": "$button_tag",
 			"size": [75, 18],
 			"pressed_control": "pressed",
 			"bindings": [
@@ -146,6 +186,7 @@
 					"text": {
 						"type": "label",
 						"text": "#text",
+						"layer": 6,
 						"shadow": true,
 						"bindings": [
 							{
@@ -156,7 +197,7 @@
 							},
 							{
 								"binding_type": "view",
-								"source_property_name": "(#text - '§button' - '§o' - '§f' )",
+								"source_property_name": "(#text - $button_tag - '§o' - '§f' )",
 								"target_property_name": "#text"
 							}
 						]
@@ -172,12 +213,26 @@
 			},
 			{
 				"binding_type": "view",
-				"source_property_name": "(not(#hover_text - '§button' = #hover_text))",
+				"source_property_name": "(not(#hover_text - $button_tag = #hover_text))",
 				"target_property_name": "#visible"
 			}
 		]
 	},
 
+	"item_data": {
+		"type": "stack_panel",
+		"factory":{
+			"name": "buttons",
+			"control_name": "($machine + '.' + $name)"
+		},
+		"collection_name": "container_items",
+		"bindings": [
+			{
+				"binding_name": "(#zero + 50)",
+				"binding_name_override": "#collection_length"
+			}
+		]
+	},
 	"new_item_data": {
 		"type": "stack_panel",
 		"factory":{
@@ -187,7 +242,21 @@
 		"collection_name": "container_items",
 		"bindings": [
 			{
-				"binding_name": "(#zero + 20)",
+				"binding_name": "(#zero + 50)",
+				"binding_name_override": "#collection_length"
+			}
+		]
+	},
+	"better_item_data": {
+		"type": "stack_panel",
+		"factory":{
+			"name": "buttons",
+			"control_name": "$name"
+		},
+		"collection_name": "container_items",
+		"bindings": [
+			{
+				"binding_name": "(#zero + 50)",
 				"binding_name_override": "#collection_length"
 			}
 		]
@@ -361,6 +430,41 @@
 		]
 	},
 
+    "dynamic_interface": {
+        "type": "panel",
+		"$content": [],
+		"$size": ["100%", 166],
+        "controls": [
+            { "container_gamepad_helpers@common.container_gamepad_helpers": {} },
+            { "selected_item_details_factory@common.selected_item_details_factory": {} },
+            { "item_lock_notification_factory@common.item_lock_notification_factory": {} },
+            {
+                "root_panel@common.root_panel": {
+                    "size": [ 176, "100%" ],
+                    "layer": 1,
+                    "controls": [
+                        { "content@common.dialog_background_opaque": {
+							"size": "$size",
+							"controls": [
+								{"close_button@common.close_button": {}},
+								{ "top_half": {
+									"type": "panel",
+									"layer": 5,
+									"controls": "$content"
+								}},
+								{ "bottom_half@common.inventory_panel_bottom_half_with_label": {} },
+								{ "hotbar_grid@common.hotbar_grid_template": {} },
+								{ "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} }
+							]
+                        }},
+                        { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },
+                        { "gamepad_cursor@common.gamepad_cursor_button": {} }
+                    ]
+                }
+            }
+        ]
+    },
+	
     "interface": {
         "type": "panel",
 		"$size": ["100%", "100%"],

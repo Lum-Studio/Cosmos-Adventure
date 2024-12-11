@@ -1,12 +1,12 @@
 {
 	//bindings ************************************************************
   "$visibility": [
-    {
+    	{
 			"binding_type": "view",
 			"source_property_name": "$condition",
 			"target_property_name": "#visible"
 		}
-  ],
+  	],
 	"$read_buttons": [
 		{
 			"binding_type": "collection_details",
@@ -16,6 +16,26 @@
 			"binding_name": "#form_button_text",
 			"binding_type": "collection",
 			"binding_collection_name": "form_buttons"
+		}
+	],
+	"$fetch_container_slot": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "container_items",
+			"binding_condition": "once"
+		}
+	],
+	"$fetch_hover_text": [
+		{
+			"binding_name": "#hover_text",
+			"binding_name_override": "#text",
+			"binding_type": "collection",
+			"binding_collection_name": "container_items"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#text - $tag - '§o' - '§f' )",
+			"target_property_name": "#text"
 		}
 	],
 	"$fetch_item_hover": [
@@ -63,6 +83,36 @@
 		{
 			"binding_type": "view",
 			"source_property_name": "(not(#text - $prefix = #text))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$conditional_hover": [
+		{
+			"binding_name": "#hover_text",
+			"binding_name_override": "#text",
+			"binding_type": "collection",
+			"binding_collection_name": "container_items"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "$condition",
+			"target_property_name": "#visible"
+		}
+	],
+	"$conditional_durability": [
+		{
+			"binding_name": "#item_durability_current_amount",
+			"binding_type": "collection",
+			"binding_collection_name": "container_items"
+		},
+		{
+		  "binding_type": "view",
+		  "source_property_name": "(#data + (#data < #item_durability_current_amount) - (#data > #item_durability_current_amount))",
+		  "target_property_name": "#data"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "$condition",
 			"target_property_name": "#visible"
 		}
 	],

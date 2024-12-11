@@ -101,6 +101,7 @@ export default class extends MachineBlockEntity {
 		const ui_button = new ItemStack('cosmos:ui_button')
 		ui_button.nameTag = `§button${stopped ? 'Stop Refining' : 'Refine'}`
 		if (!container.getItem(10)) {
+			this.entity.runCommand('clear @a cosmos:ui_button')
 			container.setItem(10, ui_button);
 			this.entity.setDynamicProperty('stopped', !stopped)
 		}

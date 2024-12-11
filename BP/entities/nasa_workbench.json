@@ -7,7 +7,7 @@
         },
         "components": {
             "minecraft:timer": {
-				"time": 1,
+				"time": 0.1,
 				"time_down_event": {
 					"event":"cosmos:tick"
 				}

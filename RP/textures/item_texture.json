@@ -194,11 +194,13 @@
     "parachute_yellow": {
       "textures": "textures/items/parachute_yellow"
     },
-    "raw_aluminum": {
-      "textures": "textures/items/raw_aluminum"
-    },
     "raw_silicon": {
       "textures": "textures/items/raw_silicon"
+    },
+
+    //these 3 textures are made by @sui_ke on Modrinth
+    "raw_aluminum": {
+      "textures": "textures/items/raw_aluminum"
     },
     "raw_tin": {
       "textures": "textures/items/raw_tin"
@@ -206,6 +208,7 @@
     "raw_lead": {
       "textures": "textures/items/raw_lead"
     },
+
     "communications_dish": {
       "textures": "textures/items/communications_dish"
     },

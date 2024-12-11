@@ -2,7 +2,7 @@
     "namespace": "chest",
     "small_chest_screen@common.inventory_screen_common": {
         "$ct": "$container_title",
-        "$debug": true,
+        "$debug": false,
         "variables": [
             {
                 "requires": "$desktop_screen",

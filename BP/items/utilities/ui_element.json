@@ -10,7 +10,10 @@
          },
          //"minecraft:icon": "none",
          "minecraft:icon": "clock_item", //this is just for debugging
-         "minecraft:max_stack_size": 1
+         "minecraft:max_stack_size": 1,
+         "minecraft:durability": {
+            "max_durability": 200
+         }
       }
    }
 }

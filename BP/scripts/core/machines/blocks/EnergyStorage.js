@@ -77,7 +77,7 @@ export default class  extends MachineBlockEntity {
 		container.setItem(4, counter)
 		
 		//change the block look
-		if (this.block?.typeId != "minecraft:air") {
+		 try { if (this.block?.typeId != "minecraft:air") {
 			const fill_level = Math.round((energy/ store_data.capacity) * 16 )
 			if (fill_level == 16) {
 				this.block.setPermutation(this.block.permutation
@@ -89,6 +89,6 @@ export default class  extends MachineBlockEntity {
 				.withState("cosmos:fill_level", fill_level)
 				.withState("cosmos:full", false)
 			)
-		}
+		}} catch(_) {null}
 	}
 }
