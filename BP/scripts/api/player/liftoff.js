@@ -37,6 +37,32 @@ function dismount(player) {
     player.inputPermissions.setPermissionCategory(6, true)
 }
 
+function rocket_rotation(player, rocket){
+   let x = player.inputInfo.getMovementVector().x;
+   let y = player.inputInfo.getMovementVector().y;
+   x = Math.round(x)
+   y = Math.round(y)
+   let rotationX = (x == 0 && y == 0)?
+   rocket.getProperty("cosmos:rotation_x"):
+   (x == 0 && y == 1)? 
+   rocket.getProperty("cosmos:rotation_x") + 5:
+   (x == 0 && y == -1)? 
+   rocket.getProperty("cosmos:rotation_x") - 5: 
+   rocket.getProperty("cosmos:rotation_x");
+   
+   let rotationY = (x == 0 && y == 0)?
+   rocket.getRotation().y:
+   (x == 1 && y == 0)? 
+   rocket.getRotation().y  + 5:
+   (x == -1 && y == 0)? 
+   rocket.getRotation().y - 5: 
+   rocket.getRotation().y;
+   rotationX = (rotationX > 180)? 180:
+   (rotationX < 0)? 0:
+   rotationX;
+   return [rotationX, rotationY]
+}
+
 function rocket_flight(rocket) {
     if (!rocket || !rocket.isValid()) return
     rocket.addEffect('levitation', 2000, {showParticles: false})
@@ -48,6 +74,9 @@ function rocket_flight(rocket) {
         if (v >= 10) rocket.setDynamicProperty('rocket_launched', true)
         v = Math.floor((a) * (1 - Math.pow(Math.E, (-t/(20 * b)))))
         rocket.addEffect('levitation', 2000, {showParticles: false, amplifier: v})
+        let rotation = rocket_rotation(rocket.getComponent("minecraft:rideable").getRiders()[0], rocket)
+        rocket.setRotation({x: rocket.getRotation().x, y: rotation[1]});
+        rocket.setProperty("cosmos:rotation_x", rotation[0]);
     })
 }
 
