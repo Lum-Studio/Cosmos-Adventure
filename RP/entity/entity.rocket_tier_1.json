@@ -4,7 +4,7 @@
 		"description": {
 			"identifier": "cosmos:rocket_tier_1",
 			"textures": {
-				"default": "textures/entity/rocket_tier_1",
+				"default": "textures/entity/rocket_tier_1"
 			},
 			"materials": {
 				"default": "skeleton"
@@ -14,7 +14,7 @@
 			},
 			"render_controllers": [
 				"controller.render.rocket"
-			},
+			],
 			"enable_attachables": false,
 			"hide_armor": true,
 			"scripts": {
