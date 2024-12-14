@@ -2,26 +2,26 @@
   "format_version": "1.10.0",
   "minecraft:attachable": {
      "description": {
-       "identifier": "cosmos:rocket_tier_2_item",
+       "identifier": "cosmos:cargo_rocket_item",
         "geometry": {
-           "default": "geometry.rocket_tier_2"
+           "default": "geometry.cargo_rocket"
         },
         "materials": {
            "default": "skeleton"
         },
+        "textures": {
+           "default": "textures/entity/cargo_rocket"
+        },
         "render_controllers": [
-           "controller.render.skeleton"
+           "controller.render.rocket"
         ],
         "animations": {
-          "hold": "animation.rocket.hold_rocket_tier_2"
+          "hold": "animation.rocket.hold_cargo_rocket"
         },
         "scripts": {
           "animate": [
             "hold"
           ]
-        },
-        "textures": {
-           "default": "textures/entity/rocket_tier_2"
         }
      }
   }
