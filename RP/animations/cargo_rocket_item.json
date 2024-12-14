@@ -1,0 +1,15 @@
+{
+	"animations": {
+		"animation.rocket.hold_cargo_rocket": {
+			"loop": true,
+			"bones": {
+				"entity": {
+					"rotation": ["-180.5 + 400 * c.is_first_person", "65 + 37 * c.is_first_person", "-273 + 581 * c.is_first_person"],
+					"position": ["18 - 35 * c.is_first_person", "40 + 10 * c.is_first_person - 3.5 * q.is_on_ground * !c.is_first_person - 3.5 * q.is_sneaking * !c.is_first_person + 3.5 * q.is_sneaking * q.is_on_ground * !c.is_first_person ", "-8 + 27 * c.is_first_person"],
+                                        "scale": ["1.38", "1.38", "1.38"]
+				}
+			}
+		}
+	},
+	"format_version": "1.10.0"
+}
