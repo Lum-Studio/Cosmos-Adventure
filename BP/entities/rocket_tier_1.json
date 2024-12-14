@@ -8,7 +8,7 @@
                 "cosmos:rotation_x": {
                   "type": "int",
                   "range": [0, 180],
-                  "default": 0,
+                  "default": 90,
                   "client_sync": true
                 }
             }
@@ -20,12 +20,7 @@
 				"time_down_event": {
 					"event": "cosmos:tick"
 				}
-         },
-         "minecraft:can_power_jump": {},
-         "minecraft:input_ground_controlled": {},
-         "minecraft:movement": { "value": 0.0 },
-         "minecraft:horse.jump_strength": { "value": 0.0 },
-         
+         },         
          "minecraft:collision_box": {
             "height": 4,
             "width": 1
