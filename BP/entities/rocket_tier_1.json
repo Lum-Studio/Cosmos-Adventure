@@ -6,9 +6,9 @@
          "is_summonable": true,
          "properties": {
                 "cosmos:rotation_x": {
-                  "type": "int",
-                  "range": [0, 180],
-                  "default": 90,
+                  "type": "float",
+                  "range": [0.0, 180.0],
+                  "default": 90.0,
                   "client_sync": true
                 }
             }
