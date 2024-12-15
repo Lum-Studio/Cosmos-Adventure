@@ -45,17 +45,17 @@ function rocket_rotation(player, rocket){
    let rotationX = (x == 0 && y == 0)?
    rocket.getProperty("cosmos:rotation_x"):
    (x == 0 && y == 1)? 
-   rocket.getProperty("cosmos:rotation_x") + 5:
+   rocket.getProperty("cosmos:rotation_x") - 0.25:
    (x == 0 && y == -1)? 
-   rocket.getProperty("cosmos:rotation_x") - 5: 
+   rocket.getProperty("cosmos:rotation_x") + 0.25: 
    rocket.getProperty("cosmos:rotation_x");
    
    let rotationY = (x == 0 && y == 0)?
    rocket.getRotation().y:
    (x == 1 && y == 0)? 
-   rocket.getRotation().y  + 5:
+   rocket.getRotation().y  + 0.25:
    (x == -1 && y == 0)? 
-   rocket.getRotation().y - 5: 
+   rocket.getRotation().y - 0.25: 
    rocket.getRotation().y;
    rotationX = (rotationX > 180)? 180:
    (rotationX < 0)? 0:
