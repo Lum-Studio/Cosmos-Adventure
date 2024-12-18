@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.unknown",
+				"identifier": "geometry.vacuum_glass",
 				"texture_width": 16,
 				"texture_height": 16,
 				"visible_bounds_width": 3,
@@ -13,7 +13,8 @@
 			"bones": [
 				{
 					"name": "frame",
-					"pivot": [0, 0, 0],
+					"pivot": [0, 8.0625, 0],
+					"rotation": [0, -90, 0],
 					"cubes": [
 						{
 							"origin": [-4, 0, 6],
@@ -115,14 +116,39 @@
 				},
 				{
 					"name": "glass",
-					"pivot": [0, 0, 0],
+					"pivot": [0, 8, 0],
+					"rotation": [0, -90, 0],
 					"cubes": [
 						{
 							"origin": [-2, 3, -5],
-							"size": [4, 10, 10],
+							"size": [4, 5, 5],
 							"uv": {
-								"east": {"uv": [1, 1], "uv_size": [14, 14], "material_instance": "glass"},
-								"west": {"uv": [1, 1], "uv_size": [14, 14], "material_instance": "glass"}
+								"east": {"uv": [10, 10], "uv_size": [6, 6], "material_instance": "glass"},
+								"west": {"uv": [16, 10], "uv_size": [-6, 6], "material_instance": "glass"}
+							}
+						},
+						{
+							"origin": [-2, 3, 0],
+							"size": [4, 5, 5],
+							"uv": {
+								"east": {"uv": [0, 10], "uv_size": [6, 6], "material_instance": "glass"},
+								"west": {"uv": [6, 10], "uv_size": [-6, 6], "material_instance": "glass"}
+							}
+						},
+						{
+							"origin": [-2, 8, 0],
+							"size": [4, 5, 5],
+							"uv": {
+								"east": {"uv": [0, 0], "uv_size": [6, 6], "material_instance": "glass"},
+								"west": {"uv": [6, 0], "uv_size": [-6, 6], "material_instance": "glass"}
+							}
+						},
+						{
+							"origin": [-2, 8, -5],
+							"size": [4, 5, 5],
+							"uv": {
+								"east": {"uv": [10, 0], "uv_size": [6, 6], "material_instance": "glass"},
+								"west": {"uv": [16, 0], "uv_size": [-6, 6], "material_instance": "glass"}
 							}
 						}
 					]

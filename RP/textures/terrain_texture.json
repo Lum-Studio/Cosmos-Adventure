@@ -4,6 +4,22 @@
   "resource_pack_name": "Cosmos-Adventure",
   "texture_name": "atlas.terrain",
   "texture_data": {
+
+    //test
+    "red": {
+      "textures": "textures/blocks/red"
+    },
+    "green": {
+      "textures": "textures/blocks/green"
+    },
+    "silver": {
+      "textures": "textures/blocks/silver"
+    },
+    "gray": {
+      "textures": "textures/blocks/gray"
+    },
+
+
     "aluminum_wire": {
       "textures": "textures/blocks/aluminum_wire"
     },
@@ -25,6 +41,27 @@
     "glowstone_torch": {
       "textures": "textures/blocks/glowstone_torch"
     },
+    "cavernous_vines1": {
+      "textures": "textures/blocks/terrain/cavernous_vines1"
+    },
+    "cavernous_vines2": {
+      "textures": "textures/blocks/terrain/cavernous_vines2"
+    },
+    "cavernous_vines3": {
+      "textures": "textures/blocks/terrain/cavernous_vines3"
+    },
+    "fallen_meteor": {
+      "textures": "textures/blocks/fallen_meteor"
+    },
+    // "cavernous_vines": {
+    //   "textures": {
+    //     "variations": [
+    //         { "path": "textures/blocks/terrain/cavernous_vines1" },
+    //         { "path": "textures/blocks/terrain/cavernous_vines2" },
+    //         { "path": "textures/blocks/terrain/cavernous_vines3" }
+    //     ]
+    //   }
+    // },
     "grating": {
       "textures": "textures/blocks/grating"
     },
@@ -33,6 +70,21 @@
     },
     "rocket_launch_pad": {
       "textures": "textures/blocks/rocket_launch_pad"
+    },
+    "tier1_treasure_chest": {
+      "textures": "textures/blocks/chests/tier1_treasure_chest"
+    },
+    "tier2_treasure_chest": {
+      "textures": "textures/blocks/chests/tier2_treasure_chest"
+    },
+    "tier3_treasure_chest": {
+      "textures": "textures/blocks/chests/tier3_treasure_chest"
+    },
+    "buggy_fueling_pad": {
+      "textures": "textures/blocks/buggy_fueling_pad"
+    },
+    "walkway": {
+      "textures": "textures/blocks/walkway"
     },
     "space_station_side": {
       "textures": "textures/blocks/space_station_side"
