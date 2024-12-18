@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.solar_contoller",
+				"identifier": "geometry.solar_array_controller",
 				"texture_width": 32,
 				"texture_height": 32,
 				"visible_bounds_width": 2,
@@ -17,7 +17,7 @@
 					"cubes": [
 						{
 							"origin": [-8, 4, -8],
-							"size": [16, 8, 16],
+							"size": [16, 8.5, 16],
 							"uv": {
 								"north": {"uv": [0, 7], "uv_size": [32, 17]},
 								"east": {"uv": [0, 7], "uv_size": [32, 17]},

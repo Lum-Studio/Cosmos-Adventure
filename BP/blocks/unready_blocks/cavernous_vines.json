@@ -13,7 +13,6 @@
         "components": {
             "minecraft:light_dampening": 0,
             "minecraft:collision_box": false,
-            // "minecraft:geometry": "geometry.x_shaped",
             "minecraft:geometry": "minecraft:geometry.cross",
             "minecraft:placement_filter": {
                 "conditions": [

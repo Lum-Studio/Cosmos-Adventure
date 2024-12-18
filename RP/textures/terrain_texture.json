@@ -4,27 +4,17 @@
   "resource_pack_name": "Cosmos-Adventure",
   "texture_name": "atlas.terrain",
   "texture_data": {
-
-    //test
-    "red": {
-      "textures": "textures/blocks/red"
-    },
-    "green": {
-      "textures": "textures/blocks/green"
-    },
-    "silver": {
-      "textures": "textures/blocks/silver"
-    },
-    "gray": {
-      "textures": "textures/blocks/gray"
-    },
-
-
     "aluminum_wire": {
       "textures": "textures/blocks/aluminum_wire"
     },
+    "buggy_fueling_pad": {
+      "textures": "textures/blocks/buggy_fueling_pad"
+    },
     "cheese_block": {
       "textures": "textures/blocks/cheese_block"
+    },
+    "fallen_meteor": {
+      "textures": "textures/blocks/fallen_meteor"
     },
     "fluid_pipe": {
       "textures": "textures/blocks/fluid_pipe"
@@ -41,56 +31,38 @@
     "glowstone_torch": {
       "textures": "textures/blocks/glowstone_torch"
     },
-    "cavernous_vines1": {
-      "textures": "textures/blocks/terrain/cavernous_vines1"
-    },
-    "cavernous_vines2": {
-      "textures": "textures/blocks/terrain/cavernous_vines2"
-    },
-    "cavernous_vines3": {
-      "textures": "textures/blocks/terrain/cavernous_vines3"
-    },
-    "fallen_meteor": {
-      "textures": "textures/blocks/fallen_meteor"
-    },
-    // "cavernous_vines": {
-    //   "textures": {
-    //     "variations": [
-    //         { "path": "textures/blocks/terrain/cavernous_vines1" },
-    //         { "path": "textures/blocks/terrain/cavernous_vines2" },
-    //         { "path": "textures/blocks/terrain/cavernous_vines3" }
-    //     ]
-    //   }
-    // },
     "grating": {
       "textures": "textures/blocks/grating"
+    },
+    "gray": {
+      "textures": "textures/blocks/gray"
+    },
+    "green": {
+      "textures": "textures/blocks/green"
+    },
+    "hot_fallen_meteor": {
+      "textures": "textures/blocks/hot_fallen_meteor"
     },
     "hydraulic_platform": {
       "textures": "textures/blocks/hydraulic_platform"
     },
+    "red": {
+      "textures": "textures/blocks/red"
+    },
     "rocket_launch_pad": {
       "textures": "textures/blocks/rocket_launch_pad"
     },
-    "tier1_treasure_chest": {
-      "textures": "textures/blocks/chests/tier1_treasure_chest"
-    },
-    "tier2_treasure_chest": {
-      "textures": "textures/blocks/chests/tier2_treasure_chest"
-    },
-    "tier3_treasure_chest": {
-      "textures": "textures/blocks/chests/tier3_treasure_chest"
-    },
-    "buggy_fueling_pad": {
-      "textures": "textures/blocks/buggy_fueling_pad"
-    },
-    "walkway": {
-      "textures": "textures/blocks/walkway"
+    "silver": {
+      "textures": "textures/blocks/silver"
     },
     "space_station_side": {
       "textures": "textures/blocks/space_station_side"
     },
     "space_station_top": {
       "textures": "textures/blocks/space_station_top"
+    },
+    "walkway": {
+      "textures": "textures/blocks/walkway"
     },
 
     //arc_lamp
@@ -99,6 +71,17 @@
     },
     "arc_lamp_on": {
       "textures": "textures/blocks/arc_lamp/arc_lamp_on"
+    },
+
+    //chests
+    "tier1_treasure_chest": {
+      "textures": "textures/blocks/chests/tier1_treasure_chest"
+    },
+    "tier2_treasure_chest": {
+      "textures": "textures/blocks/chests/tier2_treasure_chest"
+    },
+    "tier3_treasure_chest": {
+      "textures": "textures/blocks/chests/tier3_treasure_chest"
     },
 
     //fluids
@@ -308,6 +291,18 @@
     "sealed_heavy_aluminum_wire": {
       "textures": "textures/blocks/machines/sealed_heavy_aluminum_wire"
     },
+    "solar_controller_output": {
+      "textures": "textures/blocks/machines/solar_controller_output"
+    },
+    "solar_controller_side": {
+      "textures": "textures/blocks/machines/solar_controller_side"
+    },
+    "solar_module_side": {
+      "textures": "textures/blocks/machines/solar_module_side"
+    },
+    "solar_module_top": {
+      "textures": "textures/blocks/machines/solar_module_top"
+    },
     "telemetry_unit": {
       "textures": "textures/blocks/machines/telemetry_unit"
     },
@@ -462,6 +457,15 @@
     },
     "asteroids_soft_rock": {
       "textures": "textures/blocks/terrain/asteroids_soft_rock"
+    },
+    "cavernous_vines1": {
+      "textures": "textures/blocks/terrain/cavernous_vines1"
+    },
+    "cavernous_vines2": {
+      "textures": "textures/blocks/terrain/cavernous_vines2"
+    },
+    "cavernous_vines3": {
+      "textures": "textures/blocks/terrain/cavernous_vines3"
     },
     "dense_ice": {
       "textures": "textures/blocks/terrain/dense_ice"
