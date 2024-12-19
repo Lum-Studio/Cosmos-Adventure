@@ -1,0 +1,13 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.rocket_tier_1.rotation": {
+			"loop": true,
+			"bones": {
+				"entity": {
+					"rotation": ["90 - query.property('cosmos:rotation_x')", 0, 0]
+				}
+			}
+		}
+	}
+}

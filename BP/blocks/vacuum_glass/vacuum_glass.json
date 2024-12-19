@@ -1,0 +1,44 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cosmos:vacuum_glass",
+      "menu_category": {
+        "category": "items"
+      },
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": ["minecraft:cardinal_direction"]
+        }
+      }
+    },
+    "components": {
+      "minecraft:geometry": {
+        "identifier": "geometry.vacuum_glass"
+      },
+      "minecraft:material_instances": {
+        "*": { "texture": "white_concrete_powder", "render_method": "alpha_test"},
+        "glass": { "texture": "glass", "render_method": "alpha_test"}
+      },
+      "minecraft:collision_box":{
+        "origin":[-8, 0, -8],
+        "size":[16, 16, 8]
+      },
+      "minecraft:selection_box":{
+          "origin":[-8, 0, -4],
+          "size":[16, 16, 8]
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1
+      }
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'west' || q.block_state('minecraft:cardinal_direction') == 'east'",
+        "components": {
+          "minecraft:transformation": { "rotation": [0, 90, 0] }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,76 @@
+{
+    "format_version": "1.21.50",
+    "minecraft:block": {
+        "description":{
+            "identifier": "cosmos:tier3_treasure_chest",
+            "states": {
+                "cosmos:chest_state": ["locked", "unlocked", "open"]
+            },
+            "traits": {
+              "minecraft:placement_direction": {
+                "enabled_states": ["minecraft:cardinal_direction"],
+                "y_rotation_offset": 180
+              }
+            }
+        },
+        "components":{
+            "minecraft:material_instances": {
+                "*": { "texture": "tier3_treasure_chest", "render_method": "opaque"}
+            },
+            "minecraft:destructible_by_mining": false,
+            "minecraft:destructible_by_explosion": false,
+            "minecraft:collision_box":{
+                "origin":[-7, 0, -7],
+                "size":[14, 14, 14]
+            },
+            "minecraft:selection_box":{
+                "origin":[-7, 0, -7],
+                "size":[14, 14, 14]
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('cosmos:chest_state') == 'locked'",
+                "components": {
+                    "minecraft:geometry":{
+                        "identifier": "geometry.treasure_chest"
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('cosmos:chest_state') == 'unlocked'",
+                "components": {
+                    "minecraft:geometry":{
+                        "identifier": "geometry.unlocked_chest"
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('cosmos:chest_state') == 'open'",
+                "components": {
+                    "minecraft:geometry":{
+                        "identifier": "geometry.open_chest"
+                    }
+                }
+            },
+            {
+              "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+              "components": {
+                "minecraft:transformation": { "rotation": [0, 180, 0] }
+              }
+            },
+            {
+              "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+              "components": {
+                "minecraft:transformation": { "rotation": [0, 90, 0] }
+              }
+            },
+            {
+              "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+              "components": {
+                "minecraft:transformation": { "rotation": [0, -90, 0] }
+              }
+            }
+        ]
+    }
+}

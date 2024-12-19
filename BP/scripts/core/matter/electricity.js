@@ -35,7 +35,12 @@ export function charge_from_machine(entity, block, energy) {
 				const input_container = input_entity.getComponent('minecraft:inventory').container
 				const input_data = get_data(input_entity)
 				const lore = input_container.getItem(input_data.lore.slot)?.getLore()
-				const power = lore ? + lore[input_data.lore.power] : 0
+				let power = lore ? + lore[input_data.lore.power] : 0
+				let inputs = connectedMachines.filter((input) => 
+				    input[1] == "input"
+				)
+				power = (inputs.length > 0)? Math.floor(power/(inputs.length + 1)):
+				power;
 				const space = data.capacity - energy
 				if(power > 0){
 					energy += Math.min(data.maxInput, power, space)

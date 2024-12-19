@@ -2,7 +2,7 @@
   "format_version": "1.10.0",
   "minecraft:attachable": {
      "description": {
-       "identifier": "cosmos:rocket_tier_2",
+       "identifier": "cosmos:rocket_tier_2_item",
         "geometry": {
            "default": "geometry.rocket_tier_2"
         },
@@ -13,7 +13,7 @@
            "controller.render.skeleton"
         ],
         "animations": {
-          "hold": "animation.rocket.hold"
+          "hold": "animation.rocket.hold_rocket_tier_2"
         },
         "scripts": {
           "animate": [

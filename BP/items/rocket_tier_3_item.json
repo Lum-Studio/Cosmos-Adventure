@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:rocket_tier_3_item"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "rocket_tier_3"
-      }
+    "format_version": "1.20.80",
+    "minecraft:item": {
+        "description": {
+            "identifier": "cosmos:rocket_tier_3_item"
+        },
+        "components": {
+            "minecraft:icon": "rocket_tier_3",
+            "minecraft:tags": {
+                "tags": [
+                    "cosmos:holdable"
+                ]
+            }
+        }
     }
-  }
 }

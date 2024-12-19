@@ -1,0 +1,16 @@
+{
+    "format_version": "1.20.80",
+    "minecraft:item": {
+        "description": {
+            "identifier": "cosmos:cargo_rocket_item"
+        },
+        "components": {
+            "minecraft:icon": "cargo_rocket",
+            "minecraft:tags": {
+                "tags": [
+                    "cosmos:holdable"
+                ]
+            }
+        }
+    }
+}

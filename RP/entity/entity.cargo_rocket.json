@@ -1,0 +1,20 @@
+{
+   "format_version": "1.8.0",
+   "minecraft:client_entity": {
+      "description": {
+         "geometry": {
+            "default": "geometry.cargo_rocket"
+         },
+         "identifier": "cosmos:cargo_rocket",
+         "materials": {
+            "default": "skeleton"
+         },
+         "render_controllers": [
+            "controller.render.rocket"
+         ],
+         "textures": {
+            "default": "textures/entity/cargo_rocket"
+         }
+      }
+   }
+}

@@ -1,6 +1,6 @@
 {
 	"animations": {
-		"animation.rocket.hold": {
+		"animation.rocket.hold_rocket_tier_1": {
 			"loop": true,
 			"bones": {
 				"entity": {

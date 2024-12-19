@@ -12,7 +12,7 @@
 				"cosmos:south": [true, false],
 				"cosmos:west": [true, false],
 				"cosmos:color": ["white", "silver", "gray", "black", "brown", "red", "orange", "yellow", "lime", "green", "light_blue", "cyan", "blue", "purple", "magenta", "pink"],
-				"cosmos:fluid": ["empty", "water", "lava"],
+				"cosmos:fluid": ["empty", "water", "lava", "oil", "fuel", "acid", "sludge"],
 				"cosmos:filled": [false, true],
 				"cosmos:pull": [false, true]
 			}

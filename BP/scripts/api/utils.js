@@ -28,3 +28,4 @@ export const pickaxes = new Set([
 	"minecraft:diamond_pickaxe",
 	"minecraft:netherite_pickaxe",
 ])
+
