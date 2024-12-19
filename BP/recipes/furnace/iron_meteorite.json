@@ -1,0 +1,14 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_furnace": {
+      "description": {
+      "identifier": "minecraft:lunar_sapphire"
+      },
+  
+      
+      "tags": ["furnace"],
+      "input": "cosmos:asteroids_iron_ore",
+      "output": "minecraft:iron_ingot"
+    }
+    
+  }
