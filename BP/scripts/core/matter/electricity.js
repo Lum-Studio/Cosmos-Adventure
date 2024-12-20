@@ -3,6 +3,19 @@ import AllMachineBlocks from "../machines/AllMachineBlocks"
 export function get_data(machine) { return AllMachineBlocks[machine.typeId.replace('cosmos:machine:', '')] }
 function str(object) { return JSON.stringify(object) }
 function say(message = 'yes') { world.sendMessage('' + message) }
+export class MachinesInNetwork{
+    constructor(machine){
+        this.machine = machine;
+    }
+    getInputMachines(){
+        if(this.machine.getDynamicProperty("input_connected_machines")) return JSON.parse(this.machine.getDynamicProperty("input_connected_machines"))
+        return undefined;
+    }
+    getOutputMachines(){
+        if(this.machine.getDynamicProperty("output_connected_machines")) return JSON.parse(this.machine.getDynamicProperty("output_connected_machines"))
+        return undefined;
+    }
+}
 export function compare_position(a, b){
 	if (!a || !b) return
 	return a.x == b.x && a.y == b.y && a.z == b.z
@@ -26,8 +39,7 @@ export function get_entity(dimension, location, family) {
 
 export function charge_from_machine(entity, block, energy) {
 	const data = get_data(entity)
-	let connectedMachines = (entity.getDynamicProperty("input_connected_machines"))? JSON.parse(entity.getDynamicProperty("input_connected_machines")):
-	undefined;
+	let connectedMachines = new MachinesInNetwork(entity).getInputMachines();
 	if (connectedMachines && connectedMachines.length > 0 && energy < data.capacity) {
 		for (let input_entity_id of connectedMachines) {
 			if (world.getEntity(input_entity_id[0]) && input_entity_id[0] != entity.id && input_entity_id[1] == "output") {
