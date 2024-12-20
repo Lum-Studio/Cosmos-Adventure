@@ -2,7 +2,7 @@
     "format_version": "1.12",
     "minecraft:recipe_furnace": {
       "description": {
-      "identifier": "minecraft:lunar_sapphire"
+      "identifier": "minecraft:furnace_lunar_sapphire"
       },
   
       
@@ -10,5 +10,4 @@
       "input": "cosmos:moon_sapphire_ore",
       "output": "cosmos:lunar_sapphire"
     }
-    
   }

@@ -18,17 +18,7 @@ function make_smoke({dimension, x, y, z}) {
 export default class extends MachineBlockEntity {
     constructor(block, entity) {
         super(block, entity);
-        this.start();
-    }
-
-    start() {
-        this.runId = system.runInterval(() => {
-            if (!this.entity.isValid()) {
-                system.clearRun(this.runId);
-                return;
-            }
-            this.refine();
-        });
+        if (this.entity.isValid()) this.refine()
     }
 
     refine() {

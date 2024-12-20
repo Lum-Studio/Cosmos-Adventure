@@ -2,33 +2,24 @@ import { system, world, ItemStack } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
 import { get_vars } from "../../../api/utils.js"
 
+const fuelTypes = new Set(["minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"])
+
 export default class extends MachineBlockEntity {
     constructor(block, entity) {
-        super(block, entity);
-        this.fuelTypes = new Set(["minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"]);
-        this.start();
+        super(block, entity)
+        if (this.entity.isValid()) this.generateHeat()
     }
-
-    start() {
-        this.runId = system.runInterval(() => {
-            if (!this.entity.isValid()) {
-                system.clearRun(this.runId);
-                return;
-            }
-            this.generateHeat();
-        });
-    }
-
+    
     generateHeat() {
         const container = this.entity.getComponent('minecraft:inventory').container;
         const fuelItem = container.getItem(0);
 		const isCoalBlock = fuelItem?.typeId === 'minecraft:coal_block';
-	        const vars_item = container.getItem(3)
-                let burnTime = get_vars(vars_item, 0)
+	    const vars_item = container.getItem(3)
+        let burnTime = get_vars(vars_item, 0)
 		let heat = get_vars(vars_item, 1)
 		let power = get_vars(vars_item, 2)
 		
-        if ( this.fuelTypes.has(fuelItem?.typeId) && burnTime == 0) {
+        if ( fuelTypes.has(fuelItem?.typeId) && burnTime == 0) {
 			container.setItem(0, fuelItem.decrementStack())
 			burnTime = isCoalBlock ? 3200 : 320
 		}

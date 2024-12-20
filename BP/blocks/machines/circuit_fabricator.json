@@ -29,10 +29,6 @@
         "east": { "render_method": "opaque", "texture": "energy_input" },
         "south": { "render_method": "opaque", "texture": "machine_side" },
         "west": { "render_method": "opaque", "texture": "machine_side" }
-      },
-      "minecraft:tick": {
-        "looping": true,
-        "interval_range": [1, 1]
       }
     },
     "permutations": [

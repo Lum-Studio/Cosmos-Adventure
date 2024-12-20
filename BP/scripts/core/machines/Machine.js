@@ -1,56 +1,76 @@
-import { world, system, BlockPermutation } from "@minecraft/server"
+import { world, system } from "@minecraft/server"
 import machines from "./AllMachineBlocks"
 import { MachineInstances } from "./MachineInstances"
 import { detach_wires, attach_to_wires } from "../blocks/aluminum_wire"
 import { pickaxes } from "../../api/utils"
-function str(object) { return JSON.stringify(object) }
+import { compare_position } from "../matter/electricity"
 
-const directions = ['south', 'west', 'north', 'east']
+// this function shrinks the machine to give the player access to the block if:
+// - The player is holding a pickaxe or a wrench OR The player is sneaking 
+// - The is looking at the block 
+function block_entity_access(block, entity) {
+	block.dimension.getPlayers({ location: block.center(), maxDistance: 6 }).forEach(player => {
+		const view_block = player.getBlockFromViewDirection()?.block
+		if (!compare_position(block?.location, view_block?.location)) return
+		const sneaking = player.isSneaking
+		const item = player.getComponent("minecraft:equippable").getEquipment("Mainhand")?.typeId
+		const has_pickaxe = pickaxes.has(item)
+		const has_wrench = item == "cosmos:standard_wrench"
+		if (sneaking || has_pickaxe || has_wrench) entity.triggerEvent("cosmos:shrink")
+	})
+}
+
+system.runInterval(() => {
+	MachineInstances.instances.forEach((machine) => {
+		const machineType = machines[machine.typeId]
+		block_entity_access(machine.block, machine.entity)
+		new (machineType.class)(machine.block, machine.entity)
+	})
+})
+
 world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 	blockComponentRegistry.registerCustomComponent('cosmos:machine', {
 		beforeOnPlayerPlace(event) {
-			const { block, dimension, player, permutationToPlace } = event
-			const block_id = permutationToPlace.type.id  //please look where else was this variable used before modifing it (used twice in line 29)
+			const { block, dimension, permutationToPlace: perm } = event
+			const block_id = perm.type.id
 			const machineType = machines[block_id.replace('cosmos:', '')]
 			const entity = dimension.spawnEntity(machineType.tileEntity, { ...block.center(), y: block.y })
-			const playerRotaion = Math.round((player.getRotation().y + 180) / 90)
-			const direction = directions[playerRotaion == 4 ? 0 : playerRotaion]
 			entity.nameTag = machineType.ui
-			if (["cosmos:energy_storage_module", "cosmos:energy_storage_cluster"].includes(block_id))
-			event.permutationToPlace = BlockPermutation.resolve(block_id, { "cosmos:full": false, "minecraft:cardinal_direction": direction })
+			if (perm.getState("cosmos:full")) event.permutationToPlace = perm.withState("cosmos:full", false)
 			if (machineType.class) MachineInstances.add(dimension, block.location, new machineType.class(block, entity))
-			system.run(() => {
-				attach_to_wires(block)
-			})
+			system.run(() => attach_to_wires(block))
 		},
 		onPlayerDestroy({ block, dimension }) {
 			detach_wires(block)
-			MachineInstances.get(dimension, block?.location)?.destroy()
-		},
-		onTick({ block, dimension }) {
-			const nearbyPlayers = dimension.getPlayers({ location: block.location, maxDistance: 7 });
-			nearbyPlayers.forEach(player => {
-				const mainHand = player.getComponent("minecraft:equippable").getEquipment("Mainhand")
-				if (!pickaxes.has(mainHand?.typeId) && mainHand?.typeId != "cosmos:standard_wrench" && !(player.isSneaking && mainHand)) return;
-				const view_block = player.getBlockFromViewDirection()?.block //this is used to make the machine accessable if a player is holding a pickaxe or sneaking near the machine but not looking at it.
-				if (str(block?.location) != str(view_block?.location)) return;
-				const entity = MachineInstances.get(dimension, block.location)?.entity 
-				if (entity?.typeId.startsWith("cosmos:machine:")) entity.triggerEvent("cosmos:shrink")
-			})
+			// obtain the entity before deleting the instance
+			const entity = MachineInstances.get(dimension, block.location)?.entity
+			MachineInstances.destroy(dimension, block.location)
+			// check if the entity exists
+			if (!entity) return
+			// clear the ui items before killing the entity
+			const container = entity.getComponent('minecraft:inventory')?.container
+			if (container) { for (let i = 0; i < container.size; i++) {
+				const itemId = container.getItem(i)?.typeId
+				if (!['cosmos:ui', 'cosmos:ui_button'].includes(itemId)) continue
+				container.setItem(i)
+			}}
+			// kill the entity to make it drop it's items
+			entity.runCommand('kill @s')
+			// removing the entity because it is immortal
+			entity.remove()
 		}
 	})
 })
 
 
 //on load
-world.afterEvents.entityLoad.subscribe(({ entity }) => {
-	const id = entity.typeId
+world.afterEvents.entityLoad.subscribe(({entity}) => {
+	const {typeId:id, dimension, location} = entity
 	if (!id.startsWith('cosmos:machine:')) return
-	const dimension = entity.dimension
-	const block = dimension.getBlock(entity.location)
-	const location = block.location
+	const block = dimension.getBlock(location)
 	const machineType = machines[id.replace('cosmos:machine:', '')]
-	if (machineType.class) MachineInstances.add(dimension, location, new machineType.class(block, entity))
+	if (block.typeId != 'cosmos:' + machineType) {entity.remove(); return}
+	if (machineType.class) MachineInstances.add(dimension, block.location, new machineType.class(block, entity))
 })
 
 //on reload
@@ -61,6 +81,7 @@ world.afterEvents.worldInitialize.subscribe(() => {
 		const block = entity.dimension.getBlock(entity.location)
 		const location = block.location
 		const machineType = machines[id.replace('cosmos:machine:', '')]
+		if (block.typeId != 'cosmos:' + machineType) {entity.remove(); return}
 		if (machineType.class) MachineInstances.add(entity.dimension, location, new machineType.class(block, entity))
 	})
 })

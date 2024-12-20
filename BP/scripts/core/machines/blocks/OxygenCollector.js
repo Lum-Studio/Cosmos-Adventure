@@ -6,17 +6,7 @@ import { charge_from_battery, charge_from_machine } from "../../matter/electrici
 export default class extends MachineBlockEntity {
     constructor(block, entity) {
         super(block, entity);
-        this.start();
-    }
-
-    start() {
-        this.runId = system.runInterval(() => {
-            if (!this.entity.isValid()) {
-                system.clearRun(this.runId);
-                return;
-            }
-            this.collect_oxygen();
-        });
+        if (this.entity.isValid()) this.collect_oxygen()
     }
 
     collect_oxygen() {

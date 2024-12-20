@@ -2,7 +2,7 @@
     "format_version": "1.12",
     "minecraft:recipe_furnace": {
       "description": {
-      "identifier": "minecraft:lunar_sapphire"
+      "identifier": "minecraft:furnace_mars_iron_ore"
       },
   
       
@@ -10,5 +10,4 @@
       "input": "cosmos:mars_iron_ore",
       "output": "minecraft:iron_ingot"
     }
-    
   }

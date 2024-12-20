@@ -25,10 +25,6 @@
 		"minecraft:destructible_by_explosion": false,
 		"minecraft:destructible_by_mining": {
 			"seconds_to_destroy": 0.5
-		},
-		"minecraft:tick": {
-			"looping": true,
-			"interval_range": [1, 1]
 		}
 	},
 	"permutations": [
