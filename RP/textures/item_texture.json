@@ -38,6 +38,9 @@
     "canvas": {
       "textures": "textures/items/canvas"
     },
+    "cargo_rocket": {
+      "textures": "textures/items/cargo_rocket"
+    },
     "cheese_block": {
       "textures": "textures/items/cheese_block"
     },
@@ -197,10 +200,9 @@
     "raw_silicon": {
       "textures": "textures/items/raw_silicon"
     },
-
     //these 3 textures are made by @sui_ke on Modrinth
-    "raw_aluminum": {
-      "textures": "textures/items/raw_aluminum"
+    "raw_aluminium": {
+      "textures": "textures/items/raw_aluminium"
     },
     "raw_tin": {
       "textures": "textures/items/raw_tin"
