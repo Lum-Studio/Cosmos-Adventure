@@ -6,6 +6,7 @@ import CircuitFabricator from './blocks/CircuitFabricator'
 import Refinery from './blocks/Refinery'
 import ElectricCompressor from './blocks/ElectricCompressor'
 import OxygenCompressor from './blocks/OxygenCompressor'
+import FuelLoader from './blocks/FuelLoader'
 
 export default {
 	"coal_generator": {
@@ -95,6 +96,18 @@ export default {
 		capacity: 16000,
 		oil_capacity: 24000,
 		fuel_capacity: 24000,
+		maxInput: 120
+	},
+	"fuel_loader": {
+		tileEntity: "cosmos:machine:fuel_loader",
+		ui: "",
+		class: FuelLoader,
+		lore: { slot: 8, energy: 0, fuel: 1},
+
+		energy_input: "right",
+		oil_input: "left",
+		capacity: 16000,
+		fuel_capacity: 12000,
 		maxInput: 120
 	}
 }
