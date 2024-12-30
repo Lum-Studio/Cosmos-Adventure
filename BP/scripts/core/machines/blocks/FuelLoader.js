@@ -45,7 +45,7 @@ export default class extends MachineBlockEntity {
 			container.setItem(0, new ItemStack('bucket'))
 			fuel += 1000
 		}
-		if(!stopped && energy > 120 && fuel > 2){
+		if(!stopped && energy > 0 && fuel > 2){
 		    let rockets = get_rockets(this.block)
 		    if(rockets.length > 0){
 		        rockets.forEach((rocket) =>{
@@ -56,6 +56,7 @@ export default class extends MachineBlockEntity {
 		                let level = Math.min(1000, fuel_level + 2)
 		            rocket.setDynamicProperty("fuel_level", level)
 		            fuel = Math.max(0, fuel - 2)
+		            energy = Math.max(0, energy - 30)
 		            }
 		        })
 		        
@@ -64,10 +65,10 @@ export default class extends MachineBlockEntity {
 		const status =
 		energy == 0 ? "§4No Power" : 
 		fuel == 0 ? "§cNo Fuel" :
-		energy < 120 ? "§6Not Enough Power":
 		stopped ? "§6Ready" :
-		"§2Loading"
-
+		"§2Load Fuel"
+        
+        /*energy < 30 ? "§6Not Enough Power":*/
 		const counter = new ItemStack('cosmos:ui')
 		counter.nameTag = `cosmos:§energy${Math.round((energy / data.capacity) * 55)}`
 		container.setItem(2, counter)
