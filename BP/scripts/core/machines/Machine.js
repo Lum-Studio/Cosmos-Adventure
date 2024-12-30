@@ -69,7 +69,7 @@ world.afterEvents.entityLoad.subscribe(({entity}) => {
 	if (!id.startsWith('cosmos:machine:')) return
 	const block = dimension.getBlock(location)
 	const machineType = machines[id.replace('cosmos:machine:', '')]
-	if (block.typeId != 'cosmos:' + machineType) {entity.remove(); return}
+	if (block.typeId != machineType.tileEntity.replace('cosmos:machine:', 'cosmos:')) {entity.remove(); return}
 	if (machineType.class) MachineInstances.add(dimension, block.location, new machineType.class(block, entity))
 })
 
@@ -81,7 +81,7 @@ world.afterEvents.worldInitialize.subscribe(() => {
 		const block = entity.dimension.getBlock(entity.location)
 		const location = block.location
 		const machineType = machines[id.replace('cosmos:machine:', '')]
-		if (block.typeId != 'cosmos:' + machineType) {entity.remove(); return}
+		if (block.typeId != machineType.tileEntity.replace('cosmos:machine:', 'cosmos:')) {entity.remove(); return}
 		if (machineType.class) MachineInstances.add(entity.dimension, location, new machineType.class(block, entity))
 	})
 })
