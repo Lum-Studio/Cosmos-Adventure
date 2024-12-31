@@ -13,7 +13,7 @@ function get_rockets(block){
     undefined;
     pad_two = (!pad_two.isAir && pad_two.typeId === "cosmos:rocket_launch_pad" && pad_two.permutation.getState("cosmos:center"))? pad_two:
     undefined;
-    let rocket_one = (pad_one)? pad_one.dimension.getEntities({type: "cosmos:rocket_tier_1", location: pad_two.center(), maxDistance: 1}):
+    let rocket_one = (pad_one)? pad_one.dimension.getEntities({type: "cosmos:rocket_tier_1", location: pad_one.center(), maxDistance: 1}):
     [];
     let rocket_two = (pad_two)? pad_two.dimension.getEntities({type: "cosmos:rocket_tier_1", location: pad_two.center(), maxDistance: 1}):
     [];
