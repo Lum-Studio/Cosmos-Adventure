@@ -201,8 +201,8 @@
       "textures": "textures/items/raw_silicon"
     },
     //these 3 textures are made by @sui_ke on Modrinth
-    "raw_aluminium": {
-      "textures": "textures/items/raw_aluminium"
+    "raw_aluminum": {
+      "textures": "textures/items/raw_aluminum"
     },
     "raw_tin": {
       "textures": "textures/items/raw_tin"
