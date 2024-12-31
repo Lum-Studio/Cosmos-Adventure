@@ -100,7 +100,7 @@ export default {
 	},
 	"fuel_loader": {
 		tileEntity: "cosmos:machine:fuel_loader",
-		ui: "",
+		ui: "§f§u§e§l§_§l§o§a§d§e§r",
 		class: FuelLoader,
 		lore: { slot: 8, energy: 0, fuel: 1},
 
