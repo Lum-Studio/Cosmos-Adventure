@@ -7,7 +7,7 @@
 
     
     "tags": ["furnace", "blast_furnace"],
-    "input": "cosmos:raw_aluminium",
+    "input": "cosmos:raw_aluminum",
     "output": "cosmos:aluminum_ingot"
   }
   
