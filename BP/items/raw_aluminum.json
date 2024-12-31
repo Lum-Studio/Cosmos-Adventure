@@ -2,11 +2,11 @@
   "format_version": "1.20.20",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:raw_aluminium"
+      "identifier": "cosmos:raw_aluminum"
     },
     "components": {
       "minecraft:icon": {
-        "texture": "raw_aluminium"
+        "texture": "raw_aluminum"
       }
     }
   }
