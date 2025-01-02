@@ -28,10 +28,6 @@
         "east": { "render_method": "opaque", "texture": "oxygen_input" },
         "south": { "render_method": "opaque", "texture": "oxygen_storage_module_full" },
         "west": { "render_method": "opaque", "texture": "oxygen_output" }
-      },
-      "minecraft:tick": {
-         "looping": true,
-         "interval_range": [1, 1]
       }
     },
     "permutations": [

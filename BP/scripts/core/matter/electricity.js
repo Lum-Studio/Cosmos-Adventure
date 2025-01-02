@@ -17,7 +17,7 @@ export class MachinesInNetwork{
     }
 }
 export function compare_position(a, b){
-	if (!a || !b) return
+	if (!a || !b) return false
 	return a.x == b.x && a.y == b.y && a.z == b.z
 }
 export function floor_position({x, y, z}) {

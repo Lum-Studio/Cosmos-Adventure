@@ -7,18 +7,8 @@ import { get_data, get_vars, compare_lists } from "../../../api/utils.js";
 
 export default class extends MachineBlockEntity {
     constructor(block, entity) {
-        super(block, entity);
-        this.start();
-    }
-
-    start() {
-        this.runId = system.runInterval(() => {
-            if (!this.entity.isValid()) {
-                system.clearRun(this.runId);
-                return;
-            }
-            this.fabricate();
-        });
+        super(block, entity)
+        if (this.entity.isValid()) this.fabricate()
     }
 
     fabricate() {

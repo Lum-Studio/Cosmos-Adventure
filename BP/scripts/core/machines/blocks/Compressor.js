@@ -3,6 +3,8 @@ import { MachineBlockEntity } from "../MachineBlockEntity";
 import recipes from "../../../recipes/compressor"
 import { compare_lists, get_vars } from "../../../api/utils";
 
+const fuelTypes = new Set(["minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"])
+
 function get_ingredients(container) {
 	const ingredients = []
 	for (let i = 0; i < 9; i++) {
@@ -23,18 +25,7 @@ function find_recipe(ingredients) {
 export default class extends MachineBlockEntity {
 	constructor(block, entity) {
 		super(block, entity);
-		this.fuelTypes = new Set(["minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"]);
-		this.start();
-	}
-
-	start() {
-		this.runId = system.runInterval(() => {
-			if (!this.entity.isValid()) {
-				system.clearRun(this.runId);
-				return;
-			}
-			this.generateHeat();
-		});
+        if (this.entity.isValid()) this.generateHeat()
 	}
 
 	generateHeat() {
@@ -51,7 +42,7 @@ export default class extends MachineBlockEntity {
 		let burnDuration = get_vars(vars_item, 1, 1)
 	        let progress = get_vars(vars_item, 2)
 
-		if (this.fuelTypes.has(fuelItem?.typeId) && burnTime == 0 && output) {
+		if (fuelTypes.has(fuelItem?.typeId) && burnTime == 0 && output) {
 			container.setItem(9, fuelItem.decrementStack())
 			burnTime = isCoalBlock ? 16010 : 1610
 			burnDuration = isCoalBlock ? 16010 : 1610

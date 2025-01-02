@@ -2,7 +2,7 @@
     "format_version": "1.12",
     "minecraft:recipe_furnace": {
       "description": {
-      "identifier": "minecraft:lunar_sapphire"
+      "identifier": "minecraft:furnace_asteroids_iron_ore"
       },
   
       

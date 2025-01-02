@@ -23,17 +23,7 @@ function find_recipe(ingredients) {
 export default class extends MachineBlockEntity {
     constructor(block, entity) {
         super(block, entity);
-        this.start();
-    }
-
-    start() {
-        this.runId = system.runInterval(() => {
-            if (!this.entity.isValid()) {
-                system.clearRun(this.runId);
-                return;
-            }
-            this.compress();
-        });
+        if (this.entity.isValid()) this.compress()
     }
 
     compress(){
