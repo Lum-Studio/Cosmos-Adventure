@@ -45,7 +45,7 @@ export default class extends MachineBlockEntity {
 			container.setItem(0, new ItemStack('bucket'))
 			fuel += 1000
 		}
-		if(!stopped && energy > 0 && fuel > 2){
+		if(!stopped && energy > 0 && fuel > 2 && this.block){
 		    let rockets = get_rockets(this.block)
 		    if(rockets.length > 0){
 		        rockets.forEach((rocket) =>{
