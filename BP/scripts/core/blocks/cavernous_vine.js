@@ -5,7 +5,6 @@ function grab_player(entity, spawn_pos) {
     const tickdelay = 4; // How often to apply knockback
 
     // This function will be called repeatedly every tick
-    function applyKnockback() {
         const player_pos = entity.location;
         const heightDelta = player_pos.y - determinant_y;
 
