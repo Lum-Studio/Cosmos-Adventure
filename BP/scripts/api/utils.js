@@ -29,3 +29,6 @@ export const pickaxes = new Set([
 	"minecraft:netherite_pickaxe",
 ])
 
+export function delay(ticks) {
+    return new Promise(res => system.runTimeout(res, ticks * 20));
+}
