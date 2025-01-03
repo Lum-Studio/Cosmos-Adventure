@@ -80,7 +80,7 @@ function isUndeground(player) {
 	return item
   }
   
-function stringifyItem(item) {
+export function stringifyItem(item) {
 	let json = {
 	  type: item.typeId,
 	  amount: item.amount,
@@ -102,3 +102,7 @@ function stringifyItem(item) {
 	}
 	return JSON.stringify(json)
   }
+
+
+
+
