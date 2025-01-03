@@ -32,8 +32,7 @@ class CavernousVine {
     }
 }
 
-class VineGrowth
-
+function growth
 
 world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
     blockComponentRegistry.registerCustomComponent('cosmos:cavernous_vine', {
