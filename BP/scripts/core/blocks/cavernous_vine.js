@@ -31,7 +31,7 @@ class CavernousVine {
         });
     }
 }
-    vineGrowth() {
+    vineGrowth() ;{
         let block = e.block
         if (block.dimension.heightRange.min == block.y) return
       
@@ -39,18 +39,23 @@ class CavernousVine {
           block.below().setType(block.typeId == 'cosmos:cavernous_vine')
         }
       }
-
-
-world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
-        blockComponentRegistry.registerCustomComponent('cosmos:cavernous_vine', {
-            onTick({ block }) {
-                const cavernousVine = new CavernousVine();
-                cavernousVine.grabPlayer(block);
-                cavernousVine.poisonPlayer(block);
-            },
-            onRandomTick({ block }) {
-                const cavernousVine = new CavernousVine(); 
-                cavernousVine.vineGrowth(block);
-            }
+//Register the Block and all its logics
+      onRegisterBlock() ;{
+        world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
+            blockComponentRegistry.registerCustomComponent('cosmos:cavernous_vine', {
+                onTick({ block }) {
+                    const cavernousVine = new CavernousVine();
+                    cavernousVine.grabPlayer(block);
+                    cavernousVine.poisonPlayer(block);
+                },
+                onRandomTick({ block }) {
+                    const cavernousVine = new CavernousVine(); 
+                    cavernousVine.vineGrowth(block);
+                }
+            });
         });
-     });
+    }
+
+
+export default CavernousVine;
+    
