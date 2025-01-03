@@ -24,10 +24,11 @@ class CavernousVine {
         });
     }
 
-    poisonPlayer() {
+    poisonPlayer(block) {
+        const block = block.location
         const players = this.world.getPlayers(); // Get all players
         players.forEach(player => {
-            player.addEffect("minecraft:poison", 2); // Apply poison effect for 2 seconds
+            player.addEffect("minecraft:poison", 40); // Apply poison effect for 2 seconds
         });
     }
 }
