@@ -31,16 +31,26 @@ class CavernousVine {
         });
     }
 }
+    vineGrowth() {
+        let block = e.block
+        if (block.dimension.heightRange.min == block.y) return
+      
+        if (block.below()?.typeId == 'minecraft:air') {
+          block.below().setType(block.typeId == 'cosmos:cavernous_vine')
+        }
+      }
 
-function growth
 
 world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
-    blockComponentRegistry.registerCustomComponent('cosmos:cavernous_vine', {
-        onTick({ block }) {
-            
-        },
-        onRandomTick({ block }) {
-            
-        }
-    });
-});
+        blockComponentRegistry.registerCustomComponent('cosmos:cavernous_vine', {
+            onTick({ block }) {
+                const cavernousVine = new CavernousVine();
+                cavernousVine.grabPlayer(block);
+                cavernousVine.poisonPlayer(block);
+            },
+            onRandomTick({ block }) {
+                const cavernousVine = new CavernousVine(); 
+                cavernousVine.vineGrowth(block);
+            }
+        });
+     });
