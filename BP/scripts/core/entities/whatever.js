@@ -1,1 +1,1 @@
-import { EntityCustomComponentRegistry , EntityCustomComponent } from "../../api/libraries";
+import { EntityCustomComponentRegistry , EntityCustomComponent } from "../../api/libraries/BlockLogic";
