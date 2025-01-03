@@ -1,6 +1,13 @@
 import { world, system, player,  BlockPermutation, Player, Vector } from "@minecraft/server"
-function grab_player(entity, spawn_pos) {
-    
+import { delay } from "../../api/utils";
+
+function grab_player(dimension) {
+    const players = dimension.getEntities(); 
+    players.forEach(player => { 
+        player.applyKnockback(0, 0, 0, 0.1); 
+    });
+}
+
 
 function poison_player
 
