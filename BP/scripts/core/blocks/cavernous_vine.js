@@ -2,7 +2,7 @@ import { world, system, player,  BlockPermutation, Player, Vector } from "@minec
 import { delay } from "../../api/utils";
 
 function grab_player(dimension) {
-    const players = dimension.getEntities(); 
+    const players = world.getAllPlayers(); 
     players.forEach(player => { 
         player.applyKnockback(0, 0, 0, 0.1); 
     });
