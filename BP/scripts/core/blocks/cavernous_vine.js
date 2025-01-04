@@ -1,5 +1,3 @@
-import { world, system, player,  BlockPermutation, Player, Vector, Dimension } from "@minecraft/server"
-import { Vec3 } from "../../api/libraries/Vector";
 
 import { world, system, TicksPerSecond, Block, Entity } from "@minecraft/server";
 import { Vec3 } from "../../api/libraries/Vector";
