@@ -32,7 +32,7 @@ export const pickaxes = new Set([
 export function delay(ticks) {
     return new Promise(res => system.runTimeout(res, ticks * 20));
 }
-function isUndeground(player) {
+export function isUndeground(player) {
 	let block = player.dimension.getTopmostBlock(player.location)
 	if (player.location.y >= block.y) return false
 	while (!block.isSolid && block.y > player.dimension.heightRange.min) {
@@ -42,7 +42,7 @@ function isUndeground(player) {
 	return true
   }
 
-  function parseItem(json) {
+export function parseItem(json) {
 	if (typeof(json) == "string") {
 	  json = JSON.parse(json)
 	}
