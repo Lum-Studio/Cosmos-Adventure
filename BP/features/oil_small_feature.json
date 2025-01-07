@@ -1,0 +1,14 @@
+{
+    "format_version": "1.20.20",
+    "minecraft:structure_template_feature": {
+        "description": {
+            "identifier": "cosmos:oil_small_feature"
+        },
+        "structure_name": "mystructure:oil_small",
+        "adjustment_radius": 4,
+        "facing_direction": "random",
+        "constraints": {
+            "grounded": {}
+        }
+    }
+}
