@@ -6,8 +6,7 @@ class EnchantDeshPickaxe {
     constructor(player) {
         this.player = player;
     }
-
-    enchant() {
+   static enchant() {
         let inv = this.player.getComponent("inventory").container
         let item = inv.getItem(this.player.selectedSlotIndex);
         
