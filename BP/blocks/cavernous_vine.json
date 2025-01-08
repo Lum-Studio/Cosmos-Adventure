@@ -1,15 +1,28 @@
 {
-	"format_version": "1.21.51",
-	"minecraft:block": {
-		"description": {
-			"identifier": "cosmos:cavernous_vine",
-		},
-		"components": {
-			"minecraft:material_instances": { "*": { "texture": "aluminum_wire", "render_method": "blend" } },
-			"minecraft:light_dampening": 0,
-			"minecraft:destructible_by_mining": { "seconds_to_destroy": 0.2 },
-			"minecraft:destructible_by_explosion": false,
-			"minecraft:custom_components": ["cosmos:cavernous_vine"],
-			"minecraft:geometry": {
-				"identifier": "geometry.cavernous_vine"
-			}}}}
+    "format_version": "1.21.51",
+    "minecraft:block": {
+        "description": {
+            "identifier": "cosmos:cavernous_vine"
+        },
+        "components": {
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "aluminum_wire",
+                    "render_method": "blend"
+                }
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0.2
+            },
+            "minecraft:destructible_by_explosion": false,
+            "minecraft:custom_components": [
+                "cosmos:cavernous_vine"
+            ],
+            "minecraft:light_emission": 15,
+            "minecraft:geometry": {
+                "identifier": "geometry.cavernous_vine"
+            }
+        }
+    }
+}
