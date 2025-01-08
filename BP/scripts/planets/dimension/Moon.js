@@ -4,11 +4,11 @@ import { the_end } from "../../api/utils.js";
 
 const the_end = world.getDimension('the_end');
 /**
- * Class containing methods relating to the Gaia dimension
+ * Class containing methods relating to the Moon
  */
 class Moon {
     /**
-     * Range of blocks in the end that Gaia takes up
+     * Range of blocks in the end that the Moon takes up
      */
     static range = { start: { x: 50000, z: 50000 }, end: { x: 100000, z: 100000 } };
 
