@@ -1,5 +1,5 @@
 {
-	"format_version": "1.21.50",
+	"format_version": "1.21.51",
 	"minecraft:block": {
 		"description": {
 			"identifier": "cosmos:cavernous_vine",
