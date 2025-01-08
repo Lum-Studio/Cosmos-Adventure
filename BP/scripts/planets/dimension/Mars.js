@@ -91,6 +91,14 @@ class Mars {
     static spawnParticle(effectName, location, molangVariables = {}) {
         return the_end.spawnParticle(effectName, location, molangVariables);
     }
+    /**
+     * get the player location on Mars
+     * @param {Player} player optional varibles for this particle
+     */
+    static getPosition( player
+    ) { {
+        return Vec3.add(player.location, Vec3.from(-500000, 0, -500000));
+   }}
 }
 
 export default Mars

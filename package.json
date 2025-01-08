@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@madlad3718/mcveclib": "^0.3.0",
     "@minecraft/common": "^1.2.0",
     "@minecraft/server": "^1.15.0",
     "latest": "^0.2.0"
