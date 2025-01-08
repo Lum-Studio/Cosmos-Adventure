@@ -11,5 +11,5 @@
 			"minecraft:destructible_by_explosion": false,
 			"minecraft:custom_components": ["cosmos:cavernous_vine"],
 			"minecraft:geometry": {
-				"identifier": "geometry.cavernous_vine",
+				"identifier": "geometry.cavernous_vine"
 			}}}}
