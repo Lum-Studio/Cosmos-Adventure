@@ -7,7 +7,7 @@
         "components": {
             "minecraft:material_instances": {
                 "*": {
-                    "texture": "aluminum_wire",
+                    "texture": "cavernous_vine",
                     "render_method": "blend"
                 }
             },

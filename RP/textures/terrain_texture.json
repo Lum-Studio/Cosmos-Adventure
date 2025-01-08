@@ -616,6 +616,8 @@
     },
     "venus_volcanic_rock": {
       "textures": "textures/blocks/terrain/venus_volcanic_rock"
-    }
+    },
+    "cavernous_vine": {
+      "textures": "textures/blocks/vegetation/cavernous_vine"
   }
 }
