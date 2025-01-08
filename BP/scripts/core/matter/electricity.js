@@ -86,7 +86,7 @@ export function charge_from_battery(machine, energy, slot) {
 		const space = data.capacity - energy
 		energy += Math.min(data.maxInput, 200, charge, space)
 		charge -= Math.min(data.maxInput, 200, charge, space)
-		container.setItem(slot, update_baterry(battery, charge))
+		container.setItem(slot, update_battery(battery, charge))
 	} return energy
 }
 
@@ -121,7 +121,7 @@ export function location_of_side(block, side) {
 	}
 }
 
-export function update_baterry(battery, charge) {
+export function update_battery(battery, charge) {
 	battery.setLore([`§r§${
 		Math.floor(charge) >= 10000 ? '2' :
 		Math.floor(charge) < 5000 ? '4' : '6'

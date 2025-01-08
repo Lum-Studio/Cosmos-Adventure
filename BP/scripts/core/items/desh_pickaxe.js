@@ -23,8 +23,8 @@ class EnchantDeshPickaxe {
         }
     }
 
-world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
-		blockComponentRegistry.registerCustomComponent('cosmos:enchant_desh', {
+world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
+		itemComponentRegistry.registerCustomComponent('cosmos:enchant_desh', {
 			onPlayerDestroy({ block }) {
 				EnchantDeshPickaxe.enchant(block);
 			}

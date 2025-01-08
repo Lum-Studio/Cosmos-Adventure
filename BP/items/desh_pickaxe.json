@@ -13,6 +13,7 @@
 			"minecraft:max_stack_size": 1,
 			"minecraft:hand_equipped": true,
 			"minecraft:damage": 5.75,
+			"minecraft:custom_components": ["cosmos:desh_pickaxe"],
 			"minecraft:enchantable": {
 				"value": 2,
 				"slot": "pickaxe"

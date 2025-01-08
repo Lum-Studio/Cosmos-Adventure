@@ -1,6 +1,6 @@
 import { system, ItemStack } from "@minecraft/server";
 import { MachineBlockEntity } from "../MachineBlockEntity";
-import { compare_position, get_entity, location_of_side, charge_from_machine, charge_from_battery, update_baterry, floor_position, } from "../../matter/electricity.js";
+import { compare_position, get_entity, location_of_side, charge_from_machine, charge_from_battery, update_battery, floor_position, } from "../../matter/electricity.js";
 import { get_data } from "../../../api/utils.js";
 
 function charge_machine(machine, block, energy) {
@@ -31,7 +31,7 @@ function charge_battery(machine, energy, slot) {
 		const space = 15000 - charge
 		charge += Math.min(200, energy, space)
 		energy -= Math.min(200, energy, space)
-		container.setItem(slot, update_baterry(battery, charge))
+		container.setItem(slot, update_battery(battery, charge))
 	} return energy
 }
 
