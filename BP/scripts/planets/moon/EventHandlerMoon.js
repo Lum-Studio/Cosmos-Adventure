@@ -1,5 +1,5 @@
 import { Moon } from "../dimension/Moon";
-import { Player } from "@minecraft/server";
+import { world, Player } from "@minecraft/server";
 
 export class EventHandlerMoon {
     #subscribers = []; // Private field
@@ -9,7 +9,7 @@ export class EventHandlerMoon {
         if (player instanceof Player && player.location && Moon.isOnLunar(player.location)) {
             this.#subscribers.push(fn);
         } else {
-            console.warn("Player does not have a valid location or is not on lunar.");
+            console.warn("Player does not have a valid location or is not on the Moon.");
         }
     }
 
@@ -18,3 +18,12 @@ export class EventHandlerMoon {
     }
 }
 
+
+world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource: { damagingEntity, damagingProjectile, cause } }) => {
+    if (deadEntity instanceof Player) {
+        // Check if the player's location is in the Moon
+        if (Moon.isOnLunar(deadEntity.location)) {
+            deadEntity.teleport(Moon.origin);
+        }
+    }
+});
