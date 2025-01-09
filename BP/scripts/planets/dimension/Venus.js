@@ -49,7 +49,7 @@ export class Venus {
      * @returns {Vec3} The adjusted position on Venus
      */
      static getPosition(player) {
-        return Vec3.add(player.location, Vec3.from(+750000, 0, +750000));
+        return Vec3.add(player.location, Vec3(+750000, 0, +750000));
      }
 }
 

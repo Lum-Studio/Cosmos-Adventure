@@ -22,7 +22,7 @@ export class Moon {
      * @param {import("@minecraft/server").Vector3} location location to check
      * @returns {boolean} Whether or not the location is in the Moon
      */
-    static isInLunar(location) {
+    static isOnLunar(location) {
         return this.range.start.x <= location.x && location.x <= this.range.end.x && this.range.start.z <= location.z && location.z <= this.range.end.z;
     }
 
@@ -32,7 +32,7 @@ export class Moon {
      * @returns {Entity[]} All entities matching the query
      */
     static getEntities(entityQueryOptions) {
-        return the_end.getEntities(entityQueryOptions).filter((entity) => this.isInLunar(entity.location));
+        return the_end.getEntities(entityQueryOptions).filter((entity) => this.isOnLunar(entity.location));
     }
 
     /**
@@ -41,7 +41,7 @@ export class Moon {
      * @returns {Player[]} All players matching the query
      */
     static getPlayers(entityQueryOptions) {
-        return the_end.getPlayers(entityQueryOptions).filter((entity) => this.isInLunar(entity.location));
+        return the_end.getPlayers(entityQueryOptions).filter((entity) => this.isOnLunar(entity.location));
     }
  
     /**
@@ -50,7 +50,7 @@ export class Moon {
      * @returns {Vec3} The adjusted position on Mars
      */
     static getPosition(player) {
-        return Vec3.add(player.location, Vec3.from(-750000, 0, -750000));
+        return Vec3.add(player.location, Vec3(-750000, 0, -750000));
      }
 }
 

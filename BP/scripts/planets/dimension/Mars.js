@@ -47,7 +47,7 @@ export class Mars {
     }
 
     /**
-     * Gets all players in the Moon that match the EntityQueryOptions
+     * Gets all players on Mars that match the EntityQueryOptions
      * @param {EntityQueryOptions} entityQueryOptions - Query to use for search
      * @returns {Player[]} All players matching the query
      */
@@ -62,7 +62,7 @@ export class Mars {
      * @returns {Vec3} The adjusted position on Mars
      */
     static getPosition(player) {
-        return Vec3.add(player.location, Vec3.from(+750000, 0, -750000));
+        return Vec3.add(player.location, Vec3(+750000, 0, -750000));
     }
 }
 
