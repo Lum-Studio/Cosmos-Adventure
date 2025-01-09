@@ -91,7 +91,7 @@ function update(player, container) {
 		} else delete space_gear[slot]
 	} player.setDynamicProperty("space_gear", JSON.stringify(space_gear))
 }
-// trigger event after player interact with any block(imitation of left click detection)
+// trigger event after player interact with any block(imitation of right click detection)
 world.beforeEvents.playerInteractWithBlock.subscribe((data) => {
     if(!data.player.isSneaking || data.itemStack  || !data.isFirstEvent) return;
    let player = data.player;
