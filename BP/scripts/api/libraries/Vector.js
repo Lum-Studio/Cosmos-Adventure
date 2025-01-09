@@ -673,6 +673,12 @@ function vec3(a, b, c) {
  * A 3 dimensional vector with components xyz or rgb
  **/
 class Vec3 {
+    static Up = { x: 0, y: 1, z: 0 };
+    static Down = { x: 0, y: -1, z: 0 };
+    static North = { x: 0, y: 0, z: -1 };
+    static South = { x: 0, y: 0, z: 1 };
+    static East = { x: 1, y: 0, z: 0 };
+    static West = { x: -1, y: 0, z: 0 };
     /**
      * x component of vector
      * @see {@link Vec3}
@@ -804,7 +810,7 @@ class Vec3 {
      * @return {Vec3} The sum
      * @see {@link subtract}
      **/
-    add(a) {
+    static add(a) {
         if (typeof a == "number") {
             return vec3(this.x + a, this.y + a, this.z + a);
         } else if (a instanceof Vec3) {
@@ -1301,7 +1307,30 @@ class Vec3 {
             return this.divide(len);
         }
     }
-}
+     /**
+     * Converts a block face to a Vec3.
+     * @param {string} face - The block face ("up", "down", "north", "south", "east", "west").
+     * @returns {Vec3} The corresponding Vec3 representation.
+     */
+     static from(face) {
+        switch (face) {
+          case "up":
+            return Vec3.Up;
+          case "down":
+            return Vec3.Down;
+          case "north":
+            return Vec3.North;
+          case "south":
+            return Vec3.South;
+          case "east":
+            return Vec3.East;
+          case "west":
+            return Vec3.West;
+        }
+        throw new Error("Argument was not of type 'block_face' or 'cardinal_direction'.");
+      }
+    }
+
 //#endregion
 
 //#region vec4
@@ -1976,3 +2005,6 @@ class Vec4 {
  * A list of all directions in 3d
  */
 var directions = [Vec3.up, Vec3.down, Vec3.north, Vec3.south, Vec3.east, Vec3.west];
+
+
+

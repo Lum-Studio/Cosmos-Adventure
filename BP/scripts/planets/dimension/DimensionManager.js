@@ -1,4 +1,8 @@
 import { Player, system, world } from "@minecraft/server"
+
+
+
+
 //this is some useless stuff
 export class MoonCoordinate {
     static #locationMap = new Map(player.location);
