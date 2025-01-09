@@ -6,7 +6,7 @@ const the_end = world.getDimension('the_end');
 /**
  * Class containing methods relating to Mars
  */
-class Mars {
+export class Mars {
     /**
      * Range of blocks in the end that Mars takes up
      */
@@ -65,4 +65,4 @@ class Mars {
         return Vec3.add(player.location, Vec3.from(+750000, 0, -750000));
     }
 }
-export default Mars
+

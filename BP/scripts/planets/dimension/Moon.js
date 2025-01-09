@@ -6,7 +6,7 @@ const the_end = world.getDimension('the_end');
 /**
  * Class containing methods relating to the Moon
  */
-class Moon {
+export class Moon {
     /**
      * Range of blocks in the end that the Moon takes up
      */
@@ -54,4 +54,4 @@ class Moon {
      }
 }
 
-export default Moon
+

@@ -6,7 +6,7 @@ const the_end = world.getDimension('the_end');
 /**
  * Class containing methods relating to the Moon
  */
-class Venus {
+export class Venus {
     /**
      * Range of blocks in the end that Venus takes up
      */
@@ -53,4 +53,4 @@ class Venus {
      }
 }
 
-export default Venus
+
