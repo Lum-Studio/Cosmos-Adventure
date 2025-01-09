@@ -619,5 +619,6 @@
     },
     "cavernous_vine": {
       "textures": "textures/blocks/vegetation/cavernous_vine"
+    }
   }
 }
