@@ -14,7 +14,7 @@ import "./core/blocks/arc_lamp.js"
 import "./core/blocks/cheese_block.js"
 import "./core/blocks/hydraulic_platform.js"
 import "./core/blocks/nasa_workbench.js"
-import "./core/blocks/cavernous_vine"
+import "./core/blocks/cavernous_vines"
 
 //expermintal
 //import "./api/planets/border_builder.js"
