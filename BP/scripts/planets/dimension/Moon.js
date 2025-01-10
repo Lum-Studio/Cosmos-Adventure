@@ -45,9 +45,9 @@ export class Moon {
     }
  
     /**
-     * Get the player location on Mars
+     * Get the player location on the Moon
      * @param {Player} player - The player object to get the location from
-     * @returns {Vec3} The adjusted position on Mars
+     * @returns {Vec3} The adjusted position on the Moon
      */
     static getPosition(player) {
         return Vec3.add(player.location, Vec3(-750000, 0, -750000));
