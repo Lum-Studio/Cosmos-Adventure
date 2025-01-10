@@ -63,7 +63,7 @@ class CavernousVine {
                 const vector = new Vec3(0, 0.1, 0); // Define a vector for impulse
                 entity.applyImpulse(vector); // Apply impulse to the entity
             };
-            this.applyPoison(entity)
+            if (system.currentTick % 20 == 0) this.applyPoison(entity)
         }
     }
     /**

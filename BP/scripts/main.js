@@ -24,7 +24,7 @@ import "./core/items/debug_stick.js"
 import "./core/items/wrench.js"
 import "./core/items/grapple.js"
 import "./core/items/dungeon_finder"
-// import "./core/items/desh_pickaxe.js"
+import "./core/items/desh_pickaxe.js"
 
 import "./core/matter/electricity.js"
 import "./core/matter/solids.js"
