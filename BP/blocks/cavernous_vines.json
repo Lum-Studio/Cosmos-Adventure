@@ -13,6 +13,7 @@
         "components": {
             "minecraft:light_dampening": 0,
             "minecraft:collision_box": false,
+            "minecraft:custom_components": ["cosmos:cavernous_vines"],
             "minecraft:geometry": "minecraft:geometry.cross",
             "minecraft:placement_filter": {
                 "conditions": [

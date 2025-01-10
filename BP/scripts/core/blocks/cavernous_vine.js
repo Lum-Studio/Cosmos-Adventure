@@ -11,7 +11,7 @@ class CavernousVine {
      */
     static onRegisterBlock() {
         world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
-            blockComponentRegistry.registerCustomComponent("cosmos:cavernous_vine", {
+            blockComponentRegistry.registerCustomComponent("cosmos:cavernous_vines", {
                 onTick({ block }) {
                     const cavernousVine = CavernousVine.get(block);
                     cavernousVine.grabEntities();
