@@ -18,6 +18,7 @@ import "./core/blocks/cavernous_vine"
 
 //expermintal
 //import "./api/planets/border_builder.js"
+import "./api/planets/planet_builder.js"
 
 import "./core/items/debug_stick.js"
 import "./core/items/wrench.js"

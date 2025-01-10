@@ -13,6 +13,9 @@
     "cheese_block": {
       "textures": "textures/blocks/cheese_block"
     },
+    "empty": {
+      "textures": "textures/blocks/empty"
+    },
     "fallen_meteor": {
       "textures": "textures/blocks/fallen_meteor"
     },
@@ -616,9 +619,6 @@
     },
     "venus_volcanic_rock": {
       "textures": "textures/blocks/terrain/venus_volcanic_rock"
-    },
-    "cavernous_vine": {
-      "textures": "textures/blocks/terrain/cavernous_vines1"
     }
   }
 }

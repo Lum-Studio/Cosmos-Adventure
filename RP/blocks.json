@@ -182,9 +182,9 @@
       "sound": "stone",
       "textures": "mars_dungeon_bricks"
    },
-   "cavernous_vine": {
+   "cavernous_vines": {
       "sound": "grass",
-      "textures": "cavernous_vine"
+      "textures": "cavernous_vines"
    },
 
    "tin_ore": {
