@@ -18,7 +18,7 @@ export class EventHandlerMars {
     }
 }
 
-
+//Set the spawn point at Martian world center
 world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource: { damagingEntity, damagingProjectile, cause } }) => {
     if (deadEntity instanceof Player) {
         // Check if the player's location is in the Moon
