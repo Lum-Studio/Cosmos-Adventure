@@ -2,6 +2,7 @@ import "./api/mixins.js"
 import "./api/player/celestial_selector.js"
 import "./api/player/space_gear.js"
 import "./api/player/liftoff.js"
+import "./api/planets/planet_builder.js"
 
 import "./core/machines/Machine.js"
 
@@ -18,7 +19,6 @@ import "./core/blocks/cavernous_vines.js"
 
 //expermintal
 //import "./api/planets/border_builder.js"
-import "./api/planets/planet_builder.js"
 
 import "./core/items/debug_stick.js"
 import "./core/items/wrench.js"

@@ -2,8 +2,8 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "cosmos:tin_ore_feature_rule",
-      "places_feature": "cosmos:tin_ore_feature"
+      "identifier": "cosmos:silicon_ore_feature_rule",
+      "places_feature": "cosmos:ores/silicon"
     },
     "conditions": {
       "placement_pass": "underground_pass",
@@ -33,7 +33,7 @@
       },
       "y": {
         "distribution": "uniform",
-        "extent": [ 0, 60 ]
+        "extent": [ 0, 25 ]
       },
       "z": {
         "distribution": "uniform",
