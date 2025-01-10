@@ -103,7 +103,7 @@ world.beforeEvents.playerInteractWithBlock.subscribe((data) => {
                 if(!player.getDynamicProperty('secondInventoryEntity') || !world.getEntity(player.getDynamicProperty('secondInventoryEntity')) || !entity || !entity.isValid()){
                     entity = spawn(player)
                 }
-                if(!player.isSneaking || !player.isValid()){
+                if((!player.isSneaking && !entity.getDynamicProperty('view')) || !player.isValid()){
                     player.setDynamicProperty('secondInventoryEntity', undefined)
                     despawn(entity)
                     system.clearRun(secondInventory)
