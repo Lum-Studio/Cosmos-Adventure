@@ -83,4 +83,6 @@ class CavernousVine {
     }
 };
 
+CavernousVine.onRegisterBlock()
+
 export default CavernousVine;
