@@ -75,8 +75,12 @@ function rocket_flight(rocket) {
         v = Math.floor((a) * (1 - Math.pow(Math.E, (-t/(20 * b)))))
         rocket.addEffect('levitation', 2000, {showParticles: false, amplifier: v})
         let rotation = rocket_rotation(rocket.getComponent("minecraft:rideable").getRiders()[0], rocket)
+        let fuel = rocket.getDynamicProperty('fuel_level')
+        fuel = (fuel)? fuel:
+        0;
         rocket.setRotation({x: rocket.getRotation().x, y: rotation[1]});
         rocket.setProperty("cosmos:rotation_x", rotation[0]);
+        rocket.setDynamicProperty("fuel_level", Math.max(0, fuel - 1))
     })
 }
 
@@ -92,6 +96,8 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
     .find(rider => rider.typeId == "minecraft:player")
     if (message == "tick") {
         const active = rocket.getDynamicProperty('active')
+        let fuel = (rocket.getDynamicProperty("fuel_level"))? rocket.getDynamicProperty("fuel_level"):
+        0;
         //disable jumping
         if(rider){
             rider.inputPermissions.setPermissionCategory(6, false)
@@ -104,9 +110,11 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
         if (rider?.inputInfo.getButtonState("Jump") == "Pressed") {
             if (rocket.getDynamicProperty('active')) return
             const space_gear = JSON.parse(rider.getDynamicProperty("space_gear") ?? '{}')
-            if (space_gear.parachute || rocket.getDynamicProperty('ready')) {
+            if (fuel > 0 && (space_gear.parachute || rocket.getDynamicProperty('ready'))) {
                 start_countdown(rocket, rider)
-            } else {
+            }else if(fuel === 0){
+                rider.sendMessage("I'll need to load in some rocket fuel first!");
+            }else {
                 rider.sendMessage("You do not have a parachute.")
                 rider.sendMessage("Press jump again to start the countdown.")
                 rocket.setDynamicProperty('ready', true)
@@ -144,3 +152,4 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
         }
     }
 })
+    
