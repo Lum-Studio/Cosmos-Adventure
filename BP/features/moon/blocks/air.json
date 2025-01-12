@@ -2,7 +2,7 @@
 	"format_version": "1.20.20",
 	"minecraft:single_block_feature": {
 		"description": {
-			"identifier": "flakey:moon/blocks/air"
+			"identifier": "cosmos:moon/blocks/air"
 		},
 		"places_block": "minecraft:air",
 		"enforce_placement_rules": false,
