@@ -7,7 +7,7 @@
 		},
 
 		"places_block": "minecraft:bedrock",
-
+        
 		"enforce_placement_rules": false,
 		"enforce_survivability_rules": false,
 		"may_replace": ["cosmos:moon_rock",

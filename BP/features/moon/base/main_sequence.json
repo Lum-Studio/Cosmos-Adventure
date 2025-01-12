@@ -6,7 +6,8 @@
     },
     "features": [
       "cosmos:moon/caves/cave_layer_placer",
-      "cosmos:moon/base/plains_column_placement"
+      "cosmos:moon/base/plains_column_placement",
+      "cosmos:moon/blocks/bedrock"
     ]
   }
 }
