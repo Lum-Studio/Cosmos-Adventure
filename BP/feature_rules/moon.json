@@ -3,7 +3,7 @@
 	"minecraft:feature_rules": {
 		"description": {
 			"identifier": "cosmos:moon_base_chunk",
-			"places_feature": "cosmos:gen/base/column_placer"
+			"places_feature": "cosmos:moon/base/column_placer"
 		},
 		"conditions": {
 			"placement_pass": "first_pass",

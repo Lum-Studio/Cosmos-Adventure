@@ -2,9 +2,9 @@
 	"format_version": "1.20.20",
 	"minecraft:scatter_feature": {
 		"description": {
-			"identifier": "cosmos:gen/base/column_placer"
+			"identifier": "cosmos:moon/base/column_placer"
 		},
-		"places_feature": "cosmos:gen/base/column_noises",
+		"places_feature": "cosmos:moon/base/column_noises",
 		"iterations": 256,
 		"x": {
 			"distribution": "fixed_grid",

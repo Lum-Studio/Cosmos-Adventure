@@ -3,7 +3,7 @@
 
 	"minecraft:single_block_feature": {
 		"description": {
-			"identifier": "gaia:gen/blocks/bedrock"
+			"identifier": "cosmos:moon/blocks/bedrock"
 		},
 
 		"places_block": "minecraft:bedrock",

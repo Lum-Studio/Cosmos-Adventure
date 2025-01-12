@@ -2,9 +2,9 @@
 	"format_version": "1.20.20",
 	"minecraft:scatter_feature": {
 		"description": {
-			"identifier": "gaia:gen/caves/shaft_layer_placer"
+			"identifier": "cosmos:moon/caves/shaft_layer_placer"
 		},
-		"places_feature": "gaia:gen/caves/shaft_layer",
+		"places_feature": "cosmos:moon/caves/shaft_layer",
 		"iterations": "v.ox = 0; v.oz = 0; return 101;",
 		"x":  "v.ox",
 		"y": {
