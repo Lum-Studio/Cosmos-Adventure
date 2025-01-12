@@ -5,7 +5,8 @@
       "identifier": "cosmos:moon/base/main_sequence"
     },
     "features": [
-      "cosmos:moon/caves/cave_layer_placer"
+      "cosmos:moon/caves/cave_layer_placer",
+      "cosmos:moon/gen/base/plains_column_placement"
     ]
   }
 }

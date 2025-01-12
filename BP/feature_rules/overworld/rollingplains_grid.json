@@ -1,0 +1,28 @@
+{
+	"format_version": "1.20.20",
+
+	"minecraft:feature_rules": {
+		"description": {
+			"identifier": "a:rollingplains_grid",
+			"places_feature": "a:rollingplains_column_placement"
+		},
+
+		"conditions": {
+			"placement_pass": "before_underground_pass"
+		},
+
+		"distribution": {
+			"iterations": 256,
+
+			"x": {
+				"distribution": "fixed_grid",
+				"extent": [0, 15]
+			},
+			"z": {
+				"distribution": "fixed_grid",
+				"extent": [0, 15]
+			},
+			"y": 0
+		}
+	}
+}
