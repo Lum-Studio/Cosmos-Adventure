@@ -3,10 +3,10 @@
 
 	"minecraft:scatter_feature": {
 		"description": {
-			"identifier": "cosmos:moon/gen/base/plains_column_moon"
+			"identifier": "cosmos:moon/base/plains_column_moon"
 		},
 
-		"places_feature": "cosmos:moon/gen/base/plains_column_moon_rock",
+		"places_feature": "cosmos:moon/base/plains_column_moon_rock",
 
 		"iterations": "t.terrain",
 
