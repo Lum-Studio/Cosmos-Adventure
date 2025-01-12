@@ -32,7 +32,7 @@ export const pickaxes = new Set([
 export function delay(ticks) {
     return new Promise(res => system.runTimeout(res, ticks * 20));
 }
-export function isUndeground(player) {
+export function isUnderground(player) {
 	let block = player.dimension.getTopmostBlock(player.location)
 	if (player.location.y >= block.y) return false
 	while (!block.isSolid && block.y > player.dimension.heightRange.min) {
