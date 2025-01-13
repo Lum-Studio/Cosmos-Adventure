@@ -1,0 +1,1 @@
+t.noise = q.noise(v.originx/144, v.originy/144)/3 + q.noise(v.originy/64, v.originz/64)/3 + q.noise(v.originz/48, v.originx/48)/3; return t.noise;
