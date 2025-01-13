@@ -23,7 +23,8 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource: { damagingEnt
     if (deadEntity instanceof Player) {
         // Check if the player's location is in the Moon
         if (Moon.isOnLunar(deadEntity.location)) {
-            deadEntity.setSpawnPoint("cosmos:is_on_moon");
+            deadEntity.setDynamicProperty("cosmos:is_on_moon");
         }
     }
 });
+
