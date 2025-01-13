@@ -23,7 +23,7 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource: { damagingEnt
     if (deadEntity instanceof Player) {
         // Check if the player's location is on Mars
         if (Mars.isOnMars(deadEntity.location)) {
-            deadEntity.teleport(Mars.origin);
+            deadEntity.setDynamicProperty("cosmos:on_mars");
         }
     }
 });
