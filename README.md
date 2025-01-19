@@ -1,3 +1,6 @@
 # Cosmos Adventures
 
-The Offically Licensed Port of Galacticraft 4 for Bedrock Edition
+The Offically Licensed Port of OG Space Mod for Bedrock Edition
+
+
+Remember to check files before committing, please ! <3 
