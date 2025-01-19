@@ -2,6 +2,7 @@ import {  Player, world  } from "@minecraft/server";
 import { Vec3, vec3 } from "../../api/libraries/Vector.js"
 
 
+
 const the_end = world.getDimension('the_end');
 /**
  * Class containing methods relating to the Moon
@@ -53,4 +54,4 @@ export class Venus {
      }
 }
 
-
+export const venus = the_end
