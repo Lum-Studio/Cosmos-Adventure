@@ -2,7 +2,7 @@ import "./api/mixins.js"
 import "./api/player/celestial_selector.js"
 import "./api/player/space_gear.js"
 import "./api/player/liftoff.js"
-import "./api/planets/planet_builder.js"
+import "./api/planets/PlanetBuilder.js"
 
 import "./core/machines/Machine.js"
 
