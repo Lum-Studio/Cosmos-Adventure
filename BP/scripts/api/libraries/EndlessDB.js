@@ -1,0 +1,76 @@
+/**
+ * Class for endless object databases
+ */
+export class EndlessDB {
+    prefix = '';
+    /**
+     * 
+     * @param {string} prefix Prefix for the database. Should be unique for each DB
+     */
+    constructor(prefix) {
+      this.prefix = prefix
+    }
+    /**
+     * Count of used dynamic properties for this DB
+     */
+    get count() {
+      return world.getDynamicProperty(this.prefix + "count") ?? 1
+    }
+    set count(value) {
+      world.setDynamicProperty(this.prefix + "count", value)
+    }
+    /**
+     * Gets all data stored in DB
+     * @returns Database object
+     */
+    getAll() {
+      let json = '';
+      for (let i = 0; i < this.count; i++) {
+        json += world.getDynamicProperty(this.prefix + "part_" + i) ?? ""
+      }
+      return JSON.parse(json === "" ? "{}" : json)
+    }
+    /**
+     * 
+     * @param {object} object Saves given data into DB (rewriting)
+     */
+    setAll(object) {
+      let json = JSON.stringify(object);
+      let i = 0;
+      while (json.length !== 0) {
+        world.setDynamicProperty(this.prefix + "part_" + i, json.slice(0, 32767))
+        json = json.slice(32767)
+        i++
+      };
+      this.count = i
+    }
+  }
+  
+  /**
+ * Class for optimization
+ */
+export class TaskQueue {
+  tasks = [];
+  #run;
+  runCount;
+  /**
+   * 
+   * @param {number} runCount 
+   */
+  run(runCount) {
+    this.#run = system.runInterval(() => {
+      for (let iter = 0; iter < runCount; iter++) {
+        if (this.tasks.length !== 0) {
+          this.tasks.shift()()
+        } else this.push(main)
+      }
+    },0);
+    this.runCount = runCount;
+  }
+  stop() {
+    system.clearRun(this.#run)
+  }
+
+  push = (...args) => this.tasks.push(...args)
+}
+
