@@ -54,4 +54,4 @@ export class Moon {
      }
 }
 
-export const moon = the_end
+export const MOON = the_end

@@ -54,4 +54,4 @@ export class Venus {
      }
 }
 
-export const venus = the_end
+export const VENUS = the_end
