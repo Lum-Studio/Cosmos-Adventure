@@ -66,4 +66,4 @@ export class Mars {
     }
 }
 
-export const MARS = the_end
+export const mars = the_end

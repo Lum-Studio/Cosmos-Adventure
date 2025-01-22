@@ -59,3 +59,4 @@ export class CoordinateDisplay {
         return currentLocation ? { x: currentLocation.x, y: currentLocation.y, z: currentLocation.z } : null;
     }
 }
+
