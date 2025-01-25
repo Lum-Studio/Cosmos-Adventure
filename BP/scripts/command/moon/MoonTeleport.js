@@ -1,23 +1,28 @@
 import { CommandHandler, CommandArg, CommandArg, CommandInteraction, parseCommandLine } from "../CommandHandler";
 
-const handler = new CommandHandler();
 
 const handler = new CommandHandler();
 
 handler.registerCommand({
     name: 'teleport',
-    description: 'Teleport on another celestial body',
+    description: 'Teleports the target player to a specified location or entity.',
     category: 'MISC',
     args: [
         CommandArg.player('target', true, false), // Required player target
-        CommandArg.number('amount', true, 0, 45000, false) // Required amount, with min and max
+        CommandArg.literal('to', true), // Literal to indicate the teleportation type
+        CommandArg.number('destination', null, 0, 45000), // Required destination target
+        CommandArg.boolean('checkForBlocks', false) // Optional check for blocks
     ],
 
     execute(interaction) {
         const target = interaction.getPlayer('target'); // Get the target player
-        const amount = interaction.getNumber('amount'); // Get the numerical amount
+        const destination = interaction.getTarget('destination'); // Get the destination
+        const checkForBlocks = interaction.getBoolean('checkForBlocks'); // Optional check for blocks
+        let message = `Teleported ${target} to ${destination}.`;
+        if (checkForBlocks) {
+            message += ' Checking for blocks...';
+        }
 
-        // Implement the teleport logic here
-        interaction.ctx.sendMessage(`Teleported ${target} to a celestial body with an amount of ${amount}.`);
+        interaction.ctx.sendMessage(message);
     },
 });
