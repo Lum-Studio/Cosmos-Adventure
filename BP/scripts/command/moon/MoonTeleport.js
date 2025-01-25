@@ -1,46 +1,23 @@
 import { CommandHandler, CommandArg, CommandArg, CommandInteraction, parseCommandLine } from "../CommandHandler";
 
 const handler = new CommandHandler();
-//
-// handler.registerCommand({
-//     name: 'teleport',
-//     description: 'Teleport Faction Command',
-//     category: 'MISC',
-//     args: [
-//         CommandArg.literal('option_1', true, ['create', 'delete'], {
-//             "create": [
-//                 // Arg name, required
-//                 CommandArg.string('factionName', true),
-//                 // Arg name, optional
-//                 CommandArg.boolean('factionIsOpen', false)
-//             ],
-//             "delete": [
-//                 // Arg name, optional
-//                 CommandArg.string('reason', false),
-//             ],
-//         })
-//     ],
 
-//     execute(interaction) {
-//         // Get the option as a string
-//         const option = interaction.getString('option_1');
+const handler = new CommandHandler();
 
-//         switch(option) {
-//             case 'create': {
-//                 const factName = interaction.getString('factionName');
-//                 const factOpen = interaction.getBoolean('factionIsOpen');
+handler.registerCommand({
+    name: 'teleport',
+    description: 'Teleport on another celestial body',
+    category: 'MISC',
+    args: [
+        CommandArg.player('target', true, false), // Required player target
+        CommandArg.number('amount', true, 0, 45000, false) // Required amount, with min and max
+    ],
 
-//                 interaction.ctx.sendMessage(`You created the faction ${factName}. Is public: ${factOpen}`);
-//                 break;
-//             }
-//             case 'delete': {
-//                 const reason = interaction.getString('reason');
-//                 interaction.ctx.sendMessage(`You deleted your faction, reason: ${reason || 'None'}`);
-//                 break;
-//             }
-//             default:
-//                 interaction.ctx.sendMessage('Invalid option. Please choose "create" or "delete".');
-//                 break;
-//         }
-//     },
-// });
+    execute(interaction) {
+        const target = interaction.getPlayer('target'); // Get the target player
+        const amount = interaction.getNumber('amount'); // Get the numerical amount
+
+        // Implement the teleport logic here
+        interaction.ctx.sendMessage(`Teleported ${target} to a celestial body with an amount of ${amount}.`);
+    },
+});
