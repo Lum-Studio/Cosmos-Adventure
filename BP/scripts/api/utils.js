@@ -79,6 +79,33 @@ export function parseItem(json) {
 	
 	return item
   }
+
+export function getDevice(player) {
+	const { platformType, memoryTier, maxRenderDistance } = player.clientSystemInfo;
+  
+	if (maxRenderDistance < 6 || maxRenderDistance > 96 || platformType === null) return "Bot";
+  
+	if (platformType === "Desktop") return "Windows";
+  
+	if (platformType === "Mobile") {
+	  return maxRenderDistance > 16 ? "Android" : "iOS";
+	}
+  
+	if (platformType === "Console") {
+	  if (memoryTier === 3 && maxRenderDistance === 12) return "Nintendo Switch";
+	  if (memoryTier === 4 && maxRenderDistance === 36) return "Xbox Series S";
+	  if (memoryTier === 5 && maxRenderDistance === 36) return "Xbox Series X";
+  
+	  if (memoryTier === 4) {
+		if (player.name.match(/[_-]/g) && maxRenderDistance === 16) return "PS4";
+		if (maxRenderDistance === 16) return "Xbox One";
+		if (maxRenderDistance === 18) return "PS4 Pro";
+		if (maxRenderDistance === 28) return "PS5";
+	  }
+	}
+  
+	return "Unknown Device";
+  }
   
 export function stringifyItem(item) {
 	let json = {
