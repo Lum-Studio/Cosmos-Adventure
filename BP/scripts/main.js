@@ -1,7 +1,7 @@
 import "./api/mixins.js"
-import "./api/player/celestial_selector.js"
-import "./api/player/space_gear.js"
-import "./api/player/liftoff.js"
+import "./api/player/CelestialSelector.js"
+import "./api/player/SpaceGears.js"
+import "./api/player/Launch.js"
 import "./api/planets/PlanetBuilder.js"
 
 import "./core/machines/Machine.js"
@@ -20,11 +20,11 @@ import "./core/blocks/CavernousVines.js"
 //expermintal
 //import "./api/planets/border_builder.js"
 
-import "./core/items/debug_stick.js"
-import "./core/items/wrench.js"
-import "./core/items/grapple.js"
-import "./core/items/dungeon_finder"
-import "./core/items/desh_pickaxe.js"
+import "./core/items/DebugStick.js"
+import "./core/items/Wrench.js"
+import "./core/items/Grapple.js"
+import "./core/items/DungeonFinder.js"
+import "./core/items/DeshPickaxe.js"
 
 import "./core/matter/electricity.js"
 import "./core/matter/solids.js"

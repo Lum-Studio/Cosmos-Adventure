@@ -1,5 +1,5 @@
 import { world, system } from "@minecraft/server"
-import { start_celestial_selector } from "./celestial_selector"
+import { start_celestial_selector } from "./CelestialSelector"
 
 function start_countdown(rocket, player) {
     rocket.setDynamicProperty('active', true)
