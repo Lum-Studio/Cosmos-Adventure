@@ -18,7 +18,7 @@ export class CommandArg {
         this.matches = matches;
     }
     /**
-     * Crates a literal argument type
+     * Creates a literal argument type
      * @param name The name of the argument
      * @param required
      * @param values
@@ -44,7 +44,7 @@ export class CommandArg {
         });
     }
     /**
-     * Crates a string argument type
+     * Creates a string argument type
      * @param name The name of the argument
      * @param required
      * @param minLength The minimum length required for the string
@@ -72,7 +72,7 @@ export class CommandArg {
         });
     }
     /**
-     * Crates a number argument type
+     * Creates a number argument type
      * @param name The name of the argument
      * @param required
      * @param min Minimum numeric value for this argument
@@ -99,7 +99,7 @@ export class CommandArg {
         });
     }
     /**
-     * Crates a boolean argument type
+     * Creates a boolean argument type
      * @param name The name of the argument
      * @param required
      * @param subArgs
@@ -124,7 +124,7 @@ export class CommandArg {
         });
     }
     /**
-     * Crates a player argument type
+     * Creates a player argument type
      * @param name The name of the argument
      * @param required
      * @param self If set to true you can target yourself with this argument

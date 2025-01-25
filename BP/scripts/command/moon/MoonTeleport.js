@@ -2,7 +2,6 @@ import { CommandHandler, CommandArg, CommandArg, CommandInteraction, parseComman
 
 
 const handler = new CommandHandler();
-
 handler.registerCommand({
     name: 'teleport',
     description: 'Teleports the target player to a specified location or entity.',
@@ -15,8 +14,8 @@ handler.registerCommand({
     ],
 
     execute(interaction) {
-        const target = interaction.getPlayer('target'); // Get the target player
-        const destination = interaction.getTarget('destination'); // Get the destination
+        const target = interaction.player('target'); // Get the target player
+        const destination = interaction.target('destination'); // Get the destination
         const checkForBlocks = interaction.getBoolean('checkForBlocks'); // Optional check for blocks
         let message = `Teleported ${target} to ${destination}.`;
         if (checkForBlocks) {
