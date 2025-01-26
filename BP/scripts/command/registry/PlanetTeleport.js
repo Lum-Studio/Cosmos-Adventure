@@ -18,7 +18,7 @@ handler.registerCommand({
         const target = interaction.getPlayer('target'); // Get the target player
         const literal = interaction.getString('literal'); // Get the literal string
         const destination = interaction.getTarget('destination'); // Get the destination
-        const checkForBlocks = interaction.getBoolean('checkForBlocks'); // Optional check for blocks
+        const checkForBlocks = interaction.getBsoolean('checkForBlocks'); // Optional check for blocks
 
         // Implement teleport logic here
         let message = `Teleported ${target} to ${destination}.`;
