@@ -1,3 +1,6 @@
+import { Player, system,  } from "@minecraft/server";
+
+
 export class CoordinateDisplay {
     static #locationMap = new Map();
 
