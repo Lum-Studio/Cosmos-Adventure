@@ -10,7 +10,7 @@ handler.registerCommand({
     args: [
         CommandArg.player('target', true, false), // Required player target
         CommandArg.literal('to', true), // Literal to indicate the teleportation type
-        CommandArg.number('destination', null, 0, 45000), // Required destination target
+        CommandArg.number('destination', null, -22500, 22500), // Required destination target
         CommandArg.boolean('checkForBlocks', false) // Optional check for blocks
     ],
 
