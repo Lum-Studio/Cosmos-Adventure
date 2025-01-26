@@ -22,7 +22,7 @@ handler.registerCommand({
 
         // Implement teleport logic here
         let message = `Teleported ${target} to ${destination}.`;
-
-        interaction.ctx.sendMessage(message);
+        console.log(message);
+        ;
     },
 });
