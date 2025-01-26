@@ -7,11 +7,11 @@ export class CoordinateDisplay {
 
     static adjustCoordinates(x, z) {
         return {
-            adjustedX: Math.floor((x - 100000) / 1000),
+            adjustedX: Dimension.origin,
             adjustedZ: Math.floor((z - 100000) / 1000)
         };
     }
-     updateCoordinates() {
+    static updateCoordinates() {
         const { name, location } = this.player;
         const locationMap = CoordinateDisplay.#locationMap;
 
