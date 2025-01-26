@@ -17,7 +17,7 @@
             "type": "script",
             "uuid": "f8178752-ffcc-4fe3-9a80-5efa32e4ec3f",
             "version": [1, 0, 0],
-            "entry": "scripts/main.js"
+            "entry": "scripts/Galacticraft.js"
         }
    ],
     "dependencies": [
