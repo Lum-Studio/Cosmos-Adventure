@@ -1,5 +1,5 @@
 import { world, system } from "@minecraft/server"
-import { start_celestial_selector } from "./CelestialSelector"
+import { start_celestial_selector } from "./celestial_selector"
 
 function start_countdown(rocket, player) {
     rocket.setDynamicProperty('active', true)
@@ -45,9 +45,9 @@ function rocket_rotation(player, rocket){
    let rotationX = (x == 0 && y == 0)?
    rocket.getProperty("cosmos:rotation_x"):
    (x == 0 && y == 1)? 
-   rocket.getProperty("cosmos:rotation_x") - 0.7:
+   rocket.getProperty("cosmos:rotation_x") - 1:
    (x == 0 && y == -1)? 
-   rocket.getProperty("cosmos:rotation_x") + 0.7: 
+   rocket.getProperty("cosmos:rotation_x") + 1: 
    rocket.getProperty("cosmos:rotation_x");
    
    let rotationY = (x == 0 && y == 0)?

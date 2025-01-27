@@ -1,6 +1,3 @@
-import { Player, system,  } from "@minecraft/server";
-
-
 export class CoordinateDisplay {
     static #locationMap = new Map();
 
@@ -10,11 +7,11 @@ export class CoordinateDisplay {
 
     static adjustCoordinates(x, z) {
         return {
-            adjustedX: Dimension.origin,
+            adjustedX: Math.floor((x - 100000) / 1000),
             adjustedZ: Math.floor((z - 100000) / 1000)
         };
     }
-    static updateCoordinates() {
+     updateCoordinates() {
         const { name, location } = this.player;
         const locationMap = CoordinateDisplay.#locationMap;
 
@@ -62,4 +59,3 @@ export class CoordinateDisplay {
         return currentLocation ? { x: currentLocation.x, y: currentLocation.y, z: currentLocation.z } : null;
     }
 }
-
