@@ -56,3 +56,5 @@ const enqueueTasks = () => {
 // Start the task processing
 enqueueTasks();
 taskQueue.run(10); // Adjust the run count based on performance needs
+
+world.beforeEvents.playerInteractWithEntity

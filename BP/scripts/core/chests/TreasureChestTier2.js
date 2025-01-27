@@ -5,7 +5,7 @@ import { ChestUtils } from "../../api/libraries/ChestUtils.js"
 
 world.beforeEvents.playerInteractWithEntity.subscribe((e) => {
     const { target: entity } = e;
-    if (entity.typeId !== "cosmos:treasure_chest_tier3") {
+    if (entity.typeId !== "cosmos:treasure_chest_tier2") {
         return;
     }
     system.run(() => {
@@ -19,7 +19,7 @@ world.afterEvents.playerPlaceBlock.subscribe((e) => {
     const fixedLocation = { x: loc.x + 0.5, y: loc.y, z: loc.z + 0.5 };
     
     if (block.hasTag("treasure_chest")) {
-        const chestEntity = dimension.spawnEntity("cosmos:treasure_chest_tier3", fixedLocation);
+        const chestEntity = dimension.spawnEntity("cosmos:treasure_chest_tier2", fixedLocation);
         chestEntity.nameTag = 'treasure_chest';
     }
 });
@@ -40,7 +40,7 @@ const enqueueTasks = () => {
     for (const dimension of dimensions) {
         taskQueue.push(() => {
             const dim = world.getDimension(dimension);
-            const entities = dim.getEntities({ type: "cosmos:treasure_chest_tier3" });
+            const entities = dim.getEntities({ type: "cosmos:treasure_chest_tier2" });
 
             // Process each chest entity
             for (const entity of entities) {
