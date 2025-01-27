@@ -1,6 +1,6 @@
 import { world, system, MinecraftDimensionTypes } from "@minecraft/server";
-import { ChestUtils } from "ChestUtils";
-import { TaskQueue } from "../../../api/libraries/EndlessDB";
+import { TaskQueue } from "../../api/libraries/EndlessDB.js";
+import { ChestUtils } from "../../api/libraries/ChestUtils.js"
 
 world.beforeEvents.playerInteractWithEntity.subscribe((e) => {
     const { target: entity } = e;
@@ -24,18 +24,25 @@ world.afterEvents.playerPlaceBlock.subscribe((e) => {
 });
 
 const taskQueue = new TaskQueue();
-system.runInterval(() => {
-    const dimensions = [
-        MinecraftDimensionTypes.overworld,
-        MinecraftDimensionTypes.nether,
-        MinecraftDimensionTypes.theEnd,
-    ];
+
+const dimensions = [
+    MinecraftDimensionTypes.overworld,
+    MinecraftDimensionTypes.nether,
+    MinecraftDimensionTypes.theEnd,
+];
+
+const enqueueTasks = () => {
+    // Clear the task queue before adding new tasks
+    taskQueue.tasks = [];
 
     // Push tasks for each dimension
     for (const dimension of dimensions) {
         taskQueue.push(() => {
             const dim = world.getDimension(dimension);
-            for (const entity of dim.getEntities({ type: "custom:chest_entity" })) {
+            const entities = dim.getEntities({ type: "custom:chest_entity" });
+
+            // Process each chest entity
+            for (const entity of entities) {
                 if (entity) {
                     const utils = new ChestUtils(entity);
                     utils.close();
@@ -44,7 +51,8 @@ system.runInterval(() => {
             }
         });
     }
+};
 
-    // Start processing tasks
-    taskQueue.run(5); // Adjust the run count based on performance needs
-});
+// Start the task processing
+enqueueTasks();
+taskQueue.run(30); // Adjust the run count based on performance needs

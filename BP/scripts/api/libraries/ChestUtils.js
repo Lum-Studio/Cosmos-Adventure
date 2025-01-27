@@ -1,4 +1,5 @@
 import { system } from "@minecraft/server";
+
 export class ChestUtils {
     constructor(chest_entity) {
         this.chest_entity = chest_entity;

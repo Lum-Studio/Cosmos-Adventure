@@ -12,7 +12,7 @@
  * ★★★★★★★★★★★★★★★★★★★★
  */
  // Lum Studio //
-
+import { system } from "@minecraft/server";
 /**
  * Class for endless object databases
  */
@@ -62,30 +62,38 @@ export class EndlessDB {
   }
   
   /**
- * Class for optimization
+ * Class for managing a queue of tasks to be executed at intervals.
  */
 export class TaskQueue {
   tasks = [];
   #run;
   runCount;
+
   /**
-   * 
-   * @param {number} runCount 
+   * Starts running the tasks in the queue.
+   * @param {number} runCount - The number of tasks to run in each interval.
    */
   run(runCount) {
     this.#run = system.runInterval(() => {
       for (let iter = 0; iter < runCount; iter++) {
         if (this.tasks.length !== 0) {
-          this.tasks.shift()()
-        } else this.push(main)
+          this.tasks.shift()(); // Execute the next task
+        }
       }
-    },0);
+    }, 0);
     this.runCount = runCount;
   }
+
+  /**
+   * Stops the execution of the queued tasks.
+   */
   stop() {
-    system.clearRun(this.#run)
+    system.clearRun(this.#run);
   }
 
-  push = (...args) => this.tasks.push(...args)
+  /**
+   * Adds tasks to the queue.
+   * @param {...function} args - The functions to be added to the task queue.
+   */
+  push = (...args) => this.tasks.push(...args);
 }
-
