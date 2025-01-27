@@ -58,9 +58,9 @@ class CavernousVine {
         for (const entity of this.getEntities()) {
             if (!entity.hasComponent("movement")) continue;
             if (entity.typeId === "minecraft:player") {
-                entity.applyKnockback(0, 0, 0, 0.1);
+                entity.applyKnockback(0, 0, 0, 0.5);
             } else {
-                const vector = new Vec3(0, 0.1, 0); // Define a vector for impulse
+                const vector = new Vec3(0, 0.5, 0); // Define a vector for impulse
                 entity.applyImpulse(vector); // Apply impulse to the entity
             };
             if (system.currentTick % 20 == 0) this.applyPoison(entity)
