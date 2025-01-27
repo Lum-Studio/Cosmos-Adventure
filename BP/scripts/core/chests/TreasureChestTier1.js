@@ -39,7 +39,7 @@ const enqueueTasks = () => {
     for (const dimension of dimensions) {
         taskQueue.push(() => {
             const dim = world.getDimension(dimension);
-            const entities = dim.getEntities({ type: "custom:chest_entity" });
+            const entities = dim.getEntities({ type: "cosmos:treasure_chest_tier1" });
 
             // Process each chest entity
             for (const entity of entities) {
