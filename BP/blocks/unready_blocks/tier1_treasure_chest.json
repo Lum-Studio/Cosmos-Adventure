@@ -18,7 +18,14 @@
                 "*": { "texture": "tier1_treasure_chest", "render_method": "opaque"}
             },
             "minecraft:destructible_by_mining": false,
-            "minecraft:destructible_by_explosion": false,
+            "tag:custom_chest": {}, 
+            "tag:chest": {},
+            "tag:wood": {},
+            "minecraft:flammable": false,
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0.8
+            },
+            "minecraft:light_dampening": 0,
             "minecraft:collision_box":{
                 "origin":[-7, 0, -7],
                 "size":[14, 14, 14]
@@ -70,7 +77,41 @@
               "components": {
                 "minecraft:transformation": { "rotation": [0, -90, 0] }
               }
+            },      {
+                "condition": "q.block_state('custom:open') == 0",
+                "components": {
+                    "minecraft:geometry": "geometry.custom_chest"
+                }
+            },
+            {
+                "condition": "q.block_state('custom:open') == 1",
+                "components": {
+                    "minecraft:geometry": "geometry.custom_chest1"
+                }
+            },
+            {
+                "condition": "q.block_state('custom:open') == 2",
+                "components": {
+                    "minecraft:geometry": "geometry.custom_chest2"
+                }
+            },
+            {
+                "condition": "q.block_state('custom:open') == 3",
+                "components": {
+                    "minecraft:geometry": "geometry.custom_chest3"
+                }
+            },
+            {
+                "condition": "q.block_state('custom:open') == 4",
+                "components": {
+                    "minecraft:geometry": "geometry.custom_chest4"
+                }
+            },
+            {
+                "condition": "q.block_state('custom:open') == 5",
+                "components": {
+                    "minecraft:geometry": "geometry.custom_chest5"
+                }
             }
-        ]
-    }
+        ]}
 }
