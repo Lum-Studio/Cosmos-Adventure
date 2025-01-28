@@ -3,9 +3,9 @@
 
 	"minecraft:single_block_feature": {
 		"description": {
-			"identifier": "cosmos:moon/base/plains_column_moon_rock"
+			"identifier": "cosmos:moon/base/plains_column_moon_turf"
 		},
-		"places_block": "cosmos:moon_rock",
+		"places_block": "cosmos:moon_turf",
 
 		"enforce_placement_rules": false,
 		"enforce_survivability_rules": false
