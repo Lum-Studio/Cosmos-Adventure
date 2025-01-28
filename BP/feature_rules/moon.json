@@ -2,7 +2,7 @@
 	"format_version": "1.20.20",
 	"minecraft:feature_rules": {
 		"description": {
-			"identifier": "cosmos:moon_base_chunk",
+			"identifier": "cosmos:moon",
 			"places_feature": "cosmos:moon/base/column_placer"
 		},
 		"conditions": {

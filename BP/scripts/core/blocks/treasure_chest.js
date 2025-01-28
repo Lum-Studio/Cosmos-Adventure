@@ -1,7 +1,4 @@
-import { world, system } from "@minecraft/server";
-import { TaskQueue } from "../../api/libraries/EndlessDB.js";
-import { ChestUtils } from "../../api/libraries/ChestUtils.js";
-
+import { world } from "@minecraft/server"
 const tiers = {
     "cosmos:tier1_key": "cosmos:tier1_treasure_chest",
     "cosmos:tier2_key": "cosmos:tier2_treasure_chest",
@@ -16,70 +13,25 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
             const item = equipment.getEquipment("Mainhand")
             if (chest.getState('cosmos:chest_state') != 'locked') return
             if (tiers[item?.typeId] != block.typeId) return
-            const tier = Object.keys(tiers).indexOf(item)
+            const tier = Object.keys(tiers).indexOf(item.typeId) + 1
+            world.structureManager.place(`treasures/tier${tier}`, dimension, block.location)
             block.setPermutation(chest.withState('cosmos:chest_state', 'unlocked'))
-            dimension.spawnEntity("cosmos:treasure_chest", block.center())
             if (player.getGameMode() != 'creative') player.runCommand(`clear @s ${item.typeId} 0 1`)
-        },
-        onPlayerDestroy({block, destroyedBlockPermutation:chest}) {
-            null
         }
     })
 })
 
-world
+world.afterEvents.playerInteractWithEntity.subscribe(({target:entity})=> {
+    if (entity.typeId != "cosmos:treasure_chest") return
+    const chest = entity.dimension.getBlock(entity.location)
+    if (!Object.values(tiers).includes(chest.typeId)) return
+    chest.setPermutation(chest.permutation.withState('cosmos:chest_state', 'open'))
+})
 
-
-
-world.beforeEvents.playerInteractWithEntity.subscribe((e) => {
-    const { target: entity } = e;
-    if (entity.typeId !== "cosmos:treasure_chest_tier1") {
-        return;
-    }
-    system.run(() => {
-        new ChestUtils(entity).open();
-    });
-});
-
-world.afterEvents.playerPlaceBlock.subscribe((e) => {
-    const block = e.block;
-    const { dimension, location: loc } = block;
-    const fixedLocation = { x: loc.x + 0.5, y: loc.y, z: loc.z + 0.5 };
-    
-    if (block.hasTag("treasure_chest")) {
-        const chestEntity = dimension.spawnEntity("cosmos:treasure_chest_tier1", fixedLocation);
-        chestEntity.nameTag = 'treasure_chest';
-    }
-});
-
-const taskQueue = new TaskQueue();
-
-
-
-const enqueueTasks = () => {
-    // Clear the task queue before adding new tasks
-    taskQueue.tasks = [];
-
-    // Push tasks for each dimension
-    // for (const dimension of dimensions) {
-    //     taskQueue.push(() => {
-    //         const dim = world.getDimension(dimension);
-    //         const entities = dim.getEntities({ type: "cosmos:treasure_chest_tier1" });
-
-    //         // Process each chest entity
-    //         for (const entity of entities) {
-    //             if (entity) {
-    //                 const utils = new ChestUtils(entity);
-    //                 utils.close();
-    //                 utils.drop();
-    //             }
-    //         }
-    //     });
-    // }
-};
-
-// Start the task processing
-enqueueTasks();
-taskQueue.run(10); // Adjust the run count based on performance needs
-
-world.beforeEvents.playerInteractWithEntity
+world.afterEvents.entityHitEntity.subscribe(({damagingEntity:player, hitEntity:entity})=> {
+    if (player.typeId != "minecraft:player") return
+    if (entity.typeId != "cosmos:treasure_chest") return
+    if (player.getGameMode() != 'creative') return
+    entity.runCommand(`setblock ~~~ air destroy`)
+    entity.kill(); entity.remove()
+})

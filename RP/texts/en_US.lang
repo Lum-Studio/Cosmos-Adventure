@@ -1388,6 +1388,9 @@ item.cosmos:titanium_shard=Titanium Shard
 item.cosmos:titanium_shovel=Titanium Shovel
 item.cosmos:titanium_sword=Titanium Sword
 item.cosmos:fluid_manifulator=Fluid Manifulator
+item.cosmos:tier1_key=Tier 1 Treasure Key
+item.cosmos:tier2_key=Tier 2 Treasure Key
+item.cosmos:tier3_key=Tier 3 Treasure Key
 
 ## blocks
 tile.cosmos:tin_ore.name=Tin Ore
@@ -1469,9 +1472,15 @@ tile.cosmos:telepad.name=Telepad
 tile.cosmos:terraformer.name=Terraformer
 tile.cosmos:titanium_block.name=Titanium Block
 tile.cosmos:water_electrolyzer.name=Water Electrolyzer
+tile.cosmos:tier1_treasure_chest.name=Tier 1 Treasure Chest
+tile.cosmos:tier2_treasure_chest.name=Tier 2 Treasure Chest
+tile.cosmos:tier3_treasure_chest.name=Tier 3 Treasure Chest
 
 ## actions
 action.hint.exit.cosmos:rocket_tier_1=Press SNEAK to Exit, Hold JUMP to Launch
+
+## entites
+entity.cosmos:treasure_chest.name=Treasure Chest
 
 ## Automatically generated keys (Need to be checked and sorted by a human)
 

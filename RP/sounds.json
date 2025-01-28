@@ -50,6 +50,11 @@
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}
+			},
+			"cosmos:treasure_chest": {
+				"events": {
+					"death": { "sound": "none", "volume": 0 }
+				}
 			}
 		}
 	}
