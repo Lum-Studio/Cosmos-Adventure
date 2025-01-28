@@ -1,0 +1,53 @@
+{
+    "format_version": "1.20.0",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "cosmos:treasure_chest",
+            "is_summonable": true
+        },
+        "component_groups": {
+			"despawn": {
+				"minecraft:instant_despawn": {}
+			}
+		},
+        "components": {
+            "minecraft:damage_sensor": {
+                "triggers": {
+                    "deals_damage": false
+                }
+            },
+            "minecraft:collision_box": {
+                "width": 1.2,
+                "height": 1.2
+            },
+			"minecraft:health": {
+				"value": 1,
+				"max": 1,
+				"min": 1
+			},
+            "minecraft:knockback_resistance": {
+                "value": 100,
+                "max": 100
+            },
+            "minecraft:inventory": {
+                "container_type": "container",
+                "inventory_size": 27
+            },
+            "minecraft:pushable": {
+                "is_pushable": false,
+                "is_pushable_by_piston": false
+            },
+            "minecraft:physics": {
+                "has_gravity": false,
+				"has_collision": false
+            }
+        },
+		"events": {
+			"cosmos:despawn": {
+				"add": {
+					"component_groups": ["despawn"]
+				}
+			}
+		}
+    }
+}

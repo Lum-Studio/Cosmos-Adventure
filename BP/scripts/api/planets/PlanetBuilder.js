@@ -18,8 +18,9 @@ world.beforeEvents.worldInitialize.subscribe(({blockComponentRegistry}) => {
             const first_corner = {x, y: 10, z}
             const other_corner = {x: x + 15, y: 120, z: z + 15} 
             the_end.fillBlocks(new BlockVolume(first_corner, other_corner), 'air', {
-                blockFilter: {includeTypes: ['end_stone', 'bedrock', 'end_gateway', 'chorus_plant', 'chorus_flower', 'cosmos:end_cleaner']}
+                blockFilter: {includeTypes: ['end_stone', 'bedrock', 'end_gateway', 'chorus_plant', 'chorus_flower']}
             })
+            the_end.setBlockType(block.location, block.below().type)
             const shulkers = the_end.getEntities({
                 location: first_corner,
                 volume: {x: 16, y: 210, z: 16},

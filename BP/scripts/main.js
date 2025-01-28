@@ -16,6 +16,7 @@ import "./core/blocks/cheese_block.js"
 import "./core/blocks/hydraulic_platform.js"
 import "./core/blocks/nasa_workbench.js"
 import "./core/blocks/cavernous_vines.js"
+import "./core/blocks/treasure_chest.js"
 
 //expermintal
 //import "./api/planets/border_builder.js"

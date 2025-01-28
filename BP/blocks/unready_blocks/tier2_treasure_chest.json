@@ -17,6 +17,7 @@
             "minecraft:material_instances": {
                 "*": { "texture": "tier2_treasure_chest", "render_method": "opaque"}
             },
+            "minecraft:custom_components": ["cosmos:treasure_chest"],
             "minecraft:destructible_by_mining": false,
             "minecraft:destructible_by_explosion": false,
             "minecraft:collision_box":{
