@@ -61,7 +61,7 @@ const enqueueTasks = () => {
     taskQueue.tasks = [];
 
     // Push tasks for each dimension
-    // for (const dimension of alldimensions) {
+    // for (const dimension of dimensions) {
     //     taskQueue.push(() => {
     //         const dim = world.getDimension(dimension);
     //         const entities = dim.getEntities({ type: "cosmos:treasure_chest_tier1" });
