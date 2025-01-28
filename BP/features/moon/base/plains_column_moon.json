@@ -6,7 +6,7 @@
 			"identifier": "cosmos:moon/base/plains_column_moon"
 		},
 
-		"places_feature": "cosmos:moon/base/plains_column_moon_rock",
+		"places_feature": "cosmos:moon/base/plains_column_moon_turf",
 
 		"iterations": "t.terrain",
 
