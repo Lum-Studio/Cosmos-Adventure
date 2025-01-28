@@ -1,6 +1,7 @@
 import { world, system, MinecraftDimensionTypes } from "@minecraft/server";
 import { TaskQueue } from "../../api/libraries/EndlessDB.js";
-import { ChestUtils } from "../../api/libraries/ChestUtils.js"
+import { ChestUtils } from "../../api/libraries/ChestUtils.js";
+import { alldimensions } from "../../api/utils.js";
 
 world.beforeEvents.playerInteractWithEntity.subscribe((e) => {
     const { target: entity } = e;
@@ -25,18 +26,14 @@ world.afterEvents.playerPlaceBlock.subscribe((e) => {
 
 const taskQueue = new TaskQueue();
 
-const dimensions = [
-    MinecraftDimensionTypes.overworld,
-    MinecraftDimensionTypes.nether,
-    MinecraftDimensionTypes.theEnd,
-];
+
 
 const enqueueTasks = () => {
     // Clear the task queue before adding new tasks
     taskQueue.tasks = [];
 
     // Push tasks for each dimension
-    for (const dimension of dimensions) {
+    for (const dimension of alldimensions) {
         taskQueue.push(() => {
             const dim = world.getDimension(dimension);
             const entities = dim.getEntities({ type: "cosmos:treasure_chest_tier1" });

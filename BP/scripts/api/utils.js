@@ -42,6 +42,11 @@ export function isUnderground(player) {
 	return true
   }
 
+export const alldimensions = [
+    MinecraftDimensionTypes.overworld,
+    MinecraftDimensionTypes.nether,
+    MinecraftDimensionTypes.theEnd,
+];
 export function parseItem(json) {
 	if (typeof(json) == "string") {
 	  json = JSON.parse(json)
