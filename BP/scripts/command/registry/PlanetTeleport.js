@@ -1,5 +1,5 @@
 import { CommandHandler, CommandArg, CommandInteraction } from "../CommandHandler";
-import { Entity } from "@minecraft/server";
+import { Entity, world, system } from "@minecraft/server";
 
 const handler = new CommandHandler();
 
