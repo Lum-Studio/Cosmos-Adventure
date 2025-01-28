@@ -1,5 +1,5 @@
 import { CommandHandler, CommandArg, CommandInteraction } from "../CommandHandler";
-
+import { Entity } from "@minecraft/server";
 
 const handler = new CommandHandler();
 
@@ -22,6 +22,7 @@ handler.registerCommand({
 
         // Implement teleport logic here
         let message = `Teleported ${target} to ${destination}.`;
+        let entity = 
         console.log(message);
         ;
     },
