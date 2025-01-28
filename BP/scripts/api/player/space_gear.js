@@ -4,7 +4,8 @@ import { world, system, EquipmentSlot, ItemStack } from '@minecraft/server';
 const tanks = {
 	"cosmos:oxygen_tank_light_full": "light",
 	"cosmos:oxygen_tank_med_full": "medium",
-	"cosmos:oxygen_tank_heavy_full": "heavy"
+	"cosmos:oxygen_tank_heavy_full": "heavy",
+	"cosmos:oxygen_tank_infinite": "infinite",
 }
 
 const slots = {
