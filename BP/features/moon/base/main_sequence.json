@@ -5,8 +5,6 @@
       "identifier": "cosmos:moon/base/main_sequence"
     },
     "features": [
-      "cosmos:moon/caves/shaft_ceiling",
-      "cosmos:moon/caves/cave_layer_placer",
       "cosmos:moon/base/plains_column_placement",
       "cosmos:moon/blocks/bedrock"
     ]
