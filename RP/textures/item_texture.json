@@ -223,6 +223,9 @@
     "slimy_desh_pickaxe": {
       "textures": "textures/items/slimy_desh_pickaxe"
     },
+    "volcanic_pickaxe": {
+      "textures": "textures/items/volcanic_pickaxe"
+    },
     "titanium_dust": {
       "textures": "textures/items/titanium_dust"
     },

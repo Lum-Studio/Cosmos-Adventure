@@ -1388,9 +1388,10 @@ item.cosmos:titanium_shard=Titanium Shard
 item.cosmos:titanium_shovel=Titanium Shovel
 item.cosmos:titanium_sword=Titanium Sword
 item.cosmos:fluid_manifulator=Fluid Manifulator
-item.cosmos:tier1_key=Tier 1 Treasure Key
-item.cosmos:tier2_key=Tier 2 Treasure Key
-item.cosmos:tier3_key=Tier 3 Treasure Key
+item.cosmos:tier1_key=Tier 1 Dungeon Key
+item.cosmos:tier2_key=Tier 2 Dungeon Key
+item.cosmos:tier3_key=Tier 3 Dungeon Key
+item.cosmos:volcanic_pickaxe=Volcanic Pickaxe
 
 ## blocks
 tile.cosmos:tin_ore.name=Tin Ore
