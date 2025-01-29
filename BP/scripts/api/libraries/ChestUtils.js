@@ -1,12 +1,9 @@
-import { system, world} from "@minecraft/server";
+import { system, world, ItemStack } from "@minecraft/server";
 
-export class TreasureChest {
+export class ChestUtils {
     constructor(chest_entity) {
-        // Initialize the chest entity and set up parameters for opening/closing
+        // Initialize the chest entity and set up parameters for interaction
         this.chest_entity = chest_entity; // The chest entity being managed
-        this.maxOpen = 5; // Maximum times the chest can be opened
-        this.cooldown = 1; // Cooldown time between opening actions
-        this.interval = 0; // Interval for the opening animation
         this.lockedState = 'locked'; // State indicating the chest is locked
         this.unlockedState = 'unlocked'; // State indicating the chest is unlocked
     }
@@ -18,30 +15,43 @@ export class TreasureChest {
      */
     interact(player) {
         const { chest_entity } = this;
-        const chest = chest_entity.permutation;
+        const chest = chest_entity.permutation; // Get the chest's permutation
+        const equipment = player.getComponent("minecraft:equippable"); // Get the player's equipment
+        const item = equipment.getEquipment("Mainhand"); // Get the item in the player's main hand
 
         // Check if the chest is locked
-        if (chest.getState('cosmos:chest_state') !== this.lockedState) {
-            this.open(); // Open the chest if it's already unlocked
-        } else {
-            const equipment = player.getComponent("minecraft:equippable");
-            const item = equipment.getEquipment("Mainhand");
+        if (chest.getState('cosmos:chest_state') !== this.lockedState) return;
 
-            // Extract tier from the chest type ID
-            const tier = +(chest_entity.typeId.replace('cosmos:tier', '').replace('_treasure_chest', ''));
+        // Extract tier from the chest type ID
+        const tier = +(chest_entity.typeId.replace('cosmos:tier', '').replace('_treasure_chest', ''));
 
-            // Validate the item used to unlock the chest
-            if (tiers[item?.typeId] !== chest_entity.typeId) {
-                hint(player, tier); // Provide feedback to the player
-                return;
-            }
+        // Validate the item used to unlock the chest
+        if (tiers[item?.typeId] !== chest_entity.typeId) {
+            hint(player, tier); // Provide feedback to the player
+            return;
+        }
 
-            // Update the chest state to unlocked
-            chest_entity.setPermutation(chest.withState('cosmos:chest_state', this.unlockedState));
-            this.open(); // Open the chest after unlocking
+        // Place the treasure structure
+        world.structureManager.place(`treasures/tier${tier}`, chest_entity.dimension, chest_entity.location);
+
+        // Generate loot for the chest
+        system.run(() => {
+            const entity = chest_entity.dimension.getEntities({ type: "cosmos:treasure_chest", closest: 1, location: chest_entity.bottomCenter() })[0];
+            if (!entity) return;
+            const loot = entity.getComponent('inventory').container; // Get the chest's inventory
+            const slot = Math.floor(Math.random() * 27); // Random slot in the inventory
+            const reward = select_random_item(rewards[tier - 1]); // Select a random reward
+            loot.setItem(slot, new ItemStack(reward)); // Set the reward in the loot
+        });
+
+        // Update the chest state to unlocked
+        chest_entity.setPermutation(chest.withState('cosmos:chest_state', this.unlockedState));
+
+        // Remove the item used to unlock the chest if not in creative mode
+        if (player.getGameMode() !== 'creative') {
+            player.runCommand(`clear @s ${item.typeId} 0 1`);
         }
     }
-
     /**
      * Opens the chest and plays the opening sound with animation.
      * @returns {void}
