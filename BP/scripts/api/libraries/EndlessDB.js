@@ -12,7 +12,7 @@
  * ★★★★★★★★★★★★★★★★★★★★
  */
  // Lum Studio //
-import { system } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
 /**
  * Class for endless object databases
  */

@@ -1,3 +1,5 @@
+import { Vec3 } from "../../api/libraries/Vector";
+
 export class CoordinateDisplay {
     static #locationMap = new Map();
 
