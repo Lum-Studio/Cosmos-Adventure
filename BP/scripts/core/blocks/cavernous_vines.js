@@ -70,7 +70,7 @@ class CavernousVine {
      * @param {Entity} entity 
      */
     applyPoison(entity) {
-        entity.addEffect("minecraft:poison", TicksPerSecond * 2); // Apply poison effect for 2 seconds
+        entity.addEffect("minecraft:poison", TicksPerSecond * 100); // Apply poison effect for 2 seconds
     }
 
     vineGrowth() {

@@ -1,4 +1,4 @@
-import { system } from "@minecraft/server";
+import { system, world} from "@minecraft/server";
 
 export class TreasureChest {
     constructor(chest_entity) {
