@@ -99,8 +99,8 @@ export class ChestUtils {
 
         // Start an interval to animate the chest closing
         this.interval = system.runInterval(() => {
-            const chestState = chest_entity.permutation.getState('custom:open'); // Get current open state
-            const nextChestState = chest_entity.permutation.withState('custom:open', Math.max(chestState - 1, 0)); // Decrement state
+            const chestState = chest_entity.permutation.getState('open'); // Get current open state
+            const nextChestState = chest_entity.permutation.withState('open', Math.max(chestState - 1, 0)); // Decrement state
             chest_entity.setPermutation(nextChestState); // Update the chest's state
 
             // Clear the interval if the chest is fully closed
