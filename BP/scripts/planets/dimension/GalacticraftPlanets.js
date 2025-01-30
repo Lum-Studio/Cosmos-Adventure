@@ -71,18 +71,4 @@ export class Planet {
 }
 
 
-/**
- * Mars class extending the Planet class
- */
-export class Mars extends Planet {
-    static range = {
-        start: { x: 50000, z: -50000 },
-        end: { x: 100000, z: -100000 }
-    };
-
-    constructor() {
-        super({ name: 'Mars', range: Mars.range });
-    }
-}
-
 export const MARS = the_end;
