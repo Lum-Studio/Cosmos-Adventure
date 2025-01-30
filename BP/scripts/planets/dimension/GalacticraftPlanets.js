@@ -1,4 +1,5 @@
 import { Player, Entity, world  } from "@minecraft/server";
+
 const the_end = world.getDimension('the_end');
 
 
