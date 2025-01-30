@@ -1,4 +1,4 @@
-import { Mars } from "../dimension/Mars";
+import { Mars } from "./Mars";
 import { world, Player } from "@minecraft/server";
 
 export class EventHandlerMars {

@@ -1,4 +1,4 @@
-import { Moon } from "../dimension/Moon";
+import { Moon } from "./Moon";
 import { world, Player } from "@minecraft/server";
 
 export class EventHandlerMoon {
