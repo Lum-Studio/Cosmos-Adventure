@@ -5,7 +5,7 @@ import { Vec3, vec3 } from "../../api/libraries/Vector.js"
 
 const the_end = world.getDimension('the_end');
 /**
- * Class containing methods relating to the Moon
+ * Class containing methods relating to Venus
  */
 export class Venus {
     /**
@@ -45,7 +45,7 @@ export class Venus {
         return the_end.getPlayers(entityQueryOptions).filter((entity) => this.isOnVenus(entity.location));
     }
      /**
-     * Get the player location on Mars
+     * Get the player location on Venus
      * @param {Player} player - The player object to get the location from
      * @returns {Vec3} The adjusted position on Venus
      */
