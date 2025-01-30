@@ -1,3 +1,4 @@
+import { EnchantmentType, ItemStack, system } from "@minecraft/server"
 import machines from "../core/machines/AllMachineBlocks"
 
 export function get_data(machine) {
@@ -29,9 +30,9 @@ export const pickaxes = new Set([
 	"minecraft:netherite_pickaxe",
 ])
 
-export function delay(ticks) {
-    return new Promise(res => system.runTimeout(res, ticks * 20));
-}
+// export function delay(ticks) {
+//     return new Promise(res => system.runTimeout(res, ticks * 20));
+// }
 export function isUnderground(player) {
 	let block = player.dimension.getTopmostBlock(player.location)
 	if (player.location.y >= block.y) return false

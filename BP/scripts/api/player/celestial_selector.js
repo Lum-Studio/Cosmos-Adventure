@@ -40,12 +40,13 @@ function set_station_location() {
 
 
 function read_inventory(player) {
-	if (world.getPlayers({gameMode: "creative", name: player.nameTag}).length == 1) return '§t§t§t§t'
-	const inventory = player.getComponent("inventory").container
-	const items = []
-	for (let item = 0; item < inventory.size; item++) {
-		if (inventory.getItem(item) == undefined) {continue};
-		items.push({id: inventory.getItem(item).typeId, amount: inventory.getItem(item).amount})
+	if (world.getPlayers({gameMode: "creative", name: player.nameTag}).length == 1) return '§t§t§t§t';
+	const inventory = player.getComponent("inventory").container;
+	const items = [];
+	for (let slot = 0; slot < inventory.size; slot++) {
+		const itemStack = inventory.getItem(slot);
+		if (!itemStack) continue;
+		items.push({id: itemStack.typeId, amount: itemStack.amount});
 	}
 	let results = ['§','f','§','f','§','f','§','f'];
 	const materials = [0, 0, 0, 0];
@@ -55,10 +56,10 @@ function read_inventory(player) {
 		if (item.id == 'cosmos:tin_ingot') {{materials[2] += item.amount}};
 		if (item.id == 'minecraft:iron_ingot') {{materials[3] += item.amount}};
 	})
-	results[1] = materials[0] >= 16 ? 't' : 'f'
-	results[3] = materials[1] >= 1 ? 't' : 'f'
-	results[5] = materials[2] >= 32 ? 't' : 'f'
-	results[7] = materials[3] >= 24 ? 't' : 'f'
+	results[1] = materials[0] >= 16 ? 't' : 'f';
+	results[3] = materials[1] >= 1 ? 't' : 'f';
+	results[5] = materials[2] >= 32 ? 't' : 'f';
+	results[7] = materials[3] >= 24 ? 't' : 'f';
 	return results.join('')
 }
 function angle_to_vector(angle, distance, center) {

@@ -655,9 +655,9 @@ function vec3(a, b, c) {
     } else if (b === undefined) {
         //two paramters
         if (a instanceof Vec2 && typeof b == "number") {
-            return Vec3(a.x, a.y, b);
+            return new Vec3(a.x, a.y, b);
         } else if (typeof a == "number" && b instanceof Vec2) {
-            return Vec3(a, b.x, b.y);
+            return new Vec3(a, b.x, b.y);
         }
         throw new Error("Two parameter constructor input must be a number and a Vec2");
     } else {
@@ -769,26 +769,29 @@ class Vec3 {
     }
 
     /**
-     * Create a Vec3
-     * @param {number} x x component of vector
+     * Create a Vec3 - vector with given x, y, and z components
+     * @param {number | {x:number,y:number,z:number}} param_1 x component of vector or Vector3
      * @param {number} y y component of vector
      * @param {number} z z component of vector
-     * @return {Vec3} vector with given x, y, and z components
      * @see {@link Vec3}, {@link vec3}
      **/
-    constructor(x, y, z) {
-        if (typeof x == "number" && typeof y == "number" && typeof z == "number") {
-            this.x = x;
+    constructor(param_1, y, z) {
+        if (typeof param_1 !== "number" && typeof param_1.y == "number" && typeof param_1.z == "number") {
+            this.x = param_1.x;
+            this.y = param_1.y;
+            this.z = param_1.z;
+        } else if (typeof param_1 == "number" && typeof y == "number" && typeof z == "number") {
+            this.x = param_1;
             this.y = y;
             this.z = z;
         } else {
-            throw new Error("All constructor inputs must be numbers");
+            throw new Error("All constructor inputs must be numbers or 1st input must be Vector3");
         }
     }
 
     /**
      * Converts this vector to a string
-     * @return {Vec3} This vector in the form "this.x this.y this.z"
+     * @return {`${Vec3}`} This vector in the form "this.x this.y this.z"
      * @see {@link toObject}
      **/
     toString() {
@@ -907,7 +910,7 @@ class Vec3 {
      * @returns {boolean} - True if the vectors' components are equal, false otherwise.
      */
     equals(vec3) {
-        this.x === vec3.x && this.y === vec3.y && this.z === vec3.z;
+        return this.x === vec3.x && this.y === vec3.y && this.z === vec3.z;
     }
 
     /**
@@ -1169,33 +1172,10 @@ class Vec3 {
      * @see {@link swizzle}
      **/
     getComponent(str) {
-        if (str instanceof String) {
-            if (str.length == 1) {
-                if (str == "x") {
-                    return this.x;
-                }
-                if (str == "y") {
-                    return this.y;
-                }
-                if (str == "z") {
-                    return this.z;
-                }
-                if (str == "r") {
-                    return this.r;
-                }
-                if (str == "g") {
-                    return this.g;
-                }
-                if (str == "b") {
-                    return this.b;
-                }
-                throw new Error("\"" + str + "\" component not found");
-            } else {
-                throw new Error("Input must be length 1");
-            }
-        } else {
-            throw new Error("Input must be string");
-        }
+        if (typeof str !== "string") throw new Error("Input must be string")
+        if (str.length !== 1) throw new Error("Input must be length 1");
+        if ('xyzrgb'.includes(str)) return this[str];
+        throw new Error(`"${str}" component not found`);
     }
 
     /**
@@ -1205,28 +1185,26 @@ class Vec3 {
      * @see {@link getComponent}
      **/
     swizzle(str) {
-        if (str instanceof String) {
-            if (str.length == 2) {
-                return vec2(this.getComponent(str.substring(0, 1)), this.getComponent(str.substring(1, 2)));
-            } else if (str.length == 3) {
-                return vec3(
-                    this.getComponent(str.substring(0, 1)),
-                    this.getComponent(str.substring(1, 2)),
-                    this.getComponent(str.substring(2, 3))
-                );
-            } else if (str.length == 4) {
-                return vec4(
-                    this.getComponent(str.substring(0, 1)),
-                    this.getComponent(str.substring(1, 2)),
-                    this.getComponent(str.substring(2, 3)),
-                    this.getComponent(str.substring(3, 4))
-                );
-            } else {
-                throw new Error("Input must be 2, 3, or 4 characters long");
-            }
+        if (typeof str !== "string") throw new Error("Input must be string");
+        if (str.length == 2) {
+            return vec2(this.getComponent(str.substring(0, 1)), this.getComponent(str.substring(1, 2)));
+        } else if (str.length == 3) {
+            return vec3(
+                this.getComponent(str.substring(0, 1)),
+                this.getComponent(str.substring(1, 2)),
+                this.getComponent(str.substring(2, 3))
+            );
+        } else if (str.length == 4) {
+            return vec4(
+                this.getComponent(str.substring(0, 1)),
+                this.getComponent(str.substring(1, 2)),
+                this.getComponent(str.substring(2, 3)),
+                this.getComponent(str.substring(3, 4))
+            );
         } else {
-            throw new Error("Input must be string");
+            throw new Error("Input must be 2, 3, or 4 characters long");
         }
+
     }
 
     /**
@@ -1236,7 +1214,7 @@ class Vec3 {
      * @see {@link cross}
      **/
     dot(vector) {
-        if (a instanceof Vec3) {
+        if (vector instanceof Vec3) {
             return this.x * vector.x + this.y * vector.y + this.z * vector.z;
         } else {
             throw new Error("Input must be Vec3");
@@ -1250,7 +1228,7 @@ class Vec3 {
      * @see {@link dot}
      **/
     cross(vector) {
-        if (a instanceof Vec3) {
+        if (vector instanceof Vec3) {
             return vec3(
                 this.y * vector.z - this.z * vector.y,
                 this.z * vector.x - this.x * vector.z,
@@ -1300,36 +1278,36 @@ class Vec3 {
      **/
     get normalized() {
         let len = this.length;
-        if (ls == 0.0) {
+        if (len == 0.0) {
             console.warn("Vector length is 0, returning 0 vector");
             return vec3(0);
         } else {
             return this.divide(len);
         }
     }
-     /**
-     * Converts a block face to a Vec3.
-     * @param {string} face - The block face ("up", "down", "north", "south", "east", "west").
-     * @returns {Vec3} The corresponding Vec3 representation.
-     */
-     static from(face) {
+    /**
+    * Converts a block face to a Vec3.
+    * @param {string} face - The block face ("up", "down", "north", "south", "east", "west").
+    * @returns {Vec3} The corresponding Vec3 representation.
+    */
+    static from(face) {
         switch (face) {
-          case "up":
-            return Vec3.Up;
-          case "down":
-            return Vec3.Down;
-          case "north":
-            return Vec3.North;
-          case "south":
-            return Vec3.South;
-          case "east":
-            return Vec3.East;
-          case "west":
-            return Vec3.West;
+            case "up":
+                return Vec3.Up;
+            case "down":
+                return Vec3.Down;
+            case "north":
+                return Vec3.North;
+            case "south":
+                return Vec3.South;
+            case "east":
+                return Vec3.East;
+            case "west":
+                return Vec3.West;
         }
         throw new Error("Argument was not of type 'block_face' or 'cardinal_direction'.");
-      }
     }
+}
 
 //#endregion
 
@@ -1488,7 +1466,7 @@ class Vec4 {
 
     /**
      * Converts this vector to a string
-     * @return {Vec4} This vector in the form "this.x this.y this.z this.w"
+     * @return {`${Vec4}`} This vector in the form "this.x this.y this.z this.w"
      * @see {@link toObject}
      **/
     toString() {
