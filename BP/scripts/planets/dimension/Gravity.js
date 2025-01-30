@@ -127,6 +127,8 @@ class Gravity {
     }
 }
 
+
+
 /**
  * @type {WeakMap<Object, boolean>} A map to track player jump states.
  */

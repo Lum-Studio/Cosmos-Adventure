@@ -1,4 +1,4 @@
-import { Venus  } from "./Venus";
+import { Venus } from "./WorldProviderVenus";
 import { Player } from "@minecraft/server";
 
 export class EventHandlerMoon {
