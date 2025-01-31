@@ -1,5 +1,6 @@
 import { ActionFormData} from "@minecraft/server-ui" ;
 import { world, system } from "@minecraft/server" ;
+import { moon_lander } from "./liftoff";
 
 const overworld = world.getDimension('overworld');
 const rocket_tier = 3;
@@ -244,6 +245,17 @@ function select_solar_system(player, focused) {
 
 function launch(player, planet) {
 	player.setDynamicProperty("in_celestial_selector")
+	if(planet == 'Moon'){
+		let rocket = player.getComponent("minecraft:riding").entityRidingOn;
+		let fuel = rocket.getDynamicProperty("fuel_level");
+		rocket.remove();
+		let moon = world.getDimension("the_end");
+		let dimension = player.dimension;
+		let loc = {x: 75000 + (Math.random() * 20), y: 1000, z: 75000 + (Math.random() * 20)};
+		player.setDynamicProperty('dimension', JSON.stringify([planet, fuel]))
+		player.teleport(loc, {dimension: moon});
+		if(dimension.id == "minecraft:the_end") moon_lander(player);
+	}
 	player.sendMessage(`Launch ${player.nameTag} to ${planet}`)
 }
 
@@ -269,7 +281,6 @@ export function start_celestial_selector(player) {
 	const fade = system.runInterval(()=> {
 		if (player.getDynamicProperty('in_celestial_selector')) {
 			player.camera.fade({fadeTime: {fadeInTime: 0, fadeOutTime: 0.5, holdTime: 2}})
-			player.teleport({x: player.location.x, y: 10000, z: player.location.z})
 		} else {
 			player.runCommand('hud @s reset')
 			system.clearRun(fade)
