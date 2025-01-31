@@ -4,7 +4,7 @@ import { Planet } from "../../planets/dimension/GalacticraftPlanets";
 /**
  * Class to manage player coordinates relative to a planet's coordinates
  */
-export class PlayerCoordinateManager {
+export class CoordinateManager {
     /**
      * Creates an instance of PlayerCoordinateManager for a player
      * @param {Player} player - The player object
