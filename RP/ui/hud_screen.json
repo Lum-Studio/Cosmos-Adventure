@@ -34,7 +34,7 @@
       "factory": {
         "name": "hud_actionbar_text_factory",
         "control_ids": {
-          "hud_actionbar_text": "hud_actionbar_text@hud.custom_coordinates_text"
+          "hud_actionbar_text": "custom_coordinates_text@hud.custom_coordinates_text"
         }
       }
     },
@@ -468,7 +468,6 @@
                 ]
               }
             },
-            { "player_position@hud.player_position": {} },
             { "custom_position@hud.custom_position": {} },
             { "number_of_days_played@hud.number_of_days_played": {} },
             {
