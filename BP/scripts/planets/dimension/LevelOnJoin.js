@@ -1,8 +1,9 @@
 import { Planet } from "./GalacticraftPlanets";
+import { world } from "@minecraft/server";
 
 export class PlanetEventHandler {
     constructor(planetId) { // Planet object or planet ID
-        this.planet = Planet.get(planet.type || planet);
+        this.planet = Planet.get(planetId || planet);
     }
     /**
      * Subscribe to the player dimension change event and execute the provided callback if the player is on a planet

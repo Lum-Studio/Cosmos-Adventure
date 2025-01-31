@@ -1,30 +1,25 @@
-import { Moon } from "./Moon";
-import { world, Player } from "@minecraft/server";
+import { PlanetEventHandler  } from "../dimension/LevelOnJoin";
+import { Player } from "@minecraft/server";
+import { Planet } from "../dimension/GalacticraftPlanets";
+import { Gravity } from "../dimension/Gravity";
+import { CoordinateManager } from "../../api/world/DimensionalCoord";
 
-export class EventHandlerMoon {
-    #subscribers = []; // Private field
+const mars = Planet.get('moon');
+const eventHandler = new PlanetEventHandler('moon');
 
-    subscribe(fn, player) {
-        // Ensure player is an instance of Player and has a valid location
-        if (player instanceof Player && player.location && Moon.isOnLunar(player.location)) {
-            this.#subscribers.push(fn);
-        } else {
-            console.warn("Player does not have a valid location or is not on the Moon.");
-        }
+eventHandler.onJoinLevel((player) => {
+    // Create an instance of CoordinateManager for the player
+    const coordinateManager = new CoordinateManager(player);
+    
+    // Get the player's current location
+    const currentLocation = player.location;
+    
+    // Check if the player is not already on Mars
+    if (!mars.isOnPlanet(currentLocation)) {
+        // Set the player's coordinates to Mars' center
+        coordinateManager.setPlayerCoordinates('moon');
     }
 
-    trigger(eventData) {
-        this.#subscribers.forEach((fn) => fn(eventData));
-    }
-}
-
-//Set the spawn point at Martian world center
-world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource: { damagingEntity, damagingProjectile, cause } }) => {
-    if (deadEntity instanceof Player) {
-        // Check if the player's location is in the Moon
-        if (Moon.isOnLunar(deadEntity.location)) {
-            deadEntity.setDynamicProperty("cosmos:is_on_moon");
-        }
-    }
+    // Apply gravity to the player on Mars
+    new Gravity(player).set(mars.gravity);
 });
-
