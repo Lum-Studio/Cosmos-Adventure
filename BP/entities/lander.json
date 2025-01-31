@@ -5,6 +5,26 @@
             "identifier": "cosmos:lander",
             "is_summonable": true
         },
+        "component_groups": {
+            "cosmos:lander_gravity":{
+                "minecraft:physics": {
+                    "has_collision": true,
+                    "has_gravity": true
+                }
+            }
+        },
+        "events":{
+            "cosmos:lander_gravity_disable": {
+                "remove":{
+                    "component_groups": ["lander_gravity"]
+                }
+            },
+            "cosmos:lander_gravity_enable": {
+                "add":{
+                    "component_groups": ["lander_gravity"]
+                }
+            }
+        },
         "components": {
             "minecraft:collision_box": {
                 "height": 4,

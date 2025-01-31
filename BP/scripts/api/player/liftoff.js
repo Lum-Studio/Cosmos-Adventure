@@ -1,6 +1,57 @@
 import { world, system } from "@minecraft/server"
 import { start_celestial_selector } from "./celestial_selector"
 
+export function moon_lander(player){
+    let speed = 0;
+    player.inputPermissions.setPermissionCategory(2, false);
+    player.inputPermissions.setPermissionCategory(6, false);
+    let lander = player.dimension.spawnEntity("cosmos:lander", {x: player.location.x, y: 1, z: player.location.z});
+    lander.triggerEvent("cosmos:lander_gravity_disable");
+    lander.teleport(player.location);
+    lander.setDynamicProperty("fuel_level", JSON.parse(player.getDynamicProperty('dimension'))[1]);
+    lander.addEffect('slow_falling', 999999, {showParticles: false});
+    lander.getComponent("minecraft:rideable").addRider(player);
+    player.camera.setCamera("minecraft:follow_orbit", { radius: 20 });
+    player.setDynamicProperty("dimension", undefined);
+    lander.triggerEvent("cosmos:lander_gravity_enable");
+        
+    let lander_flight = system.runInterval(() => {
+        if(!player || !player.isValid()){
+            system.clearRun(lander_flight);
+            return;
+        }
+        if(!lander || !lander.isValid()){
+            dismount(player);
+            system.clearRun(lander_flight);
+            return;
+        }
+        if(player.inputInfo.getButtonState("Jump") == "Pressed"){
+            speed = Math.min(speed - 0.022, -1.0);
+            lander.addEffect('slow_falling', 3, {showParticles: false});
+        }else{
+            speed = speed + 0.03;
+        }
+        if(lander.location.y < 500 && lander.getVelocity().y === 0){
+            if(speed > 2){
+                dismount(player);
+                lander.dimension.createExplosion(lander.location, 10, {causesFire: false, breaksBlocks: true});
+                lander.remove();
+                system.clearRun(lander_flight);
+            }else{
+                 dismount(player);
+                system.clearRun(lander_flight);
+            }
+        }
+    });
+}
+world.afterEvents.playerDimensionChange.subscribe((data) => {
+    if(!data.player.getDynamicProperty('dimension')) return;
+    if(data.fromDimension.id != "minecraft:overworld") return;
+    if(JSON.parse(data.player.getDynamicProperty('dimension'))[0] == 'Moon'){
+        moon_lander(data.player);
+    }
+});
+
 function start_countdown(rocket, player) {
     rocket.setDynamicProperty('active', true)
     player.inputPermissions.setPermissionCategory(2, false)
@@ -68,7 +119,13 @@ function rocket_flight(rocket) {
     rocket.addEffect('levitation', 2000, {showParticles: false})
     let t = 0; let v
     const a = 30; const b = 10
-    system.runInterval(() => { t++
+    let flight = system.runInterval(() => {
+        if(!rocket || !rocket.isValid() || rocket.getComponent("minecraft:rideable").getRiders().length === 0){
+            system.clearRun(flight);
+            return;
+        }
+        if(rocket.getComponent("minecraft:rideable").getRiders()[0]?.getDynamicProperty("in_celestial_selector")) return;
+        t++;
         if (t == 40) world.sendMessage('§7Do not save & quit or disconnect while flying the rocket or in the celesetial selector.')
         if (!rocket || !rocket.isValid()) return
         if (v >= 10) rocket.setDynamicProperty('rocket_launched', true)
@@ -145,8 +202,8 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
         if (rocket && rocket.isValid() && active && rocket.location.y > 1200) {
             const current_rider = rocket.getComponent('minecraft:rideable').getRiders()
             .find(rider => rider.typeId == "minecraft:player")
-            rocket.remove()
-            if (current_rider) {
+            if (current_rider && !rocket.getDynamicProperty("freezed")){
+                rocket.setDynamicProperty("freezed", true)
                 start_celestial_selector(current_rider)
             }
         }

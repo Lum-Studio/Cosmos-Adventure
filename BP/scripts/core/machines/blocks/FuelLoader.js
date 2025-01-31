@@ -4,14 +4,17 @@ import { charge_from_battery, charge_from_machine, location_of_side} from "../..
 import { get_data, get_lore } from "../../../api/utils.js";
 
 function get_rockets(block){
+	if(!block.location) return;
     let rockets = []
     let pad_one = location_of_side(block, "front")
     let pad_two = location_of_side(block, "back")
-    pad_one = block.dimension.getBlock({x: block.location.x + ((pad_one.x - block.location.x) * 2), y: block.location.y, z: block.location.z + ((pad_one.z - block.location.z) * 2)});
-    pad_two = block.dimension.getBlock({x: block.location.x + ((pad_two.x - block.location.x) * 2), y: block.location.y, z: block.location.z + ((pad_two.z - block.location.z) * 2)});
-    pad_one = (!pad_one.isAir && pad_one.typeId === "cosmos:rocket_launch_pad" && pad_one.permutation.getState("cosmos:center"))? pad_one:
+    pad_one = (pad_one)? block.dimension.getBlock({x: block.location.x + ((pad_one.x - block.location.x) * 2), y: block.location.y, z: block.location.z + ((pad_one.z - block.location.z) * 2)}):
+	undefined;
+    pad_two = (pad_two)? block.dimension.getBlock({x: block.location.x + ((pad_two.x - block.location.x) * 2), y: block.location.y, z: block.location.z + ((pad_two.z - block.location.z) * 2)}):
+	undefined;
+    pad_one = (pad_one && !pad_one.isAir && pad_one.typeId === "cosmos:rocket_launch_pad" && pad_one.permutation.getState("cosmos:center"))? pad_one:
     undefined;
-    pad_two = (!pad_two.isAir && pad_two.typeId === "cosmos:rocket_launch_pad" && pad_two.permutation.getState("cosmos:center"))? pad_two:
+    pad_two = (pad_two && !pad_two.isAir && pad_two.typeId === "cosmos:rocket_launch_pad" && pad_two.permutation.getState("cosmos:center"))? pad_two:
     undefined;
     let rocket_one = (pad_one)? pad_one.dimension.getEntities({type: "cosmos:rocket_tier_1", location: pad_one.center(), maxDistance: 1}):
     [];
@@ -45,7 +48,7 @@ export default class extends MachineBlockEntity {
 			container.setItem(0, new ItemStack('bucket'))
 			fuel += 1000
 		}
-		if(!stopped && energy > 0 && fuel > 2 && this.block){
+		if(!stopped && energy > 0 && fuel >= 2 && this.block){
 		    let rockets = get_rockets(this.block)
 		    if(rockets.length > 0){
 		        rockets.forEach((rocket) =>{
