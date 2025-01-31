@@ -5,7 +5,7 @@ export class PlanetEventHandler {
         this.planet = Planet.get(planet.type || planet);
     }
     /**
-     * Subscribe to the player dimension change event and execute the provided callback if the player is on Mars
+     * Subscribe to the player dimension change event and execute the provided callback if the player is on a planet
      * @param {Function} callback - The function to execute when the player is on Mars
      */
     onJoinLevel(callback) {
