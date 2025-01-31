@@ -1,63 +1,38 @@
-import { Vec3 } from "../libraries/Vector";
+import { Player } from "@minecraft/server";
+import { Planet } from "../../planets/dimension/GalacticraftPlanets";
 
-export class CoordinateDisplay {
-    static #locationMap = new Map();
-
+/**
+ * Class to manage player coordinates relative to a planet's coordinates
+ */
+export class PlayerCoordinateManager {
+    /**
+     * Creates an instance of PlayerCoordinateManager for a player
+     * @param {Player} player - The player object
+     */
     constructor(player) {
         this.player = player;
     }
 
-    static adjustCoordinates(x, z) {
-        return {
-            adjustedX: Math.floor((x - 100000) / 1000),
-            adjustedZ: Math.floor((z - 100000) / 1000)
-        };
+    /**
+     * Sets the player's coordinates relative to the specified planet's coordinates
+     * @param {string} planetId - The ID of the planet
+     */
+    setPlayerCoordinates(planetId) {
+        const planet = Planet.get(planetId);
+        if (!planet) {
+            throw new Error(`Planet with ID "${planetId}" not found`);
+        }
+        const location = this.player.location; 
+        const offsetCoords = planet.offset(location); // Utilize the offset method from the Planet class
+        this.updateDisplay(offsetCoords);
     }
-     updateCoordinates() {
-        const { name, location } = this.player;
-        const locationMap = CoordinateDisplay.#locationMap;
 
-        // Retrieve previous location or initialize with current location
-        const prevLocation = locationMap.get(name)?.current || Vec3.round(location);
-
-        // Determine movement direction and adjust coordinates
-        let adjustedX = 0;
-        let adjustedZ = 0;
-
-        if (location.x > prevLocation.x) {
-            adjustedX = 1; // Move forward in x direction
-        } else if (location.x < prevLocation.x) {
-            adjustedX = -1; // Move backward in x direction
-        }
-
-        if (location.z > prevLocation.z) {
-            adjustedZ = 1; // Move forward in z direction
-        } else if (location.z < prevLocation.z) {
-            adjustedZ = -1; // Move backward in z direction
-        }
-
-        // Update coordinates based on adjustments
-        let current = { ...prevLocation };
-        current.x += adjustedX;
-        current.z += adjustedZ;
-        current.y = location.y; // Update y-coordinate
-
-        locationMap.set(name, { current: Vec3.round(current) });
-
-        // Retrieve current location data
-        const currentLocation = locationMap.get(name)?.current;
-
-        // Prepare coordinate string for display
-        const coordString = isNaN(currentLocation?.x) || isNaN(currentLocation?.z)
-            ? "Loading Coordinates..."
-            : `x: ${currentLocation.x} y: ${currentLocation.y} z: ${currentLocation.z}`;
-
-        // Update player display with coordinates
+    /**
+     * Updates the display with the player's relative coordinates
+     * @param {Object} coords - The relative coordinates
+     */
+    updateDisplay(coords) {
+        const coordString = `X: ${coords.x} Y: ${coords.y} Z: ${coords.z}`;
         this.player.onScreenDisplay.setActionBar(coordString);
-    }
-
-    get coord() {
-        const currentLocation = CoordinateDisplay.#locationMap.get(this.player.name)?.current;
-        return currentLocation ? { x: currentLocation.x, y: currentLocation.y, z: currentLocation.z } : null;
     }
 }
