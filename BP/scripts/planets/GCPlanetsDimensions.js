@@ -6,9 +6,9 @@ import "./moon/WorldProviderMoon"
 import "./moon/GlobalMoonEvents"
 
 //Mars
-import "./mars/GlobalMartianEvents"
-import "./mars/WorldProviderMars"
+//import "./mars/GlobalMartianEvents"
+//import "./mars/WorldProviderMars"
 
 //Venus
-import "./venus/GlobalVenusEvents"
-import "./venus/WorldProviderVenus"
+//import "./venus/GlobalVenusEvents"
+//import "./venus/WorldProviderVenus"
