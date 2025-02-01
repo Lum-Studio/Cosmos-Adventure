@@ -3,7 +3,7 @@ import { Planet } from "./GalacticraftPlanets";
 export const planetConfigs = [
     {
         id: 'mars',
-        range: { start: { x: 50000, z: 50000 }, end: { x: 100000, z: 100000 } },
+        range: { start: { x: -100000, z: 50000 }, end: { x: -50000, z: 100000 } },
         gravity: 3.7
     },
     {
@@ -13,7 +13,7 @@ export const planetConfigs = [
     },
     {
         id: 'moon',
-        range: { start: { x: -100000, z: 50000 }, end: { x: -50000, z: 100000 } },
+        range: { start: { x: 50000, z: 50000 }, end: { x:100000, z: 100000 } },
         gravity: 1.62
     },
     {
