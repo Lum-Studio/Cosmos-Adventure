@@ -1,12 +1,26 @@
 {
 	//bindings ************************************************************
-  "$visibility": [
+	"$visibile_if": [
     	{
 			"binding_type": "view",
 			"source_property_name": "$condition",
 			"target_property_name": "#visible"
 		}
   	],
+
+	"$visibility": [
+    	{
+			"binding_type": "view",
+			"source_property_name": "$condition",
+			"target_property_name": "#visible"
+		}
+  	],
+	"$form_buttons": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		}
+	],
 	"$read_buttons": [
 		{
 			"binding_type": "collection_details",

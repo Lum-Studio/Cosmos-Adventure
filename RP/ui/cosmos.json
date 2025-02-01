@@ -1,6 +1,63 @@
 {
 	"namespace": "cosmos",
 
+	"toggle": {
+		"type": "toggle",
+		"focus_enabled": true,
+		"radio_toggle_group": true,
+		"toggle_default_state": false,
+		"sound_name": "random.click",
+		"checked_control": "checked",
+		"checked_hover_control": "checked_hover",
+		"unchecked_control": "unchecked",
+		"unchecked_hover_control": "unchecked_hover",
+		"toggle_on_button": "toggle.toggle_on",
+		"toggle_off_button": "toggle.toggle_off",
+		"button_mappings": [
+		  {
+			"from_button_id": "button.menu_select",
+			"to_button_id": "button.menu_select",
+			"mapping_type": "pressed"
+		  },
+		  {
+			"from_button_id": "button.menu_ok",
+			"to_button_id": "button.menu_ok",
+			"mapping_type": "focused"
+		  }
+		]
+	},
+
+	"button": {
+		"type": "button",
+		"focus_enabled": true,
+		"default_control": "default",
+		"hover_control": "hover",
+		"pressed_control": "hover",
+		"sound_name": "random.click",
+		"$action": "button.menu_exit",
+		"size": [ 32, 32 ],
+		"button_mappings": [
+			{
+				"from_button_id": "button.menu_select",
+				"to_button_id": "$action",
+				"mapping_type": "pressed"
+			},
+			{
+				"from_button_id": "button.menu_ok",
+				"to_button_id": "$action",
+				"mapping_type": "pressed"
+			}
+		],
+		"controls": [
+			{
+				"default": {"type": "panel"}
+			},
+			{
+				"hover": {"type": "panel"}
+			}
+		]
+	},
+
 	"celestial_panel_content": {
 		"type": "panel",
 		"controls": [
@@ -1306,36 +1363,6 @@
 			{
 				"binding_name": "#form_button_length",
 				"binding_name_override": "#collection_length"
-			}
-		]
-	},
-	
-	"button": {
-		"type": "button",
-		"default_control": "default",
-		"hover_control": "hover",
-		"pressed_control": "hover",
-		"sound_name": "random.click",
-		"$action": "button.menu_exit",
-		"size": [ 32, 32 ],
-		"button_mappings": [
-			{
-				"from_button_id": "button.menu_select",
-				"to_button_id": "$action",
-				"mapping_type": "pressed"
-			},
-			{
-				"from_button_id": "button.menu_ok",
-				"to_button_id": "$action",
-				"mapping_type": "pressed"
-			}
-		],
-		"controls": [
-			{
-				"default": {"type": "panel"}
-			},
-			{
-				"hover": {"type": "panel"}
 			}
 		]
 	},

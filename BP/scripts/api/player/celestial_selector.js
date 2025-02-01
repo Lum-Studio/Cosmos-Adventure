@@ -4,6 +4,7 @@ import { moon_lander } from "./liftoff";
 
 const overworld = world.getDimension('overworld');
 const rocket_tier = 3;
+const debug = true
 
 function set_planet_locations() {
 	const middle = {x:200, y:101};
@@ -41,27 +42,22 @@ function set_station_location() {
 
 
 function read_inventory(player) {
-	if (world.getPlayers({gameMode: "creative", name: player.nameTag}).length == 1) return '§t§t§t§t';
-	const inventory = player.getComponent("inventory").container;
-	const items = [];
+	if (player.getGameMode() == "creative") return {aluminum: true, wafer: true, tin: true, iron: true}
+	const materials = {aluminum: 0, wafer: 0, tin: 0, iron: 0}
+	const inventory = player.getComponent("inventory").container
 	for (let slot = 0; slot < inventory.size; slot++) {
-		const itemStack = inventory.getItem(slot);
-		if (!itemStack) continue;
-		items.push({id: itemStack.typeId, amount: itemStack.amount});
+		const item = inventory.getItem(slot)
+		if (!item) continue
+		else if (item.typeId == 'cosmos:aluminum_ingot') {materials.aluminum += item.amount}
+		else if (item.typeId == 'cosmos:advanced_wafer') {{materials.wafer += item.amount}}
+		else if (item.typeId == 'cosmos:tin_ingot') {{materials.tin += item.amount}}
+		else if (item.typeId == 'minecraft:iron_ingot') {{materials.iron += item.amount}}
 	}
-	let results = ['§','f','§','f','§','f','§','f'];
-	const materials = [0, 0, 0, 0];
-	items.forEach((item)=> {
-		if (item.id == 'cosmos:aluminum_ingot') {materials[0] += item.amount};
-		if (item.id == 'cosmos:advanced_wafer') {{materials[1] += item.amount}};
-		if (item.id == 'cosmos:tin_ingot') {{materials[2] += item.amount}};
-		if (item.id == 'minecraft:iron_ingot') {{materials[3] += item.amount}};
-	})
-	results[1] = materials[0] >= 16 ? 't' : 'f';
-	results[3] = materials[1] >= 1 ? 't' : 'f';
-	results[5] = materials[2] >= 32 ? 't' : 'f';
-	results[7] = materials[3] >= 24 ? 't' : 'f';
-	return results.join('')
+	materials.aluminum = materials.aluminum >= 16
+	materials.wafer = materials.wafer >= 1
+	materials.tin = materials.tin >= 32
+	materials.iron = materials.iron >= 24
+	return materials
 }
 function angle_to_vector(angle, distance, center) {
 	angle = (Math.PI / 180) * angle; // to randian
@@ -204,48 +200,49 @@ function view_stations(player, focused) {
 	})
 }
 
-function select_solar_system(player, focused) {
+
+
+function select_solar_system(player, tier=1) {
 	set_planet_locations()
-	const station = player.getDynamicProperty("has_space_station");
+	const space_stations = JSON.parse(world.getDynamicProperty("all_space_stations") ?? '{}')
+	const has_station = player.nameTag in space_stations
 	let form = new ActionFormData()
 	.title("Celestial Panel Solar System")
-	if (focused) {
-		form.body(
-			`§${rocket_tier >= solar_system[focused].tier ? 't' : 'f'}`+
-			`§${station ? 't' : 'f'}`+
-			`Tier ${solar_system[focused].tier < 6 ? '' + solar_system[focused]?.tier : '?' }`+
-			`${focused}`
-		)
+	.body(`Tier ${tier} Station ${has_station || ('false ' + JSON.stringify(read_inventory(player)))}`)
+	.button(`Launch to Venus`)
+	.button(`Launch to Overworld`)
+	.button(`Launch to Mars`)
+	.button(`Launch to Asteroids`)
+	.button(`Launch to Moon`)
+	.button(`Create Space Station`)
+	for (let player_name of Object.keys(space_stations)) {
+		const name = space_stations[player_name].name
+		form.button(`Launch to ${name}`)
+		form.button(`Rename ${name}`)
 	}
-	for (let planet of Object.keys(solar_system)) {
-		form.button(
-			`§${rocket_tier >= solar_system[planet].tier ? 't' : 'f'}`+
-			`§${focused == planet ? 't' : 'f'}`+
-			`x${solar_system[planet].x}`+
-			`y${solar_system[planet].y}`+
-			`${planet}`
-		)
-	}
-	form.button("LAUNCH")
-	.button(read_inventory(player) + "CREATE")
-	.show(player)
-	.then((response) => {
+	form.show(player).then((response) => {
+		const focused = undefined
 		if (response.canceled) {
-			select_solar_system(player); return
+			if (!debug) select_solar_system(player); return
 		}
 		switch (response.selection) {
-			case 10: launch(player, focused); return;
-			case 11: create_station(player, focused); return;
+			case 0: if (tier >= 3) launch(player, "Venus"); return
+			case 1: launch(player, "Overworld"); return
+			case 2: if (tier >= 2) launch(player, "Mars"); return
+			case 3: if (tier >= 3) launch(player, "Asteroids"); return
+			case 4: launch(player, "Moon"); return
+			case 5: if (!Object.values(read_inventory(player)).includes(false)) create_station(player); return
 		}
-		const planet = Object.keys(solar_system)[response.selection]
-		if (planet == focused) {zoom_at(player, planet, planet)}
-		else {select_solar_system(player, planet)}
+		const station_index = response.selection - 6
+		const station = Object.values(space_stations)[Math.floor(station_index / 2)]
+		if (station_index % 2 == 0) launch_to_station(player, station)
+		if (station_index % 2 == 1) rename_station(player, station)
 	})
 }
 
 function launch(player, planet) {
 	player.setDynamicProperty("in_celestial_selector")
-	if(planet == 'Moon'){
+	if(planet == 'Moon' && player.getComponent("minecraft:riding")){
 		let rocket = player.getComponent("minecraft:riding").entityRidingOn;
 		let fuel = rocket.getDynamicProperty("fuel_level");
 		rocket.remove();
@@ -256,23 +253,31 @@ function launch(player, planet) {
 		player.teleport(loc, {dimension: moon});
 		if(dimension.id == "minecraft:the_end") moon_lander(player);
 	}
-	player.sendMessage(`Launch ${player.nameTag} to ${planet}`)
+	if (debug) player.sendMessage(`Launch ${player.nameTag} to ${planet}`)
+}
+function launch_to_station(player, station) {
+	player.setDynamicProperty("in_celestial_selector")
+	if (debug) player.sendMessage(`Launch ${player.nameTag} to ${station.name}`)
 }
 
-function rename(player, station) {
-	player.sendMessage(`Rename ${station}`)
+function rename_station(player, station) {
+	if (debug) player.sendMessage(`Rename ${station.name}`)
 }
 
-function create_station(player, planet) {
-	player.setDynamicProperty("has_space_station", true)
-	const stations = JSON.parse(world.getDynamicProperty("space_stations") ?? '[]')
-	stations.push({name: `${player.nameTag}'s station`, owner: player.nameTag})
-	world.setDynamicProperty("space_stations", JSON.stringify(stations))
-	player.runCommand("clear @s cosmos:aluminum_ingot 0 16");
-	player.runCommand("clear @s cosmos:advanced_wafer 0 1");
-	player.runCommand("clear @s cosmos:tin_ingot 0 32");
-	player.runCommand("clear @s iron_ingot 0 24");
-	zoom_at(player, planet, planet)
+function create_station(player) {
+	if (debug) player.sendMessage(`Create Space Station`)
+	const space_stations = JSON.parse(world.getDynamicProperty("all_space_stations") ?? '{}')
+	space_stations[player.nameTag] = {name: `${player.nameTag}'s Space Station`}
+	space_stations['Zahar'] = {name: `NSS`}
+	world.setDynamicProperty("all_space_stations", JSON.stringify(space_stations))
+	// const stations = JSON.parse(world.getDynamicProperty("space_stations") ?? '[]')
+	// stations.push({name: `${player.nameTag}'s station`, owner: player.nameTag})
+	// world.setDynamicProperty("space_stations", JSON.stringify(stations))
+	// player.runCommand("clear @s cosmos:aluminum_ingot 0 16");
+	// player.runCommand("clear @s cosmos:advanced_wafer 0 1");
+	// player.runCommand("clear @s cosmos:tin_ingot 0 32");
+	// player.runCommand("clear @s iron_ingot 0 24");
+	// zoom_at(player, planet, planet)
 }
 
 export function start_celestial_selector(player) {
@@ -290,8 +295,8 @@ export function start_celestial_selector(player) {
 	select_solar_system(player)
 }
 
-
-// RENAME TOUCH
-// world.afterEvents.playerInteractWithEntity.subscribe(({target}) => {
-// 	target.nameTag = 'name'
-// })
+world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
+	if (itemStack?.typeId != 'minecraft:compass') return
+	select_solar_system(source, 3)
+	//source.setDynamicProperty('in_celestial_selector')
+})
