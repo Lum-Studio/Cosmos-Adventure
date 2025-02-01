@@ -15,7 +15,7 @@
 				},
 				"wheel_b_right": {
 					"rotation": ["query.property('cosmos:wheel_rotation_x')", 0, 0]
-				}
+				},
 				"wheel_b_left": {
 					"rotation": ["query.property('cosmos:wheel_rotation_x')", 0, 0]
 				}
