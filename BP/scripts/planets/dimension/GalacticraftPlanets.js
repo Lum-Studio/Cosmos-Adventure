@@ -1,5 +1,5 @@
 import { Player, Entity, world, ScreenDisplay, system } from "@minecraft/server";
-import { Gravity } from "./gravity.js"
+import { Gravity } from "./Gravity.js"
 export { Planet };
 
 const the_end = world.getDimension('the_end');
