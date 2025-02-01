@@ -18,8 +18,8 @@ import "./core/blocks/nasa_workbench.js"
 import "./core/blocks/cavernous_vines.js"
 import "./core/blocks/treasure_chest.js"
 
-//experimental
-//import "./planets/GCPlanetsDimensions.js"
+//not experimental anymore 
+import "./planets/GCPlanetsDimensions.js"
 
 //expermintal
 //import "./api/planets/border_builder.js"
