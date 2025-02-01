@@ -1,4 +1,6 @@
-import { Player, Entity, world  } from "@minecraft/server";
+import { Player, Entity, world, ScreenDisplay, system } from "@minecraft/server";
+import { Gravity } from "./gravity.js"
+export { Planet };
 
 const the_end = world.getDimension('the_end');
 
@@ -7,7 +9,7 @@ let ALL_PLANETS = {}
 /**
  * Class representing a generic Planet
  */
-export class Planet {
+class Planet {
     /**
      * Creates an instance of a Planet
      * @param {Object} options - Options for the planet
@@ -23,16 +25,18 @@ export class Planet {
             z: (this.range.start.z + this.range.end.z) / 2
         };
         this.#gravity = gravity;
+        this.#eventsHandler = new PlanetEvents(this);
     }
 
     #range
     #type
     #center
     #gravity
+    #eventsHandler
 
     /**
      * Gets the type of the planet
-     * @returns {string} The ID of the planet
+     * @returns {String} The ID of the planet
      */
     get type() {
         return this.#type + '';
@@ -51,7 +55,7 @@ export class Planet {
 
     /**
      * Gets the center coordinates of the planet
-     * @returns {Object} The center coordinates of the planet
+     * @returns {Vector3} The center coordinates of the planet
      */
     get center() {
         return {
@@ -69,9 +73,17 @@ export class Planet {
     }
 
     /**
+    * Gets the event handler for this planet
+    * @returns {PlanetEvents} Event Handler
+    */
+    get events() {
+        return this.#eventsHandler
+    }
+
+    /**
      * Checks whether a given location is on the planet
-     * @param {import("@minecraft/server").Vector3} location - Location to check
-     * @returns {boolean} Whether or not the location is on the planet
+     * @param {Vector3} location - Location to check
+     * @returns {Boolean} Whether or not the location is on the planet
      */
     isOnPlanet(location) {
         return (
@@ -103,18 +115,9 @@ export class Planet {
     }
 
     /**
-     * Get the player location on the planet relative to the planet's origin
-     * @param {Player} entity - The player object to get the location from
-     * @returns {import("@minecraft/server").Vector3} The player's position relative to the planet's origin
-     */
-    getPosition(entity) {
-        return this.offset(entity.location);
-    }
-
-    /**
      * Offsets the given location relative to the planet's center
-     * @param {import("@minecraft/server").Vector3} location - The location to offset
-     * @returns {Object} The offset location relative to the planet's center
+     * @param {Vector3} location - The location to offset
+     * @returns {Vector3} The offset location relative to the planet's center
      */
     offset(location) {
         return {
@@ -137,6 +140,7 @@ export class Planet {
             gravity: options.gravity || 9.8
         };
         ALL_PLANETS[id] = new Planet({ type: id, range: options.range, gravity: options.gravity });
+        return Planet.get(id)
     }
 
     /**
@@ -157,3 +161,212 @@ export class Planet {
     }
 }
 
+class PlanetEvents {
+    constructor(planet) {
+        this.#planet = planet
+        let data = {
+            players: {}
+        }
+        system.runInterval(() => {
+            let events = this.getAllEvents()
+            let planetPlayers = this.planet.getPlayers()
+
+            if (planetPlayers.length != Object.keys(data.players).length) {
+                let newPlayers = planetPlayers.filter(player => data.players[player.id] == undefined)
+                let leavePlayers = Object.keys(data.players).filter(id => !planetPlayers.some(player => player.id == id)).map(id => world.getEntity(id)).filter(player => player.isValid())
+                
+                for (let i = 0; i < leavePlayers.length; i++) {
+                    let player = leavePlayers[i]
+                    delete data.players[player.id]
+                    system.runTimeout(() => {
+                        for (let event of events) {
+                            if (event.type == 'onLeave' && player.isValid()) {
+                                event.callback(event, player)
+                            }
+                        }
+                    }, i+1)
+                }
+
+                system.runTimeout(() => {
+                    for (let i = 0; i < newPlayers.length; i++) {
+                        let player = newPlayers[i]
+                        data.players[player.id] = player
+                        system.runTimeout(() => {
+                            for (let event of events) {
+                                if (event.type == 'onJoin' && player.isValid()) {
+                                    event.callback(event, player)
+                                }
+                            }
+                        }, i+1)
+                    }
+                }, leavePlayers.length + 1)
+            }
+        }, 20)
+        this.#events = {}
+    }
+    #planet
+    #events
+
+    /**
+     * returns the planet to which the event handler is bound
+     * @returns {Planet}
+    */
+    get planet() {
+        return this.#planet
+    }
+
+    /**
+     * 
+     * @param {String} id unique ID for the event
+     * @param {String} type event type, for example `onJoin`
+     * @param {Function} callback callback function
+     * @throws {Error} Returns an error if an event with the same ID already exists
+     * @returns {PlanetEvent} registered event
+     */
+    addEvent(id, type, callback) {
+        if (this.#events[id] != undefined) throw new Error('event with ID ' + id + ' has already been registered');
+        this.#events[id] = new PlanetEvent(id, type, callback, this)
+        return this.#events[id]
+    }
+
+    /**
+     * Deletes this event
+     * @param {String} eventId
+     */
+    removeEvent(eventId) {
+        delete this.#events[eventId]
+    }
+
+    /**
+     * @param {String} id 
+     * @returns {PlanetEvent|undefined}
+     */
+    getEvent(id) {
+        return this.#events[id]
+    }
+
+    /**
+     * @returns {PlanetEvent[]}
+     */
+    getAllEvents() {
+        return Object.keys(this.#events).map(id => this.getEvent(id))
+    }
+
+
+    /**
+     * registers an event that is triggered when a player arrives on the planet
+     * @param {String} id id of the event
+     * @param {Function} callback function that accepts PlanetEvent and Player
+     * @returns {PlanetEvent}
+     */
+    onJoin(id, callback) {
+        return this.addEvent(id, 'onJoin', callback)
+    }
+
+    /**
+     * registers an event that is triggered when a player leaves the planet
+     * @param {String} id id of the event
+     * @param {Function} callback function that accepts PlanetEvent and Player
+     * @returns {PlanetEvent}
+     */
+    onLeave(id, callback) {
+        return this.addEvent(id, 'onLeave', callback)
+    }
+}
+
+class PlanetEvent {
+    constructor(id, type, callback, handler) {
+        this.#id = id
+        this.#type = type
+        this.#callback = callback
+        this.#handler = handler
+    }
+    #id
+    #type
+    #callback
+    #handler
+
+    // properties of this event
+
+    /**
+     * @returns {Function}
+     */
+    get callback() {
+        return this.#callback
+    }
+
+    /**
+     * @returns {String}
+     */
+    get type() {
+        return this.#type + ''
+    }
+
+    /**
+     * @returns {String}
+     */
+    get id() {
+        return this.#id + ''
+    }
+
+    /**
+     * @returns {PlanetEvents}
+     */
+    get handler() {
+        return this.#handler
+    }
+
+    /**
+     * deletes this event
+     */
+    remove() {
+        this.handler.removeEvent(this.id)
+    }
+}
+
+// Coordinate display
+const OldSetActionbar = ScreenDisplay.prototype.setActionBar
+const actionbars = new WeakMap()
+const displayBind = new WeakMap()
+ScreenDisplay.prototype.setActionBar = function(text) {
+    let func = OldSetActionbar.bind(this)
+    if (!world.gameRules.showCoordinates) func(text);
+
+    let result = text == "COORDS" ? (actionbars.get(this) || { time: 0, text: '' }) : {
+      time: system.currentTick + 100,
+      text: text
+    }
+    if (text != "COORDS") actionbars.set(this, result);
+    let loc = getCoords(displayBind.get(this))
+    result = ['x','y','z'].map(axis => Math.round(loc[axis])).join(' ') + (result.time > system.currentTick ? '\n' + result.text : '')
+
+  func(result)
+}
+
+// Returns the coordinates that should be displayed on the screen
+function getCoords(entity) {
+  if (entity.dimension.id != 'minecraft:the_end') return entity.location;
+  let planet = Planet.getAll().find(pl => pl.isOnPlanet(entity.location))
+  return planet?.offset(entity.location) || entity.location
+}
+
+system.runInterval(() => {
+  if (!world.gameRules.showCoordinates) return;
+  for (let player of world.getAllPlayers()) {
+    displayBind.set(player.onScreenDisplay, player)
+    player.onScreenDisplay.setActionBar('COORDS')
+  }
+})
+
+// Adding Gravity
+system.runTimeout(() => {
+    for (let planet of Planet.getAll()) {
+        planet.events.onJoin('addGravity', ((event, player) => {
+            new Gravity(player).setTemp(planet.gravity)
+        }))
+
+        planet.events.onLeave('removeGravity', ((event, player) => {
+            new Gravity(player).setTemp(9.8)
+        }))
+    }
+})
