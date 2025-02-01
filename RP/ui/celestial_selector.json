@@ -884,6 +884,17 @@
   //solar_system
 
   "solar_system": {
+    // Sol: 200 101
+    // Mercury: 181 127
+    // Venus: 122 100
+    // Overworld: 183 53
+    // Mars: 317 101
+    // Asteroids: pick randomly
+    // Jupiter: 315 59
+    // Saturn: 310 42
+    // Uranus: 329 165
+    // Neptune: 288 191
+
     "type": "image",
     "texture": "textures/ui/cosmos/solar_system_orbits",
     "bindings": "$visibile_if",

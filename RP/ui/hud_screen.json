@@ -11,7 +11,7 @@
       "alpha": 0.7,
       "$action_text": "$actionbar_text",
       "$position": "($action_text - 'Position:')",
-      "visible": "(not ($action_text - 'Position:' = $action_text))",
+      "visible": "(not (('§.' + $action_text) - 'Position:' = ('§.' + $action_text)))",
       "controls": [
         {
           "position": {
@@ -46,6 +46,8 @@
       "offset": [ 0, "50%-68px" ],
       "texture": "textures/ui/hud_tip_text_background",
       "alpha": "@hud.anim_actionbar_text_background_alpha_out",
+      "$action_text": "$actionbar_text",
+      "visible": "(('§.' + $action_text) - 'Position:' = ('§.' + $action_text)))",
       "controls": [
         {
           "actionbar_message": {
@@ -59,9 +61,7 @@
             "alpha": "@hud.anim_actionbar_text_alpha_out"
           }
         }
-      ],
-      "$action_text": "$actionbar_text",
-      "visible": "(($action_text - 'Position:' = $action_text))"
+      ]
     },
     
   "root_panel": {

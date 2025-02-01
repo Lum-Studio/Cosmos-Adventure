@@ -325,37 +325,31 @@ class PlanetEvent {
 }
 
 // Coordinate display
-const OldSetActionbar = ScreenDisplay.prototype.setActionBar
-const actionbars = new WeakMap()
-const displayBind = new WeakMap()
-ScreenDisplay.prototype.setActionBar = function(text) {
-    let func = OldSetActionbar.bind(this)
-    if (!world.gameRules.showCoordinates) func(text);
-
-    let result = text == "COORDS" ? (actionbars.get(this) || { time: 0, text: '' }) : {
-      time: system.currentTick + 100,
-      text: text
-    }
-    if (text != "COORDS") actionbars.set(this, result);
-    let loc = getCoords(displayBind.get(this))
-    result = ['x','y','z'].map(axis => Math.round(loc[axis])).join(' ') + (result.time > system.currentTick ? '\n' + result.text : '')
-
-  func(result)
-}
 
 // Returns the coordinates that should be displayed on the screen
-function getCoords(entity) {
+function planet_coords(entity) {
   if (entity.dimension.id != 'minecraft:the_end') return entity.location;
   let planet = Planet.getAll().find(pl => pl.isOnPlanet(entity.location))
   return planet?.offset(entity.location) || entity.location
 }
 
+world.afterEvents.gameRuleChange.subscribe(({rule, value}) => {
+    if (rule == "showCoordinates" && value == false)
+        world.getAllPlayers().forEach(player =>
+            player.onScreenDisplay.setActionBar(`§.`)
+        )
+    }
+)
+
 system.runInterval(() => {
-  if (!world.gameRules.showCoordinates) return;
-  for (let player of world.getAllPlayers()) {
-    displayBind.set(player.onScreenDisplay, player)
-    player.onScreenDisplay.setActionBar('COORDS')
-  }
+    if (!world.gameRules.showCoordinates) return
+    world.getAllPlayers().forEach(player => {
+        let {x, y, z} = planet_coords(player)
+        x = Math.floor(x)
+        y = Math.floor(y)
+        z = Math.floor(z)
+        player.onScreenDisplay.setActionBar(`Position: ${x}, ${y}, ${z}`)
+    })
 })
 
 // Adding Gravity
