@@ -2,9 +2,9 @@
 	"format_version": "1.20.20",
 	"minecraft:scatter_feature": {
 		"description": {
-			"identifier": "cosmos:moon/base/column_placer"
+			"identifier": "cosmos:moon/chunk"
 		},
-		"places_feature": "cosmos:moon/base/main_sequence",
+		"places_feature": "cosmos:moon/main_sequence",
 		"iterations": 256,
 		"x": {
 			"distribution": "fixed_grid",

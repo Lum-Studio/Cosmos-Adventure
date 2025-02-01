@@ -4,7 +4,7 @@
 		"description": {
 			"identifier": "cosmos:moon/caves/shaft_rows"
 		},
-		"places_feature": "cosmos:moon/blocks/air",
+		"places_feature": "cosmos:blocks/air",
 		"iterations": "v.h = math.sqrt(25 - math.pow(v.z - 5, 2)); return v.h*2;",
 		"x": {
 			"distribution": "fixed_grid",

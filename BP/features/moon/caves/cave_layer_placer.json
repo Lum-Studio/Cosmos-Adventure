@@ -4,7 +4,7 @@
 		"description": {
 			"identifier": "cosmos:moon/caves/cave_layer_placer"
 		},
-		"places_feature": "cosmos:moon/blocks/air",
+		"places_feature": "cosmos:blocks/air",
 		"iterations": "v.n1 = q.noise(v.originx*0.01, v.originz*0.01)*30; v.n2 = q.noise(v.originx*0.01 + 100, v.originz*0.01 + 200)*20 + 15; return v.n1 + 1;",
 		"x": 0,
 		"z": 0,

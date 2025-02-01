@@ -1,0 +1,14 @@
+
+{
+	"format_version": "1.20.20",
+	"minecraft:scatter_feature": {
+		"description": {
+			"identifier": "cosmos:moon/base/turf_layer"
+		},
+		"places_feature": "cosmos:blocks/moon_turf",
+		"iterations": "t.layer == 1",
+		"x": 0,
+		"z": 0,
+		"y": 0
+	}
+}

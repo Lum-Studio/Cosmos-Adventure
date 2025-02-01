@@ -1,0 +1,14 @@
+
+{
+	"format_version": "1.20.20",
+	"minecraft:scatter_feature": {
+		"description": {
+			"identifier": "cosmos:moon/base/dirt_layers"
+		},
+		"places_feature": "cosmos:blocks/moon_dirt",
+		"iterations": "t.layer > 1 && t.layer < 5",
+		"x": 0,
+		"z": 0,
+		"y": 0
+	}
+}

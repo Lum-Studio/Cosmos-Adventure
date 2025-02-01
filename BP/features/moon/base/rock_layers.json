@@ -1,0 +1,14 @@
+
+{
+	"format_version": "1.20.20",
+	"minecraft:scatter_feature": {
+		"description": {
+			"identifier": "cosmos:moon/base/rock_layers"
+		},
+		"places_feature": "cosmos:blocks/moon_rock",
+		"iterations": "t.layer > 4",
+		"x": 0,
+		"z": 0,
+		"y": 0
+	}
+}

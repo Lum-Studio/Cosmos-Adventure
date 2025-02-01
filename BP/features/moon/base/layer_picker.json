@@ -3,15 +3,12 @@
 
 	"minecraft:scatter_feature": {
 		"description": {
-			"identifier": "cosmos:moon/base/plains_column_moon"
+			"identifier": "cosmos:moon/base/layer_picker"
 		},
-
-		"places_feature": "cosmos:moon/base/plains_column_moon_rock",
-
+		"places_feature": "cosmos:moon/base/block_picker",
 		"iterations": "t.terrain",
-
 		"x": 0,
-		"z": 0,
+		"z": "t.layer = t.layer + 1; return 0;",
 		"y": {
 			"distribution": "fixed_grid",
 			"extent": [0, "t.stone_height - 1"]

@@ -1,0 +1,12 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:aggregate_feature": {
+    "description": {
+      "identifier": "cosmos:moon/main_sequence"
+    },
+    "features": [
+      "cosmos:moon/base/column",
+      "cosmos:blocks/bedrock"
+    ]
+  }
+}

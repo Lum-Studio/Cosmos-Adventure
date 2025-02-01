@@ -3,15 +3,13 @@
 
 	"minecraft:single_block_feature": {
 		"description": {
-			"identifier": "cosmos:moon/blocks/bedrock"
+			"identifier": "cosmos:blocks/bedrock"
 		},
 
 		"places_block": "minecraft:bedrock",
         
 		"enforce_placement_rules": false,
-		"enforce_survivability_rules": false,
-		"may_replace": ["cosmos:moon_rock",
-	                    "minecraft:air"]
+		"enforce_survivability_rules": false
 	}
 
 }
