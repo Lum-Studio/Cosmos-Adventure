@@ -1,0 +1,25 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.moon_buggy.rotation": {
+			"loop": true,
+			"bones": {
+				"entity": {
+					"rotation": [0, "180 - query.property('cosmos:rotation_y')", 0]
+                                },
+				"wheel_f_right": {
+					"rotation": ["query.property('cosmos:wheel_rotation_x')", 0, 0]
+				},
+				"wheel_f_left": {
+					"rotation": ["query.property('cosmos:wheel_rotation_x')", 0, 0]
+				},
+				"wheel_b_right": {
+					"rotation": ["query.property('cosmos:wheel_rotation_x')", 0, 0]
+				}
+				"wheel_b_left": {
+					"rotation": ["query.property('cosmos:wheel_rotation_x')", 0, 0]
+				}
+			}
+		}
+	}
+}
