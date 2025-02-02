@@ -3,8 +3,9 @@ import { get_data } from "../../../api/utils";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity";
 
 export default class {
-    constructor(entity) {
-        this.entity = entity
+    constructor(entity, block) {
+        this.entity = entity;
+		this.block = block;
         if (entity.isValid()) this.compress_oxygen()
     }
 

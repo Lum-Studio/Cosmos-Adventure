@@ -35,8 +35,9 @@ function charge_battery(machine, energy, slot) {
 }
 
 export default class {
-    constructor(entity) {
-        this.entity = entity
+    constructor(entity, block) {
+		this.entity = entity;
+		this.block = block;
         if (entity.isValid()) this.processEnergy()
     }
 

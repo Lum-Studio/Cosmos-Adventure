@@ -3,8 +3,9 @@ import { system, world, ItemStack } from "@minecraft/server";
 const fuelTypes = new Set(["minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"])
 
 export default class {
-    constructor(entity) {
-        this.entity = entity
+    constructor(entity, block) {
+		this.entity = entity;
+		this.block = block;
         if (entity.isValid()) this.generateHeat()
     }
     onPlace(){

@@ -8,28 +8,33 @@ export let machine_entities = new Map();
 function clean_machine_entities(machines_array){
     for(let machine of machines_array.keys()){
         let entity = world.getEntity(machine);
-        if(!entity){
+        let block = entity?.dimension.getBlock(machine.location);
+        if(!entity || !block){
             machine_entities.delete(machine);
             return;
         }
         const machine_name = entity.typeId.replace('cosmos:', '')
-		new machines[machine_name].class(entity);
+		new machines[machine_name].class(entity, block);
     }
 }
 function block_entity_access() {
 	world.getAllPlayers().forEach(player => {
         if(!player) return;
         if(machine_entities.size === 0) return;
-		const entity = player.getEntitiesFromViewDirection({maxDistance: 6, families: ["cosmos"]})[0]?.entity;
-        if(!entity) return;
         if(player.isSneaking){
-            entity.triggerEvent("cosmos:shrink");
+            const entity = player.getEntitiesFromViewDirection({maxDistance: 6, families: ["cosmos"]})[0]?.entity;
+            if(!entity) return;
+            entity?.triggerEvent("cosmos:shrink");
             return;
         }
 		const item = player.getComponent("minecraft:equippable").getEquipment("Mainhand")?.typeId;
 		const has_pickaxe = pickaxes.has(item);
 		const has_wrench = item == "cosmos:standard_wrench";
-		if (has_pickaxe || has_wrench) entity.triggerEvent("cosmos:shrink");
+		if (has_pickaxe || has_wrench){
+            const entity = player.getEntitiesFromViewDirection({maxDistance: 6, families: ["cosmos"]})[0]?.entity;
+            if(!entity) return;
+            entity.triggerEvent("cosmos:shrink");
+        }
 	})
 }
 system.runInterval(() => {
@@ -45,7 +50,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
             const machine_object = machines[machine_name]
             const machineEntity = block.dimension.spawnEntity(perm.type.id, block.bottomCenter());
             machineEntity.nameTag = machine_object.ui;
-            new machine_object.class(machineEntity).onPlace();
+            new machine_object.class(machineEntity, block).onPlace();
             machine_entities.set(machineEntity.id, {type: machine_name, location: block.location})
             if(perm.getState("cosmos:full")) event.permutationToPlace = perm.withState("cosmos:full", false); //this is for energy stores.
             system.run(() => attach_to_wires(block));
@@ -87,7 +92,7 @@ world.afterEvents.entityLoad.subscribe(({entity}) => {
         entity.remove();
         return;
     }
-    new machines[machine_name].class(entity);
+    new machines[machine_name].class(entity, block);
 	machine_entities.set(entity.id, {type: machine_name, location: block.location});
 });
 
@@ -101,7 +106,7 @@ world.afterEvents.worldInitialize.subscribe(() => {
             entity.remove();
             return;
         }
-        new machines[machine_name].class(entity);
+        new machines[machine_name].class(entity, block);
         machine_entities.set(entity.id, {type: machine_name, location: block.location});
 	})
 })

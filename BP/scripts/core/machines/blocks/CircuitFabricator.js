@@ -5,8 +5,9 @@ import { get_data, get_vars, compare_lists } from "../../../api/utils.js";
 
 
 export default class {
-    constructor(entity) {
-        this.entity = entity
+    constructor(entity, block) {
+		this.entity = entity;
+		this.block = block;
         if (entity.isValid()) this.fabricate()
     }
     onPlace(){
