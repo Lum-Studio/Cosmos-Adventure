@@ -1,7 +1,6 @@
 import {world, system} from "@minecraft/server";
 import machines from "./AllMachineBlocks";
 import { detach_wires, attach_to_wires } from "../blocks/aluminum_wire"
-import { compare_position } from "../matter/electricity"
 import { pickaxes } from "../../api/utils"
 
 export let machine_entities = new Map();
@@ -20,10 +19,10 @@ function clean_machine_entities(machines_array){
 function block_entity_access() {
 	world.getAllPlayers().forEach(player => {
         if(!player) return;
-		const entity = player.getEntitiesFromViewDirection({maxDistance: 6, families: ["cosmos"]})[0];
-        if(entity) return;
-		const sneaking = player.isSneaking;
-        if(sneaking){
+        if(machine_entities.size === 0) return;
+		const entity = player.getEntitiesFromViewDirection({maxDistance: 6, families: ["cosmos"]})[0]?.entity;
+        if(!entity) return;
+        if(player.isSneaking){
             entity.triggerEvent("cosmos:shrink");
             return;
         }
