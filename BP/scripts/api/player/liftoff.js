@@ -126,7 +126,7 @@ function rocket_flight(rocket) {
         }
         if(rocket.getComponent("minecraft:rideable").getRiders()[0]?.getDynamicProperty("in_celestial_selector")) return;
         t++;
-        if (t == 40) world.sendMessage('§7Do not save & quit or disconnect while flying the rocket or in the celesetial selector.')
+        if (t == 40) world.sendMessage('§7Do not save & quit or disconnect while flying the rocket or in the celestial selector.')
         if (!rocket || !rocket.isValid()) return
         if (v >= 10) rocket.setDynamicProperty('rocket_launched', true)
         v = Math.floor((a) * (1 - Math.pow(Math.E, (-t/(20 * b)))))
