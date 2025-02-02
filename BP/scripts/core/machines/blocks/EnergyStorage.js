@@ -1,5 +1,4 @@
 import { system, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity";
 import { compare_position, get_entity, location_of_side, charge_from_machine, charge_from_battery, update_battery, floor_position, } from "../../matter/electricity.js";
 import { get_data } from "../../../api/utils.js";
 
@@ -35,10 +34,10 @@ function charge_battery(machine, energy, slot) {
 	} return energy
 }
 
-export default class extends MachineBlockEntity {
-    constructor(block, entity) {
-        super(block, entity);
-        if (this.entity.isValid()) this.processEnergy()
+export default class {
+    constructor(entity) {
+        this.entity = entity
+        if (entity.isValid()) this.processEnergy()
     }
 
 	onPlace(){

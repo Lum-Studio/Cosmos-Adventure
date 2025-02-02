@@ -1,14 +1,13 @@
 import { system, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
 import recipes from "../../../recipes/circuit_fabricator.js"
 import { get_data, get_vars, compare_lists } from "../../../api/utils.js";
 
 
-export default class extends MachineBlockEntity {
-    constructor(block, entity) {
-        super(block, entity)
-        if (this.entity.isValid()) this.fabricate()
+export default class {
+    constructor(entity) {
+        this.entity = entity
+        if (entity.isValid()) this.fabricate()
     }
     onPlace(){
 		const container = this.entity.getComponent('minecraft:inventory').container

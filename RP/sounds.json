@@ -1,47 +1,47 @@
 {
 	"entity_sounds": {
 		"entities": {
-			"cosmos:machine:coal_generator": {
+			"cosmos:coal_generator": {
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}
 			},
-			"cosmos:machine:compressor": {
+			"cosmos:compressor": {
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}
 			},
-			"cosmos:machine:energy_storage_module": {
+			"cosmos:energy_storage_module": {
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}
 			},
-			"cosmos:machine:energy_storage_cluster": {
+			"cosmos:energy_storage_cluster": {
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}
 			},
-			"cosmos:machine:electric_compressor": {
+			"cosmos:electric_compressor": {
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}
 			},
-			"cosmos:machine:oxygen_collector": {
+			"cosmos:oxygen_collector": {
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}
 			},
-			"cosmos:machine:circuit_fabricator": {
+			"cosmos:circuit_fabricator": {
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}
 			},
-			"cosmos:machine:refinery": {
+			"cosmos:refinery": {
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}
 			},
-			"cosmos:machine:fuel_loader": {
+			"cosmos:fuel_loader": {
 				"events": {
 					"death": { "sound": "none", "volume": 0 }
 				}

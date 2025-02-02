@@ -1,5 +1,4 @@
 import { system, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity.js";
 import { charge_from_battery, charge_from_machine, location_of_side} from "../../matter/electricity.js";
 import { get_data, get_lore } from "../../../api/utils.js";
 
@@ -25,10 +24,10 @@ function get_rockets(block){
     return rockets;
 }
 
-export default class extends MachineBlockEntity {
-    constructor(block, entity) {
-        super(block, entity);
-        if (this.entity.isValid()) this.load_fuel()
+export default class {
+    constructor(entity) {
+        this.entity = entity
+        if (entity.isValid()) this.load_fuel()
     }
 
 	onPlace(){

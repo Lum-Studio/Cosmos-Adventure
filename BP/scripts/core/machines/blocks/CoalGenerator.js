@@ -1,13 +1,11 @@
 import { system, world, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity";
-import { get_vars } from "../../../api/utils.js"
 
 const fuelTypes = new Set(["minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"])
 
-export default class extends MachineBlockEntity {
-    constructor(block, entity) {
-        super(block, entity)
-        if (this.entity.isValid()) this.generateHeat()
+export default class {
+    constructor(entity) {
+        this.entity = entity
+        if (entity.isValid()) this.generateHeat()
     }
     onPlace(){
 		const container = this.entity.getComponent('minecraft:inventory').container
@@ -21,15 +19,9 @@ export default class extends MachineBlockEntity {
         const container = this.entity.getComponent('minecraft:inventory').container;
         const fuelItem = container.getItem(0);
 		const isCoalBlock = fuelItem?.typeId === 'minecraft:coal_block';
-        let burnTime = this.entity.getDynamicProperty("cosmos_burnTime");
-		burnTime = (!burnTime)? 0:
-		burnTime;
-		let heat = this.entity.getDynamicProperty("cosmos_heat");
-		heat = (!heat)? 0:
-		heat;
-		let power = this.entity.getDynamicProperty("cosmos_power");
-		power = (!power)? 0:
-		power;
+        let burnTime = this.entity.getDynamicProperty("cosmos_burnTime") ?? 0;
+		let heat = this.entity.getDynamicProperty("cosmos_heat") ?? 0;
+		let power = this.entity.getDynamicProperty("cosmos_power") ?? 0;
 
 		let first_burnTime = burnTime;
 		let first_heat = heat;

@@ -6,19 +6,19 @@ import { pickaxes } from "../../api/utils"
 
 export let machine_entities = new Map();
 
-function machines_enumeration(machines_array){
-    for(let machine of machines_array){
-        let machine_entity = world.getEntity(machine);
-        if(!machine_entity){
+function clean_machine_entities(machines_array){
+    for(let machine of machines_array.keys()){
+        let entity = world.getEntity(machine);
+        if(!entity){
             machine_entities.delete(machine);
             return;
         }
-        let machine_block = machine_entity.dimension.getBlock(machine_entity.getDynamicProperty("block_location"));
-		new machines[machine_entity.typeId.replace('cosmos:machine:', '')].class(machine_block, machine_entity);
+        const machine_name = entity.typeId.replace('cosmos:', '')
+		new machines[machine_name].class(entity);
     }
 }
 function block_entity_access() {
-	world.getAllPlayers.forEach(player => {
+	world.getAllPlayers().forEach(player => {
         if(!player) return;
 		const entity = player.getEntitiesFromViewDirection({maxDistance: 6, families: ["cosmos"]})[0];
         if(entity) return;
@@ -35,24 +35,26 @@ function block_entity_access() {
 }
 system.runInterval(() => {
     if(system.currentTick % 2) block_entity_access();
-    machines_enumeration(machine_entities.keys());
+    clean_machine_entities(machine_entities);
 }, 1);
+
 world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 	blockComponentRegistry.registerCustomComponent('cosmos:machine', {
-		beforeOnPlayerPlace({block, permutationToPlace: perm}){
-            const machineEntity = block.dimension.spawnEntity(perm.type.id.replace("cosmos", "cosmos:machine"), { ...block.center(), y: block.y });
-            machineEntity.setDynamicProperty("block_location", block.location);
-            let machineType = machines[block.typeId.replace('cosmos:', '')];
-            machineEntity.nameTag = machines[perm.type.id.replace('cosmos:', '')].ui;
-            new machines[perm.type.id.replace('cosmos:', '')].class(block, machineEntity).onPlace();
-            machine_entities.set(machineEntity.id, undefined);
-            if(perm.getState("cosmos:full")) perm = perm.withState("cosmos:full", false);
+		beforeOnPlayerPlace(event){
+            const {block, permutationToPlace: perm} = event
+            const machine_name = perm.type.id.replace('cosmos:', '')
+            const machine_object = machines[machine_name]
+            const machineEntity = block.dimension.spawnEntity(perm.type.id, block.bottomCenter());
+            machineEntity.nameTag = machine_object.ui;
+            new machine_object.class(machineEntity).onPlace();
+            machine_entities.set(machineEntity.id, {type: machine_name, location: block.location})
+            if(perm.getState("cosmos:full")) event.permutationToPlace = perm.withState("cosmos:full", false); //this is for energy stores.
             system.run(() => attach_to_wires(block));
         },
-        onPlayerDestroy({block, dimension, destroyedBlockPermutation}){
+        onPlayerDestroy({block, dimension, destroyedBlockPermutation:perm}){
             detach_wires(block);
             const machineEntity = dimension.getEntities({
-                type: destroyedBlockPermutation.type.id.replace("cosmos", "cosmos:machine"),
+                type: perm.type.id,
                 location: {
                     x: Math.floor(block.location.x) + 0.5,
                     y: Math.floor(block.location.y) + 0.5,
@@ -77,29 +79,30 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 });
 
 world.afterEvents.entityLoad.subscribe(({entity}) => {
-    if(!entity.typeId.startsWith('cosmos:machine:')) return;
+    const machine_name = entity.typeId.replace('cosmos:', '')
+    if(!Object.keys(machines).includes(machine_name)) return
 	if(machine_entities.has(entity.id)) return;
 	const block = entity.dimension.getBlock(entity.location);
-	if (block.typeId != entity.typeId.replace('cosmos:machine:', 'cosmos:')){
+	if (block.typeId != entity.typeId) {
         machine_entities.delete(entity.id)
         entity.remove();
         return;
     }
-    new machines[entity.typeId.replace('cosmos:machine:', '')].class(block, entity);
-	machine_entities.set(entity.id, undefined);
+    new machines[machine_name].class(entity);
+	machine_entities.set(entity.id, {type: machine_name, location: block.location});
 });
 
 world.afterEvents.worldInitialize.subscribe(() => {
-	world.getDims((dimension) => dimension.getEntities()).forEach(entity => {
-		if (!entity.typeId.startsWith('cosmos:machine:')) return;
-        if(machine_entities.has(entity.id)) return;
+	world.getDims(dimension => dimension.getEntities()).forEach(entity => {
+        const machine_name = entity.typeId.replace('cosmos:', '')
+        if(!Object.keys(machines).includes(machine_name)) return
         const block = entity.dimension.getBlock(entity.location);
-        if(block.typeId != entity.typeId.replace('cosmos:machine:', 'cosmos:')){
+        if(block.typeId != entity.typeId){
             machine_entities.delete(entity.id)
             entity.remove();
             return;
         }
-        new machines[entity.typeId.replace('cosmos:machine:', '')].class
-        machine_entities.set(entity.id, undefined);
+        new machines[machine_name].class(entity);
+        machine_entities.set(entity.id, {type: machine_name, location: block.location});
 	})
 })

@@ -1,5 +1,4 @@
 import { system, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity";
 import recipes from "../../../recipes/compressor"
 import { compare_lists, get_vars } from "../../../api/utils";
 
@@ -22,10 +21,10 @@ function find_recipe(ingredients) {
 	} return undefined
 }
 
-export default class extends MachineBlockEntity {
-	constructor(block, entity) {
-		super(block, entity);
-        if (this.entity.isValid()) this.generateHeat()
+export default class {
+    constructor(entity) {
+        this.entity = entity
+        if (entity.isValid()) this.generateHeat()
 	}
     onPlace(){
 		const container = this.entity.getComponent('minecraft:inventory').container

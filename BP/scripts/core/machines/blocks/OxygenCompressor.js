@@ -1,12 +1,11 @@
 import { system, world, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity";
 import { get_data } from "../../../api/utils";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity";
 
-export default class extends MachineBlockEntity {
-    constructor(block, entity) {
-        super(block, entity);
-        if (this.entity.isValid()) this.compress_oxygen()
+export default class {
+    constructor(entity) {
+        this.entity = entity
+        if (entity.isValid()) this.compress_oxygen()
     }
 
     onPlace(){

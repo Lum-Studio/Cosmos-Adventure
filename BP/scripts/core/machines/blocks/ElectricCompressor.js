@@ -1,5 +1,4 @@
 import { system, world, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity";
 import { compare_lists, get_vars, get_data} from "../../../api/utils";
 import recipes from "../../../recipes/compressor"
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
@@ -20,10 +19,10 @@ function find_recipe(ingredients) {
 		} else return result
 	} return undefined
 }
-export default class extends MachineBlockEntity {
-    constructor(block, entity) {
-        super(block, entity);
-        if (this.entity.isValid()) this.compress()
+export default class {
+    constructor(entity) {
+        this.entity = entity
+        if (entity.isValid()) this.compress()
     }
 
 	onPlace(){

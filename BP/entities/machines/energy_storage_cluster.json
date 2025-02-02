@@ -2,8 +2,7 @@
     "format_version": "1.20.0",
     "minecraft:entity": {
         "description": {
-            "identifier": "cosmos:machine:energy_storage_cluster",
-			// "properties": {},
+            "identifier": "cosmos:energy_storage_cluster",
             "is_summonable": true
         },
         "component_groups": {

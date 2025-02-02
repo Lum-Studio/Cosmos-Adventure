@@ -2,7 +2,7 @@ import { EnchantmentType, ItemStack, system } from "@minecraft/server"
 import machines from "../core/machines/AllMachineBlocks"
 
 export function get_data(machine) {
-	return machines[machine.typeId.replace('cosmos:machine:', '')]
+	return machines[machine.typeId.replace('cosmos:', '')]
 }
 
 export function str(object) { return JSON.stringify(object) }

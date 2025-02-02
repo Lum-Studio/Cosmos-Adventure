@@ -1,6 +1,6 @@
 import { world } from "@minecraft/server";
 import AllMachineBlocks from "../machines/AllMachineBlocks"
-export function get_data(machine) { return AllMachineBlocks[machine.typeId.replace('cosmos:machine:', '')] }
+export function get_data(machine) { return AllMachineBlocks[machine.typeId.replace('cosmos:', '')] }
 function str(object) { return JSON.stringify(object) }
 function say(message = 'yes') { world.sendMessage('' + message) }
 export class MachinesInNetwork{

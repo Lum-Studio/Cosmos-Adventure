@@ -1,5 +1,4 @@
 import { system, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity.js";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
 import { get_data, get_lore } from "../../../api/utils.js";
 
@@ -15,10 +14,10 @@ function make_smoke({dimension, x, y, z}) {
 	smoke(0.5, 1, 0.3); smoke(0.3, 1, 0.5)
 }
 
-export default class extends MachineBlockEntity {
-    constructor(block, entity) {
-        super(block, entity);
-        if (this.entity.isValid()) this.refine()
+export default class {
+    constructor(entity) {
+        this.entity = entity
+        if (entity.isValid()) this.refine()
     }
 
 	onPlace(){
