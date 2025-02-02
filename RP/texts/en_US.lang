@@ -1477,8 +1477,9 @@ tile.cosmos:tier1_treasure_chest.name=Tier 1 Treasure Chest
 tile.cosmos:tier2_treasure_chest.name=Tier 2 Treasure Chest
 tile.cosmos:tier3_treasure_chest.name=Tier 3 Treasure Chest
 
-## actions
+## ui
 action.hint.exit.cosmos:rocket_tier_1=Press SNEAK to Exit, Hold JUMP to Launch
+custom.coords=Position
 
 ## entites
 entity.cosmos:treasure_chest.name=Treasure Chest

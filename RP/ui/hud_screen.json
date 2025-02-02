@@ -14,15 +14,39 @@
       "visible": "(not (('§.' + $action_text) - 'Position:' = ('§.' + $action_text)))",
       "controls": [
         {
-          "position": {
+          "text_hieght": {
             "type": "label",
-            "anchor_from": "center",
-            "anchor_to": "center",
+            "text": "§.",
+            "size": [ "100%c", "default" ],
             "offset": [ 0, 1 ],
-            "layer": 31,
-            "text": "$action_text",
-            "localize": false,
-            "alpha": "@hud.anim_actionbar_text_alpha_out"
+            "controls": [
+              {
+                "position_stack": {
+                  "type": "stack_panel",
+                  "orientation": "horizontal",
+                  "size": [ "100%c", "100%" ],
+                  "controls": [
+                    {
+                      "position": {
+                        "type": "label",
+                        "layer": 31,
+                        "text": "custom.coords",
+                        "localize": true,
+                        "alpha": "@hud.anim_actionbar_text_alpha_out"
+                      }
+                    },
+                    {
+                      "coords": {
+                        "type": "label",
+                        "layer": 31,
+                        "text": "($action_text - 'Position')",
+                        "alpha": "@hud.anim_actionbar_text_alpha_out"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       ]
@@ -469,6 +493,7 @@
               }
             },
             { "custom_position@hud.custom_position": {} },
+            // { "player_position@hud.player_position": {} },
             { "number_of_days_played@hud.number_of_days_played": {} },
             {
               "game_tip@game_tip.game_tip_chat_stack_factory": {

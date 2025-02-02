@@ -346,7 +346,7 @@ system.runInterval(() => {
     world.getAllPlayers().forEach(player => {
         let {x, y, z} = planet_coords(player)
         x = Math.floor(x)
-        y = Math.floor(y)
+        y = Math.floor(y + 0.000001)
         z = Math.floor(z)
         player.onScreenDisplay.setActionBar(`Position: ${x}, ${y}, ${z}`)
     })
