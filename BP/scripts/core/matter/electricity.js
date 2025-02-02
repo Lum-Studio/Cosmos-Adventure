@@ -1,5 +1,6 @@
 import { world } from "@minecraft/server";
 import AllMachineBlocks from "../machines/AllMachineBlocks"
+import { compare_position, floor_position } from "../../api/utils";
 export function get_data(machine) { return AllMachineBlocks[machine.typeId.replace('cosmos:', '')] }
 function str(object) { return JSON.stringify(object) }
 function say(message = 'yes') { world.sendMessage('' + message) }
@@ -16,14 +17,6 @@ export class MachinesInNetwork{
         return undefined;
     }
 }
-export function compare_position(a, b){
-	if (!a || !b) return false
-	return a.x == b.x && a.y == b.y && a.z == b.z
-}
-export function floor_position({x, y, z}) {
-	return {x: Math.floor(x), y: Math.floor(y), z: Math.floor(z)}
-}
-
 export function get_entity(dimension, location, family) {
 	if (!location) return
 	return dimension.getEntities({

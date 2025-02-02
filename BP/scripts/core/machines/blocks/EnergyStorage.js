@@ -1,6 +1,6 @@
 import { system, ItemStack } from "@minecraft/server";
-import { compare_position, get_entity, location_of_side, charge_from_machine, charge_from_battery, update_battery, floor_position, } from "../../matter/electricity.js";
-import { get_data } from "../../../api/utils.js";
+import { get_entity, location_of_side, charge_from_machine, charge_from_battery, update_battery, } from "../../matter/electricity.js";
+import { get_data, floor_position, compare_position } from "../../../api/utils.js";
 
 function charge_machine(machine, block, energy) {
 	const data = get_data(machine)
