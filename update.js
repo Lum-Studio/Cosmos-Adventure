@@ -1,41 +1,35 @@
-// Usage: node update.js
+// Usage: node update.js [--preview]
 
-const walk = require("walk");
 const path = require("path");
 const fs = require("fs");
 
-const updateAddon = async (path) => {
-  const RP = path + "development_resource_packs/RP/";
-  const BP = path + "development_behavior_packs/BP/";
-  fs.rm(RP, { recursive: true, force: true }, () => { copyFolder("RP", RP) });
-  fs.rm(BP, { recursive: true, force: true }, () => { copyFolder("BP", BP) });
-};
+const updateAddon = async (mojang) => {
+  const RP = path.join(mojang, "development_resource_packs/RP/");
+  const BP = path.join(mojang, "development_behavior_packs/BP/");
 
-const copyFolder = async (src, des) => {
-  fs.mkdirSync(des);
-  const walker = walk.walk(src);
-  const n = src.length + 1;
-
-  walker.on("file", (root, fileStats, next) => {
-    const filePath = path.join(root, fileStats.name);
-    fs.copyFile(filePath, des + filePath.substring(n), (err) => {
+  fs.rm(RP, { recursive: true, force: true }, () => {
+    console.log("Removed directory", RP);
+    fs.cpSync("RP", RP, { recursive: true }, (err) => {
       if (err) {
         console.log(err);
       };
     });
-    next();
+    console.log("Copied contents of RP\\ to", RP);
   });
 
-  walker.on("directory", (root, dirStats, next) => {
-    const dirPath = path.join(root, dirStats.name);
-    const target = des + dirPath.substring(n);
-    console.log("Adding files from directory:", dirPath);
-    if (!fs.existsSync(target)) {
-      fs.mkdirSync(target);
-    };
-    next();
+  fs.rm(BP, { recursive: true, force: true }, () => {
+    console.log("Removed directory", BP);
+    fs.cpSync("BP", BP, { recursive: true }, (err) => {
+      if (err) {
+        console.log(err);
+      };
+    });
+    console.log("Copied contents of BP\\ to", BP);
   });
 };
 
-const mojang = path.join(process.env.LOCALAPPDATA, "/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/");
-updateAddon(mojang);
+const mojangFolder = (preview) => {
+  return path.join(process.env.LOCALAPPDATA, `/Packages/Microsoft.Minecraft${ preview ? "WindowsBeta" : "UWP" }_8wekyb3d8bbwe/LocalState/games/com.mojang/`);
+};
+
+updateAddon(mojangFolder(process.argv[2] == "--preview"));
