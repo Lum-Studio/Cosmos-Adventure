@@ -1,13 +1,23 @@
-import { world, system } from "@minecraft/server"
-import machines from "./AllMachineBlocks"
-import { MachineInstances } from "./MachineInstances"
+import {world, system} from "@minecraft/server";
+import machines from "./AllMachineBlocks";
 import { detach_wires, attach_to_wires } from "../blocks/aluminum_wire"
-import { pickaxes } from "../../api/utils"
 import { compare_position } from "../matter/electricity"
+import { pickaxes } from "../../api/utils"
 
-// this function shrinks the machine to give the player access to the block if:
-// - The player is holding a pickaxe or a wrench OR The player is sneaking 
-// - The is looking at the block 
+export let machine_entities = new Map();
+
+function machines_enumeration(machines_array){
+    for(let machine of machines_array){
+        let machine_entity = world.getEntity(machine);
+        if(!machine_entity){
+            machine_entities.delete(machine);
+            return;
+        }
+        let machine_block = machine_entity.dimension.getBlock(machine_entity.getDynamicProperty("block_location"));
+        block_entity_access(machine_block, machine_entity);
+		new machines[machine_entity.typeId.replace('cosmos:machine:', '')].class(machine_block, machine_entity);
+    }
+}
 function block_entity_access(block, entity) {
 	block.dimension.getPlayers({ location: block.center(), maxDistance: 6 }).forEach(player => {
 		const view_block = player.getBlockFromViewDirection()?.block
@@ -19,69 +29,72 @@ function block_entity_access(block, entity) {
 		if (sneaking || has_pickaxe || has_wrench) entity.triggerEvent("cosmos:shrink")
 	})
 }
-
 system.runInterval(() => {
-	MachineInstances.instances.forEach((machine) => {
-		const machineType = machines[machine.typeId]
-		block_entity_access(machine.block, machine.entity)
-		new (machineType.class)(machine.block, machine.entity)
-	})
-})
-
+    machines_enumeration(machine_entities.keys());
+}, 1);
 world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 	blockComponentRegistry.registerCustomComponent('cosmos:machine', {
-		beforeOnPlayerPlace(event) {
-			const { block, dimension, permutationToPlace: perm } = event
-			const block_id = perm.type.id
-			const machineType = machines[block_id.replace('cosmos:', '')]
-			const entity = dimension.spawnEntity(machineType.tileEntity, { ...block.center(), y: block.y })
-			entity.nameTag = machineType.ui
-			if (perm.getState("cosmos:full")) event.permutationToPlace = perm.withState("cosmos:full", false)
-			if (machineType.class) MachineInstances.add(dimension, block.location, new machineType.class(block, entity))
-			system.run(() => attach_to_wires(block))
-		},
-		onPlayerDestroy({ block, dimension }) {
-			detach_wires(block)
-			// obtain the entity before deleting the instance
-			const entity = MachineInstances.get(dimension, block.location)?.entity
-			MachineInstances.destroy(dimension, block.location)
-			// check if the entity exists
-			if (!entity) return
-			// clear the ui items before killing the entity
-			const container = entity.getComponent('minecraft:inventory')?.container
+		beforeOnPlayerPlace({block, permutationToPlace: perm}){
+            const machineEntity = block.dimension.spawnEntity(perm.type.id.replace("cosmos", "cosmos:machine"), { ...block.center(), y: block.y });
+            machineEntity.setDynamicProperty("block_location", block.location);
+            let machineType = machines[block.typeId.replace('cosmos:', '')];
+            machineEntity.nameTag = machines[perm.type.id.replace('cosmos:', '')].ui;
+            new machines[perm.type.id.replace('cosmos:', '')].class(block, machineEntity).onPlace();
+            machine_entities.set(machineEntity.id, undefined);
+            if(perm.getState("cosmos:full")) perm = perm.withState("cosmos:full", false);
+            system.run(() => attach_to_wires(block));
+        },
+        onPlayerDestroy({block, dimension, destroyedBlockPermutation}){
+            detach_wires(block);
+            const machineEntity = dimension.getEntities({
+                type: destroyedBlockPermutation.type.id.replace("cosmos", "cosmos:machine"),
+                location: {
+                    x: Math.floor(block.location.x) + 0.5,
+                    y: Math.floor(block.location.y) + 0.5,
+                    z: Math.floor(block.location.z) + 0.5,
+                },
+                maxDistance: 0.5,
+            })[0];
+			machine_entities.delete(machineEntity.id);
+            // check if the entity exists
+			if(!machineEntity) return
+			//clear the ui items before killing the entity
+			const container = machineEntity.getComponent('minecraft:inventory')?.container
 			if (container) { for (let i = 0; i < container.size; i++) {
 				const itemId = container.getItem(i)?.typeId
 				if (!['cosmos:ui', 'cosmos:ui_button'].includes(itemId)) continue
 				container.setItem(i)
 			}}
-			// kill the entity to make it drop it's items
-			entity.runCommand('kill @s')
-			// removing the entity because it is immortal
-			entity.remove()
-		}
-	})
-})
+            machineEntity?.runCommand('kill @s');
+			machineEntity?.remove();
+        },
+    });
+});
 
-
-//on load
 world.afterEvents.entityLoad.subscribe(({entity}) => {
-	const {typeId:id, dimension, location} = entity
-	if (!id.startsWith('cosmos:machine:')) return
-	const block = dimension.getBlock(location)
-	const machineType = machines[id.replace('cosmos:machine:', '')]
-	if (block.typeId != machineType.tileEntity.replace('cosmos:machine:', 'cosmos:')) {entity.remove(); return}
-	if (machineType.class) MachineInstances.add(dimension, block.location, new machineType.class(block, entity))
-})
+    if(!entity.typeId.startsWith('cosmos:machine:')) return;
+	if(machine_entities.has(entity.id)) return;
+	const block = entity.dimension.getBlock(entity.location);
+	if (block.typeId != entity.typeId.replace('cosmos:machine:', 'cosmos:')){
+        machine_entities.delete(entity.id)
+        entity.remove();
+        return;
+    }
+    new machines[entity.typeId.replace('cosmos:machine:', '')].class(block, entity);
+	machine_entities.set(entity.id, undefined);
+});
 
-//on reload
 world.afterEvents.worldInitialize.subscribe(() => {
 	world.getDims((dimension) => dimension.getEntities()).forEach(entity => {
-		const id = entity?.typeId
-		if (!id.startsWith('cosmos:machine:')) return
-		const block = entity.dimension.getBlock(entity.location)
-		const location = block.location
-		const machineType = machines[id.replace('cosmos:machine:', '')]
-		if (block.typeId != machineType.tileEntity.replace('cosmos:machine:', 'cosmos:')) {entity.remove(); return}
-		if (machineType.class) MachineInstances.add(entity.dimension, location, new machineType.class(block, entity))
+		if (!entity.typeId.startsWith('cosmos:machine:')) return;
+        if(machine_entities.has(entity.id)) return;
+        const block = entity.dimension.getBlock(entity.location);
+        if(block.typeId != entity.typeId.replace('cosmos:machine:', 'cosmos:')){
+            machine_entities.delete(entity.id)
+            entity.remove();
+            return;
+        }
+        new machines[entity.typeId.replace('cosmos:machine:', '')].class
+        machine_entities.set(entity.id, undefined);
 	})
 })

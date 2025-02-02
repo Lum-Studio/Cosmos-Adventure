@@ -9,15 +9,31 @@ export default class extends MachineBlockEntity {
         super(block, entity)
         if (this.entity.isValid()) this.generateHeat()
     }
-    
+    onPlace(){
+		const container = this.entity.getComponent('minecraft:inventory').container
+		const counter = new ItemStack('cosmos:ui')
+		counter.nameTag = `cosmos:${0 == 0 ? 'Not Generating' : 'Generating'}`
+		container.setItem(1, counter)
+		counter.nameTag = `cosmos:${0 == 0 ? ' Hull Heat: ' + 0 + '%%' : '  §r' + 0 + ' gJ/t'}`
+		container.setItem(2, counter)
+	}
     generateHeat() {
         const container = this.entity.getComponent('minecraft:inventory').container;
         const fuelItem = container.getItem(0);
 		const isCoalBlock = fuelItem?.typeId === 'minecraft:coal_block';
-	    const vars_item = container.getItem(3)
-        let burnTime = get_vars(vars_item, 0)
-		let heat = get_vars(vars_item, 1)
-		let power = get_vars(vars_item, 2)
+        let burnTime = this.entity.getDynamicProperty("cosmos_burnTime");
+		burnTime = (!burnTime)? 0:
+		burnTime;
+		let heat = this.entity.getDynamicProperty("cosmos_heat");
+		heat = (!heat)? 0:
+		heat;
+		let power = this.entity.getDynamicProperty("cosmos_power");
+		power = (!power)? 0:
+		power;
+
+		let first_burnTime = burnTime;
+		let first_heat = heat;
+		let first_power = power;
 		
         if ( fuelTypes.has(fuelItem?.typeId) && burnTime == 0) {
 			container.setItem(0, fuelItem.decrementStack())
@@ -34,13 +50,17 @@ export default class extends MachineBlockEntity {
 		if (burnTime == 0 && system.currentTick % 3 == 0 && power > 0) power--
 		
 		const counter = new ItemStack('cosmos:ui')
-		counter.nameTag = `cosmos:${power == 0 ? 'Not Generating' : 'Generating'}`
-		container.setItem(1, counter)
-		counter.nameTag = `cosmos:${power == 0 ? ' Hull Heat: ' + heat + '%%' : '  §r' + power + ' gJ/t'}`
-		container.setItem(2, counter)
-		counter.nameTag = ``
-		counter.setLore([''+burnTime, ''+heat, ''+power])
-		container.setItem(3, counter)
+		if(power !== first_power || heat !== first_heat){
+			counter.nameTag = `cosmos:${power == 0 ? ' Hull Heat: ' + heat + '%%' : '  §r' + power + ' gJ/t'}`
+			container.setItem(2, counter)
+		}
+		if(heat !== first_heat) this.entity.setDynamicProperty("cosmos_heat", heat);
+		if(burnTime != first_burnTime) this.entity.setDynamicProperty("cosmos_burnTime", burnTime);
+		if(power !== first_power){
+			this.entity.setDynamicProperty("cosmos_power", power);
+			counter.nameTag = `cosmos:${power == 0 ? 'Not Generating' : 'Generating'}`
+			container.setItem(1, counter)
+		}
     }
 }
 
