@@ -1,5 +1,5 @@
 { 
-  "format_version": "1.20.0",
+  "format_version": "1.21.0",
   "minecraft:entity": {
     "description": {
       "identifier": "cosmos:vgrapple",
@@ -21,6 +21,7 @@
         }
       },
     "components": {
+      "minecraft:transient": {},
       "minecraft:tick_world":{
 			"never_despawn": false,
 			"distance_to_players": 256
