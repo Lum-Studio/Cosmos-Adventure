@@ -6,7 +6,7 @@
     },
     "features": [
       "cosmos:moon/base/column",
-      "cosmos:blocks/bedrock"
+      "cosmos:planets/bedrock_floor"
     ]
   }
 }

@@ -7,6 +7,5 @@ t.octave_4 = q.noise(v.worldx/64, v.worldz/64);
 t.octave_5 = q.noise(v.worldx/32, v.worldz/32); 
 t.plains = 16 * t.octave_1 + t.octave_cubic + t.octave_2 + t.octave_3 + 2 * t.octave_4 + t.octave_5; 
 t.mountains = 16 * t.octave_1 + 1.5 * t.octave_cubic + 256 * t.octave_2 + 64 * t.octave_3 + 8 * t.octave_4 + 4 * t.octave_5; 
-t.terrain = t.base + math.lerp(t.plains, t.mountains, 0.75 * math.hermite_blend((-1 * t.base + 130)/90)); 
-t.stone_height = t.terrain; 
+t.height = t.base + math.lerp(t.plains, t.mountains, 0.75 * math.hermite_blend((-1 * t.base + 130)/90)); 
 return 1;

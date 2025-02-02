@@ -1,0 +1,14 @@
+{
+	"format_version": "1.13.0",
+
+	"minecraft:scatter_feature": {
+		"description": {
+			"identifier": "cosmos:planets/bedrock50"
+		},
+		"places_feature": "cosmos:blocks/bedrock",
+		"iterations": "math.random_integer(0, 1)",
+		"x": 0,
+		"z": 0,
+		"y": 3
+	}
+}

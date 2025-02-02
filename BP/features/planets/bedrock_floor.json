@@ -1,0 +1,15 @@
+{
+	"format_version": "1.13.0",
+	"minecraft:aggregate_feature": {
+		"description": {
+			"identifier": "cosmos:planets/bedrock_floor"
+		},
+		"features": [
+			"cosmos:blocks/bedrock",
+			"cosmos:planets/bedrock95",
+			"cosmos:planets/bedrock75",
+			"cosmos:planets/bedrock50",
+			"cosmos:planets/bedrock25"
+		]
+	}
+}
