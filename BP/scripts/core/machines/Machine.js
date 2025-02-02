@@ -7,7 +7,6 @@ import { pickaxes } from "../../api/utils"
 export let machine_entities = new Map();
 
 function machines_enumeration(machines_array){
-    if(system.currentTick % 2) block_entity_access();
     for(let machine of machines_array){
         let machine_entity = world.getEntity(machine);
         if(!machine_entity){
@@ -35,6 +34,7 @@ function block_entity_access() {
 	})
 }
 system.runInterval(() => {
+    if(system.currentTick % 2) block_entity_access();
     machines_enumeration(machine_entities.keys());
 }, 1);
 world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
