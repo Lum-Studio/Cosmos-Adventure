@@ -7,6 +7,7 @@ import { pickaxes } from "../../api/utils"
 export let machine_entities = new Map();
 
 function machines_enumeration(machines_array){
+    if(system.currentTick % 2) block_entity_access();
     for(let machine of machines_array){
         let machine_entity = world.getEntity(machine);
         if(!machine_entity){
@@ -14,19 +15,23 @@ function machines_enumeration(machines_array){
             return;
         }
         let machine_block = machine_entity.dimension.getBlock(machine_entity.getDynamicProperty("block_location"));
-        block_entity_access(machine_block, machine_entity);
 		new machines[machine_entity.typeId.replace('cosmos:machine:', '')].class(machine_block, machine_entity);
     }
 }
-function block_entity_access(block, entity) {
-	block.dimension.getPlayers({ location: block.center(), maxDistance: 6 }).forEach(player => {
-		const view_block = player.getBlockFromViewDirection()?.block
-		if (!compare_position(block?.location, view_block?.location)) return
-		const sneaking = player.isSneaking
-		const item = player.getComponent("minecraft:equippable").getEquipment("Mainhand")?.typeId
-		const has_pickaxe = pickaxes.has(item)
-		const has_wrench = item == "cosmos:standard_wrench"
-		if (sneaking || has_pickaxe || has_wrench) entity.triggerEvent("cosmos:shrink")
+function block_entity_access() {
+	world.getAllPlayers.forEach(player => {
+        if(!player) return;
+		const entity = player.getEntitiesFromViewDirection({maxDistance: 6, families: ["cosmos"]})[0];
+        if(entity) return;
+		const sneaking = player.isSneaking;
+        if(sneaking){
+            entity.triggerEvent("cosmos:shrink");
+            return;
+        }
+		const item = player.getComponent("minecraft:equippable").getEquipment("Mainhand")?.typeId;
+		const has_pickaxe = pickaxes.has(item);
+		const has_wrench = item == "cosmos:standard_wrench";
+		if (has_pickaxe || has_wrench) entity.triggerEvent("cosmos:shrink");
 	})
 }
 system.runInterval(() => {
