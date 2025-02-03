@@ -2,11 +2,11 @@
   "format_version": "1.20.80",
   "minecraft:item": {
     "description": {
-      "identifier": "cosmos:astro_miner_item"
+      "identifier": "cosmos:moon_buggy_item"
     },
     "components": {
       "minecraft:max_stack_size": 1,
-      "minecraft:icon": "astro_miner"
+      "minecraft:icon": "moon_buggy"
     }
   }
 }

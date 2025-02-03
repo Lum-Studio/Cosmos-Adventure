@@ -13,6 +13,59 @@
 		]
 	},
 
+    "craft_button_visuals": {
+        "type": "image",
+        "texture": "('textures/items/' + $icon)",
+        "size": [16, 16],
+        "layer": 6,
+        "bindings": [
+            {
+                "binding_name": "#hover_text",
+                "binding_name_override": "#text",
+                "binding_type": "collection",
+                "binding_collection_name": "container_items"
+            },
+            {
+                "binding_type": "view",
+                "source_property_name": "(not (#text = #text - $icon))",
+                "target_property_name": "#visible"
+            }
+        ]
+    },
+    
+    "craft_button_text": {
+        "type": "custom",
+        "renderer": "hover_text_renderer",
+        "layer": 40,
+        "bindings": [
+            {
+                "binding_name": "#hover_text",
+                "binding_type": "collection",
+                "binding_collection_name": "container_items"
+            },
+            {
+                "binding_type": "view",
+                "source_property_name": "(('§.' + #hover_text - '§f' - '§o' - '§craft_button:size'))",
+                "target_property_name": "#storage"
+            },
+            {
+                "binding_type": "view",
+                "source_property_name": "($name + '\n§7Storage Space: ' + (#storage - $name - '\n§7Storage Space: '))",
+                "target_property_name": "#hover_text"
+            },
+            {
+                "binding_type": "view",
+                "source_property_name": "#hover_text",
+                "target_property_name": "#text"
+            },
+            {
+                "binding_type": "view",
+                "source_property_name": "(not (#text = #text - $id))",
+                "target_property_name": "#visible"
+            }
+        ]
+    },
+
     "interface": {
         "type": "panel",
         "controls": [
@@ -395,7 +448,78 @@
                                         "controls": [
                                             { "button@machines.old_button": {
                                                 "layer": 2,
-                                                "collection_index": 22
+                                                "size": [22, 22],
+                                                "collection_index": 22,
+                                                "pressed_control": "hover",
+                                                "bindings": [
+                                                    {
+                                                        "binding_type": "collection_details",
+                                                        "binding_collection_name": "container_items",
+                                                        "binding_condition": "once"
+                                                    },
+                                                    {
+                                                        "binding_name": "#hover_text",
+                                                        "binding_name_override": "#text",
+                                                        "binding_type": "collection",
+                                                        "binding_collection_name": "container_items"
+                                                    },
+                                                    {
+                                                        "binding_type": "view",
+                                                        "source_property_name": "(not (#text = #text - '§craft_button'))",
+                                                        "target_property_name": "#visible"
+                                                    }
+                                                ],
+                                                "controls": [
+                                                    { "hover": {
+                                                        "type": "image",
+                                                        "texture": "textures/ui/White",
+                                                        "alpha": 0.2,
+                                                        "controls": [
+                                                            { "tier_1@nasa_workbench.craft_button_text": {
+                                                                "$name": "Tier 1 Rocket",
+                                                                "$id": "rocket_tier_1"
+                                                            }},
+                                                            { "tier_2@nasa_workbench.craft_button_text": {
+                                                                "$name": "Tier 2 Rocket",
+                                                                "$id": "rocket_tier_2"
+                                                            }},
+                                                            { "tier_3@nasa_workbench.craft_button_text": {
+                                                                "$name": "Tier 3 Rocket",
+                                                                "$id": "rocket_tier_3"
+                                                            }},
+                                                            { "buggy@nasa_workbench.craft_button_text": {
+                                                                "$name": "Moon Buggy",
+                                                                "$id": "moon_buggy"
+                                                            }},
+                                                            { "cargo@nasa_workbench.craft_button_text": {
+                                                                "$name": "Cargo Rocket",
+                                                                "$id": "cargo_rocket"
+                                                            }},
+                                                            { "miner@nasa_workbench.craft_button_text": {
+                                                                "$name": "Astro Miner",
+                                                                "$id": "astro_miner"
+                                                            }}
+                                                        ]
+                                                    } },
+                                                    { "tier_1@nasa_workbench.craft_button_visuals": {
+                                                        "$icon": "rocket_tier_1"
+                                                    }},
+                                                    { "tier_2@nasa_workbench.craft_button_visuals": {
+                                                        "$icon": "rocket_tier_2"
+                                                    }},
+                                                    { "tier_3@nasa_workbench.craft_button_visuals": {
+                                                        "$icon": "rocket_tier_3"
+                                                    }},
+                                                    { "buggy@nasa_workbench.craft_button_visuals": {
+                                                        "$icon": "moon_buggy"
+                                                    }},
+                                                    { "cargo@nasa_workbench.craft_button_visuals": {
+                                                        "$icon": "cargo_rocket"
+                                                    }},
+                                                    { "miner@nasa_workbench.craft_button_visuals": {
+                                                        "$icon": "astro_miner"
+                                                    }}
+                                                ]
                                             }}
                                         ]
                                     }}

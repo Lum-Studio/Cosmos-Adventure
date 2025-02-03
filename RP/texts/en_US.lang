@@ -1218,7 +1218,7 @@ achievement.asteroids.desc=Take a Tier 3 Rocket to The Asteroid Belt!
 achievement.venus=To Venus!
 achievement.venus.desc=Take a Tier 3 Rocket to Venus!
 
-## The official translation keys for cosmos (Added by Yasser444)
+## The official translation keys for cosmos adventure (Added by Yasser444)
 
 ##items
 item.cosmos:advanced_wafer=Advanced Wafer
@@ -1324,6 +1324,8 @@ item.cosmos:tier_1_booster=Tier 1 Booster
 item.cosmos:tin_canister=Tin Canister
 item.cosmos:tin_ingot=Tin Ingot
 item.cosmos:astro_miner_item=Astro Miner
+item.cosmos:cargo_rocket_item=Cargo Rocket
+item.cosmos:moon_buggy_item=Moon Buggy
 item.cosmos:atmospheric_valve=Atmospheric Valve
 item.cosmos:basic_solar_panel=Basic Solar Panel
 item.cosmos:beam_core=Beam Core

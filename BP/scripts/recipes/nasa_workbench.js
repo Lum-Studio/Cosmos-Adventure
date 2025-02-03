@@ -56,7 +56,7 @@ export default {
         "cosmos:heavy_rocket_engine",
         "cosmos:heavy_nose_cone",
     ], //18 items
-    "cosmos:buggy": [
+    "cosmos:moon_buggy_item": [
         "cosmos:heavy_duty_plate",
         "cosmos:heavy_duty_plate",
         "cosmos:heavy_duty_plate",
@@ -74,7 +74,7 @@ export default {
         "cosmos:buggy_wheel",
         "cosmos:buggy_wheel",
     ], //14 items
-    "cosmos:cargo_rocket": [
+    "cosmos:cargo_rocket_item": [
         "cosmos:heavy_duty_plate_tier2",
         "cosmos:heavy_duty_plate_tier2",
         "cosmos:heavy_duty_plate_tier2",
@@ -89,7 +89,7 @@ export default {
         "cosmos:advanced_wafer",
         "cosmos:nose_cone",
     ], //13 items
-    "cosmos:astro_miner": [
+    "cosmos:astro_miner_item": [
         "cosmos:heavy_duty_plate",
         "cosmos:orion_drive",
         "cosmos:heavy_duty_plate",

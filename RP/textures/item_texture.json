@@ -334,6 +334,9 @@
     "astro_miner": {
       "textures": "textures/items/astro_miner"
     },
+    "moon_buggy": {
+      "textures": "textures/items/moon_buggy"
+    },
     "atmospheric_valve": {
       "textures": "textures/items/atmospheric_valve"
     },

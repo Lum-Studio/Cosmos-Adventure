@@ -1,22 +1,12 @@
 import { world, ItemStack, system } from "@minecraft/server"
 import recipes  from "../../recipes/nasa_workbench"
 
-/* SLOT DEBUGGER
-world.afterEvents.playerInteractWithEntity.subscribe(({target}) => {
-    const container = target.getComponent("minecraft:inventory").container
-    const slotItem = new ItemStack("cosmos:ui")
-    for (let i = 0; i < container.size; i++) {
-        slotItem.nameTag = '§r§u' + ( i + 1 )
-        container.setItem(i, slotItem)
-    }
-}) */
-
 const schematics = {
     'cosmos:schematic_rocket_t2': 'cosmos:rocket_tier_2_item',
     'cosmos:schematic_rocket_t3': 'cosmos:rocket_tier_3_item',
-    'cosmos:schematic_buggy': 'cosmos:buggy',
-    'cosmos:schematic_cargo_rocket': 'cosmos:cargo_rocket',
-    'cosmos:schematic_astro_miner': 'cosmos:astro_miner',
+    'cosmos:schematic_buggy': 'cosmos:moon_buggy_item',
+    'cosmos:schematic_cargo_rocket': 'cosmos:cargo_rocket_item',
+    'cosmos:schematic_astro_miner': 'cosmos:astro_miner_item',
 }
 
 const MAXSIZE = 18
@@ -63,8 +53,8 @@ function tick(workbench) {
     }
     // set the storage size
     let storage_size = 0
-    const storage_type = selected_recipe == 'cosmos:buggy' ? 'cosmos:buggy_storage' : 'minecraft:chest'
-    if (selected_recipe != 'cosmos:astro_miner') {
+    const storage_type = selected_recipe == 'cosmos:moon_buggy_item' ? 'cosmos:buggy_storage' : 'minecraft:chest'
+    if (selected_recipe != 'cosmos:astro_miner_item') {
         for (let i = 0; i<3; i++) {
             if (inventory.getItem(MAXSIZE + i)?.typeId == storage_type) storage_size += 18
         }
@@ -86,7 +76,7 @@ function tick(workbench) {
             inventory.setItem(MAXSIZE + i, item?.decrementStack())
         }
         // find the player who crafted
-        const player = workbench.dimension.getPlayers({location: workbench.location, maxDistance: 20}).find(player => {
+        workbench.dimension.getPlayers({location: workbench.location, maxDistance: 20}).forEach(player => {
             const inventory = player.getComponent('inventory')
             // search for the button in his inventory
             for (let i = 0; i < inventory.inventorySize; i++) {
@@ -94,15 +84,17 @@ function tick(workbench) {
                 if (!item || item.typeId != 'cosmos:ui_button') continue
                 const id = item.getLore()[0]
                 if (!id || id != workbench.id) continue
-                inventory.container.setItem(i)
-                // give the rocket to the player
-                player.sendMessage('I will give you your rocket later.')
+                const storage_space = parseInt(item.nameTag.replace('§craft_button:size', ''))
+                const rocket_type = item.nameTag.replace('§craft_button:size' + storage_space, '')
+                const rocket = new ItemStack(rocket_type)
+                if (storage_space > 0) rocket.setLore([`§r§7Storage Space: ${storage_space}`])
+                inventory.container.setItem(i, rocket)
             } 
         })
     }
 
     // change the craft button depending on the inputs
-    if (recipe_matches) {
+    if (recipe_matches && !(selected_recipe == 'cosmos:cargo_rocket_item' && storage_size == 0)) {
         const button_name = `§craft_button:size${storage_size}${selected_recipe}`
         if (!craft_button || craft_button.nameTag != button_name) inventory.add_ui_button(MAXSIZE + 4, button_name, [workbench.id])
     } else {

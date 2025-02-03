@@ -5,14 +5,11 @@
             "identifier": "cosmos:rocket_tier_1_item"
         },
         "components": {
-            "minecraft:custom_components": [
-                "cosmos:rocket"
-            ],
+            "minecraft:custom_components": ["cosmos:rocket"],
+            "minecraft:max_stack_size": 1,
             "minecraft:icon": "rocket_tier_1",
             "minecraft:tags": {
-                "tags": [
-                    "cosmos:holdable"
-                ]
+                "tags": ["cosmos:holdable"]
             }
         }
     }

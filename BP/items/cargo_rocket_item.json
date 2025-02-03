@@ -5,11 +5,10 @@
             "identifier": "cosmos:cargo_rocket_item"
         },
         "components": {
+            "minecraft:max_stack_size": 1,
             "minecraft:icon": "cargo_rocket",
             "minecraft:tags": {
-                "tags": [
-                    "cosmos:holdable"
-                ]
+                "tags": ["cosmos:holdable"]
             }
         }
     }
