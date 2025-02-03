@@ -6,21 +6,18 @@ import { pickaxes } from "../../api/utils"
 export let machine_entities = new Map();
 
 function clean_machine_entities(machines_array){
-    for(let machine of machines_array.keys()){
-        let entity = world.getEntity(machine);
-        let block = entity?.dimension.getBlock(machine.location);
+    for(let machine of machines_array.entries()){
+        let entity = world.getEntity(machine[0]);
+        let block = entity?.dimension.getBlock(machine[1].location);
         if(!entity || !block){
-            machine_entities.delete(machine);
             return;
         }
-        const machine_name = entity.typeId.replace('cosmos:', '')
-		new machines[machine_name].class(entity, block);
+		new machines[machine[1].type].class(entity, block);
     }
 }
 function block_entity_access() {
 	world.getAllPlayers().forEach(player => {
         if(!player) return;
-        if(machine_entities.size === 0) return;
         if(player.isSneaking){
             const entity = player.getEntitiesFromViewDirection({maxDistance: 6, families: ["cosmos"]})[0]?.entity;
             if(!entity) return;
@@ -38,6 +35,7 @@ function block_entity_access() {
 	})
 }
 system.runInterval(() => {
+    if(machine_entities.size === 0) return;
     if(system.currentTick % 2) block_entity_access();
     clean_machine_entities(machine_entities);
 }, 1);
