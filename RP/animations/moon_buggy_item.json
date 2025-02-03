@@ -1,0 +1,17 @@
+{
+	"animations": {
+		"animation.buggy.hold_moon_buggy": {
+			"loop": true,
+			"bones": {
+				"entity": {
+					"rotation": ["-270.5 + 85 * c.is_first_person", "65 - 60 * c.is_first_person", "-273 + 453 * c.is_first_person"],
+					"position": ["-6 + 28 * c.is_first_person", "23 - 20 * c.is_first_person - 3.5 * q.is_on_ground * !c.is_first_person - 3.5 * q.is_sneaking * !c.is_first_person + 3.5 * q.is_sneaking * q.is_on_ground * !c.is_first_person ", "-6 + 40 * c.is_first_person"]
+				},
+				"radar": {
+					"rotation": [ 60, 0, 0]
+                                }
+			}
+		}
+	},
+	"format_version": "1.10.0"
+}
