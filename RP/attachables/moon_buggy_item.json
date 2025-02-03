@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+     "description": {
+       "identifier": "cosmos:moon_buggy_item",
+        "geometry": {
+           "default": "geometry.moon_buggy"
+        },
+        "materials": {
+           "default": "skeleton"
+        },
+        "textures": {
+           "default": "textures/entity/moon_buggy"
+        },
+        "render_controllers": [
+           "controller.render.rocket"
+        ],
+        "animations": {
+          "hold": "animation.buggy.hold_moon_buggy"
+        },
+        "scripts": {
+          "animate": [
+            "hold"
+          ]
+        }
+     }
+  }
+}
