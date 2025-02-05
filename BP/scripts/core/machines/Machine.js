@@ -64,9 +64,9 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
                 },
                 maxDistance: 0.5,
             })[0];
-			machine_entities.delete(machineEntity.id);
-            // check if the entity exists
+        // check if the entity exists
 			if(!machineEntity) return
+		        machine_entities.delete(machineEntity.id);
 			//clear the ui items before killing the entity
 			const container = machineEntity.getComponent('minecraft:inventory')?.container
 			if (container) { for (let i = 0; i < container.size; i++) {
