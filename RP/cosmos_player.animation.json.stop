@@ -88,6 +88,31 @@
             },
             "loop": true
         },
+	"animation.player.riding.arms" : {
+		"loop" : true,
+		"bones" : {
+			"leftarm" : {
+				"rotation" : [ "-36.0 - (36.0 * query.property('cosmos:sitting'))", 0.0, 0.0 ]
+			},
+			"rightarm" : {
+					"rotation" : [ "-36.0 - (36.0 * query.property('cosmos:sitting'))", 0.0, 0.0 ]
+			}
+		}
+	},
+	"animation.player.riding.legs" : {
+		"loop" : true,
+		"bones" : {
+			"leftleg" : {
+				"rotation" : [ "(-72.0 - this) - (-72.0 - this * query.property('cosmos:sitting'))", "(-18.0 - this) - (-18.0 - this * query.property('cosmos:sitting'))", "-this - (-this * query.property('cosmos:sitting'))" ]
+			},
+			"rightleg" : {
+				"rotation" : [ "(-72.0 - this) - (-72.0 - this * query.property('cosmos:sitting'))", "(18.0 - this) - (18.0 - this * query.property('cosmos:sitting'))", "-this - (-this * query.property('cosmos:sitting'))" ]
+			},
+                        "root" : {
+				"rotation" : [ "180 - query.property('cosmos:rotation_x')", "180 - query.property('cosmos:rotation_y')", 0 ]
+			}
+		}
+	},
         "animation.player.sneaking": {
             "bones": {
                 "body": {

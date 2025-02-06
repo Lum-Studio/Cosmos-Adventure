@@ -58,6 +58,18 @@
                   "range": [0, 3],
                   "default": 0,
                   "client_sync": true
+                },
+                "cosmos:rotation_x": {
+                  "type": "float",
+                  "range": [0.0, 360.0],
+                  "default": 180.0,
+                  "client_sync": true
+                },
+                "cosmos:rotation_y": {
+                  "type": "float",
+                  "range": [0.0, 360.0],
+                  "default": 180.0,
+                  "client_sync": true
                 }
             }
         },
