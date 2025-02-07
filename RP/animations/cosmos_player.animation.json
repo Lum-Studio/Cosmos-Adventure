@@ -1,0 +1,177 @@
+{
+    "animations": {
+        "animation.player.move.arms": {
+            "bones": {
+                "leftarm": {
+                    "rotation": [
+                        "!variable.rocket_player_hold * variable.tcos0",
+                        0,
+                        0
+                    ]
+                },
+                "rightarm": {
+                    "rotation": [
+                        "!variable.rocket_player_hold * -variable.tcos0",
+                        0,
+                        0
+                    ]
+                }
+            },
+            "loop": true
+        },
+        "animation.player.rocket_player_hold": {
+            "bones": {
+                "body": {
+                    "position": [
+                        0,
+                        "q.is_on_ground * -2 + q.is_sneaking * !q.is_on_ground * -2",
+                        0
+                    ]
+                },
+                "head": {
+                    "position": [
+                        0,
+                        -1,
+                        0
+                    ]
+                },
+                "leftarm": {
+                    "position": [
+                        0,
+                        0,
+                        -1
+                    ],
+                    "rotation": [
+                        "-158 + q.is_on_ground * -28 + q.is_sneaking * !q.is_on_ground * -28",
+                        -1.5,
+                        22
+                    ]
+                },
+                "leftleg": {
+                    "rotation": [
+                        "q.is_on_ground * -28 + q.is_sneaking * !q.is_on_ground * -28",
+                        "q.is_on_ground * -0.1 + q.is_sneaking * !q.is_on_ground * -0.1",
+                        "q.is_on_ground * -0.1 + q.is_sneaking * !q.is_on_ground * -0.1"
+                    ]
+                },
+                "rightarm": {
+                    "position": [
+                        0,
+                        0,
+                        -1
+                    ],
+                    "rotation": [
+                        "-140 + q.is_on_ground * -28 + q.is_sneaking * !q.is_on_ground * -28",
+                        1.5,
+                        -22
+                    ]
+                },
+                "rightleg": {
+                    "rotation": [
+                        "q.is_on_ground * -28 + q.is_sneaking * !q.is_on_ground * -28",
+                        "q.is_on_ground * 0.1 + q.is_sneaking * !q.is_on_ground * 0.1",
+                        "q.is_on_ground * 0.1 + q.is_sneaking * !q.is_on_ground * 0.1"
+                    ]
+                },
+                "root": {
+                    "position": [
+                        0,
+                        "q.is_on_ground * 1.25 + q.is_sneaking * !q.is_on_ground * 1.25",
+                        "q.is_on_ground * 9 + q.is_sneaking * !q.is_on_ground * 9"
+                    ],
+                    "rotation": [
+                        "q.is_on_ground * 28.0 - this + q.is_sneaking * !q.is_on_ground * 28.0",
+                        0,
+                        0
+                    ]
+                }
+            },
+            "loop": true
+        },
+	"animation.player.riding.arms" : {
+		"loop" : true,
+		"bones" : {
+			"leftarm" : {
+				"rotation" : [ "-36.0 - (36.0 * query.property('cosmos:sitting'))", 0.0, 0.0 ]
+			},
+			"rightarm" : {
+					"rotation" : [ "-36.0 - (36.0 * query.property('cosmos:sitting'))", 0.0, 0.0 ]
+			}
+		}
+	},
+	"animation.player.riding.legs" : {
+		"loop" : true,
+		"bones" : {
+			"leftleg" : {
+				"rotation" : [ "(-72.0 - this) - (-72.0 - this * query.property('cosmos:sitting'))", "(-18.0 - this) - (-18.0 - this * query.property('cosmos:sitting'))", "-this - (-this * query.property('cosmos:sitting'))" ]
+			},
+			"rightleg" : {
+				"rotation" : [ "(-72.0 - this) - (-72.0 - this * query.property('cosmos:sitting'))", "(18.0 - this) - (18.0 - this * query.property('cosmos:sitting'))", "-this - (-this * query.property('cosmos:sitting'))" ]
+			},
+                        "root" : {
+				"rotation" : [ "180 - query.property('cosmos:rotation_x')", "180 - query.property('cosmos:rotation_y')", 0 ]
+			}
+		}
+	},
+        "animation.player.sneaking": {
+            "bones": {
+                "body": {
+                    "position": [
+                        0,
+                        "!variable.rocket_player_hold * -2",
+                        0
+                    ]
+                },
+                "head": {
+                    "position": [
+                        0,
+                        "!variable.rocket_player_hold *-1",
+                        0
+                    ]
+                },
+                "leftarm": {
+                    "rotation": [
+                        "!variable.rocket_player_hold * -5.7",
+                        0,
+                        0
+                    ]
+                },
+                "leftleg": {
+                    "rotation": [
+                        "!variable.rocket_player_hold * -28",
+                        "!variable.rocket_player_hold -0.1",
+                        "!variable.rocket_player_hold -0.1"
+                    ]
+                },
+                "rightarm": {
+                    "rotation": [
+                        "!variable.rocket_player_hold * -5.7",
+                        0,
+                        0
+                    ]
+                },
+                "rightleg": {
+                    "rotation": [
+                        "!variable.rocket_player_hold * -28",
+                        "!variable.rocket_player_hold * 0.1",
+                        "!variable.rocket_player_hold * 0.1"
+                    ]
+                },
+                "root": {
+                    "position": [
+                        0,
+                        "!variable.rocket_player_hold * 1.25",
+                        "!variable.rocket_player_hold * 9"
+                    ],
+                    "rotation": [
+                        "!variable.rocket_player_hold * 28.0 - this",
+                        0,
+                        0
+                    ]
+                }
+            },
+            "loop": true
+        }
+    },
+    "format_version": "1.8.0"
+}
