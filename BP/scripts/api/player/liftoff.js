@@ -81,6 +81,9 @@ function break_pad(rocket) {
 } 
 
 function dismount(player) {
+    player.setProperty("cosmos:is_sitting", 0);
+    player.setProperty("cosmos:rotation_x", 180);
+    player.setProperty("cosmos:rotation_y", 180);
     player.setDynamicProperty('in_the_rocket')
     player.onScreenDisplay.setTitle('')
     player.camera.clear()
@@ -158,6 +161,7 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
         //disable jumping
         if(rider){
             rider.inputPermissions.setPermissionCategory(6, false)
+            rider.setProperty("cosmos:is_sitting", 1);
         }
         //camera shake
         if (rider && active) {
