@@ -19,7 +19,7 @@ export const planetConfigs = [
     {
         id: 'asteroids',
         range: { start: { x: -100000, z: -100000 }, end: { x: -50000, z: -50000 } },
-        gravity: 0.5
+        gravity: 0.05
     }
 ];
 
