@@ -92,10 +92,10 @@
 		"loop" : true,
 		"bones" : {
 			"leftarm" : {
-				"rotation" : [ "-36.0 - (36.0 * query.property('cosmos:sitting'))", 0.0, 0.0 ]
+				"rotation" : [ "-36.0 + (36.0 * query.property('cosmos:sitting'))", 0.0, 0.0 ]
 			},
 			"rightarm" : {
-					"rotation" : [ "-36.0 - (36.0 * query.property('cosmos:sitting'))", 0.0, 0.0 ]
+					"rotation" : [ "-36.0 + (36.0 * query.property('cosmos:sitting'))", 0.0, 0.0 ]
 			}
 		}
 	},
