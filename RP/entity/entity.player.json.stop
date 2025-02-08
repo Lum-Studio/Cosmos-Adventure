@@ -70,6 +70,7 @@
         "frequency": "geometry.frequency"
       },
       "identifier": "minecraft:player",
+      "min_engine_version": "1.12.2",
       "materials": {
         "animated": "player_animated",
         "cape": "entity_alphatest",
