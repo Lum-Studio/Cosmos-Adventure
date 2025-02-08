@@ -5,6 +5,7 @@ export function moon_lander(player){
     let speed = 0;
     player.inputPermissions.setPermissionCategory(2, false);
     player.inputPermissions.setPermissionCategory(6, false);
+    player.setProperty("cosmos:rotation_x", 180);
     let lander = player.dimension.spawnEntity("cosmos:lander", {x: player.location.x, y: 1, z: player.location.z});
     lander.triggerEvent("cosmos:lander_gravity_disable");
     lander.teleport(player.location);
