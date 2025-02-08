@@ -92,10 +92,10 @@
 		"loop" : true,
 		"bones" : {
 			"leftarm" : {
-				"rotation" : [ "-36.0 + (36.0 * query.property('cosmos:sitting'))", 0.0, 0.0 ]
+				"rotation" : [ "-36.0 + (36.0 * query.property('cosmos:is_sitting'))", 0.0, 0.0 ]
 			},
 			"rightarm" : {
-					"rotation" : [ "-36.0 + (36.0 * query.property('cosmos:sitting'))", 0.0, 0.0 ]
+					"rotation" : [ "-36.0 + (36.0 * query.property('cosmos:is_sitting'))", 0.0, 0.0 ]
 			}
 		}
 	},
@@ -103,13 +103,13 @@
 		"loop" : true,
 		"bones" : {
 			"leftleg" : {
-				"rotation" : [ "(-72.0 - this) - (-72.0 - this * query.property('cosmos:sitting'))", "(-18.0 - this) - (-18.0 - this * query.property('cosmos:sitting'))", "-this - (-this * query.property('cosmos:sitting'))" ]
+				"rotation" : [ "(-72.0 - this) - (-72.0 - this * query.property('cosmos:is_sitting'))", "(-18.0 - this) - (-18.0 - this * query.property('cosmos:is_sitting'))", "-this - (-this * query.property('cosmos:is_sitting'))" ]
 			},
 			"rightleg" : {
-				"rotation" : [ "(-72.0 - this) - (-72.0 - this * query.property('cosmos:sitting'))", "(18.0 - this) - (18.0 - this * query.property('cosmos:sitting'))", "-this - (-this * query.property('cosmos:sitting'))" ]
+				"rotation" : [ "(-72.0 - this) - (-72.0 - this * query.property('cosmos:is_sitting'))", "(18.0 - this) - (18.0 - this * query.property('cosmos:is_sitting'))", "-this - (-this * query.property('cosmos:is_sitting'))" ]
 			},
                         "root" : {
-				"rotation" : [ "180 - query.property('cosmos:rotation_x')", "180 - query.property('cosmos:rotation_y')", 0 ]
+				"rotation" : [ "180 - query.property('cosmos:rotation_x')", 0, 0 ]
 			}
 		}
 	},
