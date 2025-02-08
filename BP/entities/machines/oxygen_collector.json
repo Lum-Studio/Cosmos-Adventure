@@ -2,8 +2,7 @@
     "format_version": "1.20.0",
     "minecraft:entity": {
         "description": {
-            "identifier": "cosmos:machine:oxygen_collector",
-			// "properties": {},
+            "identifier": "cosmos:oxygen_collector",
             "is_summonable": true
         },
         "component_groups": {

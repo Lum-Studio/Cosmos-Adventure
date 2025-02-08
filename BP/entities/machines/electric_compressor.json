@@ -2,8 +2,7 @@
     "format_version": "1.20.0",
     "minecraft:entity": {
         "description": {
-            "identifier": "cosmos:machine:electric_compressor",
-			// "properties": {},
+            "identifier": "cosmos:electric_compressor",
             "is_summonable": true
         },
         "component_groups": {

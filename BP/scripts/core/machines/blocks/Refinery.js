@@ -1,5 +1,4 @@
 import { system, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity.js";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
 import { get_data, get_lore } from "../../../api/utils.js";
 
@@ -15,12 +14,30 @@ function make_smoke({dimension, x, y, z}) {
 	smoke(0.5, 1, 0.3); smoke(0.3, 1, 0.5)
 }
 
-export default class extends MachineBlockEntity {
-    constructor(block, entity) {
-        super(block, entity);
-        if (this.entity.isValid()) this.refine()
+export default class {
+    constructor(entity, block) {
+		this.entity = entity;
+		this.block = block;
+        if (entity.isValid()) this.refine()
     }
 
+	onPlace(){
+		const container = this.entity.getComponent('minecraft:inventory').container
+		const data = get_data(this.entity);
+		const counter = new ItemStack('cosmos:ui')
+		counter.nameTag = `cosmos:§energy${Math.round((0 / data.capacity) * 55)}`
+		container.setItem(3, counter)
+		counter.nameTag = `Energy Storage\n§aEnergy: ${0} gJ\n§cMax Energy: ${data.capacity} gJ`
+		container.setItem(4, counter)
+		counter.nameTag = `cosmos:§fill_level${Math.ceil((Math.ceil(0 / 1000) / (data.oil_capacity / 1000)) * 38)}§liquid:oil`
+		container.setItem(5, counter)
+		counter.nameTag = `Oil Storage\n§eOil: ${0} / ${data.oil_capacity} mB`
+		container.setItem(6, counter)
+		counter.nameTag = `cosmos:§fill_level${Math.ceil((Math.ceil(0 / 1000) / (data.fuel_capacity / 1000)) * 38)}§liquid:fuel`
+		container.setItem(7, counter)
+		counter.nameTag = `Fuel Storage\n§eFuel: ${0} / ${data.fuel_capacity} mB`
+		container.setItem(8, counter)
+	}
     refine() {
 		//3 slots for items + slot for lore + slot for button + total + ? for ui
         const container = this.entity.getComponent('minecraft:inventory').container
@@ -30,9 +47,19 @@ export default class extends MachineBlockEntity {
 		const data = get_data(this.entity)
 		const dimension = this.entity.dimension
 		
-		let energy = get_lore(container, data, "energy")
-		let oil = get_lore(container, data, "oil")
-		let fuel = get_lore(container, data, "fuel")
+		let energy = this.entity.getDynamicProperty("cosmos_energy");
+		energy = (!energy)? 0:
+		energy;
+		let oil = this.entity.getDynamicProperty("cosmos_oil");
+		oil = (!oil)? 0:
+		oil;
+		let fuel = this.entity.getDynamicProperty("cosmos_fuel");
+		fuel = (!fuel)? 0:
+		fuel;
+
+		let first_energy = energy;
+		let first_oil = oil;
+		let first_fuel = fuel;
 		
 	    energy = charge_from_machine(this.entity, this.block, energy)
 		
@@ -74,18 +101,27 @@ export default class extends MachineBlockEntity {
 		"§2Refining"
 
 		const counter = new ItemStack('cosmos:ui')
-		counter.nameTag = `cosmos:§energy${Math.round((energy / data.capacity) * 55)}`
-		container.setItem(3, counter)
-		counter.nameTag = `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.capacity} gJ`
-		container.setItem(4, counter)
-		counter.nameTag = `cosmos:§fill_level${Math.ceil((Math.ceil(oil / 1000) / (data.oil_capacity / 1000)) * 38)}§liquid:oil`
-		container.setItem(5, counter)
-		counter.nameTag = `Oil Storage\n§eOil: ${oil} / ${data.oil_capacity} mB`
-		container.setItem(6, counter)
-		counter.nameTag = `cosmos:§fill_level${Math.ceil((Math.ceil(fuel / 1000) / (data.fuel_capacity / 1000)) * 38)}§liquid:fuel`
-		container.setItem(7, counter)
-		counter.nameTag = `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel_capacity} mB`
-		container.setItem(8, counter)
+		if(oil !== first_oil){
+			this.entity.setDynamicProperty("cosmos_oil", oil)
+			counter.nameTag = `cosmos:§fill_level${Math.ceil((Math.ceil(oil / 1000) / (data.oil_capacity / 1000)) * 38)}§liquid:oil`
+			container.setItem(5, counter)
+			counter.nameTag = `Oil Storage\n§eOil: ${oil} / ${data.oil_capacity} mB`
+			container.setItem(6, counter)
+		}
+		if(energy !== first_energy){
+			this.entity.setDynamicProperty("cosmos_energy", energy)
+			counter.nameTag = `cosmos:§energy${Math.round((energy / data.capacity) * 55)}`
+			container.setItem(3, counter)
+			counter.nameTag = `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.capacity} gJ`
+			container.setItem(4, counter)
+		}
+		if(fuel !== first_fuel){
+			this.entity.setDynamicProperty("cosmos_fuel", fuel)
+			counter.nameTag = `cosmos:§fill_level${Math.ceil((Math.ceil(fuel / 1000) / (data.fuel_capacity / 1000)) * 38)}§liquid:fuel`
+			container.setItem(7, counter)
+			counter.nameTag = `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel_capacity} mB`
+			container.setItem(8, counter)
+		}
 		counter.nameTag = `Status:\n${status}`
 		container.setItem(9, counter)
 		const ui_button = new ItemStack('cosmos:ui_button')
@@ -95,9 +131,6 @@ export default class extends MachineBlockEntity {
 			container.setItem(10, ui_button);
 			this.entity.setDynamicProperty('stopped', !stopped)
 		}
-		counter.nameTag = ``
-		counter.setLore([''+energy, ''+oil, ''+fuel])
-		container.setItem(data.lore.slot, counter)
 	}
 }
 
