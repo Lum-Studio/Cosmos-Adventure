@@ -109,7 +109,7 @@
 				"rotation" : [ "(-72.0 - this) - (-72.0 - this * query.property('cosmos:is_sitting'))", "(18.0 - this) - (18.0 - this * query.property('cosmos:is_sitting'))", "-this - (-this * query.property('cosmos:is_sitting'))" ]
 			},
                         "root" : {
-				"rotation" : [ "90 - query.property('cosmos:rotation_x')", 0, 0 ]
+				"rotation" : [ "(90 - query.property('cosmos:rotation_x')) * query.property('cosmos:is_sitting')", 0, 0 ]
 			}
 		}
 	},
