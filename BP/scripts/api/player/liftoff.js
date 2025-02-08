@@ -83,7 +83,7 @@ function break_pad(rocket) {
 function dismount(player) {
     player.setProperty("cosmos:is_sitting", 0);
     player.setProperty("cosmos:rotation_x", 180);
-    player.setProperty("cosmos:rotation_y", 180);
+    //player.setProperty("cosmos:rotation_y", 180);
     player.setDynamicProperty('in_the_rocket')
     player.onScreenDisplay.setTitle('')
     player.camera.clear()
@@ -123,7 +123,7 @@ function rocket_flight(rocket) {
     let t = 0; let v
     const a = 30; const b = 10
     let flight = system.runInterval(() => {
-        let player = rocket.getComponent("minecraft:rideable").getRiders()[0];
+        let player = rocket?.getComponent("minecraft:rideable").getRiders()[0];
         if(!rocket || !rocket.isValid() || !player){
             system.clearRun(flight);
             return;
