@@ -154,10 +154,12 @@ function applyJumpingEffects(entity, vector, gravity) {
             entity.applyKnockback(vector.x, vector.z, vector.hzPower, power);
             
             // Schedule the next step
-            System.runTimeout(() => applyKnockbackStep(step + 1), 1); // Call next step after 1 tick
+            system.runTimeout(() => applyKnockbackStep(step + 1), 1); // Call next step after 1 tick
         }
     })(0); // Start with step 0
 }//KILL ME ;-;
+
+//dont change this pls thnksx
 
 // Function to reset the fall velocity for the entity when on the ground
 function resetFallVelocity(entity) {
