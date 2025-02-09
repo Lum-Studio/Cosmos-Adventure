@@ -1,21 +1,34 @@
 import { system, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity";
 import { get_data } from "../../../api/utils";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity";
 
-export default class extends MachineBlockEntity {
-    constructor(block, entity) {
-        super(block, entity);
-        if (this.entity.isValid()) this.collect_oxygen()
+export default class {
+    constructor(entity, block) {
+        this.entity = entity;
+		this.block = block;
+        if (entity.isValid()) this.collect_oxygen()
     }
 
+    onPlace(){
+        const container = this.entity.getComponent('minecraft:inventory').container
+        const counter = new ItemStack('cosmos:ui')
+		counter.nameTag = `Speed ${0}`
+		container.setItem(1, counter)
+		counter.nameTag = `Space ${0}`
+		container.setItem(2, counter)
+    }
     collect_oxygen() {
         const in_overworld = this.entity.dimension.id == "minecraft:overworld"
         const container = this.entity.getComponent('minecraft:inventory').container;
         const lore = container.getItem(3)
 		const data = get_data(this.entity)
-		let energy = lore ? + lore.getLore()[0] : 0
-        let o2 = lore ? + lore.getLore()[1] : 0
+        let energy = this.entity.getDynamicProperty("cosmos_energy");
+		energy = energy ? + energy : 0
+        let o2 = this.entity.getDynamicProperty("cosmos_o2");
+        o2 = o2 ? + o2 : 0
+
+        let first_energy = energy;
+        let first_o2 = o2;
         const space = data.o2_capacity - o2
         const speed = in_overworld && energy ? Math.min(186, space) : 0
 		
@@ -33,9 +46,8 @@ export default class extends MachineBlockEntity {
 		container.setItem(1, counter)
 		counter.nameTag = `Space ${space}`
 		container.setItem(2, counter)
-		counter.nameTag = ``
-		counter.setLore([''+energy, ''+o2])
-		container.setItem(3, counter)
+        if(o2 !== first_o2) this.entity.setDynamicProperty("cosmos_o2", o2);
+        if(energy !== first_energy) this.entity.setDynamicProperty("cosmos_energy", energy);
     }
 }
 

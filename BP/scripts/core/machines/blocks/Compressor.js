@@ -1,5 +1,4 @@
 import { system, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity";
 import recipes from "../../../recipes/compressor"
 import { compare_lists, get_vars } from "../../../api/utils";
 
@@ -22,12 +21,23 @@ function find_recipe(ingredients) {
 	} return undefined
 }
 
-export default class extends MachineBlockEntity {
-	constructor(block, entity) {
-		super(block, entity);
-        if (this.entity.isValid()) this.generateHeat()
+export default class {
+    constructor(entity, block) {
+		this.entity = entity;
+		this.block = block;
+        if (entity.isValid()) this.generateHeat()
 	}
-
+    onPlace(){
+		const container = this.entity.getComponent('minecraft:inventory').container
+		const data = get_data(this.entity);
+		const counter = new ItemStack('cosmos:ui')
+		counter.nameTag = `cosmos:§burn${Math.round((0 / 1) * 13)}`
+		container.setItem(11, counter)
+		counter.nameTag = `cosmos:§prog${Math.ceil((0 / 200) * 52)}`
+		container.setItem(12, counter)
+		counter.nameTag = `cosmos:  Status:\n${!0 ? '    §6Idle' : '§aCompressing'}`
+		container.setItem(13, counter)
+	}
 	generateHeat() {
 		const container = this.entity.getComponent('minecraft:inventory').container;
 		const items = get_ingredients(container)
@@ -37,10 +47,20 @@ export default class extends MachineBlockEntity {
 		const has_space = !output_item || (output_item.typeId == output && output_item.amount < 64)
 		const fuelItem = container.getItem(9);
 		const isCoalBlock = fuelItem?.typeId === 'minecraft:coal_block';
-	        const vars_item = container.getItem(14)
-	        let burnTime = get_vars(vars_item, 0)
-		let burnDuration = get_vars(vars_item, 1, 1)
-	        let progress = get_vars(vars_item, 2)
+		let burnTime = this.entity.getDynamicProperty("cosmos_burnTime");
+		burnTime = (!burnTime)? 0:
+		burnTime;
+
+		let burnDuration = this.entity.getDynamicProperty("cosmos_burnDuration");
+		burnDuration = (!burnDuration)? 1:
+		burnDuration;
+		
+		let progress = this.entity.getDynamicProperty("cosmos_progress");
+		progress = (!progress)? 0:
+		progress;
+
+		let first_burnTime = burnTime;
+		let first_burnDuration = burnDuration;
 
 		if (fuelTypes.has(fuelItem?.typeId) && burnTime == 0 && output) {
 			container.setItem(9, fuelItem.decrementStack())
@@ -68,15 +88,18 @@ export default class extends MachineBlockEntity {
 		}
 
 		const counter = new ItemStack('cosmos:ui')
-		counter.nameTag = `cosmos:§burn${Math.round((burnTime / burnDuration) * 13)}`
-		container.setItem(11, counter)
-		counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`
-		container.setItem(12, counter)
-		counter.nameTag = `cosmos:  Status:\n${!progress ? '    §6Idle' : '§aCompressing'}`
-		container.setItem(13, counter)
-		counter.nameTag = ``
-		counter.setLore(['' + burnTime, '' + burnDuration, '' + progress])
-		container.setItem(14, counter)
+		if(burnTime !== first_burnTime || burnDuration !== first_burnDuration){
+			counter.nameTag = `cosmos:§burn${Math.round((burnTime / burnDuration) * 13)}`
+			container.setItem(11, counter)
+		}
+
+		if(burnTime !== first_burnTime) this.entity.setDynamicProperty("cosmos_burnTime", burnTime);
+		if(burnDuration != first_burnDuration){
+			this.entity.setDynamicProperty("cosmos_burnDuration", burnDuration);
+			counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`
+			container.setItem(12, counter)
+		}
+
 	}
 }
 

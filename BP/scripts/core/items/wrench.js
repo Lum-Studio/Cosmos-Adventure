@@ -1,6 +1,6 @@
 import {world, system} from "@minecraft/server";
 import {detach_wires, attach_to_wires} from "../blocks/aluminum_wire"
-import { MachineInstances } from "../machines/MachineInstances"
+import {machine_entities} from "../machines/Machine"
 
 const directions = ["north", "east", "south", "west"]
 
@@ -19,7 +19,9 @@ function remove(block) {
   const {dimension, location} = block
   const coords = `${location.x} ${location.y} ${location.z}`
   dimension.runCommand(`fill ${coords} ${coords} air destroy`)
-  MachineInstances.get(dimension, location)?.destroy()
+  const machineEntity = dimension.getEntitiesAtBlockLocation(block.location).find((entity) => entity?.getDynamicProperty("block_location") == block.location);
+  if(machineEntity) machine_entities.delete(machineEntity.id)
+
 }
 
 world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {

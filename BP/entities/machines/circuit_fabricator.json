@@ -2,8 +2,7 @@
     "format_version": "1.20.0",
     "minecraft:entity": {
         "description": {
-            "identifier": "cosmos:machine:circuit_fabricator",
-			// "properties": {},
+            "identifier": "cosmos:circuit_fabricator",
             "is_summonable": true
         },
         "component_groups": {

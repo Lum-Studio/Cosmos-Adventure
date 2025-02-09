@@ -1,5 +1,4 @@
 import { system, world, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity";
 import { compare_lists, get_vars, get_data} from "../../../api/utils";
 import recipes from "../../../recipes/compressor"
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
@@ -20,24 +19,41 @@ function find_recipe(ingredients) {
 		} else return result
 	} return undefined
 }
-export default class extends MachineBlockEntity {
-    constructor(block, entity) {
-        super(block, entity);
-        if (this.entity.isValid()) this.compress()
+export default class {
+    constructor(entity, block) {
+		this.entity = entity;
+		this.block = block;
+        if (entity.isValid()) this.compress()
     }
 
+	onPlace(){
+		const container = this.entity.getComponent('minecraft:inventory').container
+		const data = get_data(this.entity);
+		const counter = new ItemStack('cosmos:ui')
+		counter.nameTag = `cosmos:§energy${Math.round((0 / data.capacity) * 55)}`
+		container.setItem(12, counter)
+		counter.nameTag = `cosmos:§prog${Math.ceil((0 / 200) * 52)}`
+		container.setItem(13, counter)
+		counter.nameTag = `cosmos:  Status:\n${!0 ? '    §6Idle' : '§aCompressing'}`
+		container.setItem(14, counter)
+		counter.nameTag = `Energy Storage\n§aEnergy: ${Math.round(0)} gJ\n§cMax Energy: ${data.capacity} gJ`
+		container.setItem(15, counter)
+	}
     compress(){
 		const container = this.entity.getComponent('minecraft:inventory').container;
 		const data = get_data(this.entity);
         const vars_item = container.getItem(16)
-        let energy = get_vars(vars_item, 0)
-		let progress = get_vars(vars_item, 1)
-		let timer = get_vars(vars_item, 2)
-		timer = (timer < 80)? timer + 1:
-		0;
+		let energy = this.entity.getDynamicProperty("cosmos_energy");
+		energy = (!energy)? 0:
+		energy;
+		let progress = this.entity.getDynamicProperty("cosmos_progress");
+		progress = (!progress)? 0:
+		progress;
+		let first_energy = energy;
+		let first_progress = progress;
 		energy = charge_from_machine(this.entity, this.block, energy)
 		energy = charge_from_battery(this.entity, energy, 11);
-        if(timer === 0) energy -= Math.min(1, energy)
+        if(system.currentTick % 80) energy -= Math.min(1, energy)
 		const items = get_ingredients(container)
 		const ingredients = [...items.map(i => i?.typeId)].filter(i => i).sort()
 		const output = find_recipe(ingredients)
@@ -100,16 +116,19 @@ export default class extends MachineBlockEntity {
 			}
 		}
 		const counter = new ItemStack('cosmos:ui')
-		counter.nameTag = `cosmos:§energy${Math.round((energy / data.capacity) * 55)}`
-		container.setItem(12, counter)
-		counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`
-		container.setItem(13, counter)
-		counter.nameTag = `cosmos:  Status:\n${!progress ? '    §6Idle' : '§aCompressing'}`
-		container.setItem(14, counter)
-		counter.nameTag = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.capacity} gJ`
-		container.setItem(15, counter)
-		counter.nameTag = ``
-		counter.setLore(['' +energy, '' +progress, '' +timer])
-		container.setItem(16, counter)
+		if(energy !== first_energy){
+			this.entity.setDynamicProperty("cosmos_energy", energy);
+			counter.nameTag = `cosmos:§energy${Math.round((energy / data.capacity) * 55)}`
+			container.setItem(12, counter)
+			counter.nameTag = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.capacity} gJ`
+			container.setItem(15, counter)
+		}
+		if(progress !== first_progress){
+			this.entity.setDynamicProperty("cosmos_progress", progress);
+			counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`
+			container.setItem(13, counter)
+			counter.nameTag = `cosmos:  Status:\n${!progress ? '    §6Idle' : '§aCompressing'}`
+			container.setItem(14, counter)
+		}
     }
 }

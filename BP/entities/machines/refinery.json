@@ -2,7 +2,7 @@
     "format_version": "1.20.0",
     "minecraft:entity": {
         "description": {
-            "identifier": "cosmos:machine:refinery",
+            "identifier": "cosmos:refinery",
             "is_summonable": true
         },
         "component_groups": {

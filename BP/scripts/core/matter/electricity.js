@@ -1,6 +1,7 @@
 import { world } from "@minecraft/server";
 import AllMachineBlocks from "../machines/AllMachineBlocks"
-export function get_data(machine) { return AllMachineBlocks[machine.typeId.replace('cosmos:machine:', '')] }
+import { compare_position, floor_position } from "../../api/utils";
+export function get_data(machine) { return AllMachineBlocks[machine.typeId.replace('cosmos:', '')] }
 function str(object) { return JSON.stringify(object) }
 function say(message = 'yes') { world.sendMessage('' + message) }
 export class MachinesInNetwork{
@@ -16,14 +17,6 @@ export class MachinesInNetwork{
         return undefined;
     }
 }
-export function compare_position(a, b){
-	if (!a || !b) return false
-	return a.x == b.x && a.y == b.y && a.z == b.z
-}
-export function floor_position({x, y, z}) {
-	return {x: Math.floor(x), y: Math.floor(y), z: Math.floor(z)}
-}
-
 export function get_entity(dimension, location, family) {
 	if (!location) return
 	return dimension.getEntities({
@@ -44,10 +37,8 @@ export function charge_from_machine(entity, block, energy) {
 		for (let input_entity_id of connectedMachines) {
 			if (world.getEntity(input_entity_id[0]) && input_entity_id[0] != entity.id && input_entity_id[1] == "output") {
 				let input_entity = world.getEntity(input_entity_id[0])
-				const input_container = input_entity.getComponent('minecraft:inventory').container
-				const input_data = get_data(input_entity)
-				const lore = input_container.getItem(input_data.lore.slot)?.getLore()
-				let power = lore ? + lore[input_data.lore.power] : 0
+				const lore = input_entity.getDynamicProperty("cosmos_power")
+				let power = lore ? + lore : 0
 				let inputs = connectedMachines.filter((input) => 
 				    input[1] == "input"
 				)
@@ -64,10 +55,9 @@ export function charge_from_machine(entity, block, energy) {
 		const input_entity = get_entity(entity.dimension, input_location, "has_power_output")
 		if ( input_entity && energy < data.capacity ) {
 			const input_block = entity.dimension.getBlock(input_location)
-			const input_container = input_entity.getComponent('minecraft:inventory').container
 			const input_data = get_data(input_entity)
-			const lore = input_container.getItem(input_data.lore.slot)?.getLore()
-			const power = lore ? + lore[input_data.lore.power] : 0
+			const lore = input_entity.getDynamicProperty("cosmos_power")
+			const power = lore ? + lore : 0
 			const space = data.capacity - energy
 			const io = location_of_side(input_block, input_data.energy_output)
 			if(compare_position(floor_position(entity.location), io) && power > 0){

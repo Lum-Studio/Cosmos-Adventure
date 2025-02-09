@@ -1,7 +1,6 @@
 import { system, ItemStack } from "@minecraft/server";
-import { MachineBlockEntity } from "../MachineBlockEntity";
-import { compare_position, get_entity, location_of_side, charge_from_machine, charge_from_battery, update_battery, floor_position, } from "../../matter/electricity.js";
-import { get_data } from "../../../api/utils.js";
+import { get_entity, location_of_side, charge_from_machine, charge_from_battery, update_battery, } from "../../matter/electricity.js";
+import { get_data, floor_position, compare_position } from "../../../api/utils.js";
 
 function charge_machine(machine, block, energy) {
 	const data = get_data(machine)
@@ -12,8 +11,8 @@ function charge_machine(machine, block, energy) {
 		const output_container = output_machine.getComponent('minecraft:inventory').container
 		const output_data = get_data(output_machine)
 		const power = Math.min(energy, data.maxPower)
-		const lore = output_container.getItem(output_data.lore.slot)?.getLore()
-		const output_energy = lore ? + lore[output_data.lore.energy] : output_data.capacity
+		const lore = output_machine.getDynamicProperty("cosmos_energy");
+		const output_energy = lore ? + lore : output_data.capacity
 		const space = output_data.capacity - output_energy
 		const io = location_of_side(output_block, output_data.energy_input)
 		if (compare_position(floor_position(machine.location), io)) {
@@ -35,18 +34,31 @@ function charge_battery(machine, energy, slot) {
 	} return energy
 }
 
-export default class  extends MachineBlockEntity {
-    constructor(block, entity) {
-        super(block, entity);
-        if (this.entity.isValid()) this.processEnergy()
+export default class {
+    constructor(entity, block) {
+		this.entity = entity;
+		this.block = block;
+        if (entity.isValid()) this.processEnergy()
     }
 
+	onPlace(){
+		const container = this.entity.getComponent('minecraft:inventory').container
+		const store_data = get_data(this.entity);
+		const counter = new ItemStack('cosmos:ui')
+		counter.nameTag = `cosmos:§. ${0} gJ\nof ${store_data.capacity} gJ`
+		container.setItem(2, counter)
+		counter.nameTag = `cosmos:f${Math.ceil((0/ store_data.capacity) * 75 )}`
+		container.setItem(3, counter)
+	}
 	processEnergy() {
 		//retrieve data
 		const store = this.entity
 		const container = this.entity.getComponent('minecraft:inventory').container;
 		const store_data = get_data(store)
-		let energy = container.getItem(4) ? + container.getItem(4).getLore()[0] : 0
+		let energy = this.entity.getDynamicProperty("cosmos_energy");
+		energy = energy ? + energy : 0
+
+		let first_energy = energy;
 		
 		energy = charge_machine(store, this.block, energy)
 		
@@ -57,14 +69,18 @@ export default class  extends MachineBlockEntity {
 		energy = charge_from_battery(store, energy, 1)
 		
 		//store and display data
-		const counter = new ItemStack('cosmos:ui')
-		counter.nameTag = `cosmos:§. ${energy} gJ\nof ${store_data.capacity} gJ`
-		container.setItem(2, counter)
-		counter.nameTag = `cosmos:f${Math.ceil((energy/ store_data.capacity) * 75 )}`
-		container.setItem(3, counter)
-		counter.nameTag = ``
-		counter.setLore([''+energy, ''+Math.min(energy, store_data.maxPower)])
-		container.setItem(4, counter)
+
+		if(energy !== first_energy){
+			this.entity.setDynamicProperty("cosmos_energy", energy);
+			const counter = new ItemStack('cosmos:ui')
+			counter.nameTag = `cosmos:§. ${energy} gJ\nof ${store_data.capacity} gJ`
+			container.setItem(2, counter)
+			counter.nameTag = `cosmos:f${Math.ceil((energy/ store_data.capacity) * 75 )}`
+			container.setItem(3, counter)
+			counter.nameTag = ``
+			counter.setLore([''+energy, ''+Math.min(energy, store_data.maxPower)])
+			container.setItem(4, counter)
+		}
 		
 		//change the block look
 		 try { if (this.block?.typeId != "minecraft:air") {

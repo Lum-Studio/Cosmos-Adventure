@@ -5,6 +5,7 @@ export function moon_lander(player){
     let speed = 0;
     player.inputPermissions.setPermissionCategory(2, false);
     player.inputPermissions.setPermissionCategory(6, false);
+    player.setProperty("cosmos:rotation_x", 180);
     let lander = player.dimension.spawnEntity("cosmos:lander", {x: player.location.x, y: 1, z: player.location.z});
     lander.triggerEvent("cosmos:lander_gravity_disable");
     lander.teleport(player.location);
@@ -81,6 +82,9 @@ function break_pad(rocket) {
 } 
 
 function dismount(player) {
+    player.setProperty("cosmos:is_sitting", 0);
+    player.setProperty("cosmos:rotation_x", 180);
+    //player.setProperty("cosmos:rotation_y", 180);
     player.setDynamicProperty('in_the_rocket')
     player.onScreenDisplay.setTitle('')
     player.camera.clear()
@@ -120,23 +124,25 @@ function rocket_flight(rocket) {
     let t = 0; let v
     const a = 30; const b = 10
     let flight = system.runInterval(() => {
-        if(!rocket || !rocket.isValid() || rocket.getComponent("minecraft:rideable").getRiders().length === 0){
+        let player = rocket?.getComponent("minecraft:rideable").getRiders()[0];
+        if(!rocket || !rocket.isValid() || !player){
             system.clearRun(flight);
             return;
         }
-        if(rocket.getComponent("minecraft:rideable").getRiders()[0]?.getDynamicProperty("in_celestial_selector")) return;
+        if(player.getDynamicProperty("in_celestial_selector")) return;
         t++;
         if (t == 40) world.sendMessage('§7Do not save & quit or disconnect while flying the rocket or in the celestial selector.')
         if (!rocket || !rocket.isValid()) return
         if (v >= 10) rocket.setDynamicProperty('rocket_launched', true)
         v = Math.floor((a) * (1 - Math.pow(Math.E, (-t/(20 * b)))))
         rocket.addEffect('levitation', 2000, {showParticles: false, amplifier: v})
-        let rotation = rocket_rotation(rocket.getComponent("minecraft:rideable").getRiders()[0], rocket)
+        let rotation = rocket_rotation(player, rocket)
         let fuel = rocket.getDynamicProperty('fuel_level')
         fuel = (fuel)? fuel:
         0;
         rocket.setRotation({x: rocket.getRotation().x, y: rotation[1]});
         rocket.setProperty("cosmos:rotation_x", rotation[0]);
+        player.setProperty("cosmos:rotation_x", rotation[0]);
         rocket.setDynamicProperty("fuel_level", Math.max(0, fuel - 1))
     })
 }
@@ -158,6 +164,7 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
         //disable jumping
         if(rider){
             rider.inputPermissions.setPermissionCategory(6, false)
+            rider.setProperty("cosmos:is_sitting", 1);
         }
         //camera shake
         if (rider && active) {
@@ -209,4 +216,3 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
         }
     }
 })
-    

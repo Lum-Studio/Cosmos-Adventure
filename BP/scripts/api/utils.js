@@ -2,7 +2,7 @@ import { EnchantmentType, ItemStack, system } from "@minecraft/server"
 import machines from "../core/machines/AllMachineBlocks"
 
 export function get_data(machine) {
-	return machines[machine.typeId.replace('cosmos:machine:', '')]
+	return machines[machine.typeId.replace('cosmos:', '')]
 }
 
 export function str(object) { return JSON.stringify(object) }
@@ -103,6 +103,13 @@ export function stringifyItem(item) {
 	}
 	return JSON.stringify(json)
   }
+export function compare_position(a, b) {
+	if (!a || !b) return false;
+	return a.x == b.x && a.y == b.y && a.z == b.z;
+}
+export function floor_position({ x, y, z }) {
+	return { x: Math.floor(x), y: Math.floor(y), z: Math.floor(z) };
+}
 
 
 

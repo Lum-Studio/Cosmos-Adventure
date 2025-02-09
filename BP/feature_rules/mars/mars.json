@@ -2,7 +2,7 @@
 	"format_version": "1.20.20",
 	"minecraft:feature_rules": {
 		"description": {
-			"identifier": "cosmos:moon_generation",
+			"identifier": "cosmos:mars_generation",
 			"places_feature": "cosmos:mars/chunk"
 		},
 		"conditions": {
