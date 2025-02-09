@@ -1,1 +1,56 @@
-t.noise = q.noise(v.originx/144, v.originy/144)/3 + q.noise(v.originy/64, v.originz/64)/3 + q.noise(v.originz/48, v.originx/48)/3; return t.noise;
+// Constants
+t.chunk_size_x = 16;
+t.chunk_size_y = 256;
+t.chunk_size_z = 16;
+
+t.max_asteroid_radius = 25;
+t.min_asteroid_radius = 5;
+t.max_asteroid_y = t.chunk_size_y - 48; // 208
+t.min_asteroid_y = 48;
+
+t.asteroid_chance = 800;
+t.asteroid_core_chance = 2;
+t.asteroid_shell_chance = 2;
+
+t.min_blocks_per_chunk = 50;
+t.max_blocks_per_chunk = 200;
+t.ilmenite_chance = 400;
+t.iron_chance = 300;
+t.aluminum_chance = 250;
+
+t.hollow_chance = 10;
+t.min_radius_for_hollow = 15;
+t.min_hollow_size = 0.6;
+t.max_hollow_size = 0.8;
+
+// Terrain Generation Logic
+t.x = v.worldx + (math.round(v.worldx / t.chunk_size_x)) * 8;
+t.z = v.worldz + (math.round(v.worldz / t.chunk_size_z)) * 8;
+
+t.asteroid_density = q.noise(t.x * 0.0125, t.z * 0.0125) + 0.4;
+
+// Replace randFromPointPos with a noise-based randomization
+t.rand_value = math.floor(q.noise(t.x * 0.01, t.z * 0.01) * 1000); 
+t.rand_check = t.rand_value < (t.asteroid_density / t.asteroid_chance * 1000);
+
+// Y coordinate and size generation
+t.range_y = t.max_asteroid_y - t.min_asteroid_y; // 160
+t.y = t.rand_check * (math.random(t.min_asteroid_y, t.max_asteroid_y)); 
+
+t.range_size = t.max_asteroid_radius - t.min_asteroid_radius; // 20
+t.size = t.rand_check * (math.random(t.min_asteroid_radius, t.max_asteroid_radius));
+
+// Position Calculations
+t.x_min = (v.chunkX + t.size + 2 < v.asteroidX) * (v.asteroidX - t.size - 2 - v.chunkX) + (v.chunkX + t.size + 2 >= v.asteroidX) * 0;
+t.z_min = (v.chunkZ + t.size + 2 < v.asteroidZ) * (v.asteroidZ - t.size - 2 - v.chunkZ) + (v.chunkZ + t.size + 2 >= v.asteroidZ) * 0;
+
+t.y_min = t.y - t.size - 2;
+t.y_max = t.y + t.size + 2;
+
+// Distance Calculations
+t.distance_x = v.asteroidX - (t.x + v.chunkX);
+t.distance_z = v.asteroidZ - (t.z + v.chunkZ);
+t.distance = (t.distance_x / (t.size)) + (t.distanceY / t.size) + (t.distance_z / (t.size));
+
+// Hollow Check
+t.hollow_check = (math.floor(math.random(0, t.hollow_chance - 1)) == 0) * (t.size >= t.min_radius_for_hollow);
