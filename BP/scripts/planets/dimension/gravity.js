@@ -123,30 +123,31 @@ function gravityFuncMain(entity) {
     if (!entity.isOnGround && !entity.isClimbing && !entity.isFlying && !entity.isGliding) {
         applyGravityEffects(entity, vector, dist, gravity.value);
     } else if (entity.isJumping) {
-        applyJumpingEffects(entity, vector, gravity.value); // Handle jumping effects
+        applyJumpingEffects(entity, vector, gravity); // Handle jumping effects
     } else {
         resetFallVelocity(entity); // Reset fall velocity when grounded
     }
     
     oldYMap.set(entity, entity.location.y); // Update old Y position
 }
-
 // Function to apply gravity effects to the entity
-function applyGravityEffects(entity, vector, dist, gravityValue) {
+function applyGravityEffects(entity, vector, dist, gravity) {
     entity.applyKnockback(vector.x, vector.z, vector.hzPower, (vector.y * 2 + Math.min(0, dist)) / 40);
-    fallVelocity.set(entity, dist - gravityValue / 50); // Update fall velocity
-    entity.addEffect('slow_falling', 2, { amplifier: 1, showParticles: false }); // Apply slow falling effect
-}
+    fallVelocity.set(entity, dist - gravity.value / 50);
+    
+    entity.addEffect('slow_falling', 1, { amplifier: 0, showParticles: false }); 
 
+}
 // Function to apply dynamic jumping effects based on gravity
 function applyJumpingEffects(entity, vector, gravity) {
-    const jumpPower = Math.max(0.1, gravity.value / 10); // Minimum jump power to ensure smoothness
+    const jumpPower = Math.max(0.1, gravity.value / 8);
     const steps = Math.max(5, Math.ceil(15 - gravity.value * 1.5)); // More steps for lower gravity
 
-    // Apply multiple knockbacks for a smooth jump
+    // Apply multiple knockbacks for a smoother jump
     for (let i = 0; i < steps; i++) {
-        let power = jumpPower * (1 - (i / steps)); // Decreasing power for smoother effect
-        entity.applyKnockback(vector.x, vector.z, vector.hzPower, power);
+        // Calculate power with a smoother transition
+        let power = jumpPower * (1 - (i / (steps * 0.5))); // Apply a smoother decrease
+        entity.applyKnockback(vector.x, vector.z, vector.hzPower, power * (1 - (i / steps)));
     }
 }
 
