@@ -124,11 +124,11 @@ function rocket_flight(rocket) {
     let t = 0; let v
     const a = 30; const b = 10
     let flight = system.runInterval(() => {
-        let player = rocket?.getComponent("minecraft:rideable").getRiders()[0];
-        if(!rocket || !rocket.isValid() || !player){
+        if(!rocket || !rocket.isValid() || rocket.getComponent("minecraft:rideable").getRiders().length === 0){
             system.clearRun(flight);
             return;
         }
+        let player = rocket?.getComponent("minecraft:rideable").getRiders()[0];
         if(player.getDynamicProperty("in_celestial_selector")) return;
         t++;
         if (t == 40) world.sendMessage('§7Do not save & quit or disconnect while flying the rocket or in the celestial selector.')
