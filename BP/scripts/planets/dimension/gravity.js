@@ -154,7 +154,7 @@ function applyJumpingEffects(entity, vector, gravity) {
             entity.applyKnockback(vector.x, vector.z, vector.hzPower, power);
             
             // Schedule the next step
-            system.runTimeout(() => applyKnockbackStep(step + 1), 1); // Call next step after 1 tick
+            system.runTimeout(() => applyKnockbackStep(step + 1), 3); // Call next step after 1 tick
         }
     })(0); // Start with step 0
 }//KILL ME ;-;
