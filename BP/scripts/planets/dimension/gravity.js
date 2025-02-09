@@ -135,7 +135,7 @@ function applyGravityEffects(entity, vector, dist, gravity) {
     entity.applyKnockback(vector.x, vector.z, vector.hzPower, (vector.y * 2 + Math.min(0, dist)) / 40);
     fallVelocity.set(entity, dist - gravity.value / 50);
     
-    entity.addEffect('slow_falling', 1, { amplifier: 0, showParticles: false }); 
+    entity.addEffect('slow_falling', 1, { amplifier: 1, showParticles: false }); 
 
 }
 
