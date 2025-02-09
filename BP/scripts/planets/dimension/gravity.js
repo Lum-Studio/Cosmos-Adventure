@@ -139,25 +139,26 @@ function applyGravityEffects(entity, vector, dist, gravity) {
 
 }
 
-// Function to apply dynamic jumping effects based on gravity
+// Function to apply based on gravity
 function applyJumpingEffects(entity, vector, gravity) {
-    const initialJumpPower = Math.max(0.01, gravity.value / 50); // Set a very low initial jump power for a gentle start
-    const steps = Math.max(30, Math.ceil(50 - gravity.value * 2)); // Increased number of steps for smoother ascent
+    const initialJumpPower = Math.max(0.001, gravity.value / 200); // Reduce initial jump power for a gentler start
+    const steps = Math.max(30, Math.ceil(60 - gravity.value * 3)); // Increase number of steps for an ultra-smooth ascent
 
     // Immediately Invoked Function Expression (IIFE) for knockback steps
     (function applyKnockbackStep(step) {
         if (step < steps) {
-            // Calculate the current power 
+            // Calculate the power using a higher exponent for smoother decay
             const progress = step / (steps - 1); // Normalize the step
-            const power = initialJumpPower * (1 - Math.sin(progress * (Math.PI / 2))); // Smooth sine reduction
+            const power = initialJumpPower * Math.pow(1 - progress, 5); // Quintic power for very VERY VERY VERY gradual reduction
             
             entity.applyKnockback(vector.x, vector.z, vector.hzPower, power);
             
             // Schedule the next step
-            system.runTimeout(() => applyKnockbackStep(step + 1), 1); // Call next step after 1 tick
+            System.runTimeout(() => applyKnockbackStep(step + 1), 1); // Call next step after 1 tick
         }
     })(0); // Start with step 0
 }
+
 // Function to reset the fall velocity for the entity when on the ground
 function resetFallVelocity(entity) {
     fallVelocity.set(entity, 0);
