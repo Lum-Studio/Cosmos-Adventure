@@ -138,19 +138,22 @@ function applyGravityEffects(entity, vector, dist, gravity) {
     entity.addEffect('slow_falling', 1, { amplifier: 0, showParticles: false }); 
 
 }
+
 // Function to apply dynamic jumping effects based on gravity
 function applyJumpingEffects(entity, vector, gravity) {
-    const jumpPower = Math.max(0.1, gravity.value / 8);
-    const steps = Math.max(5, Math.ceil(15 - gravity.value * 1.5)); // More steps for lower gravity
+    const initialJumpPower = Math.max(0.1, gravity.value / 10); // Set a base jump power
+    const steps = Math.max(10, Math.ceil(20 - gravity.value * 1.5)); // Total steps for the jump
 
-    // Apply multiple knockbacks for a smoother jump
+    // Apply multiple knockbacks for a smooth ascent
     for (let i = 0; i < steps; i++) {
-        // Calculate power with a smoother transition
-        let power = jumpPower * (1 - (i / (steps * 0.5))); // Apply a smoother decrease
-        entity.applyKnockback(vector.x, vector.z, vector.hzPower, power * (1 - (i / steps)));
+        // Gradually decrease the power for a smoother ascent
+        const power = initialJumpPower * (1 - (i / steps)); // Reduce power over steps
+        const delay = i * 50; // Delay between each knockback 
+        setTimeout(() => {
+            entity.applyKnockback(vector.x, vector.z, vector.hzPower, power);
+        }, delay);
     }
 }
-
 // Function to reset the fall velocity for the entity when on the ground
 function resetFallVelocity(entity) {
     fallVelocity.set(entity, 0);
