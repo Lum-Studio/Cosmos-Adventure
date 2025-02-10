@@ -141,8 +141,8 @@ function applyGravityEffects(entity, vector, dist, gravity) {
 
 // Function to apply jumping // Function to apply dynamic jumping effects based on gravity
 function applyJumpingEffects(entity, vector, gravity) {
-    const initialJumpPower = Math.max(0.001, gravity.value / 200); // Reduce initial jump power for a gentler start
-    const steps = Math.max(30, Math.ceil(60 - gravity.value * 3)); // Increase number of steps for an ultra-smooth ascent
+    const initialJumpPower = Math.max(0.0001, gravity.value / 200); // Reduce initial jump power for a gentler start
+    const steps = Math.max(30, Math.ceil(70 - gravity.value * 3)); // Increase number of steps for an ultra-smooth ascent
 
     // Immediately Invoked Function Expression (IIFE) for knockback steps
     (function applyKnockbackStep(step) {
