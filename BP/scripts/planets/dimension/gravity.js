@@ -130,30 +130,32 @@ function gravityFuncMain(entity) {
     
     oldYMap.set(entity, entity.location.y); // Update old Y position
 }
+
 // Function to apply gravity effects to the entity
-function applyGravityEffects(entity, vector, dist, gravity) {
+export async function applyGravityEffects(entity, vector, dist, gravity) {
     entity.applyKnockback(vector.x, vector.z, vector.hzPower, (vector.y * 2 + Math.min(0, dist)) / 40);
     fallVelocity.set(entity, dist - gravity.value / 50);
     
-    entity.addEffect('slow_falling', 1, { amplifier: 1, showParticles: false }); 
-
+    // Delay before applying the slow_falling effect
+    await delay(2); // Wait for 2 ticks
+    entity.addEffect('slow_falling', 1, { amplifier: 1, showParticles: false });
 }
 
-// Function to apply jumping 
-function applyJumpingEffects(entity, vector, gravity) {
-    const initialJumpPower = Math.max(0.001, gravity.value / 200); 
-    const steps = Math.max(30, Math.ceil(60 - gravity.value * 3)); 
+// Function to apply jumping effects
+export function applyJumpingEffects(entity, vector, gravity) {
+    const initialJumpPower = Math.max(0.001, gravity.value / 200);
+    const steps = Math.max(30, Math.ceil(60 - gravity.value * 3));
 
-    (function applyKnockbackStep(step) {
+    (async function applyKnockbackStep(step) {
         if (step < steps) {
-            // Calculate the power using a higher exponent for smoother decay
-            const progress = step / (steps - 1); // Normalize the step
-            const power = initialJumpPower * Math.pow(1 - progress, 5); // Quintic power for verrryyyyyyy gradual reduction
+            const progress = step / (steps - 1);
+            const power = initialJumpPower * Math.pow(1 - progress, 5);
             
             entity.applyKnockback(vector.x, vector.z, vector.hzPower, power);
             
-            // Schedule the next step
-            system.runTimeout(() => applyKnockbackStep(step + 1), 2); // Call next step after 1 tick
+            // Use the delay function instead of system.runTimeout
+            await delay(2); // Call next step after 1 ticks
+            applyKnockbackStep(step + 1); // Schedule the next step
         }
     })(0); // Start with step 0
 }//KILL ME ;-;
@@ -186,4 +188,9 @@ function getDirectionFromRotation(rotation) {
         z: Math.sin(angle.x)  // Calculate z component
     };
     return point; // Return direction vector
+}
+
+
+export function delay(ticks) {
+    return new Promise(res => system.runTimeout(res, ticks * 20));
 }
