@@ -132,7 +132,7 @@ function gravityFuncMain(entity) {
 }
 
 // Function to apply gravity effects to the entity
-export async function applyGravityEffects(entity, vector, dist, gravity) {
+async function applyGravityEffects(entity, vector, dist, gravity) {
     entity.applyKnockback(vector.x, vector.z, vector.hzPower, (vector.y * 2 + Math.min(0, dist)) / 40);
     fallVelocity.set(entity, dist - gravity.value / 50);
     
@@ -142,7 +142,7 @@ export async function applyGravityEffects(entity, vector, dist, gravity) {
 }
 
 // Function to apply jumping effects
-export function applyJumpingEffects(entity, vector, gravity) {
+function applyJumpingEffects(entity, vector, gravity) {
     const initialJumpPower = Math.max(0.001, gravity.value / 200);
     const steps = Math.max(30, Math.ceil(60 - gravity.value * 3));
 
