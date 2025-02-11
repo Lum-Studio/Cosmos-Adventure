@@ -92,10 +92,10 @@
 		"loop" : true,
 		"bones" : {
 			"leftarm" : {
-				"rotation" : [ "(query.property('cosmos:is_sitting') == 0)? -36.0: 0)", 0.0, 0.0 ]
+				"rotation" : [ "(query.property('cosmos:is_sitting') == 0)? -36.0: 0", 0.0, 0.0 ]
 			},
 			"rightarm" : {
-					"rotation" : [ "(query.property('cosmos:is_sitting') == 0)? -36.0: 0)", 0.0, 0.0 ]
+					"rotation" : [ "(query.property('cosmos:is_sitting') == 0)? -36.0: 0", 0.0, 0.0 ]
 			}
 		}
 	},
@@ -108,8 +108,8 @@
 			"rightleg" : {
 				"rotation" : [ "(query.property('cosmos:is_sitting') == 0)? -72.0 - this: 0", "(query.property('cosmos:is_sitting') == 0)? 18.0 - this: 0", "(query.property('cosmos:is_sitting') == 0)? -this: 0" ]
 			},
-                        "root" : {
-				"rotation" : [ "(query.property('cosmos:is_sitting') == 0)? 90 - query.property('cosmos:rotation_x'): 0", 0, 0 ]
+            "root" : {
+				"rotation" : [ "(query.property('cosmos:is_sitting') == 1)? 90 - query.property('cosmos:rotation_x'): 0", 0, 0 ]
 			}
 		}
 	},
