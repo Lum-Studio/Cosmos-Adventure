@@ -146,7 +146,7 @@ async function applyGravityEffects(entity, vector, dist, gravity) {
 function applyJumpingEffects(entity, vector, gravity) {
     // Check if the entity is grounded; if so, exit early
     if (entity.isOnGround) {
-        return; // Exit if the entity is on the ground
+        return system.clearRun; // Exit if the entity is on the ground
     }
 
     const initialJumpPower = Math.max(0.0001, gravity.value / 200);
@@ -197,6 +197,6 @@ function getDirectionFromRotation(rotation) {
 }
 
 
-export function delay(ticks) {
+ function delay(ticks) {
     return new Promise(res => system.runTimeout(res, ticks * 20));
 }
