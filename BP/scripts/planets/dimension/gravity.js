@@ -144,6 +144,11 @@ async function applyGravityEffects(entity, vector, dist, gravity) {
 
 // Function to apply jumping effects
 function applyJumpingEffects(entity, vector, gravity) {
+    // Check if the entity is grounded; if so, exit early
+    if (entity.isOnGround) {
+        return; // Exit if the entity is on the ground
+    }
+
     const initialJumpPower = Math.max(0.0001, gravity.value / 200);
     const steps = Math.max(30, Math.ceil(80 - gravity.value * 3));
 
