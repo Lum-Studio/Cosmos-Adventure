@@ -141,24 +141,25 @@ async function applyGravityEffects(entity, vector, dist, gravity) {
     entity.addEffect('slow_falling', 1, { amplifier: 1, showParticles: false });
 }
 
+
+// Function to apply jumping effects
 function applyJumpingEffects(entity, vector, gravity) {
-    const initialJumpPower = Math.max(0.0001, gravity.value / 200); 
-    const steps = Math.max(30, Math.ceil(70 - gravity.value * 3)); //smooth ascent
+    const initialJumpPower = Math.max(0.0001, gravity.value / 200);
+    const steps = Math.max(30, Math.ceil(80 - gravity.value * 3));
 
-    // knockback steps
-    (function applyKnockbackStep(step) {
+    (async function applyKnockbackStep(step) {
         if (step < steps) {
-            const progress = step / (steps - 1); // Normalize the step
-            const power = initialJumpPower * Math.pow(1 - progress, 5); // Quintic power for verrryyyyyyy gradual reduction
-
+            const progress = step / (steps - 1);
+            const power = initialJumpPower * Math.pow(1 - progress, 5);
+            
             entity.applyKnockback(vector.x, vector.z, vector.hzPower, power);
-
-            // Schedule the next step
-            system.runTimeout(() => applyKnockbackStep(step + 1), 2); // Call next step after 1 tick
+            
+            // Use the delay function instead of system.runTimeout
+            await delay(2); // Call next step after 2 ticks
+            applyKnockbackStep(step + 1); // Schedule the next step
         }
     })(0); // Start with step 0
-}//KILL ME ;-; 
-
+}
 
 //dont change this pls thnksx
 
