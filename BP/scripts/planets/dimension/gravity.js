@@ -221,7 +221,7 @@ function gravityFuncMain(entity) {
     const vector = gravity.calculateGravityVector();
     const currentFall = fallVelocity.get(entity) || 0;
 
-    if (!entity.isOnGround && !entity.isClimbing) {
+    if (!entity.isOnGround && entity.isClimbing && entity.isGliding) {
         applyGravityEffects(entity, vector, currentFall, gravity.value);
     } else {
         resetFallVelocity(entity);
