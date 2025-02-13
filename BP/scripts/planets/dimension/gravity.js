@@ -123,18 +123,7 @@ class Gravity {
         // Apply knockback
         entity.applyKnockback(adjustedPower.x, adjustedPower.z, adjustedPower.hzPower, adjustedPower.y);
 
-        // Apply mace damage if the entity is a player holding a mace
-        if (this.entity.typeId === 'minecraft:player') {
-            const inventory = this.entity.getComponent('minecraft:inventory').container;
-            const mainHandItem = inventory.getItem(this.entity.selectedSlot);
-
-            if (mainHandItem?.typeId === 'minecraft:mace') {
-                const fallDistance = this.calculateFallDistance();
-                const damage = this.calculateMaceDamage(fallDistance);
-                entity.applyDamage(damage);
             }
-        }
-    }
 
     // Calculate fall distance for mace damage
     calculateFallDistance() {
@@ -196,6 +185,27 @@ system.runInterval(() => {
 });
 
 
+// Mace damage system
+world.afterEvents.entityHitEntity.subscribe((event) => {
+    const { damagingEntity, hitEntity } = event;
+    
+    if (damagingEntity?.typeId === 'minecraft:player') {
+        const inventory = damagingEntity.getComponent('minecraft:inventory').container;
+        const selectedItem = inventory.getItem(damagingEntity.selectedSlot);
+        
+        if (selectedItem?.typeId === 'minecraft:mace') {
+            const fallDistance = damagingEntity.getDynamicProperty('fall_distance') || 0;
+            const damage = Math.max(0, Math.floor(fallDistance * 3 - 3));
+            
+            hitEntity.applyDamage(damage);
+            damagingEntity.setDynamicProperty('fall_distance', 0);
+            
+            // Visual feedback
+            hitEntity.playAnimation('animation.hurt');
+            damagingEntity.playSound('random.orb');
+        }
+    }
+});
 
 let jumpStartY = new WeakMap();
 // Shared state management
