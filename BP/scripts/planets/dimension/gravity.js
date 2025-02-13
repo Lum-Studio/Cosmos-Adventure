@@ -95,6 +95,77 @@ class Gravity {
         // Calculate and return the jump height based on the current gravity value
         return (defaultJumpHeight * defaultGravity) / this.value;
     }
+
+  // Smooth multi-step jump implementation
+  applyJump() {
+    const entity = this.#entity;
+
+    // Cancel any previous jump steps to prevent overlaps
+    this.cancelPendingJumps();
+
+    if (!entity.isOnGround) return; // Only jump from the ground
+
+    // Calculate jump power using physics: v₀ = √(2gh)
+    const jumpHeight = this.calculateJumpHeight();
+    const initialJumpPower = Math.sqrt(2 * this.value * jumpHeight) / 20; // Divided by 20 for Minecraft's knockback scaling
+
+    // Track jump start height
+    jumpStartY.set(entity, entity.location.y);
+
+    // Apply jump in small, controlled steps
+    this.applyJumpSteps(initialJumpPower, 0);
+  }
+
+  // Apply jump in small steps
+  applyJumpSteps(initialJumpPower, step) {
+    const entity = this.#entity;
+
+    // Stop if the entity lands or reaches max steps
+    if (entity.isOnGround || step >= 80) {
+      this.cancelPendingJumps();
+      return;
+    }
+
+    // Calculate power for this step (ease-in and ease-out)
+    const progress = step / 20; // Normalized progress (0 to 1)
+    const power = initialJumpPower * Math.sin(progress * Math.PI); // Sine wave for smooth acceleration/deceleration
+
+    // Apply knockback for this step
+    const direction = this.getJumpDirection();
+    entity.applyKnockback(direction.x, direction.z, 0, power);
+
+    // Schedule the next step
+    const timeoutId = system.runTimeout(() => {
+      this.applyJumpSteps(initialJumpPower, step + 1);
+    }, 1); // 1 tick between steps
+
+    // Store the timeout ID for cancellation if needed
+    pendingJumpSteps.set(entity, timeoutId);
+  }
+
+  // Get jump direction based on player input
+  getJumpDirection() {
+    const entity = this.#entity;
+    if (entity.typeId !== "minecraft:player") return { x: 0, z: 0 };
+
+    const movement = entity.inputInfo.getMovementVector();
+    const viewDirection = entity.getViewDirection();
+
+    return {
+      x: viewDirection.x * movement.y,
+      z: viewDirection.z * movement.y
+    };
+  }
+
+  // Cancel pending jump steps
+  cancelPendingJumps() {
+    const entity = this.#entity;
+    const timeoutId = pendingJumpSteps.get(entity);
+    if (timeoutId) {
+      system.clearRun(timeoutId);
+      pendingJumpSteps.delete(entity);
+    }
+  }
 }
 
 // Maps to track jump states and properties of entities
@@ -111,23 +182,25 @@ system.runInterval(() => {
     }
 });
 
+
+// Maps to track jump states and pending timeouts
+let pendingJumpSteps = new WeakMap();
+let jumpStartY = new WeakMap();
+
+
 // Main function to handle gravity for each entity
 function gravityFuncMain(entity) {
     let gravity = new Gravity(entity);
     if (gravity.value.toFixed(4) === '9.8000') return; // Early exit if gravity is default
-
     let vector = gravity.calculateGravityVector(); // Calculate the gravity vector
     let dist = fallVelocity.get(entity) || 0; // Get current fall velocity
-
-    // Apply gravity effects if the entity is not grounded
     if (!entity.isOnGround && !entity.isClimbing && !entity.isFlying && !entity.isGliding) {
         applyGravityEffects(entity, vector, dist, gravity.value);
     } else if (entity.isJumping) {
-        applyJumpingEffects(entity, vector, gravity); // Handle jumping effects
+        gravity.applyJump(entity, vector, gravity); // Handle jumping effects
     } else {
         resetFallVelocity(entity); // Reset fall velocity when grounded
     }
-    
     oldYMap.set(entity, entity.location.y); // Update old Y position
 }
 
@@ -141,32 +214,6 @@ async function applyGravityEffects(entity, vector, dist, gravity) {
     entity.addEffect('slow_falling', 1, { amplifier: 1, showParticles: false });
 }
 
-
-// Function to apply jumping effects
-function applyJumpingEffects(entity, vector, gravity) {
-    // Check if the entity is grounded; if so, exit early
-    if (entity.isOnGround) {
-        return system.clearRun; // Exit if the entity is on the ground
-    }
-
-    const initialJumpPower = Math.max(0.0001, gravity.value / 200);
-    const steps = Math.max(30, Math.ceil(80 - gravity.value * 3));
-
-    (async function applyKnockbackStep(step) {
-        if (step < steps) {
-            const progress = step / (steps - 1);
-            const power = initialJumpPower * Math.pow(1 - progress, 5);
-            
-            entity.applyKnockback(vector.x, vector.z, vector.hzPower, power);
-            
-            // Use the delay function instead of system.runTimeout
-            await delay(2); // Call next step after 2 ticks
-            applyKnockbackStep(step + 1); // Schedule the next step
-        }
-    })(0); // Start with step 0
-}
-
-//dont change this pls thnksx
 
 // Function to reset the fall velocity for the entity when on the ground
 function resetFallVelocity(entity) {
