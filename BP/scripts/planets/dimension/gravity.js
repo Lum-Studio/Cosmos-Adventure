@@ -131,18 +131,82 @@ class Gravity {
         const startY = jumpStartY.get(entity) || entity.location.y;
         return Math.max(0, startY - entity.location.y);
     }
+    calculateGravityVector() {
+        const entity = this.entity;
+        const vector = { x: 0, z: 0, y: -1 };
+        const power = { x: 1, z: 1, y: this.value / 2 };
 
-    // Calculate mace damage based on fall distance
-    calculateMaceDamage(fallDistance) {
-        const baseDamage = 6; // Base damage of the mace
-        const fallDamageMultiplier = 1.5; // Damage multiplier per block fallen
-        return baseDamage + Math.floor(fallDistance * fallDamageMultiplier);
+        // Skip gravity for entities in water, climbing, or sneaking
+        if (entity.isInWater || entity.isClimbing || entity.isSneaking) {
+            return { x: 0, z: 0, y: 0, hzPower: 0 };
+        }
+
+        // Handle jump state transitions
+        if (entity.isJumping && playerJumpMap.get(entity)) {
+            playerJumpMap.set(entity, false);
+            const jumpBoost = (entity.getEffect('jump_boost')?.amplifier + 1) || 0;
+            const gravityMod = Math.max(0.1, (9.8 - this.value) / 10 + 1);
+            const lineLength = Math.floor(18 + (9.8 - this.value));
+            
+            this.setGravityLine(
+                Array.from({length: lineLength}, (_, i) => 
+                    (lineLength - i) / 6 * -gravityMod * 5 * 
+                    ((jumpBoost * 0.2) + 1) / Math.max(Math.min(1, this.value), 0.005)
+                )
+            );
+        } else if (entity.isOnGround) {
+            this.cancelPendingJumps();
+            playerJumpMap.set(entity, true);
+            entity.setDynamicProperty('fall_distance', 0); // Reset fall distance
+        }
+
+        // Process gravity line
+        if (entity.gravityLine?.[0] !== undefined) {
+            power.y += entity.gravityLine[0];
+            entity.gravityLine.shift();
+        }
+
+        // Player movement calculations
+        if (entity.typeId === 'minecraft:player') {
+            const movement = entity.inputInfo.getMovementVector();
+            const viewDir = entity.getViewDirection();
+            const rotatedDir = getDirectionFromRotation(
+                sumObjects(entity.getRotation(), { y: 90 })
+            );
+            
+            vector.x = viewDir.x * movement.y - rotatedDir.x * movement.x;
+            vector.z = viewDir.z * movement.y - rotatedDir.z * movement.x;
+        }
+
+        // Calculate final forces
+        return {
+            x: vector.x,
+            z: vector.z,
+            y: power.y * vector.y,
+            hzPower: this.calculateHorizontalPower(entity)
+        };
+    }
+
+    // Apply knockback with resistance and mace damage
+    applyKnockbackWithDamage(entity, vector, power) {
+        const knockbackResistance = entity.getEffect('knockback_resistance')?.amplifier || 0;
+        const resistanceFactor = 1 - Math.min(1, knockbackResistance * 1.2); // 20% reduction per level
+
+        // Adjust knockback power based on resistance
+        const adjustedPower = {
+            x: vector.x * power.hzPower * resistanceFactor,
+            z: vector.z * power.hzPower * resistanceFactor,
+            y: vector.y * power.y * resistanceFactor
+        };
+
+        // Apply knockback
+        entity.applyKnockback(adjustedPower.x, adjustedPower.z, adjustedPower.hzPower, adjustedPower.y);
     }
 
     // Smooth jump implementation with proper cleanup
     applyJump() {
         const entity = this.entity;
-        if (!entity.isOnGround) return;
+        if (!entity.isOnGround || entity.isInWater || entity.isClimbing || entity.isSneaking) return;
 
         this.cancelPendingJumps();
         jumpStartY.set(entity, entity.location.y);
@@ -165,7 +229,6 @@ class Gravity {
 
         executeJumpStep(0);
     }
-
     cancelPendingJumps() {
         const timeoutId = pendingJumpSteps.get(this.entity);
         if (timeoutId) {
@@ -207,12 +270,6 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
     }
 });
 
-let jumpStartY = new WeakMap();
-// Shared state management
-const pendingJumpSteps = new WeakMap();
-const playerJumpMap = new WeakMap();
-const fallVelocity = new WeakMap();
-
 // Main gravity processing
 function gravityFuncMain(entity) {
     const gravity = new Gravity(entity);
@@ -221,7 +278,7 @@ function gravityFuncMain(entity) {
     const vector = gravity.calculateGravityVector();
     const currentFall = fallVelocity.get(entity) || 0;
 
-    if (!entity.isOnGround && entity.isClimbing && entity.isGliding) {
+    if (!entity.isOnGround && !entity.isClimbing && !entity.isInWater && !entity.isSneaking) {
         applyGravityEffects(entity, vector, currentFall, gravity.value);
     } else {
         resetFallVelocity(entity);
@@ -237,7 +294,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue) {
     fallVelocity.set(entity, currentFall - gravityValue / 50);
 
     await delay(2);
-    if (entity.isValid()) {
+    if (entity.getComponent('minecraft:health')?.current > 0) { // Check if entity is valid
         entity.addEffect('slow_falling', 1, { 
             amplifier: 1, 
             showParticles: false 
@@ -245,11 +302,10 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue) {
     }
 }
 
-
-
 // Function to reset the fall velocity for the entity when on the ground
 function resetFallVelocity(entity) {
     fallVelocity.set(entity, 0);
+    entity.setDynamicProperty('fall_distance', 0); // Reset fall distance
 }
 
 // Utility function to sum vector components
@@ -275,7 +331,12 @@ function getDirectionFromRotation(rotation) {
     return point; // Return direction vector
 }
 
-
- function delay(ticks) {
+function delay(ticks) {
     return new Promise(res => system.runTimeout(res, ticks * 20));
 }
+
+let jumpStartY = new WeakMap();
+const pendingJumpSteps = new WeakMap();
+const playerJumpMap = new WeakMap();
+const fallVelocity = new WeakMap();
+
