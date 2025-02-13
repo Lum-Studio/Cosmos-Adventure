@@ -13,6 +13,7 @@
     "ui/machines/nasa_workbench.json",
     "ui/machines/electric_compressor.json",
     "ui/machines/refinery.json",
-    "ui/machines/fuel_loader.json"
+    "ui/machines/fuel_loader.json",
+    "ui/machines/oxygen_collector.json"
   ]
 }
