@@ -111,7 +111,7 @@ class Gravity {
     // Apply knockback with resistance and mace damage
     applyKnockbackWithDamage(entity, vector, power) {
         const knockbackResistance = entity.getEffect('knockback_resistance')?.amplifier || 0;
-        const resistanceFactor = 1 - Math.min(1, knockbackResistance * 0.2); // 20% reduction per level
+        const resistanceFactor = 1 - Math.min(1, knockbackResistance * 1.2); // 20% reduction per level
 
         // Adjust knockback power based on resistance
         const adjustedPower = {
