@@ -1,0 +1,45 @@
+[
+    {
+        "format_version": "1.21.60",
+        "minecraft:crafting_items_catalog": {
+            "categories": [
+                {
+                    "category_name": "items",
+                    "groups": [
+                        {
+                            "group_identifier": {
+                                "icon": "cosmos:electric_compressor",
+                                "name": "cosmos:galacticraft_blocks"
+                            },
+                            "items": [
+                                "cosmos:rocket_launch_pad",
+                                "cosmos:buggy_fueling_pad",
+                                "cosmos:aluminum_wire",
+                                "cosmos:heavy_aluminum_wire",
+                                "cosmos:fluid_pipe",
+                                "cosmos:sealed_aluminum_wire",
+                                "cosmos:sealed_heavy_aluminum_wire",
+                                "cosmos:sealed_fluid_pipe",
+                                "cosmos:oxygen_bubble_distributor",
+                                "cosmos:oxygen_collector",
+                                "cosmos:oxygen_compressor",
+                                "cosmos:oxygen_decompressor",
+                                "cosmos:oxygen_sealer"
+                            ]
+                        },
+                        {
+                            "group_identifier": {
+                                "icon": "cosmos:astro_miner_item",
+                                "name": "cosmos:galacticraft_items"
+                            },
+                            "items": [
+                                "cosmos:astro_miner_item",
+                                "cosmos:moon_buggy_item"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+]
