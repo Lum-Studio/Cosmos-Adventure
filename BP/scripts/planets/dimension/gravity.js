@@ -246,7 +246,7 @@ class Gravity {
     const desiredJumpHeight = h_default * Math.pow(9.8 / this.value, 0.77);
     const v_desired = Math.sqrt(2 * this.value * desiredJumpHeight);
     const extraImpulse = v_desired - v_default;
-    const jumpTicks = 8;
+    const jumpTicks = 10;
     // Scale down the extra impulse significantly.
     const multiplier = 0.0025;
     const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
@@ -320,7 +320,7 @@ function gravityFuncMain(entity) {
  */
 async function applyGravityEffects(entity, vector, currentFall, gravityValue) {
   const fallModifier = Math.min(0, Number(currentFall));
-  const knockbackPower = (Number(vector.y) * 3 + fallModifier) / 30;
+  const knockbackPower = (Number(vector.y) * 3 + fallModifier) / 300;
 
   if (typeof entity.applyKnockback === "function") {
     entity.applyKnockback(
