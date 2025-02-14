@@ -3,6 +3,8 @@
     "minecraft:item": {
         "description": {
             "identifier": "cosmos:moon_buggy_item"
+            "menu_category": {
+             "category": "items"
         },
         "components": {
             "minecraft:max_stack_size": 1,
