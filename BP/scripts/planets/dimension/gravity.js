@@ -243,7 +243,7 @@ class Gravity {
     const desiredJumpHeight = 1.5 * Math.pow(9.8 / this.value, 0.77);
     const requiredVelocity = Math.sqrt(2 * this.value * desiredJumpHeight);
     const jumpTicks = 10;
-    const multiplier = 0.1; // Scale down the impulse to 1/10.
+    const multiplier = 0.001; // Scale down the impulse to 1/10.
     const initialPower = (requiredVelocity / jumpTicks) * multiplier;
 
     const executeJumpStep = (step) => {
