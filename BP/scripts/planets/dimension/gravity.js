@@ -230,7 +230,7 @@ class Gravity {
    * then scale it down by a multiplier.
    * @note This routine supplements the default jump; it does not cancel it.
    */
-applyJump() {
+  applyJump() {
     const entity = this.entity;
     if (!entity.isOnGround || entity.isFlying) return;
     if (pendingJumpSteps.has(entity)) return;
@@ -262,13 +262,11 @@ applyJump() {
         pendingJumpSteps.delete(entity);
         return;
       }
-      // (Also keep existing check via view direction if available.)
-      if (typeof entity.getBlockFromViewDirection === "function") {
-        const block = entity.getBlockFromViewDirection();
-        if (block && block.typeId !== "minecraft:air") {
-          pendingJumpSteps.delete(entity);
-          return;
-        }
+      // Use movement direction to check if a block is obstructing the jump.
+      const moveBlock = getBlockInMovementDirection(entity);
+      if (moveBlock && moveBlock.typeId !== "minecraft:air") {
+        pendingJumpSteps.delete(entity);
+        return;
       }
       const progress = Math.sin((step / jumpTicks) * Math.PI);
       if (typeof entity.applyKnockback === "function") {
@@ -280,6 +278,7 @@ applyJump() {
   
     executeJumpStep(0);
   }
+
   /**
    * Cancels any pending jump steps.
    */
@@ -307,27 +306,25 @@ function gravityFuncMain(entity) {
     resetFallVelocity(entity);
     return;
   }
-
+  
   const gravity = new Gravity(entity);
   if (Math.abs(gravity.value - 9.8) < 0.0001) return;
-
+  
   const vector = gravity.calculateGravityVector();
   const currentFall = Number(fallVelocity.get(entity)) || 0;
-
-  // Cancel horizontal knockback if a block is in front of the player.
+  
+  // Use movement direction rather than view direction to check for a blocking block.
   if (
     entity.typeId === "minecraft:player" &&
-    typeof entity.getBlockFromViewDirection === "function" &&
     typeof entity.inputInfo?.getMovementVector === "function"
   ) {
-    const block = entity.getBlockFromViewDirection();
-    const movement = entity.inputInfo.getMovementVector();
-    if (block && block.typeId !== "minecraft:air" && movement.y > 0.5) {
+    const block = getBlockInMovementDirection(entity);
+    if (block && block.typeId !== "minecraft:air") {
       vector.x = 0;
       vector.z = 0;
     }
   }
-
+  
   if (!entity.isOnGround && !entity.isClimbing && !entity.isSwimming) {
     applyGravityEffects(entity, vector, currentFall, gravity.value, gravity);
   } else {
@@ -367,7 +364,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
     entity.setDynamicProperty("fall_distance", fallDist);
   }
 
-  // --- NEW: Dynamic slow falling based on how close the entity is to the ground ---
+  // --- Dynamic slow falling based on proximity to the ground ---
   const baseGravity = 9.8;
   const gravityDelta = gravityValue - baseGravity;
   const fallDistance = gravity.calculateFallDistance();
@@ -449,7 +446,6 @@ function delay(ticks) {
   });
 }
 
-// --- Main Loop ---
 /**
  * Processes gravity for all entities in all dimensions.
  */
@@ -509,13 +505,65 @@ world.afterEvents.entityHitEntity.subscribe(event => {
   }
 });
 
-//Get the block above the entity’s head.
+/**
+ * Gets the block above the entity's head.
+ * @param {any} entity - The entity.
+ * @return {any|null} The block above the entity or null if unavailable.
+ */
 function getBlockAbove(entity) {
-    if (entity.dimension && typeof entity.dimension.getBlock === "function") {
-      const x = Math.floor(entity.location.x);
-      const y = Math.floor(entity.location.y + 1.8); // entity's height is ~1.8 blocks
-      const z = Math.floor(entity.location.z);
-      return entity.dimension.getBlock({ x, y, z });
-    }
+  if (entity.dimension && typeof entity.dimension.getBlock === "function") {
+    const x = Math.floor(entity.location.x);
+    const y = Math.floor(entity.location.y + 1.8); // entity's height is ~1.8 blocks
+    const z = Math.floor(entity.location.z);
+    return entity.dimension.getBlock({ x, y, z });
+  }
+  return null;
+}
+
+/**
+ * Gets the block in the direction the entity is moving.
+ * Validates that location and movement vector values are numbers.
+ * @param {any} entity - The entity.
+ * @return {any|null} The block in the movement direction or null if unavailable.
+ */
+function getBlockInMovementDirection(entity) {
+  if (
+    !entity.location ||
+    typeof entity.location.x !== "number" ||
+    typeof entity.location.y !== "number" ||
+    typeof entity.location.z !== "number"
+  ) {
     return null;
   }
+  if (typeof entity.inputInfo?.getMovementVector !== "function") return null;
+  const movement = entity.inputInfo.getMovementVector();
+  if (
+    typeof movement.x !== "number" ||
+    typeof movement.y !== "number" ||
+    typeof movement.z !== "number"
+  ) {
+    return null;
+  }
+  const magnitude = Math.sqrt(movement.x ** 2 + movement.y ** 2 + movement.z ** 2);
+  if (magnitude === 0) return null;
+  
+  // Normalize the movement vector.
+  const direction = {
+    x: movement.x / magnitude,
+    y: movement.y / magnitude,
+    z: movement.z / magnitude
+  };
+  
+  // Check one block ahead in the direction of movement.
+  const checkDistance = 1;
+  const pos = {
+    x: Math.floor(entity.location.x + direction.x * checkDistance),
+    y: Math.floor(entity.location.y + direction.y * checkDistance),
+    z: Math.floor(entity.location.z + direction.z * checkDistance)
+  };
+  
+  if (entity.dimension && typeof entity.dimension.getBlock === "function") {
+    return entity.dimension.getBlock(pos);
+  }
+  return null;
+}
