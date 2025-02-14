@@ -365,10 +365,11 @@ function gravityFuncMain(entity) {
   }
 
 
+
 /**
  * Applies gravity effects to an entity.
  * Adjusts fall acceleration and knockback—using a faster descent,
- * minimal slow falling effect, and special handling when landing on slime blocks.
+ * minimal slow falling effect, and special handling (bounce) when landing on slime blocks.
  * @param {any} entity - The entity.
  * @param {Object} vector - The computed gravity vector.
  * @param {number} currentFall - The current fall velocity.
@@ -379,12 +380,28 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
     // Determine acceleration factor based on block below.
     const blockBelow = getBlockBelow(entity);
     let fallAccelerationFactor;
+    
     if (blockBelow && blockBelow.typeId === "minecraft:slime_block") {
-      // On slime blocks, use a gentler acceleration.
-      fallAccelerationFactor = gravityValue / 12;
-      // Optionally: you might want to invert impulse here for a bounce.
+      // On slime blocks, check if we should bounce.
+      if (currentFall < -1) { // if falling fast enough, bounce!
+        const bounceFactor = 0.8; // energy retention factor
+        const bounceImpulse = Math.abs(currentFall) * bounceFactor;
+        // Invert fall velocity: set upward velocity.
+        fallVelocity.set(entity, bounceImpulse);
+        
+        // Apply upward knockback impulse to simulate bounce.
+        if (typeof entity.applyKnockback === "function") {
+          entity.applyKnockback(0, 0, 0, bounceImpulse);
+        }
+        
+        // Optionally, you can add bounce sound/particle effects here.
+        return; // Skip further processing to allow the bounce to take effect.
+      } else {
+        // Otherwise, use gentler acceleration on slime blocks.
+        fallAccelerationFactor = gravityValue / 12;
+      }
     } else {
-      // Normal acceleration.
+      // Normal acceleration for non-slime blocks.
       fallAccelerationFactor = gravityValue / 6;
     }
     
@@ -411,7 +428,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
       entity.setDynamicProperty("fall_distance", fallDist);
     }
     
-    // Apply a minimal slow falling effect (or disable it) so descent remains fast.
+    // Apply a minimal slow falling effect so descent remains fast.
     const slowFallingAmplifier = 0;
     const slowFallingDuration = 1;
     
@@ -427,6 +444,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
       console.error("Error applying gravity effects:", err);
     }
   }
+  
 
 /**
  * Resets the fall velocity for an entity.
