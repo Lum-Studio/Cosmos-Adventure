@@ -222,12 +222,13 @@ class Gravity {
   }
 
   /**
-   * Implements a custom jump by integrating an extra impulse into the jump routine.
-   * The desired jump height scales dynamically:
+   * Implements a custom jump by integrating an extra impulse.
+   * The desired jump height is computed dynamically:
    *   desiredJumpHeight = 1.5 * (9.8 / actualGravity)^0.77
    * In normal gravity this is ~1.5 blocks; in low gravity it scales up (e.g., ~6 blocks on the Moon).
    * We compute the extra impulse required (v_desired - v_default) and distribute it over jumpTicks,
-   * then scale it down significantly so that the extra force is minimal.
+   * then scale it down by a multiplier.
+   * @note This routine supplements the default jump; it does not cancel it.
    */
   applyJump() {
     const entity = this.entity;
@@ -240,15 +241,13 @@ class Gravity {
       : 0;
     jumpStartY.set(entity, currentY);
 
-    const h_default = 1.5; // Default jump height in the overworld.
+    const h_default = 1.5;
     const v_default = Math.sqrt(2 * 9.8 * h_default);
-    // Compute desired jump height dynamically.
     const desiredJumpHeight = h_default * Math.pow(9.8 / this.value, 0.77);
     const v_desired = Math.sqrt(2 * this.value * desiredJumpHeight);
     const extraImpulse = v_desired - v_default;
     const jumpTicks = 10;
-    // Scale down the extra impulse significantly.
-    const multiplier = 0.0025;
+    const multiplier = 1;
     const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
 
     const executeJumpStep = (step) => {
@@ -300,6 +299,21 @@ function gravityFuncMain(entity) {
 
   const vector = gravity.calculateGravityVector();
   const currentFall = Number(fallVelocity.get(entity)) || 0;
+
+  // Added condition: if the player is facing a block (using getBlockFromViewDirection)
+  // and moving forward (movement.y > 0.5), cancel horizontal knockback.
+  if (
+    entity.typeId === "minecraft:player" &&
+    typeof entity.getBlockFromViewDirection === "function" &&
+    typeof entity.inputInfo?.getMovementVector === "function"
+  ) {
+    const block = entity.getBlockFromViewDirection();
+    const movement = entity.inputInfo.getMovementVector();
+    if (block && block.typeId !== "minecraft:air" && movement.y > 0.5) {
+      vector.x = 0;
+      vector.z = 0;
+    }
+  }
 
   if (!entity.isOnGround && !entity.isClimbing && !entity.isSwimming) {
     applyGravityEffects(entity, vector, currentFall, gravity.value);
@@ -404,7 +418,7 @@ function getDirectionFromRotation(rotation) {
 
 /**
  * Returns a promise that resolves after a specified number of ticks.
- * @param {number} ticks - The number of ticks.
+ * @param {number} seconds - The number of seconds.
  * @return {Promise<void>} A promise that resolves after the delay.
  */
 function delay(ticks) {
@@ -426,6 +440,7 @@ system.runInterval(() => {
     });
   });
 });
+
 
 /**
  * Mace Damage System:
