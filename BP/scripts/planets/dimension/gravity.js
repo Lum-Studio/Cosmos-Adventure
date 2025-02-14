@@ -6,7 +6,7 @@ export { Gravity };
 /**
  * ✨💕 LUM STUDIO GRAVITY SYSTEM (2022-2025) 💕✨
  *
- * Created with love and passion by LUM STUDIO.
+ * Created with love and passion by LUM STUDIO. @ARR
  *
  * @author REFRACTED
  */
