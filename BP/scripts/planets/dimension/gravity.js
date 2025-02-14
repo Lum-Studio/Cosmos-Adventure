@@ -363,7 +363,7 @@ function gravityFuncMain(entity) {
     }
   }
 
-  
+
 /**
  * Applies gravity effects to an entity.
  * Adjusts fall acceleration and knockback—using a faster descent,
@@ -599,40 +599,56 @@ function getBlockInMovementDirection(entity) {
   return null;
 }
 
-
 /**
  * Gets the block at an offset from the entity's location.
+ * Ensures that the entity's location values are valid numbers.
  * @param {any} entity - The entity.
- * @param {number} offsetX 
- * @param {number} offsetY 
- * @param {number} offsetZ 
- * @return {any|null} The block at the offset, or null if unavailable.
+ * @param {number} offsetX - Offset on the X axis.
+ * @param {number} offsetY - Offset on the Y axis.
+ * @param {number} offsetZ - Offset on the Z axis.
+ * @return {any|null} The block at the offset or null if unavailable.
  */
 function getBlockAtOffset(entity, offsetX, offsetY, offsetZ) {
+    if (!entity.location ||
+        typeof entity.location.x !== "number" || isNaN(entity.location.x) ||
+        typeof entity.location.y !== "number" || isNaN(entity.location.y) ||
+        typeof entity.location.z !== "number" || isNaN(entity.location.z)) {
+      return null;
+    }
+    const pos = {
+      x: Math.floor(entity.location.x + offsetX),
+      y: Math.floor(entity.location.y + offsetY),
+      z: Math.floor(entity.location.z + offsetZ)
+    };
+    if (isNaN(pos.x) || isNaN(pos.y) || isNaN(pos.z)) return null;
     if (entity.dimension && typeof entity.dimension.getBlock === "function") {
-      const pos = {
-        x: Math.floor(entity.location.x + offsetX),
-        y: Math.floor(entity.location.y + offsetY),
-        z: Math.floor(entity.location.z + offsetZ)
-      };
       return entity.dimension.getBlock(pos);
     }
     return null;
   }
-
+  
   /**
- * Gets the block just below the entity.
- * @param {any} entity - The entity.
- * @return {any|null} The block below the entity or null if unavailable.
- */
-function getBlockBelow(entity) {
+   * Gets the block just below the entity.
+   * Ensures that the entity's location values are valid numbers.
+   * @param {any} entity - The entity.
+   * @return {any|null} The block below the entity or null if unavailable.
+   */
+  function getBlockBelow(entity) {
+    if (!entity.location ||
+        typeof entity.location.x !== "number" || isNaN(entity.location.x) ||
+        typeof entity.location.y !== "number" || isNaN(entity.location.y) ||
+        typeof entity.location.z !== "number" || isNaN(entity.location.z)) {
+      return null;
+    }
+    const pos = {
+      x: Math.floor(entity.location.x),
+      y: Math.floor(entity.location.y - 0.1), // slightly below the feet
+      z: Math.floor(entity.location.z)
+    };
+    if (isNaN(pos.x) || isNaN(pos.y) || isNaN(pos.z)) return null;
     if (entity.dimension && typeof entity.dimension.getBlock === "function") {
-      const pos = {
-        x: Math.floor(entity.location.x),
-        y: Math.floor(entity.location.y - 0.1), // a little below the feet
-        z: Math.floor(entity.location.z)
-      };
       return entity.dimension.getBlock(pos);
     }
     return null;
   }
+ 
