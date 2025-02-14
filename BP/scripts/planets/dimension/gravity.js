@@ -1,6 +1,16 @@
 import { world, system, DimensionTypes } from "@minecraft/server";
 export { Gravity };
 
+
+
+/**
+ * ✨💕 LUM STUDIO GRAVITY SYSTEM (2022-2025) 💕✨
+ *
+ * Created with love and passion by REFRACTED LUM STUDIO.
+ *
+ * @author REFRACTED
+ */
+
 // --- Shared State using WeakMaps ---
 /** @type {WeakMap<any, boolean>} */
 const playerJumpMap = new WeakMap();
@@ -355,7 +365,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
       Number(knockbackPower)
     );
   }
-  fallVelocity.set(entity, Number(currentFall) - gravityValue / 10);
+  fallVelocity.set(entity, Number(currentFall) - gravityValue / 8);
 
   if (typeof entity.setDynamicProperty === "function") {
     const startY = Number(jumpStartY.get(entity)) || 0;
