@@ -248,7 +248,7 @@ class Gravity {
     const extraImpulse = v_desired - v_default;
     const jumpTicks = 8;
     // Scale down the extra impulse significantly.
-    const multiplier = 0.002;
+    const multiplier = 0.0025;
     const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
 
     const executeJumpStep = (step) => {
