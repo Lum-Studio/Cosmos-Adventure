@@ -257,7 +257,7 @@ class Gravity {
     const v_desired = Math.sqrt(2 * this.value * desiredJumpHeight);
     const extraImpulse = v_desired - v_default;
     const jumpTicks = 10;
-    const multiplier = 0.5;
+    const multiplier = 0.25;
     const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
   
     const executeJumpStep = (step) => {
@@ -300,6 +300,7 @@ class Gravity {
     }
   }
 }
+
 
 /**
  * Processes gravity for a given entity.
@@ -389,7 +390,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
     
     // Reduce knockback during falling (minimal horizontal impulse).
     const fallModifier = Math.min(0, Number(currentFall));
-    const knockbackPower = (Number(vector.y) * 1 + fallModifier) / 500;
+    const knockbackPower = (Number(vector.y) * 1 + fallModifier) / 300;
     
     if (typeof entity.applyKnockback === "function") {
       entity.applyKnockback(
@@ -426,7 +427,6 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
       console.error("Error applying gravity effects:", err);
     }
   }
-  
 
 /**
  * Resets the fall velocity for an entity.
