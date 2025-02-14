@@ -2,25 +2,40 @@ import { world, system, DimensionTypes } from "@minecraft/server";
 export { Gravity };
 
 // --- Shared State using WeakMaps ---
+/** @type {WeakMap<any, boolean>} */
 const playerJumpMap = new WeakMap();
+/** @type {WeakMap<any, number>} */
 const jumpStartY = new WeakMap();
+/** @type {WeakMap<any, number>} */
 const pendingJumpSteps = new WeakMap();
+/** @type {WeakMap<any, number>} */
 const fallVelocity = new WeakMap();
 
 /**
- * Gravity class – controls gravity behavior for an entity.
+ * Class representing a custom gravity system for an entity.
  */
 class Gravity {
+  /**
+   * Create a Gravity instance.
+   * @param {any} entity - The Minecraft entity to apply gravity to.
+   */
   constructor(entity) {
     this._entity = entity;
   }
 
-  // Returns the underlying entity.
+  /**
+   * Gets the underlying entity.
+   * @return {any} The entity.
+   */
   get entity() {
     return this._entity;
   }
 
-  // Retrieves the current gravity value (temporary override, dynamic property, or default 9.8).
+  /**
+   * Retrieves the current gravity value for the entity.
+   * Checks for a temporary override or a dynamic property; otherwise returns default 9.8.
+   * @return {number} The gravity value.
+   */
   get value() {
     if (this.entity.tempGravityValue !== undefined) {
       return Number(this.entity.tempGravityValue) || 9.8;
@@ -32,12 +47,19 @@ class Gravity {
     return 9.8;
   }
 
-  // Validates a gravity value.
+  /**
+   * Checks if a gravity value is valid.
+   * @param {number} value - The gravity value to validate.
+   * @return {boolean} True if valid.
+   */
   canSet(value) {
     return typeof value === "number" && value > 0 && !isNaN(value) && value !== Infinity;
   }
 
-  // Sets a permanent gravity value.
+  /**
+   * Sets a permanent gravity value using dynamic property.
+   * @param {number} value - The gravity value to set.
+   */
   set(value) {
     if (!this.canSet(value)) {
       throw new Error(
@@ -53,7 +75,10 @@ class Gravity {
     }
   }
 
-  // Sets a temporary gravity value.
+  /**
+   * Sets a temporary gravity value on the entity.
+   * @param {number} value - The temporary gravity value.
+   */
   setTemp(value) {
     if (!this.canSet(value)) {
       throw new Error(
@@ -67,7 +92,10 @@ class Gravity {
     this.entity.tempGravityValue = value;
   }
 
-  // Sets a gravity “line” for smoothing jump transitions.
+  /**
+   * Sets a gravity "line" array for jump smoothing.
+   * @param {number[]} [line=[1]] - The line array.
+   */
   setGravityLine(line = [1]) {
     if (!Array.isArray(this.entity.gravityLine)) {
       this.entity.gravityLine = [];
@@ -77,15 +105,14 @@ class Gravity {
 
   /**
    * Computes the gravity vector for the entity.
-   * – Handles jump smoothing.
-   * – Adjusts horizontal movement if input is available.
+   * This includes jump smoothing and horizontal movement adjustments.
+   * @return {Object} An object with x, y, z components and hzPower.
    */
   calculateGravityVector() {
     const entity = this.entity;
     const vector = { x: 0, y: -1, z: 0 };
     const power = { x: 1, y: this.value / 2, z: 1 };
 
-    // If jumping and allowed, build a jump-smoothing “gravity line.”
     if (entity.isJumping && playerJumpMap.get(entity)) {
       playerJumpMap.set(entity, false);
       const jumpBoost =
@@ -138,7 +165,9 @@ class Gravity {
   }
 
   /**
-   * Computes horizontal movement power based on active effects and movement state.
+   * Computes horizontal movement power based on active effects.
+   * @param {any} entity - The entity.
+   * @return {number} The computed horizontal power.
    */
   calculateHorizontalPower(entity) {
     const speed =
@@ -155,7 +184,10 @@ class Gravity {
   }
 
   /**
-   * Applies knockback scaled by knockback resistance.
+   * Applies knockback to a target entity, scaled by its knockback resistance.
+   * @param {any} targetEntity - The target entity.
+   * @param {Object} vector - The gravity vector.
+   * @param {Object} power - The power object.
    */
   applyKnockbackWithDamage(targetEntity, vector, power) {
     const knockbackResistance =
@@ -179,7 +211,10 @@ class Gravity {
     }
   }
 
-  // Computes the fall distance using the stored jump start Y.
+  /**
+   * Calculates the fall distance from the stored jump start.
+   * @return {number} The fall distance.
+   */
   calculateFallDistance() {
     const startY = Number(jumpStartY.get(this.entity)) || 0;
     const currentY = Number(this.entity.location && this.entity.location.y) || 0;
@@ -187,26 +222,29 @@ class Gravity {
   }
 
   /**
-   * Implements a smooth jump using applyKnockback.
-   * To keep jumps low even in super low gravity, we compute the jump impulse based on a fixed desired height.
-   * We use an effective gravity defined as the maximum of the actual gravity and 9.8.
-   * The impulse is applied over a fixed duration (10 ticks).
+   * Implements a smooth jump by applying a small additional upward impulse over several ticks.
+   * The desired jump height is computed dynamically so that in the overworld (g=9.8) it is ~1.5 blocks,
+   * and in low gravity it scales so that on the Moon (g≈1.62) it is ~6 blocks.
+   * The computed impulse is reduced to 1/10 of the normal value.
    */
   applyJump() {
     const entity = this.entity;
     if (!entity.isOnGround || entity.isFlying) return;
-    if (pendingJumpSteps.has(entity)) return; // Prevent overlapping jumps
+    if (pendingJumpSteps.has(entity)) return;
 
     this.cancelPendingJumps();
-    jumpStartY.set(entity, Number(entity.location && entity.location.y) || 0);
+    const currentY = (entity.location && typeof entity.location.y === "number")
+      ? Number(entity.location.y)
+      : 0;
+    jumpStartY.set(entity, currentY);
 
-    // Define a fixed desired jump height (in blocks). This is our target maximum jump height.
-    const desiredJumpHeight = 2 * (entity.isSneaking ? 0.8 : 1);
-    // Use effective gravity: if actual gravity is lower than 9.8, treat it as 9.8.
-    const effectiveGravity = this.value < 9.8 ? 9.8 : this.value;
-    const requiredVelocity = Math.sqrt(2 * effectiveGravity * desiredJumpHeight);
-    const jumpTicks = 10; // Apply impulse over 10 ticks.
-    const initialPower = requiredVelocity / jumpTicks;
+    // Dynamic desired jump height:
+    // Overworld: ~1.5 blocks; Low gravity: scales up (e.g., Moon ~6 blocks).
+    const desiredJumpHeight = 1.5 * Math.pow(9.8 / this.value, 0.77);
+    const requiredVelocity = Math.sqrt(2 * this.value * desiredJumpHeight);
+    const jumpTicks = 10;
+    const multiplier = 0.1; // Scale down the impulse to 1/10.
+    const initialPower = (requiredVelocity / jumpTicks) * multiplier;
 
     const executeJumpStep = (step) => {
       if (entity.isOnGround || step >= jumpTicks) {
@@ -215,7 +253,6 @@ class Gravity {
       }
       const progress = Math.sin((step / jumpTicks) * Math.PI);
       if (typeof entity.applyKnockback === "function") {
-        // Apply vertical impulse; note that with our clamping, the cumulative jump should not exceed desiredJumpHeight.
         entity.applyKnockback(0, 0, 0, initialPower * progress);
       }
       const timeoutId = system.runTimeout(() => executeJumpStep(step + 1), 1);
@@ -225,7 +262,9 @@ class Gravity {
     executeJumpStep(0);
   }
 
-  // Cancels any pending jump steps.
+  /**
+   * Cancels any pending jump steps.
+   */
   cancelPendingJumps() {
     const timeoutId = pendingJumpSteps.get(this.entity);
     if (timeoutId) {
@@ -236,9 +275,9 @@ class Gravity {
 }
 
 /**
- * Main gravity processing – runs for every entity in every dimension.
- * Gravity is applied unless the entity is swimming.
- * For players that are flying, gravity processing is skipped.
+ * Processes gravity for a given entity.
+ * Skips processing for swimming entities or players that are flying.
+ * @param {any} entity - The entity to process.
  */
 function gravityFuncMain(entity) {
   if (typeof entity.isValid !== "function" || !entity.isValid()) return;
@@ -266,10 +305,13 @@ function gravityFuncMain(entity) {
 }
 
 /**
- * Applies gravity effects:
- * – Uses applyKnockback for a gravity “push.”
- * – Updates fall velocity and the dynamic "fall_distance" property.
- * – Dynamically applies a slow falling effect.
+ * Applies gravity effects to the entity.
+ * This function uses applyKnockback to simulate gravity and updates fall distance.
+ * Also applies a dynamic slow-falling effect.
+ * @param {any} entity - The entity.
+ * @param {Object} vector - The computed gravity vector.
+ * @param {number} currentFall - The current fall velocity.
+ * @param {number} gravityValue - The gravity value.
  */
 async function applyGravityEffects(entity, vector, currentFall, gravityValue) {
   const fallModifier = Math.min(0, Number(currentFall));
@@ -315,11 +357,21 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue) {
   }
 }
 
+/**
+ * Resets the fall velocity for the entity.
+ * @param {any} entity - The entity.
+ */
 function resetFallVelocity(entity) {
   fallVelocity.set(entity, 0);
 }
 
-// --- Utility Functions ---
+/**
+ * Sums the properties of two vector-like objects.
+ * @param {Object} obj - The first vector.
+ * @param {Object} [vec={x:0,y:0,z:0}] - The second vector.
+ * @param {number} [multi=1] - A multiplier.
+ * @return {Object} The summed vector.
+ */
 function sumObjects(obj, vec = { x: 0, y: 0, z: 0 }, multi = 1) {
   return {
     x: (Number(obj.x) || 0) + (Number(vec.x) || 0) * multi,
@@ -328,6 +380,11 @@ function sumObjects(obj, vec = { x: 0, y: 0, z: 0 }, multi = 1) {
   };
 }
 
+/**
+ * Converts a rotation object to a directional vector.
+ * @param {Object} rotation - The rotation object with x and y properties.
+ * @return {Object} The direction vector.
+ */
 function getDirectionFromRotation(rotation) {
   const radY = (Number(rotation.y) + 90) * (Math.PI / 180);
   const radX = (Number(rotation.x) + 90) * (Math.PI / 180);
@@ -338,6 +395,11 @@ function getDirectionFromRotation(rotation) {
   };
 }
 
+/**
+ * Returns a promise that resolves after a given number of ticks.
+ * @param {number} ticks - The number of ticks to delay.
+ * @return {Promise<void>} A promise that resolves after the delay.
+ */
 function delay(ticks) {
   return new Promise(resolve => {
     system.runTimeout(resolve, ticks * 20);
@@ -345,6 +407,9 @@ function delay(ticks) {
 }
 
 // --- Main Loop ---
+/**
+ * Processes gravity for all entities in all dimensions.
+ */
 system.runInterval(() => {
   const dimensions = DimensionTypes.getAll().map(type => world.getDimension(type.typeId));
   dimensions.forEach(dimension => {
@@ -359,11 +424,10 @@ system.runInterval(() => {
  * Mace Damage System:
  * When an entity is hit, if the damaging entity is a player holding a mace,
  * extra damage is applied based on the fall distance.
- *
- * – A minimum fall of 1.5 blocks is required.
- * – For the first 3 blocks beyond 1.5: +4 hearts per block (8 damage per block).
- * – For the next 5 blocks: +2 damage per block.
- * – Beyond that: +1 damage per block.
+ * - A minimum fall of 1.5 blocks is required.
+ * - For the first 3 blocks beyond 1.5: +4 hearts per block (8 damage per block).
+ * - For the next 5 blocks: +2 damage per block.
+ * - Beyond that: +1 damage per block.
  * Visual feedback is provided via animation and sound.
  */
 world.afterEvents.entityHitEntity.subscribe(event => {
