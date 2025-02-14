@@ -257,7 +257,7 @@ class Gravity {
     const v_desired = Math.sqrt(2 * this.value * desiredJumpHeight);
     const extraImpulse = v_desired - v_default;
     const jumpTicks = 10;
-    const multiplier = 1;
+    const multiplier = 0.5;
     const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
   
     const executeJumpStep = (step) => {
@@ -303,109 +303,130 @@ class Gravity {
 
 /**
  * Processes gravity for a given entity.
- * Skips processing if the entity is swimming or (for players) flying.
+ * Skips processing if the entity is swimming, flying, gliding, or (if a player) wearing an elytra.
+ * Also zeroes horizontal impulses in narrow spaces.
  * @param {any} entity - The entity.
  */
 function gravityFuncMain(entity) {
-  if (typeof entity.isValid !== "function" || !entity.isValid()) return;
-  if (entity.isSwimming) {
-    resetFallVelocity(entity);
-    return;
-  }
-  if (entity.typeId === "minecraft:player" && entity.isFlying) {
-    resetFallVelocity(entity);
-    return;
-  }
-  
-  const gravity = new Gravity(entity);
-  if (Math.abs(gravity.value - 9.8) < 0.0001) return;
-  
-  const vector = gravity.calculateGravityVector();
-  const currentFall = Number(fallVelocity.get(entity)) || 0;
-  
-  // Use movement direction rather than view direction to check for a blocking block.
-  if (
-    entity.typeId === "minecraft:player" &&
-    typeof entity.inputInfo?.getMovementVector === "function"
-  ) {
-    const block = getBlockInMovementDirection(entity);
-    if (block && block.typeId !== "minecraft:air") {
-      vector.x = 0;
-      vector.z = 0;
+    if (typeof entity.isValid !== "function" || !entity.isValid()) return;
+    // Skip if swimming, flying, gliding...
+    if (entity.isSwimming) {
+      resetFallVelocity(entity);
+      return;
+    }
+    if (entity.typeId === "minecraft:player") {
+      if (entity.isFlying || entity.isGliding) {
+        resetFallVelocity(entity);
+        return;
+      }
+      // Optionally check for an elytra in the chest slot.
+      const inv = entity.getComponent("minecraft:inventory");
+      if (inv) {
+        const chestItem = inv.container.getItem(1); // adjust slot index as needed
+        if (chestItem && chestItem.typeId === "minecraft:elytra") {
+          return;
+        }
+      }
+    }
+    
+    const gravity = new Gravity(entity);
+    if (Math.abs(gravity.value - 9.8) < 0.0001) return;
+    
+    const vector = gravity.calculateGravityVector();
+    const currentFall = Number(fallVelocity.get(entity)) || 0;
+    
+    // Use movement direction check for an obstacle.
+    if (
+      entity.typeId === "minecraft:player" &&
+      typeof entity.inputInfo?.getMovementVector === "function"
+    ) {
+      const block = getBlockInMovementDirection(entity);
+      if (block && block.typeId !== "minecraft:air") {
+        vector.x = 0;
+        vector.z = 0;
+      }
+      // Check adjacent left and right to detect narrow spaces.
+      const leftBlock = getBlockAtOffset(entity, -1, 0, 0);
+      const rightBlock = getBlockAtOffset(entity, 1, 0, 0);
+      if ((leftBlock && leftBlock.typeId !== "minecraft:air") ||
+          (rightBlock && rightBlock.typeId !== "minecraft:air")) {
+        vector.x = 0;
+        vector.z = 0;
+      }
+    }
+    
+    if (!entity.isOnGround && !entity.isClimbing && !entity.isSwimming) {
+      applyGravityEffects(entity, vector, currentFall, gravity.value, gravity);
+    } else {
+      resetFallVelocity(entity);
+      gravity.cancelPendingJumps();
     }
   }
-  
-  if (!entity.isOnGround && !entity.isClimbing && !entity.isSwimming) {
-    applyGravityEffects(entity, vector, currentFall, gravity.value, gravity);
-  } else {
-    resetFallVelocity(entity);
-    gravity.cancelPendingJumps();
-  }
-}
 
+  
 /**
  * Applies gravity effects to an entity.
- * Uses applyKnockback for downward pull, updates fall velocity,
- * and applies a dynamic slow falling effect.
+ * Adjusts fall acceleration and knockback—using a faster descent,
+ * minimal slow falling effect, and special handling when landing on slime blocks.
  * @param {any} entity - The entity.
  * @param {Object} vector - The computed gravity vector.
  * @param {number} currentFall - The current fall velocity.
  * @param {number} gravityValue - The gravity value.
- * @param {Gravity} gravity - The Gravity instance (used for fall distance calculation).
+ * @param {Gravity} gravity - The Gravity instance (for fall distance calculations).
  */
 async function applyGravityEffects(entity, vector, currentFall, gravityValue, gravity) {
-  const fallModifier = Math.min(0, Number(currentFall));
-  const knockbackPower = (Number(vector.y) * 3 + fallModifier) / 300;
-
-  if (typeof entity.applyKnockback === "function") {
-    entity.applyKnockback(
-      Number(vector.x),
-      Number(vector.z),
-      Number(vector.hzPower),
-      Number(knockbackPower)
-    );
-  }
-  fallVelocity.set(entity, Number(currentFall) - gravityValue / 8);
-
-  if (typeof entity.setDynamicProperty === "function") {
-    const startY = Number(jumpStartY.get(entity)) || 0;
-    const currentY = Number(entity.location && entity.location.y) || 0;
-    const fallDist = Math.max(0, startY - currentY);
-    entity.setDynamicProperty("fall_distance", fallDist);
-  }
-
-  // --- Dynamic slow falling based on proximity to the ground ---
-  const baseGravity = 9.8;
-  const gravityDelta = gravityValue - baseGravity;
-  const fallDistance = gravity.calculateFallDistance();
-  let slowFallingAmplifier, slowFallingDuration;
-  // If very close to the ground, cancel slow falling so the landing accelerates.
-  if (fallDistance < 2) {
-    slowFallingAmplifier = 0;
-    slowFallingDuration = 1;
-  } else {
-    slowFallingAmplifier = gravityDelta > 0 ? Math.min(1, Math.floor(gravityDelta / 10)) : 0;
-    slowFallingDuration = gravityDelta > 0 ? Math.max(1, Math.ceil(gravityDelta / 10)) : 1;
-  }
-
-  if (entity.isSneaking) {
-    slowFallingAmplifier = Math.max(0, slowFallingAmplifier - 1);
-    slowFallingDuration = Math.max(1, slowFallingDuration - 1);
-  }
-
-  try {
-    // Reduced delay for quicker application of slow falling.
-    await delay(1);
-    if (entity.isValid() && typeof entity.addEffect === "function") {
-      entity.addEffect("slow_falling", slowFallingDuration, {
-        amplifier: slowFallingAmplifier,
-        showParticles: false
-      });
+    // Determine acceleration factor based on block below.
+    const blockBelow = getBlockBelow(entity);
+    let fallAccelerationFactor;
+    if (blockBelow && blockBelow.typeId === "minecraft:slime_block") {
+      // On slime blocks, use a gentler acceleration.
+      fallAccelerationFactor = gravityValue / 12;
+      // Optionally: you might want to invert impulse here for a bounce.
+    } else {
+      // Normal acceleration.
+      fallAccelerationFactor = gravityValue / 6;
     }
-  } catch (err) {
-    console.error("Error applying gravity effects:", err);
+    
+    // Reduce knockback during falling (minimal horizontal impulse).
+    const fallModifier = Math.min(0, Number(currentFall));
+    const knockbackPower = (Number(vector.y) * 1 + fallModifier) / 500;
+    
+    if (typeof entity.applyKnockback === "function") {
+      entity.applyKnockback(
+        Number(vector.x),
+        Number(vector.z),
+        Number(vector.hzPower),
+        Number(knockbackPower)
+      );
+    }
+    
+    // Increase fall velocity faster.
+    fallVelocity.set(entity, Number(currentFall) - fallAccelerationFactor);
+    
+    if (typeof entity.setDynamicProperty === "function") {
+      const startY = Number(jumpStartY.get(entity)) || 0;
+      const currentY = Number(entity.location && entity.location.y) || 0;
+      const fallDist = Math.max(0, startY - currentY);
+      entity.setDynamicProperty("fall_distance", fallDist);
+    }
+    
+    // Apply a minimal slow falling effect (or disable it) so descent remains fast.
+    const slowFallingAmplifier = 0;
+    const slowFallingDuration = 1;
+    
+    try {
+      await delay(1);
+      if (entity.isValid() && typeof entity.addEffect === "function") {
+        entity.addEffect("slow_falling", slowFallingDuration, {
+          amplifier: slowFallingAmplifier,
+          showParticles: false
+        });
+      }
+    } catch (err) {
+      console.error("Error applying gravity effects:", err);
+    }
   }
-}
+  
 
 /**
  * Resets the fall velocity for an entity.
@@ -577,3 +598,41 @@ function getBlockInMovementDirection(entity) {
   }
   return null;
 }
+
+
+/**
+ * Gets the block at an offset from the entity's location.
+ * @param {any} entity - The entity.
+ * @param {number} offsetX 
+ * @param {number} offsetY 
+ * @param {number} offsetZ 
+ * @return {any|null} The block at the offset, or null if unavailable.
+ */
+function getBlockAtOffset(entity, offsetX, offsetY, offsetZ) {
+    if (entity.dimension && typeof entity.dimension.getBlock === "function") {
+      const pos = {
+        x: Math.floor(entity.location.x + offsetX),
+        y: Math.floor(entity.location.y + offsetY),
+        z: Math.floor(entity.location.z + offsetZ)
+      };
+      return entity.dimension.getBlock(pos);
+    }
+    return null;
+  }
+
+  /**
+ * Gets the block just below the entity.
+ * @param {any} entity - The entity.
+ * @return {any|null} The block below the entity or null if unavailable.
+ */
+function getBlockBelow(entity) {
+    if (entity.dimension && typeof entity.dimension.getBlock === "function") {
+      const pos = {
+        x: Math.floor(entity.location.x),
+        y: Math.floor(entity.location.y - 0.1), // a little below the feet
+        z: Math.floor(entity.location.z)
+      };
+      return entity.dimension.getBlock(pos);
+    }
+    return null;
+  }
