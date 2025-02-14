@@ -355,7 +355,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
       Number(knockbackPower)
     );
   }
-  fallVelocity.set(entity, Number(currentFall) - gravityValue / 50);
+  fallVelocity.set(entity, Number(currentFall) - gravityValue / 10);
 
   if (typeof entity.setDynamicProperty === "function") {
     const startY = Number(jumpStartY.get(entity)) || 0;
