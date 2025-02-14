@@ -230,17 +230,17 @@ class Gravity {
    * then scale it down by a multiplier.
    * @note This routine supplements the default jump; it does not cancel it.
    */
-  applyJump() {
+applyJump() {
     const entity = this.entity;
     if (!entity.isOnGround || entity.isFlying) return;
     if (pendingJumpSteps.has(entity)) return;
-
+  
     this.cancelPendingJumps();
     const currentY = (entity.location && typeof entity.location.y === "number")
       ? Number(entity.location.y)
       : 0;
     jumpStartY.set(entity, currentY);
-
+  
     const h_default = 1.5;
     const v_default = Math.sqrt(2 * 9.8 * h_default);
     const desiredJumpHeight = h_default * Math.pow(9.8 / this.value, 0.77);
@@ -249,11 +249,26 @@ class Gravity {
     const jumpTicks = 10;
     const multiplier = 1;
     const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
-
+  
     const executeJumpStep = (step) => {
+      // Cancel if entity lands or jump sequence finishes.
       if (entity.isOnGround || step >= jumpTicks) {
         pendingJumpSteps.delete(entity);
         return;
+      }
+      // Check if a block overhead is obstructing the jump (e.g., ceiling collision)
+      const overheadBlock = getBlockAbove(entity);
+      if (overheadBlock && overheadBlock.typeId !== "minecraft:air") {
+        pendingJumpSteps.delete(entity);
+        return;
+      }
+      // (Also keep existing check via view direction if available.)
+      if (typeof entity.getBlockFromViewDirection === "function") {
+        const block = entity.getBlockFromViewDirection();
+        if (block && block.typeId !== "minecraft:air") {
+          pendingJumpSteps.delete(entity);
+          return;
+        }
       }
       const progress = Math.sin((step / jumpTicks) * Math.PI);
       if (typeof entity.applyKnockback === "function") {
@@ -262,10 +277,9 @@ class Gravity {
       const timeoutId = system.runTimeout(() => executeJumpStep(step + 1), 1);
       pendingJumpSteps.set(entity, timeoutId);
     };
-
+  
     executeJumpStep(0);
   }
-
   /**
    * Cancels any pending jump steps.
    */
@@ -300,8 +314,7 @@ function gravityFuncMain(entity) {
   const vector = gravity.calculateGravityVector();
   const currentFall = Number(fallVelocity.get(entity)) || 0;
 
-  // Added condition: if the player is facing a block (using getBlockFromViewDirection)
-  // and moving forward (movement.y > 0.5), cancel horizontal knockback.
+  // Cancel horizontal knockback if a block is in front of the player.
   if (
     entity.typeId === "minecraft:player" &&
     typeof entity.getBlockFromViewDirection === "function" &&
@@ -316,7 +329,7 @@ function gravityFuncMain(entity) {
   }
 
   if (!entity.isOnGround && !entity.isClimbing && !entity.isSwimming) {
-    applyGravityEffects(entity, vector, currentFall, gravity.value);
+    applyGravityEffects(entity, vector, currentFall, gravity.value, gravity);
   } else {
     resetFallVelocity(entity);
     gravity.cancelPendingJumps();
@@ -331,8 +344,9 @@ function gravityFuncMain(entity) {
  * @param {Object} vector - The computed gravity vector.
  * @param {number} currentFall - The current fall velocity.
  * @param {number} gravityValue - The gravity value.
+ * @param {Gravity} gravity - The Gravity instance (used for fall distance calculation).
  */
-async function applyGravityEffects(entity, vector, currentFall, gravityValue) {
+async function applyGravityEffects(entity, vector, currentFall, gravityValue, gravity) {
   const fallModifier = Math.min(0, Number(currentFall));
   const knockbackPower = (Number(vector.y) * 3 + fallModifier) / 300;
 
@@ -353,12 +367,19 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue) {
     entity.setDynamicProperty("fall_distance", fallDist);
   }
 
-  // Removed extra downward clamping to avoid jank.
-
+  // --- NEW: Dynamic slow falling based on how close the entity is to the ground ---
   const baseGravity = 9.8;
   const gravityDelta = gravityValue - baseGravity;
-  let slowFallingAmplifier = gravityDelta > 0 ? Math.min(1, Math.floor(gravityDelta / 10)) : 0;
-  let slowFallingDuration = gravityDelta > 0 ? Math.max(1, Math.ceil(gravityDelta / 10)) : 1;
+  const fallDistance = gravity.calculateFallDistance();
+  let slowFallingAmplifier, slowFallingDuration;
+  // If very close to the ground, cancel slow falling so the landing accelerates.
+  if (fallDistance < 2) {
+    slowFallingAmplifier = 0;
+    slowFallingDuration = 1;
+  } else {
+    slowFallingAmplifier = gravityDelta > 0 ? Math.min(1, Math.floor(gravityDelta / 10)) : 0;
+    slowFallingDuration = gravityDelta > 0 ? Math.max(1, Math.ceil(gravityDelta / 10)) : 1;
+  }
 
   if (entity.isSneaking) {
     slowFallingAmplifier = Math.max(0, slowFallingAmplifier - 1);
@@ -366,7 +387,8 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue) {
   }
 
   try {
-    await delay(2);
+    // Reduced delay for quicker application of slow falling.
+    await delay(1);
     if (entity.isValid() && typeof entity.addEffect === "function") {
       entity.addEffect("slow_falling", slowFallingDuration, {
         amplifier: slowFallingAmplifier,
@@ -418,7 +440,7 @@ function getDirectionFromRotation(rotation) {
 
 /**
  * Returns a promise that resolves after a specified number of ticks.
- * @param {number} seconds - The number of seconds.
+ * @param {number} ticks - The number of ticks.
  * @return {Promise<void>} A promise that resolves after the delay.
  */
 function delay(ticks) {
@@ -440,7 +462,6 @@ system.runInterval(() => {
     });
   });
 });
-
 
 /**
  * Mace Damage System:
@@ -487,3 +508,14 @@ world.afterEvents.entityHitEntity.subscribe(event => {
     }
   }
 });
+
+//Get the block above the entity’s head.
+function getBlockAbove(entity) {
+    if (entity.dimension && typeof entity.dimension.getBlock === "function") {
+      const x = Math.floor(entity.location.x);
+      const y = Math.floor(entity.location.y + 1.8); // entity's height is ~1.8 blocks
+      const z = Math.floor(entity.location.z);
+      return entity.dimension.getBlock({ x, y, z });
+    }
+    return null;
+  }
