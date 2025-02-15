@@ -257,7 +257,7 @@ class Gravity {
     const v_desired = Math.sqrt(2 * this.value * desiredJumpHeight);
     const extraImpulse = v_desired - v_default;
     const jumpTicks = 10;
-    const multiplier = 0.25;
+    const multiplier = 1;
     const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
   
     const executeJumpStep = (step) => {
@@ -359,16 +359,16 @@ function gravityFuncMain(entity) {
 
 /**
  * Applies gravity effects to an entity.
- * Adjusts fall acceleration and knockback—using a faster descent,
- * minimal slow falling effect, and special handling (bounce) when landing on slime blocks.
+ * Uses applyKnockback for downward pull, updates fall velocity,
+ * and applies a dynamic slow falling effect.
  * @param {any} entity - The entity.
  * @param {Object} vector - The computed gravity vector.
- * @param {number} currentFall - The current fall velocity from the mimic system.
+ * @param {number} currentFall - The current fall velocity.
  * @param {number} gravityValue - The gravity value.
- * @param {Gravity} gravity - The Gravity instance (for fall distance calculations).
+ * @param {Gravity} gravity - The Gravity instance (used for fall distance calculation).
  */
 async function applyGravityEffects(entity, vector, currentFall, gravityValue, gravity) {
-    // Determine acceleration factor based on block below.
+     // Determine acceleration factor based on block below.
     const blockBelow = getBlockBelow(entity);
     let fallAccelerationFactor;
     
@@ -395,7 +395,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
             y: Math.floor(entity.location.y - 0.5), 
             z: Math.floor(entity.location.z)
           };
-          entity.dimension.spawnParticle("animation.slime_bounce", particlePos);
+          entity.dimension.spawnParticle("minecraft:slime_bounce", particlePos);
         }
         if (typeof entity.playSound === "function") {
           entity.playSound("mob.slime.jump"); 
@@ -411,11 +411,10 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
       // For non-slime blocks, use normal acceleration.
       fallAccelerationFactor = gravityValue / 6;
     }
-    
-    // Reduce knockback during falling (minimal horizontal impulse).
     const fallModifier = Math.min(0, Number(currentFall));
-    const knockbackPower = (Number(vector.y) * 1 + fallModifier) / 300;
-    
+    //Knockback power to push the player up and down
+    const knockbackPower = (Number(vector.y) * 3 + fallModifier) / 300;
+  
     if (typeof entity.applyKnockback === "function") {
       entity.applyKnockback(
         Number(vector.x),
@@ -424,22 +423,36 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
         Number(knockbackPower)
       );
     }
-    
-    // Increase fall velocity faster.
-    fallVelocity.set(entity, Number(currentFall) - fallAccelerationFactor);
-    
+    fallVelocity.set(entity, Number(currentFall) - gravityValue / 7);
+  
     if (typeof entity.setDynamicProperty === "function") {
       const startY = Number(jumpStartY.get(entity)) || 0;
       const currentY = Number(entity.location && entity.location.y) || 0;
       const fallDist = Math.max(0, startY - currentY);
       entity.setDynamicProperty("fall_distance", fallDist);
     }
-    
-    // Apply a minimal slow falling effect so descent remains fast.
-    const slowFallingAmplifier = 0;
-    const slowFallingDuration = 1;
-    
+  
+    // --- Dynamic slow falling based on proximity to the ground ---
+    const baseGravity = 9.8;
+    const gravityDelta = gravityValue - baseGravity;
+    const fallDistance = gravity.calculateFallDistance();
+    let slowFallingAmplifier, slowFallingDuration;
+    // If very close to the ground, cancel slow falling so the landing accelerates.
+    if (fallDistance < 2) {
+      slowFallingAmplifier = 0;
+      slowFallingDuration = 1;
+    } else {
+      slowFallingAmplifier = gravityDelta > 0 ? Math.min(1, Math.floor(gravityDelta / 10)) : 0;
+      slowFallingDuration = gravityDelta > 0 ? Math.max(1, Math.ceil(gravityDelta / 10)) : 1;
+    }
+  
+    if (entity.isSneaking) {
+      slowFallingAmplifier = Math.max(0, slowFallingAmplifier - 1);
+      slowFallingDuration = Math.max(1, slowFallingDuration - 1);
+    }
+  
     try {
+      // Reduced delay for quicker application of slow falling.
       await delay(1);
       if (entity.isValid() && typeof entity.addEffect === "function") {
         entity.addEffect("slow_falling", slowFallingDuration, {
@@ -452,6 +465,9 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
     }
   }
   
+
+
+
 /**
  * Resets the fall velocity for an entity.
  * @param {any} entity - The entity.
