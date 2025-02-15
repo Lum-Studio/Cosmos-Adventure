@@ -320,14 +320,6 @@ function gravityFuncMain(entity) {
         resetFallVelocity(entity);
         return;
       }
-      // Optionally check for an elytra in the chest slot.
-      const inv = entity.getComponent("minecraft:inventory");
-      if (inv) {
-        const chestItem = inv.container.getItem(1); // adjust slot index as needed
-        if (chestItem && chestItem.typeId === "minecraft:elytra") {
-          return;
-        }
-      }
     }
     
     const gravity = new Gravity(entity);
