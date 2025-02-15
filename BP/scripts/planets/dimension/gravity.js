@@ -249,13 +249,13 @@ class Gravity {
       : 0;
     jumpStartY.set(entity, currentY);
   
-    const h_default = 1.5;
+    const h_default = 1.25;
     const v_default = Math.sqrt(2 * 9.8 * h_default);
     const desiredJumpHeight = h_default * Math.pow(9.8 / this.value, 0.77);
     const v_desired = Math.sqrt(2 * this.value * desiredJumpHeight);
     const extraImpulse = v_desired - v_default;
     const jumpTicks = 10;
-    const multiplier = 0.0001;
+    const multiplier = 0.00005;
     const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
   
     const executeJumpStep = (step) => {
