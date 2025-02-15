@@ -12,88 +12,100 @@
  * ★★★★★★★★★★★★★★★★★★★★
  */
  // Lum Studio //
-import { system, world } from "@minecraft/server";
+import { world } from "@minecraft/server";
+import { world } from "@minecraft/server";
+
+// Maximum number of characters per dynamic property part.
+const PART_SIZE = 32767;
+
 /**
- * Class for endless object databases
+ * EndlessDynamicProperty
+ *
+ * This class provides a simple key/value "database" that uses multiple dynamic properties
+ * to overcome the 32K byte storage limit per property. It stores JSON data by splitting
+ * it into parts and keeps track of the number of parts using a dedicated count property.
+ *
+ * Example usage:
+ *   const db = new EndlessDB("myDB:");
+ *   db.setAll({ foo: "bar", count: 123 });
+ *   const data = db.getAll();
+ *   console.log(data);
+ *
+ * Note: Make sure that the prefix you supply is unique to avoid collisions.
  */
 export class EndlessDB {
-    prefix = '';
-    /**
-     * 
-     * @param {string} prefix Prefix for the database. Should be unique for each DB
-     */
-    constructor(prefix) {
-      this.prefix = prefix
+  /**
+   * @param {string} prefix - Unique prefix for this dynamic property store.
+   */
+  constructor(prefix) {
+    this.prefix = prefix;
+  }
+
+  /**
+   * Get the current number of parts used for storing data.
+   * If not defined, defaults to 1.
+   * @returns {number}
+   */
+  get count() {
+    const value = world.getDynamicProperty(this.prefix + "count");
+    return typeof value === "number" ? value : 1;
+  }
+
+  /**
+   * Sets the part count.
+   * @param {number} value
+   */
+  set count(value) {
+    world.setDynamicProperty(this.prefix + "count", value);
+  }
+
+  /**
+   * Retrieves the stored data by concatenating all parts and parsing the JSON.
+   * @returns {object} The stored data object (or {} if empty or invalid).
+   */
+  getAll() {
+    let jsonStr = "";
+    for (let i = 0; i < this.count; i++) {
+      const part = world.getDynamicProperty(this.prefix + "part_" + i);
+      jsonStr += part ?? "";
     }
-    /**
-     * Count of used dynamic properties for this DB
-     */
-    get count() {
-      return world.getDynamicProperty(this.prefix + "count") ?? 1
+    try {
+      return JSON.parse(jsonStr === "" ? "{}" : jsonStr);
+    } catch (error) {
+      console.error("EndlessDB: Error parsing JSON:", error);
+      return {};
     }
-    set count(value) {
-      world.setDynamicProperty(this.prefix + "count", value)
+  }
+
+  /**
+   * Stores the given object as JSON by splitting it into parts and saving each part
+   * as a separate dynamic property.
+   * @param {object} object - The data to store.
+   */
+  setAll(object) {
+    const jsonStr = JSON.stringify(object);
+    let remaining = jsonStr;
+    let i = 0;
+    while (remaining.length > 0) {
+      const part = remaining.slice(0, PART_SIZE);
+      world.setDynamicProperty(this.prefix + "part_" + i, part);
+      remaining = remaining.slice(PART_SIZE);
+      i++;
     }
-    /**
-     * Gets all data stored in DB
-     * @returns Database object
-     */
-    getAll() {
-      let json = '';
-      for (let i = 0; i < this.count; i++) {
-        json += world.getDynamicProperty(this.prefix + "part_" + i) ?? ""
+    this.count = i;
+  }
+
+  /**
+   * Clears all dynamic properties associated with this store.
+   */
+  clear() {
+    const keys = world.getDynamicPropertyIds();
+    for (const key of keys) {
+      if (key.startsWith(this.prefix + "part_") || key === this.prefix + "count") {
+        world.setDynamicProperty(key, undefined);
       }
-      return JSON.parse(json === "" ? "{}" : json)
-    }
-    /**
-     * 
-     * @param {object} object Saves given data into DB (rewriting)
-     */
-    setAll(object) {
-      let json = JSON.stringify(object);
-      let i = 0;
-      while (json.length !== 0) {
-        world.setDynamicProperty(this.prefix + "part_" + i, json.slice(0, 32767))
-        json = json.slice(32767)
-        i++
-      };
-      this.count = i
     }
   }
-  
-  /**
- * Class for managing a queue of tasks to be executed at intervals.
- */
-export class TaskQueue {
-  tasks = [];
-  #run;
-  runCount;
-
-  /**
-   * Starts running the tasks in the queue.
-   * @param {number} runCount - The number of tasks to run in each interval.
-   */
-  run(runCount) {
-    this.#run = system.runInterval(() => {
-      for (let iter = 0; iter < runCount; iter++) {
-        if (this.tasks.length !== 0) {
-          this.tasks.shift()(); // Execute the next task
-        }
-      }
-    }, 0);
-    this.runCount = runCount;
-  }
-
-  /**
-   * Stops the execution of the queued tasks.
-   */
-  stop() {
-    system.clearRun(this.#run);
-  }
-
-  /**
-   * Adds tasks to the queue.
-   * @param {...function} args - The functions to be added to the task queue.
-   */
-  push = (...args) => this.tasks.push(...args);
 }
+
+export default EndlessDB;
