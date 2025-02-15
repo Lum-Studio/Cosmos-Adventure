@@ -234,9 +234,7 @@ class Gravity {
   /**
    * Implements a custom jump by integrating an extra impulse.
    * The desired jump height is computed dynamically:
-   *   desiredJumpHeight = 1.5 * (9.8 / actualGravity)^0.77
-   * In normal gravity this is ~1.5 blocks; in low gravity it scales up (e.g., ~6 blocks on the Moon).
-   * We compute the extra impulse required (v_desired - v_default) and distribute it over jumpTicks,
+   * We compute the extra impulse in the steps required (v_desired - v_default) and distribute it over jumpTicks,
    * then scale it down by a multiplier.
    * @note This routine supplements the default jump; it does not cancel it.
    */
@@ -257,7 +255,7 @@ class Gravity {
     const v_desired = Math.sqrt(2 * this.value * desiredJumpHeight);
     const extraImpulse = v_desired - v_default;
     const jumpTicks = 10;
-    const multiplier = 1;
+    const multiplier = 0.001;
     const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
   
     const executeJumpStep = (step) => {
@@ -584,7 +582,7 @@ world.afterEvents.entityHitEntity.subscribe(event => {
 function getBlockAbove(entity) {
   if (entity.dimension && typeof entity.dimension.getBlock === "function") {
     const x = Math.floor(entity.location.x);
-    const y = Math.floor(entity.location.y + 1.8); // entity's height is ~1.8 blocks
+    const y = Math.floor(entity.location.y + 1.8); 
     const z = Math.floor(entity.location.z);
     return entity.dimension.getBlock({ x, y, z });
   }
