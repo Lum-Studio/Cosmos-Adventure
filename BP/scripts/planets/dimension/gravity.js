@@ -255,7 +255,7 @@ class Gravity {
     const v_desired = Math.sqrt(2 * this.value * desiredJumpHeight);
     const extraImpulse = v_desired - v_default;
     const jumpTicks = 10;
-    const multiplier = 0.001;
+    const multiplier = 0.0001;
     const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
   
     const executeJumpStep = (step) => {
@@ -421,7 +421,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
         Number(knockbackPower)
       );
     }
-    fallVelocity.set(entity, Number(currentFall) - gravityValue / 7);
+    fallVelocity.set(entity, Number(currentFall) - gravityValue / 5);
   
     if (typeof entity.setDynamicProperty === "function") {
       const startY = Number(jumpStartY.get(entity)) || 0;
