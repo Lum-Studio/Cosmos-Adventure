@@ -5,7 +5,7 @@ export { Gravity };
 
 /**
  * ✨💕 LUM STUDIO GRAVITY SYSTEM (2022-2025) 💕✨
- *
+ * Custom Gravitational Computational Engine for Minecraft Bedrock
  * Created with love and passion by LUM STUDIO. @ARR
  *
  * @author REFRACTED
@@ -357,14 +357,13 @@ function gravityFuncMain(entity) {
   }
 
 
-
 /**
  * Applies gravity effects to an entity.
  * Adjusts fall acceleration and knockback—using a faster descent,
  * minimal slow falling effect, and special handling (bounce) when landing on slime blocks.
  * @param {any} entity - The entity.
  * @param {Object} vector - The computed gravity vector.
- * @param {number} currentFall - The current fall velocity.
+ * @param {number} currentFall - The current fall velocity from the mimic system.
  * @param {number} gravityValue - The gravity value.
  * @param {Gravity} gravity - The Gravity instance (for fall distance calculations).
  */
@@ -374,26 +373,42 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
     let fallAccelerationFactor;
     
     if (blockBelow && blockBelow.typeId === "minecraft:slime_block") {
-      // On slime blocks, check if we should bounce.
-      if (currentFall < -1) { // if falling fast enough, bounce!
-        const bounceFactor = 0.8; // energy retention factor
+      // If on a slime block, check if the fall velocity is below a threshold.
+      const bounceThreshold = -1; // threshold for a hard fall
+      if (currentFall < bounceThreshold) {
+        // Calculate bounce impulse relative to the current fall velocity.
+        const bounceFactor = 0.8; // Retain a percentage of the fall energy.
         const bounceImpulse = Math.abs(currentFall) * bounceFactor;
-        // Invert fall velocity: set upward velocity.
+        
+        // Set the new fall velocity upward.
         fallVelocity.set(entity, bounceImpulse);
         
-        // Apply upward knockback impulse to simulate bounce.
+        // Apply an upward impulse for the bounce.
         if (typeof entity.applyKnockback === "function") {
           entity.applyKnockback(0, 0, 0, bounceImpulse);
         }
         
-        // Optionally, you can add bounce sound/particle effects here.
-        return; // Skip further processing to allow the bounce to take effect.
+        // Trigger visual/audio feedback for the bounce using spawnParticle below the player.
+        if (entity.dimension && entity.location && typeof entity.dimension.spawnParticle === "function") {
+          const particlePos = {
+            x: Math.floor(entity.location.x),
+            y: Math.floor(entity.location.y - 0.5), 
+            z: Math.floor(entity.location.z)
+          };
+          entity.dimension.spawnParticle("animation.slime_bounce", particlePos);
+        }
+        if (typeof entity.playSound === "function") {
+          entity.playSound("mob.slime.jump"); 
+        }
+        
+        // Exit early so the bounce is handled exclusively.
+        return;
       } else {
-        // Otherwise, use gentler acceleration on slime blocks.
+        // If the fall velocity isn't low enough for a bounce, use gentler acceleration.
         fallAccelerationFactor = gravityValue / 12;
       }
     } else {
-      // Normal acceleration for non-slime blocks.
+      // For non-slime blocks, use normal acceleration.
       fallAccelerationFactor = gravityValue / 6;
     }
     
@@ -437,7 +452,6 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
     }
   }
   
-
 /**
  * Resets the fall velocity for an entity.
  * @param {any} entity - The entity.
