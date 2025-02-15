@@ -1,8 +1,7 @@
 export { SpaceStationMatrix }
 
-
 /**
- * SpaceStationMatrix
+ * SpaceStationMatrix Class for Handling Space Stations slots
  *
  * Maps a 50,000×50,000 block area into a fixed 10×10 grid of cells (each cell 5,000×5,000 blocks).
  * This results in exactly 100 possible cells.
