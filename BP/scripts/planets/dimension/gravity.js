@@ -372,7 +372,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
     
     if (blockBelow && blockBelow.typeId === "minecraft:slime_block") {
       // If on a slime block, check if the fall velocity is below a threshold.
-      const bounceThreshold = -1; // threshold for a hard fall
+      const bounceThreshold = -0.001; // threshold for a hard fall
       if (currentFall < bounceThreshold) {
         // Calculate bounce impulse relative to the current fall velocity.
         const bounceFactor = 0.8; // Retain a percentage of the fall energy.
