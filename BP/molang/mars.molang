@@ -10,7 +10,6 @@ v.j = v.z * 0.012500000186264515 / 4;
 v.i2 = -v.x * 0.014999999664723873 / 4;
 v.j2 = -v.z * 0.014999999664723873 / 4;
 
-# Unroll the loop 4 times:
 # Iteration 1:
 v.noise1 = v.noise1 + noise(v.i, v.j) * v.curAmplitude;
 v.noise2 = v.noise2 + noise(v.i2, v.j2) * v.curAmplitude;
