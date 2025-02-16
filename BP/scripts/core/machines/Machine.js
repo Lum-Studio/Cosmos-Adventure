@@ -10,7 +10,7 @@ function clean_machine_entities(machines_array){
         let entity = world.getEntity(machine[0]);
         let block = entity?.dimension.getBlock(machine[1].location);
         if(!entity || !block){
-            return;
+            continue;
         }
 		new machines[machine[1].type].class(entity, block);
     }
