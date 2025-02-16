@@ -72,6 +72,7 @@ export default class {
 
 		if(energy !== first_energy){
 			this.entity.setDynamicProperty("cosmos_energy", energy);
+			this.entity.setDynamicProperty("cosmos_power", Math.min(energy, store_data.maxPower));
 			const counter = new ItemStack('cosmos:ui')
 			counter.nameTag = `cosmos:§. ${energy} gJ\nof ${store_data.capacity} gJ`
 			container.setItem(2, counter)
