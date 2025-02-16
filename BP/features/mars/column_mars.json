@@ -1,0 +1,16 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:forced_features": {
+      "custom_height_feature": {
+        "description": {
+          "identifier": "cosmos:mars/column_mars"
+        },
+        "places_feature": "cosmos:mars/layer_picker",
+        "iterations": "90 + ((noise(0,0)*1 - 0.1)*4 < 0 ? ( (noise(worldx * 0.003125, worldz * 0.003125) + 0.25 * noise(worldx * 0.00625, worldz * 0.00625) + 0.0625 * noise(worldx * 0.0125, worldz * 0.0125) + 0.015625 * noise(worldx * 0.025, worldz * 0.025)) * 8 ) : (((noise(0,0)*1 - 0.1)*4 > 1) ? ( (noise(-worldx * 0.00375, -worldz * 0.00375) + 0.25 * noise(-worldx * 0.0075, -worldz * 0.0075) + 0.0625 * noise(-worldx * 0.015, -worldz * 0.015) + 0.015625 * noise(-worldx * 0.03, -worldz * 0.03)) * 24 ) : ( ( (noise(worldx * 0.003125, worldz * 0.003125) + 0.25 * noise(worldx * 0.00625, worldz * 0.00625) + 0.0625 * noise(worldx * 0.0125, worldz * 0.0125) + 0.015625 * noise(worldx * 0.025, worldz * 0.025)) * 8 ) + ( ( (noise(-worldx * 0.00375, -worldz * 0.00375) + 0.25 * noise(-worldx * 0.0075, -worldz * 0.0075) + 0.0625 * noise(-worldx * 0.015, -worldz * 0.015) + 0.015625 * noise(-worldx * 0.03, -worldz * 0.03)) * 24 ) - ( (noise(worldx * 0.003125, worldz * 0.003125) + 0.25 * noise(worldx * 0.00625, worldz * 0.00625) + 0.0625 * noise(worldx * 0.0125, worldz * 0.0125) + 0.015625 * noise(worldx * 0.025, worldz * 0.025)) * 8 )) * ((noise(0,0)*1 - 0.1)*4) ) )",
+        "x": 0,
+        "z": 0,
+        "y": 0
+      }
+    }
+  }
+  
