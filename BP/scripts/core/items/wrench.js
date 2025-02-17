@@ -18,9 +18,20 @@ function remove(block) {
   detach_wires(block)
   const {dimension, location} = block
   const coords = `${location.x} ${location.y} ${location.z}`
-  dimension.runCommand(`fill ${coords} ${coords} air destroy`)
-  const machineEntity = dimension.getEntitiesAtBlockLocation(block.location).find((entity) => entity?.getDynamicProperty("block_location") == block.location);
-  if(machineEntity) machine_entities.delete(machineEntity.id)
+  const machineEntity = dimension.getEntities({
+    type: block.permutation.type.id,
+    location: {
+        x: Math.floor(block.location.x) + 0.5,
+        y: Math.floor(block.location.y) + 0.5,
+        z: Math.floor(block.location.z) + 0.5,
+    },
+    maxDistance: 0.5,})[0];
+    dimension.runCommand(`fill ${coords} ${coords} air destroy`)
+    if(machineEntity){
+      machine_entities.delete(machineEntity.id);
+      machineEntity?.runCommand('kill @s');
+      machineEntity?.remove();
+    }
 
 }
 

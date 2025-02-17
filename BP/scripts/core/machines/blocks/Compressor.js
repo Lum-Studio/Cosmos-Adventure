@@ -29,7 +29,6 @@ export default class {
 	}
     onPlace(){
 		const container = this.entity.getComponent('minecraft:inventory').container
-		const data = get_data(this.entity);
 		const counter = new ItemStack('cosmos:ui')
 		counter.nameTag = `cosmos:§burn${Math.round((0 / 1) * 13)}`
 		container.setItem(11, counter)
@@ -61,6 +60,7 @@ export default class {
 
 		let first_burnTime = burnTime;
 		let first_burnDuration = burnDuration;
+		let first_progress = progress;
 
 		if (fuelTypes.has(fuelItem?.typeId) && burnTime == 0 && output) {
 			container.setItem(9, fuelItem.decrementStack())
@@ -94,10 +94,13 @@ export default class {
 		}
 
 		if(burnTime !== first_burnTime) this.entity.setDynamicProperty("cosmos_burnTime", burnTime);
-		if(burnDuration != first_burnDuration){
+		if(burnDuration != first_burnDuration || progress !== first_progress){
+			this.entity.setDynamicProperty("cosmos_progress", progress);
 			this.entity.setDynamicProperty("cosmos_burnDuration", burnDuration);
 			counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`
 			container.setItem(12, counter)
+			counter.nameTag = `cosmos:  Status:\n${!progress ? '    §6Idle' : '§aCompressing'}`
+			container.setItem(13, counter)
 		}
 
 	}
