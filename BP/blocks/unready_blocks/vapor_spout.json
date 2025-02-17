@@ -1,12 +1,14 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:block": {
-    "description": {
-      "identifier": "cosmos:vapor_spout",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {}
-  }
+    "format_version": "1.20.80",
+    "minecraft:block": {
+        "description": {
+            "identifier": "cosmos:vapor_spout",
+            "menu_category": {
+                "category": "items"
+            }
+        },
+        "components": {
+            "minecraft:loot": "loot_tables/blocks/unready_blocks/vapor_spout.json"
+        }
+    }
 }

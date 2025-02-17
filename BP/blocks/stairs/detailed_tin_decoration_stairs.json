@@ -1,78 +1,79 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:block": {
-    "description": {
-      "identifier": "cosmos:detailed_tin_decoration_stairs",
-      "menu_category": {
-        "category": "construction"
-      },
-      "traits": {
-        "minecraft:placement_direction": {
-          "enabled_states": [
-            "minecraft:cardinal_direction"
-          ]
+    "format_version": "1.20.80",
+    "minecraft:block": {
+        "description": {
+            "identifier": "cosmos:detailed_tin_decoration_stairs",
+            "menu_category": {
+                "category": "construction"
+            },
+            "traits": {
+                "minecraft:placement_direction": {
+                    "enabled_states": [
+                        "minecraft:cardinal_direction"
+                    ]
+                },
+                "minecraft:placement_position": {
+                    "enabled_states": [
+                        "minecraft:vertical_half"
+                    ]
+                }
+            },
+            "states": {
+                "generic:north_east": [
+                    true,
+                    false
+                ],
+                "generic:north_west": [
+                    true,
+                    false
+                ],
+                "generic:south_east": [
+                    false,
+                    true
+                ],
+                "generic:south_west": [
+                    false,
+                    true
+                ]
+            }
         },
-        "minecraft:placement_position": {
-          "enabled_states": [
-            "minecraft:vertical_half"
-          ]
+        "components": {
+            "minecraft:geometry": {
+                "identifier": "geometry.stairs",
+                "bone_visibility": {
+                    "top_ne": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:north_east')",
+                    "top_nw": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:north_west')",
+                    "top_se": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:south_east')",
+                    "top_sw": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:south_west')",
+                    "bottom_ne": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:north_east')",
+                    "bottom_nw": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:north_west')",
+                    "bottom_se": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:south_east')",
+                    "bottom_sw": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:south_west')"
+                }
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0.5
+            },
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 12
+            },
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "detailed_tin_decoration_block",
+                    "render_method": "opaque"
+                }
+            },
+            "minecraft:custom_components": [
+                "cosmos:stairs"
+            ],
+            "minecraft:tick": {
+                "interval_range": [
+                    1,
+                    1
+                ]
+            },
+            "tag:stairs": {},
+            "minecraft:loot": "loot_tables/blocks/stairs/detailed_tin_decoration_stairs.json"
         }
-      },
-      "states": {
-        "generic:north_east": [
-          true,
-          false
-        ],
-        "generic:north_west": [
-          true,
-          false
-        ],
-        "generic:south_east": [
-          false,
-          true
-        ],
-        "generic:south_west": [
-          false,
-          true
-        ]
-      }
-    },
-    "components": {
-      "minecraft:geometry": {
-        "identifier": "geometry.stairs",
-        "bone_visibility": {
-          "top_ne": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:north_east')",
-          "top_nw": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:north_west')",
-          "top_se": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:south_east')",
-          "top_sw": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:south_west')",
-          "bottom_ne": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:north_east')",
-          "bottom_nw": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:north_west')",
-          "bottom_se": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:south_east')",
-          "bottom_sw": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:south_west')"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.5
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 12
-      },
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "detailed_tin_decoration_block",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:custom_components": [
-        "cosmos:stairs"
-      ],
-      "minecraft:tick": {
-        "interval_range": [
-          1,
-          1
-        ]
-      },
-      "tag:stairs": {}
     }
-  }
 }

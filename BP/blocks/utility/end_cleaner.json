@@ -1,17 +1,31 @@
 {
-  "format_version": "1.20.60",
-  "minecraft:block": {
-    "description": {
-      "identifier": "cosmos:end_cleaner"
-    },
-    "components": {
-      "minecraft:display_name": "§4Dangerous (Don't place)",
-      "minecraft:destructible_by_mining": false,
-      "minecraft:destructible_by_explosion": false,
-      "minecraft:custom_components": ["cosmos:end_cleaner"],
-      "minecraft:geometry": "minecraft:geometry.full_block",
-			"minecraft:tick": { "looping": true, "interval_range": [ 1, 1 ] },
-      "minecraft:material_instances": {"*": { "texture": "empty", "render_method": "alpha_test" }}
+    "format_version": "1.20.60",
+    "minecraft:block": {
+        "description": {
+            "identifier": "cosmos:end_cleaner"
+        },
+        "components": {
+            "minecraft:display_name": "\u00c2\u00a74Dangerous (Don't place)",
+            "minecraft:destructible_by_mining": false,
+            "minecraft:destructible_by_explosion": false,
+            "minecraft:custom_components": [
+                "cosmos:end_cleaner"
+            ],
+            "minecraft:geometry": "minecraft:geometry.full_block",
+            "minecraft:tick": {
+                "looping": true,
+                "interval_range": [
+                    1,
+                    1
+                ]
+            },
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "empty",
+                    "render_method": "alpha_test"
+                }
+            },
+            "minecraft:loot": "loot_tables/blocks/utility/end_cleaner.json"
+        }
     }
-  }
 }

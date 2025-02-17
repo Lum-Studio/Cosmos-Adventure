@@ -1,12 +1,14 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:block": {
-    "description": {
-      "identifier": "cosmos:clear_tin_vacuum_glass",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {}
-  }
+    "format_version": "1.20.80",
+    "minecraft:block": {
+        "description": {
+            "identifier": "cosmos:clear_tin_vacuum_glass",
+            "menu_category": {
+                "category": "items"
+            }
+        },
+        "components": {
+            "minecraft:loot": "loot_tables/blocks/vacuum_glass/clear_tin_vacuum_glass.json"
+        }
+    }
 }

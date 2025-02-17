@@ -1,12 +1,14 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:block": {
-    "description": {
-      "identifier": "cosmos:emergency_box",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {}
-  }
+    "format_version": "1.20.80",
+    "minecraft:block": {
+        "description": {
+            "identifier": "cosmos:emergency_box",
+            "menu_category": {
+                "category": "items"
+            }
+        },
+        "components": {
+            "minecraft:loot": "loot_tables/blocks/block_placeholders/emergency_box.json"
+        }
+    }
 }

@@ -1,12 +1,14 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:block": {
-    "description": {
-      "identifier": "cosmos:meteoric_iron_block",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {}
-  }
+    "format_version": "1.20.80",
+    "minecraft:block": {
+        "description": {
+            "identifier": "cosmos:meteoric_iron_block",
+            "menu_category": {
+                "category": "items"
+            }
+        },
+        "components": {
+            "minecraft:loot": "loot_tables/blocks/unready_blocks/meteoric_iron_block.json"
+        }
+    }
 }

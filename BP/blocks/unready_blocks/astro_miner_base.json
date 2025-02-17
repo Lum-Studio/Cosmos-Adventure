@@ -1,17 +1,21 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:block": {
-    "description": {
-      "identifier": "cosmos:astro_miner_base",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:geometry": "minecraft:geometry.full_block",
-      "minecraft:material_instances": {
-        "*": { "render_method": "blend", "texture": "astro_miner_base" }
-      }
+    "format_version": "1.20.80",
+    "minecraft:block": {
+        "description": {
+            "identifier": "cosmos:astro_miner_base",
+            "menu_category": {
+                "category": "items"
+            }
+        },
+        "components": {
+            "minecraft:geometry": "minecraft:geometry.full_block",
+            "minecraft:material_instances": {
+                "*": {
+                    "render_method": "blend",
+                    "texture": "astro_miner_base"
+                }
+            },
+            "minecraft:loot": "loot_tables/blocks/unready_blocks/astro_miner_base.json"
+        }
     }
-  }
 }

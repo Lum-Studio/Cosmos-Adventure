@@ -1,22 +1,43 @@
 {
     "format_version": "1.20.80",
     "minecraft:block": {
-        "description":{
+        "description": {
             "identifier": "cosmos:hydraulic_platform",
-            "menu_category": {"category": "items"},
-            "states":{
-                "cosmos:rotation": [0, 1, 2, 3],
-                "cosmos:is_open": [false, true],
-                "cosmos:is_selected": [false, true],
-                "cosmos:is_full": [false, true],
-                "cosmos:is_main": [false, true]
+            "menu_category": {
+                "category": "items"
+            },
+            "states": {
+                "cosmos:rotation": [
+                    0,
+                    1,
+                    2,
+                    3
+                ],
+                "cosmos:is_open": [
+                    false,
+                    true
+                ],
+                "cosmos:is_selected": [
+                    false,
+                    true
+                ],
+                "cosmos:is_full": [
+                    false,
+                    true
+                ],
+                "cosmos:is_main": [
+                    false,
+                    true
+                ]
             }
         },
-        "components":{
-            "minecraft:custom_components":["cosmos:hydraulic_platform"],
-            "minecraft:geometry":{
+        "components": {
+            "minecraft:custom_components": [
+                "cosmos:hydraulic_platform"
+            ],
+            "minecraft:geometry": {
                 "identifier": "geometry.hydraulic_platform",
-                "bone_visibility":{
+                "bone_visibility": {
                     "base": "!q.block_state('cosmos:is_full')",
                     "base2_1": "q.block_state('cosmos:is_full') && q.block_state('cosmos:rotation') == 0",
                     "base2_2": "q.block_state('cosmos:is_full') && q.block_state('cosmos:rotation') == 1",
@@ -33,25 +54,48 @@
                 }
             },
             "minecraft:material_instances": {
-                "*": { "texture": "hydraulic_platform", "render_method": "alpha_test"}
+                "*": {
+                    "texture": "hydraulic_platform",
+                    "render_method": "alpha_test"
+                }
             },
             "minecraft:destructible_by_mining": {
                 "seconds_to_destroy": 0.2
             },
             "minecraft:collision_box": {
-                "origin": [-8, 6, -8],
-                "size": [16, 10, 16]
+                "origin": [
+                    -8,
+                    6,
+                    -8
+                ],
+                "size": [
+                    16,
+                    10,
+                    16
+                ]
             },
             "minecraft:selection_box": {
-                "origin": [-8, 6, -8],
-                "size": [16, 10, 16]
+                "origin": [
+                    -8,
+                    6,
+                    -8
+                ],
+                "size": [
+                    16,
+                    10,
+                    16
+                ]
             },
             "minecraft:tick": {
-                "interval_range": [0, 1],
+                "interval_range": [
+                    0,
+                    1
+                ],
                 "looping": true
-            }
-        }, 
-        "permutations":[
+            },
+            "minecraft:loot": "loot_tables/blocks/hydraulic_platform.json"
+        },
+        "permutations": [
             {
                 "condition": "query.block_state('cosmos:is_open') == true",
                 "components": {

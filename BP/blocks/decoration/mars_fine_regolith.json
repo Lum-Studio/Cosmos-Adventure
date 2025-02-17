@@ -1,0 +1,23 @@
+{
+    "format_version": "1.20.80",
+    "minecraft:block": {
+        "description": {
+            "identifier": "cosmos:mars_fine_regolith",
+            "menu_category": {
+                "category": "items"
+            }
+        },
+        "components": {
+            "minecraft:display_name": "%tile.basic_block_mars.mars_fine_regolith.name",
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 1
+            },
+            "tag:take_durability": {},
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0.5
+            },
+            "minecraft:map_color": "#ffffff",
+            "minecraft:loot": "loot_tables/blocks/decoration/mars_fine_regolith.json"
+        }
+    }
+}
