@@ -1,0 +1,13 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:scatter_feature": {
+    "description": {
+      "identifier": "cosmos:mars/base/mountain_mars"
+    },
+    "places_feature": "cosmos:mars/base/layer_picker",
+    "iterations": "v.base = 93; v.huge = (q.noise(v.originx*0.003125,v.originz*0.003125)+0.25*q.noise(v.originx*0.00625,v.originz*0.00625)+0.0625*q.noise(v.originx*0.0125,v.originz*0.0125)+0.015625*q.noise(v.originx*0.025,v.originz*0.025))*12; v.mountain = q.noise(v.originx*0.002,v.originz*0.002)*95; v.valley = (q.noise(v.originx*0.005,v.originz*0.005)-0.5)*50; v.weight = math.clamp(q.noise(v.originx*0.004,v.originz*0.004),0,1); v.combo = v.mountain*v.weight + v.valley*(1-v.weight); v.detail = q.noise(v.originx*0.1,v.originz*0.1)*2; v.crater = (q.noise(v.originx*0.02,v.originz*0.02)-0.8)*20; v.craterDep = (v.crater<0)?v.crater:0; t.height = math.max(v.base+v.huge+v.combo+v.detail+v.craterDep,v.base); t.layer = math.floor(t.height)-1; return 1;",
+    "x": 0,
+    "z": 0,
+    "y": 0
+  }
+}
