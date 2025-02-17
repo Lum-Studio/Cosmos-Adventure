@@ -1,0 +1,25 @@
+{
+	"format_version": "1.20.20",
+	"minecraft:scatter_feature": {
+		"description": {
+			"identifier": "cosmos:mars/chunk"
+		},
+		"places_feature": "cosmos:mars/main_sequence",
+		"iterations": 256,
+		"x": {
+			"distribution": "fixed_grid",
+			"extent": [
+				0,
+				15
+			]
+		},
+		"z": {
+			"distribution": "fixed_grid",
+			"extent": [
+				0,
+				15
+			]
+		},
+		"y": 0
+	}
+}

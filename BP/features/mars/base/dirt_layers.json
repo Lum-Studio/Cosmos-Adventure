@@ -5,7 +5,7 @@
 		"description": {
 			"identifier": "cosmos:mars/base/dirt_layers"
 		},
-		"places_feature": "cosmos:blocks/mars_dirt",
+		"places_feature": "cosmos:blocks/mars_regolith",
 		"iterations": "t.layer > 1 && t.layer < 5",
 		"x": 0,
 		"z": 0,
