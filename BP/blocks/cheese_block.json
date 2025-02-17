@@ -67,7 +67,7 @@
                             14
                         ]
                     },
-                    "minecraft:loot": "empty.json",
+                    "minecraft:loot": "loot_tables/blocks/cheese_block.json",
                     "minecraft:selection_box": {
                         "origin": [
                             5,
@@ -97,7 +97,7 @@
                             14
                         ]
                     },
-                    "minecraft:loot": "empty.json",
+                    "minecraft:loot": "loot_tables/blocks/cheese_block.json",
                     "minecraft:selection_box": {
                         "origin": [
                             3,
@@ -127,7 +127,7 @@
                             14
                         ]
                     },
-                    "minecraft:loot": "empty.json",
+                    "minecraft:loot": "loot_tables/blocks/cheese_block.json",
                     "minecraft:selection_box": {
                         "origin": [
                             1,
@@ -157,7 +157,7 @@
                             14
                         ]
                     },
-                    "minecraft:loot": "empty.json",
+                    "minecraft:loot": "loot_tables/blocks/cheese_block.json",
                     "minecraft:selection_box": {
                         "origin": [
                             -1,
@@ -187,7 +187,7 @@
                             14
                         ]
                     },
-                    "minecraft:loot": "empty.json",
+                    "minecraft:loot": "loot_tables/blocks/cheese_block.json",
                     "minecraft:selection_box": {
                         "origin": [
                             -3,
@@ -217,7 +217,7 @@
                             14
                         ]
                     },
-                    "minecraft:loot": "empty.json",
+                    "minecraft:loot": "loot_tables/blocks/cheese_block.json",
                     "minecraft:selection_box": {
                         "origin": [
                             -5,
