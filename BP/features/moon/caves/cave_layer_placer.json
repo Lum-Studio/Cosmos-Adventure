@@ -1,19 +1,20 @@
 {
 	"format_version": "1.20.20",
 	"minecraft:scatter_feature": {
-		"description": {
-			"identifier": "cosmos:moon/caves/cave_layer_placer"
-		},
-		"places_feature": "cosmos:blocks/air",
-		"iterations": "v.n1 = q.noise(v.originx*0.01, v.originz*0.01)*30; v.n2 = q.noise(v.originx*0.01 + 100, v.originz*0.01 + 200)*20 + 15; return v.n1 + 1;",
-		"x": 0,
-		"z": 0,
-		"y": {
-			"distribution": "fixed_grid",
-			"extent": [
-				"v.n2",
-				"v.n2 + 100"
-			]
-		}
+	  "description": {
+		"identifier": "cosmos:moon/caves/cave_layer_placer"
+	  },
+	  "places_feature": "cosmos:blocks/air",
+	  "iterations": "(v.amplitude = 1, v.n1 = 0, v.n2 = 0, v.n3 = (q.noise(0,0)*v.amplitude - 0.1)*4, v.i = v.originx * 0.0125 / 4, v.j = v.originz * 0.0125 / 4, v.i2 = -v.originx * 0.015 / 4, v.j2 = -v.originz * 0.015 / 4, v.n1 = v.n1 + q.noise(v.i, v.j)*v.amplitude, v.n2 = v.n2 + q.noise(v.i2, v.j2)*v.amplitude, v.i = v.i*2, v.j = v.j*2, v.i2 = v.i2*2, v.j2 = v.j2*2, v.amplitude = v.amplitude*0.25, v.n1 = v.n1 + q.noise(v.i, v.j)*v.amplitude, v.n2 = v.n2 + q.noise(v.i2, v.j2)*v.amplitude, v.i = v.i*2, v.j = v.j*2, v.i2 = v.i2*2, v.j2 = v.j2*2, v.amplitude = v.amplitude*0.25, v.n1 = v.n1 + q.noise(v.i, v.j)*v.amplitude, v.n2 = v.n2 + q.noise(v.i2, v.j2)*v.amplitude, v.i = v.i*2, v.j = v.j*2, v.i2 = v.i2*2, v.j2 = v.j2*2, v.amplitude = v.amplitude*0.25, v.n1 = v.n1 + q.noise(v.i, v.j)*v.amplitude, v.n2 = v.n2 + q.noise(v.i2, v.j2)*v.amplitude, v.i = v.i*2, v.j = v.j*2, v.i2 = v.i2*2, v.j2 = v.j2*2, v.amplitude = v.amplitude*0.25, v.n1 = v.n1*8, v.n2 = v.n2*24, v.ydev = v.n3 < 0 ? v.n1 : (v.n3 > 1 ? v.n2 : (v.n1 + (v.n2 - v.n1)*v.n3)), floor((90 + v.ydev) - 63) )",
+	  "x": 0,
+	  "z": 0,
+	  "y": {
+		"distribution": "fixed_grid",
+		"extent": [
+		  "v.n2",
+		  "v.n2 + 100"
+		]
+	  }
 	}
-}
+  }
+  
