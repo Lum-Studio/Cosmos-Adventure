@@ -1,0 +1,11 @@
+{
+	"format_version": "1.20.20",
+	"minecraft:single_block_feature": {
+		"description": {
+			"identifier": "cosmos:blocks/mars_stone"
+		},
+		"places_block": "cosmos:mars_stone",
+		"enforce_placement_rules": false,
+		"enforce_survivability_rules": false
+	}
+}
