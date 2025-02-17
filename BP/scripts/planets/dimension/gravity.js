@@ -369,7 +369,6 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
      // Determine acceleration factor based on block below.
     const blockBelow = getBlockBelow(entity);
     let fallAccelerationFactor;
-    
     if (blockBelow && blockBelow.typeId === "minecraft:slime_block") {
       // If on a slime block, check if the fall velocity is below a threshold.
       const bounceThreshold = -0.001; // threshold for a hard fall
