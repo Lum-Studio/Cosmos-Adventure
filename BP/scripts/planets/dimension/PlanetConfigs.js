@@ -9,7 +9,7 @@ export const planetConfigs = [
     {
         id: 'venus',
         range: { start: { x: 50000, z: -100000 }, end: { x: 100000, z: -50000 } },
-        gravity: 8.87
+        gravity: 9.8
     },
     {
         id: 'moon',
