@@ -7,7 +7,7 @@
 		"features": [
 			"cosmos:mars/base/rock_layers", // > 4
 			"cosmos:mars/base/dirt_layers", // 2..4
-			"cosmos:mars/base/turf_layer" // 1
+			"cosmos:mars/base/turf_layers" // 1
 		],
 		"early_out": "first_success"
 	}

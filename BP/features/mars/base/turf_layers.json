@@ -3,7 +3,7 @@
 	"format_version": "1.20.20",
 	"minecraft:scatter_feature": {
 		"description": {
-			"identifier": "cosmos:mars/base/turf_layer"
+			"identifier": "cosmos:mars/base/turf_layers"
 		},
 		"places_feature": "cosmos:blocks/mars_fine_regolith",
 		"iterations": "t.layer == 1",
