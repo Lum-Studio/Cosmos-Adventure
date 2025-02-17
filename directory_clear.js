@@ -8,7 +8,7 @@ const basePath = "C:\\Users\\ADMIN\\AppData\\Local\\Packages\\Microsoft.Minecraf
 const packFolders = ["behavior_packs", "resource_packs"];
 
 // Name of the folder to delete
-const folderToDelete = "Cosmos_Adventure";
+const folderToDelete = "CosmosAdve";
 
 packFolders.forEach(packFolder => {
   const folderPath = path.join(basePath, packFolder, folderToDelete);
