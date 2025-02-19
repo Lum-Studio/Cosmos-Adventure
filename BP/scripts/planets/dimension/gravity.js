@@ -199,7 +199,7 @@ class Gravity {
    * @param {Object} vector - The gravity vector.
    * @param {Object} power - The power object.
    */
-  applyKnockbackWithDamage(targetEntity, vector, power) {
+  applyKnockbackWithResistance(targetEntity, vector, power) {
     const knockbackResistance =
       typeof targetEntity.getEffect === "function" && targetEntity.getEffect("knockback_resistance")
         ? Number(targetEntity.getEffect("knockback_resistance").amplifier)
@@ -255,7 +255,7 @@ class Gravity {
     const v_desired = Math.sqrt(2 * this.value * desiredJumpHeight);
     const extraImpulse = v_desired - v_default;
     const jumpTicks = 10;
-    const multiplier = 0.0001;
+    const multiplier = 0.00001;
     const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
   
     const executeJumpStep = (step) => {
