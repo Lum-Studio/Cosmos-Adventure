@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:rocket_fins"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "rocket_fins"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:rocket_fins",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "rocket_fins"
+         }
       }
-    }
-  }
+   }
 }

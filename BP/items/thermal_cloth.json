@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:thermal_cloth"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "thermal_cloth"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:thermal_cloth",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "thermal_cloth"
+         }
       }
-    }
-  }
+   }
 }

@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:radioactive_core"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "radioactive_core"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:radioactive_core",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "radioactive_core"
+         }
       }
-    }
-  }
+   }
 }

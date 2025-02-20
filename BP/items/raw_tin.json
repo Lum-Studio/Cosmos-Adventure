@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:raw_tin"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "raw_tin"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:raw_tin",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "raw_tin"
+         }
       }
-    }
-  }
+   }
 }

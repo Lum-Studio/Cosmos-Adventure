@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:tier3_key"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "compressed_bronze"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:tier3_key",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "compressed_bronze"
+         }
       }
-    }
-  }
+   }
 }
