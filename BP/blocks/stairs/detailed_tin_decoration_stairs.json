@@ -4,7 +4,7 @@
         "description": {
             "identifier": "cosmos:detailed_tin_decoration_stairs",
             "menu_category": {
-                "category": "construction"
+                "category": "items"
             },
             "traits": {
                 "minecraft:placement_direction": {

@@ -1,22 +1,22 @@
 {
-    "format_version": "1.20.10",
-    "minecraft:block": {
-        "description": {
-            "identifier": "cosmos:mars_cobblestone",
-            "menu_category": {
-                "category": "construction"
-            }
-        },
-        "components": {
-            "minecraft:display_name": "%tile.mars.marscobblestone.name",
-            "minecraft:destructible_by_explosion": {
-                "explosion_resistance": 12
-            },
-            "minecraft:destructible_by_mining": {
-                "seconds_to_destroy": 1
-            },
-            "minecraft:map_color": "#ffffff",
-            "minecraft:loot": "loot_tables/blocks/decoration/mars_cobblestone.json"
-        }
-    }
+   "format_version": "1.20.10",
+   "minecraft:block": {
+      "description": {
+         "identifier": "cosmos:mars_cobblestone",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:display_name": "%tile.mars.marscobblestone.name",
+         "minecraft:destructible_by_explosion": {
+            "explosion_resistance": 12
+         },
+         "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 1
+         },
+         "minecraft:map_color": "#ffffff",
+         "minecraft:loot": "loot_tables/blocks/decoration/mars_cobblestone.json"
+      }
+   }
 }

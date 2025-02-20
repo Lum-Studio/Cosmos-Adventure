@@ -1,18 +1,18 @@
 {
-    "format_version": "1.20.10",
-    "minecraft:block": {
-        "description": {
-            "identifier": "cosmos:mars_dungeon_bricks",
-            "menu_category": {
-                "category": "construction"
-            }
-        },
-        "components": {
-            "minecraft:display_name": "%tile.mars.marsdungeon.name",
-            "minecraft:destructible_by_explosion": false,
-            "minecraft:destructible_by_mining": false,
-            "minecraft:loot": "loot_tables/blocks/decoration/mars_dungeon_bricks.json",
-            "minecraft:map_color": "#ffffff"
-        }
-    }
+   "format_version": "1.20.10",
+   "minecraft:block": {
+      "description": {
+         "identifier": "cosmos:mars_dungeon_bricks",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:display_name": "%tile.mars.marsdungeon.name",
+         "minecraft:destructible_by_explosion": false,
+         "minecraft:destructible_by_mining": false,
+         "minecraft:loot": "loot_tables/blocks/decoration/mars_dungeon_bricks.json",
+         "minecraft:map_color": "#ffffff"
+      }
+   }
 }
