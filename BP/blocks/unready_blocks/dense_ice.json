@@ -1,14 +1,14 @@
 {
-    "format_version": "1.20.80",
-    "minecraft:block": {
-        "description": {
-            "identifier": "cosmos:dense_ice",
-            "menu_category": {
-                "category": "items"
-            }
-        },
-        "components": {
-            "minecraft:loot": "loot_tables/blocks/unready_blocks/dense_ice.json"
-        }
-    }
+   "format_version": "1.20.80",
+   "minecraft:block": {
+      "description": {
+         "identifier": "cosmos:dense_ice",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:loot": "loot_tables/blocks/unready_blocks/dense_ice.json"
+      }
+   }
 }

@@ -1,14 +1,14 @@
 {
-    "format_version": "1.20.60",
-    "minecraft:block": {
-        "description": {
-            "identifier": "cosmos:desh_block",
-            "menu_category": {
-                "category": "items"
-            }
-        },
-        "components": {
-            "minecraft:loot": "loot_tables/blocks/unready_blocks/desh_block.json"
-        }
-    }
+   "format_version": "1.20.60",
+   "minecraft:block": {
+      "description": {
+         "identifier": "cosmos:desh_block",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:loot": "loot_tables/blocks/unready_blocks/desh_block.json"
+      }
+   }
 }

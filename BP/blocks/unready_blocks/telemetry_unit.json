@@ -1,14 +1,14 @@
 {
-    "format_version": "1.20.80",
-    "minecraft:block": {
-        "description": {
-            "identifier": "cosmos:telemetry_unit",
-            "menu_category": {
-                "category": "items"
-            }
-        },
-        "components": {
-            "minecraft:loot": "loot_tables/blocks/unready_blocks/telemetry_unit.json"
-        }
-    }
+   "format_version": "1.20.80",
+   "minecraft:block": {
+      "description": {
+         "identifier": "cosmos:telemetry_unit",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:loot": "loot_tables/blocks/unready_blocks/telemetry_unit.json"
+      }
+   }
 }
