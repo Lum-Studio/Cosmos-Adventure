@@ -1,43 +1,81 @@
-    {
-        "format_version": "1.21.60",
-        "minecraft:crafting_items_catalog": {
-            "categories": [
-                {
-                    "category_name": "items",
-                    "groups": [
-                        {
-                            "group_identifier": {
-                                "icon": "cosmos:electric_compressor",
-                                "name": "cosmos:galacticraft_blocks"
-                            },
-                            "items": [
-                                "cosmos:rocket_launch_pad",
-                                "cosmos:buggy_fueling_pad",
-                                "cosmos:aluminum_wire",
-                                "cosmos:heavy_aluminum_wire",
-                                "cosmos:fluid_pipe",
-                                "cosmos:sealed_aluminum_wire",
-                                "cosmos:sealed_heavy_aluminum_wire",
-                                "cosmos:sealed_fluid_pipe",
-                                "cosmos:oxygen_bubble_distributor",
-                                "cosmos:oxygen_collector",
-                                "cosmos:oxygen_compressor",
-                                "cosmos:oxygen_decompressor",
-                                "cosmos:oxygen_sealer"
-                            ]
+{
+    "format_version": "1.21.60",
+    "minecraft:crafting_items_catalog": {
+        "categories": [
+            {
+                "category_name": "items",
+                "groups": [
+                    {
+                        "group_identifier": {
+                            "icon": "cosmos:electric_compressor",
+                            "name": "cosmos:galacticraft_blocks"
                         },
-                        {
-                            "group_identifier": {
-                                "icon": "cosmos:astro_miner_item",
-                                "name": "cosmos:galacticraft_items"
-                            },
-                            "items": [
-                                "cosmos:astro_miner_item",
-                                "cosmos:moon_buggy_item"
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
+                        "items": [
+                            "cosmos:rocket_launch_pad",
+                            "cosmos:buggy_fueling_pad",
+                            "cosmos:aluminum_wire",
+                            "cosmos:heavy_aluminum_wire",
+                            "cosmos:fluid_pipe",
+                            "cosmos:sealed_aluminum_wire",
+                            "cosmos:sealed_heavy_aluminum_wire",
+                            "cosmos:sealed_fluid_pipe",
+                            "cosmos:oxygen_bubble_distributor",
+                            "cosmos:oxygen_collector",
+                            "cosmos:oxygen_compressor",
+                            "cosmos:oxygen_decompressor",
+                            "cosmos:oxygen_sealer",
+                            "cosmos:oxygen_detector",
+                            "cosmos:refinery",
+                            "cosmos:fuel_loader",
+                            "cosmos:cargo_loader",
+                            "cosmos:cargo_unloader",
+                            "cosmos:nasa_workbench",
+                            "cosmos:air_lock_frame",
+                            "cosmos:air_lock_controller",
+                            "cosmos:basic_solar_panel",
+                            "cosmos:advanced_solar_panel,\n                                ",
+                            "cosmos:coal_generator",
+                            "cosmos:compressor",
+                            "cosmos:electric_compressor",
+                            "cosmos:circuit_fabricator",
+                            "cosmos:oxygen_storage_module",
+                            "cosmos:deconstructor",
+                            "cosmos:chromatic_applicator",
+                            "cosmos:energy_storage_module",
+                            "cosmos:electric_furnace",
+                            "cosmos:energy_storage_cluster",
+                            "cosmos:electric_arc_furnace",
+                            "cosmos:advanced_compressor",
+                            "cosmos:spin_thruster",
+                            "cosmos:display_screen",
+                            "cosmos:telemetry_unit",
+                            "cosmos:arc_lamp",
+                            "cosmos:terraformer",
+                            "cosmos:cryogenic_chamber",
+                            "cosmos:launch_controller",
+                            "cosmos:gas_liquefier",
+                            "cosmos:methane_synthesizer",
+                            "cosmos:water_electrolyzer",
+                            "cosmos:beam_reflector",
+                            "cosmos:beam_receiver",
+                            "cosmos:telepad",
+                            "cosmos:geothermal_generator",
+                            "cosmos:oxygen_storage_module,\n                                ",
+                            "cosmos:solar_array_controller"
+                        ]
+                    },
+                    {
+                        "group_identifier": {
+                            "icon": "cosmos:astro_miner_item",
+                            "name": "cosmos:galacticraft_items"
+                        },
+                        "items": [
+                            "cosmos:astro_miner_item",
+                            "cosmos:moon_buggy_item"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
+}
