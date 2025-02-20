@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:heavy_nose_cone"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "heavy_nose_cone"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:heavy_nose_cone",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "heavy_nose_cone"
+         }
       }
-    }
-  }
+   }
 }

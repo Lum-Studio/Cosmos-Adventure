@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:compressed_aluminum"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "compressed_aluminum"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:compressed_aluminum",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "compressed_aluminum"
+         }
       }
-    }
-  }
+   }
 }

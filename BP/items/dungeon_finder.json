@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:dungeon_finder"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "dungeon_finder"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:dungeon_finder",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "dungeon_finder"
+         }
       }
-    }
-  }
+   }
 }

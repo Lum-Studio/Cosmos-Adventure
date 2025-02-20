@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:cheese_curd"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "cheese_curd"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:cheese_curd",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "cheese_curd"
+         }
       }
-    }
-  }
+   }
 }

@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:atmospheric_valve"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "atmospheric_valve"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:atmospheric_valve",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "atmospheric_valve"
+         }
       }
-    }
-  }
+   }
 }

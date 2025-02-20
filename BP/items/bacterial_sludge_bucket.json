@@ -1,13 +1,18 @@
 {
-  "format_version": "1.21.40",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:bacterial_sludge_bucket"
-    },
-    "components": {
-      "minecraft:icon": "bacterial_sludge_bucket",
-      "minecraft:max_stack_size": 1,
-      "minecraft:custom_components": ["cosmos:bucket"]
-    }
-  }
+   "format_version": "1.21.40",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:bacterial_sludge_bucket",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": "bacterial_sludge_bucket",
+         "minecraft:max_stack_size": 1,
+         "minecraft:custom_components": [
+            "cosmos:bucket"
+         ]
+      }
+   }
 }

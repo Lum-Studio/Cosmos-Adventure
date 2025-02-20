@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:ambient_thermal_controller"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "ambient_thermal_controller"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:ambient_thermal_controller",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "ambient_thermal_controller"
+         }
       }
-    }
-  }
+   }
 }

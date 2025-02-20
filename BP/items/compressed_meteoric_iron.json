@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:compressed_meteoric_iron"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "compressed_meteoric_iron"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:compressed_meteoric_iron",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "compressed_meteoric_iron"
+         }
       }
-    }
-  }
+   }
 }

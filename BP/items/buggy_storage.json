@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:buggy_storage"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "buggy_storage"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:buggy_storage",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "buggy_storage"
+         }
       }
-    }
-  }
+   }
 }

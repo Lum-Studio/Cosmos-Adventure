@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:orion_drive"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "orion_drive"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:orion_drive",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "orion_drive"
+         }
       }
-    }
-  }
+   }
 }
