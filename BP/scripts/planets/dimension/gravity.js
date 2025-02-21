@@ -3,15 +3,15 @@ import { Vec3 } from "api/libraries/Vector";
 export { Gravity };
 
 
-
 /**
  * ✨💕 LUM STUDIO GRAVITY SYSTEM (2022-2025) 💕✨
  * Custom Gravitational Computational Engine for Minecraft Bedrock
  * Created with love and passion by LUM STUDIO. @ARR
- *
- * @author REFRACTED
+*
+* @author REFRACTED
  */
 
+const theEnd = world.getDimension("the_end");
 // --- Shared State using WeakMaps ---
 /** @type {WeakMap<any, boolean>} */
 const playerJumpMap = new WeakMap();
@@ -630,20 +630,20 @@ function delay(ticks) {
 }
 
 // Global cache for entities that require gravity processing. Basically all entities.
-const gravityEntities = new Set(
-  DimensionTypes
-    .getAll()
-    .flatMap(d => world.getDimension(d.typeId)
-      .getEntities({ type: "minecraft:player" })
-    )
-);
+const gravityEntities = new Set();
 
+world.getAllPlayers().forEach(p => gravityEntities.add(p));
 
 
 // Subscribe to generic entity spawn events for non-player entities.
-world.afterEvents.entitySpawn.subscribe((eventData) => gravityEntities.add(eventData.entity));
+world.afterEvents.entitySpawn.subscribe((eventData) => {
+  if (eventData.entity.dimension !== theEnd) return;
+  gravityEntities.add(eventData.entity)
+});
+
 world.afterEvents.entityLoad.subscribe((eventData) => {
-  gravityEntities.has(eventData.entity) || gravityEntities.add(eventData.entity)
+  if (eventData.entity.dimension !== theEnd) return;
+  gravityEntities.add(eventData.entity);
 });
 
 // Subscribe to player dimension change to capture players as they change dimensions.
@@ -663,7 +663,6 @@ world.beforeEvents.entityRemove.subscribe((eventData) => gravityEntities.delete(
 // Process gravity for every cached entity once per tick.
 system.runInterval(() => {
   gravityEntities.forEach(entity => {
-    if (!entity.isValid()) return;
     gravityFuncMain(entity);
   });
 }, 1);
@@ -735,23 +734,9 @@ function getBlockAbove(entity) {
  * @return {any|null} The block in the movement direction or null if unavailable.
  */
 function getBlockInMovementDirection(entity) {
-  if (
-    !entity.location ||
-    typeof entity.location.x !== "number" ||
-    typeof entity.location.y !== "number" ||
-    typeof entity.location.z !== "number"
-  ) {
-    return null;
-  }
   if (typeof entity.inputInfo?.getMovementVector !== "function") return null;
   const movement = entity.inputInfo.getMovementVector();
-  if (
-    typeof movement.x !== "number" ||
-    typeof movement.y !== "number" ||
-    typeof movement.z !== "number"
-  ) {
-    return null;
-  }
+  movement.z = 0;
   const magnitude = Math.sqrt(movement.x ** 2 + movement.y ** 2 + movement.z ** 2);
   if (magnitude === 0) return null;
 
@@ -787,7 +772,9 @@ function getBlockInMovementDirection(entity) {
  */
 function getBlockAtOffset(entity, offsetX, offsetY, offsetZ) {
   try {
-    return entity.dimension.getBlock(Vec3(offsetX, offsetY, offsetZ).add(entity.location));
+    const loc = entity.location;
+    loc.x += offsetX, loc.y += offsetY, loc.z += offsetZ;
+    return entity.dimension.getBlock(loc);
   } catch (error) {
     return null;
   }
@@ -800,5 +787,7 @@ function getBlockAtOffset(entity, offsetX, offsetY, offsetZ) {
  * @return {any|null} The block below the entity or null if unavailable.
  */
 function getBlockBelow(entity) {
-  return entity.dimension.getBlock(Vec3.down.add(entity.location));
+  const loc = entity.location;
+  loc.y -= 1;
+  return entity.dimension.getBlock(loc);
 }
