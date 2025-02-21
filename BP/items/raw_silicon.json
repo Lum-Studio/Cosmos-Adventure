@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:raw_silicon"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "raw_silicon"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:raw_silicon",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "raw_silicon"
+         }
       }
-    }
-  }
+   }
 }

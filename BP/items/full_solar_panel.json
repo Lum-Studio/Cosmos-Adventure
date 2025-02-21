@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:full_solar_panel"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "full_solar_panel"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:full_solar_panel",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "full_solar_panel"
+         }
       }
-    }
-  }
+   }
 }

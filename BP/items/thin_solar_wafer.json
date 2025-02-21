@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:thin_solar_wafer"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "thin_solar_wafer"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:thin_solar_wafer",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "thin_solar_wafer"
+         }
       }
-    }
-  }
+   }
 }

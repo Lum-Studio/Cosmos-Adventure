@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:liftoff_checklist"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "liftoff_checklist"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:liftoff_checklist",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "liftoff_checklist"
+         }
       }
-    }
-  }
+   }
 }

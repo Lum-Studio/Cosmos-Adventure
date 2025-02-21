@@ -1,21 +1,21 @@
 {
-    "format_version": "1.20.10",
-    "minecraft:block": {
-        "description": {
-            "identifier": "cosmos:detailed_tin_decoration_block",
-            "menu_category": {
-                "category": "construction"
-            }
-        },
-        "components": {
-            "minecraft:destructible_by_explosion": {
-                "explosion_resistance": 12
-            },
-            "minecraft:destructible_by_mining": {
-                "seconds_to_destroy": 1
-            },
-            "minecraft:map_color": "#ffffff",
-            "minecraft:loot": "loot_tables/blocks/decoration/detailed_tin_decoration_block.json"
-        }
-    }
+   "format_version": "1.20.10",
+   "minecraft:block": {
+      "description": {
+         "identifier": "cosmos:detailed_tin_decoration_block",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:destructible_by_explosion": {
+            "explosion_resistance": 12
+         },
+         "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 1
+         },
+         "minecraft:map_color": "#ffffff",
+         "minecraft:loot": "loot_tables/blocks/decoration/detailed_tin_decoration_block.json"
+      }
+   }
 }

@@ -1,14 +1,14 @@
 {
-    "format_version": "1.20.80",
-    "minecraft:block": {
-        "description": {
-            "identifier": "cosmos:detailed_tin_decoration_slab",
-            "menu_category": {
-                "category": "items"
-            }
-        },
-        "components": {
-            "minecraft:loot": "loot_tables/blocks/block_placeholders/detailed_tin_decoration_slab.json"
-        }
-    }
+   "format_version": "1.20.80",
+   "minecraft:block": {
+      "description": {
+         "identifier": "cosmos:detailed_tin_decoration_slab",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:loot": "loot_tables/blocks/block_placeholders/detailed_tin_decoration_slab.json"
+      }
+   }
 }

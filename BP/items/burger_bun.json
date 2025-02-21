@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:burger_bun"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "burger_bun"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:burger_bun",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "burger_bun"
+         }
       }
-    }
-  }
+   }
 }

@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:copper_canister"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "copper_canister"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:copper_canister",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "copper_canister"
+         }
       }
-    }
-  }
+   }
 }

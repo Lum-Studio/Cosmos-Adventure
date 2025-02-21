@@ -1,13 +1,18 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:parachute_darkblue"
-    },
-    "components": {
-      "minecraft:custom_components": ["cosmos:space_gear"],
-      "minecraft:icon": "parachute_darkblue",
-      "minecraft:max_stack_size": 1
-    }
-  }
+   "format_version": "1.20.80",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:parachute_darkblue",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:custom_components": [
+            "cosmos:space_gear"
+         ],
+         "minecraft:icon": "parachute_darkblue",
+         "minecraft:max_stack_size": 1
+      }
+   }
 }

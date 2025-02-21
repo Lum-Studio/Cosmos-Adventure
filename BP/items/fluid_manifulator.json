@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:fluid_manifulator"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "fluid_manifulator"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:fluid_manifulator",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "fluid_manifulator"
+         }
       }
-    }
-  }
+   }
 }

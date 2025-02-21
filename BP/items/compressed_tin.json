@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:compressed_tin"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "compressed_tin"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:compressed_tin",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "compressed_tin"
+         }
       }
-    }
-  }
+   }
 }

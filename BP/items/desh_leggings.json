@@ -1,23 +1,22 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:desh_leggings",
-      "menu_category": {
-        "category": "equipment",
-        "group": "itemGroup.name.leggings"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": 1,
-      "minecraft:icon": "desh_leggings",
-      "minecraft:wearable": {
-        "slot": "slot.armor.legs"
+   "format_version": "1.20.80",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:desh_leggings",
+         "menu_category": {
+            "category": "items"
+         }
       },
-      "minecraft:enchantable": {
-        "slot": "armor_legs",
-        "value": 10
+      "components": {
+         "minecraft:max_stack_size": 1,
+         "minecraft:icon": "desh_leggings",
+         "minecraft:wearable": {
+            "slot": "slot.armor.legs"
+         },
+         "minecraft:enchantable": {
+            "slot": "armor_legs",
+            "value": 10
+         }
       }
-    }
-  }
+   }
 }

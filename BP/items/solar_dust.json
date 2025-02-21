@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:solar_dust"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "solar_dust"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:solar_dust",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "solar_dust"
+         }
       }
-    }
-  }
+   }
 }

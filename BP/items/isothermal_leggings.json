@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:isothermal_leggings"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "isothermal_leggings"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:isothermal_leggings",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "isothermal_leggings"
+         }
       }
-    }
-  }
+   }
 }

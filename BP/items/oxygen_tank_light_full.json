@@ -1,22 +1,25 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:oxygen_tank_light_full"
-    },
-    "components": {
-      "minecraft:custom_components": [
-        "cosmos:space_gear"
-      ],
-      "minecraft:durability": {
-        "damage_chance": {
-          "max": 100,
-          "min": 60
-        },
-        "max_durability": 900
+   "format_version": "1.20.80",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:oxygen_tank_light_full",
+         "menu_category": {
+            "category": "items"
+         }
       },
-      "minecraft:icon": "oxygen_tank_light_full",
-      "minecraft:max_stack_size": 1
-    }
-  }
+      "components": {
+         "minecraft:custom_components": [
+            "cosmos:space_gear"
+         ],
+         "minecraft:durability": {
+            "damage_chance": {
+               "max": 100,
+               "min": 60
+            },
+            "max_durability": 900
+         },
+         "minecraft:icon": "oxygen_tank_light_full",
+         "minecraft:max_stack_size": 1
+      }
+   }
 }

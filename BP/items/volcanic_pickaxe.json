@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:volcanic_pickaxe"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "volcanic_pickaxe"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:volcanic_pickaxe",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "volcanic_pickaxe"
+         }
       }
-    }
-  }
+   }
 }

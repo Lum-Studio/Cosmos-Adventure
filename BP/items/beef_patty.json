@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:beef_patty"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "beef_patty"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:beef_patty",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "beef_patty"
+         }
       }
-    }
-  }
+   }
 }

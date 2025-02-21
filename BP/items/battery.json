@@ -1,19 +1,22 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:battery"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "battery"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:battery",
+         "menu_category": {
+            "category": "items"
+         }
       },
-      "minecraft:durability": {
-        "max_durability": 15000
-      },
-      "minecraft:max_stack_size": {
-        "value": 1
+      "components": {
+         "minecraft:icon": {
+            "texture": "battery"
+         },
+         "minecraft:durability": {
+            "max_durability": 15000
+         },
+         "minecraft:max_stack_size": {
+            "value": 1
+         }
       }
-    }
-  }
+   }
 }

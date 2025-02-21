@@ -1,13 +1,16 @@
 {
-  "format_version": "1.20.20",
-  "minecraft:item": {
-    "description": {
-      "identifier": "cosmos:rocket_engine"
-    },
-    "components": {
-      "minecraft:icon": {
-        "texture": "rocket_engine"
+   "format_version": "1.20.20",
+   "minecraft:item": {
+      "description": {
+         "identifier": "cosmos:rocket_engine",
+         "menu_category": {
+            "category": "items"
+         }
+      },
+      "components": {
+         "minecraft:icon": {
+            "texture": "rocket_engine"
+         }
       }
-    }
-  }
+   }
 }
