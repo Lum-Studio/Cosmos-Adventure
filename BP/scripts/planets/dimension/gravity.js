@@ -645,6 +645,13 @@ world.afterEvents.entitySpawn.subscribe((eventData) => {
   }
 });
 
+// Subscribe to generic entity spawn events for non-player entities.
+world.afterEvents.entityHurt.subscribe((eventData) => {
+  if (eventData?.entity && !gravityEntities.has(eventData.entity)) {
+    gravityEntities.add(eventData.entity);
+  }
+});
+
 // Subscribe to player join events to capture players as they join.
 world.afterEvents.playerJoin.subscribe((eventData) => {
   if (eventData?.player) {
