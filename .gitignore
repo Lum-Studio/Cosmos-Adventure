@@ -9,6 +9,7 @@ SKYPEDIA/config.json
 SKYPEDIA/output.json
 BP/blocks/liquids/oil.json
 
-#Remember M9
-tsconfig.json
 
+#Remember M9
+tsconfig_types.d.ts
+tsconfig.json

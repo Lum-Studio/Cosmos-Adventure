@@ -21,11 +21,14 @@
  * SOFTWARE.
  */
 
+/**
+ * @returns {Vec3}
+ */
 export function Vec3(x = 0, y = 0, z = 0) {
-    const vec3 = new.target ? this : { x, y, z };
-    vec3.x = Number(x); vec3.y = Number(y); vec3.z = Number(z);
-    vec3["__proto__"] = __proto__;
-    return vec3;
+    const V3 = new.target ? this : { x, y, z };
+    V3.x = Number(x); V3.y = Number(y); V3.z = Number(z);
+    V3["__proto__"] = __proto__;
+    return V3;
 };
 
 const magnitude = Vec3.magnitude = function magnitude(vec) {
@@ -102,24 +105,24 @@ const __proto__ = Vec3.prototype = {
     toString() { return `<${this.x}, ${this.y}, ${this.z}>`; }
 };
 
-Vec3.Up = { x: 0, y: 1, z: 0 };
-Vec3.Down = { x: 0, y: 1, z: 0 };
-Vec3.Right = { x: 1, y: 0, z: 0 };
-Vec3.Left = { x: -1, y: 0, z: 0 };
-Vec3.Forward = { x: 0, y: 0, z: 1 };
-Vec3.Backward = { x: 0, y: 0, z: -1 };
-Vec3.Zero = { x: 0, y: 0, z: 0 };
-Vec3.One = { x: 1, y: 1, z: 1 };
+Vec3.up = new Vec3(0, 1, 0);
+Vec3.down = new Vec3(0, -1, 0);
+Vec3.right = new Vec3(1, 0, 0);
+Vec3.left = new Vec3(-1, 0, 0);
+Vec3.forward = new Vec3(0, 0, 1);
+Vec3.backward = new Vec3(0, 0, -1);
+Vec3.zero = new Vec3(0, 0, 0);
+Vec3.one = new Vec3(1, 1, 1);
 
 Object.defineProperties(Vec3, {
-    Up: { get() { const V3 = { x: 0, y: 1, z: 0 }; V3.__proto__ = __proto__; return V3 } },
-    Down: { get() { const V3 = { x: 0, y: 1, z: 0 }; V3.__proto__ = __proto__; return V3 } },
-    Right: { get() { const V3 = { x: 1, y: 0, z: 0 }; V3.__proto__ = __proto__; return V3 } },
-    Left: { get() { const V3 = { x: -1, y: 0, z: 0 }; V3.__proto__ = __proto__; return V3 } },
-    Forward: { get() { const V3 = { x: 0, y: 0, z: 1 }; V3.__proto__ = __proto__; return V3 } },
-    Backward: { get() { const V3 = { x: 0, y: 0, z: -1 }; V3.__proto__ = __proto__; return V3 } },
-    Zero: { get() { const V3 = { x: 0, y: 0, z: 0 }; V3.__proto__ = __proto__; return V3 } },
-    One: { get() { const V3 = { x: 1, y: 1, z: 1 }; V3.__proto__ = __proto__; return V3 } },
+    up: { get() { const V3 = { x: 0, y: 1, z: 0 }; V3.__proto__ = __proto__; return V3 } },
+    down: { get() { const V3 = { x: 0, y: -1, z: 0 }; V3.__proto__ = __proto__; return V3 } },
+    right: { get() { const V3 = { x: 1, y: 0, z: 0 }; V3.__proto__ = __proto__; return V3 } },
+    left: { get() { const V3 = { x: -1, y: 0, z: 0 }; V3.__proto__ = __proto__; return V3 } },
+    forward: { get() { const V3 = { x: 0, y: 0, z: 1 }; V3.__proto__ = __proto__; return V3 } },
+    backward: { get() { const V3 = { x: 0, y: 0, z: -1 }; V3.__proto__ = __proto__; return V3 } },
+    zero: { get() { const V3 = { x: 0, y: 0, z: 0 }; V3.__proto__ = __proto__; return V3 } },
+    one: { get() { const V3 = { x: 1, y: 1, z: 1 }; V3.__proto__ = __proto__; return V3 } },
 });
 
 for (const key of Object.keys(Vec3)) Object.defineProperty(Vec3, key, { enumerable: false });

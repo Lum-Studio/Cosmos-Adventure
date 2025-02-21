@@ -55,7 +55,7 @@ class Planet {
 
     /**
      * Gets the center coordinates of the planet
-     * @returns {Vector3} The center coordinates of the planet
+     * @returns {{x:number,z:number}} The center coordinates of the planet
      */
     get center() {
         return {
@@ -82,7 +82,7 @@ class Planet {
 
     /**
      * Checks whether a given location is on the planet
-     * @param {Vector3} location - Location to check
+     * @param {Vec3} location - Location to check
      * @returns {Boolean} Whether or not the location is on the planet
      */
     isOnPlanet(location) {
@@ -97,7 +97,7 @@ class Planet {
      * @param {EntityQueryOptions} entityQueryOptions - Query to use for search
      * @returns {Entity[]} All entities matching the query
      */
-    getEntities(entityQueryOptions) {
+    getEntities(entityQueryOptions = {}) {
         return the_end.getEntities(entityQueryOptions).filter(entity => 
             this.isOnPlanet(entity.location)
         );
@@ -108,7 +108,7 @@ class Planet {
      * @param {EntityQueryOptions} entityQueryOptions - Query to use for search
      * @returns {Player[]} All players matching the query
      */
-    getPlayers(entityQueryOptions) {
+    getPlayers(entityQueryOptions = {}) {
         return the_end.getPlayers(entityQueryOptions).filter(entity => 
             this.isOnPlanet(entity.location)
         );
@@ -116,8 +116,8 @@ class Planet {
 
     /**
      * Offsets the given location relative to the planet's center
-     * @param {Vector3} location - The location to offset
-     * @returns {Vector3} The offset location relative to the planet's center
+     * @param {Vec3} location - The location to offset
+     * @returns {Vec3} The offset location relative to the planet's center
      */
     offset(location) {
         return {
@@ -364,3 +364,12 @@ system.runTimeout(() => {
         }))
     }
 })
+
+
+
+
+
+/**
+ * @typedef {import("@minecraft/server").Vector3} Vec3
+ * @typedef {import("@minecraft/server").EntityQueryOptions} EntityQueryOptions
+ */
