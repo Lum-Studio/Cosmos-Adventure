@@ -13,7 +13,7 @@
  */
  // Lum Studio //
 import { world } from "@minecraft/server";
-import { world } from "@minecraft/server";
+export { EndlessDB};
 
 // Maximum number of characters per dynamic property part.
 const PART_SIZE = 32767;
@@ -108,4 +108,4 @@ export class EndlessDB {
   }
 }
 
-export default EndlessDB;
+
