@@ -300,6 +300,7 @@ class Gravity {
 }
 
 
+
 /**
  * Processes gravity for a given entity.
  * Skips processing if the entity is swimming, flying, gliding, or (if a player) wearing an elytra.
@@ -307,52 +308,44 @@ class Gravity {
  * @param {any} entity - The entity.
  */
 function gravityFuncMain(entity) {
-    if (typeof entity.isValid !== "function" || !entity.isValid()) return;
-    // Skip if swimming, flying, gliding...
-    if (entity.isSwimming) {
-      resetFallVelocity(entity);
-      return;
-    }
-    if (entity.typeId === "minecraft:player") {
-      if (entity.isFlying || entity.isGliding) {
-        resetFallVelocity(entity);
-        return;
-      }
-    }
-    
-    const gravity = new Gravity(entity);
-    if (Math.abs(gravity.value - 9.8) < 0.0001) return;
-    
-    const vector = gravity.calculateGravityVector();
-    const currentFall = Number(fallVelocity.get(entity)) || 0;
-    
-    // Use movement direction check for an obstacle.
+  // Check if entity is valid
+  if (typeof entity.isValid !== "function" || !entity.isValid()) return;
+
+  // If swimming or (for players) flying/gliding, reset fall velocity and exit early.
+  if (entity.isSwimming || (entity.typeId === "minecraft:player" && (entity.isFlying || entity.isGliding))) {
+    resetFallVelocity(entity);
+    return;
+  }
+
+  const gravity = new Gravity(entity);
+  if (Math.abs(gravity.value - 9.8) < 0.0001) return;
+
+  const vector = gravity.calculateGravityVector();
+  const currentFall = Number(fallVelocity.get(entity)) || 0;
+
+  // For players with movement input, check for obstacles in multiple directions.
+  if (entity.typeId === "minecraft:player" && typeof entity.inputInfo?.getMovementVector === "function") {
+    const block = getBlockInMovementDirection(entity);
+    const leftBlock = getBlockAtOffset(entity, -1, 0, 0);
+    const rightBlock = getBlockAtOffset(entity, 1, 0, 0);
     if (
-      entity.typeId === "minecraft:player" &&
-      typeof entity.inputInfo?.getMovementVector === "function"
+      (block && block.typeId !== "minecraft:air") ||
+      (leftBlock && leftBlock.typeId !== "minecraft:air") ||
+      (rightBlock && rightBlock.typeId !== "minecraft:air")
     ) {
-      const block = getBlockInMovementDirection(entity);
-      if (block && block.typeId !== "minecraft:air") {
-        vector.x = 0;
-        vector.z = 0;
-      }
-      // Check adjacent left and right to detect narrow spaces.
-      const leftBlock = getBlockAtOffset(entity, -1, 0, 0);
-      const rightBlock = getBlockAtOffset(entity, 1, 0, 0);
-      if ((leftBlock && leftBlock.typeId !== "minecraft:air") ||
-          (rightBlock && rightBlock.typeId !== "minecraft:air")) {
-        vector.x = 0;
-        vector.z = 0;
-      }
-    }
-    
-    if (!entity.isOnGround && !entity.isClimbing && !entity.isSwimming) {
-      applyGravityEffects(entity, vector, currentFall, gravity.value, gravity);
-    } else {
-      resetFallVelocity(entity);
-      gravity.cancelPendingJumps();
+      vector.x = 0;
+      vector.z = 0;
     }
   }
+
+  // Apply gravity effects if the entity is not on the ground or climbing.
+  if (!entity.isOnGround && !entity.isClimbing && !entity.isSwimming) {
+    applyGravityEffects(entity, vector, currentFall, gravity.value, gravity);
+  } else {
+    resetFallVelocity(entity);
+    gravity.cancelPendingJumps();
+  }
+}
 
 
 /**
