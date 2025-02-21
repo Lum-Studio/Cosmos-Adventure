@@ -300,7 +300,6 @@ class Gravity {
 }
 
 
-
 /**
  * Processes gravity for a given entity.
  * Skips processing if the entity is swimming, flying, gliding, or (if a player) wearing an elytra.
@@ -308,23 +307,33 @@ class Gravity {
  * @param {any} entity - The entity.
  */
 function gravityFuncMain(entity) {
-  // Check if entity is valid
+  // Check if entity is valid.
   if (typeof entity.isValid !== "function" || !entity.isValid()) return;
 
   // If swimming or (for players) flying/gliding, reset fall velocity and exit early.
-  if (entity.isSwimming || (entity.typeId === "minecraft:player" && (entity.isFlying || entity.isGliding))) {
+  if (
+    entity.isSwimming ||
+    (entity.typeId === "minecraft:player" &&
+      (entity.isFlying || entity.isGliding))
+  ) {
     resetFallVelocity(entity);
     return;
   }
 
+  // Create a new Gravity instance for the entity.
   const gravity = new Gravity(entity);
+  // If gravity is essentially normal (9.8), skip further processing.
   if (Math.abs(gravity.value - 9.8) < 0.0001) return;
 
+  // Calculate the gravity vector and get the current fall velocity.
   const vector = gravity.calculateGravityVector();
   const currentFall = Number(fallVelocity.get(entity)) || 0;
 
-  // For players with movement input, check for obstacles in multiple directions.
-  if (entity.typeId === "minecraft:player" && typeof entity.inputInfo?.getMovementVector === "function") {
+  // For player entities with movement input, check for obstacles in multiple directions.
+  if (
+    entity.typeId === "minecraft:player" &&
+    typeof entity.inputInfo?.getMovementVector === "function"
+  ) {
     const block = getBlockInMovementDirection(entity);
     const leftBlock = getBlockAtOffset(entity, -1, 0, 0);
     const rightBlock = getBlockAtOffset(entity, 1, 0, 0);
@@ -333,17 +342,131 @@ function gravityFuncMain(entity) {
       (leftBlock && leftBlock.typeId !== "minecraft:air") ||
       (rightBlock && rightBlock.typeId !== "minecraft:air")
     ) {
+      // Zero out horizontal movement if obstacles are detected.
       vector.x = 0;
       vector.z = 0;
     }
   }
 
-  // Apply gravity effects if the entity is not on the ground or climbing.
+  // Determine whether to use the full gravity effects or the entity version.
   if (!entity.isOnGround && !entity.isClimbing && !entity.isSwimming) {
-    applyGravityEffects(entity, vector, currentFall, gravity.value, gravity);
+    if (entity.typeId === "minecraft:player") {
+      // Use the gravity effect for player entities.
+      applyGravityEffects(entity, vector, currentFall, gravity.value);
+    } else {
+      // Use the gravity effect for non-player entities.
+      applyGravityEntity(entity, vector, currentFall, gravity.value, gravity);
+    }
   } else {
+    // If on the ground or climbing, reset fall velocity and cancel any pending jump adjustments.
     resetFallVelocity(entity);
     gravity.cancelPendingJumps();
+  }
+}
+
+
+/**
+ * Applies gravity effects to a non-player entity.
+ * Uses applyImpulse to simulate gravity’s downward pull,
+ * updates fall velocity, and applies a dynamic slow falling effect.
+ *
+ * @param {any} entity - The non-player entity.
+ * @param {Object} vector - The computed gravity vector with properties: x, z, y, and hzPower.
+ * @param {number} currentFall - The current fall velocity.
+ * @param {number} gravityValue - The gravity value.
+ * @param {Gravity} gravity - The Gravity instance (used for fall distance calculation).
+ */
+async function applyGravityEntity(entity, vector, currentFall, gravityValue, gravity) {
+  // Determine acceleration factor based on the block below the entity.
+  const blockBelow = getBlockBelow(entity);
+  let fallAccelerationFactor;
+  if (blockBelow && blockBelow.typeId === "minecraft:slime_block") {
+    // Bounce logic when on a slime block.
+    const bounceThreshold = -0.001; // threshold for a hard fall
+    if (currentFall < bounceThreshold) {
+      const bounceFactor = 0.8; // retain a percentage of the fall energy
+      const bounceImpulse = Math.abs(currentFall) * bounceFactor;
+      
+      // Update the fall velocity for the bounce.
+      fallVelocity.set(entity, bounceImpulse);
+      
+      // Apply an upward impulse for the bounce.
+      entity.applyImpulse({ x: 0, y: bounceImpulse, z: 0 });
+      
+      // Spawn bounce particle below the entity.
+      const particlePos = {
+        x: Math.floor(entity.location.x),
+        y: Math.floor(entity.location.y - 0.5),
+        z: Math.floor(entity.location.z)
+      };
+      entity.dimension.spawnParticle("minecraft:slime_bounce", particlePos);
+      
+      // Play bounce sound.
+      entity.playSound("mob.slime.jump");
+      
+      // Bounce handled exclusively.
+      return;
+    } else {
+      fallAccelerationFactor = gravityValue / 12;
+    }
+  } else {
+    // Use normal acceleration for non-slime blocks.
+    fallAccelerationFactor = gravityValue / 2;
+  }
+  
+  // Calculate a modified fall factor.
+  const fallModifier = Math.min(0, Number(currentFall));
+  
+  // Compute the knockback-equivalent vertical strength.
+  // (vector.y * 3 + fallModifier) / 300 produces the vertical impulse.
+  const knockbackPower = (Number(vector.y) * 3 + fallModifier) / 300;
+  
+  // Convert the original knockback parameters to an impulse vector.
+  // In the original applyKnockback, we had:
+  //   directionX = vector.x, directionZ = vector.z,
+  //   horizontalStrength = vector.hzPower, verticalStrength = knockbackPower.
+  // The inverse conversion :
+  const impulse = {
+    x: Number(vector.x) * Number(vector.hzPower),
+    y: Number(knockbackPower),
+    z: Number(vector.z) * Number(vector.hzPower)
+  };
+  
+  entity.applyImpulse(impulse);
+  
+  // Update the fall velocity.
+  fallVelocity.set(entity, Number(currentFall) - gravityValue / 5);
+  
+  // Update the fall distance dynamic property.
+  const startY = Number(jumpStartY.get(entity)) || 0;
+  const currentY = Number(entity.location?.y) || 0;
+  const fallDist = Math.max(0, startY - currentY);
+  entity.setDynamicProperty("fall_distance", fallDist);
+  
+  // --- Dynamic slow falling based on proximity to the ground ---
+  const baseGravity = 9.8;
+  const gravityDelta = gravityValue - baseGravity;
+  const fallDistance = gravity.calculateFallDistance();
+  let slowFallingAmplifier, slowFallingDuration;
+  
+  // If very close to the ground, cancel slow falling so the landing accelerates.
+  if (fallDistance < 2) {
+    slowFallingAmplifier = 0;
+    slowFallingDuration = 1;
+  } else {
+    slowFallingAmplifier = gravityDelta > 0 ? Math.min(1, Math.floor(gravityDelta / 10)) : 0;
+    slowFallingDuration = gravityDelta > 0 ? Math.max(1, Math.ceil(gravityDelta / 10)) : 1;
+  } 
+  try {
+    await delay(1);
+    if (entity.isValid() && typeof entity.addEffect === "function") {
+      entity.addEffect("slow_falling", slowFallingDuration, {
+        amplifier: slowFallingAmplifier,
+        showParticles: false
+      });
+    }
+  } catch (err) {
+    console.error("Error applying gravity effects:", err);
   }
 }
 
@@ -511,7 +634,7 @@ function delay(ticks) {
 const gravityEntities = new Set();
 
 // Initialize: add already online players.
-world.getPlayers().forEach(player => {
+world.getAllPlayers().forEach(player => {
   gravityEntities.add(player);
 });
 
@@ -526,6 +649,13 @@ world.afterEvents.entitySpawn.subscribe((eventData) => {
 world.afterEvents.playerJoin.subscribe((eventData) => {
   if (eventData?.player) {
     gravityEntities.add(eventData.player);
+  }
+});
+
+// Subscribe to player dimension change to capture players as they change dimensions.
+world.afterEvents.playerDimensionChange.subscribe((eventData) => {
+  if (eventData?.player) {
+     gravityEntities.add(eventData.player);
   }
 });
 
