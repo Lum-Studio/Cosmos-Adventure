@@ -507,18 +507,48 @@ function delay(ticks) {
   });
 }
 
-/**
- * Processes gravity for all entities in all dimensions.
- */
-system.runInterval(() => {
-  const dimensions = DimensionTypes.getAll().map(type => world.getDimension(type.typeId));
-  dimensions.forEach(dimension => {
-    const entities = dimension.getEntities({});
-    entities.forEach(entity => {
-      gravityFuncMain(entity);
-    });
-  });
+// Global cache for entities that require gravity processing.
+const gravityEntities = new Set();
+
+// Initialize: add already online players.
+world.getPlayers().forEach(player => {
+  gravityEntities.add(player);
 });
+
+// Subscribe to generic entity spawn events for non-player entities.
+world.afterEvents.entitySpawn.subscribe((eventData) => {
+  if (eventData?.entity && !gravityEntities.has(eventData.entity)) {
+    gravityEntities.add(eventData.entity);
+  }
+});
+
+// Subscribe to player join events to capture players as they join.
+world.afterEvents.playerJoin.subscribe((eventData) => {
+  if (eventData?.player) {
+    gravityEntities.add(eventData.player);
+  }
+});
+
+// Keep the cache up-to-date by removing entities when they are removed.
+world.afterEvents.entityRemove.subscribe((eventData) => {
+  if (eventData?.entity) {
+    gravityEntities.delete(eventData.entity);
+  }
+});
+
+// Also remove players when they leave.
+world.afterEvents.playerLeave.subscribe((eventData) => {
+  if (eventData?.player) {
+    gravityEntities.delete(eventData.player);
+  }
+});
+
+// Process gravity for every cached entity once per tick.
+system.runInterval(() => {
+  gravityEntities.forEach(entity => {
+    gravityFuncMain(entity);
+  });
+}, 1);
 
 /**
  * Mace Damage System:
@@ -529,42 +559,42 @@ system.runInterval(() => {
  * - For the next 5 blocks: +2 damage per block.
  * - Beyond that: +1 damage per block.
  * Visual feedback is provided.
- */
-world.afterEvents.entityHitEntity.subscribe(event => {
-  const { damagingEntity, hitEntity } = event;
-  if (damagingEntity && damagingEntity.typeId === "minecraft:player") {
-    const invComp = damagingEntity.getComponent("minecraft:inventory");
-    const container = invComp && invComp.container;
-    if (container) {
-      const selectedItem = container.getItem(damagingEntity.selectedSlot);
-      if (selectedItem && selectedItem.typeId === "minecraft:mace") {
-        const fallDistance = Number(damagingEntity.getDynamicProperty("fall_distance")) || 0;
-        let extraDamage = 0;
-        if (fallDistance >= 1.5) {
-          const extraFall = fallDistance - 1.5;
-          const firstSegment = Math.min(extraFall, 3);
-          extraDamage += firstSegment * 8;
-          const secondSegment = Math.max(0, Math.min(extraFall - 3, 5));
-          extraDamage += secondSegment * 2;
-          const thirdSegment = Math.max(0, extraFall - 8);
-          extraDamage += thirdSegment * 1;
-        }
-        if (typeof hitEntity.applyDamage === "function") {
-          hitEntity.applyDamage(extraDamage);
-        }
-        if (typeof damagingEntity.setDynamicProperty === "function") {
-          damagingEntity.setDynamicProperty("fall_distance", 0);
-        }
-        if (typeof hitEntity.playAnimation === "function") {
-          hitEntity.playAnimation("animation.hurt");
-        }
-        if (typeof damagingEntity.playSound === "function") {
-          damagingEntity.playSound("random.orb");
-        }
-      }
-    }
-  }
-});
+//  */
+// world.afterEvents.entityHitEntity.subscribe(event => {
+//   const { damagingEntity, hitEntity } = event;
+//   if (damagingEntity && damagingEntity.typeId === "minecraft:player") {
+//     const invComp = damagingEntity.getComponent("minecraft:inventory");
+//     const container = invComp && invComp.container;
+//     if (container) {
+//       const selectedItem = container.getItem(damagingEntity.selectedSlot);
+//       if (selectedItem && selectedItem.typeId === "minecraft:mace") {
+//         const fallDistance = Number(damagingEntity.getDynamicProperty("fall_distance")) || 0;
+//         let extraDamage = 0;
+//         if (fallDistance >= 1.5) {
+//           const extraFall = fallDistance - 1.5;
+//           const firstSegment = Math.min(extraFall, 3);
+//           extraDamage += firstSegment * 8;
+//           const secondSegment = Math.max(0, Math.min(extraFall - 3, 5));
+//           extraDamage += secondSegment * 2;
+//           const thirdSegment = Math.max(0, extraFall - 8);
+//           extraDamage += thirdSegment * 1;
+//         }
+//         if (typeof hitEntity.applyDamage === "function") {
+//           hitEntity.applyDamage(extraDamage);
+//         }
+//         if (typeof damagingEntity.setDynamicProperty === "function") {
+//           damagingEntity.setDynamicProperty("fall_distance", 0);
+//         }
+//         if (typeof hitEntity.playAnimation === "function") {
+//           hitEntity.playAnimation("animation.hurt");
+//         }
+//         if (typeof damagingEntity.playSound === "function") {
+//           damagingEntity.playSound("random.orb");
+//         }
+//       }
+//     }
+//   }
+// });
 
 /**
  * Gets the block above the entity's head.
