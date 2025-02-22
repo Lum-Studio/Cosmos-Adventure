@@ -244,57 +244,6 @@ class Gravity {
     const currentY = Number(this.entity.location && this.entity.location.y) || 0;
     return Math.max(0, startY - currentY);
   }
-
-  /**
-   * Implements a custom jump by integrating an extra impulse.
-   * The desired jump height is computed dynamically:
-   * We compute the extra impulse in the steps required (v_desired - v_default) and distribute it over jumpTicks,
-   * then scale it down by a multiplier.
-   * @note This routine supplements the default jump; it does not cancel it.
-   */
-  applyJump() {
-    const entity = this.entity;
-    if (!entity.isOnGround || entity.isFlying) return;
-    if (pendingJumpSteps.has(entity)) return;
-
-    this.cancelPendingJumps();
-    const currentY = (entity.location && typeof entity.location.y === "number")
-      ? Number(entity.location.y)
-      : 0;
-    jumpStartY.set(entity, currentY);
-
-    const h_default = 1.5;
-    const v_default = Math.sqrt(2 * 9.8 * h_default);
-    const desiredJumpHeight = h_default * Math.pow(9.8 / this.value, 0.77);
-    const v_desired = Math.sqrt(2 * this.value * desiredJumpHeight);
-    const extraImpulse = v_desired - v_default;
-    const jumpTicks = 10;
-    const multiplier = 0.0001;
-    const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
-
-    const executeJumpStep = (step) => {
-      // Cancel if entity lands or jump sequence finishes.
-      if (entity.isOnGround || step >= jumpTicks || !canMoveForward(entity)) {
-        pendingJumpSteps.delete(entity);
-        return;
-      }
-      if (!canMoveUp(entity)) {
-        entity.knockback.y = -0.4
-        pendingJumpSteps.delete(entity);
-        return;
-      }
-
-      const progress = Math.sin((step / jumpTicks) * Math.PI);
-      if (typeof entity.applyKnockback === "function") {
-        applyKnockback(entity, 0, 0, 0, perTickImpulse*progress);
-      }
-      const timeoutId = system.runTimeout(() => executeJumpStep(step + 1), 1);
-      pendingJumpSteps.set(entity, timeoutId);
-    };
-
-    executeJumpStep(0);
-  }
-
   /**
    * Cancels any pending jump steps.
    */
