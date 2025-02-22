@@ -442,7 +442,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
     }
   } else {
     // For non-slime blocks, use normal acceleration.
-    fallAccelerationFactor = gravityValue / 2;
+    fallAccelerationFactor = gravityValue / 5;
   }
   const fallModifier = Math.min(0, Number(currentFall));
   //Knockback power to push the player up and down
