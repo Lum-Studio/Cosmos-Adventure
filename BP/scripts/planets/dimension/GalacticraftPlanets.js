@@ -356,11 +356,11 @@ system.runInterval(() => {
 system.runTimeout(() => {
     for (let planet of Planet.getAll()) {
         planet.events.onJoin('addGravity', ((event, player) => {
-            new Gravity(player).setTemp(planet.gravity)
+            Gravity.of(player).setTemp(planet.gravity)
         }))
 
         planet.events.onLeave('removeGravity', ((event, player) => {
-            new Gravity(player).setTemp(9.8)
+            Gravity.of(player).setTemp(9.8)
         }))
     }
 })
