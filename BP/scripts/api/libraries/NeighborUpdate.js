@@ -25,7 +25,7 @@ class EventBus {
         try {
           callback(...args);
         } catch (e) {
-          console.error("EventEmitter error in event", event, e);
+          console.error("Error in event", event, e);
         }
       }
     }
