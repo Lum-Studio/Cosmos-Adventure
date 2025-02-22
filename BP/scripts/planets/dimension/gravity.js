@@ -347,10 +347,10 @@ function gravityFuncMain(entity) {
   if (!entity.isOnGround && !entity.isClimbing && !entity.isSwimming) {
     if (entity.typeId === "minecraft:player") {
       // Use the gravity effect for player entities.
-      applyGravityEffects(entity, vector, currentFall, gravity.value);
+      applyGravityEffects(entity, vector, currentFall, gravity.value, gravity);
     } else {
       // Use the gravity effect for non-player entities.
-      applyGravityEntity(entity, vector, currentFall, gravity.value, gravity);
+      applyGravityEntity(entity, gravity);
     }
   } else {
     // If on the ground or climbing, reset fall velocity and cancel any pending jump adjustments.
