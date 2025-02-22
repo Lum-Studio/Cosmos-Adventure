@@ -1,10 +1,10 @@
-import { Block, ItemStack, World, Player, Container } from "@minecraft/server";
+import { Block, ItemStack, World, Player, Container, world, ContainerSlot } from "@minecraft/server";
 
 /**
  * Decrements the amount of the ItemStack by 1.
  * @returns {ItemStack | undefined} The modified ItemStack or undefined if amount is 1.
  */
-ItemStack.prototype.decrementStack = function(decrementItemAmount=1) {
+ItemStack.prototype.decrementStack = function (decrementItemAmount = 1) {
     if (this.amount > decrementItemAmount) {
         this.amount = this.amount - decrementItemAmount;
         return this;
@@ -15,19 +15,39 @@ ItemStack.prototype.decrementStack = function(decrementItemAmount=1) {
  * Increments the amount of the ItemStack by 1.
  * @returns {ItemStack} The modified ItemStack or same ItemStack if amount is 64.
  */
-ItemStack.prototype.incrementStack = function(incrementItemMax=64, incrementItemAmount=1) {
-    if ((incrementItemMax === 64)? this.amount < incrementItemMax: this.amount <= incrementItemMax) {
+ItemStack.prototype.incrementStack = function (incrementItemMax = 64, incrementItemAmount = 1) {
+    if ((incrementItemMax === 64) ? this.amount < incrementItemMax : this.amount <= incrementItemMax) {
         this.amount = this.amount + incrementItemAmount;
     } return this;
 };
+{
+    const amt = Object.getOwnPropertyDescriptors(ContainerSlot.prototype).amount.set;
+    const tpd = Object.getOwnPropertyDescriptors(ContainerSlot.prototype).typeId.get;
+    Object.defineProperties(ContainerSlot.prototype, {
+        amount: {
+            set(a) { a <= 0 ? this.setItem() : amt.call(this, a); }
+        },
+        typeId: {
+            get() { return this.hasItem() ? tpd.call(this) : undefined }
+        }
+    });
+};
 
 //seamlessly giving a player an item or ejecting it infront of the player if inventory is full
-Player.prototype.give = function (item, amount=1, data=0) {
+Player.prototype.give = function (item, amount = 1, data = 0) {
     this.runCommand("gamerule sendcommandfeedback false")
     this.runCommand(`give @s ${item} ${amount} ${data}`)
     this.runCommand("stopsound @a random.pop")
     this.runCommand("gamerule sendcommandfeedback true")
 };
+{
+    const hands = new WeakMap();
+    Player.prototype.hand = function (item) {
+        const hand = hands.get(this) ?? hands.set(this, this.getComponent("equippable").getEquipmentSlot("Mainhand")).get(this);
+        item && hand.setItem(item);
+        return hand;
+    };
+}
 
 
 //WTF is this?
@@ -59,7 +79,7 @@ Block.prototype.getNeighbors = function (maxSearch = 27) {
 }
 
 // returns an object eg: { north: Block, east: Block, west: Block, ...}
-Block.prototype.four_neighbors = function(sides=["north", "east", "west", "south"]) {
+Block.prototype.four_neighbors = function (sides = ["north", "east", "west", "south"]) {
     const blocks = {}
     sides.forEach(side => {
         blocks[side] = this[side]()
@@ -68,7 +88,7 @@ Block.prototype.four_neighbors = function(sides=["north", "east", "west", "south
 }
 
 // returns an object eg: { above: Block, north: Block, east: Block, ...}
-Block.prototype.six_neighbors = function() {
+Block.prototype.six_neighbors = function () {
     return this.four_neighbors(["above", "north", "east", "west", "south", "below"])
 }
 
@@ -81,18 +101,18 @@ World.prototype.getDims = function (fn = null) {
 };
 
 Container.prototype.add_ui_button = function (slot, text, lore) {
-	const button = new ItemStack('cosmos:ui_button')
-	button.nameTag = text ?? ''
+    const button = new ItemStack('cosmos:ui_button')
+    button.nameTag = text ?? ''
     if (lore) button.setLore(lore)
-	this.setItem(slot, button)
+    this.setItem(slot, button)
 }
 
 Container.prototype.add_ui_display = function (slot, text, damage) {
-	const button = new ItemStack('cosmos:ui')
+    const button = new ItemStack('cosmos:ui')
     if (damage) {
         const durability = button.getComponent('durability')
         durability.damage = durability.maxDurability - damage
     }
-	button.nameTag = text ?? ''
-	this.setItem(slot, button)
+    button.nameTag = text ?? ''
+    this.setItem(slot, button)
 }
