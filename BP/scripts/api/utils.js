@@ -13,10 +13,10 @@ export function compare_lists(list1, list2) {
 	} return true
 }
 export function get_vars(item, index, def = 0) {
-    return item ? + item.getLore()[index] : def
+	return item ? + item.getLore()[index] : def
 }
 
-export function get_lore(container, data, name, def=0) {
+export function get_lore(container, data, name, def = 0) {
 	const lore_item = container.getItem(data.lore.slot)
 	return lore_item ? + lore_item?.getLore()?.[data.lore[name]] : def
 }
@@ -36,73 +36,74 @@ export const pickaxes = new Set([
 export function isUnderground(player) {
 	let block = player.dimension.getTopmostBlock(player.location)
 	if (player.location.y >= block.y) return false
-	while (!block.isSolid && block.y > player.dimension.heightRange.min) {
-	  if (player.location.y >= block.y) return false
-	  block = block.below()
+	let min = player.dimension.heightRange.min
+	while (!block.isSolid && block.y > min) {
+		if (player.location.y >= block.y) return false
+		block = block.below()
 	}
 	return true
-  }
+}
 
 export function parseItem(json) {
-	if (typeof(json) == "string") {
-	  json = JSON.parse(json)
+	if (typeof (json) == "string") {
+		json = JSON.parse(json)
 	}
-	
+
 	let item = new ItemStack(json.type, json.amount)
 	item.lockMode = json.lockMode
 	item.keepOnDeath = json.keepOnDeath
 	item.nameTag = json.nameTag
-	
+
 	item.setCanDestroy(json.canDestroy)
 	item.setCanPlaceOn(json.canPlaceOn)
 	item.setLore(json.lore)
-	
+
 	json.properties.forEach(property => {
-	  item.setDynamicProperty(property.id, property.value)
+		item.setDynamicProperty(property.id, property.value)
 	})
-	
+
 	if (item.getComponent("minecraft:durability")) {
-	  item.getComponent("minecraft:durability").damage = json.durability
+		item.getComponent("minecraft:durability").damage = json.durability
 	}
-	
+
 	if (item.getComponent("minecraft:enchantable")) {
-	  item.getComponent("minecraft:enchantable").addEnchantments(json.enchantments.map(enc => {
-		return {
-		  level: enc.level,
-		  type: new EnchantmentType(enc.type.id)
-		}
-	  }))
+		item.getComponent("minecraft:enchantable").addEnchantments(json.enchantments.map(enc => {
+			return {
+				level: enc.level,
+				type: new EnchantmentType(enc.type.id)
+			}
+		}))
 	}
-	
+
 	if (item.getComponent("minecraft:dyeable")) {
-	  item.getComponent("minecraft:dyeable").color = json.dyeColor
+		item.getComponent("minecraft:dyeable").color = json.dyeColor
 	}
-	
+
 	return item
-  }
-  
+}
+
 export function stringifyItem(item) {
 	let json = {
-	  type: item.typeId,
-	  amount: item.amount,
-	  keepOnDeath: item.keepOnDeath,
-	  lockMode: item.lockMode,
-	  nameTag: item.nameTag,
-	  canDestroy: item.getCanDestroy(),
-	  canPlaceOn: item.getCanPlaceOn(),
-	  lore: item.getLore(),
-	  properties: item.getDynamicPropertyIds().map(id => {
-		return {
-		  id: id,
-		  value: item.getDynamicProperty(id)
-		}
-	  }),
-	  durability: item.getComponent("minecraft:durability")?.damage,
-	  dyeColor: item.getComponent("minecraft:dyeable")?.color,
-	  enchantments: item.getComponent("minecraft:enchantable")?.getEnchantments() || []
+		type: item.typeId,
+		amount: item.amount,
+		keepOnDeath: item.keepOnDeath,
+		lockMode: item.lockMode,
+		nameTag: item.nameTag,
+		canDestroy: item.getCanDestroy(),
+		canPlaceOn: item.getCanPlaceOn(),
+		lore: item.getLore(),
+		properties: item.getDynamicPropertyIds().map(id => {
+			return {
+				id: id,
+				value: item.getDynamicProperty(id)
+			}
+		}),
+		durability: item.getComponent("minecraft:durability")?.damage,
+		dyeColor: item.getComponent("minecraft:dyeable")?.color,
+		enchantments: item.getComponent("minecraft:enchantable")?.getEnchantments() || []
 	}
 	return JSON.stringify(json)
-  }
+}
 export function compare_position(a, b) {
 	if (!a || !b) return false;
 	return a.x == b.x && a.y == b.y && a.z == b.z;
@@ -110,7 +111,3 @@ export function compare_position(a, b) {
 export function floor_position({ x, y, z }) {
 	return { x: Math.floor(x), y: Math.floor(y), z: Math.floor(z) };
 }
-
-
-
-

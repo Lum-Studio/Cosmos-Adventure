@@ -11,9 +11,9 @@
  * В космоса бескрайняя утренняя звезда. // В безкрайній космос, рання зірка.
  * ★★★★★★★★★★★★★★★★★★★★
  */
- // Lum Studio //
+// Lum Studio //
 import { world } from "@minecraft/server";
-export { EndlessDB};
+export { EndlessDB };
 
 // Maximum number of characters per dynamic property part.
 const PART_SIZE = 32767;
@@ -33,7 +33,7 @@ const PART_SIZE = 32767;
  *
  * Note: Make sure that the prefix you supply is unique to avoid collisions.
  */
-export class EndlessDB {
+class EndlessDB {
   /**
    * @param {string} prefix - Unique prefix for this dynamic property store.
    */

@@ -11,5 +11,5 @@ BP/blocks/liquids/oil.json
 
 
 #Remember M9
-tsconfig_types.d.ts
+tsconfig.d.ts
 tsconfig.json

@@ -3,7 +3,7 @@ import { system  } from "@minecraft/server";
 export { NeighborUpdate, neighborUpdate }
 
 
-export class NeighborUpdate {
+class NeighborUpdate {
     /**
      * @param {object} worldOrContainer - Either a world object with getDimension() or directly a Dimension instance.
      * @param {object} system - The system instance (from @minecraft/server)

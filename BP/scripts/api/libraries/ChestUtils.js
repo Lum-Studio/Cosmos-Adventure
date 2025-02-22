@@ -11,7 +11,7 @@ export class ChestUtils {
      * Opens the chest and plays the opening sound with animation.
      * @returns {void}
      */
-    open() {
+    open() {//where to declare maxOpen and cooldown?
         const { chest_entity, maxOpen, cooldown } = this;
         const { dimension, location } = chest_entity; // Extract the dimension and location of the chest
 

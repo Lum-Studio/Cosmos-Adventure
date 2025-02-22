@@ -48,14 +48,8 @@ class Gravity {
    * @return {number} The gravity value.
    */
   get value() {
-    if (this.entity.tempGravityValue !== undefined) {
-      return Number(this.entity.tempGravityValue) || 9.8;
-    }
-    if (typeof this.entity.getDynamicProperty === "function") {
-      const dyn = this.entity.getDynamicProperty("sert:gravity");
-      if (dyn !== undefined && dyn !== null) return Number(dyn) || 9.8;
-    }
-    return 9.8;
+    const e = this.entity
+    return e?.tempGravityValue ?? e?.getDynamicProperty?.("sert:gravity") ?? 9.8
   }
 
   /**
@@ -383,11 +377,11 @@ function applyGravityEntity(entity, gravity) {
   if (!gravity || typeof gravity.calculateGravityVector !== "function") {
     gravity = new Gravity(entity);
   }
-  
+
   // Retrieve the gravity vector (primarily using its vertical component).
   const vector = gravity.calculateGravityVector();
   let currentFall = Number(fallVelocity.get(entity)) || 0;
-  
+
   // --- Slime Bounce Logic ---
   // If the block below is a slime block and the entity is falling fast,
   // perform a bounce by applying an upward impulse.
@@ -398,29 +392,24 @@ function applyGravityEntity(entity, gravity) {
       const bounceImpulse = Math.abs(currentFall) * bounceFactor;
       fallVelocity.set(entity, bounceImpulse);
       entity.applyImpulse({ x: 0, y: bounceImpulse, z: 0 });
-      
+
       // Optional: spawn bounce particles and play a sound.
-      if (entity.dimension && entity.location) {
-        const particlePos = {
-          x: Math.floor(entity.location.x),
-          y: Math.floor(entity.location.y - 0.5),
-          z: Math.floor(entity.location.z)
-        };
-        entity.dimension.spawnParticle("minecraft:slime_bounce", particlePos);
-      }
-      if (typeof entity.playSound === "function") {
-        entity.playSound("mob.slime.jump");
-      }
-      return; // Bounce takes precedence.
+      entity.dimension.spawnParticle?.("minecraft:slime_bounce", {
+        x: Math.floor(entity.location.x),
+        y: Math.floor(entity.location.y - 0.5),
+        z: Math.floor(entity.location.z)
+      });
     }
+    entity.dimension.playSound?.("mob.slime.jump", entity.getHeadLocation());
+    return; // Bounce takes precedence.
   }
-  
+
   // --- Low-Gravity Descent Logic ---
   // Define a terminal velocity that scales with the gravity value.
   // In low gravity, the maximum (negative) fall speed is less extreme.
   const terminalVelocity = -20 * (gravity.value / 9.8);
   let impulse;
-  
+
   // If falling too fast, apply an upward (counter) impulse to slow descent.
   if (currentFall < terminalVelocity) {
     const deceleration = (terminalVelocity - currentFall) / 10;
@@ -430,9 +419,9 @@ function applyGravityEntity(entity, gravity) {
     const impulseMagnitude = gravity.value / 10;
     impulse = { x: 0, y: -impulseMagnitude, z: 0 };
   }
-  
+
   entity.applyImpulse(impulse);
-  
+
   // Update the current fall velocity.
   if (impulse.y < 0) {
     currentFall -= gravity.value / 10;
@@ -440,7 +429,7 @@ function applyGravityEntity(entity, gravity) {
     currentFall += impulse.y;
   }
   fallVelocity.set(entity, currentFall);
-  
+
   // Update a dynamic "fall_distance" property.
   if (typeof entity.setDynamicProperty === "function") {
     const startY = Number(jumpStartY.get(entity)) || 0;
@@ -460,7 +449,6 @@ function applyGravityEntity(entity, gravity) {
  * @param {Entity} entity - The entity.
  * @param {Object} vector - The computed gravity vector.
  * @param {number} currentFall - The current fall velocity.
- * @param {number} gravityValue - The gravity value.
  * @param {Gravity} gravity - The Gravity instance (used for fall distance calculation).
  */
 async function applyGravityEffects(entity, vector, currentFall, gravityValue, gravity) {
@@ -479,22 +467,16 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
       fallVelocity.set(entity, bounceImpulse);
 
       // Apply an upward impulse for the bounce.
-      if (typeof entity.applyKnockback === "function") {
-        entity.applyKnockback(0, 0, 0, bounceImpulse);
-      }
+      entity.applyKnockback?.(0, 0, 0, bounceImpulse);
 
       // Trigger visual/audio feedback for the bounce using spawnParticle below the player.
-      if (entity.dimension && entity.location && typeof entity.dimension.spawnParticle === "function") {
-        const particlePos = {
-          x: Math.floor(entity.location.x),
-          y: Math.floor(entity.location.y - 0.5),
-          z: Math.floor(entity.location.z)
-        };
-        entity.dimension.spawnParticle("minecraft:slime_bounce", particlePos);
-      }
-      if (typeof entity.playSound === "function") {
-        entity.playSound("mob.slime.jump");
-      }
+      entity.dimension.spawnParticle?.("minecraft:slime_bounce", {
+        x: Math.floor(entity.location.x),
+        y: Math.floor(entity.location.y - 0.5),
+        z: Math.floor(entity.location.z)
+      });
+
+      entity.dimension.playSound?.("mob.slime.jump", entity.getHeadLocation());
 
       // Exit early so the bounce is handled exclusively.
       return;
@@ -700,12 +682,14 @@ system.runInterval(() => {
  * @return {any|null} The block above the entity or null if unavailable.
  */
 function getBlockAbove(entity) {
-  if (entity.dimension && typeof entity.dimension.getBlock === "function") {
+  try {
     const loc = entity.location;
     loc.y += 1.8;
     return entity.dimension.getBlock(loc);
+  } catch (error) {
+    console.error(error);
+    return null;
   }
-  return null;
 }
 
 /**
@@ -715,17 +699,17 @@ function getBlockAbove(entity) {
  * @return {any|null} The block in the movement direction or null if unavailable.
  */
 function getBlockInMovementDirection(entity) {
-  if (typeof entity.inputInfo?.getMovementVector !== "function") return null;
-  const movement = entity.inputInfo.getMovementVector();
-  movement.z = 0;
-  const magnitude = Math.sqrt(movement.x ** 2 + movement.y ** 2 + movement.z ** 2);
+  const movement = entity.inputInfo?.getMovementVector?.();
+  if (!movement) return null;
+  const magnitude = Math.sqrt(movement.x ** 2 + movement.y ** 2);
+
   if (magnitude === 0) return null;
 
   // Normalize the movement vector.
   const direction = {
     x: movement.x / magnitude,
     y: movement.y / magnitude,
-    z: movement.z / magnitude
+    z: 0
   };
 
   // Check one block ahead in the direction of movement.

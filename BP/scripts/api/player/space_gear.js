@@ -28,9 +28,9 @@ const gearTag = "gear(-)cosmos:oxygen_gear";
 */
 
 // SPAWNS, NAMES, AND GIVES ITEMS TO THE ENTITY
-function spawn(player){
+function spawn(player) {
 	const in_bounds_location = player.location
-	const {min, max} = player.dimension.heightRange
+	const { min, max } = player.dimension.heightRange
 	in_bounds_location.y = Math.min(Math.max(in_bounds_location.y, min), max)
 	const entity = player.dimension.spawnEntity("cosmos:inv_ent", in_bounds_location);
 	entity.nameTag = "space_gear(-)"; // needed for condition in UI
@@ -41,10 +41,10 @@ function spawn(player){
 }
 
 // DESPAWN OR KILL THE ENTITY
-function despawn(entity, kill=false) {
-	if (entity) system.run(()=> {
+function despawn(entity, kill = false) {
+	if (entity) system.run(() => {
 		if (kill) entity.runCommand("kill")
-		try {entity.triggerEvent("cosmos:despawn")} catch(error) {null}
+		try { entity.triggerEvent("cosmos:despawn") } catch (error) { null }
 	})
 }
 
@@ -52,8 +52,8 @@ function despawn(entity, kill=false) {
 function setItems(player, entity) {
 	const container = entity.getComponent("inventory").container
 	const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}')
-	for (let i=0; i<Object.keys(slots).length; i++) {
-		const slot = Object.keys(slots)[i]
+	for (let i = 0, slotKeys = Object.keys(slots); i < slotKeys.length; i++) {
+		const slot = slotKeys[i]
 		if (space_gear[slot]) {
 			const [item_id, fill_level] = space_gear[slot].split(' ')
 			const item = new ItemStack(item_id)
@@ -67,24 +67,24 @@ function setItems(player, entity) {
 // UPDATE SPACE GEAR DYNAMIC PROPERTY AND PLAYER PROPERTIES
 function update(player, container) {
 	const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}')
-	for (let i=0; i<Object.keys(slots).length; i++) {
-		const slot = Object.keys(slots)[i];
+	for (let i = 0, slotKeys = Object.keys(slots); i < slotKeys.length; i++) {
+		const slot = slotKeys[i]
 		const item = container.getItem(i);
-		switch(slot){
-		    case 'frequency_module':
-		        player.setProperty("cosmos:frequency_module", item?.typeId == "cosmos:frequency_module")
-		        break;
-		    case 'gear':
-		        player.setProperty("cosmos:oxygen_gear", item?.typeId == "cosmos:oxygen_gear")
-		        break;
-		    case 'mask':
-		        player.setProperty("cosmos:oxygen_mask", item?.typeId == "cosmos:oxygen_mask")
-		        break;
-		    case 'tank1':
-		        player.setProperty("cosmos:tank1", tanks[item?.typeId] ?? 'no_tank')
-		        break;
-		    case 'tank2':
-		        player.setProperty("cosmos:tank2", tanks[item?.typeId] ?? 'no_tank')
+		switch (slot) {
+			case 'frequency_module':
+				player.setProperty("cosmos:frequency_module", item?.typeId == "cosmos:frequency_module")
+				break;
+			case 'gear':
+				player.setProperty("cosmos:oxygen_gear", item?.typeId == "cosmos:oxygen_gear")
+				break;
+			case 'mask':
+				player.setProperty("cosmos:oxygen_mask", item?.typeId == "cosmos:oxygen_mask")
+				break;
+			case 'tank1':
+				player.setProperty("cosmos:tank1", tanks[item?.typeId] ?? 'no_tank')
+				break;
+			case 'tank2':
+				player.setProperty("cosmos:tank2", tanks[item?.typeId] ?? 'no_tank')
 		}
 		if (item) {
 			const durability = item.getComponent("minecraft:durability")
@@ -94,56 +94,56 @@ function update(player, container) {
 }
 // trigger event after player interact with any block(imitation of right click detection)
 world.beforeEvents.playerInteractWithBlock.subscribe((data) => {
-    if(!data.player.isSneaking || data.itemStack  || !data.isFirstEvent) return;
-   let player = data.player;
-    data.cancel = true;
-    if(player.getDynamicProperty('secondInventoryEntity')) return;
-    system.run(() => {
-            let entity;
-            let secondInventory = system.runInterval(() => {
-                if(!player.getDynamicProperty('secondInventoryEntity') || !world.getEntity(player.getDynamicProperty('secondInventoryEntity')) || !entity || !entity.isValid()){
-                    entity = spawn(player)
-                }
-                if((!player.isSneaking && !entity.getDynamicProperty('view')) || !player.isValid()){
-                    player.setDynamicProperty('secondInventoryEntity', undefined)
-                    despawn(entity)
-                    system.clearRun(secondInventory)
-                    return;
-                    
-                }
-                if(player.getComponent("equippable").getEquipment(EquipmentSlot.Mainhand)){
-                    despawn(entity)
-                    return;
-                }
-                // CAMERA MOVEMENT DETECTION TO DESPAWN THE ENTITY
-                let camera = player.getRotation(); camera = `${Math.round(camera.x)} ${Math.round(camera.y)}`
-                const view = entity.getDynamicProperty('view')
-                if (view && (camera != view)) {
-                    despawn(entity)
-                    player.setDynamicProperty('secondInventoryEntity', undefined);
-                    system.clearRun(secondInventory);
-                    return;
-                }
-                // LET ENTITY FOLLOW THE PLAYER
-                const location = player.location;
-                entity.teleport(location, {dimension: player.dimension});
-                // REJECT ITEMS AND UPDATE THE INVENTORY
-                const container = entity.getComponent("inventory").container;
-                //let haveOxyFirst = false; let tank1; let tank2;
-                for (let i=0; i<Object.values(slots).length; i++) {
-                    let item = container.getItem(i);
-                    if (!item) continue;
-                    if (!Object.values(slots)[i].includes(item.typeId)) {
-                        player.dimension.spawnItem(item, location);
-                        container.setItem(i)
-                        
-                    } else if (item.amount > 1) { //allows 1 accepted item to be equipped
-                    item.amount -= 1;
+	if (!data.isFirstEvent || !data.player.isSneaking || data.itemStack) return;
+	let player = data.player;
+	data.cancel = true;
+	if (player.getDynamicProperty('secondInventoryEntity')) return;
+	system.run(() => {
+		let entity;
+		let secondInventory = system.runInterval(() => {
+			if (!player.getDynamicProperty('secondInventoryEntity') || !world.getEntity(player.getDynamicProperty('secondInventoryEntity')) || !entity || !entity.isValid()) {
+				entity = spawn(player)
+			}
+			if ((!player.isSneaking && !entity.getDynamicProperty('view')) || !player.isValid()) {
+				player.setDynamicProperty('secondInventoryEntity', undefined)
+				despawn(entity)
+				system.clearRun(secondInventory)
+				return;
+
+			}
+			if (player.getComponent("equippable").getEquipment(EquipmentSlot.Mainhand)) {
+				despawn(entity)
+				return;
+			}
+			// CAMERA MOVEMENT DETECTION TO DESPAWN THE ENTITY
+			let camera = player.getRotation(); camera = `${Math.round(camera.x)} ${Math.round(camera.y)}`
+			const view = entity.getDynamicProperty('view')
+			if (view && (camera != view)) {
+				despawn(entity)
+				player.setDynamicProperty('secondInventoryEntity', undefined);
+				system.clearRun(secondInventory);
+				return;
+			}
+			// LET ENTITY FOLLOW THE PLAYER
+			const location = player.location;
+			entity.teleport(location, { dimension: player.dimension });
+			// REJECT ITEMS AND UPDATE THE INVENTORY
+			const container = entity.getComponent("inventory").container;
+			//let haveOxyFirst = false; let tank1; let tank2;
+			for (let i = 0, slotValues = Object.values(slots); i < slotValues.length; i++) {
+				let item = container.getItem(i);
+				if (!item) continue;
+				if (!slotValues[i].includes(item.typeId)) {
+					player.dimension.spawnItem(item, location);
+					container.setItem(i)
+
+				} else if (item.amount > 1) { //allows 1 accepted item to be equipped
+					item.amount -= 1;
 					player.dimension.spawnItem(item, location);
 					item.amount = 1;
 					container.setItem(i, item)
-                        
-                    }/* unused
+
+				}/* unused
 				if (checkOxygen(player) && system.currentTick%20 == 0 && ["tank1","tank2"].includes(Object.keys(slots)[i])){
 					if (Object.keys(slots)[i]==="tank1") {
 						tank1 = i;
@@ -165,36 +165,36 @@ world.beforeEvents.playerInteractWithBlock.subscribe((data) => {
 					dur.damage = Math.min(dur.damage+1,dur.maxDurability);
 					container.setItem(tank2,i)
 				};*/
-                } update(player, container)
-            });
-    });
+			} update(player, container)
+		});
+	});
 })
 // PREVENT OTHER PLAYERS FROM INTERACTING WITH THE ENTITY
-world.beforeEvents.playerInteractWithEntity.subscribe((event)=> {
-	const {player, target:entity} = event;
+world.beforeEvents.playerInteractWithEntity.subscribe((event) => {
+	const { player, target: entity } = event;
 	if (entity.typeId != 'cosmos:inv_ent') return;
-	
+
 	const owner = entity.getDynamicProperty('owner')
-	if (owner != player.nameTag ) {event.cancel = true; return}
-	
+	if (owner != player.nameTag) { event.cancel = true; return }
+
 	const holdingItem = player.getComponent("equippable").getEquipment(EquipmentSlot.Mainhand)
-	if (!player.isSneaking || holdingItem) {event.cancel = true; despawn(entity); return}
-	
+	if (!player.isSneaking || holdingItem) { event.cancel = true; despawn(entity); return }
+
 	let camera = player.getRotation(); camera = `${Math.round(camera.x)} ${Math.round(camera.y)}`
-	system.run(()=> {entity.setDynamicProperty('view', camera)})
+	system.run(() => { entity.setDynamicProperty('view', camera) })
 });
 
 // DESPAWN ENTITY ON HIT
-world.afterEvents.entityHitEntity.subscribe(({hitEntity:entity, damagingEntity:player})=> {
+world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity: player }) => {
 	if (entity.typeId == 'cosmos:inv_ent' && player.typeId == "minecraft:player") despawn(entity)
 });
 
 //DROP ITEMS AND DELETE ENTITY ON PLAYER DEATH
-world.afterEvents.entityDie.subscribe(({deadEntity:player})=> {
+world.afterEvents.entityDie.subscribe(({ deadEntity: player }) => {
 	if (player.typeId != "minecraft:player") return
-	const entities = player.dimension.getEntities({type: "cosmos:inv_ent"})//.filter(entity => entity.getDynamicProperty('owner') != player.nameTag)
-	entities.length == 0 ? despawn(spawn(player), !world.gameRules.keepInventory) : entities.forEach(entity=> despawn(entity, !world.gameRules.keepInventory))
-    if(!world.gameRules.keepInventory) player.setDynamicProperty("space_gear", undefined);
+	const entities = player.dimension.getEntities({ type: "cosmos:inv_ent" })//.filter(entity => entity.getDynamicProperty('owner') != player.nameTag)
+	entities.length == 0 ? despawn(spawn(player), !world.gameRules.keepInventory) : entities.forEach(entity => despawn(entity, !world.gameRules.keepInventory))
+	if (!world.gameRules.keepInventory) player.setDynamicProperty("space_gear", undefined);
 	player.setDynamicProperty("secondInventoryEntity", undefined);
 });
 
@@ -206,9 +206,9 @@ world.afterEvents.entityDie.subscribe(({deadEntity:player})=> {
 )*/
 
 //EQUIP ITEMS
-world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
-    itemComponentRegistry.registerCustomComponent("cosmos:space_gear", {
-        onUse({source:player, itemStack:item}) {
+world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
+	itemComponentRegistry.registerCustomComponent("cosmos:space_gear", {
+		onUse({ source: player, itemStack: item }) {
 			const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}'); let sound = false
 			if (!player.getProperty("cosmos:oxygen_gear") && item.typeId == "cosmos:oxygen_gear") {
 				player.runCommand(`clear @s cosmos:oxygen_gear 0 1`)
@@ -230,10 +230,10 @@ world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
 				space_gear.parachute = item.typeId; sound = true
 			}
 			if (Object.keys(tanks).includes(item.typeId)) {
-				let tank = undefined 
+				let tank = undefined
 				if (player.getProperty("cosmos:tank1") == 'no_tank') tank = "tank1"
 				else if (player.getProperty("cosmos:tank2") == 'no_tank') tank = "tank2"
-				if (tank) { 
+				if (tank) {
 					const durability = item.getComponent("minecraft:durability")
 					player.runCommand(`clear @s ${item.typeId} -1 1`)
 					space_gear[tank] = item.typeId + (durability ? ' ' + durability.damage : ''); sound = true
@@ -242,8 +242,8 @@ world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
 			}
 			if (sound) player.dimension.playSound("armor.equip_iron", player.location)
 			player.setDynamicProperty("space_gear", JSON.stringify(space_gear))
-        }
-    })
+		}
+	})
 })
 
 /* OXYGEN AND UNUSED FUNCTIONS - preserved for later use 
@@ -282,11 +282,11 @@ function checkOxygen(p){
 //RESET DURABILITY SYSTEM
 system.afterEvents.scriptEventReceive.subscribe((event)=> {
 	if (event.id !== "delete:durability") return;
-    let {sourceEntity:p} = event;
-    let item = p.getComponent("equippable").getEquipment(EquipmentSlot.Mainhand);
-    let dur = item.getComponent("minecraft:durability");
-    dur.damage = dur.maxDurability;
-    p.getComponent("equippable").setEquipment(EquipmentSlot.Mainhand,item)
+	let {sourceEntity:p} = event;
+	let item = p.getComponent("equippable").getEquipment(EquipmentSlot.Mainhand);
+	let dur = item.getComponent("minecraft:durability");
+	dur.damage = dur.maxDurability;
+	p.getComponent("equippable").setEquipment(EquipmentSlot.Mainhand,item)
 })
 
 world.afterEvents.itemUse.subscribe((e)=>{

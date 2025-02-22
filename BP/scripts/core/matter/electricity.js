@@ -4,18 +4,18 @@ import { compare_position, floor_position } from "../../api/utils";
 export function get_data(machine) { return AllMachineBlocks[machine.typeId.replace('cosmos:', '')] }
 function str(object) { return JSON.stringify(object) }
 function say(message = 'yes') { world.sendMessage('' + message) }
-export class MachinesInNetwork{
-    constructor(machine){
-        this.machine = machine;
-    }
-    getInputMachines(){
-        if(this.machine.getDynamicProperty("input_connected_machines")) return JSON.parse(this.machine.getDynamicProperty("input_connected_machines"))
-        return undefined;
-    }
-    getOutputMachines(){
-        if(this.machine.getDynamicProperty("output_connected_machines")) return JSON.parse(this.machine.getDynamicProperty("output_connected_machines"))
-        return undefined;
-    }
+export class MachinesInNetwork {
+	constructor(machine) {
+		this.machine = machine;
+	}
+	getInputMachines() {
+		if (this.machine.getDynamicProperty("input_connected_machines")) return JSON.parse(this.machine.getDynamicProperty("input_connected_machines"))
+		return undefined;
+	}
+	getOutputMachines() {
+		if (this.machine.getDynamicProperty("output_connected_machines")) return JSON.parse(this.machine.getDynamicProperty("output_connected_machines"))
+		return undefined;
+	}
 }
 export function get_entity(dimension, location, family) {
 	if (!location) return
@@ -39,13 +39,13 @@ export function charge_from_machine(entity, block, energy) {
 				let input_entity = world.getEntity(input_entity_id[0])
 				const lore = input_entity.getDynamicProperty("cosmos_power")
 				let power = lore ? + lore : 0
-				let inputs = connectedMachines.filter((input) => 
-				    input[1] == "input"
+				let inputs = connectedMachines.filter((input) =>
+					input[1] == "input"
 				)
-				power = (inputs.length > 0)? Math.floor(power/(inputs.length + 1)):
-				power;
+				power = (inputs.length > 0) ? Math.floor(power / (inputs.length + 1)) :
+					power;
 				const space = data.capacity - energy
-				if(power > 0){
+				if (power > 0) {
 					energy += Math.min(data.maxInput, power, space)
 				}
 			}
@@ -53,14 +53,14 @@ export function charge_from_machine(entity, block, energy) {
 	} else {
 		const input_location = location_of_side(block, data.energy_input)
 		const input_entity = get_entity(entity.dimension, input_location, "has_power_output")
-		if ( input_entity && energy < data.capacity ) {
+		if (input_entity && energy < data.capacity) {
 			const input_block = entity.dimension.getBlock(input_location)
 			const input_data = get_data(input_entity)
 			const lore = input_entity.getDynamicProperty("cosmos_power")
 			const power = lore ? + lore : 0
 			const space = data.capacity - energy
 			const io = location_of_side(input_block, input_data.energy_output)
-			if(compare_position(floor_position(entity.location), io) && power > 0){
+			if (compare_position(floor_position(entity.location), io) && power > 0) {
 				energy += Math.min(data.maxInput, power, space)
 			}
 		}
@@ -96,26 +96,22 @@ const ROTATE_BY = {
 // this function takes a Block and a Side (above, below, left, right, back, or front) and returns a location {x, y, z}
 export function location_of_side(block, side) {
 	if (!block || !block.isValid() || !side) return
-	const {location, permutation} = block
-	if (side == "above") return {...location, y: location.y + 1}
-	if (side == "below") return {...location, y: location.y - 1}
+	const { location, permutation } = block
+	if (side == "above") return location.y += 1, location
+	if (side == "below") return location.y -= 1, location
 	const facing = permutation.getState("minecraft:cardinal_direction")
 	if (!facing) return
 	const direction = ROTATE_BY[facing]
-	const x = Math.round(Math.cos(direction + TURN_BY[side]))
-	const z = Math.round(Math.sin(direction + TURN_BY[side]))
-	return {
-		x: location.x + x,
-		y: location.y,
-		z: location.z + z
-	}
+	location.x += Math.round(Math.cos(direction + TURN_BY[side]))
+	location.z += Math.round(Math.sin(direction + TURN_BY[side]))
+	return location
 }
 
+
 export function update_battery(battery, charge) {
-	battery.setLore([`§r§${
-		Math.floor(charge) >= 10000 ? '2' :
-		Math.floor(charge) < 5000 ? '4' : '6'
-	}${Math.floor(charge)} gJ/15,000 gJ`])
+	battery.setLore([`§r§${Math.floor(charge) >= 10000 ? '2' :
+			Math.floor(charge) < 5000 ? '4' : '6'
+		}${Math.floor(charge)} gJ/15,000 gJ`])
 	battery.getComponent('minecraft:durability').damage = 15000 - Math.floor(charge)
 	battery.setDynamicProperty('energy', Math.floor(charge))
 	return battery
