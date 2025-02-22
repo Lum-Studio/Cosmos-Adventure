@@ -1,4 +1,4 @@
-import { world, system, DimensionTypes, Entity } from "@minecraft/server";
+import { world, system, Entity } from "@minecraft/server";
 import { Vec3 } from "api/libraries/Vector";
 export { Gravity };
 
