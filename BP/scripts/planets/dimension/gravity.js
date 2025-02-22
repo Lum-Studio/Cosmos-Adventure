@@ -367,109 +367,90 @@ function gravityFuncMain(entity) {
 
 
 /**
- * Applies gravity effects to a non-player entity.
- * Uses applyImpulse to simulate gravity’s downward pull,
- * updates fall velocity, and applies a dynamic slow falling effect.
+ * Applies low-gravity effects for non-player entities,
+ * including integrated slime bounce logic.
+ *
+ * In low-gravity environments, if the entity’s fall speed exceeds a terminal
+ * limit, an upward impulse is applied to decelerate its descent. Additionally,
+ * if the entity is above a slime block and falling fast, it bounces.
  *
  * @param {Entity} entity - The non-player entity.
- * @param {Object} vector - The computed gravity vector with properties: x, z, y, and hzPower.
- * @param {number} currentFall - The current fall velocity.
- * @param {number} gravityValue - The gravity value.
- * @param {Gravity} gravity - The Gravity instance (used for fall distance calculation).
+ * @param {Gravity} gravity - (Optional) The Gravity instance for the entity.
+ *   If undefined, a new instance is created.
  */
-async function applyGravityEntity(entity, vector, currentFall, gravityValue, gravity) {
-  // Determine acceleration factor based on the block below the entity.
+function applyGravityEntity(entity, gravity) {
+  // Ensure a Gravity instance exists. (this is necessary to avoid errors DONT REMOVE THIS)
+  if (!gravity || typeof gravity.calculateGravityVector !== "function") {
+    gravity = new Gravity(entity);
+  }
+  
+  // Retrieve the gravity vector (primarily using its vertical component).
+  const vector = gravity.calculateGravityVector();
+  let currentFall = Number(fallVelocity.get(entity)) || 0;
+  
+  // --- Slime Bounce Logic ---
+  // If the block below is a slime block and the entity is falling fast,
+  // perform a bounce by applying an upward impulse.
   const blockBelow = getBlockBelow(entity);
-  let fallAccelerationFactor;
   if (blockBelow && blockBelow.typeId === "minecraft:slime_block") {
-    // Bounce logic when on a slime block.
-    const bounceThreshold = -0.001; // threshold for a hard fall
-    if (currentFall < bounceThreshold) {
-      const bounceFactor = 0.8; // retain a percentage of the fall energy
+    if (currentFall < -0.001) {
+      const bounceFactor = 0.8; // Retain a percentage of the fall energy.
       const bounceImpulse = Math.abs(currentFall) * bounceFactor;
-
-      // Update the fall velocity for the bounce.
       fallVelocity.set(entity, bounceImpulse);
-
-      // Apply an upward impulse for the bounce.
       entity.applyImpulse({ x: 0, y: bounceImpulse, z: 0 });
-
-      // Spawn bounce particle below the entity.
-      const particlePos = {
-        x: Math.floor(entity.location.x),
-        y: Math.floor(entity.location.y - 0.5),
-        z: Math.floor(entity.location.z)
-      };
-      entity.dimension.spawnParticle("minecraft:slime_bounce", particlePos);
-
-      // Play bounce sound.
-      entity.playSound("mob.slime.jump");
-
-      // Bounce handled exclusively.
-      return;
-    } else {
-      fallAccelerationFactor = gravityValue / 12;
+      
+      // Optional: spawn bounce particles and play a sound.
+      if (entity.dimension && entity.location) {
+        const particlePos = {
+          x: Math.floor(entity.location.x),
+          y: Math.floor(entity.location.y - 0.5),
+          z: Math.floor(entity.location.z)
+        };
+        entity.dimension.spawnParticle("minecraft:slime_bounce", particlePos);
+      }
+      if (typeof entity.playSound === "function") {
+        entity.playSound("mob.slime.jump");
+      }
+      return; // Bounce takes precedence.
     }
-  } else {
-    // Use normal acceleration for non-slime blocks.
-    fallAccelerationFactor = gravityValue / 2;
   }
-
-  // Calculate a modified fall factor.
-  const fallModifier = Math.min(0, Number(currentFall));
-
-  // Compute the knockback-equivalent vertical strength.
-  // (vector.y * 3 + fallModifier) / 300 produces the vertical impulse.
-  const knockbackPower = (Number(vector.y) * 3 + fallModifier) / 300;
-
-  // Convert the original knockback parameters to an impulse vector.
-  // In the original applyKnockback, we had:
-  //   directionX = vector.x, directionZ = vector.z,
-  //   horizontalStrength = vector.hzPower, verticalStrength = knockbackPower.
-  // The inverse conversion :
-  const impulse = {
-    x: Number(vector.x) * Number(vector.hzPower),
-    y: Number(knockbackPower),
-    z: Number(vector.z) * Number(vector.hzPower)
-  };
-
+  
+  // --- Low-Gravity Descent Logic ---
+  // Define a terminal velocity that scales with the gravity value.
+  // In low gravity, the maximum (negative) fall speed is less extreme.
+  const terminalVelocity = -20 * (gravity.value / 9.8);
+  let impulse;
+  
+  // If falling too fast, apply an upward (counter) impulse to slow descent.
+  if (currentFall < terminalVelocity) {
+    const deceleration = (terminalVelocity - currentFall) / 10;
+    impulse = { x: 0, y: deceleration, z: 0 };
+  } else {
+    // Otherwise, apply a normal downward impulse.
+    const impulseMagnitude = gravity.value / 10;
+    impulse = { x: 0, y: -impulseMagnitude, z: 0 };
+  }
+  
   entity.applyImpulse(impulse);
-
-  // Update the fall velocity.
-  fallVelocity.set(entity, Number(currentFall) - gravityValue / 5);
-
-  // Update the fall distance dynamic property.
-  const startY = Number(jumpStartY.get(entity)) || 0;
-  const currentY = Number(entity.location?.y) || 0;
-  const fallDist = Math.max(0, startY - currentY);
-  entity.setDynamicProperty("fall_distance", fallDist);
-
-  // --- Dynamic slow falling based on proximity to the ground ---
-  const baseGravity = 9.8;
-  const gravityDelta = gravityValue - baseGravity;
-  const fallDistance = gravity.calculateFallDistance();
-  let slowFallingAmplifier, slowFallingDuration;
-
-  // If very close to the ground, cancel slow falling so the landing accelerates.
-  if (fallDistance < 2) {
-    slowFallingAmplifier = 0;
-    slowFallingDuration = 1;
+  
+  // Update the current fall velocity.
+  if (impulse.y < 0) {
+    currentFall -= gravity.value / 10;
   } else {
-    slowFallingAmplifier = gravityDelta > 0 ? Math.min(1, Math.floor(gravityDelta / 10)) : 0;
-    slowFallingDuration = gravityDelta > 0 ? Math.max(1, Math.ceil(gravityDelta / 10)) : 1;
+    currentFall += impulse.y;
   }
-  try {
-    await delay(1);
-    if (entity.isValid() && typeof entity.addEffect === "function") {
-      entity.addEffect("slow_falling", slowFallingDuration, {
-        amplifier: slowFallingAmplifier,
-        showParticles: false
-      });
-    }
-  } catch (err) {
-    console.error("Error applying gravity effects:", err);
+  fallVelocity.set(entity, currentFall);
+  
+  // Update a dynamic "fall_distance" property.
+  if (typeof entity.setDynamicProperty === "function") {
+    const startY = Number(jumpStartY.get(entity)) || 0;
+    const currentY = Number(entity.location && entity.location.y) || 0;
+    const fallDist = Math.max(0, startY - currentY);
+    entity.setDynamicProperty("fall_distance", fallDist);
   }
 }
+
+
 
 
 /**
