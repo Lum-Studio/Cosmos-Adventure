@@ -245,7 +245,7 @@ class Gravity {
     return Math.max(0, startY - currentY);
   }
   /**
-   * Cancels any pending jump steps.
+   * Cancels any pending jump.
    */
   cancelPendingJumps() {
     const timeoutId = pendingJumpSteps.get(this.entity);
