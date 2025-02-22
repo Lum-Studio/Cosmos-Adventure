@@ -6,7 +6,7 @@ import { Block, ItemStack, World, Player, Container, world, ContainerSlot } from
  */
 ItemStack.prototype.decrementStack = function (decrementItemAmount = 1) {
     if (this.amount > decrementItemAmount) {
-        this.amount = this.amount - decrementItemAmount;
+        this.amount -= decrementItemAmount;
         return this;
     } else return undefined;
 };
@@ -17,7 +17,7 @@ ItemStack.prototype.decrementStack = function (decrementItemAmount = 1) {
  */
 ItemStack.prototype.incrementStack = function (incrementItemMax = 64, incrementItemAmount = 1) {
     if ((incrementItemMax === 64) ? this.amount < incrementItemMax : this.amount <= incrementItemMax) {
-        this.amount = this.amount + incrementItemAmount;
+        this.amount += incrementItemAmount;
     } return this;
 };
 {

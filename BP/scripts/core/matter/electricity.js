@@ -9,12 +9,12 @@ export class MachinesInNetwork {
 		this.machine = machine;
 	}
 	getInputMachines() {
-		if (this.machine.getDynamicProperty("input_connected_machines")) return JSON.parse(this.machine.getDynamicProperty("input_connected_machines"))
-		return undefined;
+		const icm = this.machine.getDynamicProperty("input_connected_machines")
+		return icm ? JSON.parse(icm) : undefined;
 	}
 	getOutputMachines() {
-		if (this.machine.getDynamicProperty("output_connected_machines")) return JSON.parse(this.machine.getDynamicProperty("output_connected_machines"))
-		return undefined;
+		const ocm = this.machine.getDynamicProperty("output_connected_machines")
+		return ocm ? JSON.parse(ocm) : undefined;
 	}
 }
 export function get_entity(dimension, location, family) {

@@ -14,29 +14,26 @@ function clean_machine_entities(machines_array) {
         new machines[machine[1].type].class(entity, block);
     }
 }
-function block_entity_access() {
-    world.getAllPlayers().forEach(player => {
-        if (!player) return;
-        if (player.isSneaking) {
-            const entity = player.getEntitiesFromViewDirection({ maxDistance: 6, families: ["cosmos"] })[0]?.entity;
-            if (!entity) return;
-            entity.triggerEvent("cosmos:shrink");
-            return;
+
+{
+    const query = { maxDistance: 6, families: ["cosmos"] }
+    var block_entity_access = () => {
+        for (const player of world.getAllPlayers()) {
+            if (player.isSneaking) {
+                player.getEntitiesFromViewDirection(query)[0]?.entity?.triggerEvent("cosmos:shrink");
+                continue;
+            }
+            const hand = player.hand();
+            if (!hand.hasItem() || !pickaxes.has(hand.typeId) || hand.typeId !== "cosmos:standard_wrench") continue;
+            player.getEntitiesFromViewDirection(query)[0]?.entity?.triggerEvent("cosmos:shrink");
         }
-        const item = player.hand();
-        if (!item.hasItem()) return;
-        if (pickaxes.has(item.typeId) || item.typeId == "cosmos:standard_wrench") {
-            const entity = player.getEntitiesFromViewDirection({ maxDistance: 6, families: ["cosmos"] })[0]?.entity;
-            if (!entity) return;
-            entity.triggerEvent("cosmos:shrink");
-        }
-    })
+    }
+    system.runInterval(() => {
+        if (!machine_entities.size) return;
+        if (system.currentTick % 2) block_entity_access();
+        clean_machine_entities(machine_entities);
+    }, 1);
 }
-system.runInterval(() => {
-    if (machine_entities.size === 0) return;
-    if (system.currentTick % 2) block_entity_access();
-    clean_machine_entities(machine_entities);
-}, 1);
 
 world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
     blockComponentRegistry.registerCustomComponent('cosmos:machine', {
