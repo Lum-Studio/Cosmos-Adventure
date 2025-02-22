@@ -111,7 +111,7 @@ world.beforeEvents.playerInteractWithBlock.subscribe((data) => {
 				return;
 
 			}
-			if (player.getComponent("equippable").getEquipment(EquipmentSlot.Mainhand)) {
+			if (player.hand().hasItem()) {
 				despawn(entity)
 				return;
 			}
@@ -177,8 +177,7 @@ world.beforeEvents.playerInteractWithEntity.subscribe((event) => {
 	const owner = entity.getDynamicProperty('owner')
 	if (owner != player.nameTag) { event.cancel = true; return }
 
-	const holdingItem = player.getComponent("equippable").getEquipment(EquipmentSlot.Mainhand)
-	if (!player.isSneaking || holdingItem) { event.cancel = true; despawn(entity); return }
+	if (!player.isSneaking || player.hand().hasItem()) { event.cancel = true; despawn(entity); return }
 
 	let camera = player.getRotation(); camera = `${Math.round(camera.x)} ${Math.round(camera.y)}`
 	system.run(() => { entity.setDynamicProperty('view', camera) })

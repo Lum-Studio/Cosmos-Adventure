@@ -14,7 +14,7 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
         },
         onPlayerDestroy({destroyedBlockPermutation:permutaion, dimension, block, player}) {
             if (permutaion.getState('cosmos:cheese_part_visibility') == 6) return
-            const silk_touch = player.getComponent('equippable').getEquipment('Mainhand')
+            const silk_touch = player.hand().getItem()
             ?.getComponent('enchantable')?.getEnchantment('silk_touch')
             if (!silk_touch) return
             dimension

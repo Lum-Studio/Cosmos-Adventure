@@ -10,8 +10,8 @@ function evaporate(block) {
 }
 
 const liquids = [
-    {block: "cosmos:oil", bucket: "cosmos:oil_bucket"},
-    {block: "cosmos:fuel", bucket: "cosmos:fuel_bucket"},
+    { block: "cosmos:oil", bucket: "cosmos:oil_bucket" },
+    { block: "cosmos:fuel", bucket: "cosmos:fuel_bucket" },
 ]
 // world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 // 	blockComponentRegistry.registerCustomComponent("cosmos:liquid", {
@@ -19,7 +19,7 @@ const liquids = [
 //         //     const liquid = block.permutation
 //         //     const height = liquid.getState("cosmos:height")
 //         //     const source = liquid.getState("cosmos:source")
-            
+
 //         //     const neighbors = [block.north(), block.east(), block.south(), block.west()]
 //         //     const has_source = block.permutation.getState('cosmos:source') || neighbors.find(side => {
 //         //         const higher = side.typeId == block.typeId && source_height <= side.permutation?.getState('cosmos:height')
@@ -38,17 +38,16 @@ const liquids = [
 //     })
 // })
 
-world.beforeEvents.playerInteractWithBlock.subscribe(({block, player, itemStack:item, isFirstEvent}) => {
+world.beforeEvents.playerInteractWithBlock.subscribe(async ({ block, player, itemStack: item, isFirstEvent }) => {
     if (!isFirstEvent || !item) return
-    const equipment = player.getComponent('equippable')
     if (item.typeId == "minecraft:bucket") { //pickup liquid
         const bucket = liquids.find(liquid => liquid.block == block.typeId)?.bucket
         if (!bucket) return
-        system.run(()=> {
+        system.run(() => {
             block.setType('air')
-            if (item.amount == 1) equipment.setEquipment('Mainhand', new ItemStack(bucket))
+            if (item.amount == 1) player.hand(new ItemStack(bucket))
             else {
-                equipment.setEquipment('Mainhand', item.decrementStack())
+                player.hand().amount--
                 player.give(bucket)
             }
         })
@@ -64,9 +63,9 @@ const faces = {
     South: 'south',
 }
 
-world.beforeEvents.worldInitialize.subscribe(({itemComponentRegistry}) => {
+world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
     itemComponentRegistry.registerCustomComponent("cosmos:bucket", {
-        onUseOn({source:player, itemStack:item, blockFace, block}) {
+        onUseOn({ source: player, itemStack: item, blockFace, block }) {
             const against = block[faces[blockFace]]()
             if (against.typeId != 'minecraft:air') return
             const liquid = liquids.find(liquid => liquid.bucket == item.typeId)
