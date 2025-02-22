@@ -1486,6 +1486,10 @@ custom.coords=Position
 ## entites
 entity.cosmos:treasure_chest.name=Treasure Chest
 
+## creative inventory
+cosmos:cosmos_blocks=Cosmos Blocks
+cosmos:cosmos_items=Cosmos Items
+
 ## Automatically generated keys (Need to be checked and sorted by a human)
 
 tile.cosmos:buggy_fueling_pad.name=Buggy Fueling Pad

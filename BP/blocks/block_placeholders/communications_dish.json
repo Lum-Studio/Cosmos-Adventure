@@ -2,10 +2,7 @@
    "format_version": "1.20.80",
    "minecraft:block": {
       "description": {
-         "identifier": "cosmos:communications_dish",
-         "menu_category": {
-            "category": "items"
-         }
+         "identifier": "cosmos:communications_dish"
       },
       "components": {
          "minecraft:loot": "loot_tables/blocks/block_placeholders/communications_dish.json"

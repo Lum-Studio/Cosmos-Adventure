@@ -8,7 +8,7 @@
                     {
                         "group_identifier": {
                             "icon": "cosmos:electric_compressor",
-                            "name": "cosmos:galacticraft_blocks"
+                            "name": "cosmos:cosmos_blocks"
                         },
                         "items": [
                             "cosmos:rocket_launch_pad",
@@ -33,7 +33,7 @@
                             "cosmos:air_lock_frame",
                             "cosmos:air_lock_controller",
                             "cosmos:basic_solar_panel",
-                            "cosmos:advanced_solar_panel,\n                                ",
+                            "cosmos:advanced_solar_panel",
                             "cosmos:coal_generator",
                             "cosmos:compressor",
                             "cosmos:electric_compressor",
@@ -60,14 +60,13 @@
                             "cosmos:beam_receiver",
                             "cosmos:telepad",
                             "cosmos:geothermal_generator",
-                            "cosmos:oxygen_storage_module,\n                                ",
                             "cosmos:solar_array_controller"
                         ]
                     },
                     {
                         "group_identifier": {
                             "icon": "cosmos:astro_miner_item",
-                            "name": "cosmos:galacticraft_items"
+                            "name": "cosmos:cosmos_items"
                         },
                         "items": [
                             "cosmos:astro_miner_item",

@@ -2,10 +2,7 @@
    "format_version": "1.21.50",
    "minecraft:block": {
       "description": {
-         "identifier": "cosmos:fuel",
-         "menu_category": {
-            "category": "items"
-         }
+         "identifier": "cosmos:fuel"
       },
       "components": {
          "minecraft:destructible_by_explosion": false,
