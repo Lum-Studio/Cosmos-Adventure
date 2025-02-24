@@ -2,10 +2,7 @@
    "format_version": "1.21.50",
    "minecraft:block": {
       "description": {
-         "identifier": "cosmos:oil",
-         "menu_category": {
-            "category": "items"
-         }
+         "identifier": "cosmos:oil"
       },
       "components": {
          "minecraft:destructible_by_explosion": false,
