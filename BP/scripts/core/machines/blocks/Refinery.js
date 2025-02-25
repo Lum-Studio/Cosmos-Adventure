@@ -77,7 +77,7 @@ export default class {
 			closest: 1,
 			maxDistance: 6
 		})[0]?.location
-		if (input && input.typeId != "cosmos:oil_bucket" && player_location) {
+		if (input && input.typeId != "cosmos:oil_bucket" && input.typeId != "minecraft:bucket" && player_location) {
 			dimension.spawnItem(input, player_location)
 			container.setItem(0)
 		}
