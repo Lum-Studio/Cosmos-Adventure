@@ -277,23 +277,20 @@ Object.assign(NeighborMonitor.prototype, EventBus.prototype);
 export const NeighborMonitorAPI = NeighborMonitor;
 
 /**
- * Registers a Neighbor change listener on a given block position.
- * This is designed for dynamic usage (e.g. for custom fluids), working in any dimension.
+ * Registers a neighbor change listener for a block at the given position.
  *
- * The callback is invoked with the signature:
- *   onNeighborChanged(changedPos, newType, oldType, blockPos, dimensionId)
- *
- * @param {string} id - Unique identifier for the listener.
  * @param {{x: number, y: number, z: number}} pos - The block position to monitor.
- * @param {Function} callback - Callback function invoked on neighbor change.
- *        Signature: (changedPos, newType, oldType, blockPos, dimensionId)
- * @param {object|string} [dimension] - Optional dimension (as a Dimension object or a string ID). Defaults to "overworld".
- * @returns {Function} A function that, when called, unregisters this neighbor listener.
+ * @param {Function} callback - Function called on neighbor change with signature:
+ *        (changedPos, newType, oldType, blockPos, dimensionId)
+ * @param {object|string} [dimension="overworld"] - Optional dimension (object or string). Defaults to "overworld".
+ * @returns {Function} A function to unregister the listener.
  */
-export function onNeighborChanged(id, pos, callback, dimension) {
-  NeighborMonitorAPI.onNeighborChanged(id, pos, callback, dimension);
-  // Return an unregister function for dynamic removal.
+export function onNeighborChanged(pos, callback, dimension = "overworld") {
+  // Use a simple stringified version of the position as a unique watcher ID.
+  const watcherId = `neighbor:${pos.x},${pos.y},${pos.z}`;
+  NeighborMonitorAPI.onNeighborChanged(watcherId, pos, callback, dimension);
   return () => {
-    NeighborMonitorAPI.removeNeighborChangedListener(id);
+    NeighborMonitorAPI.removeNeighborChangedListener(watcherId);
   };
 }
+
