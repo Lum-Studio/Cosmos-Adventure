@@ -1,8 +1,8 @@
 {
   "format_version": "1.20.80",
   "render_controllers": {
-    "controller.render.oxygen_part": {
-      "geometry": "geometry.oxygen_part",
+    "controller.render.cosmos_gears": {
+      "geometry": "geometry.cosmos_gears",
       "materials": [
         {
           "*": "material.default"
@@ -32,10 +32,16 @@
         },
         {
           "tank_23": "query.property('cosmos:tank2') == 'heavy'"
+        },
+        {
+          "frequency": "query.property('cosmos:frequency_module')"
+        },
+        {
+          "frequency_radar": "query.property('cosmos:frequency_module')"
         }
       ],
       "textures": [
-        "texture.oxygen_part"
+        "texture.cosmos_gears"
       ]
     }
   }

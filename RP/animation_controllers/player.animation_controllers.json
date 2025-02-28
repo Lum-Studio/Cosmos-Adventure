@@ -87,7 +87,7 @@
 							"riding.legs" : "query.is_riding"
 						},
 						{
-							"holding" : "!variable.rocket_player_hold"
+							"holding" : "!variable.cosmos_player_hold"
 						},
 						{
 							"brandish_spear" : "variable.is_brandishing_spear"
@@ -99,7 +99,7 @@
 							"charging" : "query.is_charging"
 						},
 						{
-							"sneaking" : "query.is_sneaking && !query.is_sleeping && !variable.rocket_player_hold"
+							"sneaking" : "query.is_sneaking && !query.is_sleeping && !variable.cosmos_player_hold"
 						},
 						{
 							"bob": "!variable.is_holding_spyglass && !variable.is_tooting_goat_horn && !variable.is_using_brush"
