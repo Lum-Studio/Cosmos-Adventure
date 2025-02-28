@@ -127,7 +127,7 @@ function rocket_flight(rocket) {
         let fuel = rocket.getDynamicProperty('fuel_level') ?? 0;
         rocket.setRotation({ x: rocket.getRotation().x, y: rotation[1] });
         rocket.setProperty("cosmos:rotation_x", rotation[0]);
-        // player.setProperty("cosmos:rotation_y", rotation[1]);
+        player.setProperty("cosmos:rotation_x", rotation[0]);
         rocket.setDynamicProperty("fuel_level", Math.max(0, fuel - 1))
     })
 }
