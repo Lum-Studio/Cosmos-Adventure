@@ -95,15 +95,17 @@ function dismount(player) {
 function rocket_rotation(player, rocket) {
     let x = Math.round(player.inputInfo.getMovementVector().x);
     let y = Math.round(player.inputInfo.getMovementVector().y);
+
     let rotationX = rocket.getProperty("cosmos:rotation_x") +
-        (x == 0 && y == 1) ? -0.7 :
-        (x == 0 && y == -1) ? 0.7 :
-            0;
+        ((x == 0 && y == 1) ? -0.7 :
+            (x == 0 && y == -1) ? 0.7 :
+                0);
 
     return [
         (rotationX > 180) ? 180 : (rotationX < 0) ? 0 : rotationX,
         rocket.getRotation().y + ((x == 1 && y == 0) ? 1 : (x == -1 && y == 0) ? -1 : 0)
     ]
+
 }
 
 function rocket_flight(rocket) {
