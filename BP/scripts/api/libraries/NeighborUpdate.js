@@ -286,7 +286,6 @@ export const NeighborMonitorAPI = NeighborMonitor;
  * @returns {Function} A function to unregister the listener.
  */
 export function onNeighborChanged(pos, callback, dimension = "overworld") {
-  // Use a simple stringified version of the position as a unique watcher ID.
   const watcherId = `neighbor:${pos.x},${pos.y},${pos.z}`;
   NeighborMonitorAPI.onNeighborChanged(watcherId, pos, callback, dimension);
   return () => {
