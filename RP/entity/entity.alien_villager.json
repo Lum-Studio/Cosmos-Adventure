@@ -17,8 +17,8 @@
             "baby_transform": "animation.villager.baby_transform"
          },
          "spawn_egg": {
-            "texture": "cosmos:alien_villager",
-            "texture_index": 0
+           "base_color": "#563c33",
+           "overlay_color": "#6791b5"
          },
          "identifier": "cosmos:alien_villager",
          "scripts": {
