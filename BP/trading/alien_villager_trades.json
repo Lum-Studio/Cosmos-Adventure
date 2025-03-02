@@ -1,0 +1,185 @@
+{
+   "tiers": [
+      {
+         "trades": [
+            {
+               "wants": [
+                  {
+                     "item": "cosmos:lunar_sapphire",
+                     "quantity": {
+                        "min": 1,
+                        "max": 2
+                     }
+                  }
+               ],
+               "gives": [
+                  {
+                     "item": "cosmos:oxygen_mask"
+                  }
+               ]
+            },
+            {
+               "wants": [
+                  {
+                     "item": "cosmos:lunar_sapphire",
+                     "quantity": {
+                        "min": 3,
+                        "max": 4
+                     }
+                  }
+               ],
+               "gives": [
+                  {
+                     "item": "cosmos:oxygen_tank_light_full",
+                     "functions": [
+                        {
+                           "function": "set_damage",
+                           "damage": 0.765
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "wants": [
+                  {
+                     "item": "cosmos:lunar_sapphire",
+                     "quantity": {
+                        "min": 3,
+                        "max": 4
+                     }
+                  }
+               ],
+               "gives": [
+                  {
+                     "item": "cosmos:oxygen_gear"
+                  }
+               ]
+            },
+            {
+               "wants": [
+                  {
+                     "item": "cosmos:lunar_sapphire",
+                     "quantity": {
+                        "min": 3,
+                        "max": 4
+                     }
+                  }
+               ],
+               "gives": [
+                  {
+                     "item": "cosmos:fuel_canister"
+                  }
+               ]
+            },
+            {
+               "wants": [
+                  {
+                     "item": "cosmos:lunar_sapphire",
+                     "quantity": {
+                        "min": 1,
+                        "max": 2
+                     }
+                  }
+               ],
+               "gives": [
+                  {
+                     "item": "cosmos:parachute_plain"
+                  }
+               ]
+            },
+            {
+               "wants": [
+                  {
+                     "item": "cosmos:lunar_sapphire",
+                     "quantity": {
+                        "min": 2,
+                        "max": 4
+                     }
+                  }
+               ],
+               "gives": [
+                  {
+                     "item": "cosmos:battery",
+                     "functions": [
+                        {
+                           "function": "set_damage",
+                           "damage": 0.42
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "wants": [
+                  {
+                     "item": "cosmos:lunar_sapphire"
+                  },
+                  {
+                     "item": "cosmos:oil_canister"
+                  }
+               ],
+               "gives": [
+                  {
+                     "item": "cosmos:dehydrated_carrot"
+                  }
+               ]
+            },
+            {
+               "wants": [
+                  {
+                     "item": "cosmos:lunar_sapphire",
+                     "quantity": {
+                        "min": 3,
+                        "max": 4
+                     }
+                  }
+               ],
+               "gives": [
+                  {
+                     "item": "cosmos:basic_wafer"
+                  }
+               ]
+            },
+            {
+               "wants": [
+                  {
+                     "item": "cosmos:schematic_buggy"
+                  },
+                  {
+                     "item": "cosmos:lunar_sapphire",
+                     "quantity": {
+                        "min": 3,
+                        "max": 5
+                     }
+                  }
+               ],
+               "gives": [
+                  {
+                     "item": "cosmos:schematic_rocket_t2"
+                  }
+               ]
+            },
+            {
+               "wants": [
+                  {
+                     "item": "cosmos:schematic_rocket_t2"
+                  },
+                  {
+                     "item": "cosmos:lunar_sapphire",
+                     "quantity": {
+                        "min": 3,
+                        "max": 5
+                     }
+                  }
+               ],
+               "gives": [
+                  {
+                     "item": "cosmos:schematic_buggy"
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}
