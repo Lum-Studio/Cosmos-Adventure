@@ -72,7 +72,7 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
             if (!liquid) return
             against.setType(liquid.block)
             if (player.getGameMode() == 'creative') return
-            player.hand(new ItemStack('bucket'))
+            player.getComponent('equippable').setEquipment('Mainhand', new ItemStack('bucket'))
         }
     })
 })
