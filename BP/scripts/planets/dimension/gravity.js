@@ -524,13 +524,13 @@ world.afterEvents.entitySpawn.subscribe((eventData) => {
 
 // Subscribe to generic entity hit events for non-player entities.
 world.afterEvents.entityHurt.subscribe((eventData) => {
-  if (eventData?.entity && !gravityEntities.has(eventData.entity)) {
-    gravityEntities.add(eventData.entity);
+  if (eventData?.hurtEntity && !gravityEntities.has(eventData.hurtEntity)) {
+    gravityEntities.add(eventData.hurtEntity);
   }
 });
 
 // Subscribe to player join events to capture players as they join.
-world.afterEvents.playerJoin.subscribe((eventData) => {
+world.afterEvents.playerSpawn.subscribe((eventData) => {
   if (eventData?.player) {
     gravityEntities.add(eventData.player);
   }
@@ -544,14 +544,14 @@ world.afterEvents.playerDimensionChange.subscribe((eventData) => {
 });
 
 // Keep the cache up-to-date by removing entities when they are removed.
-world.afterEvents.entityRemove.subscribe((eventData) => {
-  if (eventData?.entity) {
-    gravityEntities.delete(eventData.entity);
+world.beforeEvents.entityRemove.subscribe((eventData) => {
+  if (eventData?.removedEntity) {
+    gravityEntities.delete(eventData.removedEntity);
   }
 });
 
 // Also remove players when they leave.
-world.afterEvents.playerLeave.subscribe((eventData) => {
+world.beforeEvents.playerLeave.subscribe((eventData) => {
   if (eventData?.player) {
     gravityEntities.delete(eventData.player);
   }
