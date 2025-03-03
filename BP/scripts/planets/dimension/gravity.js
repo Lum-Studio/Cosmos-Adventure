@@ -1,4 +1,5 @@
 import { world, system, Entity } from "@minecraft/server";
+import { Vec3 } from "api/libraries/Vector";
 export { Gravity };
 
 
@@ -10,7 +11,7 @@ export { Gravity };
 * @author REFRACTED
  */
 
-
+const theEnd = world.getDimension("the_end");
 // --- Shared State using WeakMaps ---
 /** @type {WeakMap<any, boolean>} */
 const playerJumpMap = new WeakMap();
