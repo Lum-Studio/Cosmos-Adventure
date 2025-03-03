@@ -1,15 +1,15 @@
-import { world, system, DimensionTypes, Entity } from "@minecraft/server";
+import { world, system, Entity } from "@minecraft/server";
 export { Gravity };
-
 
 
 /**
  * ✨💕 LUM STUDIO GRAVITY SYSTEM (2022-2025) 💕✨
  * Custom Gravitational Computational Engine for Minecraft Bedrock
  * Created with love and passion by LUM STUDIO. @ARR
- *
- * @author REFRACTED
+* @author SERTY 
+* @author REFRACTED
  */
+
 
 // --- Shared State using WeakMaps ---
 /** @type {WeakMap<any, boolean>} */
@@ -21,13 +21,19 @@ const pendingJumpSteps = new WeakMap();
 /** @type {WeakMap<any, number>} */
 const fallVelocity = new WeakMap();
 
+
 /**
  * Class representing a custom gravity system for an entity.
  */
 class Gravity {
+  /**@type {WeakMap<Entity, Gravity>} */
+  static #log = new WeakMap();
+  static of(entity) {
+    return this.#log.get(entity) ?? this.#log.set(entity, new Gravity(entity)).get(entity)
+  }
   /**
    * Creates a Gravity instance.
-   * @param {any} entity - The Minecraft entity.
+   * @param {Entity} entity - The Minecraft entity.
    */
   constructor(entity) {
     this._entity = entity;
@@ -47,14 +53,8 @@ class Gravity {
    * @return {number} The gravity value.
    */
   get value() {
-    if (this.entity.tempGravityValue !== undefined) {
-      return Number(this.entity.tempGravityValue) || 9.8;
-    }
-    if (typeof this.entity.getDynamicProperty === "function") {
-      const dyn = this.entity.getDynamicProperty("sert:gravity");
-      if (dyn !== undefined && dyn !== null) return Number(dyn) || 9.8;
-    }
-    return 9.8;
+    const e = this.entity
+    return e?.tempGravityValue ?? e?.getDynamicProperty?.("sert:gravity") ?? 9.8
   }
 
   /**
@@ -152,10 +152,13 @@ class Gravity {
     if (entity.inputInfo && typeof entity.inputInfo.getMovementVector === "function") {
       const movement = entity.inputInfo.getMovementVector();
       if (movement) {
-        const viewDir =
+        let viewDir =
           typeof entity.getViewDirection === "function"
             ? entity.getViewDirection()
             : { x: 0, y: 0, z: 0 };
+        viewDir.y = 0
+        viewDir = getDirection3D({x: 0, z: 0, y: 0}, viewDir)
+
         const rotation =
           typeof entity.getRotation === "function"
             ? entity.getRotation()
@@ -163,7 +166,16 @@ class Gravity {
         const rotatedDir = getDirectionFromRotation(sumObjects(rotation, { x: 0, y: 90, z: 0 }));
         vector.x = Number(viewDir.x) * Number(movement.y) - Number(rotatedDir.x) * Number(movement.x);
         vector.z = Number(viewDir.z) * Number(movement.y) - Number(rotatedDir.z) * Number(movement.x);
+        entity.movementDirection = {
+          x: vector.x,
+          z: vector.z
+        }
       }
+    }
+
+    if (!canMoveUp(entity)) {
+      vector.y = -0.1
+      entity.gravityLine = []
     }
 
     return {
@@ -176,7 +188,7 @@ class Gravity {
 
   /**
    * Computes horizontal movement power based on active effects.
-   * @param {any} entity - The entity.
+   * @param {Entity} entity - The entity.
    * @return {number} The horizontal power.
    */
   calculateHorizontalPower(entity) {
@@ -212,7 +224,8 @@ class Gravity {
     };
 
     if (typeof targetEntity.applyKnockback === "function") {
-      targetEntity.applyKnockback(
+      applyKnockback(
+        targetEntity,
         Number(adjustedPower.x),
         Number(adjustedPower.z),
         Number(vector.hzPower),
@@ -230,65 +243,8 @@ class Gravity {
     const currentY = Number(this.entity.location && this.entity.location.y) || 0;
     return Math.max(0, startY - currentY);
   }
-
   /**
-   * Implements a custom jump by integrating an extra impulse.
-   * The desired jump height is computed dynamically:
-   * We compute the extra impulse in the steps required (v_desired - v_default) and distribute it over jumpTicks,
-   * then scale it down by a multiplier.
-   * @note This routine supplements the default jump; it does not cancel it.
-   */
-  applyJump() {
-    const entity = this.entity;
-    if (!entity.isOnGround || entity.isFlying) return;
-    if (pendingJumpSteps.has(entity)) return;
-
-    this.cancelPendingJumps();
-    const currentY = (entity.location && typeof entity.location.y === "number")
-      ? Number(entity.location.y)
-      : 0;
-    jumpStartY.set(entity, currentY);
-
-    const h_default = 1.5;
-    const v_default = Math.sqrt(2 * 9.8 * h_default);
-    const desiredJumpHeight = h_default * Math.pow(9.8 / this.value, 0.77);
-    const v_desired = Math.sqrt(2 * this.value * desiredJumpHeight);
-    const extraImpulse = v_desired - v_default;
-    const jumpTicks = 10;
-    const multiplier = 0.0001;
-    const perTickImpulse = (extraImpulse / jumpTicks) * multiplier;
-
-    const executeJumpStep = (step) => {
-      // Cancel if entity lands or jump sequence finishes.
-      if (entity.isOnGround || step >= jumpTicks) {
-        pendingJumpSteps.delete(entity);
-        return;
-      }
-      // Check if a block overhead is obstructing the jump (e.g., ceiling collision)
-      const overheadBlock = getBlockAbove(entity);
-      if (overheadBlock && overheadBlock.typeId !== "minecraft:air") {
-        pendingJumpSteps.delete(entity);
-        return;
-      }
-      // Use movement direction to check if a block is obstructing the jump.
-      const moveBlock = getBlockInMovementDirection(entity);
-      if (moveBlock && moveBlock.typeId !== "minecraft:air") {
-        pendingJumpSteps.delete(entity);
-        return;
-      }
-      const progress = Math.sin((step / jumpTicks) * Math.PI);
-      if (typeof entity.applyKnockback === "function") {
-        entity.applyKnockback(0, 0, 0, perTickImpulse * progress);
-      }
-      const timeoutId = system.runTimeout(() => executeJumpStep(step + 1), 1);
-      pendingJumpSteps.set(entity, timeoutId);
-    };
-
-    executeJumpStep(0);
-  }
-
-  /**
-   * Cancels any pending jump steps.
+   * Cancels any pending jump.
    */
   cancelPendingJumps() {
     const timeoutId = pendingJumpSteps.get(this.entity);
@@ -300,48 +256,58 @@ class Gravity {
 }
 
 
-
 /**
  * Processes gravity for a given entity.
  * Skips processing if the entity is swimming, flying, gliding, or (if a player) wearing an elytra.
  * Also zeroes horizontal impulses in narrow spaces.
- * @param {any} entity - The entity.
+ * @param {Entity} entity - The entity.
  */
 function gravityFuncMain(entity) {
-  // Check if entity is valid
-  if (typeof entity.isValid !== "function" || !entity.isValid()) return;
 
   // If swimming or (for players) flying/gliding, reset fall velocity and exit early.
-  if (entity.isSwimming || (entity.typeId === "minecraft:player" && (entity.isFlying || entity.isGliding))) {
+  if (
+    entity.isSwimming ||
+    (entity.typeId === "minecraft:player" &&
+      (entity.isFlying || entity.isGliding))
+  ) {
     resetFallVelocity(entity);
     return;
   }
 
-  const gravity = new Gravity(entity);
+  // Create a new Gravity instance for the entity.
+  const gravity = Gravity.of(entity);
+
+  
+  // If gravity is essentially normal (9.8), skip further processing.
   if (Math.abs(gravity.value - 9.8) < 0.0001) return;
 
+  // Calculate the gravity vector and get the current fall velocity.
   const vector = gravity.calculateGravityVector();
   const currentFall = Number(fallVelocity.get(entity)) || 0;
 
-  // For players with movement input, check for obstacles in multiple directions.
-  if (entity.typeId === "minecraft:player" && typeof entity.inputInfo?.getMovementVector === "function") {
-    const block = getBlockInMovementDirection(entity);
-    const leftBlock = getBlockAtOffset(entity, -1, 0, 0);
-    const rightBlock = getBlockAtOffset(entity, 1, 0, 0);
-    if (
-      (block && block.typeId !== "minecraft:air") ||
-      (leftBlock && leftBlock.typeId !== "minecraft:air") ||
-      (rightBlock && rightBlock.typeId !== "minecraft:air")
-    ) {
+  // For player entities with movement input, check for obstacles in multiple directions.
+  if (
+    entity.typeId === "minecraft:player" &&
+    typeof entity.inputInfo?.getMovementVector === "function"
+  ) {
+    if (!canMoveForward(entity)) {
+      // Zero out horizontal movement if obstacles are detected.
       vector.x = 0;
       vector.z = 0;
     }
   }
 
-  // Apply gravity effects if the entity is not on the ground or climbing.
+  // Determine whether to use the full gravity effects or the entity version.
   if (!entity.isOnGround && !entity.isClimbing && !entity.isSwimming) {
-    applyGravityEffects(entity, vector, currentFall, gravity.value, gravity);
+    if (entity.typeId === "minecraft:player") {
+      // Use the gravity effect for player entities.
+      applyGravityEffects(entity, vector, currentFall, gravity.value, gravity);
+    } else {
+      // Use the gravity effect for non-player entities.
+      applyGravityEntity(entity, gravity);
+    }
   } else {
+    // If on the ground or climbing, reset fall velocity and cancel any pending jump adjustments.
     resetFallVelocity(entity);
     gravity.cancelPendingJumps();
   }
@@ -349,13 +315,95 @@ function gravityFuncMain(entity) {
 
 
 /**
+ * Applies low-gravity effects for non-player entities,
+ * including integrated slime bounce logic.
+ *
+ * In low-gravity environments, if the entity’s fall speed exceeds a terminal
+ * limit, an upward impulse is applied to decelerate its descent. Additionally,
+ * if the entity is above a slime block and falling fast, it bounces.
+ *
+ * @param {Entity} entity - The non-player entity.
+ * @param {Gravity} gravity - (Optional) The Gravity instance for the entity.
+ *   If undefined, a new instance is created.
+ */
+function applyGravityEntity(entity, gravity) {
+  
+  // Ensure a Gravity instance exists. (this is necessary to avoid errors DONT REMOVE THIS)
+  if (!gravity || typeof gravity.calculateGravityVector !== "function") {
+    gravity = Gravity.of(entity);
+  }
+
+  // Retrieve the gravity vector (primarily using its vertical component).
+  const vector = gravity.calculateGravityVector();
+  let currentFall = Number(fallVelocity.get(entity)) || 0;
+
+  // --- Slime Bounce Logic ---
+  // If the block below is a slime block and the entity is falling fast,
+  // perform a bounce by applying an upward impulse.
+  const blockBelow = getBlockBelow(entity);
+  if (blockBelow && blockBelow.typeId === "minecraft:slime_block") {
+    if (currentFall < -0.001) {
+      const bounceFactor = 0.8; // Retain a percentage of the fall energy.
+      const bounceImpulse = Math.abs(currentFall) * bounceFactor;
+      fallVelocity.set(entity, bounceImpulse);
+      entity.applyImpulse({ x: 0, y: bounceImpulse, z: 0 });
+
+      // Optional: spawn bounce particles and play a sound.
+      entity.dimension.spawnParticle?.("minecraft:slime_bounce", {
+        x: Math.floor(entity.location.x),
+        y: Math.floor(entity.location.y - 0.5),
+        z: Math.floor(entity.location.z)
+      });
+    }
+    entity.dimension.playSound?.("mob.slime.jump", entity.getHeadLocation());
+    return; // Bounce takes precedence.
+  }
+
+  // --- Low-Gravity Descent Logic ---
+  // Define a terminal velocity that scales with the gravity value.
+  // In low gravity, the maximum (negative) fall speed is less extreme.
+  const terminalVelocity = -20 * (gravity.value / 9.8);
+  let impulse;
+
+  // If falling too fast, apply an upward (counter) impulse to slow descent.
+  if (currentFall < terminalVelocity) {
+    const deceleration = (terminalVelocity - currentFall) / 10;
+    impulse = { x: 0, y: deceleration, z: 0 };
+  } else {
+    // Otherwise, apply a normal downward impulse.
+    const impulseMagnitude = gravity.value / 10;
+    impulse = { x: 0, y: -impulseMagnitude, z: 0 };
+  }
+
+  entity.applyImpulse(impulse);
+
+  // Update the current fall velocity.
+  if (impulse.y < 0) {
+    currentFall -= gravity.value / 10;
+  } else {
+    currentFall += impulse.y;
+  }
+  fallVelocity.set(entity, currentFall);
+
+  // Update a dynamic "fall_distance" property.
+  if (typeof entity.setDynamicProperty === "function") {
+    const startY = Number(jumpStartY.get(entity)) || 0;
+    const currentY = Number(entity.location && entity.location.y) || 0;
+    const fallDist = Math.max(0, startY - currentY);
+    entity.setDynamicProperty("fall_distance", fallDist);
+  }
+}
+
+
+
+
+/**
  * Applies gravity effects to an entity.
  * Uses applyKnockback for downward pull, updates fall velocity,
  * and applies a dynamic slow falling effect.
  * @param {Entity} entity - The entity.
- * @param {import("@minecraft/server").Vector3} vector - The computed gravity vector.
+ * @param {Object} vector - The computed gravity vector.
  * @param {number} currentFall - The current fall velocity.
- * @param {number} gravityValue - The gravity value.
  * @param {Gravity} gravity - The Gravity instance (used for fall distance calculation).
  */
 async function applyGravityEffects(entity, vector, currentFall, gravityValue, gravity) {
@@ -374,22 +422,16 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
       fallVelocity.set(entity, bounceImpulse);
 
       // Apply an upward impulse for the bounce.
-      if (typeof entity.applyKnockback === "function") {
-        entity.applyKnockback(0, 0, 0, bounceImpulse);
-      }
+      applyKnockback(entity, 0, 0, 0, bounceImpulse);
 
       // Trigger visual/audio feedback for the bounce using spawnParticle below the player.
-      if (entity.dimension && entity.location && typeof entity.dimension.spawnParticle === "function") {
-        const particlePos = {
-          x: Math.floor(entity.location.x),
-          y: Math.floor(entity.location.y - 0.5),
-          z: Math.floor(entity.location.z)
-        };
-        entity.dimension.spawnParticle("minecraft:slime_bounce", particlePos);
-      }
-      if (typeof entity.playSound === "function") {
-        entity.playSound("mob.slime.jump");
-      }
+      entity.dimension.spawnParticle?.("minecraft:slime_bounce", {
+        x: Math.floor(entity.location.x),
+        y: Math.floor(entity.location.y - 0.5),
+        z: Math.floor(entity.location.z)
+      });
+
+      entity.dimension.playSound?.("mob.slime.jump", entity.getHeadLocation());
 
       // Exit early so the bounce is handled exclusively.
       return;
@@ -399,14 +441,15 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
     }
   } else {
     // For non-slime blocks, use normal acceleration.
-    fallAccelerationFactor = gravityValue / 2;
+    fallAccelerationFactor = gravityValue / 5;
   }
   const fallModifier = Math.min(0, Number(currentFall));
   //Knockback power to push the player up and down
   const knockbackPower = (Number(vector.y) * 3 + fallModifier) / 300;
 
   if (typeof entity.applyKnockback === "function") {
-    entity.applyKnockback(
+    applyKnockback(
+      entity,
       Number(vector.x),
       Number(vector.z),
       Number(vector.hzPower),
@@ -460,7 +503,7 @@ async function applyGravityEffects(entity, vector, currentFall, gravityValue, gr
 
 /**
  * Resets the fall velocity for an entity.
- * @param {any} entity - The entity.
+ * @param {Entity} entity - The entity.
  */
 function resetFallVelocity(entity) {
   fallVelocity.set(entity, 0);
@@ -479,6 +522,20 @@ function sumObjects(obj, vec = { x: 0, y: 0, z: 0 }, multi = 1) {
     y: (Number(obj.y) || 0) + (Number(vec.y) || 0) * multi,
     z: (Number(obj.z) || 0) + (Number(vec.z) || 0) * multi
   };
+}
+
+function getDirection3D(vector1, vector2) {
+  let dist = distance(vector1, vector2)
+  if (dist == 0) return {x: 0, z: 0, y: 0}
+  return {
+    x: (vector2.x - vector1.x)/dist,
+    y: (vector2.y - vector1.y)/dist,
+    z: (vector2.z - vector1.z)/dist
+  }
+}
+
+function distance(vector1, vector2) {
+  return Math.sqrt(Math.abs(vector1.x - vector2.x)**2 + Math.abs(vector1.y - vector2.y)**2 + Math.abs(vector1.z - vector2.z)**2)
 }
 
 /**
@@ -502,66 +559,46 @@ function getDirectionFromRotation(rotation) {
  * @return {Promise<void>} A promise that resolves after the delay.
  */
 function delay(ticks) {
-  return new Promise(resolve => {
-    system.runTimeout(resolve, ticks * 20);
-  });
+  return system.waitTicks(ticks * 20);
 }
 
-// Global cache for entities that require gravity processing.
+// Global cache for entities that require gravity processing. Basically all entities.
 const gravityEntities = new Set();
 
-// Initialize: add already online players.
-world.getAllPlayers().forEach(player => {
-  gravityEntities.add(player);
-});
+world.getAllPlayers().forEach(p => gravityEntities.add(p));
+
 
 // Subscribe to generic entity spawn events for non-player entities.
 world.afterEvents.entitySpawn.subscribe((eventData) => {
-  if (eventData?.entity && !gravityEntities.has(eventData.entity)) {
-    gravityEntities.add(eventData.entity);
-  }
+  if (eventData.entity.dimension.id !== "minecraft:the_end") return;  
+  gravityEntities.add(eventData.entity)
 });
 
-// Subscribe to generic entity hit events for non-player entities.
-world.afterEvents.entityHurt.subscribe((eventData) => {
-  if (eventData?.hurtEntity && !gravityEntities.has(eventData.hurtEntity)) {
-    gravityEntities.add(eventData.hurtEntity);
-  }
-});
-
-// Subscribe to player join events to capture players as they join.
-world.afterEvents.playerSpawn.subscribe((eventData) => {
-  if (eventData?.player) {
-    gravityEntities.add(eventData.player);
-  }
+world.afterEvents.entityLoad.subscribe((eventData) => {
+  if (eventData.entity.dimension.id !== "minecraft:the_end") return;
+  
+  gravityEntities.add(eventData.entity);
 });
 
 // Subscribe to player dimension change to capture players as they change dimensions.
 world.afterEvents.playerDimensionChange.subscribe((eventData) => {
   if (eventData?.player) {
-     gravityEntities.add(eventData.player);
+    gravityEntities.add(eventData.player);
   }
 });
 
-// Keep the cache up-to-date by removing entities when they are removed.
-world.beforeEvents.entityRemove.subscribe((eventData) => {
-  if (eventData?.removedEntity) {
-    gravityEntities.delete(eventData.removedEntity);
-  }
-});
+// Subscribe to player join events to capture players as they join.
+world.afterEvents.playerSpawn.subscribe((eventData) => gravityEntities.add(eventData.player));
 
-// Also remove players when they leave.
-world.beforeEvents.playerLeave.subscribe((eventData) => {
-  if (eventData?.player) {
-    gravityEntities.delete(eventData.player);
-  }
-});
+// Keep the cache up-to-date by removing entities when they are removed; same with players leaving the world.
+world.beforeEvents.entityRemove.subscribe((eventData) => gravityEntities.delete(eventData.removedEntity));
+
 
 // Process gravity for every cached entity once per tick.
 system.runInterval(() => {
-  gravityEntities.forEach(entity => {
-    gravityFuncMain(entity);
-  });
+  for (const entity of gravityEntities) {
+    entity.isValid() && gravityFuncMain(entity);
+  }
 }, 1);
 
 /**
@@ -612,116 +649,77 @@ system.runInterval(() => {
 
 /**
  * Gets the block above the entity's head.
- * @param {any} entity - The entity.
+ * @param {Entity} entity - The entity.
  * @return {any|null} The block above the entity or null if unavailable.
  */
-function getBlockAbove(entity) {
-  if (entity.dimension && typeof entity.dimension.getBlock === "function") {
-    const x = Math.floor(entity.location.x);
-    const y = Math.floor(entity.location.y + 1.8);
-    const z = Math.floor(entity.location.z);
-    return entity.dimension.getBlock({ x, y, z });
-  }
-  return null;
+function canMoveUp(entity) {
+  let head = entity.getHeadLocation()
+  let location = sumObjects(head, {y: entity.knockback?.y})
+
+  if (entity.dimension.heightRange.max < location.y) return true;
+  let rayHit = entity.dimension.getBlockFromRay(head, getDirection3D(head, location), {
+    maxDistance: 0.5,
+    includeLiquidBlocks: false,
+    includePassableBlocks: false
+  })
+  return rayHit == undefined
 }
 
 /**
  * Gets the block in the direction the entity is moving.
  * Validates that location and movement vector values are numbers.
- * @param {any} entity - The entity.
+ * @param {Entity} entity - The entity.
  * @return {any|null} The block in the movement direction or null if unavailable.
  */
-function getBlockInMovementDirection(entity) {
-  if (
-    !entity.location ||
-    typeof entity.location.x !== "number" ||
-    typeof entity.location.y !== "number" ||
-    typeof entity.location.z !== "number"
-  ) {
-    return null;
-  }
-  if (typeof entity.inputInfo?.getMovementVector !== "function") return null;
-  const movement = entity.inputInfo.getMovementVector();
-  if (
-    typeof movement.x !== "number" ||
-    typeof movement.y !== "number" ||
-    typeof movement.z !== "number"
-  ) {
-    return null;
-  }
-  const magnitude = Math.sqrt(movement.x ** 2 + movement.y ** 2 + movement.z ** 2);
-  if (magnitude === 0) return null;
-
-  // Normalize the movement vector.
-  const direction = {
-    x: movement.x / magnitude,
-    y: movement.y / magnitude,
-    z: movement.z / magnitude
-  };
-
-  // Check one block ahead in the direction of movement.
-  const checkDistance = 1;
-  const pos = {
-    x: Math.floor(entity.location.x + direction.x * checkDistance),
-    y: Math.floor(entity.location.y + direction.y * checkDistance),
-    z: Math.floor(entity.location.z + direction.z * checkDistance)
-  };
-
-  if (entity.dimension && typeof entity.dimension.getBlock === "function") {
-    return entity.dimension.getBlock(pos);
-  }
-  return null;
+function canMoveForward(entity) {
+  let location = sumObjects(entity.location, entity.movementDirection || {})
+  location.y = entity.location.y
+  let rayHit = entity.dimension.getBlockFromRay(entity.location, getDirection3D(entity.location, location), {
+    maxDistance: 1
+  })
+  return rayHit == undefined
 }
 
-/**
- * Gets the block at an offset from the entity's location.
- * Ensures that the entity's location values are valid numbers.
- * @param {any} entity - The entity.
- * @param {number} offsetX - Offset on the X axis.
- * @param {number} offsetY - Offset on the Y axis.
- * @param {number} offsetZ - Offset on the Z axis.
- * @return {any|null} The block at the offset or null if unavailable.
- */
-function getBlockAtOffset(entity, offsetX, offsetY, offsetZ) {
-  if (!entity.location ||
-    typeof entity.location.x !== "number" || isNaN(entity.location.x) ||
-    typeof entity.location.y !== "number" || isNaN(entity.location.y) ||
-    typeof entity.location.z !== "number" || isNaN(entity.location.z)) {
-    return null;
-  }
-  const pos = {
-    x: Math.floor(entity.location.x + offsetX),
-    y: Math.floor(entity.location.y + offsetY),
-    z: Math.floor(entity.location.z + offsetZ)
-  };
-  if (isNaN(pos.x) || isNaN(pos.y) || isNaN(pos.z)) return null;
-  if (entity.dimension && typeof entity.dimension.getBlock === "function") {
-    return entity.dimension.getBlock(pos);
-  }
-  return null;
-}
 
 /**
  * Gets the block just below the entity.
  * Ensures that the entity's location values are valid numbers.
- * @param {any} entity - The entity.
+ * @param {Entity} entity - The entity.
  * @return {any|null} The block below the entity or null if unavailable.
  */
 function getBlockBelow(entity) {
-  if (!entity.location ||
-    typeof entity.location.x !== "number" || isNaN(entity.location.x) ||
-    typeof entity.location.y !== "number" || isNaN(entity.location.y) ||
-    typeof entity.location.z !== "number" || isNaN(entity.location.z)) {
-    return null;
+  const loc = entity.location;
+  loc.y -= 1;
+  return entity.dimension.getBlock(loc);
+}
+
+
+function applyKnockback(player, x, z, power, y) {
+  if (player.knockback == undefined) {
+    player.knockback = {
+      x: 0,
+      y: 0,
+      z: 0,
+      time: system.currentTick
+    }
   }
-  const pos = {
-    x: Math.floor(entity.location.x),
-    y: Math.floor(entity.location.y - 0.1), // slightly below the feet
-    z: Math.floor(entity.location.z)
-  };
-  if (isNaN(pos.x) || isNaN(pos.y) || isNaN(pos.z)) return null;
-  if (entity.dimension && typeof entity.dimension.getBlock === "function") {
-    return entity.dimension.getBlock(pos);
+
+  player.knockback.y += y
+  player.knockback.x += x*power
+  player.knockback.z += z*power
+
+  if (player.knockback.y < 0.1 && player.knockback.y > 0) player.knockback.y = 0
+
+  if (player.knockback.time != system.currentTick) {
+    if (player.knockback.x || player.knockback.y || player.knockback.z) {
+      let power = Math.sqrt(player.knockback.x**2 + player.knockback.z**2)
+      player.applyKnockback(player.knockback.x, player.knockback.z, power, player.knockback.y)
+      player.knockback = {
+        x: 0,
+        y: 0,
+        z: 0,
+        time: system.currentTick
+      }
+    }
   }
-  return null;
 }
