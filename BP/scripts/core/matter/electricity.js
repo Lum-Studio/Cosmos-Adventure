@@ -109,12 +109,10 @@ export function location_of_side(block, side) {
 
 
 export function update_battery(battery, charge) {
-	charge = Math.floor(charge)
-	battery.setLore([`§r§${
-			charge >= 10000 ? '2' :
-			charge < 5000 ? '4' : '6'
-		}${charge} gJ/15,000 gJ`])
-	battery.getComponent('minecraft:durability').damage = 15000 - charge
-	battery.setDynamicProperty('energy', charge)
+	battery.setLore([`§r§${Math.floor(charge) >= 10000 ? '2' :
+			Math.floor(charge) < 5000 ? '4' : '6'
+		}${Math.floor(charge)} gJ/15,000 gJ`])
+	battery.getComponent('minecraft:durability').damage = 15000 - Math.floor(charge)
+	battery.setDynamicProperty('energy', Math.floor(charge))
 	return battery
 }
