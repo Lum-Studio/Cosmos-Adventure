@@ -325,7 +325,7 @@ function gravityFuncMain(entity) {
       }
     }
     
-    const gravity = Gravity.of(entity);
+    const gravity = new Gravity(entity);
     if (Math.abs(gravity.value - 9.8) < 0.0001) return;
     
     const vector = gravity.calculateGravityVector();

@@ -21,16 +21,10 @@ const pendingJumpSteps = new WeakMap();
 /** @type {WeakMap<any, number>} */
 const fallVelocity = new WeakMap();
 
-
 /**
  * Class representing a custom gravity system for an entity.
  */
 class Gravity {
-  /**@type {WeakMap<Entity, Gravity>} */
-  static #log = new WeakMap();
-  static of(entity) {
-    return this.#log.get(entity) ?? this.#log.set(entity, new Gravity(entity)).get(entity)
-  }
   /**
    * Creates a Gravity instance.
    * @param {Entity} entity - The Minecraft entity.
@@ -263,6 +257,8 @@ class Gravity {
  * @param {Entity} entity - The entity.
  */
 function gravityFuncMain(entity) {
+  // Check if entity is valid.
+  if (typeof entity.isValid !== "function" || !entity.isValid()) return;
 
   // If swimming or (for players) flying/gliding, reset fall velocity and exit early.
   if (
@@ -275,9 +271,7 @@ function gravityFuncMain(entity) {
   }
 
   // Create a new Gravity instance for the entity.
-  const gravity = Gravity.of(entity);
-
-  
+  const gravity = new Gravity(entity);
   // If gravity is essentially normal (9.8), skip further processing.
   if (Math.abs(gravity.value - 9.8) < 0.0001) return;
 
@@ -327,10 +321,9 @@ function gravityFuncMain(entity) {
  *   If undefined, a new instance is created.
  */
 function applyGravityEntity(entity, gravity) {
-  
   // Ensure a Gravity instance exists. (this is necessary to avoid errors DONT REMOVE THIS)
   if (!gravity || typeof gravity.calculateGravityVector !== "function") {
-    gravity = Gravity.of(entity);
+    gravity = new Gravity(entity);
   }
 
   // Retrieve the gravity vector (primarily using its vertical component).
@@ -570,13 +563,12 @@ world.getAllPlayers().forEach(p => gravityEntities.add(p));
 
 // Subscribe to generic entity spawn events for non-player entities.
 world.afterEvents.entitySpawn.subscribe((eventData) => {
-  if (eventData.entity.dimension.id !== "minecraft:the_end") return;  
+  if (eventData.entity.dimension !== theEnd) return;
   gravityEntities.add(eventData.entity)
 });
 
 world.afterEvents.entityLoad.subscribe((eventData) => {
-  if (eventData.entity.dimension.id !== "minecraft:the_end") return;
-  
+  if (eventData.entity.dimension !== theEnd) return;
   gravityEntities.add(eventData.entity);
 });
 
@@ -596,9 +588,9 @@ world.beforeEvents.entityRemove.subscribe((eventData) => gravityEntities.delete(
 
 // Process gravity for every cached entity once per tick.
 system.runInterval(() => {
-  for (const entity of gravityEntities) {
-    entity.isValid() && gravityFuncMain(entity);
-  }
+  gravityEntities.forEach(entity => {
+    gravityFuncMain(entity);
+  });
 }, 1);
 
 /**
