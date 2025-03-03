@@ -92,6 +92,7 @@ function dismount(player) {
     player.inputPermissions.setPermissionCategory(6, true)
 }
 
+<<<<<<< HEAD
 function rocket_rotation(player, rocket){
    let x = player.inputInfo.getMovementVector().x;
    let y = player.inputInfo.getMovementVector().y;
@@ -116,6 +117,30 @@ function rocket_rotation(player, rocket){
    (rotationX < 0)? 0:
    rotationX;
    return [rotationX, rotationY]
+=======
+function rocket_rotation(player, rocket) {
+    let x = Math.round(player.inputInfo.getMovementVector().x);
+    let y = Math.round(player.inputInfo.getMovementVector().y);
+    let rotationX = (x == 0 && y == 0) ?
+        rocket.getProperty("cosmos:rotation_x") :
+        (x == 0 && y == 1) ?
+            rocket.getProperty("cosmos:rotation_x") - 0.7 :
+            (x == 0 && y == -1) ?
+                rocket.getProperty("cosmos:rotation_x") + 0.7 :
+                rocket.getProperty("cosmos:rotation_x");
+
+    let rotationY = (x == 0 && y == 0) ?
+        rocket.getRotation().y :
+        (x == 1 && y == 0) ?
+            rocket.getRotation().y + 1 :
+            (x == -1 && y == 0) ?
+                rocket.getRotation().y - 1 :
+                rocket.getRotation().y;
+    rotationX = (rotationX > 180) ? 180 :
+        (rotationX < 0) ? 0 :
+            rotationX;
+    return [rotationX, rotationY]
+>>>>>>> parent of 7fc8df6 (Update liftoff.js)
 }
 
 function rocket_flight(rocket) {
