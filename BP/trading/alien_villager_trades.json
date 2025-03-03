@@ -105,6 +105,12 @@
                         {
                            "function": "set_damage",
                            "damage": 0.42
+                        },
+                        {
+                           "function": "set_lore",
+                           "lore": [
+                              "§r§66300/15,000 gJ"
+                           ]
                         }
                      ]
                   }
