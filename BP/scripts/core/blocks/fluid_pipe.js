@@ -53,7 +53,8 @@ world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
 			}
 		},
 		onPlayerInteract({player, block}) {
-			const item = player.hand().hasItem() && player.hand().typeId
+			const equipment = player.getComponent("minecraft:equippable")
+			const item = equipment.getEquipment("Mainhand")?.typeId
 			const pipe = block.permutation
 			if (item == "cosmos:standard_wrench") {
 				const neighbors = block.getNeighbors(6).map(tank => tank.typeId)
