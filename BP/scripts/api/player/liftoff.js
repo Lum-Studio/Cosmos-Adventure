@@ -121,14 +121,12 @@ function rocket_rotation(player, rocket){
 function rocket_rotation(player, rocket) {
     let x = Math.round(player.inputInfo.getMovementVector().x);
     let y = Math.round(player.inputInfo.getMovementVector().y);
-    let rotationX = (x == 0 && y == 0) ?
-        rocket.getProperty("cosmos:rotation_x") :
-        (x == 0 && y == 1) ?
-            rocket.getProperty("cosmos:rotation_x") - 0.7 :
-            (x == 0 && y == -1) ?
-                rocket.getProperty("cosmos:rotation_x") + 0.7 :
-                rocket.getProperty("cosmos:rotation_x");
+    let rotationX = rocket.getProperty("cosmos:rotation_x") +
+        (x == 0 && y == 1) ? -0.7 :
+        (x == 0 && y == -1) ? 0.7 :
+            0;
 
+<<<<<<< HEAD
     let rotationY = (x == 0 && y == 0) ?
         rocket.getRotation().y :
         (x == 1 && y == 0) ?
@@ -141,6 +139,12 @@ function rocket_rotation(player, rocket) {
             rotationX;
     return [rotationX, rotationY]
 >>>>>>> parent of 7fc8df6 (Update liftoff.js)
+=======
+    return [
+        (rotationX > 180) ? 180 : (rotationX < 0) ? 0 : rotationX,
+        rocket.getRotation().y + ((x == 1 && y == 0) ? 1 : (x == -1 && y == 0) ? -1 : 0)
+    ]
+>>>>>>> parent of d49d02b (Update liftoff.js)
 }
 
 function rocket_flight(rocket) {
