@@ -1,22 +1,28 @@
 import { world, system } from "@minecraft/server"
 import { start_celestial_selector } from "./celestial_selector"
 
-export function moon_lander(player){
+export function moon_lander(player, load = true){
     let speed = 0;
     player.inputPermissions.setPermissionCategory(2, false);
     player.inputPermissions.setPermissionCategory(6, false);
     player.setProperty("cosmos:rotation_x", 90);
+    
     let lander = player.dimension.spawnEntity("cosmos:lander", {x: player.location.x, y: 1, z: player.location.z});
     lander.triggerEvent("cosmos:lander_gravity_disable");
     lander.teleport(player.location);
     lander.setDynamicProperty("fuel_level", JSON.parse(player.getDynamicProperty('dimension'))[1]);
-    lander.addEffect('slow_falling', 999999, {showParticles: false});
     lander.getComponent("minecraft:rideable").addRider(player);
     player.camera.setCamera("minecraft:follow_orbit", { radius: 20 });
     player.setDynamicProperty("dimension", undefined);
-    lander.triggerEvent("cosmos:lander_gravity_enable");
-        
+    //lander.triggerEvent("cosmos:lander_gravity_enable");
+    let is_load = load;
+    let camera = player.getRotation();
     let lander_flight = system.runInterval(() => {
+        if(is_load){
+            let new_camera = player.getRotation();
+            if(new_camera.x != camera.x || new_camera.y != camera.y) is_load = false
+            return;
+        }
         if(!player || !player.isValid()){
             system.clearRun(lander_flight);
             return;
@@ -27,19 +33,22 @@ export function moon_lander(player){
             return;
         }
         if(player.inputInfo.getButtonState("Jump") == "Pressed"){
-            speed = Math.min(speed - 0.022, -1.0);
-            lander.addEffect('slow_falling', 3, {showParticles: false});
+            speed = Math.min(speed + 0.03, lander.location.y < 115 ? -0.15 : -1.0);
         }else{
-            speed = speed + 0.03;
+            speed = Math.min(speed - 0.022, -1.0);
         }
+        speed -= 0.008;
+        lander.clearVelocity();
+        lander.applyImpulse({x: 0, y: speed, z: 0})
         if(lander.location.y < 500 && lander.getVelocity().y === 0){
-            if(speed > 2){
+            if(Math.abs(speed) > 2){
                 dismount(player);
                 lander.dimension.createExplosion(lander.location, 10, {causesFire: false, breaksBlocks: true});
                 lander.remove();
                 system.clearRun(lander_flight);
             }else{
-                 dismount(player);
+                player.inputPermissions.setPermissionCategory(2, true);
+                lander.triggerEvent("cosmos:lander_gravity_enable")
                 system.clearRun(lander_flight);
             }
         }
@@ -153,11 +162,21 @@ world.afterEvents.entityRemove.subscribe(({removedEntityId}) => {
 })
 
 system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, message}) => {
-    if (id != "cosmos:rocket") return
-    if (!"cosmos:rocket_tier_1 cosmos:rocket_tier_2 cosmos:rocket_tier_3".includes(rocket?.typeId)) return
+    if (id != "cosmos:rocket" && id != "cosmos:lander") return
+    if (!["cosmos:rocket_tier_1", "cosmos:rocket_tier_2", "cosmos:rocket_tier_3", "cosmos:lander"].includes(rocket?.typeId)) return
     const rider = rocket.getComponent('minecraft:rideable').getRiders()
     .find(rider => rider.typeId == "minecraft:player")
     if (message == "tick") {
+        if(id == "cosmos:lander"){
+            system.runTimeout(() => {
+                if (!rocket || !rocket.isValid() || !rider) return
+                const ride_id = rider.getComponent('minecraft:riding')?.entityRidingOn?.id
+                if (ride_id != rocket.id) {
+                    dismount(rider)
+                } 
+            }, 20)
+            return;
+        }
         const active = rocket.getDynamicProperty('active')
         let fuel = (rocket.getDynamicProperty("fuel_level"))? rocket.getDynamicProperty("fuel_level"):
         0;

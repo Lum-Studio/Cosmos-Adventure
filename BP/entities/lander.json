@@ -23,13 +23,25 @@
                 "add":{
                     "component_groups": ["lander_gravity"]
                 }
+            },
+            "cosmos:tick": {
+                "queue_command": {
+                     "command": "scriptevent cosmos:lander tick"
+                }
             }
         },
         "components": {
+            "minecraft:timer": {
+				"time": 1,
+				"time_down_event": {
+					"event": "cosmos:tick"
+				}
+            }, 
             "minecraft:collision_box": {
                 "height": 4,
                 "width": 2
             },
+            "minecraft:tick_world": {},
             "minecraft:fall_damage": {
                 "value": 0
             },
@@ -43,7 +55,7 @@
             },
             "minecraft:physics": {
                 "has_collision": true,
-                "has_gravity": true
+                "has_gravity": false
             },
             "minecraft:push_through": {
                 "value": 1
