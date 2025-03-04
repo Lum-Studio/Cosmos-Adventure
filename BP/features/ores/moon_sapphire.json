@@ -1,0 +1,19 @@
+{
+   "format_version": "1.13.0",
+   "minecraft:ore_feature": {
+      "description": {
+         "identifier": "cosmos:ores/moon_sapphire"
+      },
+      "count": 5,
+      "replace_rules": [
+         {
+            "places_block": "cosmos:moon_sapphire_ore",
+            "may_replace": [
+               {
+                  "name": "cosmos:moon_rock"
+               }
+            ]
+         }
+      ]
+   }
+}
