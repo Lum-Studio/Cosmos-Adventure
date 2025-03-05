@@ -1,0 +1,13 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_furnace": {
+      "description": {
+      "identifier": "minecraft:furnace_beef_patty"
+      },
+  
+      
+      "tags": ["furnace"],
+      "input": "cosmos:ground_beef",
+      "output": "cosmos:beef_patty"
+    }
+  }
