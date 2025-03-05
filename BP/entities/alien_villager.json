@@ -82,10 +82,6 @@
             "close_door_after": true,
             "priority": 6
          },
-         "minecraft:experience_reward": {
-            "on_bred": "10",
-            "on_death": "10"
-         },
          "minecraft:behavior.float": {
             "speed_multiplier": 1
          },
