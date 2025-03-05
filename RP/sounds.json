@@ -1,61 +1,87 @@
 {
-	"entity_sounds": {
-		"entities": {
-			"cosmos:coal_generator": {
-				"events": {
-					"death": { "sound": "none", "volume": 0 }
-				}
-			},
-			"cosmos:compressor": {
-				"events": {
-					"death": { "sound": "none", "volume": 0 }
-				}
-			},
-			"cosmos:energy_storage_module": {
-				"events": {
-					"death": { "sound": "none", "volume": 0 }
-				}
-			},
-			"cosmos:energy_storage_cluster": {
-				"events": {
-					"death": { "sound": "none", "volume": 0 }
-				}
-			},
-			"cosmos:electric_compressor": {
-				"events": {
-					"death": { "sound": "none", "volume": 0 }
-				}
-			},
-			"cosmos:oxygen_collector": {
-				"events": {
-					"death": { "sound": "none", "volume": 0 }
-				}
-			},
-			"cosmos:circuit_fabricator": {
-				"events": {
-					"death": { "sound": "none", "volume": 0 }
-				}
-			},
-			"cosmos:refinery": {
-				"events": {
-					"death": { "sound": "none", "volume": 0 }
-				}
-			},
-			"cosmos:fuel_loader": {
-				"events": {
-					"death": { "sound": "none", "volume": 0 }
-				}
-			},
-			"cosmos:nasa_workbench": {
-				"events": {
-					"death": { "sound": "none", "volume": 0 }
-				}
-			},
-			"cosmos:treasure_chest": {
-				"events": {
-					"death": { "sound": "none", "volume": 0 }
-				}
-			}
-		}
-	}
+   "entity_sounds": {
+      "entities": {
+         "cosmos:alien_villager": {
+            "events": {
+               "ambient": "mob.villager.idle",
+               "death": "mob.villager.death",
+               "haggle": "mob.villager.haggle",
+               "haggle.no": "mob.villager.no",
+               "haggle.yes": "mob.villager.yes",
+               "hurt": "mob.villager.hit"
+            },
+            "pitch": [
+               0.5,
+               0.55
+            ],
+            "volume": 1
+         },
+         "cosmos:coal_generator": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:compressor": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:electric_compressor": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:energy_storage_module": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:energy_storage_cluster": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:oxygen_collector": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:circuit_fabricator": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:refinery": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:fuel_loader": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:nasa_workbench": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:treasure_chest": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         }
+      }
+   }
 }
