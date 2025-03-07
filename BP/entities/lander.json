@@ -3,7 +3,21 @@
     "minecraft:entity": {
         "description": {
             "identifier": "cosmos:lander",
-            "is_summonable": true
+            "is_summonable": true,
+            "properties": {
+                "cosmos:rotation_x": {
+                  "type": "int",
+                  "range": [-45, 45],
+                  "default": 0,
+                  "client_sync": true
+                },
+                "cosmos:rotation_y": {
+                    "type": "int",
+                    "range": [0, 360],
+                    "default": 0,
+                    "client_sync": true
+                }
+            }
         },
         "component_groups": {
             "cosmos:lander_gravity":{

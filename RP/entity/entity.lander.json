@@ -1,1 +1,26 @@
-{"format_version":"1.8.0","minecraft:client_entity":{"description":{"geometry":{"default":"geometry.lander"},"identifier":"cosmos:lander","materials":{"default":"skeleton"},"render_controllers":["controller.render.default"],"textures":{"default":"textures/entity/lander"}}}}
+{
+    "format_version" : "1.10.0",
+    "minecraft:client_entity" : {
+        "description" : {
+            "geometry" : {
+                "default" : "geometry.lander"
+            },
+            "identifier" : "cosmos:lander",
+            "materials" : {
+                "default" : "skeleton"
+            },
+            "render_controllers" : [ "controller.render.default" ],
+            "textures" : {
+                "default" : "textures/entity/lander"
+            },
+            "scripts": {
+				"animate": [
+					"rotation"
+				]
+			},
+			"animations": {
+				"rotation": "animation.lander.rotation"
+			}
+        }
+    }
+}

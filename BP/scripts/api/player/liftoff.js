@@ -1,6 +1,20 @@
 import { world, system } from "@minecraft/server"
 import { start_celestial_selector } from "./celestial_selector"
 
+function lander_rotation(player, lander){
+    let final_rotation_x = lander.getProperty("cosmos:rotation_x");
+    let final_rotation_y = lander.getProperty("cosmos:rotation_y");
+    
+    let input = player.inputInfo.getMovementVector();
+    input = {x: Math.round(input.x), y: Math.round(input.y)}
+    final_rotation_x = Math.min(Math.max(final_rotation_x + (input.y * 2), -45), 45);
+    final_rotation_y = final_rotation_y + (input.x * 2);
+
+    final_rotation_y = (final_rotation_y > 360)? 2:
+    (final_rotation_y < 0)? 358:
+    final_rotation_y;
+    return [final_rotation_x, final_rotation_y]
+}
 export function moon_lander(player, load = true){
     let speed = 0;
     player.inputPermissions.setPermissionCategory(2, false);
@@ -38,15 +52,33 @@ export function moon_lander(player, load = true){
             speed = Math.min(speed - 0.022, -1.0);
         }
         speed -= 0.008;
+
+        let rotation = lander_rotation(player, lander)
+        lander.setProperty("cosmos:rotation_x", rotation[0])
+        lander.setProperty("cosmos:rotation_y", rotation[1])
+
+        let motY = Math.sin(rotation[0]/57);
+        let motX = Math.cos(rotation[1]/57) * motY;
+        let motZ = Math.sin(rotation[1]/57) * motY;
+        let speedX = motX / 2.0;
+        let speedZ = motZ / 2.0;
+
         lander.clearVelocity();
-        lander.applyImpulse({x: 0, y: speed, z: 0})
+        lander.applyImpulse({x: speedX, y: speed, z: speedZ})
         if(lander.location.y < 500 && lander.getVelocity().y === 0){
             if(Math.abs(speed) > 2){
                 dismount(player);
+
+                lander.setProperty("cosmos:rotation_x", 0)
+                lander.setProperty("cosmos:rotation_y", 0)
+
                 lander.dimension.createExplosion(lander.location, 10, {causesFire: false, breaksBlocks: true});
                 lander.remove();
                 system.clearRun(lander_flight);
             }else{
+                lander.setProperty("cosmos:rotation_x", 0)
+                lander.setProperty("cosmos:rotation_y", 0)
+    
                 player.inputPermissions.setPermissionCategory(2, true);
                 lander.triggerEvent("cosmos:lander_gravity_enable")
                 system.clearRun(lander_flight);
@@ -100,7 +132,6 @@ function dismount(player) {
     player.inputPermissions.setPermissionCategory(2, true)
     player.inputPermissions.setPermissionCategory(6, true)
 }
-
 function rocket_rotation(player, rocket){
    let x = player.inputInfo.getMovementVector().x;
    let y = player.inputInfo.getMovementVector().y;

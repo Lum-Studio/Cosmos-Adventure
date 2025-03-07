@@ -1,0 +1,16 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.lander.rotation": {
+			"loop": true,
+			"bones": {
+				"entity_x": {
+					"rotation": [0, 0, "query.property('cosmos:rotation_x')"]
+				},
+				"entity_y": {
+					"rotation": [0, "query.property('cosmos:rotation_y')", 0]
+				}
+			}
+		}
+	}
+}
