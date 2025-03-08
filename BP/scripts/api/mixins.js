@@ -152,22 +152,4 @@ Container.prototype.add_ui_display = function (slot, text, damage) {
       }
     }
   });
-  
-//EXAMPLE
-//   world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
-//     blockComponentRegistry.registerCustomComponent("custom:component", {
-//       onPlace: ({ block }) => {
-//         console.log("Block placed at", block.location);
-//       },
-//       onPlayerDestroy: event => {
-//         console.log("Block destroyed at", event.block.location);
-//       },
-//       // Optionally, you can override onUpdate.
-//       onUpdate: event => {
-//         console.log("Block updated at", event.block.location);
-//         // Example behavior: change the block to air.
-//         event.block.setPermutation(BlockPermutation.resolve(MinecraftBlockTypes.Air));
-//       }
-//     });
-//   });
-  
+ 
