@@ -1,5 +1,5 @@
 import { world, Block, ItemStack, World, Player, Container } from "@minecraft/server";
-import { BlockUpdate } from "./libraries/BlockUpdate";
+
 /**
  * Decrements the amount of the ItemStack by 1.
  * @returns {ItemStack | undefined} The modified ItemStack or undefined if amount is 1.
@@ -107,49 +107,3 @@ Container.prototype.add_ui_display = function (slot, text, damage) {
 
 
 
-
-//SEN PART : ???????? ;P
-  world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
-    // Save the original registerCustomComponent method.
-    const originalRegister = blockComponentRegistry.registerCustomComponent;
-  
-    // Create an internal array to keep track of all registered custom component IDs.
-    blockComponentRegistry.__registeredComponents = [];
-  
-    // Monkey-patch the registry’s registerCustomComponent method.
-    blockComponentRegistry.registerCustomComponent = (componentId, definition) => {
-      if (typeof definition.onUpdate !== "function") {
-        definition.onUpdate = event => {
-          // Default behavior (no-op) for onUpdate.
-          // console.log(`Default onUpdate for component ${componentId} on block at ${event.block.location}`);
-        };
-      }
-      // Record this component ID so we know which ones to update later.
-      blockComponentRegistry.__registeredComponents.push(componentId)
-      // Call the original registration method.
-      return originalRegister.call(blockComponentRegistry, componentId, definition);
-    };
-  });
-  
-  // Hook BlockUpdate system to automatically call onUpdate for any custom component
-  // registered on the updated block. This works for any custom component string.
-  BlockUpdate.on(update => {
-    const block = update.block;
-  
-    // Access the global registry 
-    const registry = block.dimension.blockComponentRegistry;
-    if (!registry || !registry.__registeredComponents) return;
-  
-    // Iterate over every registered custom component.
-    for (const componentId of registry.__registeredComponents) {
-      // If this block has the component, call its onUpdate method.
-      const component = block.getComponent(componentId);
-      if (component && typeof component.onUpdate === "function") {
-        component.onUpdate({
-          block: block,
-          source: update.source,
-        });
-      }
-    }
-  });
- 
