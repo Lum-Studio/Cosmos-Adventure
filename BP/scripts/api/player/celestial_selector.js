@@ -73,7 +73,9 @@ function launch(player, planet) {
 		let loc = { x: 75000 + (Math.random() * 20), y: 1000, z: 75000 + (Math.random() * 20) };
 		player.setDynamicProperty('dimension', JSON.stringify([planet, fuel, loc]))
 		player.teleport(loc, { dimension: moon });
-		if (dimension.id == "minecraft:the_end") moon_lander(player);
+		if (dimension.id == "minecraft:the_end"){
+			system.runTimeout(() => {moon_lander(player, false);}, 5);
+		}
 	}
 	if (debug) player.sendMessage(`Launch ${player.nameTag} to ${planet}`)
 }
