@@ -71,7 +71,7 @@ function launch(player, planet) {
 		let moon = world.getDimension("the_end");
 		let dimension = player.dimension;
 		let loc = { x: 75000 + (Math.random() * 20), y: 1000, z: 75000 + (Math.random() * 20) };
-		player.setDynamicProperty('dimension', JSON.stringify([planet, fuel]))
+		player.setDynamicProperty('dimension', JSON.stringify([planet, fuel, loc]))
 		player.teleport(loc, { dimension: moon });
 		if (dimension.id == "minecraft:the_end") moon_lander(player);
 	}

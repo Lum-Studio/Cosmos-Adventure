@@ -21,10 +21,11 @@ export function moon_lander(player, load = true){
     player.inputPermissions.setPermissionCategory(6, false);
     player.setProperty("cosmos:rotation_x", 90);
     
-    let lander = player.dimension.spawnEntity("cosmos:lander", {x: player.location.x, y: 1, z: player.location.z});
+    let data = JSON.parse(player.getDynamicProperty('dimension'))
+    let lander = player.dimension.spawnEntity("cosmos:lander", {x: data[2].x, y: 250, z: data[2].z});
     lander.triggerEvent("cosmos:lander_gravity_disable");
-    lander.teleport(player.location);
-    lander.setDynamicProperty("fuel_level", JSON.parse(player.getDynamicProperty('dimension'))[1]);
+    lander.teleport(data[2]);
+    lander.setDynamicProperty("fuel_level", data[1]);
     lander.getComponent("minecraft:rideable").addRider(player);
     player.camera.setCamera("minecraft:follow_orbit", { radius: 20 });
     player.setDynamicProperty("dimension", undefined);
@@ -97,7 +98,7 @@ world.afterEvents.playerDimensionChange.subscribe((data) => {
     if(!data.player.getDynamicProperty('dimension')) return;
     if(data.fromDimension.id != "minecraft:overworld") return;
     if(JSON.parse(data.player.getDynamicProperty('dimension'))[0] == 'Moon'){
-        moon_lander(data.player);
+        system.run(() => {moon_lander(data.player);})
     }
 });
 
