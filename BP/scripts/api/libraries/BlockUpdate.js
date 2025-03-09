@@ -190,10 +190,10 @@ for (const data of OriginalMethods) {
 }
 
 // Example usage: spawn a particle above the updated block.
-BlockUpdate.on((data) => {
-  data.block.dimension.spawnParticle(
-    "minecraft:villager_happy",
-    data.block.above().center()
-  );
-});
+//BlockUpdate.on((data) => {
+//data.block.dimension.spawnParticle(
+    //"minecraft:villager_happy",
+    //data.block.above().center()
+  //);
+//});
 
