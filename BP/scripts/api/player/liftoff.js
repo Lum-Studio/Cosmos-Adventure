@@ -53,13 +53,22 @@ export function moon_lander(player, load = true){
         }
         speed -= 0.008;
 
+        let translatedSpeed = {"rawtext": [
+            {"translate": "gui.lander.velocity"},
+            {"text": ": "},
+            {"text": `${(Math.round(speed * 1000)/100)}`},
+            {"text": " "},
+            {"translate": "gui.lander.velocityu"}
+        ]}
+        player.onScreenDisplay.setTitle(" ", {fadeInDuration: 0, fadeOutDuration: 0, stayDuration: 2, subtitle: translatedSpeed})
+
         let rotation = lander_rotation(player, lander)
         lander.setProperty("cosmos:rotation_x", rotation[0])
         lander.setProperty("cosmos:rotation_y", rotation[1])
 
-        let motY = Math.sin(rotation[0]/57);
-        let motX = Math.cos(rotation[1]/57) * motY;
-        let motZ = Math.sin(rotation[1]/57) * motY;
+        let motY = Math.sin(rotation[0]/57.2957795147);
+        let motX = Math.cos(rotation[1]/57.2957795147) * motY;
+        let motZ = Math.sin(rotation[1]/57.2957795147) * motY;
         let speedX = motX / 2.0;
         let speedZ = motZ / 2.0;
 
@@ -70,14 +79,12 @@ export function moon_lander(player, load = true){
                 dismount(player);
 
                 lander.setProperty("cosmos:rotation_x", 0)
-                lander.setProperty("cosmos:rotation_y", 0)
 
                 lander.dimension.createExplosion(lander.location, 10, {causesFire: false, breaksBlocks: true});
                 lander.remove();
                 system.clearRun(lander_flight);
             }else{
                 lander.setProperty("cosmos:rotation_x", 0)
-                lander.setProperty("cosmos:rotation_y", 0)
     
                 player.inputPermissions.setPermissionCategory(2, true);
                 lander.triggerEvent("cosmos:lander_gravity_enable")
