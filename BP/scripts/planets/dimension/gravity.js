@@ -594,10 +594,11 @@ world.afterEvents.playerSpawn.subscribe((eventData) => gravityEntities.add(event
 world.beforeEvents.entityRemove.subscribe((eventData) => gravityEntities.delete(eventData.removedEntity));
 
 
-// Process gravity for every cached entity once per tick.
 system.runInterval(() => {
   for (const entity of gravityEntities) {
-    entity.isValid() && gravityFuncMain(entity);
+    if (entity.isValid() && entity.dimension.id === "the_end") {
+      gravityFuncMain(entity);
+    }
   }
 }, 1);
 
