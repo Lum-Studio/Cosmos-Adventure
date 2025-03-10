@@ -4,17 +4,10 @@
       "description": {
          "identifier": "cosmos:tin_block",
          "menu_category": {
-            "category": "items"
+            "category": "construction"
          },
          "states": {
-            "cosmos:mining_speed": [
-               "normal",
-               "slow",
-               "decreased",
-               "fast",
-               "rapid",
-               "instant"
-            ]
+            "cosmos:mining_speed": ["normal", "slow", "decreased", "fast", "rapid", "instant"]
          }
       },
       "components": {
@@ -26,8 +19,7 @@
             "seconds_to_destroy": 1
          },
          "minecraft:map_color": "#ffffff",
-         "tag:require_stone_pickaxe": {},
-         "minecraft:loot": "loot_tables/blocks/decoration/tin_block.json"
+         "tag:require_stone_pickaxe": {}
       },
       "permutations": [
          {

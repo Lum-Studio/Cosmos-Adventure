@@ -1,86 +1,36 @@
 {
-    "format_version": "1.21.50",
-    "minecraft:block": {
-        "description": {
-            "identifier": "cosmos:aluminum_wire",
-            "states": {
-                "cosmos:up": [
-                    false,
-                    true
-                ],
-                "cosmos:down": [
-                    false,
-                    true
-                ],
-                "cosmos:north": [
-                    false,
-                    true
-                ],
-                "cosmos:east": [
-                    false,
-                    true
-                ],
-                "cosmos:south": [
-                    false,
-                    true
-                ],
-                "cosmos:west": [
-                    false,
-                    true
-                ]
-            }
-        },
-        "components": {
-            "minecraft:material_instances": {
-                "*": {
-                    "texture": "aluminum_wire",
-                    "render_method": "blend"
-                }
-            },
-            "minecraft:collision_box": {
-                "origin": [
-                    -2.5,
-                    5.5,
-                    -2.5
-                ],
-                "size": [
-                    5,
-                    5,
-                    5
-                ]
-            },
-            "minecraft:selection_box": {
-                "origin": [
-                    -2.5,
-                    5.5,
-                    -2.5
-                ],
-                "size": [
-                    5,
-                    5,
-                    5
-                ]
-            },
-            "minecraft:light_dampening": 0,
-            "minecraft:destructible_by_mining": {
-                "seconds_to_destroy": 0.5
-            },
-            "minecraft:destructible_by_explosion": false,
-            "minecraft:custom_components": [
-                "cosmos:aluminum_wire"
-            ],
-            "minecraft:geometry": {
-                "identifier": "geometry.aluminum_wire",
-                "bone_visibility": {
-                    "up": "q.block_state('cosmos:up')",
-                    "down": "q.block_state('cosmos:down')",
-                    "north": "q.block_state('cosmos:north')",
-                    "east": "q.block_state('cosmos:east')",
-                    "south": "q.block_state('cosmos:south')",
-                    "west": "q.block_state('cosmos:west')"
-                }
-            },
-            "minecraft:loot": "loot_tables/blocks/aluminum_wire.json"
-        }
-    }
+	"format_version": "1.21.50",
+	"minecraft:block": {
+		"description": {
+			"identifier": "cosmos:aluminum_wire",
+			"states": {
+				"cosmos:up": [false, true],
+				"cosmos:down": [false, true],
+				"cosmos:north": [false, true],
+				"cosmos:east": [false, true],
+				"cosmos:south": [false, true],
+				"cosmos:west": [false, true]
+			}
+		},
+		"components": {
+			"minecraft:material_instances": { "*": { "texture": "aluminum_wire", "render_method": "blend" } },
+			"minecraft:collision_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
+			"minecraft:selection_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
+			"minecraft:light_dampening": 0,
+			"minecraft:destructible_by_mining": { "seconds_to_destroy": 0.5 },
+			"minecraft:destructible_by_explosion": false,
+			"minecraft:custom_components": ["cosmos:aluminum_wire"],
+			"minecraft:geometry": {
+				"identifier": "geometry.aluminum_wire",
+				"bone_visibility": {
+					"up": "q.block_state('cosmos:up')",
+					"down": "q.block_state('cosmos:down')",
+					"north": "q.block_state('cosmos:north')",
+					"east": "q.block_state('cosmos:east')",
+					"south": "q.block_state('cosmos:south')",
+					"west": "q.block_state('cosmos:west')"
+				}
+			}
+		}
+	}
 }

@@ -1,14 +1,12 @@
 {
-   "format_version": "1.20.80",
-   "minecraft:block": {
-      "description": {
-         "identifier": "cosmos:air_lock_controller",
-         "menu_category": {
-            "category": "items"
-         }
-      },
-      "components": {
-         "minecraft:loot": "loot_tables/blocks/machines/unready_machines/air_lock_controller.json"
+  "format_version": "1.20.80",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cosmos:air_lock_controller",
+      "menu_category": {
+        "category": "items"
       }
-   }
+    },
+    "components": {}
+  }
 }

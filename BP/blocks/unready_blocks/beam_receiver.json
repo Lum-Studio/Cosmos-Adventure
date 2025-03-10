@@ -1,147 +1,95 @@
 {
-   "format_version": "1.20.80",
-   "minecraft:block": {
-      "description": {
-         "identifier": "cosmos:beam_receiver",
-         "menu_category": {
-            "category": "items"
-         },
-         "states": {
-            "cosmos:io": [
-               "input",
-               "output"
-            ]
-         },
-         "traits": {
-            "minecraft:placement_position": {
-               "enabled_states": [
-                  "minecraft:block_face"
-               ]
-            }
-         }
+  "format_version": "1.20.80",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cosmos:beam_receiver",
+      "menu_category": {
+        "category": "items"
       },
-      "components": {
-         "minecraft:collision_box": false,
-         "minecraft:destructible_by_explosion": false,
-         "minecraft:destructible_by_mining": {
-            "seconds_to_destroy": 0.5
-         },
-         "minecraft:selection_box": {
-            "origin": [
-               -4,
-               0,
-               -4
-            ],
-            "size": [
-               8,
-               8,
-               8
-            ]
-         },
-         "minecraft:geometry": {
-            "identifier": "geometry.beam_receiver"
-         },
-         "minecraft:loot": "loot_tables/blocks/unready_blocks/beam_receiver.json"
+      "states":{
+          "cosmos:io": ["input", "output"]
       },
-      "permutations": [
-         {
-            "condition": "q.block_state('cosmos:io') == 'output'",
-            "components": {
-               "minecraft:material_instances": {
-                  "*": {
-                     "render_method": "opaque",
-                     "texture": "silver"
-                  },
-                  "ring": {
-                     "render_method": "opaque",
-                     "texture": "gray"
-                  },
-                  "light": {
-                     "render_method": "opaque",
-                     "texture": "red"
-                  }
-               }
+      "traits" : {
+          "minecraft:placement_position": {
+              "enabled_states": ["minecraft:block_face"]
+          }
+      }
+    },
+    "components": {
+      "minecraft:collision_box": false,
+      "minecraft:destructible_by_explosion": false,
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.5
+      },
+      "minecraft:selection_box":{
+          "origin":[-4, 0, -4],
+          "size":[8, 8, 8]
+      },
+      "minecraft:geometry": {
+        "identifier": "geometry.beam_receiver"
+      }
+    },
+    "permutations":[
+        {
+          "condition":"q.block_state('cosmos:io') == 'output'",
+          "components":{
+            "minecraft:material_instances": {
+              "*": { "render_method": "opaque", "texture": "silver" },
+              "ring": { "render_method": "opaque", "texture": "gray" },
+              "light": { "render_method": "opaque", "texture": "red" }
             }
-         },
-         {
-            "condition": "q.block_state('cosmos:io') == 'input'",
-            "components": {
-               "minecraft:material_instances": {
-                  "*": {
-                     "render_method": "opaque",
-                     "texture": "silver"
-                  },
-                  "ring": {
-                     "render_method": "opaque",
-                     "texture": "gray"
-                  },
-                  "light": {
-                     "render_method": "opaque",
-                     "texture": "green"
-                  }
-               }
+          }
+        },
+        {
+          "condition":"q.block_state('cosmos:io') == 'input'",
+          "components":{
+            "minecraft:material_instances": {
+              "*": { "render_method": "opaque", "texture": "silver" },
+              "ring": { "render_method": "opaque", "texture": "gray" },
+              "light": { "render_method": "opaque", "texture": "green" }
             }
-         },
-         {
+          }
+        },
+        {
             "condition": "query.block_state('minecraft:block_face') == 'down'",
-            "components": {
-               "minecraft:transformation": {
-                  "rotation": [
-                     0,
-                     0,
-                     -180
-                  ]
-               }
+            "components":{
+              "minecraft:transformation":{
+                  "rotation":[0, 0, -180]
+              }
             }
-         },
-         {
+        },
+        {
             "condition": "query.block_state('minecraft:block_face') == 'east'",
-            "components": {
-               "minecraft:transformation": {
-                  "rotation": [
-                     0,
-                     -90,
-                     -90
-                  ]
-               }
+            "components":{
+                "minecraft:transformation":{
+                    "rotation":[0, -90, -90]
+                }
             }
-         },
-         {
+        },
+        {
             "condition": "query.block_state('minecraft:block_face') == 'north'",
-            "components": {
-               "minecraft:transformation": {
-                  "rotation": [
-                     -90,
-                     0,
-                     0
-                  ]
-               }
+            "components":{
+                "minecraft:transformation":{
+                    "rotation":[-90, 0, 0]
+                }
             }
-         },
-         {
+        },
+        {
             "condition": "query.block_state('minecraft:block_face') == 'west'",
-            "components": {
-               "minecraft:transformation": {
-                  "rotation": [
-                     0,
-                     90,
-                     90
-                  ]
-               }
+            "components":{
+                "minecraft:transformation":{
+                    "rotation":[0, 90, 90]
+                }
             }
-         },
-         {
+        },
+        {
             "condition": "query.block_state('minecraft:block_face') == 'south'",
-            "components": {
-               "minecraft:transformation": {
-                  "rotation": [
-                     90,
-                     0,
-                     -180
-                  ]
-               }
+            "components":{
+                "minecraft:transformation":{
+                    "rotation":[90, 0, -180]
+                }
             }
-         }
+        }
       ]
-   }
+  }
 }

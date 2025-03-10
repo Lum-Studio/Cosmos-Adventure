@@ -2,7 +2,7 @@
   "format_version": "1.20.80",
   "minecraft:block": {
     "description": {
-      "identifier": "cosmos:venus_volcanic_rock",
+      "identifier": "cosmos:mars_stone",
       "menu_category": {
         "category": "items"
       }

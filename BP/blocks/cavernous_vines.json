@@ -1,83 +1,71 @@
 {
-   "format_version": "1.20.80",
-   "minecraft:block": {
-      "description": {
-         "identifier": "cosmos:cavernous_vines",
-         "menu_category": {
-            "category": "items"
-         },
-         "states": {
-            "cosmos:variant": [
-               0,
-               1,
-               2
-            ]
-         }
-      },
-      "components": {
-         "minecraft:light_dampening": 0,
-         "minecraft:collision_box": false,
-         "minecraft:tick": {
-            "interval_range": [
-               1,
-               1
-            ]
-         },
-         "minecraft:custom_components": [
-            "cosmos:cavernous_vines"
-         ],
-         "minecraft:geometry": "minecraft:geometry.cross",
-         "minecraft:placement_filter": {
-            "conditions": [
-               {
-                  "allowed_faces": [
-                     "down"
-                  ]
-               }
-            ]
-         },
-         "minecraft:loot": "loot_tables/blocks/cavernous_vines.json"
-      },
-      "permutations": [
-         {
-            "condition": "q.block_state('cosmos:variant') == 0",
-            "components": {
-               "minecraft:material_instances": {
-                  "*": {
-                     "texture": "cavernous_vines1",
-                     "ambient_occlusion": false,
-                     "face_dimming": false,
-                     "render_method": "alpha_test"
-                  }
-               }
+    "format_version": "1.20.80",
+    "minecraft:block": {
+        "description": {
+            "identifier": "cosmos:cavernous_vines",
+            "menu_category": {
+              "category": "items"
+            },
+            "states": {
+                "cosmos:variant": [0, 1, 2]
             }
-         },
-         {
-            "condition": "q.block_state('cosmos:variant') == 1",
-            "components": {
-               "minecraft:material_instances": {
-                  "*": {
-                     "texture": "cavernous_vines2",
-                     "ambient_occlusion": false,
-                     "face_dimming": false,
-                     "render_method": "alpha_test"
-                  }
-               }
+        },
+        "components": {
+            "minecraft:light_dampening": 0,
+            "minecraft:collision_box": false,
+            "minecraft:tick": {"interval_range": [1,1]},
+            "minecraft:custom_components": ["cosmos:cavernous_vines"],
+            "minecraft:geometry": "minecraft:geometry.cross",
+            "minecraft:placement_filter": {
+                "conditions": [
+                    {
+                        "allowed_faces": [
+                            "down"
+                        ]
+                    }
+                ]
             }
-         },
-         {
-            "condition": "q.block_state('cosmos:variant') == 2",
-            "components": {
-               "minecraft:material_instances": {
-                  "*": {
-                     "texture": "cavernous_vines3",
-                     "ambient_occlusion": false,
-                     "face_dimming": false,
-                     "render_method": "alpha_test"
-                  }
-               }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('cosmos:variant') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "cavernous_vines1",
+                            "ambient_occlusion": false,
+                            "face_dimming": false,
+                            "render_method": "alpha_test"
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('cosmos:variant') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "cavernous_vines2",
+                            "ambient_occlusion": false,
+                            "face_dimming": false,
+                            "render_method": "alpha_test"
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('cosmos:variant') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "cavernous_vines3",
+                            "ambient_occlusion": false,
+                            "face_dimming": false,
+                            "render_method": "alpha_test"
+                        }
+                    }
+                }
             }
-         }
-      ]
-   }
+        ]
+    }
 }
