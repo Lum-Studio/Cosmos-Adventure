@@ -560,7 +560,9 @@ function getDirectionFromRotation(rotation) {
  * @return {Promise<void>} A promise that resolves after the delay.
  */
 function delay(ticks) {
-  return system.waitTicks(ticks * 20);
+  return new Promise(resolve => {
+    system.runTimeout(resolve, ticks * 10);
+  });
 }
 
 // Global cache for entities that require gravity processing. Basically all entities.
