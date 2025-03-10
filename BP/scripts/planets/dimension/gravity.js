@@ -292,6 +292,7 @@ function gravityFuncMain(entity) {
   ) {
     if (!canMoveForward(entity)) {
       // Zero out horizontal movement if obstacles are detected.
+      vector.y = 0;
       vector.x = 0;
       vector.z = 0;
     }
@@ -596,7 +597,7 @@ world.beforeEvents.entityRemove.subscribe((eventData) => gravityEntities.delete(
 
 system.runInterval(() => {
   for (const entity of gravityEntities) {
-    if (entity.isValid() && entity.dimension.id === "the_end") {
+    if (entity.isValid() && entity.dimension.id === "minecraft:the_end") {
       gravityFuncMain(entity);
     }
   }
