@@ -1,4 +1,5 @@
 import { world, system, Entity } from "@minecraft/server";
+import { Planet  } from "./GalacticraftPlanets";
 export { Gravity };
 
 
@@ -609,8 +610,9 @@ system.runInterval(() => {
 
 world.afterEvents.entityHitEntity.subscribe(event => {
   const { damagingEntity, hitEntity } = event;
+  const planet = Planet.isOnPlanet()
   // Ensure the damaging entity is a player.
-  if (!damagingEntity || damagingEntity.typeId !== "minecraft:player") return;
+  if (!damagingEntity || damagingEntity.typeId !== "minecraft:player"  || !planet ) return;
   
   // Check if the player is holding a mace.
   const invComp = damagingEntity.getComponent("minecraft:inventory");
