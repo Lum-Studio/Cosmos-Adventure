@@ -2,10 +2,10 @@
 	"format_version": "1.10.0",
 	"particle_effect": {
 		"description": {
-			"identifier": "cosmos:exhaust",
+			"identifier": "cosmos:rocket_ignition",
 			"basic_render_parameters": {
 				"material": "particles_alpha",
-				"texture": "textures/particle/particles"
+				"texture": "textures/blocks/wool_colored_white"
 			}
 		},
 		"events": {
@@ -38,12 +38,12 @@
 				"size": [0.3, 0.3],
 				"facing_camera_mode": "lookat_xyz",
 				"uv": {
-					"texture_width": 8,
-					"texture_height": 64,
+					"texture_width": 16,
+					"texture_height": 128,
 					"flipbook": {
 						"base_UV": [0, 0],
-						"size_UV": [8, 8],
-						"step_UV": [0, 8],
+						"size_UV": [16, 16],
+						"step_UV": [0, 16],
 						"frames_per_second": 12,
 						"max_frame": 8,
 						"stretch_to_lifetime": true
