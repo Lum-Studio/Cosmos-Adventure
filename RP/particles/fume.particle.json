@@ -2,41 +2,34 @@
 	"format_version": "1.10.0",
 	"particle_effect": {
 		"description": {
-			"identifier": "cosmos:rocket_ignition",
+			"identifier": "cosmos:fume",
 			"basic_render_parameters": {
 				"material": "particles_alpha",
 				"texture": "textures/blocks/wool_colored_white"
 			}
 		},
-		"events": {
-			"event": {}
-		},
 		"components": {
 			"minecraft:emitter_rate_steady": {
-				"spawn_rate": 300,
-				"max_particles": 500
+				"spawn_rate": 120,
+				"max_particles": 100
 			},
 			"minecraft:emitter_lifetime_looping": {
 				"active_time": 1
 			},
-			"minecraft:emitter_shape_disc": {
-				"radius": 3,
-				"direction": "outwards"
+			"minecraft:emitter_shape_entity_aabb": {
+				"direction": [0, -2, 0]
 			},
 			"minecraft:particle_lifetime_expression": {
-				"max_lifetime": 0.6
+				"max_lifetime": 1
 			},
-			"minecraft:particle_initial_spin": {
-				"rotation": "math.random(-180, 180)"
-			},
-			"minecraft:particle_initial_speed": 65,
+			"minecraft:particle_initial_speed": 20,
 			"minecraft:particle_motion_dynamic": {
-				"linear_acceleration": [0, 1, 0],
-				"linear_drag_coefficient": 4
+				"linear_acceleration": [0, -6, 0],
+				"linear_drag_coefficient": 0.1
 			},
 			"minecraft:particle_appearance_billboard": {
 				"size": [0.5, 0.5],
-				"facing_camera_mode": "lookat_xyz",
+				"facing_camera_mode": "rotate_xyz",
 				"uv": {
 					"texture_width": 16,
 					"texture_height": 64,
@@ -51,11 +44,9 @@
 				}
 			},
 			"minecraft:particle_motion_collision": {
-				"collision_drag": 0.4,
+				"collision_drag": 1,
+				"coefficient_of_restitution": 0.3,
 				"collision_radius": 0.2
-			},
-			"minecraft:particle_appearance_tinting": {
-				"color": ["variable.color.r", "variable.color.g", "variable.color.b", "variable.color.a"]
 			}
 		}
 	}
