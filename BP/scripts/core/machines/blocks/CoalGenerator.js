@@ -46,7 +46,7 @@ export default class {
     if (burnTime > 0 && heat === 100 && burnTime % 3 === 0 && power < 120) power++;
     if (burnTime === 0 && system.currentTick % 3 === 0 && power > 0) power--;
     
-    // Update U
+    // Update UI
     container.updateUI(
       [
         { slot: 1, text: data => data.power === 0 ? 'Not Generating' : 'Generating' },
@@ -54,8 +54,6 @@ export default class {
       ],
       { heat: heat, power: power }
     );
-    
-    // Only update dynamic properties if changes occurred.
     if (heat !== first_heat) this.entity.setDynamicProperty("cosmos_heat", heat);
     if (burnTime !== first_burnTime) this.entity.setDynamicProperty("cosmos_burnTime", burnTime);
     if (power !== first_power) this.entity.setDynamicProperty("cosmos_power", power);
