@@ -97,24 +97,24 @@ Container.prototype.add_ui_display = function (slot, text, damage) {
 	this.setItem(slot, button)
 }
 
-// {
-//     const Dimension = world.getDimension("overworld");
-//     const dimensionProto = Object.getPrototypeOf(Dimension);
-//     if (!dimensionProto.stopSound) {
-//       /**
-//        * Stops a sound at a specified location.
-//        *
-//        * @param {string} soundName - The name of the sound to stop.
-//        * @param {{ x: number, y: number, z: number }} location - The location at which to stop the sound.
-//        * @returns {} callback
-//        */
-//       dimensionProto.stopSound = function (soundName, location) {
-//         return this.runCommand(
-//           `execute positioned ${location.x} ${location.y} ${location.z} run stopsound @a ${soundName}`
-//         );
-//       };
-//     }
-// };
+{
+    const Dimension = world.getDimension("overworld");
+    const dimensionProto = Object.getPrototypeOf(Dimension);
+    if (!dimensionProto.stopSound) {
+      /**
+       * Stops a sound at a specified location.
+       *
+       * @param {string} soundName - The name of the sound to stop.
+       * @param {{ x: number, y: number, z: number }} location - The location at which to stop the sound.
+       * @returns {} callback
+       */
+      dimensionProto.stopSound = function (soundName, location) {
+        return this.runCommand(
+          `execute positioned ${location.x} ${location.y} ${location.z} run stopsound @a ${soundName}`
+        );
+      };
+    }
+};
 
 
 
@@ -207,20 +207,22 @@ Container.prototype.add_ui_display = function (slot, text, damage) {
 //  }
 // };
 
-// Container.prototype.updateUI = function(uiConfigs, machineData) {
-//   uiConfigs.forEach(config => {
-//     const uiItem = new ItemStack('cosmos:ui');
-//     // Determine the text: if a function, call it with machineData, otherwise use the string.
-//     const text = (typeof config.text === 'function') ? config.text(machineData) : (config.text || "");
-//     uiItem.nameTag = `cosmos:${text}`;
-//     // If lore is provided, do the same.
-//     if (config.lore) {
-//       const lore = (typeof config.lore === 'function') ? config.lore(machineData) : config.lore;
-//       uiItem.setLore(lore);
-//     }
-//     this.setItem(config.slot, uiItem);
-//   });
-// };
+Container.prototype.updateUI = function(uiConfigs, data) {
+    uiConfigs.forEach(config => {
+      const uiItem = new ItemStack('cosmos:ui');
+      const text = (typeof config.text === 'function')
+        ? config.text(data)
+        : (config.text || "");
+      uiItem.nameTag = `cosmos:${text}`;
+      if (config.lore) {
+        const lore = (typeof config.lore === 'function')
+          ? config.lore(data)
+          : config.lore;
+        uiItem.setLore(lore);
+      }
+      this.setItem(config.slot, uiItem);
+    });
+  }
 
 // /**
 //  * Updates the UI for an energy storage machine.
@@ -297,4 +299,45 @@ Container.prototype.add_ui_display = function (slot, text, damage) {
 //   this.setEnergy(energy);
 //   return energy;
 // };
+
+
+// // Save a reference to the original setSpawnPoint method.
+// const originalSetSpawnPoint = Entity.prototype.setSpawnPoint;
+
+// /**
+//  * Bedrock equivalent of a mixin
+//  * If the entity is in the End, it saves the spawn location and call and custom overwrite methpd
+//  * Otherwise, it calls the original setSpawnPoint method.
+//  *
+//  * @param {{Vec3}} location - The desired spawn coordinates.
+//  */
+// Entity.prototype.setSpawnPoint = function(location) {
+//   // Check if the entity is in the End dimension.
+//   if (this.dimension && this.dimension.id === "the_end") {
+//     // Save the spawn point 
+//     if (this.setDynamicProperty) {
+//       this.setDynamicProperty("customSpawnPoint", location);
+//     }
+//     // Force teleport the player to the location in the End.
+//     const endDimension = world.getDimension("the_end");
+//     this.teleport(location, endDimension, 0, 0);
+//   } else {
+//     // For non-End dimensions, call the original method.
+//     if (typeof originalSetSpawnPoint === "function") {
+//       originalSetSpawnPoint.call(this, location);
+//     }
+//   }
+// };
+
+// // Listen for player respawn events.
+// world.afterEvents.playerSpawn.subscribe(eventData => {
+//   const player = eventData.player;
+//   // Retrieve the custom spawn point saved as a dynamic property.
+//   const spawnLocation = player.getDynamicProperty("customSpawnPoint");
+//   if (spawnLocation) {
+//     const end = world.getDimension("the_end");
+//     // Teleport the player to the saved spawn location in the End.
+//     player.teleport(spawnLocation, end, 0, 0);
+//   }
+// });
 
