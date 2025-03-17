@@ -129,8 +129,8 @@
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
                     "offset": [ 11, 21 ],
-					"texture": "textures/ui/smithing_material_slot_overlay",
-					"uv": [64, 0]
+					"texture": "textures/items/diamond",
+					"alpha": 0.25
 				}
 			},
             {
@@ -143,15 +143,19 @@
             },
 			{
 				"silicon1_overlay@machines.item_image": {
-                    "offset": [ -9, -1 ],
-					"texture": "textures/ui/extra_slots/silicon"
+                    "offset": [ -7.5, -1 ],
+					"texture": "textures/items/raw_silicon",
+					"uv_size": [32, 32],
+					"alpha": 0.25
 				}
 			},
 			{
 				"silicon2_overlay@machines.item_image": {
-                    "offset": [ -9, 17 ],
-					"texture": "textures/ui/extra_slots/silicon",
-					"layer": 21
+                    "offset": [ -7.5, 17 ],
+					"texture": "textures/items/raw_silicon",
+					"uv_size": [32, 32],
+					"layer": 21,
+					"alpha": 0.25
 				}
 			},
             {
@@ -163,9 +167,9 @@
             },
 			{
 				"redstone_overlay@machines.item_image": {
-                    "offset": [ 38, -1 ],
-					"texture": "textures/ui/smithing_material_slot_overlay",
-					"uv": [16, 0]
+                    "offset": [ 40, -1 ],
+					"texture": "textures/items/redstone_dust",
+					"alpha": 0.25
 				}
 			},
             {
