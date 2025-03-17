@@ -1,6 +1,6 @@
 /**
    * "MachineLib" Mixin injector by Refracted
-   *
+   * NOTE : THIS MIXIN IS NOT IMPORTED ANYWHERE IN THE GAME, DO NOT BLAME ME ON THIS
    *
    * UI elements are updated by passing an array of config objects. Each config object should have:
    *   - slot: (number) the container slot to update
