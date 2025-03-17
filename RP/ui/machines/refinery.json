@@ -54,7 +54,7 @@
                 "anchor_to": "top_left",
                 "$grid_size": [ 1, 1 ],
                 "$grid_pixels": [18, 18],
-                "offset": [6, 6]
+                "offset": [4, 6]
               }
             },
             {
@@ -63,7 +63,7 @@
               "anchor_to": "top_right",
               "$grid_size": [ 1, 2 ],
               "$grid_pixels": [18, 36],
-                "offset": [-4, 6]
+                "offset": [-6, 6]
               }
             },
             {
