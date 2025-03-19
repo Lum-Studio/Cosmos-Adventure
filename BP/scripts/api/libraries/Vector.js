@@ -21,8 +21,11 @@
  * SOFTWARE.
  */
 
-/**
- * @returns {Vec3}
+/*!
+ * Original Software by "ConMaster2112"
+ * Licensed under the MIT License (https://opensource.org/licenses/MIT)
+ *
+ * Rewritten and modified by "Remember M9"
  */
 export function Vec3(x = 0, y = 0, z = 0) {
     const V3 = new.target ? this : { x, y, z };

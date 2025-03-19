@@ -1,5 +1,5 @@
 import { world } from "@minecraft/server";
-import EndlessDB from "../libraries/EndlessDB";
+import { EndlessDB } from "../libraries/EndlessDB";
 
 // Dynamic property stores for oxygen data.
 const oxygenBlockStore = new EndlessDB("oxygenBlock:");
@@ -9,13 +9,13 @@ const oxygenBubbleStore = new EndlessDB("oxygenBubble:");
 class OxygenUtil {
   // Used to prevent infinite recursion in oxygen searches.
   static checked = new Set();
-/**
- * Determines if an entity's approximate bounding box is in breathable air.
- * @param {object} entity - The entity
- * @param {boolean} testThermal - If true, require thermal oxygen.
- * @returns {boolean} True if the entity is in breathable air.
- */
-static isAABBInBreathableAirBlock(entity, testThermal = false) {
+  /**
+   * Determines if an entity's approximate bounding box is in breathable air.
+   * @param {object} entity - The entity
+   * @param {boolean} testThermal - If true, require thermal oxygen.
+   * @returns {boolean} True if the entity is in breathable air.
+   */
+  static isAABBInBreathableAirBlock(entity, testThermal = false) {
     // Retrieve the entity's head location using the valid getHeadLocation() method.
     const head = entity.getHeadLocation();
     // Construct a small bounding box around the head.
@@ -24,7 +24,7 @@ static isAABBInBreathableAirBlock(entity, testThermal = false) {
       max: { x: head.x + 0.3, y: head.y + 0.3, z: head.z + 0.3 }
     };
     return this.isAABBInBreathableAirBlockWorld(aabb, testThermal);
-  }  
+  }
 
   /**
    * Checks whether a given axis-aligned bounding box is in breathable air.
@@ -163,7 +163,7 @@ static isAABBInBreathableAirBlock(entity, testThermal = false) {
       }
     }
     return -1;
-}
+  }
 
   /**
    * Validates if the player is wearing proper oxygen gear.

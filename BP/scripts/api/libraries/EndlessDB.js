@@ -26,11 +26,12 @@ const PART_SIZE = 32767;
  * it into parts and keeps track of the number of parts using a dedicated count property.
  *
  * Example usage:
+ * ```js
  *   const db = new EndlessDB("myDB:");
  *   db.setAll({ foo: "bar", count: 123 });
  *   const data = db.getAll();
  *   console.log(data);
- *
+ * ```
  * Note: Make sure that the prefix you supply is unique to avoid collisions.
  */
 class EndlessDB {

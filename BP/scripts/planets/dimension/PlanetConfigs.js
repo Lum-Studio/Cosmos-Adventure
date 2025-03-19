@@ -1,5 +1,6 @@
 import { Planet } from "./GalacticraftPlanets";
 import { system } from "@minecraft/server";
+import { Gravity } from "./gravity";
 
 export const planetConfigs = [
     {
@@ -35,13 +36,16 @@ planetConfigs.forEach(planet => {
 // Adding Gravity
 system.runTimeout(() => {
     for (let planet of Planet.getAll()) {
-        if (planet.id == 'venus') continue;
+        if (planet.type == 'venus') continue;
         planet.events.onJoin('addGravity', ((event, player) => {
             new Gravity(player).setTemp(planet.gravity)
+            // console.warn("joined "+ planet.type);
+            
         }))
 
         planet.events.onLeave('removeGravity', ((event, player) => {
             new Gravity(player).setTemp(9.8)
+            // console.warn("left "+ planet.type);
         }))
     }
 })
