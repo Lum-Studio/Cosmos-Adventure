@@ -1,7 +1,14 @@
-import { system, world, ItemStack } from "@minecraft/server";
+import * as mc from "@minecraft/server";
+
+const { system } = mc;
+
 const fuelTypes = new Set(["minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"]);
 
 export default class {
+  /**
+   * @param {mc.Entity} entity  
+   * @param {mc.Block} block 
+   */
   constructor(entity, block) {
     this.entity = entity;
     this.block = block;
@@ -24,12 +31,13 @@ export default class {
   }
   
   generateHeat() {
-    const container = this.entity.getComponent('minecraft:inventory').container;
+    const e = this.entity;
+    const container = e.getComponent('minecraft:inventory').container;
     const fuelItem = container.getItem(0);
     const isCoalBlock = fuelItem?.typeId === 'minecraft:coal_block';
-    let burnTime = this.entity.getDynamicProperty("cosmos_burnTime") ?? 0;
-    let heat = this.entity.getDynamicProperty("cosmos_heat") ?? 0;
-    let power = this.entity.getDynamicProperty("cosmos_power") ?? 0;
+    let burnTime = e.getDynamicProperty("cosmos_burnTime") ?? 0;
+    let heat = e.getDynamicProperty("cosmos_heat") ?? 0;
+    let power = e.getDynamicProperty("cosmos_power") ?? 0;
 
     const first_burnTime = burnTime;
     const first_heat = heat;

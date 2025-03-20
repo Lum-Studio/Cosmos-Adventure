@@ -5,11 +5,13 @@ import * as UI from '@minecraft/server-ui';
 declare module "@minecraft/server" {
 
     interface World {
+        getDynamicProperty<T extends keyof WorldPropertyMap>(componentId: T): WorldPropertyMap[T];
         getDimension<T extends keyof dimensionIds>(dimensionId: T): Dimension;
-        getDims(fn?: () => {}): Dimension[];
+        getDims(fn?: (dim: Dimension) => any): Dimension[];
     }
 
     interface ItemStack {
+        hasComponent<T extends keyof ItemComponents>(componentId: T): boolean;
         decrementStack(amount?: number): ItemStack;
         incrementStack(amount?: number): ItemStack;
     }
@@ -19,6 +21,7 @@ declare module "@minecraft/server" {
     }
 
     interface Entity {
+        getDynamicProperty<T extends keyof EntityPropertyMap>(componentId: T): EntityPropertyMap[T];
         hasComponent<T extends keyof EntityComponents>(componentId: T): boolean;
     }
 
@@ -38,14 +41,10 @@ declare module "@minecraft/server" {
         hasComponent<T extends keyof BlockComponents>(componentId: T): boolean;
     }
 
-    interface ItemStack {
-        hasComponent<T extends keyof ItemComponents>(componentId: T): boolean;
-    }
-
     interface Container {
-        updateUI(uiConfigs: [], data: any): void;
-        add_ui_button(slot: number, text: string, lore: string[]): void
-        add_ui_display(slot: number, text: string, damage: number): void
+        updateUI(uiConfigs: Array<UIConfig>, data: any): void;
+        add_ui_button(slot: number, text?: string, lore?: string[]): void
+        add_ui_display(slot: number, text?: string, damage?: number): void
     }
 
     interface EntityEquipmentInventoryComponent {
@@ -55,9 +54,39 @@ declare module "@minecraft/server" {
 
 }
 
+interface UIConfig {
+    text?: string | ((any) => string);
+    lore?: string[] | ((any) => string[]);
+    slot: number;
+}
 
+interface dimensionIds {
+    "the_end": string,
+    "nether": string,
+    "overworld": string,
+    "minecraft:the_end": string,
+    "minecraft:nether": string,
+    "minecraft:overworld": string,
+}
 
-interface dimensionIds { the_end: string, nether: string, overworld: string }
+interface EntityPropertyMap {
+    customSpawnPoint: string;
+    dimension: string;
+    active: boolean;
+    fuel_level: number;
+
+    isOpen: boolean;
+
+    in_celestial_selector: boolean;
+    rocket_launched: boolean;
+    cosmos_burnTime: number;
+    cosmos_heat: number;
+    cosmos_power: number;
+}
+interface WorldPropertyMap {
+    all_space_stations: string;
+}
+
 interface BlockComponents {
     "inventory": MC.BlockInventoryComponent,
     "minecraft:inventory": MC.BlockInventoryComponent,
@@ -70,6 +99,7 @@ interface BlockComponents {
     "sign": MC.BlockSignComponent,
     "minecraft:sign": MC.BlockSignComponent,
 }
+
 interface EntityComponents {
     "addrider": MC.EntityAddRiderComponent,
     "minecraft:addrider": MC.EntityAddRiderComponent,
