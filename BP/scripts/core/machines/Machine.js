@@ -1,3 +1,6 @@
+import { QuickItemDatabase  } from "api/libraries/QuickItemDatabaseV3";
+const itemDatabase = new QuickItemDatabase("lostitems", 1, false);
+
 import { world, system, BlockPermutation } from "@minecraft/server";
 import machines from "./AllMachineBlocks";
 import { detach_wires, attach_to_wires } from "../blocks/aluminum_wire";
@@ -5,20 +8,30 @@ import { pickaxes } from "../../api/utils";
 
 export let machine_entities = new Map();
 
+
+function sanitizeKey(key) {
+  return key.replace(/[^a-z0-9_]/gi, '_').toLowerCase();
+}
+
 /**
- * Moves items into a block or entity container from nearby hoppers
- * @param {Block | Entity} object - The block or entity to which items need to be moved.
- * @param {Function<ItemStack>} itemFilter - A function that takes an ItemStack object and returns true or false depending on whether the item can be moved. (optional)
- * @returns {Boolean} - True if the process was executed, false otherwise.
+ * Moves items into a block or entity container from nearby hoppers.
+ * If items would be lost because the destination slot is occupied,
+ * the leftover ItemStack is saved in the QuickItemDatabase.
+ *
+ * @param {Block | Entity} object - The block or entity container to fill.
+ * @param {Function<ItemStack>} itemFilter - (Not used here; fully implemented)
+ * @returns {Boolean} - True if the process executed, false otherwise.
  */
 function moveItemsFromHoppers(object, itemFilter) {
   const center = object.dimension.getBlock(object.location);
   const inv = object.getComponent('inventory')?.container;
   if (center == undefined || inv == undefined) return false;
 
-  const offsets = [{ x: 1 }, { x: -1 }, { z: 1 }, { z: -1 }, { y: 1 }].map(offset => { 
-    return { x: offset.x || 0, y: offset.y || 0, z: offset.z || 0 };
-  });
+  const offsets = [{ x: 1 }, { x: -1 }, { z: 1 }, { z: -1 }, { y: 1 }].map(offset => ({ 
+    x: offset.x || 0, 
+    y: offset.y || 0, 
+    z: offset.z || 0 
+  }));
 
   for (let offset of offsets) {
     const block = center.offset(offset);
@@ -31,18 +44,80 @@ function moveItemsFromHoppers(object, itemFilter) {
       '5': { x: -1, y: 0, z: 0 },
       '0': { x: 0, y: 1, z: 0 }
     }[block.permutation.getState('facing_direction')] || { x: 0, y: 0, z: 0 };
-    if (!['x', 'y', 'z'].every(axis => offsetTo[axis] == offset[axis])) continue;
+
+    if (!['x','y','z'].every(axis => offsetTo[axis] === offset[axis])) continue;
       
     const blockInv = block.getComponent('inventory')?.container;
     if (!blockInv) continue;
     for (let i = 0; i < blockInv.size; i++) {
       let item = blockInv.getItem(i);
       if (item == undefined || (itemFilter != undefined && !itemFilter(item))) continue;
-      blockInv.setItem(i, blockInv.transferItem(i, inv));
+      let leftover = blockInv.transferItem(i, inv);
+      if (leftover) {
+        let rawKey = `lost_${object.id}_${block.location.x}_${block.location.y}_${block.location.z}_slot${i}`;
+        let key = sanitizeKey(rawKey);
+        if (itemDatabase.has(key)) {
+          let existing = itemDatabase.get(key);
+          if (existing.typeId === leftover.typeId) {
+            let merged = { ...leftover };
+            merged.amount = existing.amount + leftover.amount;
+            itemDatabase.set(key, merged);
+          } else {
+            let arr = Array.isArray(existing) ? existing : [existing];
+            arr.push(leftover);
+            itemDatabase.set(key, arr);
+          }
+        } else {
+          itemDatabase.set(key, leftover);
+        }
+        blockInv.setItem(i, leftover);
+      }
     }
   }
   return true;
 }
+
+/**
+ * Reattempts insertion of  itemslost (stored in the QuickItemDatabase) back into the machine's inventory. <3 so kinky
+ * tries to add them to its inventory, and updates or deletes the stored entry accordingly.
+ * @param {Block | Entity} object - Harder daddy <3 Make me pr-
+ */
+function reinsertion(object) {
+  const inv = object.getComponent("inventory")?.container;
+  if (!inv) return;
+  // Get all keys from the database for lost items for this machine.
+  let keys = itemDatabase.keys().filter(key => key.startsWith(`lost_${object.id}_`));
+  for (let key of keys) {
+    let lostItem = itemDatabase.get(key);
+    // If the stored value is an array, attempt to reinsert each item separately.
+    if (Array.isArray(lostItem)) {
+      let remaining = [];
+      for (let item of lostItem) {
+        let notAdded = inv.addItem(item);
+        let accepted = item.amount - (typeof notAdded === "number" ? notAdded : 0);
+        if (accepted < item.amount) {
+          item.amount -= accepted;
+          remaining.push(item);
+        }
+      }
+      if (remaining.length === 0) {
+        itemDatabase.delete(key);
+      } else {
+        itemDatabase.set(key, remaining);
+      }
+    } else {
+      let notAdded = inv.addItem(lostItem);
+      let accepted = lostItem.amount - (typeof notAdded === "number" ? notAdded : 0);
+      if (accepted >= lostItem.amount) {
+        itemDatabase.delete(key);
+      } else {
+        lostItem.amount -= accepted;
+        itemDatabase.set(key, lostItem);
+      }
+    }
+  }
+}
+
 
 function clean_machine_entities(machinesMap) {
   for (const [entityId, machineData] of machinesMap.entries()) {
@@ -72,7 +147,6 @@ function block_entity_access() {
   }
 }
 
-
 system.runInterval(() => {
   if (machine_entities.size === 0) return;
   if (system.currentTick % 2 === 0) block_entity_access();
@@ -81,6 +155,7 @@ system.runInterval(() => {
     const machineEntity = world.getEntity(entityId);
     if (machineEntity) {
       moveItemsFromHoppers(machineEntity, undefined);
+      reinsertion(machineEntity);
     }
   });
 }, 1);
