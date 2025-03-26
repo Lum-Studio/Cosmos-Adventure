@@ -27,16 +27,13 @@ function moveItemsFromHoppers(object, itemFilter) {
   const inv = object.getComponent('inventory')?.container;
   if (center == undefined || inv == undefined) return false;
 
-  const offsets = [{ x: 1 }, { x: -1 }, { z: 1 }, { z: -1 }, { y: 1 }].map(offset => ({ 
-    x: offset.x || 0, 
-    y: offset.y || 0, 
-    z: offset.z || 0 
-  }));
+  const offsets = [{ x: 1 }, { x: -1 }, { z: 1 }, { z: -1 }, { y: 1 }]
+    .map(offset => ({ x: offset.x || 0, y: offset.y || 0, z: offset.z || 0 }));
 
   for (let offset of offsets) {
     const block = center.offset(offset);
-    if (block == undefined || block.typeId != 'minecraft:hopper' || block.permutation.getState('toggle_bit')) continue;
-      
+    if (block == undefined || block.typeId !== 'minecraft:hopper' || block.permutation.getState('toggle_bit')) continue;
+
     let offsetTo = {
       '2': { z: 1, y: 0, x: 0 },
       '3': { z: -1, y: 0, x: 0 },
@@ -45,31 +42,53 @@ function moveItemsFromHoppers(object, itemFilter) {
       '0': { x: 0, y: 1, z: 0 }
     }[block.permutation.getState('facing_direction')] || { x: 0, y: 0, z: 0 };
 
-    if (!['x','y','z'].every(axis => offsetTo[axis] === offset[axis])) continue;
-      
+    if (!['x', 'y', 'z'].every(axis => offsetTo[axis] === offset[axis])) continue;
+
     const blockInv = block.getComponent('inventory')?.container;
     if (!blockInv) continue;
     for (let i = 0; i < blockInv.size; i++) {
       let item = blockInv.getItem(i);
       if (item == undefined || (itemFilter != undefined && !itemFilter(item))) continue;
+
+      // Attempt to transfer items from this hopper slot to the machine.
       let leftover = blockInv.transferItem(i, inv);
+
+      // If there's leftover (machine slot was occupied), save it.
       if (leftover) {
         let rawKey = `lost_${object.id}_${block.location.x}_${block.location.y}_${block.location.z}_slot${i}`;
         let key = sanitizeKey(rawKey);
         if (itemDatabase.has(key)) {
           let existing = itemDatabase.get(key);
-          if (existing.typeId === leftover.typeId) {
-            let merged = { ...leftover };
-            merged.amount = existing.amount + leftover.amount;
-            itemDatabase.set(key, merged);
+          if (!Array.isArray(existing)) {
+            if (existing.typeId === leftover.typeId) {
+              let merged = { ...leftover };
+              merged.amount = existing.amount + leftover.amount;
+              itemDatabase.set(key, merged);
+            } else {
+              itemDatabase.set(key, [existing, leftover]);
+            }
           } else {
-            let arr = Array.isArray(existing) ? existing : [existing];
-            arr.push(leftover);
-            itemDatabase.set(key, arr);
+            let merged = false;
+            for (let j = 0; j < existing.length; j++) {
+              if (existing[j].typeId === leftover.typeId) {
+                existing[j].amount += leftover.amount;
+                merged = true;
+                break;
+              }
+            }
+            if (!merged) {
+              if (existing.length < 255) {
+                existing.push(leftover);
+              } else {
+                console.warn(`Dropping leftover from key ${key} as maximum array length reached.`);
+              }
+            }
+            itemDatabase.set(key, existing);
           }
         } else {
           itemDatabase.set(key, leftover);
         }
+        // Update the hopper slot with the leftover so it isn't lost.
         blockInv.setItem(i, leftover);
       }
     }
