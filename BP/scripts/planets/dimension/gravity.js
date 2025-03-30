@@ -262,7 +262,7 @@ class Gravity {
     this.entity.applyImpulse({ x: 0, y: -currentGravity / 10, z: 0 });
     jumpStartY.set(this.entity, this.entity.location.y);
   }
-  
+}
 
 
 /**
