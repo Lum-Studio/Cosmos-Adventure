@@ -352,19 +352,6 @@ system.runInterval(() => {
     })
 })
 
-// Adding Gravity
-system.runTimeout(() => {
-    for (let planet of Planet.getAll()) {
-        planet.events.onJoin('addGravity', ((event, player) => {
-            new Gravity(player).setTemp(planet.gravity)
-        }))
-
-        planet.events.onLeave('removeGravity', ((event, player) => {
-            new Gravity(player).setTemp(9.8)
-        }))
-    }
-})
-
 
 
 

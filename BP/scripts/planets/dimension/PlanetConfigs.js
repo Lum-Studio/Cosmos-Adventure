@@ -32,20 +32,3 @@ planetConfigs.forEach(planet => {
         gravity: planet.gravity
     });    
 });
-
-// Adding Gravity
-system.runTimeout(() => {
-    for (let planet of Planet.getAll()) {
-        if (planet.type == 'venus') continue;
-        planet.events.onJoin('addGravity', ((event, player) => {
-            new Gravity(player).setTemp(planet.gravity)
-            // console.warn("joined "+ planet.type);
-            
-        }))
-
-        planet.events.onLeave('removeGravity', ((event, player) => {
-            new Gravity(player).setTemp(9.8)
-            // console.warn("left "+ planet.type);
-        }))
-    }
-})
