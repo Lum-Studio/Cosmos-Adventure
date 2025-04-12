@@ -21,10 +21,6 @@ const { world, ItemStack } = mc;
 //@ts-expect-error
 Merge(mc.ItemStack.prototype, {
 
-    /**
-     * Decrements the amount of the ItemStack by 1.
-     * @returns {mc.ItemStack | undefined} The modified ItemStack or undefined if amount is 1.
-     */
     decrementStack(decrementItemAmount = 1) {
         if (this.amount > decrementItemAmount) {
             this.amount = this.amount - decrementItemAmount;
@@ -32,10 +28,6 @@ Merge(mc.ItemStack.prototype, {
         } else return undefined;
     },
 
-    /**
-     * Increments the amount of the ItemStack by 1.
-     * @returns {mc.ItemStack} The modified ItemStack or same ItemStack if amount is 64.
-     */
     incrementStack(incrementItemMax = 64, incrementItemAmount = 1) {
         if ((incrementItemMax === 64) ? this.amount < incrementItemMax : this.amount <= incrementItemMax) {
             this.amount = this.amount + incrementItemAmount;
@@ -48,43 +40,33 @@ Merge(mc.ItemStack.prototype, {
 //@ts-expect-error
 Merge(mc.Player.prototype, {
 
-    //seamlessly giving a player an item or ejecting it infront of the player if inventory is full
     give(item, amount = 1, data = 0) {
+        const cmdfeedback = world.gameRules.sendCommandFeedback;
         world.gameRules.sendCommandFeedback = false;
-        super.runCommand(`give @s ${item} ${amount} ${data}`);
-        super.runCommand("stopsound @s random.pop");
-        world.gameRules.sendCommandFeedback = true;
+        this.runCommand(`give @s ${item} ${amount} ${data}`);
+        this.runCommand("stopsound @s random.pop");
+        world.gameRules.sendCommandFeedback = cmdfeedback;
     },
 
-    /**
-     * NOTE: NOT YET DONE ( setSpawnPoint & getSpawnPoint )
-     * Bedrock equivalent of a mixin
-     * If the entity is in the End, it saves the spawn location and call and custom overwrite methpd
-     * Otherwise, it calls the original setSpawnPoint method.
-     */
-    // setSpawnPoint(dimensionLocation) {
-    //     if (!dimensionLocation.dimension || dimensionLocation.dimension.id.endsWith("the_end")) {
-    //         dimensionLocation.dimension = world.getDimension("the_end");
-    //         // Save the spawn point 
-    //         this.setDynamicProperty("customSpawnPoint", JSON.stringify({
-    //             ...dimensionLocation,
-    //             dimension: "minecraft:the_end"
-    //         }));
+    setSpawnPoint(dimensionLocation) {
+        if (!dimensionLocation) return super.setSpawnPoint();
+        if (!dimensionLocation.dimension || dimensionLocation.dimension?.id.endsWith("the_end")) {
+            dimensionLocation.dimension = world.getDimension("the_end");
+            // Save the spawn point 
+            this.setDynamicProperty("customSpawnPoint", dimensionLocation);
 
-    //         // Force teleport the player to the location in the End.
-    //         this.teleport(dimensionLocation, dimensionLocation);
-    //     }
-    //     // For non-End dimensions, call the original method.
-    //     super.setSpawnPoint(dimensionLocation);
-    // },
+            // Force teleport the player to the location in the End.
+            this.teleport(dimensionLocation, dimensionLocation);
+        }
+        // For non-End dimensions, call the original method.
+        super.setSpawnPoint(dimensionLocation);
+    },
 
-    // getSpawnPoint() {
-    //     let dimensionLocation = this.getDynamicProperty("customSpawnPoint");
-    //     if (!dimensionLocation) return super.getSpawnPoint();
-    //     dimensionLocation = JSON.parse(dimensionLocation);
-    //     dimensionLocation.dimension = world.getDimension(dimensionLocation.dimension);
-    //     return dimensionLocation;
-    // }
+    getSpawnPoint(dimensionId) {
+        if (!dimensionId?.includes("the_end")) return super.getSpawnPoint();
+        let dimensionLocation = this.getDynamicProperty("customSpawnPoint");
+        return dimensionLocation && { ...dimensionLocation, dimension: world.getDimension("the_end") };
+    }
 });
 
 
@@ -191,19 +173,12 @@ Merge(mc.Container.prototype, {
 //@ts-expect-error
 Merge(mc.Dimension.prototype, {
 
-    /**
-     * Stops a sound at a specified location.
-     *
-     * @param {string} soundName - The name of the sound to stop.
-     * @param {mc.Vector3} location - The location at which to stop the sound.
-     * @returns {mc.CommandResult} callback
-     */
     stopSound(soundName, location) {
         return this.runCommand(
             `execute positioned ${location.x} ${location.y} ${location.z} run stopsound @a ${soundName}`
         );
     }
-    
+
 });
 
 

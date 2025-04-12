@@ -53,7 +53,7 @@ export class QuickItemDatabase {
 		system.runInterval(() => {
 			if (this.#queuedKeys.length) {
 				const start = Date.now()
-				const k = Math.min(this.#saveRate,this.#queuedKeys)
+				const k = Math.min(this.#saveRate,...this.#queuedKeys)
 				for (let i = 0; i < k; i++) {
 					this.#romSave(this.#queuedKeys[0], this.#queuedValues[0]); if (logs) this.#timeWarn(start, this.#queuedKeys[0], "saved"); this.#queuedKeys.shift(); this.#queuedValues.shift()
 				}

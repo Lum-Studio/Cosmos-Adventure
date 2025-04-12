@@ -10,14 +10,44 @@ declare module "@minecraft/server" {
         getDims(fn?: (dim: Dimension) => any): Dimension[];
     }
 
+    interface Dimension {
+        /**
+         * Stops a sound at a specified location.
+         *
+         * @param {string} soundName - The name of the sound to stop.
+         * @param {mc.Vector3} location - The location at which to stop the sound.
+         * @returns {mc.CommandResult} callback
+         */
+        stopSound(soundName: string, location: Vector3): CommandResult;
+    }
+
     interface ItemStack {
         hasComponent<T extends keyof ItemComponents>(componentId: T): boolean;
+        /**
+         * Decrements the amount of the ItemStack by 1.
+         * @returns {mc.ItemStack | undefined} The modified ItemStack or undefined if amount is 1.
+         */
         decrementStack(amount?: number): ItemStack;
+        /**
+         * Increments the amount of the ItemStack by 1.
+         * @returns {mc.ItemStack} The modified ItemStack or same ItemStack if amount is 64.
+         */
         incrementStack(amount?: number): ItemStack;
     }
 
     interface Player {
+        /**
+        * seamlessly giving a player an item or ejecting it infront of the player if inventory is full
+        */
         give(itemType: string, amount?: 1, data?: 0): void;
+
+        /**
+         * Bedrock equivalent of a mixin
+         * If the entity is in the End, it saves the spawn location and call and custom overwrite methpd
+         * Otherwise, it calls the original setSpawnPoint method.
+         */
+        setSpawnPoint(spawnPoint?: DimensionLocation): void;
+        getSpawnPoint(dimensionId?: "the_end" | "minecraft:the_end"): DimensionLocation | undefined;
     }
 
     interface Entity {
@@ -32,12 +62,15 @@ declare module "@minecraft/server" {
     interface EntityEquippableComponent {
         getEquipment<T extends keyof typeof EquipmentSlot>(slot: T): ItemStack;
         getEquipmentSlot<T extends keyof typeof EquipmentSlot>(slot: T): ContainerSlot;
+        setEquipment<T extends keyof typeof EquipmentSlot>(slot: T, itemStack: ItemStack): ItemStack;
+        setEquipmentSlot<T extends keyof typeof EquipmentSlot>(slot: T, itemStack: ItemStack): ContainerSlot;
     }
 
     interface Block {
         four_neighbors(sides: string[]): { [T: string]: Block } | {};
         six_neighbors(): { [T: string]: Block };
-        getNeighbors(maxSearch: 27): Block[];
+        getNeighbors(maxSearch: 27 | number): Block[];
+        getDynamicProperty<T extends keyof BlockPropertyMap>(componentId: T): BlockPropertyMap[T];
         hasComponent<T extends keyof BlockComponents>(componentId: T): boolean;
     }
 
@@ -69,8 +102,11 @@ interface dimensionIds {
     "minecraft:overworld": string,
 }
 
+interface BlockPropertyMap {
+
+}
 interface EntityPropertyMap {
-    customSpawnPoint: string;
+    customSpawnPoint: MC.Vector3;
     dimension: string;
     active: boolean;
     fuel_level: number;

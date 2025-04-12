@@ -19,12 +19,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
-
-/*!
- * Original Software by "ConMaster2112"
- * Licensed under the MIT License (https://opensource.org/licenses/MIT)
- *
+ * 
  * Rewritten and modified by "Remember M9"
  */
 export function Vec3(x = 0, y = 0, z = 0) {
