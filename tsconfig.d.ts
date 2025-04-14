@@ -76,8 +76,38 @@ declare module "@minecraft/server" {
 
     interface Container {
         updateUI(uiConfigs: Array<UIConfig>, data: any): void;
-        add_ui_button(slot: number, text?: string, lore?: string[]): void
-        add_ui_display(slot: number, text?: string, damage?: number): void
+        add_ui_button(slot: number, text?: string, lore?: string[]): void;
+        add_ui_display(slot: number, text?: string, damage?: number): void;
+        /**
+           * Adds a progress bar to the specified slot.
+           * If the slot is empty, it assigns a barrier ItemStack with nameTag "0".
+           * If an item already exists, its value is set to "0".
+           * @param {number} slotIndex - The index of the slot.
+           * @returns {progressBar} The progress bar object.
+           */
+        addProgressBar(slotIndex: number): progressBar;
+        /**
+        * Retrieves an existing progress bar for the given slot index,
+        * or creates one if it does not exist.
+        * @param {number} slotIndex - The index of the slot.
+        * @returns {progressBar} The progress bar object.
+        */
+        getOrCreateProgressBar(slotIndex: number): progressBar;
+
+
+        /**
+         * Sets the progress value (clamped between 0 and 9) for the progress bar
+         * at the given slot, and updates the slot's value.
+         * @param {number} slotIndex - The index of the slot.
+         * @param {number} value - New progress value (0-9).
+        */
+        setProgressBar(slotIndex: number, value: number): void;
+        /**
+         * Retrieves an existing progress bar for the given slot index,
+         * @param {number} slotIndex - The index of the slot.
+         * @returns {progressBar} The progress bar object.
+         */
+        getProgressBar(slotIndex: number): progressBar;
     }
 
     interface EntityEquipmentInventoryComponent {
@@ -85,6 +115,11 @@ declare module "@minecraft/server" {
         getEquipment<T extends keyof typeof EquipmentSlot>(equipmentSlot: T): ItemStack
     }
 
+}
+
+interface progressBar {
+    slotIndex: number;
+    value: number;
 }
 
 interface UIConfig {

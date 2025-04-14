@@ -1,11 +1,19 @@
-import { EnchantmentType, ItemStack, system } from "@minecraft/server"
-import machines from "../core/machines/AllMachineBlocks"
+import * as mc from "@minecraft/server";
+import machines from "../core/machines/AllMachineBlocks";
 
 export function get_data(machine) {
 	return machines[machine.typeId.replace('cosmos:', '')]
 }
 
 export function str(object) { return JSON.stringify(object) }
+
+/**@param {mc.Vector3[]} locations @param {mc.Dimension} dim */
+export const destroyBlocks = function* (locations, dim) {
+	for (const loc of locations) {
+		dim.runCommand(`setblock ${loc.x} ${loc.y} ${loc.z} air [] destroy`);
+		yield;
+	}
+}
 
 export function compare_lists(list1, list2) {
 	for (let i = 0; i < list1.length; i++) {
@@ -44,66 +52,6 @@ export function isUnderground(player) {
 	return true
 }
 
-export function parseItem(json) {
-	if (typeof (json) == "string") {
-		json = JSON.parse(json)
-	}
-
-	let item = new ItemStack(json.type, json.amount)
-	item.lockMode = json.lockMode
-	item.keepOnDeath = json.keepOnDeath
-	item.nameTag = json.nameTag
-
-	item.setCanDestroy(json.canDestroy)
-	item.setCanPlaceOn(json.canPlaceOn)
-	item.setLore(json.lore)
-
-	json.properties.forEach(property => {
-		item.setDynamicProperty(property.id, property.value)
-	})
-
-	if (item.getComponent("minecraft:durability")) {
-		item.getComponent("minecraft:durability").damage = json.durability
-	}
-
-	if (item.getComponent("minecraft:enchantable")) {
-		item.getComponent("minecraft:enchantable").addEnchantments(json.enchantments.map(enc => {
-			return {
-				level: enc.level,
-				type: new EnchantmentType(enc.type.id)
-			}
-		}))
-	}
-
-	if (item.getComponent("minecraft:dyeable")) {
-		item.getComponent("minecraft:dyeable").color = json.dyeColor
-	}
-
-	return item
-}
-
-export function stringifyItem(item) {
-	let json = {
-		type: item.typeId,
-		amount: item.amount,
-		keepOnDeath: item.keepOnDeath,
-		lockMode: item.lockMode,
-		nameTag: item.nameTag,
-		canDestroy: item.getCanDestroy(),
-		canPlaceOn: item.getCanPlaceOn(),
-		lore: item.getLore(),
-		properties: item.getDynamicPropertyIds().map(id => {
-			return {
-				id: id,
-				value: item.getDynamicProperty(id)
-			}
-		}),
-		durability: item.getComponent("minecraft:durability")?.damage,
-		dyeColor: item.getComponent("minecraft:dyeable")?.color,
-		enchantments: item.getComponent("minecraft:enchantable")?.getEnchantments() || []
-	}
-	return JSON.stringify(json)
-}
 export function compare_position(a, b) {
 	if (!a || !b) return false;
 	return a.x == b.x && a.y == b.y && a.z == b.z;
