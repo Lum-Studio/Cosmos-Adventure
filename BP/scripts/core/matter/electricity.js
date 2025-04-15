@@ -47,6 +47,12 @@ export function charge_from_machine(entity, block, energy) {
 				const space = data.capacity - energy
 				if (power > 0) {
 					energy += Math.min(data.maxInput, power, space)
+					if(Math.min(data.maxInput, power, space) && input_entity.typeId.includes('energy_storage')){
+						let final_input_energy = input_entity.getDynamicProperty("cosmos_energy") - power;
+						final_input_energy = Math.max(0, final_input_energy)
+						input_entity.setDynamicProperty("cosmos_energy", final_input_energy)
+						input_entity.setDynamicProperty("cosmos_should_updates", true)
+					}
 				}
 			}
 		}
@@ -62,6 +68,12 @@ export function charge_from_machine(entity, block, energy) {
 			const io = location_of_side(input_block, input_data.energy_output)
 			if (compare_position(floor_position(entity.location), io) && power > 0) {
 				energy += Math.min(data.maxInput, power, space)
+				if(Math.min(data.maxInput, power, space) !== 0 && input_entity.typeId.includes('energy_storage')){
+					let final_input_energy = input_entity.getDynamicProperty("cosmos_energy") - power;
+					final_input_energy = Math.max(0, final_input_energy)
+					input_entity.setDynamicProperty("cosmos_energy", final_input_energy)
+					input_entity.setDynamicProperty("cosmos_should_updates", true)
+				}
 			}
 		}
 	} return energy

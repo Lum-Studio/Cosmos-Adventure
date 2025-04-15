@@ -2,25 +2,6 @@ import { system, ItemStack } from "@minecraft/server";
 import { get_entity, location_of_side, charge_from_machine, charge_from_battery, update_battery, } from "../../matter/electricity.js";
 import { get_data, floor_position, compare_position } from "../../../api/utils.js";
 
-function charge_machine(machine, block, energy) {
-	const data = get_data(machine)
-	const output_location = location_of_side(block, data.energy_output)
-	const output_machine = get_entity(machine.dimension, output_location, "has_power_input")
-	if ( output_machine && Math.min(energy, data.maxPower) > 0 ) {
-		const output_block = machine.dimension.getBlock(output_location)
-		const output_container = output_machine.getComponent('minecraft:inventory').container
-		const output_data = get_data(output_machine)
-		const power = Math.min(energy, data.maxPower)
-		const lore = output_machine.getDynamicProperty("cosmos_energy");
-		const output_energy = lore ? + lore : output_data.capacity
-		const space = output_data.capacity - output_energy
-		const io = location_of_side(output_block, output_data.energy_input)
-		if (compare_position(floor_position(machine.location), io)) {
-			if (space == 0 && output_machine.typeId.includes('energy_storage')) energy = charge_machine(output_machine, block, energy)
-			else energy -= Math.min(output_data.maxInput, power, space)
-		}
-	} return energy
-}
 
 function charge_battery(machine, energy, slot) {
 	const container = machine.getComponent('minecraft:inventory').container
@@ -56,11 +37,10 @@ export default class {
 		const container = this.entity.getComponent('minecraft:inventory').container;
 		const store_data = get_data(store)
 		let energy = this.entity.getDynamicProperty("cosmos_energy");
+		let should_updates = this.entity.getDynamicProperty("cosmos_should_updates");
 		energy = energy ? + energy : 0
 
 		let first_energy = energy;
-		
-		energy = charge_machine(store, this.block, energy)
 		
 		energy = charge_from_machine(store, this.block, energy)
 		
@@ -70,9 +50,10 @@ export default class {
 		
 		//store and display data
 
-		if(energy !== first_energy){
+		if(energy !== first_energy || should_updates){
 			this.entity.setDynamicProperty("cosmos_energy", energy);
 			this.entity.setDynamicProperty("cosmos_power", Math.min(energy, store_data.maxPower));
+			this.entity.setDynamicProperty("cosmos_should_updates");
 			const counter = new ItemStack('cosmos:ui')
 			counter.nameTag = `cosmos:§. ${energy} gJ\nof ${store_data.capacity} gJ`
 			container.setItem(2, counter)
