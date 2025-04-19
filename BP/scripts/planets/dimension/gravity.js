@@ -9,6 +9,10 @@ export { Gravity };
 //I will return in another day i guess
 //Life is just suffering for me now
 //Also, read my new escapism fic ;3
+//
+// interesting book, just randomly read through this peice
+// Soul and God
+// [HI ii(r)2]* Cap. ii.
 class Gravity {
   /**@type {WeakMap<Entity, Gravity>} */
   static #log = new WeakMap();
