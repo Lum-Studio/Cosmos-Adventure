@@ -2,6 +2,13 @@ import { world, system, Entity } from "@minecraft/server";
 import { Planet } from "./GalacticraftPlanets.js"
 export { Gravity };
 
+
+//I am still alive, writing fanfic 
+//I might not return tho, just probably continue to write fanfics
+//Parents said they will probably take the house if they didnt found enough money to renew the "red book"
+//I will return in another day i guess
+//Life is just suffering for me now
+//Also, read my new escapism fic ;3
 class Gravity {
   /**@type {WeakMap<Entity, Gravity>} */
   static #log = new WeakMap();
