@@ -3,26 +3,6 @@ import { Planet } from "./GalacticraftPlanets.js"
 export { Gravity };
 
 
-//I am still alive, writing fanfic 
-//I might not return tho, just probably continue to write fanfics
-//Parents said they will probably take the house if they didnt found enough money to renew the "red book"
-//I will return in another day i guess
-//Life is just suffering for me now
-//Also, read my new escapism fic ;3
-//
-// interesting book, just randomly read through this peice
-// Soul and God
-// [HI ii(r)2]* Cap. ii.
-//Sen
-//Thanks ;3
-//Its more of my self indulgent fic
-//I SWEAR IT IS SERIOUS THO
-//A bit dark....
-//I wonder what Prim thinks of it
-//I am not useful anyway to the team
-//They are probably taking my house next
-//...my option include working in a Circle K for 18k dongs per hour (70 cents)
-//Fuck my life
 class Gravity {
   /**@type {WeakMap<Entity, Gravity>} */
   static #log = new WeakMap();
