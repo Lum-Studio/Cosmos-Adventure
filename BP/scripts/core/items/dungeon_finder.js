@@ -31,12 +31,12 @@ function get_direction(target, player) {
 	} else return system.currentTick % 32
 }
 
-system.runInterval(() => {
-    world.getAllPlayers().forEach(player => {
+export function dungeon_finder_loop(players){
+    players.forEach(player => {
         const mainhand = player.getComponent("equippable").getEquipment("Mainhand")?.typeId
         if (mainhand != "cosmos:dungeon_finder") return
         const location = {x:0, z:0/*, planet: "moon"*/}
         const direction = get_direction(location, player)
         player.setProperty("cosmos:dungeon_finder", direction)
     });
-})
+}

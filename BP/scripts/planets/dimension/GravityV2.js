@@ -1,4 +1,3 @@
-
 import { world, system, Entity } from "@minecraft/server";
 import { Planet  } from "./GalacticraftPlanets";
 export { Gravity };

@@ -139,8 +139,8 @@ function setGravity(entity) {
   gravity.setTemp(9.8)
 }
 
-system.runInterval(() => {
-  for (let player of world.getAllPlayers()) {
+export function player_gravity(players){
+  for (let player of players) {
     const gravity = Gravity.of(player)
     if (gravity.value == 9.8) continue;
 
@@ -252,7 +252,7 @@ system.runInterval(() => {
       projectile.gravity = oldGravity - (9.8 - gravity.value)*oldGravity/20
     }
   })
-})
+}
 
 const Geo = new class {
   distance(vector1, vector2) {

@@ -29,6 +29,9 @@ export function moon_lander(player, load = true){
     lander.getComponent("minecraft:rideable").addRider(player);
     player.camera.setCamera("minecraft:follow_orbit", { radius: 20 });
     player.setDynamicProperty("dimension", undefined);
+    player.removeTag("ableToOxygen")
+
+    
     //lander.triggerEvent("cosmos:lander_gravity_enable");
     let is_load = load;
     let camera = player.getRotation();
@@ -77,6 +80,8 @@ export function moon_lander(player, load = true){
         lander.applyImpulse({x: speedX, y: speed, z: speedZ})
         if(lander.location.y < 500 && lander.getVelocity().y === 0){
             if(Math.abs(speed) > 2){
+                player.addTag("ableToOxygen");
+                player.addTag("in_space");
                 dismount(player);
 
                 lander.setProperty("cosmos:rotation_x", 0)
@@ -88,6 +93,8 @@ export function moon_lander(player, load = true){
                 lander.setProperty("cosmos:rotation_x", 0)
     
                 player.inputPermissions.setPermissionCategory(2, true);
+                player.addTag("ableToOxygen");
+                player.addTag("in_space");
                 lander.triggerEvent("cosmos:lander_gravity_enable")
                 system.clearRun(lander_flight);
             }

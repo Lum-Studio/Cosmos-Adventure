@@ -2,6 +2,7 @@ import "./api/mixins.js"
 import "./api/player/celestial_selector.js"
 import "./api/player/space_gear.js"
 import "./api/player/liftoff.js"
+import "./api/player/oxygen.js"
 import "./api/world/PlanetBuilder.js"
 
 import "./core/machines/Machine.js"
@@ -15,3 +16,5 @@ import "./core/matter/solids.js"
 import "./core/matter/liquids.js"
 
 import "./core/entities/alien_villager.js"
+
+import "./core/PlayerWorldCycle.js"

@@ -1,4 +1,5 @@
 import { world, system, EquipmentSlot, ItemStack } from '@minecraft/server';
+import { update_tank } from './oxygen.js';
 
 // This code is better now, but it still normal
 const tanks = {
@@ -58,7 +59,9 @@ function setItems(player, entity) {
 			const [item_id, fill_level] = space_gear[slot].split(' ')
 			const item = new ItemStack(item_id)
 			const durability = item.getComponent('minecraft:durability')
-			if (durability) durability.damage = + fill_level
+			if (durability) {
+				durability.damage = durability.maxDurability - fill_level
+			}
 			container.setItem(i, item)
 		} else container.setItem(i)
 	}
@@ -67,6 +70,8 @@ function setItems(player, entity) {
 // UPDATE SPACE GEAR DYNAMIC PROPERTY AND PLAYER PROPERTIES
 function update(player, container) {
 	const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}')
+	let oxygen = player.getDynamicProperty("cosmos_o2")
+	oxygen = (oxygen)? JSON.parse(oxygen): undefined;
 	for (let i = 0, slotKeys = Object.keys(slots); i < slotKeys.length; i++) {
 		const slot = slotKeys[i]
 		const item = container.getItem(i);
@@ -87,10 +92,13 @@ function update(player, container) {
 				player.setProperty("cosmos:tank2", tanks[item?.typeId] ?? 'no_tank')
 		}
 		if (item) {
-			const durability = item.getComponent("minecraft:durability")
-			space_gear[slot] = item.typeId + (durability ? ' ' + durability.damage : '')
+			let durability = item.getComponent("minecraft:durability")
+			let saved_durability = durability ? durability.maxDurability - durability.damage:
+			0;
+			space_gear[slot] = item.typeId + (durability ? ' ' + saved_durability : '')
 		} else delete space_gear[slot]
-	} player.setDynamicProperty("space_gear", JSON.stringify(space_gear))
+	} 
+	player.setDynamicProperty("space_gear", JSON.stringify(space_gear))
 }
 // trigger event after player interact with any block(imitation of right click detection)
 world.beforeEvents.playerInteractWithBlock.subscribe((data) => {
@@ -143,28 +151,7 @@ world.beforeEvents.playerInteractWithBlock.subscribe((data) => {
 					item.amount = 1;
 					container.setItem(i, item)
 
-				}/* unused
-				if (checkOxygen(player) && system.currentTick%20 == 0 && ["tank1","tank2"].includes(Object.keys(slots)[i])){
-					if (Object.keys(slots)[i]==="tank1") {
-						tank1 = i;
-					};
-					if (Object.keys(slots)[i]==="tank2") {
-						tank2 = i;
-					}
-				};
-				if (tank1 !== undefined && player.hasTag(maskTag) && player.hasTag(gearTag)){
-					let ite = container.getItem(tank1);
-					let dur = ite.getComponent("minecraft:durability");
-					haveOxyFirst= dur.damage+1<dur.maxDurability;
-					dur.damage = Math.min(dur.damage+1,dur.maxDurability);
-					container.setItem(tank1,i)
-				};
-				if (tank2 !== undefined && !haveOxyFirst && player.hasTag(maskTag) && player.hasTag(gearTag)){
-					let ite = container.getItem(tank2);
-					let dur = ite.getComponent("minecraft:durability");
-					dur.damage = Math.min(dur.damage+1,dur.maxDurability);
-					container.setItem(tank2,i)
-				};*/
+				}
 			} update(player, container)
 		});
 	});
