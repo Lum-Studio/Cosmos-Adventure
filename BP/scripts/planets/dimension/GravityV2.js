@@ -1,6 +1,8 @@
 
-//i turned down the circle K offer
-//i have dignity to not be a slave working for less a loaf of bread a day.
+//Heard the news 
+//Amen
+
+
 import { world, system, Entity } from "@minecraft/server";
 import { Planet  } from "./GalacticraftPlanets";
 export { Gravity };
