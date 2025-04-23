@@ -13,6 +13,9 @@
     "cheese_block": {
       "textures": "textures/blocks/cheese_block"
     },
+    "dishbase": {
+      "textures": "textures/blocks/dishbase"
+    },
     "empty": {
       "textures": "textures/blocks/empty"
     },
