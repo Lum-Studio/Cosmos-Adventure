@@ -1,0 +1,28 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "cosmos:dishbase",
+            "materials": {
+                "default": "shulker"
+            },
+            "textures": {
+                "default": "textures/entity/dishbase"
+            },
+            "geometry": {
+                "default": "geometry.dishbase"
+            },
+            "scripts": {
+				"animate": [
+					"idle"
+				]
+			},
+            "animations": {
+				"idle": "animation.dishbase.idle"
+			},
+            "render_controllers": [
+                "controller.render.nasa_workbench"
+            ]
+        }
+    }
+}
