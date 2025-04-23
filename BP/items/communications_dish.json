@@ -1,14 +1,15 @@
 {
-   "format_version": "1.21.50",
-   "minecraft:item": {
-      "description": {
-         "identifier": "cosmos:communications_dish",
-         "menu_category": {
-            "category": "items"
-         }
-      },
-      "components": {
-         "minecraft:icon": "communications_dish"
-      }
-   }
+    "format_version": "1.21.50",
+    "minecraft:item": {
+        "description": {
+            "identifier": "cosmos:communications_dish"
+        },
+        "components": {
+            "minecraft:icon": "communications_dish",
+            "minecraft:block_placer": {
+                // "replace_block_item": true,
+                "block": "cosmos:dishbase"
+            }
+        }
+    }
 }
