@@ -1,0 +1,52 @@
+{
+    "format_version": "1.20.0",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "cosmos:dishbase",
+            "is_summonable": true
+        },
+        "components": {
+            "minecraft:damage_sensor": {
+                "triggers": {
+                    "deals_damage": false
+                }
+            },
+            "minecraft:collision_box": {
+                "width": 0,
+                "height": 0
+            },
+			"minecraft:health": {
+				"value": 1,
+				"max": 1,
+				"min": 1
+			},
+            "minecraft:scale": {
+                "value": 1.51
+             },
+            "minecraft:knockback_resistance": {
+                "value": 100,
+                "max": 100
+            },
+            "minecraft:pushable": {
+                "is_pushable": false,
+                "is_pushable_by_piston": false
+            },
+            "minecraft:physics": {
+                "has_gravity": false,
+				"has_collision": false
+            }
+        },
+		"events": {
+			"cosmos:despawn": {
+                "queue_command": {
+                    "command": "scriptevent cosmos:dishbase despawn"
+                }
+			},
+			"cosmos:highlight": {
+				"add": {
+					"component_groups": ["highlight"]
+				}
+			}
+		}
+    }
+}
