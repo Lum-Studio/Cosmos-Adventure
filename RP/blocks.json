@@ -362,7 +362,11 @@
    "aluminum_wire": {
       "sound": "cloth"
    },
-   "cheese_block": {
+   "dishbase": {
+      "sound": "stone",
+      "texture": "dishbase"
+   },
+      "cheese_block": {
       "sound": "cloth"
    },
    "fluid_tank": {
