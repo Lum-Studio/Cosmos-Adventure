@@ -7,7 +7,39 @@
 			"target_property_name": "#visible"
 		}
   	],
-
+	"$set_temperature_color": [
+		{
+			"binding_name": "#hud_title_text_string",
+			"binding_name_override": "#title",
+			"binding_type": "global"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#title - 'cosmos:' - '§f' - '§r')",
+			"target_property_name": "#data"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#data - 'O1:')",
+			"target_property_name": "#o1"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#data - ('O1:' + #o1 + ',O2:'))",
+			"target_property_name": "#o2"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#data - ('O1:' + #o1 + ',O2:' + #o2 + ',T:'))",
+			"target_property_name": "#t"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "$condition",
+			"target_property_name": "#visible"
+		}
+	],
+	
 	"$visibility": [
     	{
 			"binding_type": "view",

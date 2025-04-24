@@ -112,7 +112,7 @@ world.afterEvents.playerDimensionChange.subscribe((data) => {
 function start_countdown(rocket, player) {
     rocket.setDynamicProperty('active', true)
     player.inputPermissions.setPermissionCategory(2, false)
-    let countdown = 20
+    let countdown = player.getGameMode() == 'creative' ? 5 : 20
     const counter = system.runInterval(()=> {
         if (!rocket || !rocket.isValid()) {
             system.clearRun(counter)
@@ -239,11 +239,12 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:rocket, messa
         if (rider?.inputInfo.getButtonState("Jump") == "Pressed") {
             if (rocket.getDynamicProperty('active')) return
             const space_gear = JSON.parse(rider.getDynamicProperty("space_gear") ?? '{}')
-            if (fuel > 0 && (space_gear.parachute || rocket.getDynamicProperty('ready'))) {
+            const need_fuel = fuel <= 0 && rider.getGameMode() != "creative"
+            if (!need_fuel && (space_gear.parachute || rocket.getDynamicProperty('ready'))) {
                 start_countdown(rocket, rider)
-            }else if(fuel === 0){
+            } else if(need_fuel){
                 rider.sendMessage("I'll need to load in some rocket fuel first!");
-            }else {
+            } else {
                 rider.sendMessage("You do not have a parachute.")
                 rider.sendMessage("Press jump again to start the countdown.")
                 rocket.setDynamicProperty('ready', true)

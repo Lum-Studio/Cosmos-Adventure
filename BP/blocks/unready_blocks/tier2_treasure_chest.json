@@ -18,7 +18,7 @@
                 "*": { "texture": "tier2_treasure_chest", "render_method": "opaque"}
             },
             "minecraft:custom_components": ["cosmos:treasure_chest"],
-            "minecraft:loot":"empty.json",
+            "minecraft:loot":"loot_tables/empty.json",
             "minecraft:destructible_by_mining": false,
             "minecraft:destructible_by_explosion": false,
             "minecraft:collision_box":{

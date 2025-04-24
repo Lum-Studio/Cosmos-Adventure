@@ -88,6 +88,280 @@
       ]
     },
     
+  "title": {
+    "type": "panel",
+    "controls": [
+      {
+        "default_title@hud.hud_title_text": {
+          "bindings": [
+            {
+              "binding_name": "#hud_title_text_string",
+              "binding_name_override": "#title_text",
+              "binding_type": "global"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#title_text - 'cosmos:' = #title_text)",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "cosmos_title@hud.space_information": {
+          "bindings": [
+            {
+              "binding_name": "#hud_title_text_string",
+              "binding_name_override": "#title_text",
+              "binding_type": "global"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not (#title_text - 'cosmos:' = #title_text))",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "space_information": {
+    "type": "panel",
+    "layer": 1,
+    "controls": [
+      {
+        "o2_and_t": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/oxygen_and_temperature",
+          "size": [ 49, 47 ],
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "offset": [-10, 10],
+          "controls": [
+            {
+              "oxygen1": {
+                "type": "panel",
+                "size": [1, 1],
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
+                "offset": [ 11, -1 ],
+                "controls": [
+                  {
+                    "clipper": {
+                      "type": "panel",
+                      "clips_children": true,
+                      "anchor_from": "bottom_left",
+                      "anchor_to": "bottom_left",
+                      "size": [ "100%c", 1 ],
+                      "controls": [
+                        {
+                          "image": {
+                            "type": "image",
+                            "texture": "textures/ui/cosmos/oxygen_bar_fill",
+                            "size": [ 17.5, 45 ],
+                            "anchor_from": "bottom_left",
+                            "anchor_to": "bottom_left"
+                          }
+                        }
+                      ],
+                      "bindings": [
+                        {
+                          "binding_name": "#hud_title_text_string",
+                          "binding_name_override": "#title",
+                          "binding_type": "global"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#title - 'cosmos:' - '§f' - '§r')",
+                          "target_property_name": "#data"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#data - 'O1:')",
+                          "target_property_name": "#o1"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "#o1",
+                          "target_property_name": "#size_binding_y"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "oxygen2": {
+                "type": "panel",
+                "size": [1, 1],
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
+                "offset": [ 31, -1 ],
+                "controls": [
+                  {
+                    "clipper": {
+                      "type": "panel",
+                      "clips_children": true,
+                      "anchor_from": "bottom_left",
+                      "anchor_to": "bottom_left",
+                      "size": [ "100%c", 1 ],
+                      "controls": [
+                        {
+                          "image": {
+                            "type": "image",
+                            "texture": "textures/ui/cosmos/oxygen_bar_fill",
+                            "size": [ 17.5, 45 ],
+                            "anchor_from": "bottom_left",
+                            "anchor_to": "bottom_left"
+                          }
+                        }
+                      ],
+                      "bindings": [
+                        {
+                          "binding_name": "#hud_title_text_string",
+                          "binding_name_override": "#title",
+                          "binding_type": "global"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#title - 'cosmos:' - '§f' - '§r')",
+                          "target_property_name": "#data"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#data - 'O1:')",
+                          "target_property_name": "#o1"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#data - ('O1:' + #o1 + ',O2:'))",
+                          "target_property_name": "#o2"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "#o2",
+                          "target_property_name": "#size_binding_y"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "temperature": {
+                "type": "panel",
+                "size": [1, 1],
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
+                "offset": [ 1, -1 ],
+                "controls": [
+                  {
+                    "offsetter": {
+                      "type": "panel",
+                      "size": [1, 1],
+                      "controls": [
+                        {
+                          "very_cold": {
+                            "type": "image", "fill": true,
+                            "texture": "textures/white", "size": [ 7, 2 ],
+                            "anchor_from": "top_left",
+                            "anchor_to": "bottom_left",
+                            "color": [0, 0.4, 1],
+                            "$condition": "(#t < 16)",
+                            "bindings": "$set_temperature_color"
+                          }
+                        },
+                        {
+                          "cold": {
+                            "type": "image", "fill": true,
+                            "texture": "textures/white", "size": [ 7, 2 ],
+                            "anchor_from": "top_left",
+                            "anchor_to": "bottom_left",
+                            "color": [0, 0.8, 0.7],
+                            "$condition": "(#t > 15 and #t < 33)",
+                            "bindings": "$set_temperature_color"
+                          }
+                        },
+                        {
+                          "moderate": {
+                            "type": "image", "fill": true,
+                            "texture": "textures/white", "size": [ 7, 2 ],
+                            "anchor_from": "top_left",
+                            "anchor_to": "bottom_left",
+                            "color": [0, 0.8, 0.1],
+                            "$condition": "(#t > 32 and #t < 50)",
+                            "bindings": "$set_temperature_color"
+                          }
+                        },
+                        {
+                          "hot": {
+                            "type": "image", "fill": true,
+                            "texture": "textures/white", "size": [ 7, 2 ],
+                            "anchor_from": "top_left",
+                            "anchor_to": "bottom_left",
+                            "color": [0.9, 0.7, 0],
+                            "$condition": "(#t > 49 and #t < 67)",
+                            "bindings": "$set_temperature_color"
+                          }
+                        },
+                        {
+                          "very_hot": {
+                            "type": "image", "fill": true,
+                            "texture": "textures/white", "size": [ 7, 2 ],
+                            "anchor_from": "top_left",
+                            "anchor_to": "bottom_left",
+                            "color": [0.9, 0.3, 0],
+                            "$condition": "(#t > 66)",
+                            "bindings": "$set_temperature_color"
+                          }
+                        }
+                      ],
+                      "bindings": [
+                        {
+                          "binding_name": "#hud_title_text_string",
+                          "binding_name_override": "#title",
+                          "binding_type": "global"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#title - 'cosmos:' - '§f' - '§r')",
+                          "target_property_name": "#data"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#data - 'O1:')",
+                          "target_property_name": "#o1"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#data - ('O1:' + #o1 + ',O2:'))",
+                          "target_property_name": "#o2"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#data - ('O1:' + #o1 + ',O2:' + #o2 + ',T:'))",
+                          "target_property_name": "#t"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "#t",
+                          "target_property_name": "#size_binding_y"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   "root_panel": {
     "type": "panel",
     "$xp_control_offset|default": [ 0, -13 ],
@@ -361,7 +635,7 @@
           "factory": {
             "name": "hud_title_text_factory",
             "control_ids": {
-              "hud_title_text": "hud_title_text@hud.hud_title_text"
+              "hud_title_text": "hud_title_text@hud.title"
             }
           }
         }

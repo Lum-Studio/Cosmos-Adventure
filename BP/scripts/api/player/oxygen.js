@@ -6,6 +6,7 @@ export function oxygen_spending(players){
         let tank1 = space_gear["tank1"]?.split(' ')
         let tank2 = space_gear["tank2"]?.split(' ')
         
+        //if (no tank1 or tank1 is empty and no tank2) or tank2 is empty or no mask or no gear
         if(((!tank1 || tank1[1] == "0") && (!tank2 || tank2[1] == "0")) || (!space_gear["mask"] || !space_gear["gear"])){
             oxygen_hunger(player);
             return;

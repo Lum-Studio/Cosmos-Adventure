@@ -43,7 +43,7 @@
                         "origin":[5, 0, -7],
                         "size":[2, 8, 14]
                     },
-                    "minecraft:loot":"empty.json",
+                    "minecraft:loot":"loot_tables/empty.json",
                     "minecraft:selection_box":{
                         "origin":[5, 0, -7],
                         "size":[2, 8, 14]
@@ -57,7 +57,7 @@
                         "origin":[3, 0, -7],
                         "size":[4, 8, 14]
                     },
-                    "minecraft:loot":"empty.json",
+                    "minecraft:loot":"loot_tables/empty.json",
                     "minecraft:selection_box":{
                         "origin":[3, 0, -7],
                         "size":[4, 8, 14]
@@ -71,7 +71,7 @@
                         "origin":[1, 0, -7],
                         "size":[6, 8, 14]
                     },
-                    "minecraft:loot":"empty.json",
+                    "minecraft:loot":"loot_tables/empty.json",
                     "minecraft:selection_box":{
                         "origin":[1, 0, -7],
                         "size":[6, 8, 14]
@@ -85,7 +85,7 @@
                         "origin":[-1, 0, -7],
                         "size":[8, 8, 14]
                     },
-                    "minecraft:loot":"empty.json",
+                    "minecraft:loot":"loot_tables/empty.json",
                     "minecraft:selection_box":{
                         "origin":[-1, 0, -7],
                         "size":[8, 8, 14]
@@ -99,7 +99,7 @@
                         "origin":[-3, 0, -7],
                         "size":[10, 8, 14]
                     },
-                    "minecraft:loot":"empty.json",
+                    "minecraft:loot":"loot_tables/empty.json",
                     "minecraft:selection_box":{
                         "origin":[-3, 0, -7],
                         "size":[10, 8, 14]
@@ -113,7 +113,7 @@
                         "origin":[-5, 0, -7],
                         "size":[12, 8, 14]
                     },
-                    "minecraft:loot":"empty.json",
+                    "minecraft:loot":"loot_tables/empty.json",
                     "minecraft:selection_box":{
                         "origin":[-5, 0, -7],
                         "size":[12, 8, 14]
