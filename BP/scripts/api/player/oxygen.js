@@ -1,5 +1,11 @@
 import { world, system } from "@minecraft/server";
 
+let tanks = {
+    "cosmos:oxygen_tank_light_full": 900,
+    "cosmos:oxygen_tank_med_full": 1800,
+    "cosmos:oxygen_tank_heavy_full": 2700
+
+}
 export function oxygen_spending(players){
     players.forEach(player => {
         let space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}');
@@ -29,7 +35,7 @@ export function oxygen_spending(players){
                 space_gear_entity.setItem(5, update_tank(new_tank, Math.max(0, tank2[1] - 1)))
             }
         }
-        oxygen_bar(player, [tank1 ? tank1[1]: 0, tank2 ? tank2[1]: 0])
+        oxygen_bar(player, [tank1 ? tank1: 0, tank2 ? tank2: 0])
     });
 }
 
@@ -41,6 +47,7 @@ function oxygen_hunger(player){
                 system.clearRun(cycle);
                 return;
             }
+            player.onScreenDisplay.setTitle(`cosmos:O1:${0},O2:${0},T:${0}`);
             player.applyDamage(1);
            
             let space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}');
@@ -61,5 +68,9 @@ export function update_tank(tank, o2) {
     return tank;
 }
 function oxygen_bar(player, o2){
-    player.onScreenDisplay.setActionBar(`${o2[0]} ${o2[1]}`);
+    let oxygen_1 = (o2[0][1])? (45/tanks[o2[0][0]]) * o2[0][1]:
+    0;
+    let oxygen_2 = (o2[1][1])? (45/tanks[o2[1][0]]) * o2[1][1]:
+    0;
+    player.onScreenDisplay.setTitle(`cosmos:O1:${Math.floor(oxygen_1)},O2:${Math.floor(oxygen_2)},T:${0}`);
 }
