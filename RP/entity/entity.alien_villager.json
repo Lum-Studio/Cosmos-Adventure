@@ -1,0 +1,45 @@
+{
+   "minecraft:client_entity": {
+      "description": {
+         "render_controllers": [
+            "controller.render.alien_villager"
+         ],
+         "materials": {
+            "default": "villager"
+         },
+         "geometry": {
+            "default": "geometry.alien_villager"
+         },
+         "animations": {
+            "look_at_target": "animation.common.look_at_target",
+            "move": "animation.villager.move",
+            "general": "animation.villager.general",
+            "baby_transform": "animation.villager.baby_transform"
+         },
+         "spawn_egg": {
+           "base_color": "#6791b5",
+           "overlay_color": "#Bb8b72"
+         },
+         "identifier": "cosmos:alien_villager",
+         "scripts": {
+            "scale": "0.9375"
+         },
+         "min_engine_version": "1.8.0",
+         "animation_controllers": [
+            {
+               "general": "controller.animation.villager.general"
+            },
+            {
+               "move": "controller.animation.villager.move"
+            },
+            {
+               "baby": "controller.animation.villager.baby"
+            }
+         ],
+         "textures": {
+            "farmer": "textures/entity/alien_villager"
+         }
+      }
+   },
+   "format_version": "1.8.0"
+}
