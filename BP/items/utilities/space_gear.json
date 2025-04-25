@@ -1,0 +1,51 @@
+{
+    "format_version": "1.21.30",
+    "minecraft:item": {
+      "description": {
+        "identifier": "cosmos:space_gear"
+      },
+  
+      "components": {
+        "minecraft:icon": "none",
+        "minecraft:max_stack_size": 1,
+        "minecraft:bundle_interaction": {
+          "num_viewable_slots": 12
+        },
+        "minecraft:storage_item": {
+          "max_slots": 12,
+          "max_weight_limit": 12,
+          "weight_in_storage_item": 4,
+          "allowed_items": [
+            "cosmos:thermal_helmet",
+            "cosmos:thermal_chestplate",
+            "cosmos:thermal_leggings",
+            "cosmos:thermal_boots",
+            "cosmos:oxygen_tank_light_full",
+            "cosmos:oxygen_tank_med_full",
+            "cosmos:oxygen_tank_heavy_full",
+            "cosmos:frequency_module",
+            "cosmos:oxygen_mask",
+            "cosmos:parachute_black",
+            "cosmos:parachute_blue",
+            "cosmos:parachute_brown",
+            "cosmos:parachute_darkblue",
+            "cosmos:parachute_darkgray",
+            "cosmos:parachute_darkgreen",
+            "cosmos:parachute_gray",
+            "cosmos:parachute_lime",
+            "cosmos:parachute_magenta",
+            "cosmos:parachute_orange",
+            "cosmos:parachute_pink",
+            "cosmos:parachute_plain",
+            "cosmos:parachute_purple",
+            "cosmos:parachute_red",
+            "cosmos:parachute_teal",
+            "cosmos:parachute_yellow",
+            "cosmos:shield_controller",
+            "cosmos:oxygen_gear"
+          ]
+        }
+      }
+    }
+  }
+  

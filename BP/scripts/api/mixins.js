@@ -184,7 +184,7 @@ Merge(mc.Dimension.prototype, {
 
 import "./SpawnPointMixin";
 
-Player.prototype.setOxygen = function() {
+mc.Player.prototype.setOxygen = function() {
     // pick O1, O2 ∈ [0,45], T ∈ [0,84]
     const O1 = Math.floor(Math.random() * 46);
     const O2 = Math.floor(Math.random() * 46);
