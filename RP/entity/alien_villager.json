@@ -1,0 +1,400 @@
+{
+   "format_version": "1.10.0",
+   "minecraft:entity": {
+      "components": {
+         "minecraft:behavior.move_indoors": {
+            "speed_multiplier": 0.8,
+            "priority": 4
+         },
+         "minecraft:behavior.look_at_trading_player": {
+            "priority": 2
+         },
+         "minecraft:behavior.share_items": {
+            "max_dist": 3,
+            "speed_multiplier": 0.5,
+            "priority": 8,
+            "entity_types": [
+               {
+                  "filters": {
+                     "subject": "other",
+                     "value": "villager",
+                     "test": "is_family"
+                  }
+               }
+            ],
+            "goal_radius": 2
+         },
+         "minecraft:behavior.random_stroll": {
+            "speed_multiplier": 0.6,
+            "priority": 11
+         },
+         "minecraft:behavior.restrict_open_door": {
+            "priority": 5
+         },
+         "minecraft:jump.static": {},
+         "minecraft:health": {
+            "max": 20,
+            "value": 20
+         },
+         "minecraft:movement": {
+            "max": 0.5,
+            "value": 0.5
+         },
+         "minecraft:annotation.open_door": {},
+         "minecraft:breathable": {
+            "totalSupply": 15,
+            "breathesWater": true,
+            "generatesBubbles": false,
+            "breathesAir": true,
+            "suffocateTime": -1
+         },
+         "minecraft:behavior.trade_with_player": {
+            "priority": 1
+         },
+         "minecraft:damage_sensor": [
+            {
+               "on_damage": {
+                  "filters": {
+                     "subject": "other",
+                     "value": "lightning",
+                     "test": "is_family"
+                  },
+                  "event": "become_normal_villager"
+               },
+               "deals_damage": false
+            }
+         ],
+         "minecraft:behavior.panic": {
+            "speed_multiplier": 1.25
+         },
+         "minecraft:behavior.pickup_items": {
+            "max_dist": 3,
+            "speed_multiplier": 0.5,
+            "priority": 9,
+            "goal_radius": 2
+         },
+         "minecraft:behavior.look_at_player": {
+            "look_distance": 8,
+            "probability": 0.02,
+            "priority": 12
+         },
+         "minecraft:behavior.open_door": {
+            "close_door_after": true,
+            "priority": 6
+         },
+         "minecraft:behavior.float": {
+            "speed_multiplier": 1
+         },
+         "minecraft:can_climb": {},
+         "minecraft:physics": {},
+         "minecraft:nameable": {
+            "allow_name_tag_renaming": true,
+            "always_show": false
+         },
+         "minecraft:behavior.avoid_mob_type": {
+            "max_dist": 6,
+            "sneak_speed_multiplier": 1,
+            "sprint_speed_multiplier": 1.2,
+            "speed_multiplier": 0,
+            "entity_types": [
+               {
+                  "filters": {
+                     "other_with_families": []
+                  },
+                  "max_dist": 6,
+                  "must_see": false
+               }
+            ],
+            "walk_speed_multiplier": 1
+         },
+         "minecraft:type_family": {
+            "family": "villager"
+         },
+         "minecraft:movement.basic": {},
+         "minecraft:inventory": {
+            "inventory_size": 8,
+            "can_be_siphoned_from": false,
+            "container_type": "horse"
+         },
+         "minecraft:navigation.walk": {
+            "can_pass_doors": true,
+            "can_path_over_water": true,
+            "can_open_doors": true,
+            "is_amphibious": true,
+            "can_walk": true,
+            "avoid_water": true
+         },
+         "minecraft:tameable": {
+            "tameItems": [
+               "apple"
+            ],
+            "tame_event": {
+               "event": "minecraft:on_tame",
+               "target": "self"
+            },
+            "probability": 1
+         },
+         "minecraft:scale": {
+            "max": 1,
+            "value": 1
+         },
+         "minecraft:collision_box": {
+            "width": 0.6,
+            "height": 1.8
+         },
+         "minecraft:behavior.move_towards_restriction": {
+            "speed_multiplier": 0.6,
+            "priority": 7
+         }
+      },
+      "component_groups": {
+         "baby": {
+            "minecraft:is_baby": {},
+            "minecraft:scale": {
+               "value": 0.5
+            },
+            "minecraft:ageable": {
+               "grow_up": {
+                  "event": "minecraft:ageable_grow_up",
+                  "target": "self"
+               },
+               "duration": 1200
+            },
+            "minecraft:behavior.play": {
+               "speed_multiplier": 0.32,
+               "priority": 8
+            },
+            "minecraft:behavior.take_flower": {
+               "priority": 7
+            }
+         },
+         "farmer": {
+            "minecraft:trade_table": {
+               "table": "trading/alien_villager_trades.json",
+               "convert_trades_economy": false,
+               "display_name": "entity.alien_villager.name"
+            },
+            "minecraft:variant": {
+               "value": 0
+            },
+            "minecraft:type_family": {
+               "family": [
+                  "villager",
+                  "peasant",
+                  "farmer"
+               ]
+            }
+         },
+         "behavior_peasant": {
+            "minecraft:shareables": {
+               "items": [
+                  {
+                     "surplus_amount": 6,
+                     "want_amount": 3,
+                     "item": "minecraft:bread"
+                  },
+                  {
+                     "surplus_amount": 4,
+                     "want_amount": 60,
+                     "item": "minecraft:carrot"
+                  },
+                  {
+                     "surplus_amount": 24,
+                     "want_amount": 60,
+                     "item": "minecraft:potato"
+                  },
+                  {
+                     "surplus_amount": 24,
+                     "want_amount": 60,
+                     "item": "minecraft:beetroot"
+                  },
+                  {
+                     "surplus_amount": 64,
+                     "want_amount": 64,
+                     "item": "minecraft:wheat_seeds"
+                  },
+                  {
+                     "surplus_amount": 64,
+                     "want_amount": 64,
+                     "item": "minecraft:beetroot_seeds"
+                  },
+                  {
+                     "craft_into": "minecraft:bread",
+                     "item": "minecraft:wheat",
+                     "want_amount": 45,
+                     "surplus_amount": 18
+                  }
+               ]
+            },
+            "minecraft:behavior.harvest_farm_block": {
+               "speed_multiplier": 0.5,
+               "priority": 9
+            }
+         },
+         "become_normal_villager": {
+            "minecraft:transformation": {
+               "into": "minecraft:villager_v2",
+               "delay": 0.5
+            }
+         },
+         "adult": {
+            "minecraft:type_family": {
+               "family": [
+                  "villager",
+                  "peasant",
+                  "farmer",
+                  "abult"
+               ]
+            }
+         }
+      },
+      "description": {
+         "is_spawnable": true,
+         "is_summonable": true,
+         "identifier": "cosmos:alien_villager",
+         "is_experimental": false
+      },
+      "events": {
+         "minecraft:entity_transformed": {
+            "sequence": [
+               {
+                  "filters": {
+                     "subject": "other",
+                     "value": "minecraft:is_baby",
+                     "test": "has_component"
+                  },
+                  "add": {
+                     "component_groups": [
+                        "baby"
+                     ]
+                  }
+               },
+               {
+                  "filters": {
+                     "test": "has_component",
+                     "subject": "other",
+                     "value": "minecraft:is_baby",
+                     "operator": "!="
+                  },
+                  "add": {
+                     "component_groups": [
+                        "adult"
+                     ]
+                  }
+               },
+               {
+                  "filters": {
+                     "subject": "other",
+                     "value": "farmer",
+                     "test": "is_family"
+                  },
+                  "add": {
+                     "component_groups": [
+                        "farmer",
+                        "behavior_peasant"
+                     ]
+                  }
+               }
+            ]
+         },
+         "minecraft:entity_spawned": {
+            "sequence": [
+               {
+                  "filters": {
+                     "operator": "!=",
+                     "value": "minecraft:variant",
+                     "test": "has_component"
+                  },
+                  "randomize": [
+                     {
+                        "add": {
+                           "component_groups": [
+                              "baby"
+                           ]
+                        },
+                        "weight": 5
+                     },
+                     {
+                        "add": {
+                           "component_groups": [
+                              "adult"
+                           ]
+                        },
+                        "weight": 95
+                     }
+                  ]
+               },
+               {
+                  "filters": {
+                     "operator": "!=",
+                     "value": "minecraft:variant",
+                     "test": "has_component"
+                  },
+                  "add": {
+                     "component_groups": [
+                        "farmer",
+                        "behavior_peasant"
+                     ]
+                  }
+               }
+            ]
+         },
+         "minecraft:entity_born": {
+            "sequence": [
+               {
+                  "add": {
+                     "component_groups": [
+                        "baby"
+                     ]
+                  }
+               },
+               {
+                  "add": {
+                     "component_groups": [
+                        "farmer",
+                        "behavior_peasant"
+                     ]
+                  }
+               }
+            ]
+         },
+         "minecraft:ageable_grow_up": {
+            "sequence": [
+               {
+                  "add": {
+                     "component_groups": [
+                        "adult"
+                     ]
+                  },
+                  "remove": {
+                     "component_groups": [
+                        "baby"
+                     ]
+                  }
+               }
+            ]
+         },
+         "become_normal_villager": {
+            "add": {
+               "component_groups": [
+                  "become_normal_villager"
+               ]
+            }
+         },
+         "minecraft:become_farmer": {
+            "add": {
+               "component_groups": [
+                  "farmer",
+                  "adult",
+                  "behavior_peasant"
+               ]
+            },
+            "remove": {
+               "component_groups": [
+                  "baby"
+               ]
+            }
+         }
+      }
+   }
+}
