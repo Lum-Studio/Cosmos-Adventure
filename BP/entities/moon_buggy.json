@@ -53,6 +53,12 @@
             "has_gravity": true,
             "has_collision": true
          },
+         "minecraft:input_ground_controlled": {},
+         "minecraft:physics": {},
+			"minecraft:can_climb": {},
+         "minecraft:movement": {
+				"value": 0.15
+			},
          "minecraft:rideable": {
             "crouching_skip_interact": true,
             "family_types": [
@@ -63,7 +69,7 @@
             "pull_in_entities": false,
             "seat_count": 1,
             "seats": {
-               "position": [0, 0.3, 0]
+               "position": [0, 0.4, -0.4]
             }
          },
          "minecraft:type_family": {
