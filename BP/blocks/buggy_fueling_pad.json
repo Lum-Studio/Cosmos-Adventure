@@ -1,0 +1,40 @@
+{
+    "format_version": "1.20.80",
+    "minecraft:block": {
+      "description": {
+        "identifier": "cosmos:buggy_fueling_pad",
+        "states": {
+          "cosmos:center": [ false, true ]
+        }
+      },
+      "components": {
+        "minecraft:display_name": "%tile.landing_pad.buggy_fueler.name\n§7%tile.buggy_pad.description",
+        "minecraft:geometry": {
+          "identifier": "geometry.buggy_fueling_pad",
+          "bone_visibility": {
+            "center_pad": "q.block_state('cosmos:center')",
+            "pad": "!q.block_state('cosmos:center')"
+          }
+        },
+        "minecraft:destructible_by_mining": {
+          "seconds_to_destroy": 0.5
+        },
+        "minecraft:collision_box": {
+          "origin": [-8, 0, -8],
+          "size": [16, 3, 16]
+        },
+        "minecraft:selection_box": {
+          "origin": [-8, 0, -8],
+          "size": [16, 3, 16]
+        },
+        "minecraft:destructible_by_explosion": false,
+        "minecraft:custom_components": [ "cosmos:buggy_fueling_pad" ],
+        "minecraft:material_instances": {
+          "*": {
+            "texture": "buggy_fueling_pad",
+            "render_method": "opaque"
+          }
+        }
+      }
+    }
+  }
