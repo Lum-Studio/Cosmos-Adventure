@@ -1,18 +1,36 @@
 import * as mc from "@minecraft/server";
 import machines from "../core/machines/AllMachineBlocks";
 
+
 export function get_data(machine) {
 	return machines[machine.typeId.replace('cosmos:', '')]
 }
 
 export function str(object) { return JSON.stringify(object) }
 
-/**@param {mc.Vector3[]} locations @param {mc.Dimension} dim */
-export const destroyBlocks = function* (locations, dim) {
+/**@param {mc.Block[]} locations @param {mc.Dimension} dim */
+export const destroyBlocksJOB = function* (locations, dim) {
 	for (const loc of locations) {
 		dim.runCommand(`setblock ${loc.x} ${loc.y} ${loc.z} air [] destroy`);
 		yield;
 	}
+}
+
+export const getHand = (() => {
+	const handsMap = new WeakMap();
+	/**
+	 * @param {mc.Entity} source
+	 * @returns {mc.ContainerSlot} 'Mainhand' ContainerSlot of the entity
+	 **/
+	return source => handsMap.get(source) ?? handsMap.set(
+		source, source.getComponent("equippable")?.getEquipmentSlot("Mainhand")
+	).get(source)
+
+})();
+
+/**@type {<T>(list?: T[])=>T}  */
+export function select_random_item(list = []) {
+	return list.length ? list[Math.floor(Math.random() * list.length)] : undefined
 }
 
 export function compare_lists(list1, list2) {

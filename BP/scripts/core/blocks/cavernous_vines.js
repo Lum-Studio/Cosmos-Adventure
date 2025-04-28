@@ -1,134 +1,79 @@
 
 import * as mc from "@minecraft/server";
-import { destroyBlocks } from "api/utils";
+import { destroyBlocksJOB, getHand, select_random_item } from "api/utils";
 
-
-const { world, system, TicksPerSecond } = mc;
+const { world, system, TicksPerSecond, BlockPermutation } = mc;
 const typeId = "cosmos:cavernous_vines";
 
-class Vine extends Array {
-    /**@param {mc.Block[] | undefined} blocks  */
-    constructor() {
-        super(...arguments);
-    }
-    #root;
-    push(...blocks) {
-        this.#root ??= blocks[0]?.typeId;
-        return super.push(...blocks)
-    }
-    cut(y) {
-        let blocksToBreak;
-        if (typeof y === "number") {
-            blocksToBreak = this.splice(this[0].y - y + 1);
-            this.length--;
-        }
-        system.runJob(destroyBlocks(blocksToBreak ?? this, this[0].dimension))
-    }
-    /**@returns {mc.Block} */
-    root() {
-        const rootBlock = this[0].above();
-        return (this.#root == rootBlock.typeId) ? rootBlock : undefined;
-    }
-    /**@returns {mc.Block} */
-    top() { return this[0] }
-    /**@returns {mc.Block} */
-    bottom() { return this[this.length - 1] }
-}
-
-class CavernousVine {
-    /**
-     * Register the Block and all its logics only once
-     * ```js
-     * CavernousVine.onRegisterBlock()
-     * ```
-     */
-    static onRegisterBlock() {
-        // this [isRegistered] is just to subscribe the event only once - (M9)
-        this['isRegistered'] ??= !!world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
-
-            blockComponentRegistry.registerCustomComponent(typeId, {
-                onPlace({ block }) {
-                    CavernousVine.get(block).add(block);
-                },
-                onTick({ block }) {
-                    const cavernVines = CavernousVine.get(block);
-                    if (!cavernVines || cavernVines.isBusy) return;
-                    cavernVines.grabEntities();
-                    cavernVines.update();
-                },
-                onRandomTick({ block }) {
-                    CavernousVine.get(block).vineGrowth();
-                }
-            })
-        })
+export class CavernousVine {
+    static keyFor(block) {
+        return `${block.dimension.id},${block.x},${block.y},${block.z}`;
     }
 
     /** @type {Map<string,CavernousVine>} */
-    static #vineLocations = new Map();
+    static vineMap = new Map();
 
     /**
-     * @param {mc.Block} block
+     * @param {mc.Block} baseBlock
      * @returns {CavernousVine}
      **/
-    static get(block) {
-        if (block.typeId !== typeId) return;
-        const key_dimXZ = `${block.dimension.id},${block.x},${block.z}`;
-        let cavernVines = this.#vineLocations.get(key_dimXZ);
-        return cavernVines ?? this.#vineLocations.set(key_dimXZ, new CavernousVine(block, key_dimXZ)).get(key_dimXZ);
+    static get(baseBlock) {
+        if (baseBlock.typeId !== typeId) return;
+        const key_dimXZ = this.keyFor(baseBlock);
+        let cavernVines = this.vineMap.get(key_dimXZ);
+        return cavernVines ?? this.vineMap.set(key_dimXZ, new CavernousVine(baseBlock, key_dimXZ)).get(key_dimXZ);
     }
 
-    /**
-     * @param {mc.Block} block
-     * @returns {mc.Block[] | undefined}
-     **/
-    static getVine(block) {
-        if (block.typeId !== typeId) return;
-        for (const vine of this.get(block).#vines) {
-            if (vine.top().y >= block.y && block.y >= vine.bottom().y) return vine;
-        }
+    static cut(block) {
+        this.isAvailable = false;
+        let currBlock = block;
+        let vineBlocks = [];
+        let lower_Y = block.dimension.heightRange.min;
+        while (currBlock.typeId === typeId) {
+            vineBlocks.push(currBlock);
+            if (lower_Y === currBlock.y) break;
+            currBlock = currBlock.below();
+        };
+        this.isAvailable ||= true;
+        system.runJob(destroyBlocksJOB(vineBlocks, block.dimension));
     }
 
     /**
      * @private
-     * @param {mc.Block} sourceBlock 
-     * @param {string} key_dimXZ `${block.dimension.id},${block.x},${block.z}`
+     * @param {mc.Block} baseBlock 
+     * @param {string} xyz_key `${block.x},${block.y},${block.z}`
      **/
-    constructor(sourceBlock, key_dimXZ) {
-        const dim = this.dimension = sourceBlock.dimension;
-        let index = dim.heightRange.max - Math.abs(dim.heightRange.min) - 1;
-        let indexBlock = dim.getBlock({ ...sourceBlock, y: dim.heightRange.max - 1 });
-        for (let vine = new Vine(); index--; indexBlock = indexBlock.below()) {
-            if (indexBlock.typeId !== typeId) {
-                if (vine.length) {
-                    this.#vines.add(vine);
-                    vine = new Vine();
-                }
-                continue;
-            }
-            vine.push(indexBlock)
-
+    constructor(baseBlock, xyz_key) {
+        this.dimension = baseBlock.dimension;
+        this.base = baseBlock;
+        this.#location = { ...baseBlock };
+        let currBlock = baseBlock;
+        let length = 0;
+        let lower_Y = this.dimension.heightRange.min;
+        while (currBlock.typeId === typeId) {
+            length++;
+            if (lower_Y === currBlock.y) break;
+            currBlock = currBlock.below();
         }
-        this.vineLocations_key = key_dimXZ;
+        this.stemLength = length;
+        if (!CavernousVine.vineMap.has(xyz_key)) CavernousVine.vineMap.set(xyz_key, this);
+        this.isAvailable ||= true;
     }
-
-    /**@type {Set<Vine>} */
-    #vines = new Set();
-    #isUpdating = false;
+    #location
+    stemLength = 1;
     #isGrabbingEntities = false;
-    get isBusy() { return this.#isUpdating }
 
-
+    get location() { return { ...this.#location } }
     *getEntities() {
-        const dim = this.dimension;
-        const query = { volume: { x: 0, y: 0, z: 0 } };
-        for (const vine of this.#vines) {
-            query.volume.y = vine.length - 1;
-            query.location = vine.bottom();
-            for (const entity of dim.getEntities(query)) {
-                if (!entity.hasComponent("movement")) continue;
-                yield entity;
-            }
+        const query = {
+            location: this.location,
+            volume: { x: 0, y: this.stemLength - 1, z: 0 }
+        };
+        query.location.y -= this.stemLength - 1;
+        for (const entity of this.dimension.getEntities(query)) {
+            if (entity.hasComponent("movement")) yield entity;
         }
+
     }
 
     /**
@@ -186,58 +131,130 @@ class CavernousVine {
         entity.addEffect("minecraft:poison", TicksPerSecond * 2); // Apply poison effect for 2 seconds
     }
 
-    add(block) {
-        for (const vine of this.#vines) {
-            if (block.y === vine.bottom()?.y - 1) {
-                vine.push(block);
+    update() {
+        let lowerBlock = this.base;
+        let length = 0;
+        let lower_Y = this.dimension.heightRange.min;
+        while (lowerBlock?.typeId === typeId) {
+            length++;
+            if (lower_Y === lowerBlock.y) {
+                this.stemLength = length;
                 return;
-            } else if (vine.length === 0) {
-                vine.push(block);
-                vine.root().typeId = block.above().typeId;
             }
-        };
-        this.#vines.add(new Vine(block))
-    }
-
-    async update() {
-        if (this.#isUpdating) return;
-        this.#isUpdating = true;
-        vineLabel:
-        for (const vine of this.#vines) {
-            if (vine.length && vine.root()?.typeId !== vine.top()?.above()?.typeId) {
-                await vine.cut();
-                continue;
-            }
-            for (const block of vine) {
-                if (block.typeId !== typeId) {
-                    await vine.cut(block.y);
-                    continue vineLabel;
-                }
-            }
+            lowerBlock = lowerBlock.below();
         }
-        this.#isUpdating = false;
+        this.stemLength = length;
     }
 
-    /**
-     * Handles vine growth logic.
-     */
     vineGrowth() {
-        if (this.#isUpdating) return;
-        const { random, sqrt } = Math;
-        for (const vine of this.#vines) {
-            if (random() < sqrt(vine.length / 200)) return
-            const lowerBlock = vine.bottom()?.below();
-            if (lowerBlock?.typeId === "minecraft:air") {
-                lowerBlock.setType(typeId);
-                vine.push(lowerBlock);
+        this.isAvailable = false;
+        let lowerBlock = this.base;
+        let currBlock = lowerBlock.above();
+        let length = 0;
+        let lower_Y = this.dimension.heightRange.min;
+        while (lowerBlock?.typeId === typeId) {
+            length++;
+            if (lower_Y === lowerBlock.y) {
+                this.stemLength = length;
+                this.isAvailable ||= true;
+                return;
+            }
+            currBlock = lowerBlock;
+            lowerBlock = lowerBlock.below();
+            if (currBlock.permutation.getState("cosmos:age") === 0) {
+                if (lowerBlock.typeId === typeId) CavernousVine.cut(lowerBlock);
+                break;
             }
         }
-
+        const vineTipPerm = currBlock.permutation;
+        let vineAge = Number(vineTipPerm.getState("cosmos:age"));
+        if (vineAge < 15) {
+            vineAge += select_random_item([1, 2]);
+            if (vineAge > 15) vineAge = 15;
+            currBlock.setPermutation(vineTipPerm.withState("cosmos:age", vineAge));
+        } else if (lowerBlock?.typeId === "minecraft:air") {
+            lowerBlock.setPermutation(
+                BlockPermutation.resolve(typeId, {
+                    ["cosmos:variant"]: currBlock.permutation.getState("cosmos:variant")
+                })
+            );
+        }
+        this.stemLength = length;
+        this.isAvailable ||= true;
 
     }
 }
 
+world.beforeEvents.worldInitialize.subscribe(ev => {
 
-CavernousVine.onRegisterBlock();
+    const CV = CavernousVine;
+    const vineVariants = mc.BlockStates.get("cosmos:variant")?.validValues.map(v =>
+        BlockPermutation.resolve(typeId).withState("cosmos:variant", v)
+    ) ?? [];
+
+    ev.blockComponentRegistry.registerCustomComponent(typeId, {
+
+        onPlace: ({ block }) => {
+            const aboveBlock = block.above();
+            if (aboveBlock.typeId !== typeId) {
+                if (aboveBlock.typeId === "minecraft:air") block.setType("air");
+                return;
+            }
+            const perm = block.permutation;
+            const aboveVairant = aboveBlock.permutation.getState("cosmos:variant");
+            if (perm.getState("cosmos:variant") === aboveVairant) return;
+            block.setPermutation(perm.withState("cosmos:variant", aboveVairant));
+        },
+
+        beforeOnPlayerPlace: async data => {
+            if (data.cancel || !data.player || data.face !== "Down") return;
+            const abovePerm = data.block.above().permutation;
+            if (abovePerm.type.id === typeId) {
+                const permToPlace = data.permutationToPlace;
+                if (abovePerm === permToPlace) return;
+                const aboveVairant = abovePerm.getState("cosmos:variant");
+                if (abovePerm.getState("cosmos:attached_bit") === true) {
+                    data.permutationToPlace = abovePerm.withState("cosmos:attached_bit", false);
+                } else if (permToPlace.getState("cosmos:variant") !== aboveVairant) {
+                    data.permutationToPlace = abovePerm.withState("cosmos:variant", aboveVairant);
+                }
+            } else data.permutationToPlace = select_random_item(vineVariants).withState("cosmos:attached_bit", true);
+        },
+
+        onPlayerInteract: ({ block, player }) => {
+            const hand = player && getHand(player);
+            if (!hand?.hasItem()) return;
+            if (hand.typeId === "minecraft:shears") {
+                const perm = block.permutation;
+                if (perm.getState("cosmos:age") === 0) return;
+                block.setPermutation(perm.withState("cosmos:age", 0));
+            }
+        },
+
+        onTick: ({ block }) => {
+            const aboveBlock = block.above();
+            if (aboveBlock.typeId == "minecraft:air") {
+                let currBlock = block;
+                if (currBlock.typeId === typeId) {
+                    CV.cut(block);
+                }
+            } else if (aboveBlock.typeId === typeId) return;
+            if (block.permutation.getState("cosmos:attached_bit") === true) {
+                const cavernVines = CV.get(block);
+                if (!cavernVines?.isAvailable) return;
+                cavernVines.update();
+                cavernVines.grabEntities();
+            }
+        },
+
+        onRandomTick: ({ block }) => {
+            if (block.permutation.getState("cosmos:attached_bit") === true) {
+                const cavernVines = CV.get(block);
+                if (!cavernVines?.isAvailable) return;
+                cavernVines.vineGrowth();
+            };
+        }
+    });
+})
 
 export default CavernousVine;
