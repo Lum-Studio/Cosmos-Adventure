@@ -238,11 +238,13 @@
             }
          },
          "adult": {
-            "minecraft:behavior.receive_love": {
-               "priority": 7
-            },
-            "minecraft:behavior.make_love": {
-               "priority": 6
+            "minecraft:type_family": {
+               "family": [
+                  "villager",
+                  "peasant",
+                  "farmer",
+                  "abult"
+               ]
             }
          }
       },

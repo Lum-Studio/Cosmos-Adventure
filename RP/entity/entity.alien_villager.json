@@ -2,7 +2,7 @@
    "minecraft:client_entity": {
       "description": {
          "render_controllers": [
-            "controller.render.villager"
+            "controller.render.alien_villager"
          ],
          "materials": {
             "default": "villager"

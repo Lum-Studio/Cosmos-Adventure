@@ -1,4 +1,6 @@
-import { ItemStack, system, world } from "@minecraft/server"
+import { ItemStack, system, world } from "@minecraft/server";
+import { select_random_item } from "api/utils";
+
 const tiers = {
     "cosmos:tier1_key": "cosmos:tier1_treasure_chest",
     "cosmos:tier2_key": "cosmos:tier2_treasure_chest",
@@ -11,9 +13,6 @@ const rewards = [
     ['cosmos:volcanic_pickaxe', 'cosmos:shield_controller'],
 ]
 
-function select_random_item(list) {
-    return list[Math.floor(Math.random() * list.length)]
-}
 
 let cooldown
 function hint(player, tier) {
