@@ -124,8 +124,6 @@ world.beforeEvents.playerInteractWithBlock.subscribe((data) => {
   });
 });
 world.afterEvents.playerBreakBlock.subscribe(easyTrigger);
-world.afterEvents.buttonPush.subscribe(easyTrigger);
-world.afterEvents.leverAction.subscribe(easyTrigger);
 world.afterEvents.pistonActivate.subscribe(easyTrigger);
 world.afterEvents.playerPlaceBlock.subscribe(easyTrigger);
 world.afterEvents.pressurePlatePop.subscribe(easyTrigger);
