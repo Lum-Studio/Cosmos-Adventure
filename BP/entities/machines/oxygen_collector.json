@@ -48,7 +48,8 @@
                     "cosmos",
 					"power",
 					"oxygen",
-					"has_power_input"
+					"has_power_input",
+					"has_o2_output"
                 ]
             },
             "minecraft:collision_box": {
@@ -66,7 +67,7 @@
             },
             "minecraft:inventory": {
                 "container_type": "container",
-                "inventory_size": 4
+                "inventory_size": 7
             },
             "minecraft:pushable": {
                 "is_pushable": false,

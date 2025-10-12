@@ -2,9 +2,6 @@
    "format_version": "1.20.60",
    "minecraft:item": {
       "description": {
-         "menu_category": {
-            "category": "items"
-         },
          "identifier": "cosmos:titanium_shovel"
       },
       "components": {
@@ -23,10 +20,6 @@
                   "block": {
                      "tags": "q.any_tag('dirt', 'sand', 'gravel', 'grass', 'snow')"
                   },
-                  "speed": 2
-               },
-               {
-                  "block": "minecraft:concretePowder",
                   "speed": 2
                },
                {
@@ -49,9 +42,6 @@
          },
          "minecraft:display_name": {
             "value": "Titanium Shovel"
-         },
-         "minecraft:use_animation": {
-            "value": "block"
          },
          "minecraft:tags": {
             "tags": [

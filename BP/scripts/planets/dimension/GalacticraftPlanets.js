@@ -1,7 +1,5 @@
-import { Player, Entity, world } from "@minecraft/server";
+import { Player, Entity, world, ScreenDisplay, system, BlockPermutation } from "@minecraft/server";
 export { Planet };
-
-const the_end = world.getDimension('the_end');
 
 
 let ALL_PLANETS = {}
@@ -31,18 +29,12 @@ class Planet {
     #center
     #gravity
 
-    /**
-     * Gets the type of the planet
-     * @returns {String} The ID of the planet
-     */
+    //Gets the type of the planet
     get type() {
         return this.#type + '';
     }
 
-    /**
-     * Gets the range of the planet
-     * @returns {Object} The range of the planet with start and end coordinates
-     */
+    //Gets the range of the planet
     get range() {
         return {
             start: { x: this.#range.start.x, z: this.#range.start.z },
@@ -50,10 +42,7 @@ class Planet {
         };
     }
 
-    /**
-     * Gets the center coordinates of the planet
-     * @returns {{x:number,z:number}} The center coordinates of the planet
-     */
+    //Gets the center coordinates of the planet
     get center() {
         return {
             x: this.#center.x,
@@ -61,57 +50,43 @@ class Planet {
         };
     }
 
-    /**
-     * Gets the gravity of the planet
-     * @returns {Number} The gravity of the planet
-     */
+    //Gets the gravity of the planet
     get gravity() {
         return this.#gravity + 0;
     }
 
-    /**
-     * Checks whether a given location is on the planet
-     * @param {Vec3} location - Location to check
-     * @returns {Boolean} Whether or not the location is on the planet
-     */
+    //Checks whether a given location is on the planet
     isOnPlanet(location) {
         return (
             this.range.start.x <= location.x && location.x <= this.range.end.x &&
             this.range.start.z <= location.z && location.z <= this.range.end.z
         );
     }
+    static getPlanetOfObject(object) {
+        return object.dimension.id == "minecraft:the_end" ? Planet.getAll().find(pl => pl.isOnPlanet(object.location)): undefined;
+    }
 
-    /**
-     * Gets all entities in the End that match the EntityQueryOptions
-     * @param {EntityQueryOptions} entityQueryOptions - Query to use for search
-     * @returns {Entity[]} All entities matching the query
-     */
+    //Gets all entities in the End that match the EntityQueryOptions
     getEntities(entityQueryOptions = {}) {
-        return the_end.getEntities(entityQueryOptions).filter(entity =>
+        const the_end = world.getDimension('the_end');
+        return the_end.getEntities(entityQueryOptions).filter(entity => 
             this.isOnPlanet(entity.location)
         );
     }
 
-    /**
-     * Gets all players on the planet that match the EntityQueryOptions
-     * @param {EntityQueryOptions} entityQueryOptions - Query to use for search
-     * @returns {Player[]} All players matching the query
-     */
+    //Gets all players on the planet that match the EntityQueryOptions
     getPlayers(entityQueryOptions = {}) {
-        return the_end.getPlayers(entityQueryOptions).filter(entity =>
+        const the_end = world.getDimension('the_end');
+        return the_end.getPlayers(entityQueryOptions).filter(entity => 
             this.isOnPlanet(entity.location)
         );
     }
 
-    /**
-     * Offsets the given location relative to the planet's center
-     * @param {Vec3} location - The location to offset
-     * @returns {Vec3} The offset location relative to the planet's center
-     */
+    //Offsets the given location relative to the planet's center
     offset(location) {
         return {
             x: location.x - this.center.x,
-            y: location.y,
+            y: location.y, 
             z: location.z - this.center.z
         };
     }
@@ -132,54 +107,56 @@ class Planet {
         return Planet.get(id)
     }
 
-    /**
-     * Retrieves a registered planet by its ID
-     * @param {string} id - The ID of the planet to retrieve
-     * @returns {Planet|undefined} The planet if found, otherwise undefined
-     */
+    //Returns a registered planet by its ID
     static get(id) {
         return ALL_PLANETS[id];
     }
 
-    /**
-     * Retrieves all registered planets
-     * @returns {Planet[]} An array of all registered planets
-     */
+    //Returns all registered planets
     static getAll() {
         return Object.keys(ALL_PLANETS).map(id => this.get(id));
-    }
-
-    static of(entity) {
-        if (entity.dimension.id !== "minecraft:the_end") return;
-        const loc = entity.location;
-        return Object.values(ALL_PLANETS).find(p => p.isOnPlanet(loc));
-
     }
 }
 // Coordinate display
 
 // Returns the coordinates that should be displayed on the screen
 function planet_coords(entity) {
-    if (entity.dimension.id != 'minecraft:the_end') return entity.location;
-    let planet = Planet.getAll().find(pl => pl.isOnPlanet(entity.location))
-    return planet?.offset(entity.location) || entity.location
+    const the_end = world.getDimension('the_end');
+  if (entity.dimension.id != 'minecraft:the_end') return entity.location;
+  let planet = Planet.getAll().find(pl => pl.isOnPlanet(entity.location))
+  return planet?.offset(entity.location) || entity.location
 }
-export function coords_loop(players) {
-    players.forEach(player => {
-        let { x, y, z } = planet_coords(player)
-        x = Math.floor(x)
-        y = Math.floor(y + 0.000001)
-        z = Math.floor(z)
-        player.onScreenDisplay.setActionBar(`Position: ${x}, ${y}, ${z}`)
-    })
+export function coords_loop(player){
+    let {x, y, z} = planet_coords(player)
+    x = Math.floor(x)
+    y = Math.floor(y + 0.000001)
+    z = Math.floor(z)
+    player.onScreenDisplay.setActionBar(`Position: ${x}, ${y}, ${z}`)
 }
-world.afterEvents.gameRuleChange.subscribe(({ rule, value }) => {
+world.afterEvents.gameRuleChange.subscribe(({rule, value}) => {
     if (rule == "showCoordinates" && value == false)
         world.getAllPlayers().forEach(player =>
             player.onScreenDisplay.setActionBar(`§.`)
         )
-}
+    }
 )
+
+//unlit torch
+world.afterEvents.playerPlaceBlock.subscribe((data) => {
+    let block = data.block;
+    if(block.typeId == "minecraft:torch"  && block.dimension.id == "minecraft:the_end"){
+        if(!Planet.getPlanetOfObject(block)) return;
+        let opposite_side = {
+            "north": "south",
+            "south": "north",
+            "east": "west", 
+            "west": "east",
+            "top": "up"
+        }
+        let state = block.permutation.getState("torch_facing_direction");
+        block.setPermutation(BlockPermutation.resolve("cosmos:unlit_torch", {"minecraft:block_face": opposite_side[state]}));
+    }
+});
 
 /**
  * @typedef {import("@minecraft/server").Vector3} Vec3

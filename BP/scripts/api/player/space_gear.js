@@ -18,10 +18,12 @@ const slots = {
 	tank2: Object.keys(tanks),
 	frequency_module: "cosmos:frequency_module",
 	mask: "cosmos:oxygen_mask",
-	parachute: ["cosmos:parachute_black", "cosmos:parachute_blue", "cosmos:parachute_brown", "cosmos:parachute_darkblue", "cosmos:parachute_darkgray", "cosmos:parachute_darkgreen", "cosmos:parachute_gray", "cosmos:parachute_lime", "cosmos:parachute_magenta", "cosmos:parachute_orange", "cosmos:parachute_pink", "cosmos:parachute_plain", "cosmos:parachute_purple", "cosmos:parachute_red", "cosmos:parachute_teal", "cosmos:parachute_yellow"],
+	parachute: ["cosmos:parachute_black", "cosmos:parachute_blue", "cosmos:parachute_brown", "cosmos:parachute_darkblue", "cosmos:parachute_darkgray", "cosmos:parachute_darkgreen", "cosmos:parachute_gray", "cosmos:parachute_lime", "cosmos:parachute_magenta", "cosmos:parachute_orange", "cosmos:parachute_pink", "cosmos:parachute_plain", "cosmos:parachute_purple", "cosmos:parachute_red", "cosmos:parachute_teal", "cosmos:parachute_yellow", undefined],
 	thermal: ["cosmos:shield_controller"],
 	gear: "cosmos:oxygen_gear"
 };
+
+export let space_gear_entities = new Map();
 
 /* unused
 const maskTag = "mask(-)cosmos:oxygen_mask";
@@ -36,7 +38,7 @@ function spawn(player) {
 	const entity = player.dimension.spawnEntity("cosmos:inv_ent", in_bounds_location);
 	entity.nameTag = "space_gear(-)"; // needed for condition in UI
 	entity.setDynamicProperty('owner', player.nameTag)
-	player.setDynamicProperty('secondInventoryEntity', entity.id)
+	space_gear_entities.set(player.nameTag, entity.id)
 	setItems(player, entity)
 	return entity
 }
@@ -78,17 +80,13 @@ function update(player, container) {
 		switch (slot) {
 			case 'frequency_module':
 				player.setProperty("cosmos:frequency_module", item?.typeId == "cosmos:frequency_module")
-				break;
-			case 'gear':
+			break; case 'gear':
 				player.setProperty("cosmos:oxygen_gear", item?.typeId == "cosmos:oxygen_gear")
-				break;
-			case 'mask':
+			break; case 'mask':
 				player.setProperty("cosmos:oxygen_mask", item?.typeId == "cosmos:oxygen_mask")
-				break;
-			case 'tank1':
+			break; case 'tank1':
 				player.setProperty("cosmos:tank1", tanks[item?.typeId] ?? 'no_tank')
-				break;
-			case 'tank2':
+			break; case 'tank2':
 				player.setProperty("cosmos:tank2", tanks[item?.typeId] ?? 'no_tank')
 		}
 		if (item) {
@@ -105,31 +103,13 @@ world.beforeEvents.playerInteractWithBlock.subscribe((data) => {
 	if (!data.isFirstEvent || !data.player.isSneaking || data.itemStack) return;
 	let player = data.player;
 	data.cancel = true;
-	if (player.getDynamicProperty('secondInventoryEntity')) return;
+	if(space_gear_entities.get(player.nameTag)) return;
 	system.run(() => {
-		let entity;
+		let entity = spawn(player)
 		let secondInventory = system.runInterval(() => {
-			if (!player.getDynamicProperty('secondInventoryEntity') || !world.getEntity(player.getDynamicProperty('secondInventoryEntity')) || !entity || !entity.isValid()) {
-				entity = spawn(player)
-			}
-			if ((!player.isSneaking && !entity.getDynamicProperty('view')) || !player.isValid()) {
-				player.setDynamicProperty('secondInventoryEntity', undefined)
-				despawn(entity)
+			if(!entity.isValid){
+				space_gear_entities.delete(player.nameTag)
 				system.clearRun(secondInventory)
-				return;
-
-			}
-			if (player.getComponent("equippable").getEquipment(EquipmentSlot.Mainhand)) {
-				despawn(entity)
-				return;
-			}
-			// CAMERA MOVEMENT DETECTION TO DESPAWN THE ENTITY
-			let camera = player.getRotation(); camera = `${Math.round(camera.x)} ${Math.round(camera.y)}`
-			const view = entity.getDynamicProperty('view')
-			if (view && (camera != view)) {
-				despawn(entity)
-				player.setDynamicProperty('secondInventoryEntity', undefined);
-				system.clearRun(secondInventory);
 				return;
 			}
 			// LET ENTITY FOLLOW THE PLAYER
@@ -153,6 +133,21 @@ world.beforeEvents.playerInteractWithBlock.subscribe((data) => {
 
 				}
 			} update(player, container)
+			if ((!player.isSneaking && !entity.getDynamicProperty('view')) || !player.isValid) {
+				space_gear_entities.delete(player.nameTag)
+				despawn(entity)
+				system.clearRun(secondInventory)
+				return;
+			}
+			// CAMERA MOVEMENT DETECTION TO DESPAWN THE ENTITY
+			let camera = player.getRotation(); camera = `${Math.round(camera.x)} ${Math.round(camera.y)}`
+			const view = entity.getDynamicProperty('view')
+			if (view && (camera != view)){
+				despawn(entity)
+				space_gear_entities.delete(player.nameTag);
+				system.clearRun(secondInventory);
+				return;
+			}
 		});
 	});
 })
@@ -182,7 +177,7 @@ world.afterEvents.entityDie.subscribe(({ deadEntity: player }) => {
 	const entities = player.dimension.getEntities({ type: "cosmos:inv_ent" })//.filter(entity => entity.getDynamicProperty('owner') != player.nameTag)
 	entities.length == 0 ? despawn(spawn(player), !world.gameRules.keepInventory) : entities.forEach(entity => despawn(entity, !world.gameRules.keepInventory))
 	if (!world.gameRules.keepInventory) player.setDynamicProperty("space_gear", undefined);
-	player.setDynamicProperty("secondInventoryEntity", undefined);
+	space_gear_entities.delete(player.nameTag)
 });
 
 // DELETING ENTITY ON LEAVING -- This doesn't work for some reason -- crashes the game 
@@ -193,7 +188,7 @@ world.afterEvents.entityDie.subscribe(({ deadEntity: player }) => {
 )*/
 
 //EQUIP ITEMS
-world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
+system.beforeEvents.startup.subscribe(({ itemComponentRegistry }) => {
 	itemComponentRegistry.registerCustomComponent("cosmos:space_gear", {
 		onUse({ source: player, itemStack: item }) {
 			const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}'); let sound = false
@@ -222,9 +217,13 @@ world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
 				else if (player.getProperty("cosmos:tank2") == 'no_tank') tank = "tank2"
 				if (tank) {
 					const durability = item.getComponent("minecraft:durability")
+					let saved_durability = durability ? durability.maxDurability - durability.damage:
+					0;
 					player.runCommand(`clear @s ${item.typeId} -1 1`)
-					space_gear[tank] = item.typeId + (durability ? ' ' + durability.damage : ''); sound = true
+					space_gear[tank] = item.typeId + (durability ? ' ' + saved_durability : '');
+					sound = true;
 					player.setProperty(`cosmos:${tank}`, tanks[item.typeId])
+					
 				}
 			}
 			if (sound) player.dimension.playSound("armor.equip_iron", player.location)

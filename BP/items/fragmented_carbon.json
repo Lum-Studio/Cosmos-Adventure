@@ -2,14 +2,14 @@
    "format_version": "1.20.20",
    "minecraft:item": {
       "description": {
-         "identifier": "cosmos:fragmented_carbon",
-         "menu_category": {
-            "category": "items"
-         }
+         "identifier": "cosmos:fragmented_carbon"
       },
       "components": {
          "minecraft:icon": {
             "texture": "fragmented_carbon"
+         },
+         "minecraft:fuel": {
+            "duration": 10
          }
       }
    }

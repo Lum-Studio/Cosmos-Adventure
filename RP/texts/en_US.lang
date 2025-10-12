@@ -42,16 +42,18 @@ death.attack.thermal=\n$s forgot thermal protection
 dimension.moon.name=Moon
 dimension.overworld.name=Overworld
 dimension.sun.name=Sun
-entity.alien_villager.name=Alien Villager
+entity.cosmos:alien_villager.name=Alien Villager
 entity.buggy.name=Buggy
 entity.celestial_screen.name=Celestial Screen
 entity.evolved_creeper.name=Evolved Creeper
 entity.evolved_skeleton.name=Evolved Skeleton
 entity.evolved_skeleton_boss.name=Evolved Skeleton Boss
 entity.evolved_spider.name=Evolved Spider
-entity.evolved_zombie.name=Evolved Zombie
+entity.cosmos:evolved_zombie.name=Evolved Zombie
 entity.evolved_enderman.name=Evolved Enderman
 entity.evolved_witch.name=Evolved Witch
+item.spawn_egg.entity.cosmos:evolved_zombie.name=Evolved Zombie
+item.spawn_egg.entity.cosmos:alien_villager.name=Alien Villager
 entity.flag.name=Flag
 entity.gcflag.name=Flag
 entity.gravity_arrow.name=Arrow
@@ -1252,6 +1254,7 @@ item.cosmos:emergency_kit=Emergency Kit
 item.cosmos:frequency_module=Frequency Module
 item.cosmos:fuel_bucket=Fuel Bucket
 item.cosmos:glowstone_torch=Glowstone Torch
+item.cosmos:unlit_torch=Unlit Torch
 item.cosmos:grapple=Grapple
 item.cosmos:lunar_sapphire=Lunar Sapphire
 item.cosmos:meteoric_iron_ingot=Meteoric Iron Ingot
@@ -1367,8 +1370,9 @@ item.cosmos:isothermal_helmet=Isothermal Helmet
 item.cosmos:isothermal_leggings=Isothermal Leggings
 item.cosmos:lead_ingot=Lead Ingot
 item.cosmos:liftoff_checklist=Prelaunch Checklist
-item.cosmos:n2_canister=Nitrogen Canister
 item.cosmos:o2_canister=Oxygen Canister
+item.cosmos:n2_canister=Nitrogen Canister
+item.cosmos:methane_canister=Methane Canister
 item.cosmos:oil_canister=Oil Canister
 item.cosmos:orion_drive=Orion Drive
 item.cosmos:radioactive_core=Radioactive Core
@@ -1394,6 +1398,25 @@ item.cosmos:tier1_key=Tier 1 Dungeon Key
 item.cosmos:tier2_key=Tier 2 Dungeon Key
 item.cosmos:tier3_key=Tier 3 Dungeon Key
 item.cosmos:volcanic_pickaxe=Volcanic Pickaxe
+
+##fluids
+fluid.undefined=Empty
+fluid.oil=Oil
+fluid.fuel=Fuel
+fluid.air=Atmospheric Gases
+fluid.o2_gas=Oxygen Gas
+fluid.h2=Hydrogen Gas
+fluid.n2=Nitrogen Gas
+fluid.co2_gas=Carbon Dioxide Gas
+fluid.methane_gas=Methane Gas
+fluid.helium_gas=Helium Gas
+fluid.argon_gas=Argon Gas
+fluid.liquid_oxygen=Liquid Oxygen
+fluid.liquid_nitrogen=Liquid Nitrogen
+fluid.liquid_methane=Liquid Methane
+fluid.liquid_argon=Liquid Argon
+fluid.bacterial_sludge=Bacterial Sludge
+fluid.sulphuric_acid=Sulphuric Acid
 
 ## blocks
 tile.cosmos:tin_ore.name=Tin Ore
@@ -1461,7 +1484,7 @@ tile.cosmos:moon_dungeon_bricks_wall.name=Moon Dungeon Bricks Wall
 tile.cosmos:moon_rock_slab.name=Moon Rock Slab
 tile.cosmos:moon_rock_wall.name=Moon Rock Wall
 tile.cosmos:oxygen_storage_module.name=Oxygen Storage Module
-tile.cosmos:oxygen_bubble_distributor.name=Oxygen Bubble Distributor
+tile.cosmos:oxygen_distributor.name=Oxygen Bubble Distributor
 tile.cosmos:oxygen_compressor.name=Oxygen Compressor
 tile.cosmos:oxygen_decompressor.name=Oxygen Decompressor
 tile.cosmos:oxygen_detector.name=Oxygen Detector
@@ -1487,8 +1510,10 @@ custom.coords=Position
 entity.cosmos:treasure_chest.name=Treasure Chest
 
 ## creative inventory
-cosmos:cosmos_blocks=Cosmos Blocks
 cosmos:cosmos_items=Cosmos Items
+cosmos:cosmos_blocks=Cosmos Blocks
+cosmos:cosmos_machines=Cosmos Machines
+cosmos:debug_items=Debug Items
 
 ## Automatically generated keys (Need to be checked and sorted by a human)
 

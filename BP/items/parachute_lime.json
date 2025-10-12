@@ -1,11 +1,8 @@
 {
-   "format_version": "1.20.80",
+   "format_version": "1.21.80",
    "minecraft:item": {
       "description": {
-         "identifier": "cosmos:parachute_lime",
-         "menu_category": {
-            "category": "items"
-         }
+         "identifier": "cosmos:parachute_lime"
       },
       "components": {
          "minecraft:custom_components": [

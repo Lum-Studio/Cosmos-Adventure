@@ -20,7 +20,7 @@
                 "size": [4, 10, 4]
             },
             "minecraft:geometry": {
-                "identifier": "geometry.glowstone_torch_block",
+                "identifier": "geometry.torch_block",
                 "bone_visibility": {
                     "ground": "q.block_state('minecraft:block_face') == 'up'",
                     "wall": "q.block_state('minecraft:block_face') != 'up'"

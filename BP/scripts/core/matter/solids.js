@@ -6,17 +6,25 @@ const stone_tier = new Set([
 	"minecraft:iron_pickaxe",
 	"minecraft:diamond_pickaxe",
 	"minecraft:netherite_pickaxe",
+	"cosmos:titanium_pickaxe",
+	"cosmos:steel_pickaxe",
+	"cosmos:desh_pickaxe"
 ])
 
 const iron_tier = new Set([
 	"minecraft:iron_pickaxe",
 	"minecraft:diamond_pickaxe",
 	"minecraft:netherite_pickaxe",
+	"cosmos:titanium_pickaxe",
+	"cosmos:steel_pickaxe",
+	"cosmos:desh_pickaxe"
 ])
 
 const diamond_tier = new Set([
 	"minecraft:diamond_pickaxe",
 	"minecraft:netherite_pickaxe",
+	"cosmos:titanium_pickaxe",
+	"cosmos:desh_pickaxe"
 ])
 
 function wrong_tool(block, item) {
@@ -32,7 +40,7 @@ world.beforeEvents.playerBreakBlock.subscribe((event) => {
 	const {block, dimension, player, itemStack} = event
 	const item = itemStack?.typeId
 	
-	if (!(player.getGameMode() == "creative") && wrong_tool(block, item)) {
+	if (!(player.getGameMode() == "Creative") && wrong_tool(block, item)) {
 		event.cancel = true
 		system.run(()=>{
 			dimension.playSound("dig.stone", block.location)
@@ -59,17 +67,20 @@ world.afterEvents.playerBreakBlock.subscribe(({brokenBlockPermutation:block, ite
 })
 
 // to remove the item model
-world.beforeEvents.worldInitialize.subscribe(({ blockComponentRegistry }) => {
+system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
 	blockComponentRegistry.registerCustomComponent("cosmos:placed", {
         beforeOnPlayerPlace(e){
-            e.permutationToPlace = e.permutationToPlace.withState("cosmos:placed", true);
+			system.run(() => {
+				e.permutationToPlace = e.permutationToPlace.withState("cosmos:placed", true);
+			});
         },
     });
 })
 
 
 //determines how fast the block will take to mine
-system.runInterval(()=> {
+world.afterEvents.worldLoad.subscribe(() => {
+	system.runInterval(()=> {
 	world.getAllPlayers().forEach(player => {
 		const item = player.getComponent("minecraft:equippable").getEquipment("Mainhand")?.typeId
 		const block = player.getBlockFromViewDirection({
@@ -83,9 +94,10 @@ system.runInterval(()=> {
 			block.setPermutation(permutation.withState("cosmos:mining_speed", "decreased"))
 		else if (["minecraft:golden_pickaxe", "minecraft:stone_pickaxe"].includes(item))
 			block.setPermutation(permutation.withState("cosmos:mining_speed", "normal"))
-		else if (item == "minecraft:iron_pickaxe")
+		else if (item == "minecraft:iron_pickaxe", "cosmos:steel_pickaxe")
 			block.setPermutation(permutation.withState("cosmos:mining_speed", "fast"))
-		else if (["minecraft:diamond_pickaxe", "minecraft:netherite_pickaxe"].includes(item))
+		else if (["minecraft:diamond_pickaxe", "minecraft:netherite_pickaxe", "cosmos:titanium_pickaxe", "cosmos:desh_pickaxe"].includes(item))
 			block.setPermutation(permutation.withState("cosmos:mining_speed", "rapid"))
-	})
-}, 2)
+		})
+    }, 2);
+});

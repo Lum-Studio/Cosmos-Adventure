@@ -3,9 +3,6 @@
   "minecraft:block": {
     "description": {
       "identifier": "cosmos:gas_liquefier",
-      "menu_category": {
-        "category": "items"
-      },
       "traits": {
         "minecraft:placement_direction": {
           "enabled_states": ["minecraft:cardinal_direction"],
@@ -15,7 +12,7 @@
     },
     "components": {
       "tag:machine": {},
-      //"minecraft:custom_components": ["cosmos:machine"],
+      "minecraft:custom_components": ["cosmos:machine"],
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:destructible_by_explosion": false,
       "minecraft:destructible_by_mining": {

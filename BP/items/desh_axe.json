@@ -2,9 +2,6 @@
    "format_version": "1.20.60",
    "minecraft:item": {
       "description": {
-         "menu_category": {
-            "category": "items"
-         },
          "identifier": "cosmos:desh_axe"
       },
       "components": {
@@ -229,9 +226,6 @@
          },
          "minecraft:display_name": {
             "value": "Desh Axe"
-         },
-         "minecraft:use_animation": {
-            "value": "block"
          },
          "minecraft:tags": {
             "tags": [

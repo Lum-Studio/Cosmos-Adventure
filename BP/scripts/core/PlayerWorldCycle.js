@@ -2,7 +2,7 @@ import { world, system } from "@minecraft/server";
 import { coords_loop, Planet } from "../planets/dimension/GalacticraftPlanets.js";
 import { player_gravity } from '../planets/dimension/gravity.js';
 import { dungeon_finder_loop } from "./items/dungeon_finder.js";
-import { oxygen_spending } from "../api/player/oxygen.js";
+import { oxygen_spending, is_entity_in_a_bubble } from "../api/player/oxygen.js";
 
 function space_tags_removing(player){
     player.removeTag("oxygen_hunger")
@@ -10,23 +10,31 @@ function space_tags_removing(player){
     player.removeTag("ableToOxygen")
 }
 //the main player cycle
-system.runInterval(() => {
-    let space = world.getDimension("the_end");
-    let players_in_space = space.getPlayers({tags: ["in_space"]});
-    //manage oxygen
-    if(!(system.currentTick % 20)) oxygen_spending(space.getPlayers({tags: ["ableToOxygen"], excludeTags: ["oxygen_hunger"], excludeGameModes: ["creative", "spectator"]}))
-    //manage gravity
-    player_gravity(players_in_space)
-    //manage dungeon finder
-    dungeon_finder_loop(world.getAllPlayers())
-    //manage coordinates
-    if(world.gameRules.showCoordinates) coords_loop(players_in_space)
+world.afterEvents.worldLoad.subscribe(() => {
+    system.runInterval(() => {
+        let players = world.getAllPlayers();
+        let currentTick = system.currentTick;
+        let coords_enabled = world.gameRules.showCoordinates;
+
+        players.forEach((player) => {
+            let tags = player.getTags();
+            //manage oxygen
+            if(!(currentTick % 20) && tags.includes("ableToOxygen") && !tags.includes("oxygen_hunger") && player.getGameMode() == "Survival" && !is_entity_in_a_bubble(player)) oxygen_spending(player)
+            //manage dungeon finder
+            dungeon_finder_loop(player)
+            //manage coordinates
+            if(coords_enabled) coords_loop(player)
+        });
+        //manage gravity
+        //player_gravity(players_in_space)
+    });
 });
 
-//space player tags
+//space player tags removing 
 world.afterEvents.playerSpawn.subscribe((data) => {
     if(data.player.dimension.id !== "minecraft:the_end") space_tags_removing(data.player)
     data.player.removeTag("oxygen_hunger");
+    data.player.setDynamicProperty("in_celestial_selector")
 });
 
 world.afterEvents.playerDimensionChange.subscribe((data) => {

@@ -2,9 +2,6 @@
    "format_version": "1.20.60",
    "minecraft:item": {
       "description": {
-         "menu_category": {
-            "category": "items"
-         },
          "identifier": "cosmos:desh_hoe"
       },
       "components": {
@@ -33,9 +30,6 @@
          "minecraft:can_destroy_in_creative": true,
          "minecraft:display_name": {
             "value": "Desh Hoe"
-         },
-         "minecraft:use_animation": {
-            "value": "block"
          },
          "minecraft:tags": {
             "tags": [

@@ -104,6 +104,9 @@
     "glowstone_torch": {
       "textures": "textures/blocks/glowstone_torch"
     },
+    "unlit_torch": {
+      "textures": "textures/blocks/unlit_torch"
+    },
     "grapple": {
       "textures": "textures/items/grapple"
     },
@@ -457,6 +460,9 @@
     "n2_canister": {
       "textures": "textures/items/n2_canister"
     },
+    "methane_canister": {
+      "textures": "textures/items/methane_canister"
+    },
     "orion_drive": {
       "textures": "textures/items/orion_drive"
     },
@@ -477,6 +483,15 @@
     },
     "thermal_cloth": {
       "textures": "textures/items/thermal_cloth"
+    },
+    "tier1_key": {
+      "textures": "textures/items/tier1_key"
+    },
+    "tier2_key": {
+      "textures": "textures/items/tier2_key"
+    },
+    "tier3_key": {
+      "textures": "textures/items/tier3_key"
     },
     "titanium_axe": {
       "textures": "textures/items/titanium_axe"
@@ -510,6 +525,10 @@
     },
     "titanium_sword": {
       "textures": "textures/items/titanium_sword"
+    },
+
+    "none": {
+      "textures": "textures/empty"
     }
   }
 }

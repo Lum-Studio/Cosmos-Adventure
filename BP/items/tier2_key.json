@@ -2,15 +2,13 @@
    "format_version": "1.20.20",
    "minecraft:item": {
       "description": {
-         "identifier": "cosmos:tier2_key",
-         "menu_category": {
-            "category": "items"
-         }
+         "identifier": "cosmos:tier2_key"
       },
       "components": {
          "minecraft:icon": {
-            "texture": "compressed_desh"
-         }
+            "texture": "tier2_key"
+         },
+         "minecraft:max_stack_size": 1
       }
    }
 }

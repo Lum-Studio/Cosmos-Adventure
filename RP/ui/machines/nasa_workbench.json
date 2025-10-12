@@ -36,7 +36,7 @@
     "craft_button_text": {
         "type": "image",
         "layer": 6,
-        "texture": "textures/ui/cosmos/hover_background",
+        "texture": "textures/ui/purpleBorder",
         "size": ["100%c + 10px", "100%c + 8px"],
         "anchor_to":"left_middle",
         "offset": [8, 0],
@@ -115,7 +115,10 @@
                         "anchor_to": "top_left",
                         "offset": [ 10, 5 ],
                         "controls": [
-                            {"title_text@machines.text": {
+                            {"title_text": {
+                                "type": "label",
+                                "color": "$title_text_color",
+                                "layer": 2,
                                 "collection_index": 36,
                                 "text": "#text",
                                 "$tag": "",
@@ -154,7 +157,7 @@
                     }},
                     {"added_chests@machines.specific_screen": {
                         "type": "collection_panel",
-                        "$condition": "(not ((#data = 6) or (#data = 7)))",
+                        "$visible_if": "(not ((#data = 6) or (#data = 7)))",
                         "offset": [ 74, 0 ],
                         "anchor_from": "top_left",
                         "anchor_to": "top_left",
@@ -162,32 +165,32 @@
                         "$screen_content": [
                             { "chest1": {
                                 "type": "image",
-                                "texture": "textures/ui/cosmos/chest_slot_border",
+                                "texture": "textures/ui/cosmos/machines/chest_slot_border",
                                 "size": [20, 20],
                                 "controls": [{
-                                    "slot@machines.specific_slot": {
+                                    "slot@machines.item_slot": {
                                         "$index": 18
                                     }
                                 }]
                             }},
                             { "chest2": {
                                 "type": "image",
-                                "texture": "textures/ui/cosmos/chest_slot_border",
+                                "texture": "textures/ui/cosmos/machines/chest_slot_border",
                                 "size": [20, 20],
                                 "offset": [ 26, 0 ],
                                 "controls": [{
-                                    "slot@machines.specific_slot": {
+                                    "slot@machines.item_slot": {
                                         "$index": 19
                                     }
                                 }]
                             }},
                             { "chest3": {
                                 "type": "image",
-                                "texture": "textures/ui/cosmos/chest_slot_border",
+                                "texture": "textures/ui/cosmos/machines/chest_slot_border",
                                 "size": [20, 20],
                                 "offset": [ 52, 0 ],
                                 "controls": [{
-                                    "slot@machines.specific_slot": {
+                                    "slot@machines.item_slot": {
                                         "$index": 20
                                     }
                                 }]
@@ -195,7 +198,7 @@
                         ]
                     }},
                     {"basic_rocket_shape@machines.specific_screen": {
-                        "$condition": "(#data = 1)",
+                        "$visible_if": "(#data = 1)",
                         "$screen_index": 36,
                         "anchor_from": "top_left",
                         "anchor_to": "top_left",
@@ -230,13 +233,13 @@
                                     "$grid_pixels": [18, 216]
                                 }
                             },
-                            { "engine@machines.specific_slot": {
+                            { "engine@machines.item_slot": {
                                 "anchor_from": "top_left",
                                 "anchor_to": "top_left",
                                 "offset": [ 27, 108 ],
                                 "$index": 12
                             }},
-                            { "cone@machines.specific_slot": {
+                            { "cone@machines.item_slot": {
                                 "anchor_from": "top_left",
                                 "anchor_to": "top_left",
                                 "offset": [ 27, 18 ],
@@ -245,7 +248,7 @@
                         ]
                     }},
                     {"advanced_rocket_shape@machines.specific_screen": {
-                        "$condition": "((#data = 2) or (#data = 3))",
+                        "$visible_if": "((#data = 2) or (#data = 3))",
                         "$screen_index": 36,
                         "anchor_from": "top_left",
                         "anchor_to": "top_left",
@@ -280,13 +283,13 @@
                                     "$grid_pixels": [18, 288]
                                 }
                             },
-                            { "engine@machines.specific_slot": {
+                            { "engine@machines.item_slot": {
                                 "anchor_from": "top_left",
                                 "anchor_to": "top_left",
                                 "offset": [ 27, 108 ],
                                 "$index": 16
                             }},
-                            { "cone@machines.specific_slot": {
+                            { "cone@machines.item_slot": {
                                 "anchor_from": "top_left",
                                 "anchor_to": "top_left",
                                 "offset": [ 27, 0 ],
@@ -295,7 +298,7 @@
                         ]
                     }},
                     {"buggy_shape@machines.specific_screen": {
-                        "$condition": "(#data = 4)",
+                        "$visible_if": "(#data = 4)",
                         "$screen_index": 36,
                         "anchor_from": "top_left",
                         "anchor_to": "top_left",
@@ -310,25 +313,25 @@
                                     "grid_dimensions": [ 3, 4 ]
                                 }
                             },
-                            { "wheel1@machines.specific_slot": {
+                            { "wheel1@machines.item_slot": {
                                 "anchor_from": "top_left",
                                 "anchor_to": "top_left",
                                 "offset": [ 0, 36 ],
                                 "$index": 12
                             }},
-                            { "wheel2@machines.specific_slot": {
+                            { "wheel2@machines.item_slot": {
                                 "anchor_from": "top_left",
                                 "anchor_to": "top_left",
                                 "offset": [ 72, 36 ],
                                 "$index": 13
                             }},
-                            { "wheel1@machines.specific_slot": {
+                            { "wheel1@machines.item_slot": {
                                 "anchor_from": "top_left",
                                 "anchor_to": "top_left",
                                 "offset": [ 0, 90 ],
                                 "$index": 14
                             }},
-                            { "wheel1@machines.specific_slot": {
+                            { "wheel1@machines.item_slot": {
                                 "anchor_from": "top_left",
                                 "anchor_to": "top_left",
                                 "offset": [ 72, 90 ],
@@ -337,7 +340,7 @@
                         ]
                     }},
                     {"cargo_rocket_shape@machines.specific_screen": {
-                        "$condition": "(#data = 5)",
+                        "$visible_if": "(#data = 5)",
                         "$screen_index": 36,
                         "anchor_from": "top_left",
                         "anchor_to": "top_left",
@@ -372,19 +375,19 @@
                                     "$grid_pixels": [18, 180]
                                 }
                             },
-                            { "engine@machines.specific_slot": {
+                            { "engine@machines.item_slot": {
                                 "anchor_from": "top_left",
                                 "anchor_to": "top_left",
                                 "offset": [ 27, 108 ],
                                 "$index": 10
                             }},
-                            { "wafer@machines.specific_slot": {
+                            { "wafer@machines.item_slot": {
                                 "anchor_from": "top_left",
                                 "anchor_to": "top_left",
                                 "offset": [ 27, 36 ],
                                 "$index": 11
                             }},
-                            { "cone@machines.specific_slot": {
+                            { "cone@machines.item_slot": {
                                 "anchor_from": "top_left",
                                 "anchor_to": "top_left",
                                 "offset": [ 27, 18 ],
@@ -393,7 +396,7 @@
                         ]
                     }},
                     {"astro_miner_shape@machines.specific_screen": {
-                        "$condition": "(#data = 6)",
+                        "$visible_if": "(#data = 6)",
                         "$screen_index": 36,
                         "offset": [ 9, 30 ],
                         "anchor_from": "top_left",
@@ -441,16 +444,16 @@
                         ]
                     }},
                     {"schematics_screen@machines.specific_screen": {
-                        "$condition": "(#data = 7)",
+                        "$visible_if": "(#data = 7)",
                         "$screen_index": 36,
                         "$screen_content": [
                             {"background": {
                                 "type": "image",
-                                "texture": "textures/ui/cosmos/schematic_slot",
+                                "texture": "textures/ui/cosmos/machines/schematic_slot",
                                 "offset": [0, -45],
                                 "size": [57, 40],
                                 "controls": [
-                                    { "schematic_input@machines.specific_slot": {
+                                    { "schematic_input@machines.item_slot": {
                                         "$index": 21
                                     }},
                                     { "unlock_button@machines.specific_slot": {
@@ -466,18 +469,18 @@
                         ]
                     }},
                     {"crafting_button@machines.specific_screen": {
-                        "$condition": "(not (#data = 7))",
+                        "$visible_if": "(not (#data = 7))",
                         "$screen_index": 36,
                         "$screen_content": [
                             {"crafting_slot": {
                                 "type": "image",
-                                "texture": "textures/ui/cosmos/nasa_workbench_output",
+                                "texture": "textures/ui/cosmos/machines/nasa_workbench_output",
                                 "offset": [62, -10],
                                 "size": [34, 34],
                                 "controls": [
                                     { "crafting_arrow": {
                                         "type": "image",
-                                        "texture": "textures/ui/cosmos/diagonal_arrow",
+                                        "texture": "textures/ui/cosmos/machines/diagonal_arrow",
                                         "size": [16, 16],
                                         "anchor_from": "top_left",
                                         "anchor_to": "bottom_right"

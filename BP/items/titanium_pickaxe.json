@@ -2,9 +2,6 @@
    "format_version": "1.20.60",
    "minecraft:item": {
       "description": {
-         "menu_category": {
-            "category": "items"
-         },
          "identifier": "cosmos:titanium_pickaxe"
       },
       "components": {
@@ -19,6 +16,98 @@
          "minecraft:digger": {
             "use_efficiency": true,
             "destroy_speeds": [
+                              {
+                  "block": "cosmos:mars_stone",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:moon_rock",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:venus_tin_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:venus_silicon_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:venus_quartz_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:venus_copper_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:venus_aluminum_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:tin_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:solar_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:silicon_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:moon_tin_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:moon_sapphire_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:moon_copper_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:mars_tin_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:mars_iron_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:mars_copper_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:ilmenite_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:galena_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:desh_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:cheese_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:asteroids_iron_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:asteroids_aluminum_ore",
+                  "speed": 24
+               },
+               {
+                  "block": "cosmos:aluminum_ore",
+                  "speed": 24
+               },
                {
                   "block": "minecraft:stone",
                   "speed": 24
@@ -220,10 +309,6 @@
                   "speed": 24
                },
                {
-                  "block": "minecraft:stonebrick",
-                  "speed": 24
-               },
-               {
                   "block": "minecraft:end_bricks",
                   "speed": 24
                },
@@ -268,10 +353,6 @@
                   "speed": 24
                },
                {
-                  "block": "minecraft:concrete",
-                  "speed": 24
-               },
-               {
                   "block": "minecraft:honeycomb_block",
                   "speed": 24
                },
@@ -308,10 +389,6 @@
                   "speed": 24
                },
                {
-                  "block": "minecraft:shulker_box",
-                  "speed": 24
-               },
-               {
                   "block": "minecraft:undyed_shulker_box",
                   "speed": 24
                },
@@ -329,34 +406,6 @@
                },
                {
                   "block": "minecraft:warped_nylium",
-                  "speed": 24
-               },
-               {
-                  "block": "minecraft:coral",
-                  "speed": 24
-               },
-               {
-                  "block": "minecraft:coral_block",
-                  "speed": 24
-               },
-               {
-                  "block": "minecraft:coral_fan",
-                  "speed": 24
-               },
-               {
-                  "block": "minecraft:coral_fan_dead",
-                  "speed": 24
-               },
-               {
-                  "block": "minecraft:coral_fan_hang",
-                  "speed": 24
-               },
-               {
-                  "block": "minecraft:coral_fan_hang2",
-                  "speed": 24
-               },
-               {
-                  "block": "minecraft:coral_fan_hang3",
                   "speed": 24
                },
                {
@@ -421,10 +470,6 @@
                },
                {
                   "block": "minecraft:black_glazed_terracotta",
-                  "speed": 24
-               },
-               {
-                  "block": "minecraft:terracotta",
                   "speed": 24
                },
                {
@@ -528,10 +573,6 @@
                   "speed": 24
                },
                {
-                  "block": "minecraft:stone_slab24",
-                  "speed": 24
-               },
-               {
                   "block": "minecraft:double_stone_slab",
                   "speed": 24
                },
@@ -541,10 +582,6 @@
                },
                {
                   "block": "minecraft:double_stone_slab2",
-                  "speed": 24
-               },
-               {
-                  "block": "minecraft:double_stone_slab24",
                   "speed": 24
                },
                {

@@ -14,6 +14,21 @@
     "ui/machines/electric_compressor.json",
     "ui/machines/refinery.json",
     "ui/machines/fuel_loader.json",
-    "ui/machines/oxygen_collector.json"
+    "ui/machines/oxygen_collector.json",
+    "ui/machines/water_electrolyzer.json",
+    "ui/machines/gas_liquefier.json",
+    "ui/machines/oxygen_compressor.json",
+    "ui/machines/oxygen_decompressor.json",
+    "ui/machines/electric_furnace.json",
+    "ui/machines/oxygen_distributor.json",
+
+    "ui/fuel/fuel_inventory/fuel_inventory_0.json",
+    "ui/fuel/fuel_inventory/fuel_inventory_18.json",
+    "ui/fuel/fuel_inventory/fuel_inventory_36.json",
+    "ui/fuel/fuel_inventory/fuel_inventory_54.json",
+    "ui/fuel/fuel_chest/fuel_chest_inventory_0.json",
+    "ui/fuel/fuel_chest/fuel_chest_inventory_18.json",
+    "ui/fuel/fuel_chest/fuel_chest_inventory_36.json",
+    "ui/fuel/fuel_chest/fuel_chest_inventory_54.json"
   ]
 }

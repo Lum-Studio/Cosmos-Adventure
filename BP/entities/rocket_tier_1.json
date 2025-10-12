@@ -13,14 +13,33 @@
                 }
             }
       },
-      "component_groups": {},
-      "components": {
-         "minecraft:timer": {
-				"time": 1,
-				"time_down_event": {
-					"event": "cosmos:tick"
-				}
-         },         
+        "component_groups": {
+         "inv0": {
+            "minecraft:inventory": {
+               "container_type": "chest_boat",
+               "inventory_size": 2
+            }
+         },
+			"inv18": {
+            "minecraft:inventory": {
+               "container_type": "chest_boat",
+               "inventory_size": 20
+            }
+			},
+			"inv36": {
+            "minecraft:inventory": {
+               "container_type": "chest_boat",
+               "inventory_size": 38
+            }
+			},
+			"inv54": {
+            "minecraft:inventory": {
+               "container_type": "chest_boat",
+               "inventory_size": 56
+            }
+			}
+   },
+      "components": {       
          "minecraft:collision_box": {
             "height": 4,
             "width": 1
@@ -71,7 +90,27 @@
          "cosmos:tick": {
              "queue_command": {
                   "command": "scriptevent cosmos:rocket tick"
-             }
+            }
+         },
+         "cosmos:inv0": {
+                "add":{
+                    "component_groups": ["inv0"]
+            }
+         },
+         "cosmos:inv18": {
+                "add":{
+                    "component_groups": ["inv18"]
+            }
+         },
+         "cosmos:inv36": {
+                "add":{
+                    "component_groups": ["inv36"]
+            }
+         },
+         "cosmos:inv54": {
+                "add":{
+                    "component_groups": ["inv54"]
+            }
          }
       }
    }

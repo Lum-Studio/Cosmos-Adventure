@@ -1,6 +1,18 @@
 {
    "entity_sounds": {
       "entities": {
+         "cosmos:evolved_skeleton_boss": {
+            "events": {
+               "ambient": "mob.evolved_skeleton_boss.ambient",
+               "death": "mob.evolved_skeleton_boss.death",
+               "hurt": "mob.evolved_skeleton_boss.hurt",
+               "haggle.yes": "mob.evolved_skeleton_boss.laugh"
+            },
+            "pitch": [
+               1.0
+            ],
+            "volume": 1
+         },
          "cosmos:alien_villager": {
             "events": {
                "ambient": "mob.villager.idle",
@@ -15,6 +27,19 @@
                0.55
             ],
             "volume": 1
+         },
+      
+         "cosmos:evolved_zombie": {
+            "events": {
+               "ambient": "mob.zombie.say",
+               "death": "mob.zombie.death",
+               "hurt": "mob.zombie.hurt"
+            },
+            "pitch": [
+               0.8,
+               1.2
+            ],
+            "volume": 0.45
          },
          "cosmos:coal_generator": {
             "events": {
@@ -70,6 +95,18 @@
             },
             "volume": 0
          },
+         "cosmos:water_electrolyzer": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:gas_liquefier": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
          "cosmos:fuel_loader": {
             "events": {
                "death": "none"
@@ -82,7 +119,37 @@
             },
             "volume": 0
          },
+         "cosmos:oxygen_compressor": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:oxygen_distributor": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:oxygen_decompressor": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:electric_furnace": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
          "cosmos:treasure_chest": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:parachest": {
             "events": {
                "death": "none"
             },

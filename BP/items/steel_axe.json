@@ -2,9 +2,6 @@
    "format_version": "1.20.60",
    "minecraft:item": {
       "description": {
-         "menu_category": {
-            "category": "items"
-         },
          "identifier": "cosmos:steel_axe"
       },
       "components": {
@@ -15,6 +12,9 @@
          "minecraft:enchantable": {
             "value": 2,
             "slot": "axe"
+         },
+         "minecraft:durability": {
+            "max_durability": 768
          },
          "minecraft:digger": {
             "use_efficiency": true,

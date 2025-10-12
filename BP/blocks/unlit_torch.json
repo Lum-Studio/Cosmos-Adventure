@@ -1,0 +1,109 @@
+{
+    "format_version": "1.20.80",
+    "minecraft:block": {
+        "description": {
+            "identifier": "cosmos:unlit_torch",
+            "traits": {
+                "minecraft:placement_position": {
+                    "enabled_states": [
+                        "minecraft:block_face"
+                    ]
+                }
+            }
+        },
+        "components": {
+            "minecraft:collision_box": false,
+            "minecraft:selection_box": {
+                "origin": [-2, 0, -2],
+                "size": [4, 10, 4]
+            },
+            "minecraft:geometry": {
+                "identifier": "geometry.torch_block",
+                "bone_visibility": {
+                    "ground": "q.block_state('minecraft:block_face') == 'up'",
+                    "wall": "q.block_state('minecraft:block_face') != 'up'"
+                }
+            },
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "unlit_torch",
+                    "render_method": "blend",
+                    "ambient_occlusion": false,
+                    "face_dimming": false
+                }
+            },
+            "minecraft:placement_filter": {
+                "conditions": [
+                    {
+                        "allowed_faces": [
+                            "up",
+                            "side"
+                        ]
+                    }
+                ]
+            }
+        },
+        "permutations": [
+            {
+                "condition": "query.block_state('minecraft:block_face') == 'up'",
+                "components":{
+                    "minecraft:transformation":{
+                        "rotation":[0, 0, 0]
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [4, 10, 4]
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('minecraft:block_face') == 'west'",
+                "components":{
+                    "minecraft:selection_box": {
+                        "origin": [-2, 3.5, 4],
+                        "size": [4, 10, 4]
+                    },
+                    "minecraft:transformation":{
+                        "rotation":[0, 90, 0]
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('minecraft:block_face') == 'south'",
+                "components":{
+                    "minecraft:selection_box": {
+                        "origin": [-2, 3.5, 4],
+                        "size": [4, 10, 4]
+                    },
+                    "minecraft:transformation":{
+                        "rotation":[0, -180, 0]
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('minecraft:block_face') == 'east'",
+                "components":{
+                    "minecraft:selection_box": {
+                        "origin": [-2, 3.5, 4],
+                        "size": [4, 10, 4]
+                    },
+                    "minecraft:transformation":{
+                        "rotation":[0, -90, 0]
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('minecraft:block_face') == 'north'",
+                "components":{
+                    "minecraft:selection_box": {
+                        "origin": [-2, 3.5, 4],
+                        "size": [4, 10, 4]
+                    },
+                    "minecraft:transformation":{
+                        "rotation":[0, 0, 0]
+                    }
+                }
+            }
+        ]
+    }
+}

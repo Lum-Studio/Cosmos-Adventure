@@ -1,30 +1,15 @@
-import { system, ItemStack } from "@minecraft/server";
+import { ItemStack } from "@minecraft/server";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
 import recipes from "../../../recipes/circuit_fabricator.js"
-import { get_data, get_vars, compare_lists } from "../../../api/utils.js";
-
+import { compare_lists, load_dynamic_object, save_dynamic_object } from "../../../api/utils.js";
+import { get_data } from "../Machine.js";
 
 export default class {
     constructor(entity, block) {
 		this.entity = entity;
 		this.block = block;
-        if (entity.isValid()) this.fabricate()
+        if (entity.isValid) this.fabricate()
     }
-    onPlace(){
-		const container = this.entity.getComponent('minecraft:inventory').container
-		const data = get_data(this.entity);
-		const counter = new ItemStack('cosmos:ui')
-		counter.nameTag = `cosmos:§energy${Math.round((0 / data.capacity) * 55)}`
-		container.setItem(7, counter)
-		counter.nameTag = `cosmos:§prog${Math.round((0 / 300) * 51)}`
-		container.setItem(8, counter)
-		counter.nameTag = `Energy Storage\n§aEnergy: ${0} gJ\n§cMax Energy: ${data.capacity} gJ`
-		container.setItem(9, counter)
-		counter.nameTag = `Progress: ${Math.round((0 / 300) * 100)}%`
-		container.setItem(10, counter)
-		counter.nameTag = `cosmos:§stat${!0 ? '§4No Power' : 0 ? '§aRunning' : '§6Idle'}`
-		container.setItem(11, counter)
-	}
     fabricate() {
         const container = this.entity.getComponent('minecraft:inventory').container
 		const data = get_data(this.entity)
@@ -38,20 +23,18 @@ export default class {
 			"cosmos:raw_silicon",
 			"minecraft:redstone"
 		])
-		let energy = this.entity.getDynamicProperty("cosmos_energy");
-		energy = (!energy)? 0:
-		energy;
-		let progress = this.entity.getDynamicProperty("cosmos_progress");
-		progress = (!progress)? 0:
-		progress;
-		let first_energy = energy;
-		let first_progress = progress;
+
+		const variables = load_dynamic_object(this.entity, 'machine_data')
+		let energy = variables.energy || 0
+		let progress = variables.progress || 0
+
+		let first_values = [energy, progress]
 		
 	    energy = charge_from_machine(this.entity, this.block, energy)
 		
 		energy = charge_from_battery(this.entity, energy, 5)
 		
-		if (is_loaded && result && has_space && energy > 0 && progress < 300) {
+		if (is_loaded && result && has_space && energy > 0 && progress < 150) {
 			progress++
 			energy -= Math.min(20, energy)
 		}
@@ -60,7 +43,7 @@ export default class {
 		
 		if (!is_loaded || !result) progress = 0
 		
-		if (progress == 300) {
+		if (progress == 150) {
 			progress = 0
 			container.setItem(4, raw_item.decrementStack())
 			for (let i=0; i<4; i++) {
@@ -70,28 +53,15 @@ export default class {
 				output_item.amount += result[1]
 				container.setItem(6, output_item)
 			} else container.setItem(6, new ItemStack(result[0], result[1]));
-			// world.playSound was deprecated
 			this.block.dimension.playSound("random.anvil_land", this.entity.location)
 		}
-		const counter = new ItemStack('cosmos:ui')
-		if(progress !== first_progress || energy !== first_energy){
-			counter.nameTag = `cosmos:§stat${!energy ? '§4No Power' : progress ? '§aRunning' : '§6Idle'}`
-			container.setItem(11, counter)
-		}
 
-		if(energy !== first_energy){
-			this.entity.setDynamicProperty("cosmos_energy", energy);
-			counter.nameTag = `cosmos:§energy${Math.round((energy / data.capacity) * 55)}`
-			container.setItem(7, counter)
-			counter.nameTag = `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.capacity} gJ`
-			container.setItem(9, counter)
-		}
-		if(progress !== first_progress){
-			this.entity.setDynamicProperty("cosmos_progress", progress);
-			counter.nameTag = `cosmos:§prog${Math.round((progress / 300) * 51)}`
-			container.setItem(8, counter)
-			counter.nameTag = `Progress: ${Math.round((progress / 300) * 100)}%`
-			container.setItem(10, counter)
+		save_dynamic_object(this.entity, 'machine_data', {energy, progress})
+		if(!compare_lists(first_values, [energy, progress]) || !container.getItem(7)){
+			const energy_hover = `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`
+			container.add_ui_display(7, energy_hover, Math.round((energy / data.energy.capacity) * 55))
+			container.add_ui_display(8, `Progress: ${Math.round((progress / 150) * 100)}%`, Math.round((progress / 150) * 51))
+			container.add_ui_display(9, `§r Status:\n${!energy ? '§4No Power' : progress ? '§2Running' : '   §6Idle'}`)
 		}
 	}
 }

@@ -2,9 +2,6 @@
    "format_version": "1.20.60",
    "minecraft:item": {
       "description": {
-         "menu_category": {
-            "category": "items"
-         },
          "identifier": "cosmos:steel_sword"
       },
       "components": {
@@ -15,6 +12,9 @@
          "minecraft:enchantable": {
             "value": 15,
             "slot": "sword"
+         },
+         "minecraft:durability": {
+            "max_durability": 768
          },
          "minecraft:can_destroy_in_creative": false,
          "minecraft:tags": {

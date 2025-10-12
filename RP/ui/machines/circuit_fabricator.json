@@ -1,229 +1,139 @@
 {
     "namespace": "circuit_fabricator",
 	
-	"progress_hover@cosmos.button": {
-		"$action": "",
-		"size": [53, 12],
-		"anchor_from": "top_left",
-		"anchor_to": "top_left",
-		"controls": [
-			{
-				"hover": {
-					"type": "custom",
-					"renderer": "hover_text_renderer",
-					"layer": 50,
-					"bindings": [
-						{
-							"binding_name": "#hover_text",
-							"binding_type": "collection",
-							"binding_collection_name": "container_items"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(#hover_text - '§o')",
-							"target_property_name": "#hover_text"
-						}
-					]
-				}
-			}
-		],
-		"bindings": [
-			{
-				"binding_name": "#hover_text",
-				"binding_type": "collection",
-				"binding_collection_name": "container_items"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(not(#hover_text - 'Progress' = #hover_text))",
-				"target_property_name": "#visible"
-			}
-		]
-	},
-	
-	"progress": {
-		"type": "panel",
-		"size": [1, 0],
-		"anchor_to": "top_left",
-		"anchor_from": "top_left",
-		"controls": [
-			{
-				"clipper": {
-					"type": "panel",
-					"clips_children": true,
-					"offset": [1, 1],
-					"size": [1, 10],
-					"anchor_to": "top_left",
-					"anchor_from": "top_left",
-					"controls": [
-						{
-							"image": {
-								"anchor_to": "top_left",
-								"anchor_from": "top_left",
-								"type": "image",
-								"size": [51, 30],
-								"texture": "textures/ui/cosmos/fabricating"
-							}
-						}
-					],
-					"bindings": [
-						{
-							"binding_name": "#hover_text",
-							"binding_name_override": "#progress",
-							"binding_type": "collection",
-							"binding_collection_name": "container_items"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(#progress - 'cosmos:§prog' - '§o' - '§f' )",
-							"target_property_name": "#amount"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(not(#progress - 'cosmos:§prog' = #progress))",
-							"target_property_name": "#visible"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "#amount",
-							"target_property_name": "#size_binding_x"
-						}
-					]
-				}
-			}
-		]
-	},
-
-    "interface@machines.interface": {
-		"$screen": "circuit_fabricator.main",
-		"$size": ["100%", "120%"]
-    },
-    "main@machines.tall_screen": {
-        "$machine": "circuit_fabricator",
-        "controls": [
-            // {"test@machines.pixel_counter": {}},
-			{ "label@machines.text": {
+    "interface@machines.dynamic_interface": {
+        "$size": ["100%", 192],
+        "$content": [
+			{ "title": {
+				"type": "label",
 				"text": "Circuit Fabricator",
-				"offset": [ 10, 5 ],
+				"color": "$title_text_color",
 				"anchor_from": "top_left",
-				"anchor_to": "top_left"
+				"anchor_to": "top_left",
+				"offset": [ 10, 5 ]
 			}},
-			{
-				"background": {
-					"type":"image",
-					"size": [155, 87],
-					"offset": [0, 5],
-					"texture": "textures/ui/cosmos/circuit_fabricator_background"
-				}
-			},
-            {
-                "diamond@machines.item_grid": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 10, 20 ],
-					"grid_dimensions": [ 1, 1 ]
-                }
-            },
-			{
-				"diamond_overlay@machines.item_image": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 11, 21 ],
-					"texture": "textures/items/diamond",
-					"alpha": 0.25
-				}
-			},
-            {
-                "silicon@machines.clipper": {
-                    "offset": [ -8, 8 ],
-					"size": [ 20, 36 ],
-                    "$grid_size": [ 1, 3 ],
-                    "$grid_pixels": [18, 54]
-                }
-            },
-			{
-				"silicon1_overlay@machines.item_image": {
-                    "offset": [ -7.5, -1 ],
-					"texture": "textures/items/raw_silicon",
-					"uv_size": [32, 32],
-					"alpha": 0.25
-				}
-			},
-			{
-				"silicon2_overlay@machines.item_image": {
-                    "offset": [ -7.5, 17 ],
-					"texture": "textures/items/raw_silicon",
-					"uv_size": [32, 32],
-					"layer": 21,
-					"alpha": 0.25
-				}
-			},
-            {
-                "redstone@machines.clipper": {
-                    "offset": [ 39, -1 ],
-                    "$grid_size": [ 1, 4 ],
-                    "$grid_pixels": [18, 72]
-                }
-            },
-			{
-				"redstone_overlay@machines.item_image": {
-                    "offset": [ 40, -1 ],
-					"texture": "textures/items/redstone_dust",
-					"alpha": 0.25
-				}
-			},
-            {
-                "input@machines.clipper": {
-                    "offset": [ 63, -26 ],
-                    "$grid_size": [ 1, 5 ],
-                    "$grid_pixels": [18, 90]
-                }
-            },
-            {
-                "battery@machines.clipper": {
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-                    "offset": [ 5, 70 ],
-                    "$grid_size": [ 1, 6 ],
-                    "$grid_pixels": [18, 108],
-                	"$overlay": "textures/ui/extra_slots/power"
-                }
-            },
-            {
-                "output@machines.clipper": {
-                    "offset": [ 70, 39 ],
-                    "$grid_size": [ 1, 7 ],
-                    "$grid_pixels": [18, 126]
-                }
-            },
-            {
-                "progress": {
-					"type":"image",
-					"texture": "textures/ui/cosmos/progress_bar",
-                    "offset": [ 22, -29 ],
-                    "size": [ 53, 12 ],
-					"controls": [
-						{
-							"progress@machines.item_data": {
-								"$name": "progress",
-								"anchor_from": "top_left",
+			{ "background": {
+				"type":"image",
+				"texture": "textures/ui/cosmos/circuit_fabricator_background",
+				"size": [155, 87],
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"offset": [14, 16]
+			}},
+			{ "diamond_input@machines.item_slot": {
+				"$index": 0,
+				"$overlay_texture": "textures/items/diamond",
+				"$overlay_alpha": 0.25,
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"offset": [ 14, 16 ]
+			}},
+			{ "silicon_input1@machines.item_slot": {
+				"$index": 1,
+				"$overlay_texture": "textures/items/raw_silicon",
+				"$overlay_alpha": 0.25,
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"offset": [ 73, 45 ]
+			}},
+			{ "silicon_input2@machines.item_slot": {
+				"$index": 2,
+				"$overlay_texture": "textures/items/raw_silicon",
+				"$overlay_alpha": 0.25,
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"offset": [ 73, 63 ]
+			}},
+			{ "redstone_input@machines.item_slot": {
+				"$index": 3,
+				"$overlay_texture": "textures/items/redstone_dust",
+				"$overlay_alpha": 0.25,
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"offset": [ 121, 45 ]
+			}},
+			{ "input_slot@machines.item_slot": {
+				"$index": 4,
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"offset": [ 144, 19 ]
+			}},
+			{ "battery_slot@machines.item_slot": {
+				"$index": 5,
+				"$overlay_texture": "textures/ui/cosmos/slot_overlay/power",
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"offset": [ 5, 68 ]
+			}},
+			{ "output_slot@machines.item_slot": {
+				"$index": 6,
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"offset": [ 151, 85 ]
+			}},
+            { "energy_bar@machines.energy_bar": {
+                "$index": 7,
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "offset": [ 17, 88 ]
+            }},
+			{ "progress@circuit_fabricator.progress_bar": {
+				"$index": 8,
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"offset": [ 87, 19 ]
+			}},
+            { "status@machines.item_text": {
+                "$index": 9,
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "offset": [ 92, 80 ]
+            }}
+		]
+    },
+	
+	"progress_bar": {
+		"type":"image",
+		"texture": "textures/ui/cosmos/machines/progress_bar",
+		"size": [ 53, 12 ],
+		"controls": [
+			{ "progress@machines.specific_slot": {
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"controls": [
+					{ "progress_bar": {
+						"type": "panel",
+						"collection_index": "$index",
+						"anchor_from": "top_left",
+						"anchor_to": "top_left",
+						"size": [1, 0],
+						"controls": [
+							{ "progress_fill": {
+								"type": "panel",
+								"clips_children": true,
+								"size": [1, 10],
+								"offset": [1, 1],
 								"anchor_to": "top_left",
-								"layer": 4
-							}
-						},
-						{
-							"progress_text@machines.item_data": {
-								"$name": "progress_hover"
-							}
-						}
-					]
-                }
-            },
-            {
-                "capacity@machines.energy_bar": {
-                    "offset": [ -43, 40 ]
-                }
-            }
-        ]
-    }
+								"anchor_from": "top_left",
+								"bindings": "$use_durability",
+								"$source": "#data",
+								"$target": "#size_binding_x",
+								"$visible_if": "(not (#data = 1000))",
+								"controls": [
+									{ "image": {
+										"anchor_to": "top_left",
+										"anchor_from": "top_left",
+										"type": "image",
+										"size": [51, 30],
+										"texture": "textures/ui/cosmos/machines/fabricating"
+									}}
+								]
+							}}
+						]
+					}}
+				]
+			}},
+			{ "hover_text@machines.item_hover": {}}
+		]
+	}
 }

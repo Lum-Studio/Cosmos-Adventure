@@ -119,11 +119,13 @@ const easyTrigger = (data) => BlockUpdate.trigger(data.block);
 world.beforeEvents.playerInteractWithBlock.subscribe((data) => {
   if (!data.isFirstEvent) return;
   system.run(() => {
-    if (!data.block.isValid() || data.cancel) return;
+    if (!data.block.isValid || data.cancel) return;
     BlockUpdate.trigger(data.block);
   });
 });
 world.afterEvents.playerBreakBlock.subscribe(easyTrigger);
+world.afterEvents.buttonPush.subscribe(easyTrigger);
+world.afterEvents.leverAction.subscribe(easyTrigger);
 world.afterEvents.pistonActivate.subscribe(easyTrigger);
 world.afterEvents.playerPlaceBlock.subscribe(easyTrigger);
 world.afterEvents.pressurePlatePop.subscribe(easyTrigger);

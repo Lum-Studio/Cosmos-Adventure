@@ -1,94 +1,105 @@
-import { system, ItemStack } from "@minecraft/server";
-import { get_data } from "../../../api/utils";
+import { system, world, BlockVolume, ItemStack} from "@minecraft/server";
+import { get_data } from "../Machine";
+import { load_dynamic_object, save_dynamic_object } from "../../../api/utils"
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity";
+import { output_fluid } from "../../matter/fluids";
 
+let valid_oxygen_blocks = ["minecraft:oak_leaves",
+    "minecraft:spruce_leaves",
+    "minecraft:birch_leaves",
+    "minecraft:jungle_leaves", 
+    "minecraft:acacia_leaves", 
+    "minecraft:dark_oak_leaves"
+]
 export default class {
     constructor(entity, block) {
         this.entity = entity;
         this.block = block;
-        if (entity.isValid()) this.collect_oxygen();
+        if (entity.isValid) this.collect_oxygen();
     }
 
     onPlace() {
-        const container = this.entity.getComponent('minecraft:inventory').container;
-        const data = get_data(this.entity);
-        const counter = new ItemStack('cosmos:ui');
-        
-        // Initialize UI elements
-        counter.nameTag = `cosmos:§energy${Math.round((0 / data.capacity) * 55)}`;
-        container.setItem(12, counter);
-        
-        counter.nameTag = `cosmos:§prog${Math.ceil((0 / 200) * 52)}`;
-        container.setItem(13, counter);
-        
-        counter.nameTag = `cosmos:  Status:\n§6No Valid Oxygen Tank`;
-        container.setItem(14, counter);
-        
-        counter.nameTag = `Energy Storage\n§aEnergy: ${0} gJ\n§cMax Energy: ${data.capacity} gJ`;
-        container.setItem(15, counter);
+        if(this.block.dimension.id == "minecraft:the_end"){
+            let {x, y, z} = this.block.location;
+            let block_number = 0;
+            for(let location of this.block.dimension.getBlocks(
+                new BlockVolume({x: x + 5, y: y + 5, z: z + 5}, {x: x - 5, y: y - 5, z: z - 5}),
+                { includeTypes: valid_oxygen_blocks }
+            ).getBlockLocationIterator()){ block_number++ } 
+            this.entity.setDynamicProperty("cosmos_oxygen_source", block_number);
+        }
     }
 
     collect_oxygen() {
-        const container = this.entity.getComponent('minecraft:inventory').container;
+        let dimension = this.entity.dimension.id;
         const data = get_data(this.entity);
-        const vars_item = container.getItem(16);
-        
-        let energy = this.entity.getDynamicProperty("cosmos_energy") || 0;
-        let progress = this.entity.getDynamicProperty("cosmos_progress") || 0;
-        const first_energy = energy;
-        const first_progress = progress;
+        const container = this.entity.getComponent('minecraft:inventory').container;
+        const variables = load_dynamic_object(this.entity, 'machine_data');
 
+        let energy = variables.energy || 0;
+        let o2 = variables.o2 || 0;
+        let oxygen_source_bloks = this.entity.getDynamicProperty("cosmos_oxygen_source") || 0;
+        oxygen_source_bloks = (dimension == "minecraft:overworld" && energy > 0)? 93:
+        (energy > 0)? oxygen_source_bloks:
+        0;
+        const first_energy = energy;
+        const first_oxygen = o2;
+
+        o2 = output_fluid("o2", this.entity, this.block, o2);
+
+        if(!(system.currentTick % 10) && energy > 200){
+            let number_of_leaves = (dimension == "minecraft:the_end")? 
+            this.entity.getDynamicProperty("cosmos_oxygen_source"):
+            93; 
+            number_of_leaves = (number_of_leaves)? number_of_leaves:
+            0;
+            o2 += Math.floor((0.75 * number_of_leaves));
+            o2 = Math.min(o2, 6000)
+        }
         // Energy management
         energy = charge_from_machine(this.entity, this.block, energy);
-        energy = charge_from_battery(this.entity, energy, 11);
+        energy = charge_from_battery(this.entity, energy, 0);
+        energy = Math.max(0, energy - 10);
 
-        // Check for valid oxygen tank
-        const oxygen_tank = container.getItem(3); // Slot 3 for oxygen tank
-        const has_tank = oxygen_tank?.typeId === "cosmos:oxygen_tank";
-        const tank_space = has_tank ? (oxygen_tank.maxAmount - oxygen_tank.amount) : 0;
+        const status = energy == 0 ? "§4Not Enough Power" :
+        (oxygen_source_bloks < 2 && dimension !== "minecraft:overworld")? "§4Not Enough Leaf Blocks":
+		"§2Active";
+        
+        save_dynamic_object(this.entity, 'machine_data', {energy, o2});
 
-        // Production logic
-        const can_produce = has_tank && tank_space > 0 && energy > 0;
-        const production_rate = 5; // Oxygen units per tick
-        const energy_cost = 2; // Energy per tick
-
-        if (can_produce) {
-            // Update progress and energy
-            progress = Math.min(progress + 5, 200);
-            energy = Math.max(energy - energy_cost, 0);
-
-            // Complete production cycle
-            if (progress >= 200) {
-                container.setItem(3, oxygen_tank.incrementStack());
-                progress = 0;
-                this.block.dimension.playSound("random.anvil_land", this.entity.location);
-            }
-        } else if (progress > 0) {
-            progress = Math.max(progress - 5, 0);
-        }
-
-        // Update UI
-        const counter = new ItemStack('cosmos:ui');
-        const status = has_tank ? 
-            (can_produce ? "§aCollecting" : "§6Not Enough Power") : 
-            "§cNo Oxygen Tank";
-
-        if (energy !== first_energy) {
-            this.entity.setDynamicProperty("cosmos_energy", energy);
-            counter.nameTag = `cosmos:§energy${Math.round((energy / data.capacity) * 55)}`;
-            container.setItem(12, counter);
-            
-            counter.nameTag = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.capacity} gJ`;
-            container.setItem(15, counter);
-        }
-
-        if (progress !== first_progress) {
-            this.entity.setDynamicProperty("cosmos_progress", progress);
-            counter.nameTag = `cosmos:§prog${Math.ceil((progress / 200) * 52)}`;
-            container.setItem(13, counter);
-            
-            counter.nameTag = `cosmos:  Status:\n${status}`;
-            container.setItem(14, counter);
-        }
+        const energy_hover = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.energy.capacity} gJ`;
+        const oxygen_hover = `Oxygen Storage\n§aOxygen: ${o2}/${data["o2"].capacity}`;
+        
+		container.add_ui_display(1, energy_hover, Math.round((energy / data.energy.capacity) * 55))
+        container.add_ui_display(2, oxygen_hover, Math.round((o2 / data["o2"].capacity) * 55))
+        container.add_ui_display(3, '§rStatus: ' + status)
+        container.add_ui_display(4, `§rCollecting: §r${oxygen_source_bloks}/s`)
     }
+}
+
+world.afterEvents.playerPlaceBlock.subscribe((data) => {
+    if(data.block.dimension.id == "minecraft:the_end" && /minecraft:.+_leaves/.test(data.block.typeId)){
+        find_oxygen(data.block, false)
+    }
+});
+world.afterEvents.playerBreakBlock.subscribe((data) => {
+    if(data.block.dimension.id == "minecraft:the_end" && /minecraft:.+_leaves/.test(data.brokenBlockPermutation.type.id)){
+        find_oxygen(data.block, true)
+    }
+});
+
+function find_oxygen(block, must_delete){
+    let collectors = block.dimension.getEntities({location: block.location, maxDistance: 5, type: "cosmos:oxygen_collector"});
+    collectors.forEach(collector => {
+        let leaves = collector.getDynamicProperty("cosmos_oxygen_source");
+        let number_of_leaves = 0;
+        if(must_delete){
+            number_of_leaves = (!leaves)? 0:
+            leaves - 1;
+        }else{
+            number_of_leaves = (!leaves)? 1:
+            leaves + 1;
+        }
+        collector.setDynamicProperty("cosmos_oxygen_source", number_of_leaves);
+    });
 }

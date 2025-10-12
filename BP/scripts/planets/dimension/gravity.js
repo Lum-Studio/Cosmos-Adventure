@@ -152,7 +152,7 @@ export function player_gravity(players){
       player.fallVelocity -= (0.2 * 9.8/( (gravity.value + 9.8*0.2) / 1.2 )) + ((player.getEffect('jump_boost')?.amplifier ?? -1) + 1)/10
     }
 
-    if (player.isOnGround || player.isSwiming || player.isInWater || player.isFlying || player.isGliding) {
+    if (player.isOnGround || player.isSwimming || player.isInWater || player.isFlying || player.isGliding) {
       player.fallVelocity = 0
       player.fallingTime = 0
       player.savedXZ = undefined
@@ -188,9 +188,9 @@ export function player_gravity(players){
       }
     }
 
-    if (player.fallVelocity != 0) player.applyKnockback(0, 0, 0, 0)
-    player.applyKnockback(xz.x, xz.z, xzPower, -player.fallVelocity)
-
+    if (player.fallVelocity != 0) player.applyKnockback({x: 0, z: 0}, 0)
+    player.applyKnockback({x: xz.x * xzPower, z: xz.z * xzPower}, -player.fallVelocity)
+    
     let ray = player.dimension.getBlockFromRay(player.location, { 
       x: 0,
       y: -1,
@@ -206,7 +206,7 @@ export function player_gravity(players){
   }
 
   GravityEntities.forEach((entity, index) => {
-    if (!entity.isValid() || entity.dimension.id != 'minecraft:the_end') return GravityEntities.splice(index, 1);
+    if (!entity.isValid || entity.dimension.id != 'minecraft:the_end') return GravityEntities.splice(index, 1);
     setGravity(entity)
 
     if (entity.isInWater) entity.fallingVelocity = 0;
@@ -223,7 +223,7 @@ export function player_gravity(players){
     const gravity = Gravity.of(entity)
     if (gravity.value == 9.8) return;
 
-    if (entity.isOnGround || entity.isSwiming || entity.isInWater || entity.getComponent('can_fly')) return;
+    if (entity.isOnGround || entity.isSwimming || entity.isInWater || entity.getComponent('can_fly')) return;
 
     if (entity.getComponent('projectile') == undefined) {
       entity.applyImpulse({ x: 0, z: 0, y: (9.8 - gravity.value)/130/(EntityGravityMod[entity.typeId] || 1) })
