@@ -40,12 +40,12 @@
       },
       "minecraft:material_instances": {
         "*": {
-          "texture": "cosmos:empty",
+          "texture": "empty",
           "render_method": "blend"
         }
       },
       "minecraft:destruction_particles": {
-        "texture": "cosmos:empty"
+        "texture": "empty"
       },
       "minecraft:loot": "loot_tables/empty.json",
       "minecraft:selection_box": false,
