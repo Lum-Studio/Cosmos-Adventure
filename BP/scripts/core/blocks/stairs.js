@@ -177,14 +177,17 @@ function updateStair(block) {
         event: "before",
         check: (block) => block.hasTag(tag),
         execute: (event) => {
-            const { block } = event;
+            const { block, dimension } = event;
             if (!block || !block.isValid) return;
-            
+
+            const { x, y, z } = block.location;
+
+            // "before" logic
             system.run(() => {
                 const above = block.above();
                 const below = block.below();
                 
-                if (above?.typeId.includes("stairs_collision")) {
+                if (above?.typeId === blocker) {
                     untrackBlock(above.location);
                     above.setPermutation(BlockPermutation.resolve("minecraft:air"));
                 }
@@ -194,30 +197,27 @@ function updateStair(block) {
                     below.setPermutation(BlockPermutation.resolve("minecraft:air"));
                 }
             });
-        }
-    });
 
-    registerBreakHandler({
-        event: "after",
-        check: (event) => {
-            try {
-                const { brokenBlock, dimension } = event;
-                const { x, y, z } = brokenBlock.location;
+            // "after" logic, delayed
+            system.run(() => {
                 const north = dimension.getBlock({x: x, y: y, z: z - 1});
                 const south = dimension.getBlock({x: x, y: y, z: z + 1});
                 const east = dimension.getBlock({x: x + 1, y: y, z: z});
                 const west = dimension.getBlock({x: x - 1, y: y, z: z});
-                const above = dimension.getBlock({x: x, y: y + 1, z: z});
-                const below = dimension.getBlock({x: x, y: y - 1, z: z});
-                return [north, south, east, west, above, below].some(b => b && b.hasTag(tag));
-            } catch (e) {
-                return false;
-            }
-        },
-        execute: (event) => {
-            const { brokenBlock } = event;
-            if (!brokenBlock || !brokenBlock.isValid) return;
-            updateNeighbors(event.dimension.getBlock(brokenBlock.location));
-            updateBlocker(event.dimension.getBlock(brokenBlock.location));
+                const aboveBlock = dimension.getBlock({x: x, y: y + 1, z: z});
+                const belowBlock = dimension.getBlock({x: x, y: y - 1, z: z});
+
+                const neighbors = [north, south, east, west, aboveBlock, belowBlock];
+                if (neighbors.some(b => b && b.hasTag(tag))) {
+                    if (north?.hasTag(tag)) system.run(() => updateStair(north));
+                    if (south?.hasTag(tag)) system.run(() => updateStair(south));
+                    if (east?.hasTag(tag)) system.run(() => updateStair(east));
+                    if (west?.hasTag(tag)) system.run(() => updateStair(west));
+                    if (aboveBlock?.hasTag(tag)) system.run(() => updateStair(aboveBlock));
+                    if (belowBlock?.hasTag(tag)) system.run(() => updateStair(belowBlock));
+
+                    updateBlocker(dimension.getBlock(block.location));
+                }
+            });
         }
     });
