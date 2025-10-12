@@ -181,11 +181,10 @@ function updateStair(block) {
             if (!block || !block.isValid) return;
             
             system.run(() => {
-                // Remove associated blocker blocks when stairs are destroyed
                 const above = block.above();
                 const below = block.below();
                 
-                if (above?.typeId.includes("_stairs_collision")) {
+                if (above?.typeId.includes("stairs_collision")) {
                     untrackBlock(above.location);
                     above.setPermutation(BlockPermutation.resolve("minecraft:air"));
                 }
@@ -218,8 +217,6 @@ function updateStair(block) {
         execute: (event) => {
             const { brokenBlock } = event;
             if (!brokenBlock || !brokenBlock.isValid) return;
-
-            // When a block is broken, we only need to update its neighbors.
             updateNeighbors(event.dimension.getBlock(brokenBlock.location));
             updateBlocker(event.dimension.getBlock(brokenBlock.location));
         }
