@@ -218,7 +218,7 @@ export function fluidNetwork(foundMachines){
 					let inputs = find_connected_machines(input_side, input_side.permutation, machine.id);
 					machines.pipe_count.input[slot[0]] = inputs.pipes_counter ?? 0;
 					if(inputs?.foundMachines?.length > 0){
-						machines.found_machines[slot[0]] = machines[slot[0]] ?? {};
+						machines.found_machines[slot[0]] = machines.found_machines[slot[0]] ?? {};
 						machines.found_machines[slot[0]].input = inputs?.foundMachines 
 					}
 				}
@@ -231,7 +231,7 @@ export function fluidNetwork(foundMachines){
 					let outputs = find_connected_machines(output_side, output_side.permutation, machine.id);
 					machines.pipe_count.output[slot[0]] = outputs.pipes_counter ?? 0;
 					if(outputs?.foundMachines?.length > 0){
-						machines.found_machines[slot[0]] = machines[slot[0]] ?? {};
+						machines.found_machines[slot[0]] = machines.found_machines[slot[0]] ?? {};
 						machines.found_machines[slot[0]].output = outputs?.foundMachines;
 					}
 				}

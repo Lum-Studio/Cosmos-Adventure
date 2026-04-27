@@ -108,7 +108,7 @@ export default {
 		o2: {input: "left", capacity: 6000, maxInput: 16},
 	},
 	"oxygen_storage_module": {
-		ui: "",
+		ui: "§o§x§y§g§e§n§_§s§t§o§r§a§g§e",
 		class: OxygenStorage,
 		o2: {input: "right", "output": "left", capacity: 60000, maxInput: 16},
 	},

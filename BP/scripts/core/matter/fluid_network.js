@@ -14,7 +14,7 @@ export function get_fluid_amount(machine, fluid_data, amount){
     let fluid_storage = storage_object?.input?.[fluid_type];
     storage_object = storage_object ? storage_object: {};
     storage_object.input = storage_object?.input ? storage_object.input: {}; 
-
+    
     if(fluid_storage) {
         let machine_entity = (machine.id == fluid_storage.id)? machine: world.getEntity(fluid_storage.id);
         let fluid_object = load_dynamic_object(machine_entity, 'machine_data', 'fluid_storage_amount');
@@ -156,7 +156,6 @@ function pipes_fluid_amount(fluid, amount, max_space){
 
 export function update_network(storage, fluid, old_list, new_list){
     if(!fluid || Object.keys(fluid.input ?? {}).length === 0) return;
-    
     let disconnected_machines = compare_lists(old_list, new_list);
     if(!Object.keys(disconnected_machines ?? {}).length) return;
     
@@ -182,7 +181,6 @@ function compare_lists(old_list, new_list){
                 let similliar_machine = new_sides[slot[0]]?.[side]?.find(element => element[0] == machine_id);
                 let machine_in_list = disconnected_machines[machine[0]]?.[slot[0]] ?? {};
 
-                
                 Object.entries(machine[1]).forEach((old_slot) => {
                     if(!similliar_machine){
                         let machine_slot = {[old_slot[0]]: old_slot[1]}

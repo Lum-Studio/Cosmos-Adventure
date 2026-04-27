@@ -22,6 +22,7 @@
     "ui/machines/electric_furnace.json",
     "ui/machines/oxygen_distributor.json",
     "ui/machines/solar_panel.json",
+    "ui/machines/oxygen_storage.json",
 
     "ui/fuel/fuel_inventory/fuel_inventory_0.json",
     "ui/fuel/fuel_inventory/fuel_inventory_18.json",
