@@ -65,7 +65,7 @@ export function detach_pipes(block) {
 export function attach_pipes(block){
 	const data = Object.entries(machines[block.typeId.replace('cosmos:', '')]);
 	data.forEach((slot) => {
-		if(slot[0] == 'energy') return;
+		if(slot[0] == 'energy' || slot[0] == 'items') return;
 		if(slot[1].input){
 			const pipe = block.dimension.getBlock(location_of_side(block, slot[1].input));
 			if(/cosmos:fluid_pipe/.test(pipe?.typeId)) connect_pipes(pipe)

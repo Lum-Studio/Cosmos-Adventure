@@ -15,6 +15,7 @@ import Parachest from './blocks/Parachest'
 import OxygenDistributor from './blocks/OxygenDistributor'
 import OxygenStorage from './blocks/OxygenStorage'
 import BasicSolarPanel from './blocks/BasicSolarPanel'
+import Deconstructor from './blocks/Deconstructor'
 
 import { place_parachest } from './blocks/Parachest'
 
@@ -78,6 +79,11 @@ export default {
 			side_input: [0],
 			output: [2]
 		},
+	},
+	"deconstructor":{
+		ui: "",
+		class: Deconstructor,
+		energy: {input: "right", capacity: 16000, maxInput: 45}
 	},
 	"basic_solar_panel": {
 		ui: "§s§o§l§a§r§_§p§a§n§e§l",
