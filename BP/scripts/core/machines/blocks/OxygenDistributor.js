@@ -67,6 +67,4 @@ const data = {
             container.add_ui_toggle(5, visible_button ? 0 : 1)
         }
     }
-}
-
-export default data
+}; export default data

@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.80",
+	"format_version": "1.21.100",
   "minecraft:block": {
 	"description": {
 	  "identifier": "cosmos:compressor",
@@ -14,8 +14,9 @@
 	"components": {
     "minecraft:display_name": "%tile.machine.3.name\n§7%tile.compressor.description",
 	  "tag:machine": {},
-	  "minecraft:custom_components": ["cosmos:machine"],
-	  "minecraft:destructible_by_explosion": false,
+    "cosmos:machine": {},
+    "minecraft:destructible_by_explosion": false,
+    "minecraft:movable": { "movement_type": "immovable" },
 	  "minecraft:destructible_by_mining": {
 		  "seconds_to_destroy": 0.5
 	  },

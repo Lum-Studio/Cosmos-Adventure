@@ -44,6 +44,4 @@ const data = {
 			container.add_ui_display(1, display_text)
 		}
 	}
-}
-
-export default data
+}; export default data

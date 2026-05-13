@@ -1,4 +1,4 @@
-import { world, ItemStack, system } from "@minecraft/server"
+import { ItemStack, system } from "@minecraft/server"
 import recipes  from "../../recipes/nasa_workbench"
 
 const schematics = {
@@ -13,6 +13,13 @@ const MAXSIZE = 18
 const BUTTONS = MAXSIZE + 5
 const SCHEMA = BUTTONS + 6
 const SCHEMAS = SCHEMA + 2
+
+function set_ui_button(container, slot, text, lore) {
+    const button = new ItemStack('cosmos:ui_button')
+    button.nameTag = text ?? ''
+    if (lore) button.setLore(lore)
+    container.setItem(slot, button)
+}
 
 function select_recipe(recipe, workbench, player) {
     workbench.setDynamicProperty('recipe', recipe)
@@ -33,6 +40,7 @@ function block_all_slots(workbench, player) {
 }
 
 function tick(workbench) {
+    if (!workbench) return
     // retrive data
     const inventory = workbench.getComponent("minecraft:inventory").container
     const selected_recipe = workbench.getDynamicProperty('recipe')
@@ -64,7 +72,7 @@ function tick(workbench) {
     const craft_button = inventory.getItem(MAXSIZE + 4)
     if (!craft_button) {
         // reset the button
-        inventory.old_ui_button(MAXSIZE + 4)
+        set_ui_button(inventory, MAXSIZE + 4)
         // consume the crafting materials
         for (let i = 0; i < recipe.length; i++) {
             inventory.setItem(i, inventory.getItem(i)?.decrementStack())
@@ -99,9 +107,9 @@ function tick(workbench) {
     // change the craft button depending on the inputs
     if (recipe_matches && !(selected_recipe == 'cosmos:cargo_rocket_item' && storage_size == 0)) {
         const button_name = `§craft_button:size${storage_size}${selected_recipe}`
-        if (!craft_button || craft_button.nameTag != button_name) inventory.old_ui_button(MAXSIZE + 4, button_name, [workbench.id])
+        if (!craft_button || craft_button.nameTag != button_name) set_ui_button(inventory, MAXSIZE + 4, button_name, [workbench.id])
     } else {
-        if (!craft_button || craft_button.nameTag) inventory.old_ui_button(MAXSIZE + 4)
+        if (!craft_button || craft_button.nameTag) set_ui_button(inventory, MAXSIZE + 4)
     }
 
     // get the schematic
@@ -128,7 +136,7 @@ function tick(workbench) {
         }
         //set up the button
         const button_name = unlocked_schematics[i] ? `§side_button:${button_names[i]}` : ''
-        if (inventory.getItem(BUTTONS + +i)?.nameTag != button_name) inventory.old_ui_button(BUTTONS + +i, button_name)
+        if (inventory.getItem(BUTTONS + +i)?.nameTag != button_name) set_ui_button(inventory, BUTTONS + +i, button_name)
     }
 
     //the button that takes you to the schmatic insertion screen
@@ -142,14 +150,14 @@ function tick(workbench) {
     }
     //reset the button
     const unlock_button_name = unlocked_schematics.includes(false) ? `§side_button:Add Schemas` : ''
-    if (inventory.getItem(SCHEMA)?.nameTag != unlock_button_name) inventory.old_ui_button(SCHEMA, unlock_button_name)
+    if (inventory.getItem(SCHEMA)?.nameTag != unlock_button_name) set_ui_button(inventory, SCHEMA, unlock_button_name)
 
     //detect pressing the unlock button
     const unlock_button = inventory.getItem(SCHEMA + 1)
     if (!unlock_button) {
         //reset the button
         workbench.runCommand('clear @a cosmos:ui_button')
-        inventory.old_ui_button(SCHEMA + 1, 'Unlock')
+        set_ui_button(inventory, SCHEMA + 1, 'Unlock')
         //get the placed schematic and make sure its new
         if (!schematic) return
         if (!schematic_names.includes(schematic.typeId)) return
@@ -196,8 +204,8 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
                 select_recipe('cosmos:rocket_tier_1_item', entity)
                 const inventory = entity.getComponent('inventory').container
                 for (let i = SCHEMAS; i < SCHEMAS + 9; i++) inventory.add_ui_display(i)
-                    for (let i = BUTTONS - 1; i < BUTTONS + 8; i++) inventory.old_ui_button(i)
-                inventory.old_ui_button(SCHEMA + 1, 'Unlock')
+                    for (let i = BUTTONS - 1; i < BUTTONS + 8; i++) set_ui_button(inventory, i)
+                set_ui_button(inventory, SCHEMA + 1, 'Unlock')
                 inventory.add_ui_display(SCHEMAS + 5, 'Tier 1 Rocket', 1)
             });
         },

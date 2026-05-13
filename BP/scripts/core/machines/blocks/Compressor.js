@@ -74,6 +74,4 @@ const data = {
 			container.add_ui_display(13, `§r   Status:\n${!progress ? '    §6Idle' : '§2Compressing'}`)
 		}
 	}
-}
-
-export default data
+}; export default data

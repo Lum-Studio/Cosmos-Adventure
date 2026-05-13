@@ -47,6 +47,4 @@ const data = {
         container.add_ui_display(4, oxygen_hover, Math.round((o2 / data["o2"].capacity) * 55))
         container.add_ui_display(5, '§rStatus: ' + status)
     }
-}
-
-export default data
+}; export default data

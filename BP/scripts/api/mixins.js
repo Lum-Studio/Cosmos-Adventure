@@ -140,13 +140,6 @@ Merge(mc.Container.prototype, {
         super.setItem(slot, button)
     },
 
-    old_ui_button(slot, text, lore) {
-        const button = new ItemStack('cosmos:ui_button')
-        button.nameTag = text ?? ''
-        if (lore) button.setLore(lore)
-        super.setItem(slot, button)
-    },
-
     add_ui_toggle(slot, damage) {
         const button = new ItemStack('cosmos:ui_button')
         if (damage) {
@@ -161,7 +154,7 @@ Merge(mc.Container.prototype, {
         const button = new ItemStack('cosmos:ui_button')
         button.nameTag = text ?? ''
         super.setItem(slot, button)
-        if (property) entity.setDynamicProperty(property, !value)
+        if (property) entity.setDynamicProperty(property, value)
     },
 
     updateUI(uiConfigs, data) {

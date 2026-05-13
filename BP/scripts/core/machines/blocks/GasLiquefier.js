@@ -4,9 +4,9 @@ import { charge_from_battery, charge_from_machine } from "../../matter/electrici
 import { fluid_names, load_from_canister } from "../../matter/fluids";
 
 const data = {
-	energy: {input: "below", capacity: 16000, maxInput: 900},
-	gas: {input: "left", capacity: 4000},
-	liquid: {output: "right", capacity: 2000},
+	energy: { input: "below", capacity: 16000, maxInput: 900 },
+	gas: { input: "left", capacity: 4000 },
+	liquid: { output: "right", capacity: 2000 },
 	onTick(entity, block) {
 		const container = entity.getComponent('minecraft:inventory').container
 		const active = entity.getDynamicProperty('active')
@@ -73,6 +73,6 @@ const data = {
 		container.add_ui_display(4, `Gas Storage\n(${fluid_names[gas.type]})\n§e${gas.amount} / ${data.gas.capacity}`, Math.ceil((gas.amount / data.gas.capacity) * 38))
 		container.add_ui_display(5, `Liquid Tank\n(${fluid_names[liquid.type]})\n§e${liquid.amount} / ${data.liquid.capacity}`, Math.ceil((liquid.amount / data.liquid.capacity) * 38))
 		container.add_ui_display(6, `§rStatus:\n ${status}`)
-		container.add_ui_button (7, active ? 'Stop' : 'Process', entity, 'active', active)
+		container.add_ui_button (7, active ? 'Stop' : 'Process', entity, 'active', !active)
 	}
 }; export default data

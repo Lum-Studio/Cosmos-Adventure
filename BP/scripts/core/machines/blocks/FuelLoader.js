@@ -74,9 +74,6 @@ const data = {
 		container.add_ui_display(2, `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`, Math.round((energy / data.energy.capacity) * 55))
 		container.add_ui_display(3, `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel.capacity} mB`, Math.ceil((Math.ceil(fuel / 1000) / (data.fuel.capacity / 1000)) * 38))
 		container.add_ui_display(4, `§rStatus: ${status}`)
-		if (!container.getItem(5)) {
-			entity.setDynamicProperty('stopped', !stopped)
-			container.old_ui_button(5, stopped ? 'Stop Loading' : 'Loading')
-		}
+		container.add_ui_button (5, stopped ? 'Stop Loading' : 'Loading', entity, 'stopped', !stopped)
 	}
 }; export default data

@@ -54,9 +54,6 @@ const data = {
             container.add_ui_display(7, `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`, Math.ceil((energy / data.energy.capacity) * 55))
             container.add_ui_display(8, `§rStatus:\n  ${energy < 375 ? '§cLow energy' : !water ? '§cNo Water!' : status}`)
         }
-        if (!container.getItem(9)) {
-            entity.setDynamicProperty('active', active == undefined ? false : !active)
-            container.old_ui_button(9, active || active == undefined ? "Process" : "Stop")
-        } 
+		container.add_ui_button (9, active || active == undefined ? "Process" : "Stop", entity, 'active', active == undefined ? false : !active)
     }
 }; export default data

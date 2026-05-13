@@ -107,6 +107,4 @@ const data = {
 			container.add_ui_display(14, '§rStatus: ' + (!energy ? '§4No Power' : progress ? '§2Running' : '§6Idle'))
 		}
 	}
-}
-
-export default data
+}; export default data

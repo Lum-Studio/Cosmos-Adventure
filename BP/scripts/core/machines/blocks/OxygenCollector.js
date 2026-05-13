@@ -70,6 +70,4 @@ const data = {
         container.add_ui_display(3, '§rStatus: ' + status)
         container.add_ui_display(4, `§rCollecting: §r${oxygen_source_bloks}/s`)
     }
-}
-
-export default data
+}; export default data

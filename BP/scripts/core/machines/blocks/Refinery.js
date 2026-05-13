@@ -79,10 +79,6 @@ const data = {
 		container.add_ui_display(4, `Oil Storage\n§eOil: ${oil} / ${data.oil.capacity} mB`, Math.ceil((Math.ceil(oil / 1000) / (data.oil.capacity / 1000)) * 38))
 		container.add_ui_display(5, `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel.capacity} mB`, Math.ceil((Math.ceil(fuel / 1000) / (data.fuel.capacity / 1000)) * 38))
 		container.add_ui_display(6, `§rStatus:\n${status}`)
-		if (!container.getItem(7)) {
-			entity.setDynamicProperty('active', !active)
-			container.old_ui_button(7, active ? 'Stop Refining' : 'Refine')
-		}
+		container.add_ui_button (7, active ? 'Stop Refining' : 'Refine', entity, 'active', !active)
 	}
-}
-export default data
+}; export default data

@@ -129,11 +129,6 @@ const data = {
 		container.add_ui_display(4, status)
 		container.add_ui_display(5, "§rEnvinromental Boost: 0.0%%")
 
-		if (!container.getItem(6)) {
-			entity.setDynamicProperty('stopped', !stopped)
-			container.old_ui_button(6, stopped ? 'Disable' : 'Enable')
-		}
+		container.add_ui_button(6, stopped ? 'Disable' : 'Enable', entity, 'stopped', !stopped)
 	}
-}
-
-export default data
+}; export default data
