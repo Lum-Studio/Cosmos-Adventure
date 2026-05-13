@@ -1,18 +1,37 @@
-import { ItemStack } from "@minecraft/server";
 import { charge_from_machine, charge_from_battery, charge_battery } from "../../matter/electricity.js";
-import { get_data } from "../Machine.js";
-import { compare_position, get_entity, load_dynamic_object, save_dynamic_object, compare_lists, location_of_side } from "../../../api/utils.js";
+import { load_dynamic_object, save_dynamic_object } from "../../../api/utils.js";
 
-export default function(entity, block) {
+const data = {
+	energy_storage_module: {
+		onTick: onTick,
+		energy: {
+			input: "left",
+			output: "right", 
+			capacity: 500000,
+			maxPower: 300,
+			maxInput: 2000
+		},
+	},
+	energy_storage_cluster: {
+		onTick: onTick,
+		energy: {
+			input: "left",
+			output: "right", 
+			capacity: 2500000,
+			maxPower: 1800,
+			maxInput: 2000
+		},
+	}
+}
+
+function onTick(entity, block) {
 	//retrieve data
 	const store = entity
 	const container = entity.getComponent('minecraft:inventory').container;
-	const store_data = get_data(store)
+	const store_data = data[store.typeId.replace('cosmos:', '')]
 	const variables = load_dynamic_object(entity, "machine_data");
 	let energy = variables.energy || 0;
 	let power = variables.power || 0;
-
-	let first_values = [energy, power]
 
 	energy = energy ? + energy : 0
 	
@@ -44,3 +63,5 @@ export default function(entity, block) {
 		)
 	}} catch {null}
 }
+
+export default data

@@ -24,7 +24,7 @@ const data = {
 		side_input: [9],
 		output: [10]
 	},
-	class(entity, block) {
+	onTick(entity, block) {
 		const container = entity.getComponent('minecraft:inventory').container;
 		const items = get_ingredients(container)
 		const ingredients = [...items.map(i => i?.typeId)].filter(i => i).sort()
