@@ -14,7 +14,7 @@ export function get_fluid_amount(machine, fluid_data, amount){
     let fluid_storage = storage_object?.input?.[fluid_type];
     storage_object = storage_object ? storage_object: {};
     storage_object.input = storage_object?.input ? storage_object.input: {}; 
-    
+    //so this the code that runs if machine had found fluid storage
     if(fluid_storage) {
         let machine_entity = (machine.id == fluid_storage.id)? machine: world.getEntity(fluid_storage.id);
         let fluid_object = load_dynamic_object(machine_entity, 'machine_data', 'fluid_storage_amount');
@@ -32,7 +32,7 @@ export function get_fluid_amount(machine, fluid_data, amount){
     fluid_storage = fluid_storage ?? {};
 
     let inputs = machines?.found_machines?.[slot]?.input ?? [];
-
+    //this code searches for fluid storages
     for(let storage of [[machine.id, undefined], ...inputs]){
         let machine_entity = world.getEntity(storage[0]); 
         if(!machine_entity?.isValid) continue;
@@ -71,7 +71,7 @@ export function save_fluid_amount(machine, fluid_data, pipe, amount){
 
     let machines = JSON.parse(machine.getDynamicProperty("fluid_system") ?? '{}');
     let max_space = (machines?.pipe_count?.output[slot] ?? 0) * 200;
-
+    //so the same as in get fluid amount
     if(fluid_storage){
         let machine_entity = (machine.id == fluid_storage.id)? machine: world.getEntity(fluid_storage.id);
         let fluid_object = load_dynamic_object(machine_entity, 'machine_data', 'fluid_storage_amount');
@@ -100,7 +100,7 @@ export function save_fluid_amount(machine, fluid_data, pipe, amount){
             return amount;
         }
     }
-
+    //searches for fluid storages
     let outputs = machines?.found_machines?.[slot]?.output ?? [];
     for(let output of outputs){
         let machine_entity = world.getEntity(output[0]); 
@@ -126,7 +126,7 @@ export function save_fluid_amount(machine, fluid_data, pipe, amount){
             return amount;
         }
     }
-    
+    //if none of previus code succeeded machine will become fluid storage by itself
     storage_object.output[fluid_type] = {id: machine.id, side: "output"};
 
     let fluid_object = load_dynamic_object(machine, 'machine_data', 'fluid_storage_amount');
@@ -153,7 +153,7 @@ function pipes_fluid_amount(fluid, amount, max_space){
     amount -= Math.min(amount, space);
     return {fluid, amount}
 }
-
+//updates network if pipes were changed
 export function update_network(storage, fluid, old_list, new_list){
     if(!fluid || Object.keys(fluid.input ?? {}).length === 0) return;
     let disconnected_machines = compare_lists(old_list, new_list);
@@ -206,19 +206,7 @@ function compare_lists(old_list, new_list){
     return disconnected_machines;
 }
 
-function get_sides(pipe, updated_pipes){
-    let sides = pipe.permutation.getAllStates();
-	let loc = pipe.location;
-	let blocks = side_blocks(loc);
-    let pipes = [];
-    for(let side in sides){
-        if(!sides[side] || !blocks[side]) continue;
-        let block = blocks[side];
-        if(updated_pipes.includes(JSON.stringify({x: block.x, y: block.y, z: block.z}))) continue;
-        pipes.push(block);
-    }
-    return pipes;
-}
+
 //updates visual part of pipes
 export function* update_fluid(pipe, fluid){
     let updated_pipes = [];
@@ -238,4 +226,17 @@ export function* update_fluid(pipe, fluid){
         }
     }
 
+}
+function get_sides(pipe, updated_pipes){
+    let sides = pipe.permutation.getAllStates();
+	let loc = pipe.location;
+	let blocks = side_blocks(loc);
+    let pipes = [];
+    for(let side in sides){
+        if(!sides[side] || !blocks[side]) continue;
+        let block = blocks[side];
+        if(updated_pipes.includes(JSON.stringify({x: block.x, y: block.y, z: block.z}))) continue;
+        pipes.push(block);
+    }
+    return pipes;
 }
