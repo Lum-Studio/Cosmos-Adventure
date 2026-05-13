@@ -126,6 +126,6 @@ export default function(entity, block){
 
     if(!container.getItem(6)) {
         entity.setDynamicProperty('stopped', !stopped)
-        container.add_ui_button(6, stopped ? 'Disable' : 'Enable')
+        container.old_ui_button(6, stopped ? 'Disable' : 'Enable')
     }
 }

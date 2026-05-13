@@ -44,7 +44,7 @@ export default function(entity, block){
     }
     if (!container.getItem(9)) {
         entity.setDynamicProperty('active', active == undefined ? false : !active)
-        container.add_ui_button(9, active || active == undefined ? "Process" : "Stop")
+        container.old_ui_button(9, active || active == undefined ? "Process" : "Stop")
     } 
 }
 

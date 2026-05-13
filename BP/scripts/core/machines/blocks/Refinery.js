@@ -1,4 +1,4 @@
-import { system, ItemStack } from "@minecraft/server";
+import { system } from "@minecraft/server";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
 import { output_fluid, load_to_canister, load_from_canister_instant } from "../../matter/fluids.js";
 import { get_data } from "../Machine.js";
@@ -79,7 +79,7 @@ export default function(entity, block) {
 	container.add_ui_display(6, `§rStatus:\n${status}`)
 	if (!container.getItem(7)) {
 		entity.setDynamicProperty('active', !active)
-		container.add_ui_button(7, active ? 'Stop Refining' : 'Refine')
+		container.old_ui_button(7, active ? 'Stop Refining' : 'Refine')
 	}
 }
 

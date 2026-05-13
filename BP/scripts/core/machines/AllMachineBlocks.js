@@ -17,8 +17,8 @@ import BasicSolarPanel from './blocks/BasicSolarPanel'
 
 import { place_parachest } from './blocks/Parachest'
 
-export default {
-	"coal_generator": {
+const AllMachines = {
+	coal_generator: {
 		ui: "§c§o§a§l§_§g§e§n§e§r§a§t§o§r",
 		class: CoalGenerator,
 		energy: {output: "right", maxPower: 120},
@@ -27,15 +27,7 @@ export default {
 			side_input: [0],
 		},
 	},
-	"compressor": {
-		ui: "§c§o§m§p§r§e§s§s§o§r",
-		class: Compressor,
-		items: {
-			top_input: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-			side_input: [9],
-			output: [10]
-		},
-	},
+	compressor: Compressor,
 	"energy_storage_module": {
 		ui: "§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§m§o§d§u§l§e",
 		class: EnergyStorage,
@@ -143,16 +135,12 @@ export default {
 		o2: {output: "back", capacity: 4000},
 		h2: {output: "right", capacity: 4000},
 	},
-	"gas_liquefier": {
-		ui: "§g§a§s§_§l§i§q§u§e§f§i§e§r",
-		class: GasLiquefier,
-		energy: {input: "below", capacity: 16000, maxInput: 900},
-		gas: {input: "left", capacity: 4000},
-		liquid: {output: "right", capacity: 2000},
-	},
+	gas_liquefier: GasLiquefier,
 	"parachest":{
 		ui: '',
 		class: Parachest,
 		place(entity){ place_parachest(0, undefined, undefined, 0, undefined, entity)}
 	}
 }
+for (const machine in AllMachines) AllMachines[machine].ui = `§${machine.split('').join('§')}`
+export default AllMachines

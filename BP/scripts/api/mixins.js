@@ -130,7 +130,17 @@ Merge(mc.Entity.prototype, {
 //@ts-expect-error
 Merge(mc.Container.prototype, {
 
-    add_ui_button(slot, text, lore) {
+    add_ui_display(slot, text, damage) {
+        const button = new ItemStack('cosmos:ui')
+        if (damage) {
+            const durability = button.getComponent('durability')
+            durability.damage = durability.maxDurability - damage
+        }
+        button.nameTag = text ?? ''
+        super.setItem(slot, button)
+    },
+
+    old_ui_button(slot, text, lore) {
         const button = new ItemStack('cosmos:ui_button')
         button.nameTag = text ?? ''
         if (lore) button.setLore(lore)
@@ -146,14 +156,12 @@ Merge(mc.Container.prototype, {
         super.setItem(slot, button)
     },
 
-    add_ui_display(slot, text, damage) {
-        const button = new ItemStack('cosmos:ui')
-        if (damage) {
-            const durability = button.getComponent('durability')
-            durability.damage = durability.maxDurability - damage
-        }
+    add_ui_button(slot, text, entity, property, value) {
+        if (super.getItem(slot)) return
+        const button = new ItemStack('cosmos:ui_button')
         button.nameTag = text ?? ''
         super.setItem(slot, button)
+        if (property) entity.setDynamicProperty(property, !value)
     },
 
     updateUI(uiConfigs, data) {

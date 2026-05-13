@@ -1,6 +1,6 @@
-import { system, ItemStack, world } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
 import { charge_from_battery, charge_from_machine} from "../../matter/electricity.js";
-import { compare_lists, load_dynamic_object, location_of_side, save_dynamic_object } from "../../../api/utils.js";
+import { load_dynamic_object, location_of_side, save_dynamic_object } from "../../../api/utils.js";
 import { get_data } from "../Machine.js";
 import { pads } from "../../vehicles/Vehicle.js";
 import { input_fluid, load_from_canister_instant } from "../../matter/fluids.js";
@@ -75,6 +75,6 @@ export default function(entity, block) {
 	container.add_ui_display(4, `§rStatus: ${status}`)
 	if (!container.getItem(5)) {
 		entity.setDynamicProperty('stopped', !stopped)
-		container.add_ui_button(5, stopped ? 'Stop Loading' : 'Loading')
+		container.old_ui_button(5, stopped ? 'Stop Loading' : 'Loading')
 	}
 }
