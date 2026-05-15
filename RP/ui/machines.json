@@ -236,7 +236,7 @@
 					{
 						"from_button_id": "button.menu_select",
 						"to_button_id": "button.container_auto_place",
-						"mapping_type": "pressed"
+        				"mapping_type": "pressed"
 					},
 					{
 						"from_button_id": "button.menu_ok",

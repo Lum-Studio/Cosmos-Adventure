@@ -172,11 +172,11 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
 			if(machine_object.multi_block && !multi_block_machines[perm.type.id](block)){event.cancel = true; return;}
 			
 			system.run(() => {
-				const machineEntity = block.dimension.spawnEntity(perm.type.id, block.bottomCenter());
-				machineEntity.nameTag = machine_object.ui;
-				if (typeof machine_object.onPlace == 'function') machine_object.onPlace(machineEntity)
-				const dynamic_object = JSON.parse(machineEntity.getDynamicProperty("machine_data") ?? "{}");
-				machine_entities.set(machineEntity.id, { type: machine_name, location: block.location, entity_data: dynamic_object });
+				const entity = block.dimension.spawnEntity(perm.type.id, block.bottomCenter());
+				entity.nameTag = machine_object.ui;
+				if (typeof machine_object.onPlace == 'function') machine_object.onPlace(entity, block)
+				const dynamic_object = JSON.parse(entity.getDynamicProperty("machine_data") ?? "{}");
+				machine_entities.set(entity.id, { type: machine_name, location: block.location, entity_data: dynamic_object });
 				if (perm.getState("cosmos:full")) {
 					event.permutationToPlace = perm.withState("cosmos:full", false);
 				}
@@ -185,7 +185,7 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
 		},
 		onPlayerBreak({ block, dimension, brokenBlockPermutation: perm }) {
 			detach_wires(block);
-			const machineEntity = dimension.getEntities({
+			const entity = dimension.getEntities({
 				type: perm.type.id,
 				location: {
 					x: Math.floor(block.location.x) + 0.5,
@@ -194,13 +194,13 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
 				},
 				maxDistance: 0.5,
 			})[0];
-			if (!machineEntity) return
+			if (!entity) return
 
-			const machine_name = machineEntity.typeId.replace('cosmos:', '');
-			if(machines[machine_name].multi_block) multi_block_machines[machineEntity.typeId](block, true);
+			const machine_name = entity.typeId.replace('cosmos:', '');
+			if(machines[machine_name].multi_block) multi_block_machines[entity.typeId](block, true);
 
-			machine_entities.delete(machineEntity.id);
-			const container = machineEntity.getComponent('minecraft:inventory')?.container;
+			machine_entities.delete(entity.id);
+			const container = entity.getComponent('minecraft:inventory')?.container;
 			if (container) {
 				for (let i = 0; i < container.size; i++) {
 					const itemId = container.getItem(i)?.typeId;
@@ -208,8 +208,8 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
 					container.setItem(i);
 				}
 			}
-			machineEntity?.kill();
-			machineEntity?.remove();
+			entity.kill(); // kill to make it drop the items
+			entity.remove();
 		},
 	});
 });

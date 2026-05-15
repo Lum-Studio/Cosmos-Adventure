@@ -31,9 +31,7 @@ const data = {
 		//charge the machine
 		energy = charge_from_machine(entity, block, energy)
 		energy = charge_from_battery(entity, energy, 1)
-
-		//energy loss
-		if (system.currentTick % 30 == 0) energy -= Math.min(10, energy)
+		if (system.currentTick % 30 == 0) energy -= Math.min(10, energy) // passive energy loss
 
 		//load oil from canister or bucket
 		oil = load_from_canister_instant(oil, "oil", entity, 0).amount;
