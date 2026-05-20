@@ -15,6 +15,7 @@ export function load_dynamic_object(storage, type, name = 'variables'){
 export function save_dynamic_object(storage, value, type, name = 'variables'){
 	let entity = data_maps[type].get(storage.id);
 	if(!entity) return;
+	entity.entity_data = entity.entity_data ?? {};
 	entity.entity_data[name] = value;
 	data_maps[type].set(storage.id, entity);
 	storage.setDynamicProperty(type, JSON.stringify(entity.entity_data)) 
