@@ -25,15 +25,14 @@ export default function(entity){
         }
     }
     let inventory = rocket.getComponent('minecraft:inventory');
+    if (!inventory) return
     let container = inventory.container;
-    if(!rider){
-        container.setItem(inventory.inventorySize - 2, undefined);
-        container.setItem(inventory.inventorySize - 1, undefined);
-        return
-    };
     let fuel = load_dynamic_object(rocket, "vehicle_data")?.fuel || 0;
+    const fuel_percentage = fuel * 100/1000
+    const percentage_color = fuel_percentage < 40 ? '§c' : fuel_percentage > 80 ? '§2' : '§6'
     container.add_ui_display(inventory.inventorySize - 2, 'Fuel Tank. Requires\nfuel loader to fill', Math.ceil((Math.ceil(fuel/26))))
-    container.add_ui_display(inventory.inventorySize - 1, "§2" + `${Math.round(fuel * 100/1000)}` + '.0%% full')
+    container.add_ui_display(inventory.inventorySize - 1, `§rFuel:\n${percentage_color}${Math.round(fuel_percentage)}.0%% full`)
+    if (!rider) return
     //disable jumping
     rider.inputPermissions.setPermissionCategory(6, false)
     rider.setProperty("cosmos:is_sitting", 1);

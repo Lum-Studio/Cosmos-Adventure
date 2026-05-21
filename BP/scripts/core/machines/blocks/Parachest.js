@@ -1,7 +1,7 @@
 import { system, BlockPermutation } from "@minecraft/server";
 import { rocket_nametags } from "../../../api/player/liftoff";
 import { machine_entities } from "../Machine";
-import { load_to_canister } from "../../matter/fluids";
+import { load_to_item } from "../../matter/fluids";
 import { load_dynamic_object, save_dynamic_object } from "../../../api/utils";
 
 export function place_parachest(fuel, dimension, parachest_loc, inventory_size, parachute_color) {
@@ -24,7 +24,7 @@ const Parachest = {
     let container = inventory.container;
     let fuel = load_dynamic_object(parachest, "machine_data")?.fuel || 0;
     if(fuel > 0){
-      fuel = load_to_canister(fuel, "fuel", container, 1);
+      fuel = load_to_item(fuel, "fuel", container, 1);
       save_dynamic_object(parachest, {fuel}, "machine_data")
     }
     container.add_ui_display(inventory.inventorySize - 4, "", Math.ceil((Math.ceil(fuel/26))))

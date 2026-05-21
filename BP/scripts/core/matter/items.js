@@ -48,5 +48,5 @@ world.afterEvents.playerInventoryItemChange.subscribe(({itemStack:item, slot, pl
 //     machine_buttons.get(machine.typeId)[slot](machine, item) // run the button action
 // })
 
-// to remove the 'Has Dynamic Properties' text from UI buttons
+// to remove the 'Has Custom Properties' text from UI buttons in other languages
 world.afterEvents.worldLoad.subscribe(() => world.gameRules.showTags = false)

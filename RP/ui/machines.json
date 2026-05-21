@@ -55,12 +55,15 @@
 		]
 	},
 	"item_text@machines.specific_slot": {
+		"$alignment": "top_left",
+		"$color": "$title_text_color",
 		"controls": [
 			{ "text": {
 				"type": "label",
 				"text": "#hover_text",
 				"collection_index": "$index",
-				"color": "$title_text_color",
+				"color": "$color",
+				"text_alignment": "$alignment",
 				"bindings": "$fetch_item_hover"
 			}}
 		]

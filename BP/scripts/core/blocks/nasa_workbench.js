@@ -139,7 +139,7 @@ function tick(workbench) {
         if (inventory.getItem(BUTTONS + +i)?.nameTag != button_name) set_ui_button(inventory, BUTTONS + +i, button_name)
     }
 
-    //the button that takes you to the schmatic insertion screen
+    //the button that takes you to the schematic insertion screen
     const schematic_button = inventory.getItem(SCHEMA)
     // if the button got pressed
     if (!schematic_button) {
@@ -163,7 +163,7 @@ function tick(workbench) {
         if (!schematic_names.includes(schematic.typeId)) return
         const schematic_place = schematic_names.indexOf(schematic.typeId)
         if (inventory.getItem(SCHEMAS + schematic_place)?.typeId == schematic.typeId) return
-        //move the schematic to its permenant slot
+        //move the schematic to its permanent slot
         inventory.setItem(SCHEMAS + schematic_place, schematic)
         inventory.setItem(MAXSIZE + 3)
     }
@@ -218,4 +218,34 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
             entities?.forEach(entity => entity.runCommand(`scriptevent cosmos:nasa_workbench despawn`))
         }
     })
+})
+
+system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
+    customCommandRegistry.registerEnum('cosmos:vehicle', Object.keys(recipes))
+	customCommandRegistry.registerCommand({name: "cosmos:get_vehicle", cheatsRequired: true,
+        description: "Gives a rocket or a vehicle with an inventory.", permissionLevel: 1,
+        mandatoryParameters: [
+            { type: "Enum", name: "cosmos:vehicle" }
+        ],
+        optionalParameters: [
+            { type: "Integer", name: "storage tier" }
+        ]
+    }, 
+	(CustomCommandOrigin, rocket_type, storage_size = 0) => {
+		if (CustomCommandOrigin.sourceType != "Entity") return
+        const player = CustomCommandOrigin.sourceEntity
+        if (player.typeId != "minecraft:player") return
+        if (storage_size < 0 || storage_size > 3) { player.sendMessage('§cStorage Space must be 0-3'); return }
+        if (rocket_type == "cosmos:cargo_rocket_item" && storage_size != 0) { player.sendMessage('§cCargo storage size must be 0'); return }
+        storage_size *= 18
+        const inventory = player.getComponent('inventory').container
+        const rocket = new ItemStack(rocket_type)
+        system.run(() => {
+            if (storage_size > 0) {
+                rocket.setLore([`§r§7Storage Space: ${storage_size}`])
+                rocket.setDynamicProperty("inventory_size", storage_size)
+            }
+            inventory.addItem(rocket)
+        })
+	})
 })

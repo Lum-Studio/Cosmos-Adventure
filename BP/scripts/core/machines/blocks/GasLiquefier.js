@@ -19,9 +19,10 @@ const data = {
 
 		// load variables
 		const variables = load_dynamic_object(entity, "machine_data")
-		let energy = variables.energy || 0
+		let energy = variables.energy ?? 0
 		let gas = variables.input_tank ?? {amount: 0}
 		let liquid = variables.output_tank ?? {amount: 0}
+
 		
 		// manage energy
 		energy = charge_from_machine(entity, block, energy)
@@ -29,33 +30,37 @@ const data = {
 		if (system.currentTick % 30 == 0) energy = Math.max(0, energy - 10)
 
 		// manage fluids
-		const input = container.getItem(InputSlot); if (input) {
+		const empty = gas.type == undefined
+		const canister = container.getItem(InputSlot); if (canister) {
 			// fill with O2 gas
-			if (input.typeId == "cosmos:o2_canister" && ["o2_gas", undefined].includes(gas.type)) {
-				gas = { type: "o2_gas", amount: load_from_canister({
-					item: input, ratio: 2,
+			if (canister.typeId == "cosmos:o2_canister" && (empty || gas.type == "o2_gas")) {
+				gas.type = "o2_gas"
+				gas.amount = load_from_canister({
+					canister, ratio: 0.5,
 					amount: gas.amount,
 					capacity: data.gas.capacity,
 					container, slot: InputSlot
-				})}
+				})
 			}
 			// fill with N2 gas
-			else if (input.typeId == "cosmos:n2_canister" && ["n2_gas", undefined].includes(gas.type)) {
-				gas = { type: "n2_gas", amount: load_from_canister({
-					item: input, ratio: 2,
+			else if (canister.typeId == "cosmos:n2_canister" && ["n2_gas", undefined].includes(gas.type)) {
+				gas.type = "n2_gas"
+				gas.amount = load_from_canister({
+					canister, ratio: 0.5,
 					amount: gas.amount,
 					capacity: data.gas.capacity,
 					container, slot: InputSlot
-				})}
+				})
 			}
 			// fill with Methane gas
-			else if (input.typeId == "cosmos:methane_canister" && ["methane_gas", undefined].includes(gas.type)) {
-				gas = { type: "methane_gas", amount: load_from_canister({
-					item: input, ratio: 1,
+			else if (canister.typeId == "cosmos:methane_canister" && ["methane_gas", undefined].includes(gas.type)) {
+				gas.type = "methane_gas"
+				gas.amount = load_from_canister({
+					canister,
 					amount: gas.amount,
 					capacity: data.gas.capacity,
 					container, slot: InputSlot
-				})}
+				})
 			}
 		}
 		

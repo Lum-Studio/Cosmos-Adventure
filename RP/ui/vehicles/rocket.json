@@ -1,0 +1,108 @@
+{
+	"namespace": "rocket",
+	
+	"interface@machines.dynamic_interface": {
+		"variables": [
+            {
+                "requires": "($storage_tier = 0)",
+                "$size": ["100%", 130]
+            },
+            {
+                "requires": "($storage_tier = 1)",
+                "$size": ["100%", 179],
+				"$storage_size": [ 162, 36 ],
+				"$storage_grid": [9, 2]
+            },
+            {
+                "requires": "($storage_tier = 2)",
+                "$size": [ "100%", 215 ],
+				"$storage_size": [ 162, 72 ],
+				"$storage_grid": [9, 4]
+            },
+            {
+                "requires": "($storage_tier = 3)",
+                "$size": ["100%", 251],
+				"$storage_size": [ 162, 108 ],
+				"$storage_grid": [9, 6]
+            }
+		],
+		"$content": [
+			{ "title": {
+				"type": "label",
+				"text": "Fuel",
+				"color": "$title_text_color",
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"offset": [ 8, 6]
+			}},
+			{ "fuel_tank@rocket.fuel_tank": {
+				"$index": "($storage_tier * 18)",
+				"anchor_from": "top_middle",
+				"anchor_to": "top_middle",
+				"offset": [ 0, 6 ]
+			}},
+			{ "fuel_text@machines.item_text": {
+				"$index": "($storage_tier * 18 + 1)",
+				"$alignment": "center",
+				"anchor_from": "top_middle",
+				"anchor_to": "top_middle",
+				"offset": [ 55, 20 ]
+			}},
+			{ "storage@machines.item_grid": {
+				"ignored": "($storage_tier = 0)",
+				"size": "$storage_size",
+				"grid_dimensions": "$storage_grid",
+				"anchor_from": "bottom_middle",
+				"anchor_to": "bottom_middle",
+				"offset": [ 0, -94 ]
+			}}
+		]
+	},
+
+	"fuel_tank": {
+		"type":"panel",
+		"size": [ 36, 40 ],
+		"controls": [
+			{ "tank_back": {
+				"type":"image",
+				"texture": "textures/ui/cosmos/machines/rocket_tank_back",
+				"layer": 1
+			}},
+			{ "rocket_fluid@machines.specific_slot": {
+				"anchor_from": "bottom_left",
+				"anchor_to": "bottom_left",
+				"offset": [0, -1],
+				"layer": 2,
+				"controls": [
+					{ "unit": {
+						"type": "panel",
+						"collection_index": "$index",
+						"anchor_from": "bottom_left",
+						"anchor_to": "bottom_left",
+						"size": [0, 1],
+						"controls": [
+							{ "image": {
+								"type": "image",
+								"tiled": true,
+								"texture": "textures/ui/liquids/fuel",
+								"anchor_from": "bottom_left",
+								"anchor_to": "bottom_left",
+								"size": [35, 38],
+								"bindings": "$use_durability",
+								"$source": "#data",
+								"$target": "#size_binding_y",
+								"$visible_if": "(not (#data = 1000))"
+							}}
+						]
+					}}
+				]
+			}},
+			{ "tank_front": {
+				"type": "image",
+				"texture": "textures/ui/cosmos/machines/rocket_tank_front",
+				"layer": 3
+			}},
+			{ "tank_hover@machines.item_hover": {} }
+		]
+	}
+}
