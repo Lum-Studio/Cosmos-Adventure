@@ -1,8 +1,9 @@
 {
-  "format_version": "1.20.80",
+	"format_version": "1.21.100",
   "minecraft:block": {
 	  "description": {
 	    "identifier": "cosmos:circuit_fabricator",
+			"menu_category": { "category": "items" },
       "traits": {
         "minecraft:placement_direction": {
           "enabled_states": ["minecraft:cardinal_direction"],
@@ -13,8 +14,9 @@
     "components": {
       "minecraft:display_name": "%tile.machine2.5.name\n§7%tile.circuit_fabricator.description",
       "tag:machine": {},
-      "minecraft:custom_components": ["cosmos:machine"],
+      "cosmos:machine": {},
       "minecraft:destructible_by_explosion": false,
+			"minecraft:movable": { "movement_type": "immovable" },
       "minecraft:destructible_by_mining": {
         "seconds_to_destroy": 0.5
       },

@@ -1,7 +1,7 @@
 import { ActionFormData } from "@minecraft/server-ui";
 import { world, system, Player } from "@minecraft/server";
-import { saved_rocket_items, return_to_earth} from "./liftoff";
-import { moon_lander } from "../../core/machines/rockets/MoonLander";
+import { get_rocket_data } from "./liftoff";
+import { launch_to_earth } from "../../planets/dimensions/Overworld";
 
 const debug = true
 
@@ -27,7 +27,7 @@ function read_inventory(player) {
 	}
 }
 
-export function select_solar_system(player, tier = 1, usingRocket = true) {
+export function select_solar_system(player, tier = 1, calledViaCommand = false) {
 	const space_stations = JSON.parse(world.getDynamicProperty("all_space_stations") ?? '{}')
 	const has_station = player.nameTag in space_stations
 	let form = new ActionFormData()
@@ -49,11 +49,11 @@ export function select_solar_system(player, tier = 1, usingRocket = true) {
 			if (!debug) select_solar_system(player); return
 		}
 		switch (response.selection) {
-			case 0: launch(player, "Overworld", usingRocket); return
-			case 1: launch(player, "Moon", usingRocket); return
-			case 2: if (tier >= 2) launch(player, "Mars", usingRocket); return
-			case 3: if (tier >= 3) launch(player, "Venus", usingRocket); return
-			case 4: if (tier >= 3) launch(player, "Asteroids", usingRocket); return
+			case 0: launch(player, "Overworld", calledViaCommand); return
+			case 1: launch(player, "Moon", calledViaCommand); return
+			case 2: if (tier >= 2) launch(player, "Mars", calledViaCommand); return
+			case 3: if (tier >= 3) launch(player, "Venus", calledViaCommand); return
+			case 4: if (tier >= 3) launch(player, "Asteroids", calledViaCommand); return
 			case 5: if (!Object.values(read_inventory(player)).includes(false)) create_station(player); return
 		}
 		const station_index = response.selection - 6
@@ -62,53 +62,23 @@ export function select_solar_system(player, tier = 1, usingRocket = true) {
 		if (station_index % 2 == 1) rename_station(player, station)
 	})
 }
-/**@param {Player} player  */
-function launch(player, planet, usingRocket) {
+
+function launch(player, planet, calledViaCommand) {
 	player.sendMessage("Launch to "+ planet)
 	player.setDynamicProperty("in_celestial_selector")
+	planet = planet.toLowerCase();
 
-	//if there's no rocket it will put standart values into property
-	let typeId = "cosmos:rocket_tier_1";
-	let id = undefined;
-	let size = 2;
-	let fuel = 0;
-	let items = undefined;
-	if(usingRocket){
-		let riding = player.getComponent("minecraft:riding");
-		if(!riding) return; 
-		let rocket = riding.entityRidingOn;
-		let container = rocket.getComponent("minecraft:inventory").container;
-		size = rocket.getComponent("minecraft:inventory").inventorySize;
-		fuel = rocket.getDynamicProperty("fuel_level") ?? 0;
-		items = [];
-		id = rocket.id;
-		typeId = rocket.typeId;
-		for(let i = 0; i <= (size - 3); i++){
-			items.push(container.getItem(i))
-		}
-		rocket.remove();
-	}
-	let dimension = player.dimension;
+    let riding = !calledViaCommand ? player.getComponent("minecraft:riding"): undefined;
+	if(!calledViaCommand && !riding) return;
+	
+	let rocket = riding?.entityRidingOn; 
+	let rocket_data = get_rocket_data(rocket, calledViaCommand);
+	if(rocket) rocket.remove();
 
-	if (planet == 'Moon'){
-		let moon = world.getDimension("the_end");
-		let loc = { x: 75000 + (Math.random() * 20), y: 1000, z: 75000 + (Math.random() * 20) };
-		if(items) saved_rocket_items.set(id, items)
-		player.setDynamicProperty('dimension', JSON.stringify({planet, fuel, loc, size, id, typeId}))
-		player.teleport(loc, { dimension: moon });
-		if (dimension.id == "minecraft:the_end"){
-			system.runTimeout(() => {moon_lander(player, false);}, 5);
-		}
-	}else if(planet == 'Overworld'){
-		let overworld = world.getDimension("overworld")
-		let loc = { x: 0 + (Math.random() * 20), y: 255, z: 0 + (Math.random() * 20) };
-		if(items) saved_rocket_items.set(id, items)
-		player.setDynamicProperty('dimension', JSON.stringify({planet, fuel, loc, size, id, typeId}))
-		player.teleport(loc, { dimension: overworld });
-		if (dimension.id == "minecraft:overworld"){
-			system.runTimeout(() => {return_to_earth(player);}, 5);
-		}
-	}
+	let planet_object = world.getPlanet(planet);
+	rocket_data.type = (planet == 'overworld')? planet: planet_object?.type; 
+	if(planet_object) planet_object.launching(player, rocket_data, false);
+    else if(planet == 'overworld') launch_to_earth(player, rocket_data)
 
 	if (debug) player.sendMessage(`Launch ${player.nameTag} to ${planet}`)
 }
@@ -130,7 +100,7 @@ function create_station(player) {
 	world.setDynamicProperty("all_space_stations", JSON.stringify(space_stations))
 }
 
-export function start_celestial_selector(player) {
+export function start_celestial_selector(player, tier = 1) {
 	player.setDynamicProperty('in_celestial_selector', true)
 	player.runCommand('hud @s hide all')
 	const fade = system.runInterval(() => {
@@ -141,14 +111,14 @@ export function start_celestial_selector(player) {
 			system.clearRun(fade)
 		}
 	}, 20)
-	select_solar_system(player)
+	select_solar_system(player, tier)
 }
 
 system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
 	customCommandRegistry.registerCommand({name: "cosmos:celestialselector", cheatsRequired: true, description: "Opens the Celestial Selector.", permissionLevel: 1}, 
 	(CustomCommandOrigin) => {
 		if(CustomCommandOrigin.sourceType == "Entity" && CustomCommandOrigin.sourceEntity.typeId == "minecraft:player"){
-			system.run(() => {select_solar_system(CustomCommandOrigin.sourceEntity, 3, false)});
+			system.run(() => {select_solar_system(CustomCommandOrigin.sourceEntity, 3, true)});
 		}
 	});
 });

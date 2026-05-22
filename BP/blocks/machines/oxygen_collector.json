@@ -1,8 +1,9 @@
 {
-  "format_version": "1.20.50",
+	"format_version": "1.21.100",
   "minecraft:block": {
     "description": {
       "identifier": "cosmos:oxygen_collector",
+			"menu_category": { "category": "items" },
       "traits": {
         "minecraft:placement_direction": {
           "enabled_states": ["minecraft:cardinal_direction"],
@@ -13,8 +14,9 @@
     "components": {
 	    "tag:machine": {},
       "minecraft:display_name": "%tile.collector.name\n§7%tile.collector.description",
-      "minecraft:custom_components": ["cosmos:machine"],
+      "cosmos:machine": {},
       "minecraft:destructible_by_explosion": false,
+      "minecraft:movable": { "movement_type": "immovable" },
         "minecraft:destructible_by_mining": {
         "seconds_to_destroy": 0.5
       },

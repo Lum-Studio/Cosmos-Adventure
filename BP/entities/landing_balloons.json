@@ -1,0 +1,153 @@
+{
+    "format_version": "1.8.0",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "cosmos:landing_balloons",
+            "is_summonable": true,
+            "properties": {
+                "cosmos:rotation_x": {
+                  "type": "float",
+                  "range": [-20.0, 20.0],
+                  "default": 0.0,
+                  "client_sync": true
+                },
+                "cosmos:rotation_y": {
+                    "type": "float",
+                    "range": [0.0, 360.0],
+                    "default": 0.0,
+                    "client_sync": true
+                }
+            }
+        },
+        "component_groups": {
+            "cosmos:lander_gravity":{
+                "minecraft:physics": {
+                    "has_collision": true,
+                    "has_gravity": true
+                }
+            },
+            "cosmos:lander_rideable_false": {
+                "minecraft:rideable": {
+                    "crouching_skip_interact": true,
+                    "interact_text": "Ride",
+                    "priority": 0,
+                    "pull_in_entities": false,
+                    "seat_count": 0
+                }
+            },
+            "inv0": {
+                "minecraft:inventory": {
+                    "container_type": "container",
+                    "inventory_size": 4
+                }
+            },
+			"inv18": {
+                "minecraft:inventory": {
+                    "container_type": "container",
+                    "inventory_size": 22
+                }
+			},
+			"inv36": {
+                "minecraft:inventory": {
+                    "container_type": "container",
+                    "inventory_size": 40
+                }
+			},
+			"inv54": {
+                "minecraft:inventory": {
+                    "container_type": "container",
+                    "inventory_size": 58
+                }
+			}
+        },
+        "events":{
+            "cosmos:lander_gravity_disable": {
+                "remove":{
+                    "component_groups": ["lander_gravity"]
+                }
+            },
+            "cosmos:lander_gravity_enable": {
+                "add":{
+                    "component_groups": ["lander_gravity"]
+                }
+            },
+            "cosmos:inv0": {
+                "add":{
+                    "component_groups": ["inv0"]
+                }
+            },
+            "cosmos:inv18": {
+                "add":{
+                    "component_groups": ["inv18"]
+                }
+            },
+            "cosmos:inv36": {
+                "add":{
+                    "component_groups": ["inv36"]
+                }
+            },
+            "cosmos:inv54": {
+                "add":{
+                    "component_groups": ["inv54"]
+                }
+            },
+            "cosmos:rideable_false": {
+                "add":{
+                    "component_groups": ["cosmos:lander_rideable_false"]
+                }
+            }
+        },
+        "components": {
+            "minecraft:inventory": {
+                "container_type": "container",
+                "inventory_size": 4
+            },
+            "minecraft:collision_box": {
+                "height": 2,
+                "width": 2
+            },
+            "minecraft:tick_world": {},
+            "minecraft:fall_damage": {
+                "value": 0
+            },
+            "minecraft:fire_immune": true,
+            "minecraft:health": {
+                "max": 1,
+                "value": 1
+            },
+            "minecraft:knockback_resistance": {
+                "value": 1
+            },
+            "minecraft:physics": {
+                "has_collision": true,
+                "has_gravity": false
+            },
+            "minecraft:push_through": {
+                "value": 1
+            },
+            "minecraft:pushable": {
+                "is_pushable": false,
+                "is_pushable_by_piston": false
+            },
+            "minecraft:type_family": {
+                "family": [
+                    "vehicle"
+                ]
+            },
+            "minecraft:rideable": {
+                "crouching_skip_interact": true,
+                "family_types": [
+                    "player",
+                    "Rider"
+                ],
+                "interact_text": "Ride",
+                "priority": 0,
+                "pull_in_entities": false,
+                "seat_count": 1,
+                "seats": {
+                    "position": [ 0, 0.4, 0]
+                }
+            }
+        }
+    }
+}

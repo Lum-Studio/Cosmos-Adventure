@@ -2,10 +2,10 @@
    "format_version": "1.20.10",
    "minecraft:block": {
       "description": {
-         "identifier": "cosmos:moon_dirt"
+         "identifier": "cosmos:moon_dirt",
+			"menu_category": { "category": "items" }
       },
       "components": {
-         "minecraft:display_name": "%tile.basic_block_moon.moondirt.name",
          "minecraft:destructible_by_explosion": {
             "explosion_resistance": 1
          },

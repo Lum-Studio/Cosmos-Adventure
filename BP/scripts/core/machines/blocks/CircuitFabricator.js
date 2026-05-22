@@ -4,15 +4,16 @@ import recipes from "../../../recipes/circuit_fabricator.js"
 import { compare_lists, load_dynamic_object, save_dynamic_object } from "../../../api/utils.js";
 import { get_data } from "../Machine.js";
 
-export default class {
-    constructor(entity, block) {
-		this.entity = entity;
-		this.block = block;
-        if (entity.isValid) this.fabricate()
-    }
-    fabricate() {
-        const container = this.entity.getComponent('minecraft:inventory').container
-		const data = get_data(this.entity)
+const data = {
+	energy: {input: "right", capacity: 16000, maxInput: 50},
+	items: {
+		top_input: [4],
+		side_input: [0, 1, 2, 3],
+		output: [6]
+	},
+	onTick(entity, block) {
+		const container = entity.getComponent('minecraft:inventory').container
+		const data = get_data(entity)
 		const materials = [0, 1, 2, 3].map(i=> container.getItem(i))
 		const [raw_item, output_item] = [4,6].map(i=> container.getItem(i))
 		const result = recipes.get(raw_item?.typeId)
@@ -24,15 +25,15 @@ export default class {
 			"minecraft:redstone"
 		])
 
-		const variables = load_dynamic_object(this.entity, 'machine_data')
+		const variables = load_dynamic_object(entity, "machine_data")
 		let energy = variables.energy || 0
 		let progress = variables.progress || 0
 
 		let first_values = [energy, progress]
 		
-	    energy = charge_from_machine(this.entity, this.block, energy)
+		energy = charge_from_machine(entity, block, energy)
 		
-		energy = charge_from_battery(this.entity, energy, 5)
+		energy = charge_from_battery(entity, energy, 5)
 		
 		if (is_loaded && result && has_space && energy > 0 && progress < 150) {
 			progress++
@@ -53,10 +54,10 @@ export default class {
 				output_item.amount += result[1]
 				container.setItem(6, output_item)
 			} else container.setItem(6, new ItemStack(result[0], result[1]));
-			this.block.dimension.playSound("random.anvil_land", this.entity.location)
+			block.dimension.playSound("random.anvil_land", entity.location)
 		}
 
-		save_dynamic_object(this.entity, 'machine_data', {energy, progress})
+		save_dynamic_object(entity, {energy, progress}, "machine_data")
 		if(!compare_lists(first_values, [energy, progress]) || !container.getItem(7)){
 			const energy_hover = `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`
 			container.add_ui_display(7, energy_hover, Math.round((energy / data.energy.capacity) * 55))
@@ -64,5 +65,5 @@ export default class {
 			container.add_ui_display(9, `§r Status:\n${!energy ? '§4No Power' : progress ? '§2Running' : '   §6Idle'}`)
 		}
 	}
-}
+}; export default data
 

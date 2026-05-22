@@ -1,7 +1,3 @@
-import { initializeDestructionHandlers } from '../../api/destruction_handler.js';
-import '../../api/event_manager.js';
-
-initializeDestructionHandlers();
 
 import "../blocks/aluminum_wire.js"
 import "../blocks/fluid_tank.js"
@@ -16,3 +12,4 @@ import "../blocks/nasa_workbench.js"
 import "../blocks/cavernous_vines.js"
 import "../blocks/treasure_chest.js"
 import "../blocks/dishbase.js"
+import "../blocks/fallen_meteor.js"

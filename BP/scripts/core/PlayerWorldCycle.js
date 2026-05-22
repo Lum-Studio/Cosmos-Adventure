@@ -1,13 +1,15 @@
 import { world, system } from "@minecraft/server";
-import { coords_loop, Planet } from "../planets/dimension/GalacticraftPlanets.js";
-import { player_gravity } from '../planets/dimension/gravity.js';
+import { coords_loop } from "../planets/GalacticraftPlanets.js";
+import { getPlanetByLocation } from "../api/utils.js";
+import { spawn_footprint } from "../planets/events/footprint.js";
+import { throw_meteors } from "../planets/events/meteor_event.js";
 import { dungeon_finder_loop } from "./items/dungeon_finder.js";
 import { oxygen_spending, is_entity_in_a_bubble } from "../api/player/oxygen.js";
 
 function space_tags_removing(player){
-    player.removeTag("oxygen_hunger")
-    player.removeTag("in_space")
-    player.removeTag("ableToOxygen")
+    player.removeTag("oxygen_hunger");
+    player.removeTag("in_space");
+    player.removeTag("ableToOxygen");
 }
 //the main player cycle
 world.afterEvents.worldLoad.subscribe(() => {
@@ -18,31 +20,47 @@ world.afterEvents.worldLoad.subscribe(() => {
 
         players.forEach((player) => {
             let tags = player.getTags();
+            let planet = player.getPlanet();
             //manage oxygen
             if(!(currentTick % 20) && tags.includes("ableToOxygen") && !tags.includes("oxygen_hunger") && player.getGameMode() == "Survival" && !is_entity_in_a_bubble(player)) oxygen_spending(player)
+            //manage asteroids falling in the moon
+            if(tags.includes("in_space") && planet?.type == "moon"){
+                throw_meteors(player);
+            }
             //manage dungeon finder
             dungeon_finder_loop(player)
             //manage coordinates
             if(coords_enabled) coords_loop(player)
+            //manage footprints in the moon
+            if(!(currentTick % 10) && tags.includes("in_space") && !player.getComponent("minecraft:riding")) spawn_footprint(player, player.location)
         });
         //manage gravity
         //player_gravity(players_in_space)
     });
 });
 
-//space player tags removing 
-world.afterEvents.playerSpawn.subscribe((data) => {
-    if(data.player.dimension.id !== "minecraft:the_end") space_tags_removing(data.player)
-    data.player.removeTag("oxygen_hunger");
-    data.player.setDynamicProperty("in_celestial_selector")
+//removes space tags and sets standart permissions to default
+world.afterEvents.playerSpawn.subscribe(({player}) => {
+    if(player.dimension.id !== "minecraft:the_end"){
+        space_tags_removing(player)
+    }
+    player.removeTag("oxygen_hunger");
+    player.setDynamicProperty("in_celestial_selector");
+
+    player.inputPermissions.setPermissionCategory(6, true);
+    player.inputPermissions.setPermissionCategory(7, true);
+    player.inputPermissions.setPermissionCategory(8, true);
 });
 
 world.afterEvents.playerDimensionChange.subscribe((data) => {
     if(data.toDimension.id == "minecraft:the_end"){
-        let planet = Planet.getAll().find(pl => pl.isOnPlanet(data.toLocation));
+        let planet = getPlanetByLocation(data.toLocation);
         if(!planet) return;
         data.player.addTag("in_space");
         data.player.addTag("ableToOxygen");
     }
-    if(data.fromDimension.id == "minecraft:the_end") space_tags_removing(data.player)
+    if(data.fromDimension.id == "minecraft:the_end"){
+        data.player.runCommand("fog @s remove mars")
+        space_tags_removing(data.player);
+    }
 });

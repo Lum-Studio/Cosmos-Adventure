@@ -1,12 +1,11 @@
 import { ItemStack } from "@minecraft/server";
 import recipes from "../../../recipes/compressor"
-import machines from "../AllMachineBlocks"
 import { compare_lists, load_dynamic_object, save_dynamic_object} from "../../../api/utils";
 
 const fuelTypes = new Set(["minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"])
 
 function get_ingredients(container) {
-	const inputs = machines.compressor.items.top_input
+	const inputs = data.items.top_input
 	return inputs.map(i => container.getItem(i))
 }
 
@@ -19,15 +18,14 @@ function find_recipe(ingredients) {
 	} return undefined
 }
 
-export default class {
-    constructor(entity, block) {
-		this.entity = entity;
-		this.block = block;
-        if (entity.isValid) this.compress()
-	}
-
-	compress() {
-		const container = this.entity.getComponent('minecraft:inventory').container;
+const data = {
+	items: {
+		top_input: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+		side_input: [9],
+		output: [10]
+	},
+	onTick(entity, block) {
+		const container = entity.getComponent('minecraft:inventory').container;
 		const items = get_ingredients(container)
 		const ingredients = [...items.map(i => i?.typeId)].filter(i => i).sort()
 		const output = find_recipe(ingredients)
@@ -36,7 +34,7 @@ export default class {
 		const fuelItem = container.getItem(9);
 		const isCoalBlock = fuelItem?.typeId === 'minecraft:coal_block'; 
 
-		const variables = load_dynamic_object(this.entity, 'machine_data');
+		const variables = load_dynamic_object(entity, "machine_data");
 		let burnTime = variables.burnTime || 0;
 		let burnDuration = variables.burnDuration || 0;
 		let progress = variables.progress || 0;
@@ -56,7 +54,7 @@ export default class {
 
 		if (!output && progress > 0) progress = 0
 
-		if ([120, 160, 200].includes(progress)) this.block.dimension.playSound("random.anvil_land", this.entity.location)
+		if ([120, 160, 200].includes(progress)) block.dimension.playSound("random.anvil_land", entity.location)
 
 		if (progress == 200) {
 			progress = 0
@@ -70,12 +68,10 @@ export default class {
 
 
 		if(!compare_lists(first_values, [burnTime, burnDuration, progress]) || !container.getItem(11)){
-			save_dynamic_object(this.entity, 'machine_data', {progress, burnDuration, burnTime})
+			save_dynamic_object(entity, {progress, burnDuration, burnTime}, "machine_data")
 			container.add_ui_display(11, '', Math.round((burnTime / burnDuration) * 13))
 			container.add_ui_display(12, '', Math.ceil((progress / 200) * 52))
 			container.add_ui_display(13, `§r   Status:\n${!progress ? '    §6Idle' : '§2Compressing'}`)
 		}
-
 	}
-}
-
+}; export default data

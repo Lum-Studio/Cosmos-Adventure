@@ -1,8 +1,9 @@
 {
-  "format_version": "1.20.80",
+	"format_version": "1.21.100",
   "minecraft:block": {
     "description": {
       "identifier": "cosmos:basic_solar_panel",
+			"menu_category": { "category": "items" },
       "traits": {
         "minecraft:placement_direction": {
           "enabled_states": ["minecraft:cardinal_direction"],
@@ -12,9 +13,10 @@
     },
     "components": {
       "tag:machine": {},
-      "minecraft:custom_components": ["cosmos:machine"],
-      "minecraft:geometry": "minecraft:geometry.full_block",
+      "cosmos:machine": {},
       "minecraft:destructible_by_explosion": false,
+			"minecraft:movable": { "movement_type": "immovable" },
+      "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:destructible_by_mining": {
         "seconds_to_destroy": 0.5
       },

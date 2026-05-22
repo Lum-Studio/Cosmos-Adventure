@@ -55,12 +55,15 @@
 		]
 	},
 	"item_text@machines.specific_slot": {
+		"$alignment": "top_left",
+		"$color": "$title_text_color",
 		"controls": [
 			{ "text": {
 				"type": "label",
 				"text": "#hover_text",
 				"collection_index": "$index",
-				"color": "$title_text_color",
+				"color": "$color",
+				"text_alignment": "$alignment",
 				"bindings": "$fetch_item_hover"
 			}}
 		]
@@ -236,7 +239,7 @@
 					{
 						"from_button_id": "button.menu_select",
 						"to_button_id": "button.container_auto_place",
-						"mapping_type": "pressed"
+        				"mapping_type": "pressed"
 					},
 					{
 						"from_button_id": "button.menu_ok",
@@ -314,6 +317,34 @@
 				]
 			}}
 		]
+	},
+
+	"solar_icon": {
+		"type":"image",
+		"texture": "textures/ui/cosmos/machines/solar_off",
+		"size": [ 18, 18 ],
+		"controls": [
+            {"solar_icon@machines.specific_slot": {
+			    "controls": [
+				    {"texture": {
+						"type": "panel",
+						"collection_index": "$index",
+				        "controls": [
+				        { "sun_visible": {
+					        "type": "image",
+					        "texture": "textures/ui/cosmos/machines/solar_on",
+					        "size": [18, 18],
+					        "bindings": "$use_durability",
+					        "$source": "#null", "$target": "#null",
+					        "$visible_if": "(not (#data = 1000))"
+				        }}
+				    ]
+			    }}
+		        ]
+		    }
+	    },
+		{ "solar_hover@machines.item_hover": {} }
+	    ]
 	},
 
 

@@ -129,6 +129,11 @@
                 "is_pushable": false,
                 "is_pushable_by_piston": false
             },
+            "minecraft:type_family": {
+                "family": [
+                    "vehicle"
+                ]
+            },
             "minecraft:rideable": {
                 "crouching_skip_interact": true,
                 "family_types": [

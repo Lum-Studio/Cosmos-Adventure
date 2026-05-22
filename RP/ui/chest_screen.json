@@ -119,42 +119,49 @@
             },
             {
                 "requires": "(not (($ct - '§f§u§e§l§0') = $ct))",
-                "$screen_content": "fuel_0.interface",
+                "$screen_content": "rocket.interface",
+                "$storage_tier": 0,
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },
             {
                 "requires": "(not (($ct - '§f§u§e§l§1') = $ct))",
-                "$screen_content": "fuel_18.interface",
+                "$screen_content": "rocket.interface",
+                "$storage_tier": 1,
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },
             {
                 "requires": "(not (($ct - '§f§u§e§l§2') = $ct))",
-                "$screen_content": "fuel_36.interface",
+                "$screen_content": "rocket.interface",
+                "$storage_tier": 2,
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },
             {
                 "requires": "(not (($ct - '§f§u§e§l§3') = $ct))",
-                "$screen_content": "fuel_54.interface",
+                "$screen_content": "rocket.interface",
+                "$storage_tier": 3,
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },
             {
                 "requires": "(not (($ct - '§f§u§e§l§_§c§h§e§s§t§0') = $ct))",
+                "$storage_tier": 0,
                 "$screen_content": "fuel_chest_0.interface",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },
             {
                 "requires": "(not (($ct - '§f§u§e§l§_§c§h§e§s§t§1') = $ct))",
+                "$storage_tier": 1,
                 "$screen_content": "fuel_chest_18.interface",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },
             {
                 "requires": "(not (($ct - '§f§u§e§l§_§c§h§e§s§t§2') = $ct))",
+                "$storage_tier": 2,
                 "$screen_content": "fuel_chest_36.interface",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
@@ -162,6 +169,13 @@
             {
                 "requires": "(not (($ct - '§f§u§e§l§_§c§h§e§s§t§3') = $ct))",
                 "$screen_content": "fuel_chest_54.interface",
+                "$storage_tier": 3,
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§s§o§l§a§r§_§p§a§n§e§l') = $ct))",
+                "$screen_content": "solar_panel.interface",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },
