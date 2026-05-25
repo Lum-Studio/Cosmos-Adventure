@@ -43,7 +43,7 @@ const data = {
 		energy = charge_from_machine(entity, block, energy)
 		energy = charge_from_battery(entity, energy, BatterySlot)
 		
-		fuel = input_fluid("fuel", entity, block, fuel)
+		fuel = input_fluid({type: "fuel", slot: "fuel"}, entity, block, fuel)
 		fuel = load_from_item(fuel, "fuel", data.fuel.capacity, container, InputSlot)
 
 		if (active && energy > 0 && fuel >= 2 && block) {

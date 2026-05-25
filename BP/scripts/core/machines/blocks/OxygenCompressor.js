@@ -19,7 +19,8 @@ const data = {
         const variables = load_dynamic_object(entity, "machine_data");
         let energy = variables.energy || 0;
         let o2 = variables.o2 || 0;
-        o2 = input_fluid("o2", entity, block, o2);
+        o2 = input_fluid({type: "o2", slot: "o2"}, entity, block, o2);
+        
         if (!(system.currentTick % 20) && canister) { // input from canister
             if (canister.typeId == "cosmos:o2_canister") o2 = load_from_canister({
                 canister, amount: o2,
