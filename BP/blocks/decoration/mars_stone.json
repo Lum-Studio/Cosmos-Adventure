@@ -6,7 +6,6 @@
 			"menu_category": { "category": "items" }
       },
       "components": {
-         "minecraft:display_name": "%tile.basic_block_mars.mars_stone.name",
          "minecraft:destructible_by_explosion": {
             "explosion_resistance": 1
          },

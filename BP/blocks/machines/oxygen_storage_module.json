@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.80",
+	"format_version": "1.21.100",
   "minecraft:block": {
     "description": {
       "identifier": "cosmos:oxygen_storage_module",
@@ -13,12 +13,13 @@
     },
     "components": {
       "tag:machine": {},
-      "minecraft:custom_components": ["cosmos:machine"],
-      "minecraft:geometry": "minecraft:geometry.full_block",
+      "cosmos:machine": {},
       "minecraft:destructible_by_explosion": false,
+      "minecraft:movable": { "movement_type": "immovable" },
       "minecraft:destructible_by_mining": {
         "seconds_to_destroy": 0.5
       },
+      "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
         "up": { "render_method": "opaque", "texture": "machine_blank" },
         "down": { "render_method": "opaque", "texture": "machine_blank" },

@@ -43,12 +43,16 @@ world.afterEvents.entitySpawn.subscribe(({entity}) => {
 });
 //removes entity from cycle and drops it's item
 world.afterEvents.entityDie.subscribe(({deadEntity: entity, damageSource}) => {
-    if(AllVehicles[entity.typeId]){
-        vehicles.delete(entity.id);
-        if(!AllVehicles[entity.typeId].drops_item || (damageSource?.damagingEntity.typeId == "minecraft:player" && damageSource?.damagingEntity.getGameMode() == "Creative")) return;
-        const item = get_vehicle_item(entity, entity.getComponent("minecraft:inventory"));
-        entity.dimension.spawnItem(item, entity.location);
-    }
+    const vehicle = AllVehicles[entity.typeId]
+    if (!vehicle) return
+    vehicles.delete(entity.id)
+    const {dimension, location} = entity
+    const player = damageSource?.damagingEntity
+    const player_kill = player?.typeId == "minecraft:player"
+    const creative = player?.getGameMode() == "Creative"
+    if (vehicle.drops_item && (!player_kill || (player_kill && !creative))) {
+        dimension.spawnItem(get_vehicle_item(entity), location)
+    }; entity.remove() // to skip the death animation
 });
 world.afterEvents.entityRemove.subscribe(({typeId, removedEntityId}) => {
     if(AllVehicles[typeId]) vehicles.delete(removedEntityId)
@@ -73,8 +77,9 @@ export function set_items_to_vehicle(vehicle, size, items_to_set, typeId){
     rocket_item.setDynamicProperty("inventory_size", size)
     container.setItem(inventorySize - 1, rocket_item)
 }
-export function get_vehicle_item(vehicle, inventory){
-    const inventory_size = inventory ? inventory.inventorySize - get_vehicle_data(vehicle).inventory_index: 0;
+export function get_vehicle_item(vehicle){
+    const inventory = vehicle.getComponent("minecraft:inventory")
+    const inventory_size = inventory ? inventory.inventorySize - get_vehicle_data(vehicle).inventory_index : 0;
     let item = new ItemStack(vehicle.typeId + "_item");
     item.setDynamicProperty("inventory_size", inventory_size);
     item.setLore([`§r§7Storage Space: ${inventory_size}`]);

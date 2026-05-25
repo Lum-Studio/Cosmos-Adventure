@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.80",
+	"format_version": "1.21.100",
   "minecraft:block": {
 	"description": {
 	  "identifier": "cosmos:electric_compressor",
@@ -12,10 +12,11 @@
       }
 	},
 	"components": {
-                  "minecraft:display_name": "%tile.machine2.4.name\n§7%tile.compressor_electric.description",
+    "minecraft:display_name": "%tile.machine2.4.name\n§7%tile.compressor_electric.description",
 	  "tag:machine": {},
-	  "minecraft:custom_components": ["cosmos:machine"],
-	  "minecraft:destructible_by_explosion": false,
+    "cosmos:machine": {},
+    "minecraft:destructible_by_explosion": false,
+    "minecraft:movable": { "movement_type": "immovable" },
 	  "minecraft:destructible_by_mining": {
 		  "seconds_to_destroy": 0.5
 	  },

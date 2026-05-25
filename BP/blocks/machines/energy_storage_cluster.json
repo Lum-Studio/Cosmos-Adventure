@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.60",
+  "format_version": "1.26.20",
   "minecraft:block": {
     "description": {
       "identifier": "cosmos:energy_storage_cluster",
@@ -12,15 +12,17 @@
       },
 	  "states": {
 		"cosmos:fill_level": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-		"cosmos:full": [true, false]
+		"cosmos:full": [false, true]
 	  }
     },
     "components": {
         // "minecraft:display_name": "%tile.machine.8.name\n§7%tile.energy_storage_module_tier2.description",
-		"tag:machine": {},
-		"minecraft:custom_components": ["cosmos:machine"],
-		"minecraft:geometry": "minecraft:geometry.full_block",
+	  	"minecraft:tags": ["machine"],
+		"cosmos:machine": {},
 		"minecraft:destructible_by_explosion": false,
+		"minecraft:movable": { "movement_type": "immovable" },
+		"minecraft:geometry": "minecraft:geometry.full_block",
+		"minecraft:material_instances": {},
 		"minecraft:destructible_by_mining": {
 			"seconds_to_destroy": 0.5
 		}

@@ -2,7 +2,6 @@ import { BlockStates, world, MolangVariableMap, system } from "@minecraft/server
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import machines from "../machines/AllMachineBlocks";
 import { location_of_side } from "../../api/utils";
-import { select_solar_system } from "../../api/player/celestial_selector";
 
 function swap(player, block, [state, value]) {
     block.setPermutation(block.permutation.withState(state, !value))
@@ -165,23 +164,22 @@ system.beforeEvents.startup.subscribe(({itemComponentRegistry}) => {
                 water: "Water",
                 oil: "Oil",
                 fuel: "Fuel",
-                o2: "Oxygen Gas",
-                h2: "Hydrogen Gas",
-                n2: "Nitrogen Gas",
+                o2: "Oxygen",
+                h2: "Hydrogen",
+                n2: "Nitrogen",
                 co2: "Carbon Dioxide",
-                methane: "Methane Gas",
-                liquid_o2: "Liquid Oxygen",
-                liquid_n2: "Liquid Nitrogen",
-                argon: "Argon Gas",
-                helium: "Helium Gas",
-                liquid_argon: "Liquid Argon",
+                methane: "Methane",
+                argon: "Argon",
+                helium: "Helium",
+                liquid_argon: "Argon",
             }
             const form = new ActionFormData()
             .title("Choose a Fluid")
             Object.values(fluids).forEach(fluid => form.button(fluid))
             form.show(player).then(({selection, canceled}) => {
                 if (canceled) return
-                itemStack.setLore([`§r§7Fluid:§3 ${Object.keys(fluids)[selection]}`])
+                itemStack.setLore([`§r§7Fluid:§3 ${Object.values(fluids)[selection]}`])
+                itemStack.setDynamicProperty('fluid', Object.keys(fluids)[selection])
                 player.getComponent('equippable').setEquipment('Mainhand', itemStack)
             })
         }

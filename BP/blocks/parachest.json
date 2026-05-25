@@ -10,23 +10,20 @@
 	},
 	"components": {
         "minecraft:display_name": "%tile.parachest.name\n§7%tile.parachest.description",
-      "tag:machine": {},
-	  "minecraft:custom_components": ["cosmos:machine"],
-	  "minecraft:destructible_by_explosion": false,
-	  "minecraft:destructible_by_mining": {
-		  "seconds_to_destroy": 0.5
-	  },
-    "minecraft:transformation":{
-		"rotation":[0, 180, 0]
+        "tag:machine": {},
+        "minecraft:custom_components": ["cosmos:machine"],
+        "minecraft:destructible_by_explosion": false,
+        "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 0.5
+        },
+        "minecraft:transformation":{
+            "rotation":[0, 180, 0]
+        },
+        "minecraft:geometry": "geometry.parachute_chest",
+        "minecraft:material_instances": {
+            "*": { "texture": "parachute_plain", "render_method": "alpha_test" }
+        }
     },
-    "minecraft:geometry": "geometry.parachute_chest",
-	  "minecraft:material_instances": {
-      "*": {
-        "texture": "parachute_plain",
-        "render_method": "alpha_test"
-      }
-	  }
-	},
 	"permutations": [
 		{
             "condition": "query.block_state('cosmos:parachute') == 0",

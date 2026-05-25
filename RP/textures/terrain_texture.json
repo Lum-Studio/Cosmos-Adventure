@@ -100,7 +100,7 @@
     "oil": {
       "textures": "textures/blocks/fluids/oil"
     },
-    "liquid_oxygen": {
+     "liquid_oxygen": {
       "textures": "textures/blocks/fluids/liquid_oxygen"
     },
     "tank_water": {

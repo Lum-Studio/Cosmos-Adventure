@@ -4,32 +4,35 @@ import { recipes } from "../../../recipes/deconstructor.js"
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
 import { get_data } from "../Machine.js";
 
-export default function(entity, block) {
-	const container = entity.getComponent('minecraft:inventory').container;
-	const data = get_data(entity);
-	const variables = load_dynamic_object(entity, "machine_data");
-	let energy = variables.energy || 0;
-	let progress = variables.progress || 0;
+const data = {
+	energy: {input: "right", capacity: 16000, maxInput: 45},
+	onTick(entity, block){
+		const container = entity.getComponent('minecraft:inventory').container;
+		const data = get_data(entity);
+		const variables = load_dynamic_object(entity, "machine_data");
+		let energy = variables.energy || 0;
+		let progress = variables.progress || 0;
 
-	energy = charge_from_machine(entity, block, energy)
-	energy = charge_from_battery(entity, energy, 0);
-	if(!(system.currentTick % 80)) energy -= Math.min(1, energy)
+		energy = charge_from_machine(entity, block, energy)
+		energy = charge_from_battery(entity, energy, 0);
+		if(!(system.currentTick % 80)) energy -= Math.min(1, energy)
 
-	if(energy > 0){
-		let recipe_item = container.getItem(1);
-		if(recipe_item){
-			progress++;
-		}else progress = 0;
+		if(energy > 0){
+			let recipe_item = container.getItem(1);
+			if(recipe_item){
+				progress++;
+			}else progress = 0;
 
-		if(progress > 250){
-			progress = 0;
-			deconstruct(entity, recipe_item, container);
-			container.setItem(1, recipe_item.decrementStack());
+			if(progress > 250){
+				progress = 0;
+				deconstruct(entity, recipe_item, container);
+				container.setItem(1, recipe_item.decrementStack());
+			}
 		}
-	}
 
-	save_dynamic_object(entity, {progress, energy}, "machine_data")
-}
+		save_dynamic_object(entity, {progress, energy}, "machine_data")
+	}
+}; export default data
 
 function deconstruct(storage, item, container){
 	let recipe = recipes[item.typeId];

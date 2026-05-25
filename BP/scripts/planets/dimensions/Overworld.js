@@ -3,7 +3,8 @@ import { place_parachest } from "../../core/machines/blocks/Parachest";
 import { set_items_to_vehicle } from "../../core/vehicles/Vehicle";
 import { saved_rocket_items } from "../../api/player/liftoff";
 
-const parachutes = {"cosmos:parachute_black": 0, 
+const parachutes = {
+    "cosmos:parachute_black": 0, 
     "cosmos:parachute_blue": 1,
     "cosmos:parachute_brown": 2,
     "cosmos:parachute_darkblue": 3, 

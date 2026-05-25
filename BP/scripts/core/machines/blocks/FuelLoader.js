@@ -1,80 +1,88 @@
-import { system, ItemStack, world } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
 import { charge_from_battery, charge_from_machine} from "../../matter/electricity.js";
-import { compare_lists, load_dynamic_object, location_of_side, save_dynamic_object } from "../../../api/utils.js";
-import { get_data } from "../Machine.js";
-import { pads } from "../../vehicles/Vehicle.js";
-import { input_fluid, load_from_canister_instant } from "../../matter/fluids.js";
+import { load_dynamic_object, location_of_side, save_dynamic_object } from "../../../api/utils.js";
+import { pads, vehicles } from "../../vehicles/Vehicle.js";
+import { input_fluid, load_from_item } from "../../matter/fluids.js";
+import { machine_buttons, setup_ui_button } from "../MachineButtons"
 
-function get_vehicles(block){
+const InputSlot = 0, BatterySlot = 1
+const EnergyDisplay = 2, FuelDisplay = 3
+const StatusDisplay = 4, ButtonSlot = 5
+const LoadButtonText = (status) => status ? 'Stop Loading' : 'Load Fuel'
+
+function get_vehicles(block) {
 	if(!block.isValid) return;
 	let {x, y, z} = block.location;
 
-    let pad_one = location_of_side(block, "front")
-    let pad_two = location_of_side(block, "back")
+    let front = location_of_side(block, "front")
+    let back = location_of_side(block, "back")
 
-	let offset_1 = {x: (x - pad_one.x) * 2, z: (z - pad_one.z) * 2};
-	let offset_2 = {x: (x - pad_two.x) * 2, z: (z- pad_two.z) * 2};
+	const front_offset = {x: (x - front.x) * 2, z: (z - front.z) * 2};
+	const back_offset = {x: (x - back.x) * 2, z: (z- back.z) * 2};
 
-    pad_one = block.dimension.getBlock({x: x + offset_1.x, y: y, z: z + offset_1.z});
-	pad_two = block.dimension.getBlock({x: x + offset_2.x, y: y, z: z + offset_2.z});
+    front = block.dimension.getBlock({x: x + front_offset.x, y: y, z: z + front_offset.z});
+	back = block.dimension.getBlock({x: x + back_offset.x, y: y, z: z + back_offset.z});
 
-	let vehicles = [];
-	[pad_one, pad_two].forEach((pad) => {
-		if(pad.permutation.getState("cosmos:center")){
-			let vehicle = pad.dimension.getEntities({families: [pads[pad.typeId]], location: pad.center(), maxDistance: 2})[0];
-			if(vehicle) vehicles.push(vehicle.id);
-		}
-	});
-    return vehicles;
+	return [front, back].map(pad => {
+		if (!pad.permutation.getState("cosmos:center")) return
+		return pad.dimension.getEntities({families: [pads[pad.typeId]], location: pad.center(), maxDistance: 2})[0]
+	}).filter(Boolean)
 }
 
-export default function(entity, block) {
-	const stopped = entity.getDynamicProperty('stopped')
-	const container = entity.getComponent('minecraft:inventory').container
-	const data = get_data(entity)
-	
-	const variables = load_dynamic_object(entity, "machine_data")
-	let energy = variables.energy ?? 0
-	let fuel = variables.fuel ?? 0
-	let vehicles = variables.vehicles ?? [];
-	
-	energy = charge_from_machine(entity, block, energy)
-	
-	energy = charge_from_battery(entity, energy, 1)
-	
-	fuel = input_fluid({type: "fuel", slot: "fuel"}, entity, block, fuel)
-	fuel = load_from_canister_instant(fuel, "fuel", entity, 0).amount;
-	if(!stopped && vehicles.length > 0 && energy > 0 && fuel >= 2 && block){
-			vehicles.forEach((vehicle) =>{
-				vehicle = world.getEntity(vehicle);
-				if(!vehicle || !vehicle.isValid) return;
-				let vehicle_dynamic_object = load_dynamic_object(vehicle, "vehicle_data")
-				let fuel_level = vehicle_dynamic_object?.fuel ?? 0;
-				if(fuel_level < 1000){
-				let level = Math.min(1000, fuel_level + 2)
-				vehicle_dynamic_object.fuel = level;
-				save_dynamic_object(vehicle, vehicle_dynamic_object, "vehicle_data");
+const data = {
+	energy: {input: "right", capacity: 16000, maxInput: 120},
+	fuel: {input: "left", capacity: 12000},
+	onTick(entity, block) {
+		const active = entity.getDynamicProperty('active')
+		const container = entity.getComponent('minecraft:inventory').container
+		
+		const variables = load_dynamic_object(entity, "machine_data")
+		let energy = variables.energy ?? 0
+		let fuel = variables.fuel ?? 0
+		
+		energy = charge_from_machine(entity, block, energy)
+		energy = charge_from_battery(entity, energy, BatterySlot)
+		
+		fuel = input_fluid({type: "fuel", slot: "fuel"}, entity, block, fuel)
+		fuel = load_from_item(fuel, "fuel", data.fuel.capacity, container, InputSlot)
+
+		if (active && energy > 0 && fuel >= 2 && block) {
+			const vehicles = system.currentTick % 100 == 0 ? (entity.vehicles = get_vehicles(block)) : entity.vehicles ?? []
+			vehicles.forEach((vehicle) => {
+				if (!vehicle || !vehicle.isValid) return
+				let vehicle_data = load_dynamic_object(vehicle, "vehicle_data") ?? {}
+				let fuel_level = vehicle_data.fuel ?? 0
+				if (fuel_level >= 1000) return
+				vehicle_data.fuel = Math.min(1000, fuel_level + 2)
+				save_dynamic_object(vehicle, vehicle_data, "vehicle_data")
 				fuel = Math.max(0, fuel - 2)
 				energy = Math.max(0, energy - 30)
-			}
-		})
-	}
+			})
+		}
 
-	if(system.currentTick % 100 == 0) vehicles = get_vehicles(block);
-	save_dynamic_object(entity, {energy, fuel, vehicles}, "machine_data")
-	
-	const status =
-		energy == 0 ? "§4No Power" : 
-		fuel == 0 ? "§4No Fuel to Load" :
-		stopped ? "§6Ready" :
-		energy < 30 ? "§6Not Enough Power" :
-		"§2Load Fuel"
-	
-	container.add_ui_display(2, `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`, Math.round((energy / data.energy.capacity) * 55))
-	container.add_ui_display(3, `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel.capacity} mB`, Math.ceil((Math.ceil(fuel / 1000) / (data.fuel.capacity / 1000)) * 38))
-	container.add_ui_display(4, `§rStatus: ${status}`)
-	if (!container.getItem(5)) {
-		entity.setDynamicProperty('stopped', !stopped)
-		container.add_ui_button(5, stopped ? 'Stop Loading' : 'Loading')
+		save_dynamic_object(entity, {energy, fuel}, "machine_data")
+		
+		const status = fuel == 0 ? "§4No Fuel to Load"
+		: energy < 30 ? "§4Not Enough Power"
+		: active ? "§2Active"
+		: "§6Ready"
+		
+		container.add_ui_display(EnergyDisplay, `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`, Math.round((energy / data.energy.capacity) * 55))
+		container.add_ui_display(FuelDisplay, `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel.capacity} mB`, Math.ceil((Math.ceil(fuel / 1000) / (data.fuel.capacity / 1000)) * 38))
+		container.add_ui_display(StatusDisplay, `§rStatus: ${status}`)
+	},
+	onPlace(entity) {
+		const initial_state = true
+		entity.setDynamicProperty('active', initial_state)
+		setup_ui_button(entity, ButtonSlot, LoadButtonText(initial_state))
 	}
+}; export default data
+
+const buttons = []; machine_buttons.set('cosmos:fuel_loader', buttons)
+buttons[ButtonSlot] = function (entity, item) {
+	const container = entity.getComponent('minecraft:inventory').container
+	const active = entity.getDynamicProperty('active')
+	item.nameTag = LoadButtonText(!active) // flip the button text
+	entity.setDynamicProperty('active', !active) // flip the machine state
+	container.setItem(ButtonSlot, item)
 }

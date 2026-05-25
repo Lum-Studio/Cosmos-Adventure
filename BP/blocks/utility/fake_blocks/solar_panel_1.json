@@ -5,7 +5,7 @@
       "identifier": "cosmos:solar_panel_1"
     },
     "components": {
-      "minecraft:display_name": "§4Dangerous (Don't place)",
+      "minecraft:display_name": "§4Technical Block",
       "minecraft:custom_components": ["cosmos:solar_panel"],
       "minecraft:collision_box": {
 	      "origin": [-3, 0, -3],

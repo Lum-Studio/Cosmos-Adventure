@@ -7,164 +7,38 @@ import Refinery from './blocks/Refinery'
 import ElectricCompressor from './blocks/ElectricCompressor'
 import OxygenCompressor from './blocks/OxygenCompressor'
 import OxygenDecompressor from './blocks/OxygenDecompressor'
+import OxygenStorage from './blocks/OxygenStorage'
 import FuelLoader from './blocks/FuelLoader'
 import WaterElectrolyzer from './blocks/WaterElectrolyzer'
 import GasLiquefier from './blocks/GasLiquefier'
 import ElectricFurnace from './blocks/ElectricFurnace'
 import Parachest from './blocks/Parachest'
 import OxygenDistributor from './blocks/OxygenDistributor'
-import OxygenStorage from './blocks/OxygenStorage'
 import BasicSolarPanel from './blocks/BasicSolarPanel'
 import Deconstructor from './blocks/Deconstructor'
 
-import { place_parachest } from './blocks/Parachest'
-
-export default {
-	"coal_generator": {
-		ui: "§c§o§a§l§_§g§e§n§e§r§a§t§o§r",
-		class: CoalGenerator,
-		energy: {output: "right", maxPower: 120},
-		items: {
-			top_input: [0],
-			side_input: [0],
-		},
-	},
-	"compressor": {
-		ui: "§c§o§m§p§r§e§s§s§o§r",
-		class: Compressor,
-		items: {
-			top_input: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-			side_input: [9],
-			output: [10]
-		},
-	},
-	"energy_storage_module": {
-		ui: "§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§m§o§d§u§l§e",
-		class: EnergyStorage,
-		energy: {
-			input: "left",
-			output: "right", 
-			capacity: 500000,
-			maxPower: 300,
-			maxInput: 2000
-		},
-	},
-	"energy_storage_cluster": {
-		ui: "§e§n§e§r§g§y§_§s§t§o§r§a§g§e§_§c§l§u§s§t§e§r",
-		class: EnergyStorage,
-		energy: {
-			input: "left",
-			output: "right", 
-			capacity: 2500000,
-			maxPower: 1800,
-			maxInput: 2000
-		},
-	},
-	"electric_compressor":{
-		ui: "§e§l§e§c§t§r§i§c§_§c§o§m§p§r§e§s§s§o§r",
-		class: ElectricCompressor,
-		energy: {input: "right", capacity: 16000, maxInput: 1500},
-		items: {
-			top_input: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-			side_input: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-			output: [10, 11]
-		},
-	},
-	"electric_furnace":{
-		ui: "§e§l§e§c§t§r§i§c§_§f§u§r§n§a§c§e",
-		class: ElectricFurnace,
-		energy: {input: "right", capacity: 16000, maxInput: 45},
-		items: {
-			top_input: [0],
-			side_input: [0],
-			output: [2]
-		},
-	},
-	"deconstructor":{
-		ui: "",
-		class: Deconstructor,
-		energy: {input: "right", capacity: 16000, maxInput: 45}
-	},
-	"basic_solar_panel": {
-		ui: "§s§o§l§a§r§_§p§a§n§e§l",
-		class: BasicSolarPanel,
-		energy: {output: "back", capacity: 16000, maxPower: 200},
-		items: {
-			top_input: [0],
-			side_input: [0],
-		},
-		multi_block: true,
-	},
-	"oxygen_collector": {
-		ui: "§o§x§y§g§e§n§_§c§o§l§l§e§c§t§o§r",
-		class: OxygenCollector,
-		energy: {input: "right", capacity: 16000, maxInput: 25},
-		o2: {output: "left", capacity: 6000},
-	},
-	"oxygen_compressor": {
-		ui: "§o§x§y§g§e§n§_§c§o§m§p§r§e§s§s§o§r",
-		class: OxygenCompressor,
-		energy: {input: "right", capacity: 16000, maxInput: 15},
-		o2: {input: "left", capacity: 1200, maxInput: 16},
-	},
-	"oxygen_distributor": {
-		ui: "§o§x§y§g§e§n§_§d§i§s§t§r§i§b§u§t§o§r",
-		class: OxygenDistributor,
-		energy: {input: "right", capacity: 16000, maxInput: 25},
-		o2: {input: "left", capacity: 6000, maxInput: 16},
-	},
-	"oxygen_storage_module": {
-		ui: "§o§x§y§g§e§n§_§s§t§o§r§a§g§e",
-		class: OxygenStorage,
-		o2: {input: "right", "output": "left", capacity: 60000, maxInput: 16},
-	},
-	"oxygen_decompressor": {
-		ui: "§o§x§y§g§e§n§_§d§e§c§o§m§p§r§e§s§s§o§r",
-		class: OxygenDecompressor,
-		energy: {input: "right", capacity: 16000, maxInput: 10},
-		o2: {output: "left", capacity: 1200},
-	},
-	"circuit_fabricator": {
-		ui: "§c§i§r§c§u§i§t§_§f§a§b§r§i§c§a§t§o§r",
-		class: CircuitFabricator,
-		energy: {input: "right", capacity: 16000, maxInput: 50},
-		items: {
-			top_input: [4],
-			side_input: [0, 1, 2, 3],
-			output: [6]
-		},
-	},
-	"refinery": {
-		ui: "§r§e§f§i§n§e§r§y",
-		class: Refinery,
-		energy: {input: "above", capacity: 16000, maxInput: 120},
-		oil: {input: "right", capacity: 24000},
-		fuel: {output: "left", capacity: 24000},
-	},
-	"fuel_loader": {
-		ui: "§f§u§e§l§_§l§o§a§d§e§r",
-		class: FuelLoader,
-		energy: {input: "right", capacity: 16000, maxInput: 120},
-		fuel: {input: "left", capacity: 12000},
-	},
-	"water_electrolyzer": {
-		ui: "§w§a§t§e§r§_§e§l§e§c§t§r§o§l§y§z§e§r",
-		class: WaterElectrolyzer,
-		energy: {input: "below", capacity: 16000, maxInput: 900},
-		water: {input: "left", capacity: 4000},
-		o2: {output: "back", capacity: 4000},
-		h2: {output: "right", capacity: 4000},
-	},
-	"gas_liquefier": {
-		ui: "§g§a§s§_§l§i§q§u§e§f§i§e§r",
-		class: GasLiquefier,
-		energy: {input: "below", capacity: 16000, maxInput: 900},
-		gas: {input: "left", capacity: 4000},
-		liquid: {output: "right", capacity: 2000},
-	},
-	"parachest":{
-		ui: '',
-		class: Parachest,
-		place(entity){ place_parachest(0, undefined, undefined, 0, undefined, entity)}
-	}
+const AllMachines = {
+	coal_generator: CoalGenerator,
+	compressor: Compressor,
+	energy_storage_module: EnergyStorage.energy_storage_module,
+	energy_storage_cluster: EnergyStorage.energy_storage_cluster,
+	electric_compressor: ElectricCompressor,
+	electric_furnace: ElectricFurnace,
+	basic_solar_panel: BasicSolarPanel,
+	oxygen_collector: OxygenCollector,
+	oxygen_compressor: OxygenCompressor,
+	oxygen_distributor: OxygenDistributor,
+	oxygen_decompressor: OxygenDecompressor,
+	circuit_fabricator: CircuitFabricator,
+	refinery: Refinery,
+	fuel_loader: FuelLoader,
+	water_electrolyzer: WaterElectrolyzer,
+	gas_liquefier: GasLiquefier,
+	parachest: Parachest,
+	deconstructor: Deconstructor,
+	oxygen_storage_module: OxygenStorage
+	
 }
+
+for (const machine in AllMachines) AllMachines[machine].ui = `§${machine.split('').join('§')}`
+export default AllMachines
