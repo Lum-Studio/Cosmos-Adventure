@@ -37,7 +37,6 @@ const AllMachines = {
 	parachest: Parachest,
 	deconstructor: Deconstructor,
 	oxygen_storage_module: OxygenStorage
-	
 }
 
 for (const machine in AllMachines) AllMachines[machine].ui = `§${machine.split('').join('§')}`
