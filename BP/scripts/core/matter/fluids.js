@@ -128,19 +128,17 @@ const faces = {
     East: 'east', West: 'west',
 }
 
-system.beforeEvents.startup.subscribe(({itemComponentRegistry}) => {
-    itemComponentRegistry.registerCustomComponent("cosmos:bucket", {
-        onUseOn({source:player, itemStack:item, blockFace, block}) {
-            const against = block[faces[blockFace]]()
-            if (against.typeId != 'minecraft:air') return
-            const liquid = liquids.find(liquid => liquid.bucket == item.typeId)
-            if (!liquid) return
-            against.setType(liquid.block)
-            if (player.getGameMode() == 'Creative') return
-            player.getComponent('equippable').setEquipment('Mainhand', new ItemStack('bucket'))
-        }
-    })
-})
+export const bucket_component = {
+    onUseOn({source:player, itemStack:item, blockFace, block}) {
+        const against = block[faces[blockFace]]()
+        if (against.typeId != 'minecraft:air') return
+        const liquid = liquids.find(liquid => liquid.bucket == item.typeId)
+        if (!liquid) return
+        against.setType(liquid.block)
+        if (player.getGameMode() == 'Creative') return
+        player.getComponent('equippable').setEquipment('Mainhand', new ItemStack('bucket'))
+    }
+}
 
 export function output_fluid(fluid_data, entity, block, fluid) {
     if(system.currentTick % 20) return fluid;

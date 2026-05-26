@@ -47,6 +47,10 @@ export function six_neighbors(block) {
 	return blocks
 }
 
+export function get_neighbors(block) {
+	return six_neighbors_array.map(side => block[side]())
+}
+
 // this function takes a Block and a Side (above, below, left, right, back, or front) and returns a location {x, y, z}
 export function location_of_side(block, side) {
 	const TURN_BY = {

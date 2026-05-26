@@ -131,94 +131,91 @@ function get_block_indicator(location, dimension){
     return undefined;
 }
 
-//main loop
-system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
-    blockComponentRegistry.registerCustomComponent("cosmos:boss_block", {
-       onTick(data){
-        let loc = data.block.location;
-        let loc_as_string = JSON.stringify(loc);
-        let block_in_a_list = evolved_skeletons.get(loc_as_string);
+export const evolved_skeleton_component = {
+    onTick(data){
+    let loc = data.block.location;
+    let loc_as_string = JSON.stringify(loc);
+    let block_in_a_list = evolved_skeletons.get(loc_as_string);
 
-        //adds an area to boss object if player enters the room
-        let area = block_in_a_list?.area ?? get_block_indicator(loc, data.block.dimension);
+    //adds an area to boss object if player enters the room
+    let area = block_in_a_list?.area ?? get_block_indicator(loc, data.block.dimension);
 
-        if(area == "not_load") return;
-        if(!area){
-            if(block_in_a_list?.boss) world.getEntity(block_in_a_list.boss)?.remove();
+    if(area == "not_load") return;
+    if(!area){
+        if(block_in_a_list?.boss) world.getEntity(block_in_a_list.boss)?.remove();
 
-            data.block.setPermutation(BlockPermutation.resolve("cosmos:moon_dungeon_bricks"));
-            return; 
-        }
-        //so bassicaly it checks if boss fight started
-        //and remove boss if player leave
-        let players_in_area = data.block.dimension.getPlayers({location: {x: loc.x, y: loc.y, z: loc.z}, volume: area}).filter((element) => element.getComponent("minecraft:health").currentValue !== 0);
-        if(!block_in_a_list){
-            if(!players_in_area.length) return;
-            let boss = data.block.dimension.spawnEntity("cosmos:evolved_skeleton_boss", {x: loc.x + (area.x/2), y: loc.y + 1, z: loc.z + (area.z/2)});
-            let arrow_event = world.afterEvents.projectileHitBlock.subscribe((data) => {
-                if(data.source?.typeId == "cosmos:evolved_skeleton_boss" && data.source?.id == boss.id && data.projectile.isValid) data.projectile?.remove()
-            });
+        data.block.setPermutation(BlockPermutation.resolve("cosmos:moon_dungeon_bricks"));
+        return; 
+    }
+    //so bassicaly it checks if boss fight started
+    //and remove boss if player leave
+    let players_in_area = data.block.dimension.getPlayers({location: {x: loc.x, y: loc.y, z: loc.z}, volume: area}).filter((element) => element.getComponent("minecraft:health").currentValue !== 0);
+    if(!block_in_a_list){
+        if(!players_in_area.length) return;
+        let boss = data.block.dimension.spawnEntity("cosmos:evolved_skeleton_boss", {x: loc.x + (area.x/2), y: loc.y + 1, z: loc.z + (area.z/2)});
+        let arrow_event = world.afterEvents.projectileHitBlock.subscribe((data) => {
+            if(data.source?.typeId == "cosmos:evolved_skeleton_boss" && data.source?.id == boss.id && data.projectile.isValid) data.projectile?.remove()
+        });
 
-            evolved_skeletons.set(loc_as_string, {boss: boss.id, dead: false, takenPlayer: false, shouldShoot: true, area: area, event: arrow_event})
+        evolved_skeletons.set(loc_as_string, {boss: boss.id, dead: false, takenPlayer: false, shouldShoot: true, area: area, event: arrow_event})
 
-            let interval_tick = 0;
-            let boss_fight = system.runInterval(() => {
-                interval_tick++;
-                let status = evolved_skeletons.get(loc_as_string);
-                if(!status){
-                    system.clearRun(boss_fight)
-                    return;
-                }
-                if(status.dead){
-                    //boss.playAnimation()
-                    system.runTimeout(() => {
-                        //shoud do stuff
-                    }, 100);
-                    evolved_skeletons.delete(loc_as_string)
-                    data.block.setPermutation(BlockPermutation.resolve("cosmos:moon_dungeon_bricks"));
-                    data.block.dimension.getBlock({x: loc.x + area.x, y: loc.y, z: loc.z + area.z}).setPermutation(BlockPermutation.resolve("cosmos:moon_dungeon_bricks"));
-                    system.clearRun(boss_fight)
-                    return;
-                }
-
-                let spawner_status = data.block.dimension.getBlock(loc);
-                if(!boss?.isValid || !spawner_status || spawner_status.typeId !== "cosmos:moon_boss_spawner"){
-                    if(boss.isValid) boss.remove();
-                    world.afterEvents.projectileHitBlock.unsubscribe(arrow_event)
-                    system.clearRun(boss_fight);
-                    return;
-                }
-                if(status.shouldShoot && !(interval_tick % 2)){
-                    let attackable_player = boss.dimension.getPlayers({location: boss.location, maxDistance: 15, excludeGameModes: ["Spectator", "Creative"], closest: 1})[0];
-
-                    if(attackable_player && attackable_player.isValid && attackable_player.getComponent("minecraft:health").currentValue) shootPlayer(boss, attackable_player)
-                }
-                if(!status.takenPlayer){
-                    let player_to_take = boss.dimension.getPlayers({location: boss.location, maxDistance: Math.ceil(Math.random() * 5), closest: 1}).filter((element) => element.getComponent("minecraft:health").currentValue > 0)[0];
-                    if(player_to_take){
-                        status["takenPlayer"] = true;
-                        status["shouldShoot"] = false;
-                        boss.triggerEvent("cosmos:player")
-                        let corners = [{x: loc.x + area.x, y: loc.y + 8, z: loc.z}, 
-                            {x: loc.x, y: loc.y + 8, z: loc.z + area.z},
-                            {x: loc.x, y: loc.y + 8, z: loc.z},
-                            {x: loc.x + area.x, y: loc.y + 8, z: loc.z + area.z}
-                        ];
-                        takePlayer(boss, player_to_take, corners)
-                    }
-                }
-            },10);
-        }else{
-            if(!players_in_area.length){
-                world.afterEvents.projectileHitBlock.unsubscribe(block_in_a_list.event)
-                world.getEntity(block_in_a_list.boss)?.remove();
-                evolved_skeletons.delete(loc_as_string);
-                world.sendMessage({"rawtext": [{"translate": "gui.skeleton_boss.message"}]});
+        let interval_tick = 0;
+        let boss_fight = system.runInterval(() => {
+            interval_tick++;
+            let status = evolved_skeletons.get(loc_as_string);
+            if(!status){
+                system.clearRun(boss_fight)
+                return;
             }
+            if(status.dead){
+                //boss.playAnimation()
+                system.runTimeout(() => {
+                    //shoud do stuff
+                }, 100);
+                evolved_skeletons.delete(loc_as_string)
+                data.block.setPermutation(BlockPermutation.resolve("cosmos:moon_dungeon_bricks"));
+                data.block.dimension.getBlock({x: loc.x + area.x, y: loc.y, z: loc.z + area.z}).setPermutation(BlockPermutation.resolve("cosmos:moon_dungeon_bricks"));
+                system.clearRun(boss_fight)
+                return;
+            }
+
+            let spawner_status = data.block.dimension.getBlock(loc);
+            if(!boss?.isValid || !spawner_status || spawner_status.typeId !== "cosmos:moon_boss_spawner"){
+                if(boss.isValid) boss.remove();
+                world.afterEvents.projectileHitBlock.unsubscribe(arrow_event)
+                system.clearRun(boss_fight);
+                return;
+            }
+            if(status.shouldShoot && !(interval_tick % 2)){
+                let attackable_player = boss.dimension.getPlayers({location: boss.location, maxDistance: 15, excludeGameModes: ["Spectator", "Creative"], closest: 1})[0];
+
+                if(attackable_player && attackable_player.isValid && attackable_player.getComponent("minecraft:health").currentValue) shootPlayer(boss, attackable_player)
+            }
+            if(!status.takenPlayer){
+                let player_to_take = boss.dimension.getPlayers({location: boss.location, maxDistance: Math.ceil(Math.random() * 5), closest: 1}).filter((element) => element.getComponent("minecraft:health").currentValue > 0)[0];
+                if(player_to_take){
+                    status["takenPlayer"] = true;
+                    status["shouldShoot"] = false;
+                    boss.triggerEvent("cosmos:player")
+                    let corners = [{x: loc.x + area.x, y: loc.y + 8, z: loc.z}, 
+                        {x: loc.x, y: loc.y + 8, z: loc.z + area.z},
+                        {x: loc.x, y: loc.y + 8, z: loc.z},
+                        {x: loc.x + area.x, y: loc.y + 8, z: loc.z + area.z}
+                    ];
+                    takePlayer(boss, player_to_take, corners)
+                }
+            }
+        },10);
+    }else{
+        if(!players_in_area.length){
+            world.afterEvents.projectileHitBlock.unsubscribe(block_in_a_list.event)
+            world.getEntity(block_in_a_list.boss)?.remove();
+            evolved_skeletons.delete(loc_as_string);
+            world.sendMessage({"rawtext": [{"translate": "gui.skeleton_boss.message"}]});
         }
-       }
-    })
-});
+    }
+    }
+}
 
 world.afterEvents.entityDie.subscribe((data) => {
     if(data.deadEntity.typeId != "cosmos:evolved_skeleton_boss") return;

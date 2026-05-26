@@ -47,19 +47,17 @@ export function remove(block) {
 
 }
 
-system.beforeEvents.startup.subscribe(({itemComponentRegistry}) => {
-    itemComponentRegistry.registerCustomComponent("cosmos:wrench", {
-        onUseOn({block, source:player, usedOnBlockPermutation:perm}){
-          if (block.typeId == 'cosmos:arc_lamp') {
-            let direction = perm.getState("cosmos:lamp_direction");
-            direction = (direction < 3)? direction + 1: 0;
-				    block.setPermutation(perm.withState('cosmos:lamp_direction', direction));
-            return;
-          }
-          if(/cosmos:fluid_pipe/.test(block.typeId)) attach_to_machine(block)
-          if (!block.hasTag("machine")) return
-          if (player.isSneaking) remove(block)
-          else rotate(block, perm)
-        }
-    })
-})
+export const wrench_component = {
+  onUseOn({block, source:player, usedOnBlockPermutation:perm}){
+    if (block.typeId == 'cosmos:arc_lamp') {
+      let direction = perm.getState("cosmos:lamp_direction");
+      direction = (direction < 3)? direction + 1: 0;
+      block.setPermutation(perm.withState('cosmos:lamp_direction', direction));
+      return;
+    }
+    if(/cosmos:fluid_pipe/.test(block.typeId)) attach_to_machine(block)
+    if (!block.hasTag("machine")) return
+    if (player.isSneaking) remove(block)
+    else rotate(block, perm)
+  }
+}

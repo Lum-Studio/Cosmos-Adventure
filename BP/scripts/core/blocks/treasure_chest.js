@@ -21,31 +21,29 @@ function hint(player, tier) {
     cooldown = system.runTimeout(() => {cooldown = undefined}, 100)
 }
 
-system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
-    blockComponentRegistry.registerCustomComponent('cosmos:treasure_chest', {
-        onPlayerInteract({block, player, dimension}) {
-            const chest = block.permutation
-            const equipment = player.getComponent("minecraft:equippable")
-            const item = equipment.getEquipment("Mainhand")
-            if (chest.getState('cosmos:chest_state') != 'locked') return
-            const tier = +(block.typeId.replace('cosmos:tier', '').replace('_treasure_chest', ''))
-            if (tiers[item?.typeId] != block.typeId) {
-                hint(player, tier); return
-            }
-            world.structureManager.place(`treasures/tier${tier}`, dimension, block.location)
-            system.run(()=> {
-                const entity = dimension.getEntities({type: "cosmos:treasure_chest", closest: 1, location: block.bottomCenter()})[0]
-                if (!entity) return
-                const loot = entity.getComponent('inventory').container
-                const slot = Math.floor(Math.random() * 27)
-                const reward = select_random_item(rewards[tier - 1])
-                loot.setItem(slot, new ItemStack(reward))
-            })
-            block.setPermutation(chest.withState('cosmos:chest_state', 'unlocked'))
-            if (player.getGameMode() != 'Creative') player.runCommand(`clear @s ${item.typeId} 0 1`)
+export const treasure_chest_component = {
+    onPlayerInteract({block, player, dimension}) {
+        const chest = block.permutation
+        const equipment = player.getComponent("minecraft:equippable")
+        const item = equipment.getEquipment("Mainhand")
+        if (chest.getState('cosmos:chest_state') != 'locked') return
+        const tier = +(block.typeId.replace('cosmos:tier', '').replace('_treasure_chest', ''))
+        if (tiers[item?.typeId] != block.typeId) {
+            hint(player, tier); return
         }
-    })
-})
+        world.structureManager.place(`treasures/tier${tier}`, dimension, block.location)
+        system.run(()=> {
+            const entity = dimension.getEntities({type: "cosmos:treasure_chest", closest: 1, location: block.bottomCenter()})[0]
+            if (!entity) return
+            const loot = entity.getComponent('inventory').container
+            const slot = Math.floor(Math.random() * 27)
+            const reward = select_random_item(rewards[tier - 1])
+            loot.setItem(slot, new ItemStack(reward))
+        })
+        block.setPermutation(chest.withState('cosmos:chest_state', 'unlocked'))
+        if (player.getGameMode() != 'Creative') player.runCommand(`clear @s ${item.typeId} 0 1`)
+    }
+}
 
 world.afterEvents.playerInteractWithEntity.subscribe(({target:entity})=> {
     if (entity.typeId != "cosmos:treasure_chest") return

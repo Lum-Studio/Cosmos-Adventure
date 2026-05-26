@@ -33,8 +33,8 @@ export function destroy(block, type, player) {
 	if (no_drops) world.gameRules.doTileDrops = true
 }
 
-system.beforeEvents.startup.subscribe(({ blockComponentRegistry, itemComponentRegistry }) => {
-	blockComponentRegistry.registerCustomComponent('cosmos:rocket_launch_pad', {
+export const components = {
+	rocket_launch_pad: {
 		onPlace({block}) {
 			for (let x of [-1, 0, 1]) {
 				for (let z of [-1, 0, 1]) {
@@ -56,24 +56,8 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry, itemComponentRe
 				destroy(target, pad_type, player) // destroy the launch pad if center
 			}
 		}
-	})
-    itemComponentRegistry.registerCustomComponent("cosmos:rocket", {
-        onUseOn({block, source:player, usedOnBlockPermutation:pad, itemStack:item}) {
-			if (block.typeId != "cosmos:rocket_launch_pad") return
-			if (!pad.getState("cosmos:center")) return
-			if (!["cosmos:rocket_tier_1_item", "cosmos:rocket_tier_2_item"].includes(item.typeId)) return
-			if (player.dimension.getEntities({ location: block.center(), maxDistance: 1 }).length) return
-
-			const {x, y, z} = block.center()
-			const equipment = player.getComponent("minecraft:equippable")
-			let inventory_size = item.getDynamicProperty('inventory_size') || 0;
-			let type = item.typeId.replace("_item", "")
-			player.dimension.spawnEntity(type, {x: x, y: y - 0.3, z: z}, {spawnEvent: 'cosmos:inv' + inventory_size, initialRotation: 90})
-			if (player.getGameMode() != "Creative") equipment.setEquipment("Mainhand", item.decrementStack())
-        }
-    })
-	
-	blockComponentRegistry.registerCustomComponent('cosmos:buggy_fueling_pad', {
+	},
+	buggy_fueling_pad: {
 		onPlace({block}) {
 			for (let x of [-1, 0, 1]) {
 				for (let z of [-1, 0, 1]) {
@@ -95,9 +79,24 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry, itemComponentRe
 				destroy(target, pad_type, player) // destroy the launch pad if center
 			}
 		}
-	})
-    itemComponentRegistry.registerCustomComponent("cosmos:buggy", {
-        onUseOn({block, source:player, usedOnBlockPermutation:pad, itemStack:item}) {
+	},
+	rocket_item: {
+		onUseOn({block, source:player, usedOnBlockPermutation:pad, itemStack:item}) {
+			if (block.typeId != "cosmos:rocket_launch_pad") return
+			if (!pad.getState("cosmos:center")) return
+			if (!["cosmos:rocket_tier_1_item", "cosmos:rocket_tier_2_item"].includes(item.typeId)) return
+			if (player.dimension.getEntities({ location: block.center(), maxDistance: 1 }).length) return
+
+			const {x, y, z} = block.center()
+			const equipment = player.getComponent("minecraft:equippable")
+			let inventory_size = item.getDynamicProperty('inventory_size') || 0;
+			let type = item.typeId.replace("_item", "")
+			player.dimension.spawnEntity(type, {x: x, y: y - 0.3, z: z}, {spawnEvent: 'cosmos:inv' + inventory_size, initialRotation: 90})
+			if (player.getGameMode() != "Creative") equipment.setEquipment("Mainhand", item.decrementStack())
+		}
+	},
+	buggy_item: {
+		onUseOn({block, source:player, usedOnBlockPermutation:pad, itemStack:item}) {
 			if (block.typeId != "cosmos:buggy_fueling_pad") return
 			if (!pad.getState("cosmos:center")) return
 			if (item.typeId != "cosmos:moon_buggy_item") return
@@ -110,6 +109,6 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry, itemComponentRe
 				{spawnEvent: 'cosmos:inv' + inventory_size})
 			buggy.setProperty("cosmos:container_number", inventory_size/18)
 			if (player.getGameMode() != "Creative") equipment.setEquipment("Mainhand", item.decrementStack())
-        }
-    })
-})
+		}
+	}
+}

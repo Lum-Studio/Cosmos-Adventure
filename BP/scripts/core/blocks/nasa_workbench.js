@@ -184,38 +184,36 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:workbench, me
     }
 })
 
-system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
-	blockComponentRegistry.registerCustomComponent("cosmos:nasa_workbench", {
-        beforeOnPlayerPlace(event){
-            system.run(() => {
-                const {dimension, block} = event
-                let space = true
-                for (let i = -1; i<2; i++) {
-                    if (block.offset({x: i, y: 1, z: 0}).typeId != "minecraft:air") space = false
-                    if (block.offset({x: i, y: 2, z: 0}).typeId != "minecraft:air") space = false
-                }
-                for (let i = -1; i<2; i++) {
-                    if (block.offset({x: 0, y: 1, z: i}).typeId != "minecraft:air") space = false
-                    if (block.offset({x: 0, y: 2, z: i}).typeId != "minecraft:air") space = false
-                }
-                if (!space) { event.cancel = true; return }
-                const entity = dimension.spawnEntity("cosmos:nasa_workbench", block.above().bottomCenter())
-                entity.nameTag = "§n§a§s§a§_§w§o§r§k§b§e§n§c§h"
-                select_recipe('cosmos:rocket_tier_1_item', entity)
-                const inventory = entity.getComponent('inventory').container
-                for (let i = SCHEMAS; i < SCHEMAS + 9; i++) inventory.add_ui_display(i)
-                    for (let i = BUTTONS - 1; i < BUTTONS + 8; i++) set_ui_button(inventory, i)
-                set_ui_button(inventory, SCHEMA + 1, 'Unlock')
-                inventory.add_ui_display(SCHEMAS + 5, 'Tier 1 Rocket', 1)
-            });
-        },
-        onPlayerBreak({block, dimension}){
-            const entities = dimension.getEntities({
-                type: "cosmos:nasa_workbench",
-                location: block.above().center(),
-                maxDistance: 0.5
-            })
-            entities?.forEach(entity => entity.runCommand(`scriptevent cosmos:nasa_workbench despawn`))
-        }
-    })
-})
+export const nasa_workbench_component = {
+    beforeOnPlayerPlace(event){
+        system.run(() => {
+            const {dimension, block} = event
+            let space = true
+            for (let i = -1; i<2; i++) {
+                if (block.offset({x: i, y: 1, z: 0}).typeId != "minecraft:air") space = false
+                if (block.offset({x: i, y: 2, z: 0}).typeId != "minecraft:air") space = false
+            }
+            for (let i = -1; i<2; i++) {
+                if (block.offset({x: 0, y: 1, z: i}).typeId != "minecraft:air") space = false
+                if (block.offset({x: 0, y: 2, z: i}).typeId != "minecraft:air") space = false
+            }
+            if (!space) { event.cancel = true; return }
+            const entity = dimension.spawnEntity("cosmos:nasa_workbench", block.above().bottomCenter())
+            entity.nameTag = "§n§a§s§a§_§w§o§r§k§b§e§n§c§h"
+            select_recipe('cosmos:rocket_tier_1_item', entity)
+            const inventory = entity.getComponent('inventory').container
+            for (let i = SCHEMAS; i < SCHEMAS + 9; i++) inventory.add_ui_display(i)
+                for (let i = BUTTONS - 1; i < BUTTONS + 8; i++) set_ui_button(inventory, i)
+            set_ui_button(inventory, SCHEMA + 1, 'Unlock')
+            inventory.add_ui_display(SCHEMAS + 5, 'Tier 1 Rocket', 1)
+        });
+    },
+    onPlayerBreak({block, dimension}){
+        const entities = dimension.getEntities({
+            type: "cosmos:nasa_workbench",
+            location: block.above().center(),
+            maxDistance: 0.5
+        })
+        entities?.forEach(entity => entity.runCommand(`scriptevent cosmos:nasa_workbench despawn`))
+    }
+}

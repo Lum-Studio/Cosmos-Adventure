@@ -1,6 +1,6 @@
 import { world, system, BlockPermutation } from "@minecraft/server"
 import machines from "../machines/AllMachineBlocks.js"
-import { get_entity, location_of_side, compare_position, six_neighbors } from "../../api/utils.js"
+import { get_entity, location_of_side, compare_position, six_neighbors, get_neighbors } from "../../api/utils.js"
 import { get_data } from "../machines/Machine.js"
 
 export function str_pos(location) {
@@ -12,7 +12,7 @@ export function str_pos(location) {
 const faces = ["cosmos:up", "cosmos:north", "cosmos:east", "cosmos:west", "cosmos:south", "cosmos:down"]
 
 export function detach_wires(wire) {
-	const neighbors = wire.getNeighbors(6);
+	const neighbors = get_neighbors(wire)
 	for (const [i, wireNeighbor] of neighbors.entries()) {
 		if (wireNeighbor.typeId == 'cosmos:aluminum_wire') {
 			const side_connections = wireNeighbor.permutation.getAllStates()
@@ -157,14 +157,12 @@ function connect_wires(wire) {
 	system.run(() => {machinesSearch(wiresDFS(wire))});
 }
 
-system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
-	blockComponentRegistry.registerCustomComponent('cosmos:aluminum_wire', {
-		onPlace({block}) {
-			connect_wires(block)
-		},
-		onPlayerBreak(event){
-			detach_wires(event.block)
-			machinesSearch(wiresDFS(event.block, event.brokenBlockPermutation))
-		}
-	})
-})
+export const aluminum_wire_component = {
+	onPlace({block}) {
+		connect_wires(block)
+	},
+	onPlayerBreak(event){
+		detach_wires(event.block)
+		machinesSearch(wiresDFS(event.block, event.brokenBlockPermutation))
+	}
+}

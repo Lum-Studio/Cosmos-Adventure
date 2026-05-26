@@ -71,77 +71,76 @@ function getPlatformBlocks(rot, block){
             return [block.north(), block.east(), block.offset({x: 1, y: 0, z: -1})];
     }
 }
-system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
-	blockComponentRegistry.registerCustomComponent("cosmos:hydraulic_platform", {
-        beforeOnPlayerPlace(event){
-            let block_state = getHydraulicPlatformBlock(event.block);
-            if(block_state != undefined) event.permutationToPlace = BlockPermutation.resolve("cosmos:hydraulic_platform", {'cosmos:is_main': true, 'cosmos:rotation': block_state, 'cosmos:is_full': true})
-        },
-        onPlayerBreak(event){
-            if(event.brokenBlockPermutation.getState('cosmos:is_full')){
-                let blockDestroyed = getPlatformBlocks(event.brokenBlockPermutation.getState('cosmos:rotation'), event.block)
-                blockDestroyed.forEach((element) => element.setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", {'cosmos:rotation': 0, 'cosmos:is_full': false, 'cosmos:is_main': false})))
-            }
-        },
-        onTick(event){
-            let block = event.block;
-            let permutation = block.permutation;
-            let states = permutation.getAllStates();
-            if(!states['cosmos:is_main']) return;
-            
-            let blocks = getPlatformBlocks(states['cosmos:rotation'], block);
-            if(!blocks.every((element) => element.typeId == "cosmos:hydraulic_platform")) return;
 
-            let states_of_blocks = blocks.map((element) => [element, element.permutation.getAllStates()]);
-            let {x, y, z} = block.center();
-            let center = [{x: x + 0.5, y: y, z: z + 0.5}, 
-            {x: x - 0.5, y: y, z: z + 0.5}, {x: x - 0.5, y: y, z: z - 0.5}, 
-            {x: x + 0.5, y: y, z: z - 0.5}][states['cosmos:rotation']];
-
-            let players = block.dimension.getPlayers({location: {x: center.x, y: center.y + 1, z: center.z}, maxDistance: 1});
-
-            if(players.length > 0){
-                states['cosmos:is_selected'] = true;
-                states_of_blocks.forEach(element => element[1]['cosmos:is_selected'] = true);
-
-                let current_player = players[0];
-                let input = current_player.inputInfo;
-                if(input.getButtonState("Jump") == "Pressed"  ||  input.getButtonState("Sneak") == "Pressed" && !current_player.getComponent("minecraft:riding")?.entityRidingOn){
-                    let effect = (input.getButtonState("Jump") == "Pressed")? "levitation":
-                    "slow_falling";
-    
-                    let other_platform = (input.getButtonState("Jump") == "Pressed")? block.dimension.getBlockFromRay({x: x, y: y + 1, z: z}, {x: 0, y: 1, z: 0}, {maxDistance: 15, includeTypes: ["cosmos:hydraulic_platform"]})?.block:
-                    block.dimension.getBlockFromRay({x: x, y: y - 1, z: z}, {x: 0, y: -1, z: 0}, {maxDistance: 15, includeTypes: ["cosmos:hydraulic_platform"]})?.block;
-
-                    let other_platform_states = other_platform?.permutation.getAllStates();
-                    if(other_platform && !other_platform_states["cosmos:is_open"] && other_platform_states["cosmos:rotation"] == states["cosmos:rotation"]){
-                        let blocks_upper = getPlatformBlocks(other_platform_states["cosmos:rotation"], other_platform);
-                        let states_of_upper_blocks = blocks_upper.map((element) => [element, element.permutation.getAllStates()]);
-                        
-                        [[block, states], [other_platform, other_platform_states], ...states_of_blocks, ...states_of_upper_blocks].forEach(element => {
-                            element[1]['cosmos:is_open'] = true;
-                            element[0].setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", element[1]));
-                        });
-
-                        let platform = block.dimension.spawnEntity('cosmos:hydraulic_platform', {x: center.x, y: current_player.location.y - ((effect == 'levitation')? 0.85: 0.4), z: center.z});
-
-                        HydraulicPlatformMotion(current_player, platform, effect,
-                            {end: {x: x, y: other_platform.location.y, z: z}, blocks: [block, ...blocks, other_platform, ...blocks_upper]});
-                    }
-                }
-
-                block.setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", states));
-                states_of_blocks.forEach(element => element[0].setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", element[1])));
-            }else{
-                if(!states["cosmos:is_selected"]) return;
-
-                states["cosmos:is_selected"] = false;
-                block.setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", states));
-                states_of_blocks.forEach(element => {
-                    element[1]["cosmos:is_selected"] = false;
-                    element[0].setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", element[1]))
-                });
-            }
+export const hydraulic_platform_component = {
+    beforeOnPlayerPlace(event){
+        let block_state = getHydraulicPlatformBlock(event.block);
+        if(block_state != undefined) event.permutationToPlace = BlockPermutation.resolve("cosmos:hydraulic_platform", {'cosmos:is_main': true, 'cosmos:rotation': block_state, 'cosmos:is_full': true})
+    },
+    onPlayerBreak(event){
+        if(event.brokenBlockPermutation.getState('cosmos:is_full')){
+            let blockDestroyed = getPlatformBlocks(event.brokenBlockPermutation.getState('cosmos:rotation'), event.block)
+            blockDestroyed.forEach((element) => element.setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", {'cosmos:rotation': 0, 'cosmos:is_full': false, 'cosmos:is_main': false})))
         }
-    })
-})
+    },
+    onTick(event){
+        let block = event.block;
+        let permutation = block.permutation;
+        let states = permutation.getAllStates();
+        if(!states['cosmos:is_main']) return;
+        
+        let blocks = getPlatformBlocks(states['cosmos:rotation'], block);
+        if(!blocks.every((element) => element.typeId == "cosmos:hydraulic_platform")) return;
+
+        let states_of_blocks = blocks.map((element) => [element, element.permutation.getAllStates()]);
+        let {x, y, z} = block.center();
+        let center = [{x: x + 0.5, y: y, z: z + 0.5}, 
+        {x: x - 0.5, y: y, z: z + 0.5}, {x: x - 0.5, y: y, z: z - 0.5}, 
+        {x: x + 0.5, y: y, z: z - 0.5}][states['cosmos:rotation']];
+
+        let players = block.dimension.getPlayers({location: {x: center.x, y: center.y + 1, z: center.z}, maxDistance: 1});
+
+        if(players.length > 0){
+            states['cosmos:is_selected'] = true;
+            states_of_blocks.forEach(element => element[1]['cosmos:is_selected'] = true);
+
+            let current_player = players[0];
+            let input = current_player.inputInfo;
+            if(input.getButtonState("Jump") == "Pressed"  ||  input.getButtonState("Sneak") == "Pressed" && !current_player.getComponent("minecraft:riding")?.entityRidingOn){
+                let effect = (input.getButtonState("Jump") == "Pressed")? "levitation":
+                "slow_falling";
+
+                let other_platform = (input.getButtonState("Jump") == "Pressed")? block.dimension.getBlockFromRay({x: x, y: y + 1, z: z}, {x: 0, y: 1, z: 0}, {maxDistance: 15, includeTypes: ["cosmos:hydraulic_platform"]})?.block:
+                block.dimension.getBlockFromRay({x: x, y: y - 1, z: z}, {x: 0, y: -1, z: 0}, {maxDistance: 15, includeTypes: ["cosmos:hydraulic_platform"]})?.block;
+
+                let other_platform_states = other_platform?.permutation.getAllStates();
+                if(other_platform && !other_platform_states["cosmos:is_open"] && other_platform_states["cosmos:rotation"] == states["cosmos:rotation"]){
+                    let blocks_upper = getPlatformBlocks(other_platform_states["cosmos:rotation"], other_platform);
+                    let states_of_upper_blocks = blocks_upper.map((element) => [element, element.permutation.getAllStates()]);
+                    
+                    [[block, states], [other_platform, other_platform_states], ...states_of_blocks, ...states_of_upper_blocks].forEach(element => {
+                        element[1]['cosmos:is_open'] = true;
+                        element[0].setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", element[1]));
+                    });
+
+                    let platform = block.dimension.spawnEntity('cosmos:hydraulic_platform', {x: center.x, y: current_player.location.y - ((effect == 'levitation')? 0.85: 0.4), z: center.z});
+
+                    HydraulicPlatformMotion(current_player, platform, effect,
+                        {end: {x: x, y: other_platform.location.y, z: z}, blocks: [block, ...blocks, other_platform, ...blocks_upper]});
+                }
+            }
+
+            block.setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", states));
+            states_of_blocks.forEach(element => element[0].setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", element[1])));
+        }else{
+            if(!states["cosmos:is_selected"]) return;
+
+            states["cosmos:is_selected"] = false;
+            block.setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", states));
+            states_of_blocks.forEach(element => {
+                element[1]["cosmos:is_selected"] = false;
+                element[0].setPermutation(BlockPermutation.resolve("cosmos:hydraulic_platform", element[1]))
+            });
+        }
+    }
+}

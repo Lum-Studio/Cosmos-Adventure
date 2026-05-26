@@ -1,7 +1,7 @@
 import { world, BlockPermutation, system } from "@minecraft/server"
 import machines from "../machines/AllMachineBlocks.js"
 import { str_pos } from "./aluminum_wire"
-import { get_entity, six_neighbors } from "../../api/utils.js"
+import { get_entity, get_neighbors, six_neighbors } from "../../api/utils.js"
 import { get_data } from "../machines/Machine.js"
 import { compare_position, location_of_side } from "../../api/utils.js"
 import { update_network, update_fluid } from "../matter/fluid_network.js"
@@ -51,7 +51,7 @@ export function get_direction(location){
 	}
 }
 export function detach_pipes(block) {
-	const neighbors = block.getNeighbors(6)
+	const neighbors = get_neighbors(block)
 	for (const [i, pipe] of neighbors.entries()) {
 		if (/cosmos:fluid_pipe/.test(pipe.typeId)){
 			pipe.setPermutation(pipe.permutation.withState(faces[5 - i], 0))
@@ -247,13 +247,11 @@ export function fluidNetwork(foundMachines){
 	}
 }
 
-system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
-	blockComponentRegistry.registerCustomComponent('cosmos:fluid_pipe', {
-		beforeOnPlayerPlace({block}) {
-			system.run(() => {connect_pipes(block)});
-		},
-		onPlayerBreak({block}) {
-			detach_pipes(block)
-		},
-	})
-})
+export const fluid_pipe_component = {
+	beforeOnPlayerPlace({block}) {
+		system.run(() => {connect_pipes(block)});
+	},
+	onPlayerBreak({block}) {
+		detach_pipes(block)
+	},
+}
