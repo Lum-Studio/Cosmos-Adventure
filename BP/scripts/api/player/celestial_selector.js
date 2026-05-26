@@ -1,5 +1,5 @@
 import { ActionFormData } from "@minecraft/server-ui";
-import { world, system, Player } from "@minecraft/server";
+import { world, system } from "@minecraft/server";
 import { get_rocket_data } from "./liftoff";
 import { launch_to_earth } from "../../planets/dimensions/Overworld";
 
