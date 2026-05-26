@@ -1,4 +1,4 @@
-import { world, system, BlockPermutation, ItemStack } from "@minecraft/server";
+import { world, system, ItemStack } from "@minecraft/server";
 import machines from "./AllMachineBlocks";
 import { detach_wires, attach_to_wires } from "../blocks/aluminum_wire";
 import { attach_pipes, detach_pipes } from "../blocks/fluid_pipe";
@@ -215,66 +215,6 @@ export const machine_component = {
 }
 
 world.afterEvents.entityLoad.subscribe(({ entity }) => reload_machine(entity));
-
-world.beforeEvents.playerInteractWithEntity.subscribe((e) => {
-	const { target: entity, player } = e;
-	if (!machine_entities.has(entity.id)) return;
-	if (!player.isSneaking) return;
-
-	e.cancel = true;
-	const equipment = player.getComponent("equippable");
-	const selectedItem = equipment.getEquipment("Mainhand");
-	if (!selectedItem) return;
-
-	if (selectedItem.typeId === "minecraft:hopper") {
-		const machineBlock = player.dimension.getBlock(entity.location);
-		if (machineBlock) {
-			const facingDirection = (() => {
-				const dx = player.location.x - entity.location.x;
-				const dz = player.location.z - entity.location.z;
-				if (Math.abs(dx) > Math.abs(dz)) return dx > 0 ? 1 : 3;
-				else return dz > 0 ? 2 : 0;
-			})();
-			const getAdjacentBlockLocation = (location, facingDirection) => {
-				switch (facingDirection) {
-					case 0: return { x: location.x, y: location.y, z: location.z - 1 };
-					case 1: return { x: location.x + 1, y: location.y, z: location.z };
-					case 2: return { x: location.x, y: location.y, z: location.z + 1 };
-					case 3: return { x: location.x - 1, y: location.y, z: location.z };
-					default: return location;
-				}
-			};
-
-			const hopperLocation = getAdjacentBlockLocation(machineBlock.location, facingDirection);
-			const hopperBlock = player.dimension.getBlock(hopperLocation);
-
-			const hasEntitiesAt = (dimension, location) => {
-				const entities = dimension.getEntities({
-					location: { x: location.x + 0.5, y: location.y + 0.5, z: location.z + 0.5 },
-					maxDistance: 0.5,
-				});
-				return entities.length > 0;
-			};
-
-			if (hopperBlock.typeId === "minecraft:air" && !hasEntitiesAt(player.dimension, hopperLocation)) {
-				const hopperPermutation = BlockPermutation.resolve("minecraft:hopper")
-					.withState("facing_direction", facingDirection);
-
-				system.run(() => {
-					hopperBlock.setPermutation(hopperPermutation);
-					if (player.getGameMode() !== "Creative") {
-						if (selectedItem.amount === 1) {
-							equipment.setEquipment("Mainhand", undefined);
-						} else {
-							selectedItem.amount -= 1;
-							equipment.setEquipment("Mainhand", selectedItem);
-						}
-					}
-				});
-			}
-		}
-	}
-});
 
 //remove the ui item entities
 world.afterEvents.entitySpawn.subscribe((data) => {

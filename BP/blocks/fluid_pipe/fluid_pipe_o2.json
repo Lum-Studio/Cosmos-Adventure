@@ -13,6 +13,7 @@
 			}
 		},
 		"components": {
+	  		"tag:fluid_pipe": {},
 			"minecraft:material_instances": {
 				"*": { "texture": "fluid_pipe", "render_method": "blend" },
 				"fluid": { "texture": "liquid_oxygen", "render_method": "blend" },

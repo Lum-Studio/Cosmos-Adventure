@@ -55,7 +55,7 @@ export const wrench_component = {
       block.setPermutation(perm.withState('cosmos:lamp_direction', direction));
       return;
     }
-    if(/cosmos:fluid_pipe/.test(block.typeId)) attach_to_machine(block)
+    if(block.hasTag("fluid_pipe")) attach_to_machine(block)
     if (!block.hasTag("machine")) return
     if (player.isSneaking) remove(block)
     else rotate(block, perm)

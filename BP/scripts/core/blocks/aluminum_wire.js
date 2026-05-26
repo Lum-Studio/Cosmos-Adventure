@@ -1,28 +1,42 @@
 import { world, system, BlockPermutation } from "@minecraft/server"
 import machines from "../machines/AllMachineBlocks.js"
-import { get_entity, location_of_side, compare_position, six_neighbors, get_neighbors } from "../../api/utils.js"
+import { get_entity, location_of_side, compare_position, six_neighbors } from "../../api/utils.js"
 import { get_data } from "../machines/Machine.js"
 
 export function str_pos(location) {
 	if (!location) return
 	const {x, y, z} = location
-	return`${x} ${y} ${z}`
+	return `${x} ${y} ${z}`
 }
 
-const faces = ["cosmos:up", "cosmos:north", "cosmos:east", "cosmos:west", "cosmos:south", "cosmos:down"]
+const same_side = {
+	above: "cosmos:up",
+	below: "cosmos:down",
+	north: "cosmos:north",
+	south: "cosmos:south",
+	east: "cosmos:east",
+	west: "cosmos:west", 
+}
+const opposite_side = {
+	above: "cosmos:down",
+	below: "cosmos:up",
+	north: "cosmos:south",
+	south: "cosmos:north",
+	east: "cosmos:west", 
+	west: "cosmos:east",
+}
 
 export function detach_wires(wire) {
-	const neighbors = get_neighbors(wire)
-	for (const [i, wireNeighbor] of neighbors.entries()) {
-		if (wireNeighbor.typeId == 'cosmos:aluminum_wire') {
-			const side_connections = wireNeighbor.permutation.getAllStates()
-			side_connections[faces[5 - i]] = false
-			let foundMachines = wiresDFS(wireNeighbor)
-			wireNeighbor.setPermutation(BlockPermutation.resolve("cosmos:aluminum_wire", side_connections))
-			machinesSearch(foundMachines)
-		}
+	const neighbors = six_neighbors(wire)
+	for (const side in neighbors) {
+		const neighbor = neighbors[side]
+		if (neighbor.typeId != 'cosmos:aluminum_wire') continue
+		const found_machines = wiresDFS(neighbor)
+		neighbor.setPermutation(neighbor.permutation.withState(opposite_side[side], false))
+		machinesSearch(found_machines)
 	}
 }
+
 function getSides(wireOs, permutation, wires){
 	let sides = permutation.getAllStates();
 	let loc = wireOs.location;
@@ -92,23 +106,6 @@ export function machinesSearch(foundMachines){
 		final.setDynamicProperty("input_connected_machines", JSON.stringify(finalConnectedInputSide))
 		final.setDynamicProperty("output_connected_machines", JSON.stringify(finalConnectedOutputSide))
 	});
-}
-
-const same_side = {
-	above: "cosmos:up",
-	below: "cosmos:down",
-	north: "cosmos:north",
-	south: "cosmos:south",
-	east: "cosmos:east",
-	west: "cosmos:west", 
-}
-const opposite_side = {
-	above: "cosmos:down",
-	below: "cosmos:up",
-	north: "cosmos:south",
-	south: "cosmos:north",
-	east: "cosmos:west", 
-	west: "cosmos:east",
 }
 
 // this function takes a Block (A Machine Block)

@@ -1,10 +1,30 @@
 
 import * as mc from "@minecraft/server";
-import { destroyBlocksJOB, getHand, select_random_item } from "api/utils";
+import { select_random_item } from "api/utils";
 
 const { world, system, TicksPerSecond, BlockPermutation } = mc;
 
 const typeId = "cosmos:cavernous_vines";
+
+
+/**@param {mc.Block[]} locations @param {mc.Dimension} dim */
+function* destroyBlocksJOB (locations, dim) {
+	for (const loc of locations) {
+		dim.runCommand(`setblock ${loc.x} ${loc.y} ${loc.z} air [] destroy`);
+		yield;
+	}
+}
+
+const getHand = (() => {
+	const handsMap = new WeakMap();
+	/**
+	 * @param {mc.Entity} source
+	 * @returns {mc.ContainerSlot} 'Mainhand' ContainerSlot of the entity
+	 **/
+	return source => handsMap.get(source) ?? handsMap.set(
+		source, source.getComponent("equippable")?.getEquipmentSlot("Mainhand")
+	).get(source)
+})();
 
 export class CavernousVine {
     static keyFor(block) {
