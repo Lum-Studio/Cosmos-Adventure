@@ -4,7 +4,7 @@ import { charge_from_battery, charge_from_machine } from "../../matter/electrici
 import { input_fluid, load_from_canister } from "../../matter/fluids";
 import { update_tank, tanks } from "../../../api/player/oxygen";
 
-const BatterySlot = 0, TankSlot = 1, CanisterSlot = 2
+const CanisterSlot = 0, BatterySlot = 1,  TankSlot = 2
 const EnergyDisplay = 3, OxygenDisplay = 4, StatusDisplay = 5
 
 const data = {
@@ -20,7 +20,7 @@ const data = {
         let energy = variables.energy || 0;
         let o2 = variables.o2 || 0;
         o2 = input_fluid({type: "o2", slot: "o2"}, entity, block, o2);
-        
+
         if (!(system.currentTick % 20) && canister) { // input from canister
             if (canister.typeId == "cosmos:o2_canister") o2 = load_from_canister({
                 canister, amount: o2,
@@ -47,7 +47,7 @@ const data = {
                 let saved_durability = durability ? durability.maxDurability - durability.damage:
                 0;
                 tank = update_tank(tank, Math.min(saved_durability + Math.min(o2, 40), durability.maxDurability));
-                if(container.getItem(1)) container.setItem(1, tank);
+                if(container.getItem(TankSlot)) container.setItem(TankSlot, tank);
                 o2 = Math.max(0, o2 - 40)
                 energy = Math.max(0, energy - 300);
             }

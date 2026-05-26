@@ -29,14 +29,14 @@ const AllMachines = {
 	oxygen_compressor: OxygenCompressor,
 	oxygen_distributor: OxygenDistributor,
 	oxygen_decompressor: OxygenDecompressor,
+	oxygen_storage_module: OxygenStorage,
 	circuit_fabricator: CircuitFabricator,
 	refinery: Refinery,
 	fuel_loader: FuelLoader,
 	water_electrolyzer: WaterElectrolyzer,
 	gas_liquefier: GasLiquefier,
-	parachest: Parachest,
 	deconstructor: Deconstructor,
-	oxygen_storage_module: OxygenStorage
+	parachest: Parachest,
 }
 
 for (const machine in AllMachines) AllMachines[machine].ui = `§${machine.split('').join('§')}`

@@ -1,21 +1,13 @@
-import { system, ItemStack } from "@minecraft/server"
+import { system } from "@minecraft/server"
 import { load_dynamic_object, save_dynamic_object } from "../../../api/utils"
 import { charge_from_machine, charge_from_battery } from "../../matter/electricity"
 import { machine_buttons, setup_ui_button } from "../MachineButtons"
+import { input_fluid, load_from_item, output_fluid } from "../../matter/fluids"
 
 const InputSlot = 0, BatterySlot = 1, OxygenOutput = 2, HydrogenOutput = 3
 const WaterDisplay = 4, OxygenDisplay = 5, HydrogenDisplay = 6, EnergyDisplay = 7
 const StatusDisplay = 8, ButtonSlot = 9
-const ProcessButtonText = (state) => state ? 'Process' : 'Stop'
-
-function insert_water(entity, water, capacity, slot) {
-    const container = entity.getComponent('minecraft:inventory').container
-    const intake_slot = container.getItem(slot)
-    if (intake_slot && intake_slot.typeId == "minecraft:water_bucket" && water + 1000 <= capacity) {
-        container.setItem(slot, new ItemStack('bucket'))
-        return water + 1000
-    } else return water
-}
+const ProcessButtonText = (state) => state ? 'Stop' : 'Process'
 
 const data = {
 	energy: {input: "below", capacity: 16000, maxInput: 900},
@@ -35,8 +27,13 @@ const data = {
         //processing
         energy = charge_from_machine(entity, block, energy);
         energy = charge_from_battery(entity, energy, BatterySlot)
-            
-        water = insert_water(entity, water, data.water.capacity, InputSlot)
+        
+        water = input_fluid({type: "water", slot: "water"}, entity, block, water)
+        water = load_from_item(water, "water", data.water.capacity, container, InputSlot)
+
+        o2 = output_fluid({type: 'o2', slot: 'o2'}, entity, block, o2)
+        h2 = output_fluid({type: 'h2', slot: 'h2'}, entity, block, h2)
+
         let status = energy < 375 ? '§cLow energy' : !water ? '§cNo Water!' : '§6Idle'
         if (o2 + 2 > data.o2.capacity && h2 + 4 > data.h2.capacity) status = '§cTanks Full'
         else if (active && water && energy) {

@@ -1,5 +1,5 @@
 import { world, ItemStack, system } from "@minecraft/server"
-import { compare_position, get_entity, load_dynamic_object, location_of_side } from "../../api/utils"
+import { compare_position, get_entity, load_dynamic_object, location_of_side, save_dynamic_object } from "../../api/utils"
 import { get_data } from "../machines/Machine"
 import { save_fluid_amount, get_fluid_amount } from "./fluid_network"
 import { get_direction, pipe_same_side } from "../blocks/fluid_pipe"
@@ -18,6 +18,15 @@ const liquids = [
     {block: "cosmos:fuel", bucket: "cosmos:fuel_bucket"},
 ]
 
+export const fluid_textures = {
+    'o2_gas': 1,
+    'liquid_o2': 2,
+    'n2_gas': 3,
+    'liquid_n2': 4,
+    'methane': 5,
+    'fuel': 6,
+}
+
 const fluid_canisters = {
     o2: "cosmos:o2_canister", 
     n2: "cosmos:n2_canister",
@@ -30,9 +39,11 @@ const fluid_canisters = {
     "cosmos:oil_canister": "oil",
 }
 const fluid_buckets = {
+    water: "minecraft:water_bucket",
     fuel: "cosmos:fuel_bucket",
     oil: "cosmos:oil_bucket",
 
+    "minecraft:water_bucket": "water",
     "cosmos:fuel_bucket": "fuel",
     "cosmos:oil_bucket": "oil",
 }
@@ -240,7 +251,7 @@ export function load_to_canister(canister, amount, fluid_type, container, slot) 
 }
 
 // (Unused) this function doesn't let the tank_amount reach 100% if it will lose canister_amount
-export function lossless_load_from_canister({canister, tank_amount, capacity, container, slot, ratio = 1, rate, creative}) {
+export function lossless_load_from_canister({canister, tank_amount, capacity, container, slot, ratio = 1}) {
     if (tank_amount == capacity) return capacity
     const durability = canister.getComponent('durability')
     const canister_amount = durability.maxDurability - durability.damage
@@ -251,7 +262,7 @@ export function lossless_load_from_canister({canister, tank_amount, capacity, co
 }
 
 // (Unused) exact java port of the function that fills oxygen machines from canisters
-export function lossless_gradual_load_from_canister({canister, tank_amount, capacity, container, slot, ratio = 1, rate, creative}) {
+export function lossless_gradual_load_from_canister({canister, tank_amount, capacity, container, slot, ratio = 1, rate}) {
     if (tank_amount == capacity) return capacity
     const space = capacity - tank_amount
     const durability = canister.getComponent('durability')

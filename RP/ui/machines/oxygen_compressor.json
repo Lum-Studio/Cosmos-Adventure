@@ -34,23 +34,23 @@
                 "color": "$title_text_color",
                 "offset": [6, -51]
             }},
-            { "battery_slot@machines.item_slot": {
+            { "canister_slot@machines.item_slot": {
 				"$index": 0,
+                "offset": [18.2, 23.2],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "$overlay_texture": "textures/ui/cosmos/slot_overlay/o2"
+			}},
+            { "battery_slot@machines.item_slot": {
+				"$index": 1,
 				"$overlay_texture": "textures/ui/cosmos/slot_overlay/power",
                 "offset": [48, 23.2],
                 "anchor_from": "top_left",
                 "anchor_to": "top_left"
 			}},
             { "tank_slot@machines.item_slot": {
-				"$index": 1,
-                "offset": [ 53, -14]
-			}},
-            { "canister_slot@machines.item_slot": {
 				"$index": 2,
-                "offset": [18.2, 23.2],
-                "anchor_from": "top_left",
-                "anchor_to": "top_left",
-                "$overlay_texture": "textures/ui/cosmos/slot_overlay/o2"
+                "offset": [ 53, -14]
 			}},
             { "energy_bar@machines.energy_bar": {
                 "$index": 3,

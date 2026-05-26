@@ -248,6 +248,12 @@
                "death": "none"
             },
             "volume": 0
+         },
+         "cosmos:moon_buggy": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
          }
       }
    }
