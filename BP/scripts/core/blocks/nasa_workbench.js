@@ -219,33 +219,3 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
         }
     })
 })
-
-system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
-    customCommandRegistry.registerEnum('cosmos:vehicle', Object.keys(recipes))
-	customCommandRegistry.registerCommand({name: "cosmos:get_vehicle", cheatsRequired: true,
-        description: "Gives a rocket or a vehicle with an inventory.", permissionLevel: 1,
-        mandatoryParameters: [
-            { type: "Enum", name: "cosmos:vehicle" }
-        ],
-        optionalParameters: [
-            { type: "Integer", name: "storage tier" }
-        ]
-    }, 
-	(CustomCommandOrigin, rocket_type, storage_size = 0) => {
-		if (CustomCommandOrigin.sourceType != "Entity") return
-        const player = CustomCommandOrigin.sourceEntity
-        if (player.typeId != "minecraft:player") return
-        if (storage_size < 0 || storage_size > 3) { player.sendMessage('§cStorage Space must be 0-3'); return }
-        if (rocket_type == "cosmos:cargo_rocket_item" && storage_size != 0) { player.sendMessage('§cCargo storage size must be 0'); return }
-        storage_size *= 18
-        const inventory = player.getComponent('inventory').container
-        const rocket = new ItemStack(rocket_type)
-        system.run(() => {
-            if (storage_size > 0) {
-                rocket.setLore([`§r§7Storage Space: ${storage_size}`])
-                rocket.setDynamicProperty("inventory_size", storage_size)
-            }
-            inventory.addItem(rocket)
-        })
-	})
-})

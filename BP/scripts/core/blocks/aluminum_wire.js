@@ -1,6 +1,6 @@
 import { world, system, BlockPermutation } from "@minecraft/server"
 import machines from "../machines/AllMachineBlocks.js"
-import { get_entity, location_of_side, compare_position } from "../../api/utils.js"
+import { get_entity, location_of_side, compare_position, six_neighbors } from "../../api/utils.js"
 import { get_data } from "../machines/Machine.js"
 
 export function str_pos(location) {
@@ -136,7 +136,7 @@ export function attach_to_wires(block) {
 }
 // this function takes a Block (A Wire)
 function connect_wires(wire) {
-	const neighbors = wire.six_neighbors()
+	const neighbors = six_neighbors(wire)
 	const states = {}
 	for (const [side, block] of Object.entries(neighbors)) {
 		if (block.typeId == 'cosmos:aluminum_wire') {

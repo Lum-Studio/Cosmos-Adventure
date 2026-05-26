@@ -113,12 +113,3 @@ export function start_celestial_selector(player, tier = 1) {
 	}, 20)
 	select_solar_system(player, tier)
 }
-
-system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
-	customCommandRegistry.registerCommand({name: "cosmos:celestialselector", cheatsRequired: true, description: "Opens the Celestial Selector.", permissionLevel: 1}, 
-	(CustomCommandOrigin) => {
-		if(CustomCommandOrigin.sourceType == "Entity" && CustomCommandOrigin.sourceEntity.typeId == "minecraft:player"){
-			system.run(() => {select_solar_system(CustomCommandOrigin.sourceEntity, 3, true)});
-		}
-	});
-});

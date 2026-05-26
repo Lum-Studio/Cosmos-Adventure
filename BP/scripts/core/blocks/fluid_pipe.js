@@ -1,7 +1,7 @@
 import { world, BlockPermutation, system } from "@minecraft/server"
 import machines from "../machines/AllMachineBlocks.js"
 import { str_pos } from "./aluminum_wire"
-import { get_entity } from "../../api/utils.js"
+import { get_entity, six_neighbors } from "../../api/utils.js"
 import { get_data } from "../machines/Machine.js"
 import { compare_position, location_of_side } from "../../api/utils.js"
 import { update_network, update_fluid } from "../matter/fluid_network.js"
@@ -171,7 +171,7 @@ function find_connected_machines(first_pipe, perm = first_pipe.permutation, init
 }
 
 function connect_pipes(pipe) {
-	const neighbors = pipe.six_neighbors()
+	const neighbors = six_neighbors(pipe)
 	const states = {}
 	for (const [side, block] of Object.entries(neighbors)) {
 		if (/cosmos:fluid_pipe/.test(block.typeId)) {
