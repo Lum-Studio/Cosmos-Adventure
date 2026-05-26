@@ -63,7 +63,7 @@ function oxygen_hunger(player){
     }, 100);
 }
 export function update_tank(tank, o2) {
-	tank.setLore([`${o2}`])
+	tank.setLore([`§r§7Fill level: ${o2}`])
     const durability = tank.getComponent('minecraft:durability');
     o2 = Math.min(durability.maxDurability, o2)
     durability.damage = durability.maxDurability - o2

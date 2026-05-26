@@ -1,6 +1,8 @@
 import { world, ItemStack, system } from "@minecraft/server"
-import { compare_position, get_entity, load_dynamic_object, location_of_side } from "../../api/utils"
+import { compare_position, get_entity, load_dynamic_object, location_of_side, save_dynamic_object } from "../../api/utils"
 import { get_data } from "../machines/Machine"
+import { save_fluid_amount, get_fluid_amount } from "./fluid_network"
+import { get_direction, pipe_same_side } from "../blocks/fluid_pipe"
 
 function evaporate(block) {
     const liquid = block.permutation
@@ -16,6 +18,15 @@ const liquids = [
     {block: "cosmos:fuel", bucket: "cosmos:fuel_bucket"},
 ]
 
+export const fluid_textures = {
+    'o2_gas': 1,
+    'liquid_o2': 2,
+    'n2_gas': 3,
+    'liquid_n2': 4,
+    'methane': 5,
+    'fuel': 6,
+}
+
 const fluid_canisters = {
     o2: "cosmos:o2_canister", 
     n2: "cosmos:n2_canister",
@@ -28,9 +39,11 @@ const fluid_canisters = {
     "cosmos:oil_canister": "oil",
 }
 const fluid_buckets = {
+    water: "minecraft:water_bucket",
     fuel: "cosmos:fuel_bucket",
     oil: "cosmos:oil_bucket",
 
+    "minecraft:water_bucket": "water",
     "cosmos:fuel_bucket": "fuel",
     "cosmos:oil_bucket": "oil",
 }
@@ -115,63 +128,62 @@ const faces = {
     East: 'east', West: 'west',
 }
 
-system.beforeEvents.startup.subscribe(({itemComponentRegistry}) => {
-    itemComponentRegistry.registerCustomComponent("cosmos:bucket", {
-        onUseOn({source:player, itemStack:item, blockFace, block}) {
-            const against = block[faces[blockFace]]()
-            if (against.typeId != 'minecraft:air') return
-            const liquid = liquids.find(liquid => liquid.bucket == item.typeId)
-            if (!liquid) return
-            against.setType(liquid.block)
-            if (player.getGameMode() == 'Creative') return
-            player.getComponent('equippable').setEquipment('Mainhand', new ItemStack('bucket'))
-        }
-    })
-})
-
-export function output_fluid(fluid_type, entity, block, fluid) {
-    const data = get_data(entity)
-    const target_location = location_of_side(block, data[fluid_type].output)
-    if (!target_location || fluid == 0) return fluid
-    const target_block = block.dimension.getBlock(target_location)
-
-    if (target_block.typeId == "cosmos:fluid_pipe") {
-        return fluid
-    } else {
-        const target_entity = get_entity(entity.dimension, target_location, `has_${fluid_type}_input`)
-        if (!target_entity) return fluid
-        
-        const target_capacity = get_data(target_entity)[fluid_type].capacity
-        const target_fluid = load_dynamic_object(target_entity, 'machine_data')?.[fluid_type] ?? 0
-        if (target_fluid == target_capacity) return fluid
-        
-        const oi = location_of_side(target_block, get_data(target_entity)[fluid_type].input)
-        if (!compare_position(entity.location, oi)) return fluid
-
-        const space = target_capacity - target_fluid
-        return fluid - Math.min(fluid, space)
+export const bucket_component = {
+    onUseOn({source:player, itemStack:item, blockFace, block}) {
+        const against = block[faces[blockFace]]()
+        if (against.typeId != 'minecraft:air') return
+        const liquid = liquids.find(liquid => liquid.bucket == item.typeId)
+        if (!liquid) return
+        against.setType(liquid.block)
+        if (player.getGameMode() == 'Creative') return
+        player.getComponent('equippable').setEquipment('Mainhand', new ItemStack('bucket'))
     }
 }
 
-export function input_fluid(fluid_type, entity, block, fluid) {
+export function output_fluid(fluid_data, entity, block, fluid) {
+    if(system.currentTick % 20) return fluid;
     const data = get_data(entity)
-    const source_location = location_of_side(block, data[fluid_type].input)
-    if (!source_location || fluid == data[fluid_type].capacity) return fluid
+    const target_location = location_of_side(block, data[fluid_data.slot].output)
+    if (!target_location) return fluid
+    const target_block = block.dimension.getBlock(target_location)
+    let direction = {x: block.location.x - Math.floor(target_location.x),
+        y: block.location.y - Math.floor(target_location.y), 
+        z: block.location.z - Math.floor(target_location.z)
+    }
+    direction = get_direction(direction);
+    if (/cosmos:fluid_pipe/.test(target_block.typeId) && target_block.permutation.getState(pipe_same_side[direction]) == 2) {
+        fluid = save_fluid_amount(entity, fluid_data, target_block, fluid);
+        return fluid;
+    }
+    return fluid;
+}
+
+export function input_fluid(fluid_data, entity, block, fluid) {
+    if(system.currentTick % 20) return fluid;
+    const data = get_data(entity)
+    const source_location = location_of_side(block, data[fluid_data.slot].input)
+    if (!source_location || fluid == data[fluid_data.slot].capacity) return fluid
     const source_block = block.dimension.getBlock(source_location)
 
-    if (source_block?.typeId == "cosmos:fluid_pipe") {
+    if (/cosmos:fluid_pipe/.test(source_block?.typeId)) {
+        fluid = get_fluid_amount(entity, fluid_data, fluid)
         return fluid
     } else {
-        const source_entity = get_entity(entity.dimension, source_location, `has_${fluid_type}_output`)
+        const source_entity = get_entity(entity.dimension, source_location, `has_${fluid_data.type}_output`)
         if (!source_entity) return fluid
         
-        const source_fluid = load_dynamic_object(source_entity, 'machine_data')?.[fluid_type] ?? 0
+        let variables = load_dynamic_object(source_entity, 'machine_data');
+        const source_fluid = variables?.[fluid_data.type] ?? 0
         if (source_fluid == 0) return fluid
         
-        const io = location_of_side(source_block, get_data(source_entity)[fluid_type].output)
+        const io = location_of_side(source_block, get_data(source_entity)[fluid_data.type].output)
         if (!compare_position(entity.location, io)) return fluid
-        
-        return Math.min(fluid + source_fluid, data[fluid_type].capacity)
+
+        const space = data[fluid_data.slot].capacity - fluid;
+
+        variables[fluid_data.type] -= Math.min(source_fluid, space);
+        save_dynamic_object(source_entity, variables, 'machine_data')
+        return fluid + Math.min(source_fluid, space);
     }
 }
 
@@ -237,7 +249,7 @@ export function load_to_canister(canister, amount, fluid_type, container, slot) 
 }
 
 // (Unused) this function doesn't let the tank_amount reach 100% if it will lose canister_amount
-export function lossless_load_from_canister({canister, tank_amount, capacity, container, slot, ratio = 1, rate, creative}) {
+export function lossless_load_from_canister({canister, tank_amount, capacity, container, slot, ratio = 1}) {
     if (tank_amount == capacity) return capacity
     const durability = canister.getComponent('durability')
     const canister_amount = durability.maxDurability - durability.damage
@@ -248,7 +260,7 @@ export function lossless_load_from_canister({canister, tank_amount, capacity, co
 }
 
 // (Unused) exact java port of the function that fills oxygen machines from canisters
-export function lossless_gradual_load_from_canister({canister, tank_amount, capacity, container, slot, ratio = 1, rate, creative}) {
+export function lossless_gradual_load_from_canister({canister, tank_amount, capacity, container, slot, ratio = 1, rate}) {
     if (tank_amount == capacity) return capacity
     const space = capacity - tank_amount
     const durability = canister.getComponent('durability')

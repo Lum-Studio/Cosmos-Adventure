@@ -184,68 +184,36 @@ system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity:workbench, me
     }
 })
 
-system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
-	blockComponentRegistry.registerCustomComponent("cosmos:nasa_workbench", {
-        beforeOnPlayerPlace(event){
-            system.run(() => {
-                const {dimension, block} = event
-                let space = true
-                for (let i = -1; i<2; i++) {
-                    if (block.offset({x: i, y: 1, z: 0}).typeId != "minecraft:air") space = false
-                    if (block.offset({x: i, y: 2, z: 0}).typeId != "minecraft:air") space = false
-                }
-                for (let i = -1; i<2; i++) {
-                    if (block.offset({x: 0, y: 1, z: i}).typeId != "minecraft:air") space = false
-                    if (block.offset({x: 0, y: 2, z: i}).typeId != "minecraft:air") space = false
-                }
-                if (!space) { event.cancel = true; return }
-                const entity = dimension.spawnEntity("cosmos:nasa_workbench", block.above().bottomCenter())
-                entity.nameTag = "§n§a§s§a§_§w§o§r§k§b§e§n§c§h"
-                select_recipe('cosmos:rocket_tier_1_item', entity)
-                const inventory = entity.getComponent('inventory').container
-                for (let i = SCHEMAS; i < SCHEMAS + 9; i++) inventory.add_ui_display(i)
-                    for (let i = BUTTONS - 1; i < BUTTONS + 8; i++) set_ui_button(inventory, i)
-                set_ui_button(inventory, SCHEMA + 1, 'Unlock')
-                inventory.add_ui_display(SCHEMAS + 5, 'Tier 1 Rocket', 1)
-            });
-        },
-        onPlayerBreak({block, dimension}){
-            const entities = dimension.getEntities({
-                type: "cosmos:nasa_workbench",
-                location: block.above().center(),
-                maxDistance: 0.5
-            })
-            entities?.forEach(entity => entity.runCommand(`scriptevent cosmos:nasa_workbench despawn`))
-        }
-    })
-})
-
-system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
-    customCommandRegistry.registerEnum('cosmos:vehicle', Object.keys(recipes))
-	customCommandRegistry.registerCommand({name: "cosmos:get_vehicle", cheatsRequired: true,
-        description: "Gives a rocket or a vehicle with an inventory.", permissionLevel: 1,
-        mandatoryParameters: [
-            { type: "Enum", name: "cosmos:vehicle" }
-        ],
-        optionalParameters: [
-            { type: "Integer", name: "storage tier" }
-        ]
-    }, 
-	(CustomCommandOrigin, rocket_type, storage_size = 0) => {
-		if (CustomCommandOrigin.sourceType != "Entity") return
-        const player = CustomCommandOrigin.sourceEntity
-        if (player.typeId != "minecraft:player") return
-        if (storage_size < 0 || storage_size > 3) { player.sendMessage('§cStorage Space must be 0-3'); return }
-        if (rocket_type == "cosmos:cargo_rocket_item" && storage_size != 0) { player.sendMessage('§cCargo storage size must be 0'); return }
-        storage_size *= 18
-        const inventory = player.getComponent('inventory').container
-        const rocket = new ItemStack(rocket_type)
+export const nasa_workbench_component = {
+    beforeOnPlayerPlace(event){
         system.run(() => {
-            if (storage_size > 0) {
-                rocket.setLore([`§r§7Storage Space: ${storage_size}`])
-                rocket.setDynamicProperty("inventory_size", storage_size)
+            const {dimension, block} = event
+            let space = true
+            for (let i = -1; i<2; i++) {
+                if (block.offset({x: i, y: 1, z: 0}).typeId != "minecraft:air") space = false
+                if (block.offset({x: i, y: 2, z: 0}).typeId != "minecraft:air") space = false
             }
-            inventory.addItem(rocket)
+            for (let i = -1; i<2; i++) {
+                if (block.offset({x: 0, y: 1, z: i}).typeId != "minecraft:air") space = false
+                if (block.offset({x: 0, y: 2, z: i}).typeId != "minecraft:air") space = false
+            }
+            if (!space) { event.cancel = true; return }
+            const entity = dimension.spawnEntity("cosmos:nasa_workbench", block.above().bottomCenter())
+            entity.nameTag = "§n§a§s§a§_§w§o§r§k§b§e§n§c§h"
+            select_recipe('cosmos:rocket_tier_1_item', entity)
+            const inventory = entity.getComponent('inventory').container
+            for (let i = SCHEMAS; i < SCHEMAS + 9; i++) inventory.add_ui_display(i)
+                for (let i = BUTTONS - 1; i < BUTTONS + 8; i++) set_ui_button(inventory, i)
+            set_ui_button(inventory, SCHEMA + 1, 'Unlock')
+            inventory.add_ui_display(SCHEMAS + 5, 'Tier 1 Rocket', 1)
+        });
+    },
+    onPlayerBreak({block, dimension}){
+        const entities = dimension.getEntities({
+            type: "cosmos:nasa_workbench",
+            location: block.above().center(),
+            maxDistance: 0.5
         })
-	})
-})
+        entities?.forEach(entity => entity.runCommand(`scriptevent cosmos:nasa_workbench despawn`))
+    }
+}

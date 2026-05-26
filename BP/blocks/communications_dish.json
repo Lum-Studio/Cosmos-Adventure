@@ -6,7 +6,7 @@
 		"menu_category": { "category": "items" }
 	},
 	"components": {
-	  "minecraft:custom_components":["cosmos:dishbase"],
+	  "minecraft:custom_components":["cosmos:communication_dish"],
 	  "minecraft:material_instances": {
 		"*": { "texture": "dishbase", "render_method": "alpha_test"}
 	  },

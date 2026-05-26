@@ -31,34 +31,34 @@
                 "anchor_to": "top_left",
                 "offset": [ 131, 6 ]
             }},
-            { "energy_bar@machines.energy_bar": {
+            { "gas_tank@machines.any_fluid_tank": {
                 "$index": 3,
-                "anchor_from": "top_left",
-                "anchor_to": "top_left",
-                "offset": [ 41, 16 ]
-            }},
-            { "gas_tank@machines.fluid_tank": {
-                "$liquid": "gas",
-                "$index": 4,
+                "$texture_index": 4,
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
                 "offset": [ 6, 27 ]
             }},
-            { "liquid_tank@machines.fluid_tank": {
-                "$liquid": "liquid",
+            { "liquid_tank@machines.any_fluid_tank": {
                 "$index": 5,
+                "$texture_index": 6,
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
                 "offset": [ 131, 27 ]
             }},
+            { "energy_bar@machines.energy_bar": {
+                "$index": 7,
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "offset": [ 41, 16 ]
+            }},
             { "status@machines.item_text": {
-                "$index": 6,
+                "$index": 8,
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
                 "offset": [ 60, 50 ]
             }},
             { "start_button@machines.machine_button": {
-                "$index": 7,
+                "$index": 9,
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
                 "offset": [ 39, 28 ]

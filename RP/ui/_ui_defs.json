@@ -21,6 +21,7 @@
     "ui/machines/oxygen_decompressor.json",
     "ui/machines/electric_furnace.json",
     "ui/machines/oxygen_distributor.json",
+    "ui/machines/oxygen_storage.json",
     "ui/machines/solar_panel.json",
 
     "ui/vehicles/rocket.json",

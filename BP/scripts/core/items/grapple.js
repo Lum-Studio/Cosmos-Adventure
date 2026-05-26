@@ -34,44 +34,40 @@ function grappleProjectileFlying(projectile, source){
         }
     },2);
 }
-function grappleVisualProjectileFly(source){
-    let visualProjectile = source.dimension.spawnEntity('cosmos:vgrapple', {x: source.location.x, y: source.location.y + 1, z: source.location.z});
-    let direction = source.getBlockFromViewDirection({includePassableBlocks: false})?.block;
-    let vDirection = source.getViewDirection();
-    let flyVisual = system.runInterval(() => {
-        if(!visualProjectile.isValid){
-            system.clearRun(flyVisual);
-            return;
-        }
-        let distance = ((visualProjectile.location.x - source.location.x) ** 2) + ((visualProjectile.location.y - source.location.y) ** 2) + ((visualProjectile.location.z - source.location.z) ** 2);
-        visualProjectile.setProperty("cosmos:lenght", distance);
-        let targetV = (direction != undefined)? direction:
-        (visualProjectile.dimension.getBlockFromRay({x: visualProjectile.location.x, y: visualProjectile.location.y + 1, z: visualProjectile.location.z}, vDirection, {includePassableBlocks: false})?.block != undefined)?
-        visualProjectile.dimension.getBlockFromRay({x: visualProjectile.location.x, y: visualProjectile.location.y + 1, z: visualProjectile.location.z}, vDirection, {includePassableBlocks: false})?.block:
-        undefined;
-        if(targetV == undefined){
-            visualProjectile.clearVelocity();
-            visualProjectile.applyImpulse(vDirection);
-            return;
-        }
-        let dirLenghtV = 1/Math.sqrt(((targetV.location.x - visualProjectile.location.x) ** 2) + ((targetV.location.y - visualProjectile.location.y) ** 2) + ((targetV.location.z - visualProjectile.location.z) ** 2));
-        if(targetV != undefined){
-            visualProjectile.clearVelocity();
-            visualProjectile.applyImpulse({x: (targetV.location.x - visualProjectile.location.x) * dirLenghtV, y: (targetV.location.y - visualProjectile.location.y) * dirLenghtV, z: (targetV.location.z - visualProjectile.location.z) * dirLenghtV});
-        }
-        let distanceBv = ((targetV.location.x - visualProjectile.location.x) ** 2) + ((targetV.location.y - visualProjectile.location.y) ** 2) + ((targetV.location.z - visualProjectile.location.z) ** 2);
-        if(visualProjectile.isValid && targetV != undefined && Math.abs(distanceBv <= 1)){
-            visualProjectile.clearVelocity();
-            system.clearRun(flyVisual);
-            return grappleProjectileFlying(visualProjectile, source);
-        }
-        else if(!visualProjectile.isValid) system.clearRun(flyVisual)
-    },2);
+
+export const grapple_component = {
+    onUse({source}) {
+        let visualProjectile = source.dimension.spawnEntity('cosmos:vgrapple', {x: source.location.x, y: source.location.y + 1, z: source.location.z});
+        let direction = source.getBlockFromViewDirection({includePassableBlocks: false})?.block;
+        let vDirection = source.getViewDirection();
+        let flyVisual = system.runInterval(() => {
+            if(!visualProjectile.isValid){
+                system.clearRun(flyVisual);
+                return;
+            }
+            let distance = ((visualProjectile.location.x - source.location.x) ** 2) + ((visualProjectile.location.y - source.location.y) ** 2) + ((visualProjectile.location.z - source.location.z) ** 2);
+            visualProjectile.setProperty("cosmos:lenght", distance);
+            let targetV = (direction != undefined)? direction:
+            (visualProjectile.dimension.getBlockFromRay({x: visualProjectile.location.x, y: visualProjectile.location.y + 1, z: visualProjectile.location.z}, vDirection, {includePassableBlocks: false})?.block != undefined)?
+            visualProjectile.dimension.getBlockFromRay({x: visualProjectile.location.x, y: visualProjectile.location.y + 1, z: visualProjectile.location.z}, vDirection, {includePassableBlocks: false})?.block:
+            undefined;
+            if(targetV == undefined){
+                visualProjectile.clearVelocity();
+                visualProjectile.applyImpulse(vDirection);
+                return;
+            }
+            let dirLenghtV = 1/Math.sqrt(((targetV.location.x - visualProjectile.location.x) ** 2) + ((targetV.location.y - visualProjectile.location.y) ** 2) + ((targetV.location.z - visualProjectile.location.z) ** 2));
+            if(targetV != undefined){
+                visualProjectile.clearVelocity();
+                visualProjectile.applyImpulse({x: (targetV.location.x - visualProjectile.location.x) * dirLenghtV, y: (targetV.location.y - visualProjectile.location.y) * dirLenghtV, z: (targetV.location.z - visualProjectile.location.z) * dirLenghtV});
+            }
+            let distanceBv = ((targetV.location.x - visualProjectile.location.x) ** 2) + ((targetV.location.y - visualProjectile.location.y) ** 2) + ((targetV.location.z - visualProjectile.location.z) ** 2);
+            if(visualProjectile.isValid && targetV != undefined && Math.abs(distanceBv <= 1)){
+                visualProjectile.clearVelocity();
+                system.clearRun(flyVisual);
+                return grappleProjectileFlying(visualProjectile, source);
+            }
+            else if(!visualProjectile.isValid) system.clearRun(flyVisual)
+        }, 2)
+    }
 }
-system.beforeEvents.startup.subscribe(({itemComponentRegistry}) => {
-    itemComponentRegistry.registerCustomComponent("cosmos:grapple", {
-        onUse(data){
-            return grappleVisualProjectileFly(data.source);
-        },
-    })
-})

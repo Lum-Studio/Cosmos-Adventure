@@ -190,49 +190,48 @@ world.afterEvents.entityDie.subscribe(({ deadEntity: player }) => {
 )*/
 
 //EQUIP ITEMS
-system.beforeEvents.startup.subscribe(({ itemComponentRegistry }) => {
-	itemComponentRegistry.registerCustomComponent("cosmos:space_gear", {
-		onUse({ source: player, itemStack: item }) {
-			const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}'); let sound = false
-			if (!player.getProperty("cosmos:oxygen_gear") && item.typeId == "cosmos:oxygen_gear") {
-				player.runCommand(`clear @s cosmos:oxygen_gear 0 1`)
-				space_gear.gear = item.typeId; sound = true
-				player.setProperty("cosmos:oxygen_gear", true)
-			}
-			if (!player.getProperty("cosmos:oxygen_mask") && item.typeId == "cosmos:oxygen_mask") {
-				player.runCommand(`clear @s cosmos:oxygen_mask 0 1`)
-				space_gear.mask = item.typeId; sound = true
-				player.setProperty("cosmos:oxygen_mask", true)
-			}
-			if (!player.getProperty("cosmos:frequency_module") && item.typeId == "cosmos:frequency_module") {
-				player.runCommand(`clear @s cosmos:frequency_module 0 1`)
-				space_gear.frequency_module = item.typeId; sound = true
-				player.setProperty("cosmos:frequency_module", true)
-			}
-			if (!space_gear.parachute && slots.parachute.includes(item.typeId)) {
-				player.runCommand(`clear @s ${item.typeId} 0 1`)
-				space_gear.parachute = item.typeId; sound = true
-			}
-			if (Object.keys(tanks).includes(item.typeId)) {
-				let tank = undefined
-				if (player.getProperty("cosmos:tank1") == 'no_tank') tank = "tank1"
-				else if (player.getProperty("cosmos:tank2") == 'no_tank') tank = "tank2"
-				if (tank) {
-					const durability = item.getComponent("minecraft:durability")
-					let saved_durability = durability ? durability.maxDurability - durability.damage:
-					0;
-					player.runCommand(`clear @s ${item.typeId} -1 1`)
-					space_gear[tank] = item.typeId + (durability ? ' ' + saved_durability : '');
-					sound = true;
-					player.setProperty(`cosmos:${tank}`, tanks[item.typeId])
-					
-				}
-			}
-			if (sound) player.dimension.playSound("armor.equip_iron", player.location)
-			player.setDynamicProperty("space_gear", JSON.stringify(space_gear))
+
+export const space_gear_component = {
+	onUse({ source: player, itemStack: item }) {
+		const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}'); let sound = false
+		if (!player.getProperty("cosmos:oxygen_gear") && item.typeId == "cosmos:oxygen_gear") {
+			player.runCommand(`clear @s cosmos:oxygen_gear 0 1`)
+			space_gear.gear = item.typeId; sound = true
+			player.setProperty("cosmos:oxygen_gear", true)
 		}
-	})
-})
+		if (!player.getProperty("cosmos:oxygen_mask") && item.typeId == "cosmos:oxygen_mask") {
+			player.runCommand(`clear @s cosmos:oxygen_mask 0 1`)
+			space_gear.mask = item.typeId; sound = true
+			player.setProperty("cosmos:oxygen_mask", true)
+		}
+		if (!player.getProperty("cosmos:frequency_module") && item.typeId == "cosmos:frequency_module") {
+			player.runCommand(`clear @s cosmos:frequency_module 0 1`)
+			space_gear.frequency_module = item.typeId; sound = true
+			player.setProperty("cosmos:frequency_module", true)
+		}
+		if (!space_gear.parachute && slots.parachute.includes(item.typeId)) {
+			player.runCommand(`clear @s ${item.typeId} 0 1`)
+			space_gear.parachute = item.typeId; sound = true
+		}
+		if (Object.keys(tanks).includes(item.typeId)) {
+			let tank = undefined
+			if (player.getProperty("cosmos:tank1") == 'no_tank') tank = "tank1"
+			else if (player.getProperty("cosmos:tank2") == 'no_tank') tank = "tank2"
+			if (tank) {
+				const durability = item.getComponent("minecraft:durability")
+				let saved_durability = durability ? durability.maxDurability - durability.damage:
+				0;
+				player.runCommand(`clear @s ${item.typeId} -1 1`)
+				space_gear[tank] = item.typeId + (durability ? ' ' + saved_durability : '');
+				sound = true;
+				player.setProperty(`cosmos:${tank}`, tanks[item.typeId])
+				
+			}
+		}
+		if (sound) player.dimension.playSound("armor.equip_iron", player.location)
+		player.setDynamicProperty("space_gear", JSON.stringify(space_gear))
+	}
+}
 
 /* OXYGEN AND UNUSED FUNCTIONS - preserved for later use 
 system.runInterval(async()=>{

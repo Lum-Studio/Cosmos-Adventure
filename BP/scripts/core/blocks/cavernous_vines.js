@@ -3,6 +3,7 @@ import * as mc from "@minecraft/server";
 import { destroyBlocksJOB, getHand, select_random_item } from "api/utils";
 
 const { world, system, TicksPerSecond, BlockPermutation } = mc;
+
 const typeId = "cosmos:cavernous_vines";
 
 export class CavernousVine {
@@ -185,78 +186,71 @@ export class CavernousVine {
     }
 }
 
-system.beforeEvents.startup.subscribe(ev => {
-
-    const CV = CavernousVine;
-
-    ev.blockComponentRegistry.registerCustomComponent(typeId, {
-
-        onPlace: ({ block }) => {
-            const aboveBlock = block.above();
-            if (aboveBlock.typeId !== typeId) {
-                if (aboveBlock.typeId === "minecraft:air") block.setType("air");
-                return;
-            }
-            const perm = block.permutation;
-            const aboveVairant = aboveBlock.permutation.getState("cosmos:variant");
-            if (perm.getState("cosmos:variant") === aboveVairant) return;
-            block.setPermutation(perm.withState("cosmos:variant", aboveVairant));
-        },
-
-        beforeOnPlayerPlace: async data => {
-            mc.system.run(() => {
-                const vineVariants = mc.BlockStates.get("cosmos:variant")?.validValues.map(v =>
-                    BlockPermutation.resolve(typeId).withState("cosmos:variant", v)
-                ) ?? [];
-                if (data.cancel || !data.player || data.face !== "Down") return;
-                const abovePerm = data.block.above().permutation;
-                if (abovePerm.type.id === typeId) {
-                    const permToPlace = data.permutationToPlace;
-                    if (abovePerm === permToPlace) return;
-                    const aboveVairant = abovePerm.getState("cosmos:variant");
-                    if (abovePerm.getState("cosmos:attached_bit") === true) {
-                        data.permutationToPlace = abovePerm.withState("cosmos:attached_bit", false);
-                    } else if (permToPlace.getState("cosmos:variant") !== aboveVairant) {
-                        data.permutationToPlace = abovePerm.withState("cosmos:variant", aboveVairant);
-                    }
-                } else data.permutationToPlace = select_random_item(vineVariants).withState("cosmos:attached_bit", true);
-            });
-        },
-
-        onPlayerInteract: ({ block, player }) => {
-            const hand = player && getHand(player);
-            if (!hand?.hasItem()) return;
-            if (hand.typeId === "minecraft:shears") {
-                const perm = block.permutation;
-                if (perm.getState("cosmos:age") === 0) return;
-                block.setPermutation(perm.withState("cosmos:age", 0));
-            }
-        },
-
-        onTick: ({ block }) => {
-            const aboveBlock = block.above();
-            if (aboveBlock.typeId == "minecraft:air") {
-                let currBlock = block;
-                if (currBlock.typeId === typeId) {
-                    CV.cut(block);
-                }
-            } else if (aboveBlock.typeId === typeId) return;
-            if (block.permutation.getState("cosmos:attached_bit") === true) {
-                const cavernVines = CV.get(block);
-                if (!cavernVines?.isAvailable) return;
-                cavernVines.update();
-                cavernVines.grabEntities();
-            }
-        },
-
-        onRandomTick: ({ block }) => {
-            if (block.permutation.getState("cosmos:attached_bit") === true) {
-                const cavernVines = CV.get(block);
-                if (!cavernVines?.isAvailable) return;
-                cavernVines.vineGrowth();
-            };
+export const cavernous_vines_component = {
+    onPlace: ({ block }) => {
+        const aboveBlock = block.above();
+        if (aboveBlock.typeId !== typeId) {
+            if (aboveBlock.typeId === "minecraft:air") block.setType("air");
+            return;
         }
-    });
-})
+        const perm = block.permutation;
+        const aboveVairant = aboveBlock.permutation.getState("cosmos:variant");
+        if (perm.getState("cosmos:variant") === aboveVairant) return;
+        block.setPermutation(perm.withState("cosmos:variant", aboveVairant));
+    },
 
+    beforeOnPlayerPlace: async data => {
+        mc.system.run(() => {
+            const vineVariants = mc.BlockStates.get("cosmos:variant")?.validValues.map(v =>
+                BlockPermutation.resolve(typeId).withState("cosmos:variant", v)
+            ) ?? [];
+            if (data.cancel || !data.player || data.face !== "Down") return;
+            const abovePerm = data.block.above().permutation;
+            if (abovePerm.type.id === typeId) {
+                const permToPlace = data.permutationToPlace;
+                if (abovePerm === permToPlace) return;
+                const aboveVairant = abovePerm.getState("cosmos:variant");
+                if (abovePerm.getState("cosmos:attached_bit") === true) {
+                    data.permutationToPlace = abovePerm.withState("cosmos:attached_bit", false);
+                } else if (permToPlace.getState("cosmos:variant") !== aboveVairant) {
+                    data.permutationToPlace = abovePerm.withState("cosmos:variant", aboveVairant);
+                }
+            } else data.permutationToPlace = select_random_item(vineVariants).withState("cosmos:attached_bit", true);
+        });
+    },
+
+    onPlayerInteract: ({ block, player }) => {
+        const hand = player && getHand(player);
+        if (!hand?.hasItem()) return;
+        if (hand.typeId === "minecraft:shears") {
+            const perm = block.permutation;
+            if (perm.getState("cosmos:age") === 0) return;
+            block.setPermutation(perm.withState("cosmos:age", 0));
+        }
+    },
+
+    onTick: ({ block }) => {
+        const aboveBlock = block.above();
+        if (aboveBlock.typeId == "minecraft:air") {
+            let currBlock = block;
+            if (currBlock.typeId === typeId) {
+                CavernousVine.cut(block);
+            }
+        } else if (aboveBlock.typeId === typeId) return;
+        if (block.permutation.getState("cosmos:attached_bit") === true) {
+            const cavernVines = CavernousVine.get(block);
+            if (!cavernVines?.isAvailable) return;
+            cavernVines.update();
+            cavernVines.grabEntities();
+        }
+    },
+
+    onRandomTick: ({ block }) => {
+        if (block.permutation.getState("cosmos:attached_bit") === true) {
+            const cavernVines = CavernousVine.get(block);
+            if (!cavernVines?.isAvailable) return;
+            cavernVines.vineGrowth();
+        };
+    }
+}
 export default CavernousVine;

@@ -53,49 +53,6 @@ Merge(mc.Player.prototype, {
 
 //@ts-expect-error
 Merge(mc.Block.prototype, {
-
-    //WTF is this?
-    getNeighbors(maxSearch = 27) {
-        const directions = ["above", "north", "east", "west", "south", "below"]
-        const connectedBlocks = []
-        const visted = new Set();
-        const queue = [this.location]
-        while (connectedBlocks.length < maxSearch) {
-            const loc = queue.pop();
-            const hash = `${loc.x},${loc.y},${loc.z}`
-            if (!visted.has(hash)) {
-                visted.add(hash);
-                try {
-                    for (const dir of directions) {
-                        const offsetBlock = this[dir]();
-                        const newHash = `${offsetBlock.x},${offsetBlock.y},${offsetBlock.z}`
-                        if (!visted.has(newHash)) {
-                            visted.add(hash);
-                            queue.push(offsetBlock.location);
-                            connectedBlocks.push(offsetBlock)
-                        }
-                    }
-                } catch (e) {
-                    null//console.error(e, e.stack)
-                }
-            }
-        } return connectedBlocks;
-    },
-
-    // returns an object eg: { north: Block, east: Block, west: Block, ...}
-    four_neighbors(sides = ["north", "east", "west", "south"]) {
-        const blocks = {}
-        sides.forEach(side => {
-            blocks[side] = this[side]()
-        })
-        return blocks
-    },
-
-    // returns an object eg: { above: Block, north: Block, east: Block, ...}
-    six_neighbors() {
-        return this.four_neighbors(["above", "north", "east", "west", "south", "below"])
-    },
-
     getPlanet(){
         if(this.dimension.id == "minecraft:the_end") {
             return getPlanetByLocation(this.location);

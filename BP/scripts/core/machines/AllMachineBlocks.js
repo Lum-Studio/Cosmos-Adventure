@@ -7,6 +7,7 @@ import Refinery from './blocks/Refinery'
 import ElectricCompressor from './blocks/ElectricCompressor'
 import OxygenCompressor from './blocks/OxygenCompressor'
 import OxygenDecompressor from './blocks/OxygenDecompressor'
+import OxygenStorage from './blocks/OxygenStorage'
 import FuelLoader from './blocks/FuelLoader'
 import WaterElectrolyzer from './blocks/WaterElectrolyzer'
 import GasLiquefier from './blocks/GasLiquefier'
@@ -14,6 +15,7 @@ import ElectricFurnace from './blocks/ElectricFurnace'
 import Parachest from './blocks/Parachest'
 import OxygenDistributor from './blocks/OxygenDistributor'
 import BasicSolarPanel from './blocks/BasicSolarPanel'
+import Deconstructor from './blocks/Deconstructor'
 
 const AllMachines = {
 	coal_generator: CoalGenerator,
@@ -27,12 +29,14 @@ const AllMachines = {
 	oxygen_compressor: OxygenCompressor,
 	oxygen_distributor: OxygenDistributor,
 	oxygen_decompressor: OxygenDecompressor,
+	oxygen_storage_module: OxygenStorage,
 	circuit_fabricator: CircuitFabricator,
 	refinery: Refinery,
 	fuel_loader: FuelLoader,
 	water_electrolyzer: WaterElectrolyzer,
 	gas_liquefier: GasLiquefier,
-	parachest: Parachest
+	deconstructor: Deconstructor,
+	parachest: Parachest,
 }
 
 for (const machine in AllMachines) AllMachines[machine].ui = `§${machine.split('').join('§')}`

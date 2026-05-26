@@ -1,6 +1,7 @@
 import {world, system} from "@minecraft/server";
 import {detach_wires, attach_to_wires} from "../blocks/aluminum_wire"
 import {machine_entities} from "../machines/Machine"
+import { attach_to_machine, attach_pipes, detach_pipes } from "../blocks/fluid_pipe";
 
 const directions = ["north", "east", "south", "west"]
 
@@ -11,11 +12,14 @@ function rotate(block, perm) {
 	system.runTimeout(()=>{
     detach_wires(block)
     attach_to_wires(block)
+    detach_pipes(block)
+    attach_pipes(block)
   }, 1)
 }
 
 export function remove(block) {
   detach_wires(block)
+  detach_pipes(block)
   const {dimension, location} = block
   const coords = `${location.x} ${location.y} ${location.z}`
   const machineEntity = dimension.getEntities({
@@ -43,18 +47,17 @@ export function remove(block) {
 
 }
 
-system.beforeEvents.startup.subscribe(({itemComponentRegistry}) => {
-    itemComponentRegistry.registerCustomComponent("cosmos:wrench", {
-        onUseOn({block, source:player, usedOnBlockPermutation:perm}){
-          if (block.typeId == 'cosmos:arc_lamp') {
-            let direction = perm.getState("cosmos:lamp_direction");
-            direction = (direction < 3)? direction + 1: 0;
-				    block.setPermutation(perm.withState('cosmos:lamp_direction', direction));
-            return;
-          }
-          if (!block.hasTag("machine")) return
-          if (player.isSneaking) remove(block)
-          else rotate(block, perm)
-        }
-    })
-})
+export const wrench_component = {
+  onUseOn({block, source:player, usedOnBlockPermutation:perm}){
+    if (block.typeId == 'cosmos:arc_lamp') {
+      let direction = perm.getState("cosmos:lamp_direction");
+      direction = (direction < 3)? direction + 1: 0;
+      block.setPermutation(perm.withState('cosmos:lamp_direction', direction));
+      return;
+    }
+    if(/cosmos:fluid_pipe/.test(block.typeId)) attach_to_machine(block)
+    if (!block.hasTag("machine")) return
+    if (player.isSneaking) remove(block)
+    else rotate(block, perm)
+  }
+}

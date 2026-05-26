@@ -1,3 +1,5 @@
+// This file is only for Utility functions
+
 import * as mc from "@minecraft/server";
 import {machine_entities} from "../core/machines/Machine";
 import {vehicles} from "../core/vehicles/Vehicle";
@@ -7,16 +9,18 @@ const data_maps = {
 	"machine_data": machine_entities,
 	"vehicle_data": vehicles
 }
-export function load_dynamic_object(storage, name){
-	return data_maps[name].get(storage.id)?.entity_data;
+export function load_dynamic_object(storage, type, name = 'variables'){
+	const data = data_maps[type].get(storage.id)?.entity_data[name];
+	return data ?? {};
 }
 
-export function save_dynamic_object(storage, value, name){
-	let entity = data_maps[name].get(storage.id);
+export function save_dynamic_object(storage, value, type, name = 'variables'){
+	let entity = data_maps[type].get(storage.id);
 	if(!entity) return;
-	entity.entity_data = value;
-	data_maps[name].set(storage.id, entity);
-	storage.setDynamicProperty(name, JSON.stringify(value)) 
+	entity.entity_data = entity.entity_data ?? {};
+	entity.entity_data[name] = value;
+	data_maps[type].set(storage.id, entity);
+	storage.setDynamicProperty(type, JSON.stringify(entity.entity_data)) 
 }
 
 export function str(object) { return JSON.stringify(object) }
@@ -27,6 +31,24 @@ export const destroyBlocksJOB = function* (locations, dim) {
 		dim.runCommand(`setblock ${loc.x} ${loc.y} ${loc.z} air [] destroy`);
 		yield;
 	}
+}
+
+const four_neighbors_array = ["north", "east", "west", "south"]
+export function four_neighbors(block) {
+	const blocks = {}
+	four_neighbors_array.forEach(side => blocks[side] = block[side]())
+	return blocks
+}
+
+const six_neighbors_array = ["above", "north", "east", "west", "south", "below"]
+export function six_neighbors(block) {
+	const blocks = {}
+	six_neighbors_array.forEach(side => blocks[side] = block[side]())
+	return blocks
+}
+
+export function get_neighbors(block) {
+	return six_neighbors_array.map(side => block[side]())
 }
 
 // this function takes a Block and a Side (above, below, left, right, back, or front) and returns a location {x, y, z}
@@ -106,7 +128,7 @@ export const pickaxes = new Set([
 export function isUnderground(player) {
 	let block = player.dimension.getTopmostBlock(player.location)
 	if (player.location.y >= block.location.y) return false
-	/*commented untill isSolid release 
+	/*commented until isSolid release 
 	let min = player.dimension.heightRange.min
 	while (!block.isSolid && block.location.y > min) {
 		if (player.location.y >= block.location.y) return false
@@ -131,17 +153,3 @@ export function getPlanetByLocation(location){
         z >= planet.range.start.z && z <= planet.range.end.z)
     )?.class;
 }
-//needs to be moved to addon settings after manifest v3 release
-mc.system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
-	customCommandRegistry.registerCommand({name: "cosmos:render_distance", 
-		cheatsRequired: false, 
-		description: "Changes the Script Render Distance", 
-		permissionLevel: 1,
-	    mandatoryParameters: [{ type: mc.CustomCommandParamType.Integer, name: "chunks" }]
-	}, 
-	(CustomCommandOrigin, chunks) => {
-		if(CustomCommandOrigin.sourceType == "Entity" && CustomCommandOrigin.sourceEntity.typeId == "minecraft:player"){
-			mc.world.setDynamicProperty("render_distance", chunks);
-		}
-	});
-});

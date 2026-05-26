@@ -43,32 +43,31 @@ function set_corners(direction, [north, east, south, west]) {
 	return [north_east, north_west, south_east, south_west]
 }
 
-system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
-	blockComponentRegistry.registerCustomComponent('cosmos:stairs', {
-		beforeOnPlayerPlace(event) {
-			system.run(() => {
-				const perm = event.permutationToPlace
-				const direction = perm.getState("minecraft:cardinal_direction")
-				event.permutationToPlace = perm.withState(
-					'generic:north_east', ["north", "east"].includes(direction)).withState(
-					'generic:north_west', ["north", "west"].includes(direction)).withState(
-					'generic:south_east', ["south", "east"].includes(direction)).withState(
-					'generic:south_west', ["south", "west"].includes(direction)
-				)
-			});
-		},
-		onTick({block}) {
-			const perm = block.permutation
+// Needs to be reworked
+export const stairs_component = {
+	beforeOnPlayerPlace(event) {
+		system.run(() => {
+			const perm = event.permutationToPlace
 			const direction = perm.getState("minecraft:cardinal_direction")
+			event.permutationToPlace = perm.withState(
+				'generic:north_east', ["north", "east"].includes(direction)).withState(
+				'generic:north_west', ["north", "west"].includes(direction)).withState(
+				'generic:south_east', ["south", "east"].includes(direction)).withState(
+				'generic:south_west', ["south", "west"].includes(direction)
+			)
+		});
+	},
+	onTick({block}) {
+		const perm = block.permutation
+		const direction = perm.getState("minecraft:cardinal_direction")
 
-			const [north_east, north_west, south_east, south_west] = set_corners(direction, neighbors_stairs(block))
-			if (!block.hasTag("stairs")) return
-			block.setPermutation(perm.withState(
-				'generic:north_east', north_east).withState(
-				'generic:north_west', north_west).withState(
-				'generic:south_east', south_east).withState(
-				'generic:south_west', south_west
-			))
-		}
-	});
-});
+		const [north_east, north_west, south_east, south_west] = set_corners(direction, neighbors_stairs(block))
+		if (!block.hasTag("stairs")) return
+		block.setPermutation(perm.withState(
+			'generic:north_east', north_east).withState(
+			'generic:north_west', north_west).withState(
+			'generic:south_east', south_east).withState(
+			'generic:south_west', south_west
+		))
+	}
+}

@@ -177,6 +177,12 @@
             },
             "volume": 0
          },
+         "cosmos:oxygen_storage_module": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
          "cosmos:oxygen_compressor": {
             "events": {
                "death": "none"
@@ -238,6 +244,12 @@
             "volume": 0
          },
          "cosmos:cargo_rocket": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
+         "cosmos:moon_buggy": {
             "events": {
                "death": "none"
             },

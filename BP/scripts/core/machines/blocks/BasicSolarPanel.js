@@ -30,21 +30,21 @@ export function setSolarPanelBlocks(solar_panel, destroy = false) {
 	return true;
 }
 
-system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
-	blockComponentRegistry.registerCustomComponent('cosmos:solar_panel', {
-		onPlayerBreak({ block, dimension, brokenBlockPermutation: perm }) {
-			let { x, y, z } = block.location;
-			let state = perm.getState("cosmos:panel_position") ?? 0;
+const panel_offsets = [
+	{x: 0, y: -1, z: 0}, {x: 0, y: -2, z: 0}, {x: -1, y: -2, z: 0},
+	{x: 1, y: -2, z: 0}, {x: 0, y: -2, z: -1}, {x: 0, y: -2, z: 1},
+	{x: -1, y: -2, z: -1}, {x: 1, y: -2, z: 1}, {x: 1, y: -2, z: -1},
+	{x: -1, y: -2, z: 1}
+]
 
-			let panel_blocks = [{ x: x, y: y - 1, z: z }, { x: x, y: y - 2, z: z }, { x: x - 1, y: y - 2, z: z },
-			{ x: x + 1, y: y - 2, z: z }, { x: x, y: y - 2, z: z - 1 }, { x: x, y: y - 2, z: z + 1 },
-			{ x: x - 1, y: y - 2, z: z - 1 }, { x: x + 1, y: y - 2, z: z + 1 }, { x: x + 1, y: y - 2, z: z - 1 }, { x: x - 1, y: y - 2, z: z + 1 }];
-			let main_block = dimension.getBlock(panel_blocks[state]);
-			setSolarPanelBlocks(main_block, true);
-			remove(main_block);
-		},
-	});
-});
+export const solar_panel_component = {
+	onPlayerBreak({ block, brokenBlockPermutation: perm }) {
+		let state = perm.getState("cosmos:panel_position") ?? 0;
+		let main_block = block.offset(panel_offsets[state]);
+		setSolarPanelBlocks(main_block, true);
+		remove(main_block);
+	},
+}
 
 const data = {
 	energy: { output: "back", capacity: 16000, maxPower: 200 },
