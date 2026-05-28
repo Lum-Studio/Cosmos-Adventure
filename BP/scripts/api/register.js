@@ -4,6 +4,7 @@ import { end_cleaner_component } from "./world/PlanetBuilder";
 import { aluminum_wire_component } from "../core/blocks/aluminum_wire";
 import { cavernous_vines_component } from "../core/blocks/cavernous_vines";
 import { communication_dish_component } from "../core/blocks/dishbase";
+import { cryogenic_chamber_component } from "../core/blocks/cryogenic_chamber";
 import { arc_lamp, cheese_block, fallen_meteor } from "../core/matter/blocks";
 import { fluid_pipe_component } from "../core/blocks/fluid_pipe";
 import { fluid_tank_component } from "../core/blocks/fluid_tank";
@@ -45,6 +46,7 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
 	register_block_component('cosmos:buggy_fueling_pad', launch_pad_components.buggy_fueling_pad)
     register_block_component("cosmos:nasa_workbench", nasa_workbench_component)
     register_block_component('cosmos:stairs', stairs_component)
+    register_block_component('cosmos:cryogenic_chamber', cryogenic_chamber_component)
     // register_block_component('cosmos:wall', wall_component)
     register_block_component('cosmos:treasure_chest', treasure_chest_component)
     register_block_component("cosmos:boss_block", evolved_skeleton_component)

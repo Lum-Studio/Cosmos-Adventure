@@ -1,0 +1,83 @@
+{
+    "format_version": "1.26.20",
+    "minecraft:block": {
+      "description": {
+        "identifier": "cosmos:cryogenic_chamber",
+        "menu_category": { "category": "items" },
+        "states": {
+          "cosmos:chamber": [ 0, 1, 2 ]
+        }
+      },
+      "components": {
+        "minecraft:geometry": {
+          "identifier": "geometry.cryo_1"
+        },
+        "minecraft:destructible_by_mining": {
+          "seconds_to_destroy": 0.5
+        },
+        "minecraft:collision_box": [
+          {
+            "origin": [-8, 0, 7],
+	          "size": [16, 16, 1]
+          },
+          {
+          	"origin": [-8, 0, -8],
+	          "size": [2, 16, 16]
+          },
+          {
+          	"origin": [6, 0, -8],
+	          "size": [2, 16, 16]
+          }
+        ],
+        "minecraft:destructible_by_explosion": false,
+        "cosmos:cryogenic_chamber": {},
+        "minecraft:material_instances": {
+          "*": {
+            "texture": "cryogenic_chamber",
+            "render_method": "opaque"
+          }
+        }
+      },
+      "permutations": [
+          {
+              "condition": "query.block_state('cosmos:chamber') == 0",
+              "components": {
+                "minecraft:collision_box": [
+                  {
+                    "origin": [-8, 0, 7],
+                    "size": [16, 16, 1]
+                  },
+                  {
+                    "origin": [-8, 0, -8],
+                    "size": [2, 16, 16]
+                  },
+                  {
+                    "origin": [6, 0, -8],
+                    "size": [2, 16, 16]
+                  },
+                  {
+                    "origin": [-8, 0, -8],
+                    "size": [16, 12, 16]
+                  }
+                ]
+              }
+          },
+          {
+              "condition": "query.block_state('cosmos:chamber') == 1",
+              "components": {
+                "minecraft:geometry": {
+                  "identifier": "geometry.cryo_2"
+                }
+              }
+          },
+          {
+              "condition": "query.block_state('cosmos:chamber') == 2",
+              "components": {
+                "minecraft:geometry": {
+                  "identifier": "geometry.cryo_3"
+                }
+              }
+          }
+      ]
+    }
+  }
