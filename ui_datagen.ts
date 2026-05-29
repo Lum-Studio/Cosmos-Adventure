@@ -700,12 +700,11 @@ export class MachineRegistry {
 // ================================================================
 // ALL MACHINES — written like Java GUI classes
 // ================================================================
-
 async function defineAll(): Promise<MachineRegistry> {
 	const reg = new MachineRegistry();
 	let m: GuiMachine;
 
-	(await import("./machines/painter")).register(reg);
+	(await import("./machines/chromatic_applicator")).register(reg);
 	(await import("./machines/short_range_telepad")).register(reg);
 	(await import("./machines/launch_controller")).register(reg);
 	(await import("./machines/advanced_launch_controller")).register(reg);
