@@ -66,8 +66,9 @@
             },
             "minecraft:inventory": {
                 "container_type": "container",
-                "inventory_size": 15
+                "inventory_size": 13
             },
+            "cosmos:ui": "deconstructor",
             "minecraft:pushable": {
                 "is_pushable": false,
                 "is_pushable_by_piston": false

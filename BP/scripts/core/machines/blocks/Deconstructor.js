@@ -1,39 +1,53 @@
 import { system, ItemStack } from "@minecraft/server";
-import { load_dynamic_object, save_dynamic_object} from "../../../api/utils";
-import { recipes } from "../../../recipes/deconstructor.js"
+import { compare_lists, load_dynamic_object, save_dynamic_object } from "../../../api/utils";
+import { recipes } from "../../../recipes/deconstructor.js";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
 import { get_data } from "../Machine.js";
 
-const data = {
-	energy: {input: "right", capacity: 16000, maxInput: 45},
-	onTick(entity, block){
+class Deconstructor {
+	static energy = {input: "right", capacity: 16000, maxInput: 45};
+	static items = {
+		top_input: [1],
+		side_input: [1],
+		output: [2, 3, 4, 5, 6, 7, 8, 9, 10]
+	};
+
+	static onTick(entity, block){
 		const container = entity.getComponent('minecraft:inventory').container;
-		const data = get_data(entity);
 		const variables = load_dynamic_object(entity, "machine_data");
 		let energy = variables.energy || 0;
 		let progress = variables.progress || 0;
+		let first_values = [energy, progress];
 
 		energy = charge_from_machine(entity, block, energy)
 		energy = charge_from_battery(entity, energy, 0);
 		if(!(system.currentTick % 80)) energy -= Math.min(1, energy)
 
-		if(energy > 0){
-			let recipe_item = container.getItem(1);
-			if(recipe_item){
-				progress++;
-			}else progress = 0;
+		let recipe_item = container.getItem(1);
+		if(recipe_item && energy >= 30){
+			progress++;
+			energy -= 30;
 
-			if(progress > 250){
+			if(progress >= 250){
 				progress = 0;
 				deconstruct(entity, recipe_item, container);
 				container.setItem(1, recipe_item.decrementStack());
 			}
+		} else if (!recipe_item) {
+			progress = 0;
+		} else if (progress > 0) {
+			progress = Math.max(progress - 1, 0);
 		}
 
-		save_dynamic_object(entity, {progress, energy}, "machine_data")
+		if(!compare_lists(first_values, [energy, progress]) || !container.getItem(11)){
+			save_dynamic_object(entity, {progress, energy}, "machine_data")
+			const energy_hover = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${this.energy.capacity} gJ`
+			container.add_ui_display(11, energy_hover, Math.round((energy / this.energy.capacity) * 55))
+			container.add_ui_display(12, '', Math.ceil((progress / 250) * 24))
+		}
 	}
-}; export default data
-
+}
+export default Deconstructor;
 function deconstruct(storage, item, container){
 	let recipe = recipes[item.typeId];
 	if(!recipe) return;

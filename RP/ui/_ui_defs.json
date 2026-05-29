@@ -27,6 +27,17 @@
     "ui/fuel/fuel_chest/fuel_chest_inventory_18.json",
     "ui/fuel/fuel_chest/fuel_chest_inventory_36.json",
     "ui/fuel/fuel_chest/fuel_chest_inventory_54.json",
-    "ui/machines/methane_synthesizer.json"
+    "ui/machines/methane_synthesizer.json",
+    "ui/machines/cargo_loader.json",
+    "ui/machines/cargo_unloader.json",
+    "ui/machines/deconstructor.json",
+    "ui/machines/oxygen_sealer.json",
+    "ui/machines/painter.json",
+    "ui/machines/astro_miner_dock.json",
+    "ui/machines/short_range_telepad.json",
+    "ui/machines/launch_controller.json",
+    "ui/machines/advanced_launch_controller.json",
+    "ui/machines/solar_array_controller.json",
+    "ui/machines/geothermal_generator.json"
   ]
 }

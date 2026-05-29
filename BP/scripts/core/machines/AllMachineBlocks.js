@@ -2,6 +2,7 @@ import CoalGenerator from './blocks/CoalGenerator'
 import EnergyStorage from './blocks/EnergyStorage'
 import OxygenCollector from './blocks/OxygenCollector'
 import Compressor from './blocks/Compressor'
+import AstroMinerDock from './blocks/AstroMinerDock'
 import CircuitFabricator from './blocks/CircuitFabricator'
 import Refinery from './blocks/Refinery'
 import ElectricCompressor from './blocks/ElectricCompressor'
@@ -17,8 +18,20 @@ import OxygenDistributor from './blocks/OxygenDistributor'
 import BasicSolarPanel from './blocks/BasicSolarPanel'
 import Deconstructor from './blocks/Deconstructor'
 import MethaneSynthesizer from './blocks/MethaneSynthesizer'
-
+import CargoLoader from './blocks/CargoLoader'
+import CargoUnloader from './blocks/CargoUnloader'
+import OxygenSealer from './blocks/OxygenSealer'
+import Painter from './blocks/Painter'
+import ShortRangeTelepad from './blocks/ShortRangeTelepad'
+import LaunchController from './blocks/LaunchController'
+import AdvancedLaunchController from './blocks/AdvancedLaunchController'
+import Terraformer from './blocks/Terraformer'
+import GeothermalGenerator from './blocks/GeothermalGenerator'
 const AllMachines = {
+	advanced_launch_controller: AdvancedLaunchController,
+	launch_controller: LaunchController,
+	short_range_telepad: ShortRangeTelepad,
+	astro_miner_dock: AstroMinerDock,
 	coal_generator: CoalGenerator,
 	compressor: Compressor,
 	energy_storage_module: EnergyStorage.energy_storage_module,
@@ -39,6 +52,12 @@ const AllMachines = {
 	deconstructor: Deconstructor,
 	parachest: Parachest,
 	methane_synthesizer: MethaneSynthesizer,
+	cargo_loader: CargoLoader,
+	cargo_unloader: CargoUnloader,
+	oxygen_sealer: OxygenSealer,
+	painter: Painter,
+	terraformer: Terraformer,
+	geothermal_generator: GeothermalGenerator,
 }
 
 for (const machine in AllMachines) AllMachines[machine].ui = `§${machine.split('').join('§')}`

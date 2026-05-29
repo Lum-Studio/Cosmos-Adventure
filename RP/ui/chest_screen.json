@@ -192,6 +192,66 @@
                 "$screen_background_alpha": 0.4
             },
             {
+                "requires": "(not (($ct - '§c§a§r§g§o§_§l§o§a§d§e§r') = $ct))",
+                "$screen_content": "cargo_loader.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§c§a§r§g§o§_§u§n§l§o§a§d§e§r') = $ct))",
+                "$screen_content": "cargo_unloader.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§d§e§c§o§n§s§t§r§u§c§t§o§r') = $ct))",
+                "$screen_content": "deconstructor.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§o§x§y§g§e§n§_§s§e§a§l§e§r') = $ct))",
+                "$screen_content": "oxygen_sealer.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§p§a§i§n§t§e§r') = $ct))",
+                "$screen_content": "painter.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§s§h§o§r§t§_§r§a§n§g§e§_§t§e§l§e§p§a§d') = $ct))",
+                "$screen_content": "short_range_telepad.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§a§s§t§r§o§_§m§i§n§e§r§_§d§o§c§k') = $ct))",
+                "$screen_content": "astro_miner_dock.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§l§a§u§n§c§h§_§c§o§n§t§r§o§l§l§e§r') = $ct))",
+                "$screen_content": "launch_controller.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§a§d§v§a§n§c§e§d§_§l§a§u§n§c§h§_§c§o§n§t§r§o§l§l§e§r') = $ct))",
+                "$screen_content": "advanced_launch_controller.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§g§e§o§t§h§e§r§m§a§l§_§g§e§n§e§r§a§t§o§r') = $ct))",
+                "$screen_content": "geothermal_generator.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
                 "requires": "$debug",
                 "$screen_content": "machines.debugging_interface",
                 "$screen_bg_content": "common.screen_background",

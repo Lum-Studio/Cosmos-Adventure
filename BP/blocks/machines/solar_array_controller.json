@@ -4,16 +4,16 @@
     "description": {
       "identifier": "cosmos:solar_array_controller",
 			"menu_category": { "category": "items" },
-    "traits": {
-      "minecraft:placement_direction": {
-        "enabled_states": ["minecraft:cardinal_direction"],
-        "y_rotation_offset": 180
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": ["minecraft:cardinal_direction"],
+          "y_rotation_offset": 180
+        }
       }
-    }
     },
 	  "components": {
       "tag:machine": {},
-      // "cosmos:machine": {},
+      "cosmos:machine": {},
       "minecraft:destructible_by_explosion": false,
       "minecraft:movable": { "movement_type": "immovable" },
       "minecraft:destructible_by_mining": {

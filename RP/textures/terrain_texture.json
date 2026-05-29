@@ -285,6 +285,9 @@
     "oxygen_output": {
       "textures": "textures/blocks/machines/oxygen_output"
     },
+    "painter": {
+      "textures": "textures/blocks/machines/painter"
+    },
     "oxygen_sealer": {
       "textures": "textures/blocks/machines/oxygen_sealer"
     },

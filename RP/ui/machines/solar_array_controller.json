@@ -1,0 +1,112 @@
+{
+	"namespace": "solar_array_controller",
+	"interface@machines.dynamic_interface": {
+		"$size": [
+			"100%",
+			209
+		],
+		"$content": [
+			{
+				"title": {
+					"type": "label",
+					"text": "Solar Array Controller",
+					"color": "$title_text_color",
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
+					"offset": [
+						0,
+						7
+					]
+				}
+			},
+			{
+				"battery_slot@machines.item_slot": {
+					"$index": 0,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						152,
+						91
+					],
+					"$overlay_texture": "textures/ui/cosmos/slot_overlay/power"
+				}
+			},
+			{
+				"generating__": {
+					"type": "label",
+					"text": "Generating: ",
+					"color": "$title_text_color",
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						88,
+						46
+					]
+				}
+			},
+			{
+				"status__": {
+					"type": "label",
+					"text": "Status: ",
+					"color": "$title_text_color",
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						88,
+						57
+					]
+				}
+			},
+			{
+				"environment__": {
+					"type": "label",
+					"text": "Environment: ",
+					"color": "$title_text_color",
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						88,
+						68
+					]
+				}
+			},
+			{
+				"connected_panels__": {
+					"type": "label",
+					"text": "Connected Panels: ",
+					"color": "$title_text_color",
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						88,
+						79
+					]
+				}
+			},
+			{
+				"inventory": {
+					"type": "label",
+					"text": "Inventory",
+					"color": "$title_text_color",
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						8,
+						115
+					]
+				}
+			},
+			{
+				"enable_button@machines.machine_button": {
+					"$index": 1,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						52,
+						93
+					]
+				}
+			}
+		]
+	}
+}

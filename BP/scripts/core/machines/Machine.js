@@ -167,6 +167,7 @@ export const machine_component = {
 		const { block, permutationToPlace: perm } = event;
 		const machine_name = perm.type.id.replace('cosmos:', '');
 		const machine_object = machines[machine_name];
+		if (!machine_object) return;
 		if(machine_object.multi_block && !multi_block_machines[perm.type.id](block)){event.cancel = true; return;}
 		
 		system.run(() => {

@@ -70,7 +70,8 @@
 	},
 	"fluid_tank": {
 		"type":"panel",
-		"$tank_size|default": [ 18, 40 ],
+		"$tank_width|default": 18,
+		"$tank_size|default": [ "$tank_width", 40 ],
 		"$tank_back_tex|default": "textures/ui/cosmos/machines/tank_back",
 		"$tank_front_tex|default": "textures/ui/cosmos/machines/tank_front",
 		"size": "$tank_size",
@@ -99,7 +100,7 @@
 								"texture": "('textures/ui/liquids/' + $liquid)",
 								"anchor_from": "bottom_left",
 								"anchor_to": "bottom_left",
-								"size": [18, 1],
+								"size": ["$tank_width", 1],
 								"bindings": "$use_durability",
 								"$source": "#data",
 								"$target": "#size_binding_y",
@@ -305,11 +306,12 @@
 		]
 	},
 	"machine_button@machines.specific_slot": {
+		"$button_size|default": [75, 18],
 		"controls": [
 			{ "button": {
 				"type": "button",
 				"collection_index": "$index",
-				"size": [75, 18],
+				"size": "$button_size",
 				"default_control": "default",
 				"hover_control": "hover",
 				"pressed_control": "pressed",
@@ -736,6 +738,7 @@
 		"$content": [],
 		"$size": ["100%", 166],
 		"$show_close_button": true,
+		"$show_bottom_half": true,
         "controls": [
             { "container_gamepad_helpers@common.container_gamepad_helpers": {} },
             { "selected_item_details_factory@common.selected_item_details_factory": {} },
@@ -756,7 +759,9 @@
 									"layer": 5,
 									"controls": "$content"
 								}},
-								{ "bottom_half@common.inventory_panel_bottom_half_with_label": {} },
+								{ "bottom_half@common.inventory_panel_bottom_half_with_label": {
+									"visible": "$show_bottom_half"
+								}},
 								{ "hotbar_grid@common.hotbar_grid_template": {} },
 								{ "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} }
 							]

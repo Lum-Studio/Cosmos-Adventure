@@ -25,7 +25,7 @@ function crc32(buf: Buffer): number {
 
 // ── PNG decode/encode ───────────────────────────────────────────
 
-interface RawImage {
+export interface RawImage {
 	w: number;
 	h: number;
 	bitDepth: number;
@@ -42,7 +42,7 @@ function paethPredictor(a: number, b: number, c: number): number {
 	return c;
 }
 
-function decodePng(path: string): RawImage {
+export function decodePng(path: string): RawImage {
 	const buf = fs.readFileSync(path);
 	let offset = 8; // skip signature
 	let ihdr: Buffer | null = null;
@@ -98,7 +98,7 @@ function decodePng(path: string): RawImage {
 	return { w, h, bitDepth, colorType, bpp, pixels };
 }
 
-function encodePng(img: RawImage, rows: Buffer[]): Buffer {
+export function encodePng(img: RawImage, rows: Buffer[]): Buffer {
 	const h = rows.length;
 	const stride = img.w * img.bpp;
 
@@ -143,17 +143,22 @@ const TANK_TEX_DIR = "RP/textures/ui/cosmos/machines";
  * @param bedrockHeight Panel height in pixels (Java height + 2 for borders)
  * @returns Texture path strings for use in JSON UI $tank_back_tex / $tank_front_tex
  */
-export function ensureTankTextures(bedrockHeight: number): { back: string; front: string } {
-	const suffix = `_${bedrockHeight}`;
+export function ensureTankTextures(bedrockHeight: number, bedrockWidth: number = 18): { back: string; front: string } {
+	const suffix = bedrockWidth !== 18 ? `_${bedrockWidth}x${bedrockHeight}` : `_${bedrockHeight}`;
 	const backOut = `${TANK_TEX_DIR}/tank_back${suffix}.png`;
 	const frontOut = `${TANK_TEX_DIR}/tank_front${suffix}.png`;
 
 	for (const [srcName, outPath] of [["tank_back", backOut], ["tank_front", frontOut]] as const) {
 		if (!fs.existsSync(outPath)) {
 			const img = decodePng(`${TANK_TEX_DIR}/${srcName}.png`);
-			if (bedrockHeight >= img.h) continue;
-			// Row 0 (top border) + last (bedrockHeight-1) rows (sides + bottom border)
-			const cropped = [img.pixels[0], ...img.pixels.slice(img.h - (bedrockHeight - 1))];
+			if (bedrockHeight === img.h && bedrockWidth === img.w) continue;
+			
+			// We only crop vertically for now. Horizontal stretching will be handled by Bedrock rendering.
+			let cropped = img.pixels;
+			if (bedrockHeight < img.h) {
+				cropped = [img.pixels[0], ...img.pixels.slice(img.h - (bedrockHeight - 1))];
+			}
+			
 			fs.writeFileSync(outPath, encodePng(img, cropped));
 			console.log(`  ✓ Generated ${outPath} (${img.w}×${bedrockHeight})`);
 		}

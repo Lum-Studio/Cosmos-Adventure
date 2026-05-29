@@ -233,6 +233,7 @@ export class GuiMachine {
 	protected _content: BuildFn[] = [];
 	protected _barDefs: Record<string, any> = {};
 	protected _showClose = true;
+	protected _showBottomHalf = true;
 
 	constructor(name: string, title: string, ySize = 166) {
 		this.name = name;
@@ -350,20 +351,23 @@ export class GuiMachine {
 	}
 
 	/** Java: drawTexturedModalRect for tank area. Height defaults to 38 (standard). */
-	drawFluidTank(x: number, y: number, liquid: string, opts: { name?: string; anchor?: Anchor; height?: number } = {}): number {
+	drawFluidTank(x: number, y: number, liquid: string, opts: { name?: string; anchor?: Anchor; width?: number; height?: number } = {}): number {
 		const idx = this._uiSlot();
 		const name = opts.name ?? `${liquid}_tank`;
 		const anchor = opts.anchor ?? "top_left";
+		const javaWidth = opts.width ?? 16;
 		const javaHeight = opts.height ?? 38;       // Java GuiElementInfoRegion height
+		const bedrockWidth = javaWidth + 2;
 		const bedrockHeight = javaHeight + 2;        // +2 for border pixels
 
 		const props: any = { $liquid: liquid, $index: idx, anchor_from: anchor, anchor_to: anchor, offset: [x, y] };
 
-		if (bedrockHeight !== 40) {
-			// Non-standard height: generate textures at build time, pass overrides
+		if (bedrockHeight !== 40 || bedrockWidth !== 18) {
+			// Non-standard size: generate textures at build time, pass overrides
 			const { ensureTankTextures } = require("./png_util");
-			const tex = ensureTankTextures(bedrockHeight);
-			props.$tank_size = [18, bedrockHeight];
+			const tex = ensureTankTextures(bedrockHeight, bedrockWidth);
+			props.$tank_width = bedrockWidth;
+			props.$tank_size = [bedrockWidth, bedrockHeight];
 			props.$tank_back_tex = tex.back;
 			props.$tank_front_tex = tex.front;
 		}
@@ -454,15 +458,26 @@ export class GuiMachine {
 		this._content.splice(insertIdx, 0, () => ({ title: props }));
 	}
 
+	drawPlayerInventory(x: number, y: number, opts: { name?: string; anchor?: Anchor } = {}) {
+		this._showBottomHalf = false;
+		const name = opts.name ?? "player_inventory";
+		const anchor = opts.anchor ?? "top_left";
+		this._content.push(() => ({
+			[`${name}@common.inventory_panel_bottom_half_with_label`]: { anchor_from: anchor, anchor_to: anchor, offset: [x, y] }
+		}));
+	}
+
 	// ── Java API: Buttons & Controls ───────────────────────────
 
 	/** Java: buttonList.add(new GuiButton(id, x, y, w, h, text)) */
-	addButton(x: number, y: number, opts: { name?: string; anchor?: Anchor } = {}): number {
+	addButton(x: number, y: number, opts: { name?: string; anchor?: Anchor; width?: number; height?: number } = {}): number {
 		const idx = this._uiSlot();
 		const name = opts.name ?? "start_button";
 		const anchor = opts.anchor ?? "top_left";
+		const w = opts.width ?? 75;
+		const h = opts.height ?? 18;
 		this._content.push(() => ({
-			[`${name}@machines.machine_button`]: { $index: idx, anchor_from: anchor, anchor_to: anchor, offset: [x, y] },
+			[`${name}@machines.machine_button`]: { $index: idx, anchor_from: anchor, anchor_to: anchor, offset: [x, y], $button_size: [w, h] },
 		}));
 		return idx;
 	}
@@ -474,6 +489,17 @@ export class GuiMachine {
 		const anchor = opts.anchor ?? "top_left";
 		this._content.push(() => ({
 			[`${name}@machines.machine_toggle`]: { $index: idx, anchor_from: anchor, anchor_to: anchor, offset: [x, y] },
+		}));
+		return idx;
+	}
+
+	/** A display-only UI slot for showing color selection or other visual items */
+	drawColorSelector(x: number, y: number, opts: { name?: string; anchor?: Anchor } = {}): number {
+		const idx = this._uiSlot();
+		const name = opts.name ?? "color_selector";
+		const anchor = opts.anchor ?? "top_left";
+		this._content.push(() => ({
+			[`${name}@machines.item_slot`]: { $index: idx, anchor_from: anchor, anchor_to: anchor, offset: [x, y] },
 		}));
 		return idx;
 	}
@@ -524,6 +550,7 @@ export class GuiMachine {
 		const iface: any = {};
 		if (this.ySize !== 166) iface.$size = ["100%", this.ySize];
 		if (!this._showClose) iface.$show_close_button = false;
+		if (!this._showBottomHalf) iface.$show_bottom_half = false;
 		iface.$content = this._content.map((fn) => fn());
 		result["interface@machines.dynamic_interface"] = iface;
 		for (const [k, v] of Object.entries(this._barDefs)) result[k] = v;
@@ -585,6 +612,7 @@ class GuiParameterized extends GuiMachine {
 		const iface: any = {};
 		if (this.ySize !== 166) iface.$size = ["100%", this.ySize];
 		if (!this._showClose) iface.$show_close_button = false;
+		if (!this._showBottomHalf) iface.$show_bottom_half = false;
 		iface.$content = this._content.map((fn) => fn());
 		result["interface@machines.dynamic_interface"] = iface;
 		for (const [k, v] of Object.entries(this._barDefs)) result[k] = v;
@@ -674,6 +702,12 @@ export class MachineRegistry {
 async function defineAll(): Promise<MachineRegistry> {
 	const reg = new MachineRegistry();
 	let m: GuiMachine;
+
+	(await import("./machines/painter")).register(reg);
+	(await import("./machines/short_range_telepad")).register(reg);
+	(await import("./machines/launch_controller")).register(reg);
+	(await import("./machines/advanced_launch_controller")).register(reg);
+	(await import("./machines/solar_array_controller")).register(reg);
 
 	// ── Coal Generator (GuiCoalGenerator, ySize=166) ───────────
 	m = reg.add(gui("coal_generator", "Coal Generator"));
@@ -867,8 +901,26 @@ async function defineAll(): Promise<MachineRegistry> {
 	m.drawStatusText(56, 50);
 	m.addButton(39, 28);
 
-	// ── Methane Synthesizer (separate file) ─
+	// ── Methane Synthesizer ───────────
 	(await import("./machines/methane_synthesizer")).register(reg);
+
+	// ── Cargo Loader ───────────
+	(await import("./machines/cargo_loader")).register(reg);
+
+	// ── Cargo Unloader ───────────
+	(await import("./machines/cargo_unloader")).register(reg);
+
+	// ── Deconstructor ───────────
+	(await import("./machines/deconstructor")).register(reg);
+
+	// ── Oxygen Sealer ───────────
+	(await import("./machines/oxygen_sealer")).register(reg);
+
+	// ── Astro Miner Dock ───────────
+	(await import("./machines/astro_miner_dock")).register(reg);
+
+	// ── Geothermal Generator ───────────
+	(await import("./machines/geothermal_generator")).register(reg);
 
 	return reg;
 }

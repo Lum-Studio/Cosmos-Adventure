@@ -1,0 +1,92 @@
+{
+	"namespace": "astro_miner_dock",
+	"interface@machines.dynamic_interface": {
+		"$size": [
+			"100%",
+			221
+		],
+		"$content": [
+			{
+				"title": {
+					"type": "label",
+					"text": "Astro Miner Dock",
+					"color": "$title_text_color",
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						10,
+						5
+					]
+				}
+			},
+			{
+				"bg": {
+					"type": "image",
+					"texture": "textures/ui/cosmos/machines/gui_astro_miner_dock",
+					"size": [
+						256,
+						221
+					],
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						0,
+						0
+					]
+				}
+			},
+			{
+				"battery_slot@machines.item_slot": {
+					"$index": 0,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						230,
+						108
+					],
+					"$overlay_texture": "textures/ui/cosmos/slot_overlay/power"
+				}
+			},
+			{
+				"dock_slots@machines.item_grid": {
+					"size": [
+						216,
+						108
+					],
+					"grid_dimensions": [
+						12,
+						6
+					],
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						8,
+						18
+					]
+				}
+			},
+			{
+				"energy_bar@machines.energy_bar": {
+					"$index": 73,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						234,
+						29
+					]
+				}
+			},
+			{
+				"recall_button@machines.machine_button": {
+					"$index": 74,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						173,
+						195
+					]
+				}
+			}
+		]
+	}
+}
