@@ -53,7 +53,7 @@ const data = {
             container.add_ui_display(WaterDisplay, `Water Tank\n§e${water} / ${data.water.capacity}`, Math.ceil((water / data.water.capacity) * 38))
             container.add_ui_display(OxygenDisplay, `Gas Storage\n(Oxygen Gas)\n§e${o2} / ${data.o2.capacity}`, Math.ceil((o2 / data.o2.capacity) * 38))
             container.add_ui_display(HydrogenDisplay, `Gas Storage\n(Hydrogen Gas)\n§e${h2} / ${data.h2.capacity}`, Math.ceil((h2 / data.h2.capacity) * 38))
-            container.add_ui_display(EnergyDisplay, `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`, Math.ceil((energy / data.energy.capacity) * 55))
+            container.add_ui_display(EnergyDisplay, `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`, Math.ceil((energy / data.energy.capacity) * 54))
             container.add_ui_display(StatusDisplay, `§rStatus:\n  ${status}`)
         }
 
