@@ -8,6 +8,14 @@
 		"$show_close_button": false,
 		"$content": [
 			{
+				"close@common.close_button": {
+					"offset": [
+						-37,
+						12
+					]
+				}
+			},
+			{
 				"title": {
 					"type": "label",
 					"text": "Methane Synthesizer",
