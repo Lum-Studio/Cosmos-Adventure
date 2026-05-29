@@ -52,18 +52,27 @@ function sending_status(targetResult, energy, stopped) {
 	return "§aSending Active";
 }
 
-// Show a text input form to set an address
+// Show a text input form to set an address (retries until player is free)
 function showAddressForm(player, entity, title, currentValue, propertyName) {
-	const form = new ModalFormData()
-		.title(title)
-		.textField("Enter address (0-999999):", "0", currentValue >= 0 ? String(currentValue) : "");
+	let attempts = 0;
+	const tryShow = () => {
+		if (attempts++ > 12 || !player.isValid) return;
+		const form = new ModalFormData()
+			.title(title)
+			.textField("Enter address (0-999999):", "0", { defaultValue: currentValue >= 0 ? String(currentValue) : "" });
 
-	form.show(player).then(response => {
-		if (response.canceled) return;
-		const parsed = parseInt(response.formValues[0]);
-		if (isNaN(parsed) || parsed < 0 || parsed > 999999) return;
-		entity.setDynamicProperty(propertyName, parsed);
-	});
+		form.show(player).then(response => {
+			if (response.canceled && response.cancelationReason === "UserBusy") {
+				system.runTimeout(tryShow, 5);
+				return;
+			}
+			if (response.canceled) return;
+			const parsed = parseInt(response.formValues[0]);
+			if (isNaN(parsed) || parsed < 0 || parsed > 999999) return;
+			entity.setDynamicProperty(propertyName, parsed);
+		});
+	};
+	tryShow();
 }
 
 // Find the player interacting with a machine entity
@@ -93,6 +102,8 @@ const data = {
 		let targetAddress = variables.targetAddress ?? -1;
 		let teleportTime = variables.teleportTime || 0;
 
+		let first_values = [energy, address, targetAddress, teleportTime, stopped];
+
 		// Pick up address changes from form submissions
 		const newAddress = entity.getDynamicProperty("telepad_address");
 		const newTarget = entity.getDynamicProperty("telepad_target");
@@ -107,19 +118,31 @@ const data = {
 
 		// Detect textbox clicks (slot empty = player took the button item)
 		if (!container.getItem(2)) {
+			container.add_ui_button(2, address >= 0 ? String(address) : "--");
 			const player = findInteractingPlayer(entity);
 			if (player) {
-				system.run(() => showAddressForm(player, entity, "Set Address", address, "telepad_address"));
+				const returnPos = { ...player.location };
+				const rot = player.getRotation();
+				player.teleport({ x: returnPos.x, y: returnPos.y + 500, z: returnPos.z });
+				system.run(() => {
+					player.teleport(returnPos, { rotation: rot });
+					showAddressForm(player, entity, "Set Address", address, "telepad_address");
+				});
 			}
 		}
 		if (!container.getItem(3)) {
+			container.add_ui_button(3, targetAddress >= 0 ? String(targetAddress) : "--");
 			const player = findInteractingPlayer(entity);
 			if (player) {
-				system.run(() => showAddressForm(player, entity, "Set Target Address", targetAddress, "telepad_target"));
+				const returnPos = { ...player.location };
+				const rot = player.getRotation();
+				player.teleport({ x: returnPos.x, y: returnPos.y + 500, z: returnPos.z });
+				system.run(() => {
+					player.teleport(returnPos, { rotation: rot });
+					showAddressForm(player, entity, "Set Target Address", targetAddress, "telepad_target");
+				});
 			}
 		}
-
-		let first_values = [energy, address, targetAddress, teleportTime, stopped];
 
 		energy = charge_from_machine(entity, block, energy);
 		energy = charge_from_battery(entity, energy, 0);
@@ -197,6 +220,8 @@ const data = {
 		// UI updates
 		if (!compare_lists(first_values, [energy, address, targetAddress, teleportTime, stopped]) || !container.getItem(1)) {
 			container.add_ui_button(1, stopped ? "Enable" : "Disable", entity, "stopped", !stopped);
+			container.setItem(2, undefined);
+			container.setItem(3, undefined);
 			container.add_ui_button(2, address >= 0 ? String(address) : "--");
 			container.add_ui_button(3, targetAddress >= 0 ? String(targetAddress) : "--");
 			container.add_ui_display(4, "Energy", Math.round((energy / data.energy.capacity) * 55) || 0);
