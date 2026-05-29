@@ -117,8 +117,9 @@ Merge(mc.Container.prototype, {
     was_ui_clicked(slot, machine) {
         const item = this.getItem(slot);
         if (!item || (item.typeId !== 'cosmos:ui' && item.typeId !== 'cosmos:ui_button')) {
+            const player = machine.dimension.getPlayers({closest: 1, location: machine.location})[0];
+            
             if (item) {
-                const player = machine.dimension.getPlayers({closest: 1, location: machine.location})[0];
                 if (player) {
                     const cursor = player.getComponent('minecraft:cursor_inventory');
                     if (cursor) {
@@ -135,6 +136,24 @@ Merge(mc.Container.prototype, {
                     }
                 } else {
                     machine.dimension.spawnItem(item, machine.location);
+                }
+            } else if (player) {
+                const cursor = player.getComponent('minecraft:cursor_inventory');
+                if (cursor?.item?.typeId === 'cosmos:ui' || cursor?.item?.typeId === 'cosmos:ui_button') {
+                    cursor.clear();
+                }
+            }
+
+            //sweeps the player inventory for leaked ui items
+            if (player) {
+                const pinv = player.getComponent('inventory')?.container;
+                if (pinv) {
+                    for (let i = 0; i < pinv.size; i++) {
+                        const pItem = pinv.getItem(i);
+                        if (pItem && (pItem.typeId === 'cosmos:ui' || pItem.typeId === 'cosmos:ui_button')) {
+                            pinv.setItem(i);
+                        }
+                    }
                 }
             }
             return true;
