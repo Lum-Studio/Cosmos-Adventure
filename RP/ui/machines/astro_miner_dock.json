@@ -43,8 +43,8 @@
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						230,
-						108
+						229,
+						107
 					],
 					"$overlay_texture": "textures/ui/cosmos/slot_overlay/power"
 				}
@@ -62,8 +62,8 @@
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						8,
-						18
+						7,
+						17
 					]
 				}
 			},
@@ -73,8 +73,8 @@
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						234,
-						29
+						233,
+						28
 					]
 				}
 			},
@@ -83,8 +83,8 @@
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						0,
-						129
+						-1,
+						128
 					],
 					"size": [
 						176,
@@ -97,8 +97,8 @@
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						7,
-						197
+						6,
+						196
 					],
 					"size": [
 						162,
