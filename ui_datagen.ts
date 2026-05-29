@@ -464,22 +464,26 @@ export class GuiMachine {
 		this._content.splice(insertIdx, 0, () => ({ title: props }));
 	}
 
-	drawPlayerInventory(x: number, y: number, opts: { name?: string; anchor?: Anchor } = {}) {
+	drawPlayerInventory(x: number, y: number, opts: { name?: string; anchor?: Anchor; size?: [number, number] } = {}) {
 		this._showBottomHalf = false;
 		const name = opts.name ?? "player_inventory";
 		const anchor = opts.anchor ?? "top_left";
+		const props: any = { anchor_from: anchor, anchor_to: anchor, offset: [x, y] };
+		if (opts.size) props.size = opts.size;
 		this._content.push(() => ({
-			[`${name}@common.inventory_panel_bottom_half_with_label`]: { anchor_from: anchor, anchor_to: anchor, offset: [x, y] }
+			[`${name}@common.inventory_panel_bottom_half_with_label`]: props
 		}));
 	}
 
 	/** Manually position the hotbar grid (hides the default template hotbar). Only works with dynamic_interface_large. */
-	drawHotbar(x: number, y: number, opts: { name?: string; anchor?: Anchor } = {}) {
+	drawHotbar(x: number, y: number, opts: { name?: string; anchor?: Anchor; size?: [number, number] } = {}) {
 		this._showHotbar = false;
 		const name = opts.name ?? "player_hotbar";
 		const anchor = opts.anchor ?? "top_left";
+		const props: any = { anchor_from: anchor, anchor_to: anchor, offset: [x, y] };
+		if (opts.size) props.size = opts.size;
 		this._content.push(() => ({
-			[`${name}@common.hotbar_grid_template`]: { anchor_from: anchor, anchor_to: anchor, offset: [x, y] }
+			[`${name}@common.hotbar_grid_template`]: props
 		}));
 	}
 

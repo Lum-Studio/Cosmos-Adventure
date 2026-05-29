@@ -18,8 +18,9 @@ export function register(reg: MachineRegistry) {
 
 	// Player inventory embedded in the 256x221 texture
 	// Java: label at (7, 129), inv slots at (8, 139), hotbar at (8, 197)
-	m.drawPlayerInventory(0, 129);
-	m.drawHotbar(0, 197);
+	// Constrain to 176px wide to match the left-aligned texture layout
+	m.drawPlayerInventory(0, 129, { size: [176, 90] });
+	m.drawHotbar(7, 197, { size: [162, 18] });
 
 	// Recall Button: x=173, y=195, width=76, height=20
 	m.addButton(173, 195, { name: "recall_button" });

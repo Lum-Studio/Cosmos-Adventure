@@ -85,6 +85,10 @@
 					"offset": [
 						0,
 						129
+					],
+					"size": [
+						176,
+						90
 					]
 				}
 			},
@@ -93,8 +97,12 @@
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						0,
+						7,
 						197
+					],
+					"size": [
+						162,
+						18
 					]
 				}
 			},
