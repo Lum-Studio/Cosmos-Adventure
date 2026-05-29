@@ -48,18 +48,22 @@ const data = {
 		fuel = input_fluid({type: "fuel", slot: "fuel"}, entity, block, fuel)
 		fuel = load_from_item(fuel, "fuel", data.fuel.capacity, container, InputSlot)
 
-		if (active && energy > 0 && fuel >= 2 && block) {
+		if (active && energy >= 30 && fuel > 0 && block) {
 			const vehicles = system.currentTick % 100 == 0 ? (entity.vehicles = get_vehicles(block)) : entity.vehicles ?? []
-			vehicles.forEach((vehicle) => {
-				if (!vehicle || !vehicle.isValid) return
+			const vehicle = vehicles.find((v) => v && v.isValid && (load_dynamic_object(v, "vehicle_data")?.fuel ?? 0) < 1000)
+			
+			if (vehicle) {
 				let vehicle_data = load_dynamic_object(vehicle, "vehicle_data") ?? {}
 				let fuel_level = vehicle_data.fuel ?? 0
-				if (fuel_level >= 1000) return
-				vehicle_data.fuel = Math.min(1000, fuel_level + 2)
+				
+				const space = 1000 - fuel_level
+				const amount = Math.min(space, 2, fuel)
+				
+				vehicle_data.fuel += amount
 				save_dynamic_object(vehicle, vehicle_data, "vehicle_data")
-				fuel = Math.max(0, fuel - 2)
-				energy = Math.max(0, energy - 30)
-			})
+				fuel -= amount
+				energy -= 30
+			}
 		}
 
 		save_dynamic_object(entity, {energy, fuel}, "machine_data")
