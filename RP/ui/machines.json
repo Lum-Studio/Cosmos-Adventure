@@ -88,13 +88,14 @@
 				"anchor_to": "bottom_left",
 				"offset": [0, -1],
 				"layer": 2,
+				"size": ["100%", "100%"],
 				"controls": [
 					{ "unit": {
 						"type": "panel",
 						"collection_index": "$index",
 						"anchor_from": "bottom_left",
 						"anchor_to": "bottom_left",
-						"size": [0, 1],
+						"size": ["100%", 1],
 						"controls": [
 							{ "image": {
 								"type": "image",

@@ -6,8 +6,10 @@ import { input_fluid, load_from_item } from "../../matter/fluids.js";
 import { machine_buttons, setup_ui_button } from "../MachineButtons"
 
 const InputSlot = 0, BatterySlot = 1
-const EnergyDisplay = 2, FuelDisplay = 3
-const StatusDisplay = 4, ButtonSlot = 5
+const EnergyDisplay = 2
+const FuelDisplay = 3
+const StatusDisplay = 4
+const ButtonSlot = 5
 const LoadButtonText = (status) => status ? 'Stop Loading' : 'Load Fuel'
 
 function get_vehicles(block) {
