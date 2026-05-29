@@ -57,12 +57,14 @@
 	"item_text@machines.specific_slot": {
 		"$alignment": "top_left",
 		"$color": "$title_text_color",
+		"$text_font_scale|default": 1.0,
 		"controls": [
 			{ "text": {
 				"type": "label",
 				"text": "#hover_text",
 				"collection_index": "$index",
 				"color": "$color",
+				"font_scale_factor": "$text_font_scale",
 				"text_alignment": "$alignment",
 				"bindings": "$fetch_item_hover"
 			}}
