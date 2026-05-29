@@ -919,6 +919,9 @@ async function defineAll(): Promise<MachineRegistry> {
 	// ── Astro Miner Dock ───────────
 	(await import("./machines/astro_miner_dock")).register(reg);
 
+	// ── Terraformer ───────────
+	(await import("./machines/terraformer")).register(reg);
+
 	// ── Geothermal Generator ───────────
 	(await import("./machines/geothermal_generator")).register(reg);
 

@@ -252,6 +252,18 @@
                 "$screen_background_alpha": 0.4
             },
             {
+                "requires": "(not (($ct - '§t§e§r§r§a§f§o§r§m§e§r') = $ct))",
+                "$screen_content": "terraformer.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "(not (($ct - '§s§o§l§a§r§_§a§r§r§a§y§_§c§o§n§t§r§o§l§l§e§r') = $ct))",
+                "$screen_content": "solar_array_controller.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
                 "requires": "$debug",
                 "$screen_content": "machines.debugging_interface",
                 "$screen_bg_content": "common.screen_background",

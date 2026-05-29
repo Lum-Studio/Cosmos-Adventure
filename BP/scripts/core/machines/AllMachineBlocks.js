@@ -27,6 +27,7 @@ import LaunchController from './blocks/LaunchController'
 import AdvancedLaunchController from './blocks/AdvancedLaunchController'
 import Terraformer from './blocks/Terraformer'
 import GeothermalGenerator from './blocks/GeothermalGenerator'
+import SolarArrayController from './blocks/SolarArrayController'
 const AllMachines = {
 	advanced_launch_controller: AdvancedLaunchController,
 	launch_controller: LaunchController,
@@ -58,6 +59,7 @@ const AllMachines = {
 	painter: Painter,
 	terraformer: Terraformer,
 	geothermal_generator: GeothermalGenerator,
+	solar_array_controller: SolarArrayController,
 }
 
 for (const machine in AllMachines) AllMachines[machine].ui = `§${machine.split('').join('§')}`

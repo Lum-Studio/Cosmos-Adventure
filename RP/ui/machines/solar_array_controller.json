@@ -32,10 +32,8 @@
 				}
 			},
 			{
-				"generating__": {
-					"type": "label",
-					"text": "Generating: ",
-					"color": "$title_text_color",
+				"generating@machines.item_text": {
+					"$index": 1,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
@@ -45,10 +43,8 @@
 				}
 			},
 			{
-				"status__": {
-					"type": "label",
-					"text": "Status: ",
-					"color": "$title_text_color",
+				"status@machines.item_text": {
+					"$index": 2,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
@@ -58,10 +54,8 @@
 				}
 			},
 			{
-				"environment__": {
-					"type": "label",
-					"text": "Environment: ",
-					"color": "$title_text_color",
+				"environment@machines.item_text": {
+					"$index": 3,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
@@ -71,10 +65,8 @@
 				}
 			},
 			{
-				"connected_panels__": {
-					"type": "label",
-					"text": "Connected Panels: ",
-					"color": "$title_text_color",
+				"connected_panels@machines.item_text": {
+					"$index": 4,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
@@ -98,12 +90,16 @@
 			},
 			{
 				"enable_button@machines.machine_button": {
-					"$index": 1,
+					"$index": 5,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
 						52,
 						93
+					],
+					"$button_size": [
+						75,
+						18
 					]
 				}
 			}
