@@ -4,7 +4,7 @@ import { charge_from_battery, charge_from_machine } from "../../matter/electrici
 export class MachineBlock {}
 
 export class LaunchController extends MachineBlock {
-    static energy = {input: "bottom", capacity: 100000, maxInput: 2500};
+    static energy = {input: "below", capacity: 100000, maxInput: 2500};
     
     static onTick(entity, block) {
         const container = entity.getComponent('minecraft:inventory').container;

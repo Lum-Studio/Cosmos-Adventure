@@ -11,7 +11,7 @@ function add_ui_display(block, entity, data) {
 export class MachineBlock {}
 
 export class AdvancedLaunchController extends MachineBlock {
-    static energy = {input: "bottom", capacity: 100000, maxInput: 2500};
+    static energy = {input: "below", capacity: 100000, maxInput: 2500};
     
     static onTick(entity, block) {
         const container = entity.getComponent('minecraft:inventory').container;
