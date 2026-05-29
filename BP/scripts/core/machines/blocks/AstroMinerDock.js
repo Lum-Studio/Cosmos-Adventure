@@ -1,32 +1,47 @@
 import { system } from "@minecraft/server";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
-import { load_dynamic_object, save_dynamic_object } from "../../../api/utils.js";
-import { machine_buttons, setup_ui_button } from "../MachineButtons.js";
+import { compare_lists, load_dynamic_object, save_dynamic_object } from "../../../api/utils.js";
+import { setup_ui_button } from "../MachineButtons.js";
 
+// Slot layout (from ui_datagen):
+//   [0]     = battery_slot
+//   [1..72] = dock_slots (12×6 mined items grid)
+//   [73]    = energy_bar (UI display)
+//   [74]    = recall_button (UI display)
 const BatterySlot = 0;
-const ButtonSlot = 73;
+const EnergyBarSlot = 73;
+const ButtonSlot = 74;
 
 const data = {
-	energy: {input: "right", capacity: 16000, maxInput: 120},
+	energy: { input: "right", capacity: 16000, maxInput: 120 },
 	items: {
-		top_input: Array.from({length: 72}, (_, i) => i + 1),
-		side_input: Array.from({length: 72}, (_, i) => i + 1)
+		top_input: Array.from({ length: 72 }, (_, i) => i + 1),
+		side_input: Array.from({ length: 72 }, (_, i) => i + 1)
 	},
 	onTick(entity, block) {
 		const container = entity.getComponent('minecraft:inventory').container;
 		const variables = load_dynamic_object(entity, "machine_data");
 		let energy = variables.energy ?? 0;
-		
+		let isMining = variables.isMining ?? false;
+		let first_values = [energy, isMining];
+
+		// Charge from wires and battery
 		energy = charge_from_machine(entity, block, energy);
 		energy = charge_from_battery(entity, energy, BatterySlot);
 
-		// Placeholder logic for mining/docking
-		let isMining = variables.isMining ?? false;
+		// Slow discharge when idle (1 gJ every 80 ticks)
+		if (!(system.currentTick % 80)) energy -= Math.min(1, energy);
 
-		save_dynamic_object(entity, {energy, isMining}, "machine_data");
+		// Only update UI if values changed (dirty-check optimization)
+		if (!compare_lists(first_values, [energy, isMining]) || !container.getItem(EnergyBarSlot)) {
+			save_dynamic_object(entity, { energy, isMining }, "machine_data");
 
-        container.add_ui_display(73, "Recall");
+			// Energy bar display
+			const energy_hover = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.energy.capacity} gJ`;
+			container.add_ui_display(EnergyBarSlot, energy_hover, Math.round((energy / data.energy.capacity) * 55));
+		}
 
+		// Recall button
 		if (container.was_ui_clicked(ButtonSlot, entity)) {
 			const vars = load_dynamic_object(entity, "machine_data");
 			vars.isMining = false;
@@ -34,9 +49,9 @@ const data = {
 			setup_ui_button(entity, ButtonSlot, "Recall Miner");
 		}
 	},
-    onPlace(entity) {
-        setup_ui_button(entity, ButtonSlot, "Recall Miner");
-    }
+	onPlace(entity) {
+		setup_ui_button(entity, ButtonSlot, "Recall Miner");
+	}
 };
 
 export default data;
