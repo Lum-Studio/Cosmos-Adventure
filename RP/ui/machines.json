@@ -250,45 +250,39 @@
 		]
 	},
 	"energy_bar_vertical": {
-		"type":"image",
-		"texture": "textures/ui/cosmos/machines/energy_bar_vertical",
+		"type": "panel",
 		"size": [ 10, 68 ],
 		"controls": [
+			{ "bg": {
+				"type": "image",
+				"texture": "textures/ui/cosmos/machines/energy_bar_vertical",
+				"layer": 1
+			}},
 			{ "energy@machines.specific_slot": {
-				"anchor_from": "top_left",
-				"anchor_to": "top_left",
+				"anchor_from": "bottom_left",
+				"anchor_to": "bottom_left",
+				"offset": [0, -1],
+				"layer": 2,
+				"size": ["100%", "100%"],
 				"controls": [
-					{ "active_icon": {
-						"type": "image",
-						"texture": "textures/ui/cosmos/slot_overlay/power_active",
-						"size": [11, 10],
-						"offset": [0, -11],
-						"anchor_from": "top_middle",
-						"anchor_to": "top_middle",
-						"bindings": "$use_durability",
-						"$source": "#null", "$target": "#null",
-						"$visible_if": "(not (#data = 1000))"
-					}},
-					{ "clipper": {
+					{ "unit": {
 						"type": "panel",
-						"clips_children": true,
 						"collection_index": "$index",
 						"anchor_from": "bottom_left",
 						"anchor_to": "bottom_left",
-						"offset": [1, -1],
-						"size": [8, 1],
-						"bindings": "$use_durability",
-						"$source": "#data",
-						"$target": "#size_binding_y",
-						"$visible_if": "(not (#data = 1000))",
+						"size": ["100%", 1],
 						"controls": [
-							{ "fill": {
+							{ "image": {
 								"type": "image",
 								"texture": "textures/ui/cosmos/machines/energy_bar_vertical_fill",
 								"color": [0.75, 0.66, 0.14],
 								"anchor_from": "bottom_left",
 								"anchor_to": "bottom_left",
-								"size": [8, 66]
+								"size": ["100%", 1],
+								"bindings": "$use_durability",
+								"$source": "#data",
+								"$target": "#size_binding_y",
+								"$visible_if": "(not (#data = 1000))"
 							}}
 						]
 					}}
