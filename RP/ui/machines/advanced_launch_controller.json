@@ -8,10 +8,17 @@
 		"$show_close_button": false,
 		"$content": [
 			{
-				"close@common.close_button": {
+				"back_button@machines.machine_button": {
+					"$index": 5,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
 					"offset": [
 						5,
 						5
+					],
+					"$button_size": [
+						20,
+						20
 					]
 				}
 			},

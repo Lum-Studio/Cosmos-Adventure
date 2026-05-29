@@ -324,12 +324,12 @@
 				"button_mappings": [
 					{
 						"from_button_id": "button.menu_select",
-						"to_button_id": "button.container_auto_place",
+						"to_button_id": "button.container_take_all_place_all",
         				"mapping_type": "pressed"
 					},
 					{
 						"from_button_id": "button.menu_ok",
-						"to_button_id": "button.container_auto_place",
+						"to_button_id": "button.container_take_all_place_all",
 						"mapping_type": "pressed"
 					}
 				],
@@ -366,12 +366,12 @@
 				"button_mappings": [
 					{
 						"from_button_id": "button.menu_select",
-						"to_button_id": "button.container_auto_place",
+						"to_button_id": "button.container_take_all_place_all",
 						"mapping_type": "pressed"
 					},
 					{
 						"from_button_id": "button.menu_ok",
-						"to_button_id": "button.container_auto_place",
+						"to_button_id": "button.container_take_all_place_all",
 						"mapping_type": "pressed"
 					}
 				],
@@ -477,12 +477,12 @@
 		"button_mappings": [
 			{
 				"from_button_id": "button.menu_select",
-				"to_button_id": "button.container_auto_place",
+				"to_button_id": "button.container_take_all_place_all",
 				"mapping_type": "pressed"
 			},
 			{
 				"from_button_id": "button.menu_ok",
-				"to_button_id": "button.container_auto_place",
+				"to_button_id": "button.container_take_all_place_all",
 				"mapping_type": "pressed"
 			}
 		],
@@ -548,12 +548,12 @@
 			"button_mappings": [
 				{
 					"from_button_id": "button.menu_select",
-					"to_button_id": "button.container_auto_place",
+					"to_button_id": "button.container_take_all_place_all",
 					"mapping_type": "pressed"
 				},
 				{
 					"from_button_id": "button.menu_ok",
-					"to_button_id": "button.container_auto_place",
+					"to_button_id": "button.container_take_all_place_all",
 					"mapping_type": "pressed"
 				}
 			],

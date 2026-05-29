@@ -116,25 +116,30 @@ const data = {
 			entity.setDynamicProperty("telepad_target", undefined);
 		}
 
-		// Detect textbox clicks (slot empty = player took the button item)
-		if (!container.getItem(2)) {
-			container.add_ui_button(2, address >= 0 ? String(address) : "--");
-			const player = findInteractingPlayer(entity);
-			if (player) {
-				closeContainerUI(player);
-				system.run(() => {
-					showAddressForm(player, entity, "Set Address", address, "telepad_address");
-				});
+		let ui_initialized = entity.getDynamicProperty("ui_initialized");
+		if (!ui_initialized) {
+			entity.setDynamicProperty("ui_initialized", true);
+		} else {
+			// Detect textbox clicks (slot empty = player took the button item)
+			if (!container.getItem(2)) {
+				container.add_ui_button(2, address >= 0 ? String(address) : "--");
+				const player = findInteractingPlayer(entity);
+				if (player) {
+					closeContainerUI(player);
+					system.run(() => {
+						showAddressForm(player, entity, "Set Address", address, "telepad_address");
+					});
+				}
 			}
-		}
-		if (!container.getItem(3)) {
-			container.add_ui_button(3, targetAddress >= 0 ? String(targetAddress) : "--");
-			const player = findInteractingPlayer(entity);
-			if (player) {
-				closeContainerUI(player);
-				system.run(() => {
-					showAddressForm(player, entity, "Set Target Address", targetAddress, "telepad_target");
-				});
+			if (!container.getItem(3)) {
+				container.add_ui_button(3, targetAddress >= 0 ? String(targetAddress) : "--");
+				const player = findInteractingPlayer(entity);
+				if (player) {
+					closeContainerUI(player);
+					system.run(() => {
+						showAddressForm(player, entity, "Set Target Address", targetAddress, "telepad_target");
+					});
+				}
 			}
 		}
 

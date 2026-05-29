@@ -114,6 +114,34 @@ Merge(mc.Container.prototype, {
         if (property) entity.setDynamicProperty(property, value)
     },
 
+    was_ui_clicked(slot, machine) {
+        const item = this.getItem(slot);
+        if (!item || (item.typeId !== 'cosmos:ui' && item.typeId !== 'cosmos:ui_button')) {
+            if (item) {
+                const player = machine.dimension.getPlayers({closest: 1, location: machine.location})[0];
+                if (player) {
+                    const cursor = player.getComponent('minecraft:cursor_inventory');
+                    if (cursor) {
+                        try {
+                            cursor.item = item;
+                        } catch (e) {
+                            cursor.clear();
+                            const leftover = player.getComponent('inventory').container.addItem(item);
+                            if (leftover) player.dimension.spawnItem(leftover, player.location);
+                        }
+                    } else {
+                        const leftover = player.getComponent('inventory').container.addItem(item);
+                        if (leftover) player.dimension.spawnItem(leftover, player.location);
+                    }
+                } else {
+                    machine.dimension.spawnItem(item, machine.location);
+                }
+            }
+            return true;
+        }
+        return false;
+    },
+
     updateUI(uiConfigs, data) {
         uiConfigs.forEach(config => {
             const uiItem = new ItemStack('cosmos:ui');

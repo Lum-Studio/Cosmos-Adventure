@@ -68,7 +68,6 @@
                 "container_type": "container",
                 "inventory_size": 6
             },
-            "cosmos:ui": "chromatic_applicator",
             "minecraft:pushable": {
                 "is_pushable": false,
                 "is_pushable_by_piston": false

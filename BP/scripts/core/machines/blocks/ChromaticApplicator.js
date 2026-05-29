@@ -97,9 +97,26 @@ const data = {
     onTick(entity, block) {
         const container = entity.getComponent('minecraft:inventory').container;
         
-        if (!container.getItem(ButtonApply)) setup_ui_button(entity, ButtonApply, "Apply");
-        if (!container.getItem(ButtonMix)) setup_ui_button(entity, ButtonMix, "Mix");
-        if (!container.getItem(ButtonReset)) setup_ui_button(entity, ButtonReset, "Reset");
+        let ui_initialized = entity.getDynamicProperty("ui_initialized");
+        if (!ui_initialized) {
+            entity.setDynamicProperty("ui_initialized", true);
+            setup_ui_button(entity, ButtonApply, "Apply");
+            setup_ui_button(entity, ButtonMix, "Mix");
+            setup_ui_button(entity, ButtonReset, "Reset");
+        } else {
+            if (!container.getItem(ButtonApply)) {
+                buttons[ButtonApply](entity);
+                setup_ui_button(entity, ButtonApply, "Apply");
+            }
+            if (!container.getItem(ButtonMix)) {
+                buttons[ButtonMix](entity);
+                setup_ui_button(entity, ButtonMix, "Mix");
+            }
+            if (!container.getItem(ButtonReset)) {
+                buttons[ButtonReset](entity);
+                setup_ui_button(entity, ButtonReset, "Reset");
+            }
+        }
 
         const variables = load_dynamic_object(entity, "machine_data");
         const color = variables.color || [255, 255, 255];

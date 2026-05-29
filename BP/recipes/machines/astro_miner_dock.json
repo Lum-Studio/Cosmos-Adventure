@@ -7,6 +7,9 @@
     "tags": [
       "crafting_table"
     ],
+    "unlock": [
+      { "item": "minecraft:iron_ingot" }
+    ],
     "pattern": [
       "XXX",
       "XYX",
@@ -14,7 +17,7 @@
     ],
     "key": {
       "X": "minecraft:iron_ingot",
-      "Y": "minecraft:diamond"
+      "Y": "minecraft:gold_ingot"
     },
     "result": {
       "item": "cosmos:astro_miner_dock"
