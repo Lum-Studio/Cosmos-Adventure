@@ -1,7 +1,7 @@
 import { gui } from "../ui_datagen";
 
 export function register(reg: any) {
-	const m = reg.add(gui("painter", "Painter", 186));
+	const m = reg.add(gui("chromatic_applicator", "Chromatic Applicator", 186));
 
 	m.drawTitle();
 

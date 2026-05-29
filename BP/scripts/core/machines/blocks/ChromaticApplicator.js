@@ -36,7 +36,7 @@ const ButtonMix = 4;
 const ButtonReset = 5;
 
 const buttons = [];
-machine_buttons.set('cosmos:painter', buttons);
+machine_buttons.set('cosmos:chromatic_applicator', buttons);
 
 buttons[ButtonApply] = function (entity, button_item) {
     const container = entity.getComponent('minecraft:inventory').container;

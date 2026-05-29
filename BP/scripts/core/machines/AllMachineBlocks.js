@@ -21,7 +21,7 @@ import MethaneSynthesizer from './blocks/MethaneSynthesizer'
 import CargoLoader from './blocks/CargoLoader'
 import CargoUnloader from './blocks/CargoUnloader'
 import OxygenSealer from './blocks/OxygenSealer'
-import Painter from './blocks/Painter'
+import ChromaticApplicator from './blocks/ChromaticApplicator'
 import ShortRangeTelepad from './blocks/ShortRangeTelepad'
 import LaunchController from './blocks/LaunchController'
 import AdvancedLaunchController from './blocks/AdvancedLaunchController'
@@ -56,7 +56,7 @@ const AllMachines = {
 	cargo_loader: CargoLoader,
 	cargo_unloader: CargoUnloader,
 	oxygen_sealer: OxygenSealer,
-	painter: Painter,
+	chromatic_applicator: ChromaticApplicator,
 	terraformer: Terraformer,
 	geothermal_generator: GeothermalGenerator,
 	solar_array_controller: SolarArrayController,
