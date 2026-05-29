@@ -4,7 +4,6 @@
     "ui/celestial_selector.json",
     "ui/space_gear.json",
     "ui/machines.json",
-    
     "ui/machines/coal_generator.json",
     "ui/machines/energy_storage.json",
     "ui/machines/compressor.json",
@@ -23,11 +22,11 @@
     "ui/machines/oxygen_distributor.json",
     "ui/machines/oxygen_storage.json",
     "ui/machines/solar_panel.json",
-
     "ui/vehicles/rocket.json",
     "ui/fuel/fuel_chest/fuel_chest_inventory_0.json",
     "ui/fuel/fuel_chest/fuel_chest_inventory_18.json",
     "ui/fuel/fuel_chest/fuel_chest_inventory_36.json",
-    "ui/fuel/fuel_chest/fuel_chest_inventory_54.json"
+    "ui/fuel/fuel_chest/fuel_chest_inventory_54.json",
+    "ui/machines/methane_synthesizer.json"
   ]
 }

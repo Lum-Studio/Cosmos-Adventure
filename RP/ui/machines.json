@@ -70,11 +70,14 @@
 	},
 	"fluid_tank": {
 		"type":"panel",
-		"size": [ 18, 40 ],
+		"$tank_size|default": [ 18, 40 ],
+		"$tank_back_tex|default": "textures/ui/cosmos/machines/tank_back",
+		"$tank_front_tex|default": "textures/ui/cosmos/machines/tank_front",
+		"size": "$tank_size",
 		"controls": [
 			{ "tank_back": {
 				"type":"image",
-				"texture": "textures/ui/cosmos/machines/tank_back",
+				"texture": "$tank_back_tex",
 				"layer": 1
 			}},
 			{ "fluid@machines.specific_slot": {
@@ -108,7 +111,7 @@
 			}},
 			{ "tank_front": {
 				"type": "image",
-				"texture": "textures/ui/cosmos/machines/tank_front",
+				"texture": "$tank_front_tex",
 				"layer": 3
 			}},
 			{ "tank_hover@machines.item_hover": {} }

@@ -12,9 +12,9 @@ PROJECT_BP_PATH = os.path.join(SCRIPT_DIR, 'BP')
 PROJECT_RP_PATH = os.path.join(SCRIPT_DIR, 'RP')
 
 # Minecraft Game Data Path (com.mojang)
-# This uses the %LOCALAPPDATA% environment variable to be more robust
-LOCALAPPDATA = os.getenv('LOCALAPPDATA')
-COM_MOJANG_PATH = os.path.join(LOCALAPPDATA, 'Packages', 'Microsoft.MinecraftUWP_8wekyb3d8bbwe', 'LocalState', 'games', 'com.mojang')
+# This uses the %APPDATA% environment variable to be more robust (2026 path)
+APPDATA = os.getenv('APPDATA')
+COM_MOJANG_PATH = os.path.join(APPDATA, 'Minecraft Bedrock', 'Users', 'Shared', 'games', 'com.mojang')
 
 # Target Deployment Paths
 TARGET_BP_DIR = os.path.join(COM_MOJANG_PATH, 'development_behavior_packs')

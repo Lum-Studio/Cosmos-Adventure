@@ -36,7 +36,7 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
     register_block_component('cosmos:arc_lamp', arc_lamp)
     register_block_component("cosmos:cavernous_vines", cavernous_vines_component)
     register_block_component("cosmos:cheese_block", cheese_block)
-    register_block_component("cosmos:communication_dish", communication_dish_component)
+    register_block_component("cosmos:dishbase", communication_dish_component)
     register_block_component('cosmos:fallen_meteor', fallen_meteor)
     register_block_component('cosmos:fluid_pipe', fluid_pipe_component)
     register_block_component('cosmos:fluid_tank', fluid_tank_component)
