@@ -8,7 +8,7 @@ import { MachineRegistry, gui } from "../ui_datagen";
 export function register(reg: MachineRegistry) {
 	const m = reg.add(gui("methane_synthesizer", "Methane Synthesizer", 168));
 	m.hideCloseButton();
-	m.closeButton(-47, 12);
+	m.closeButton(-27, 12);
 	m.drawTitle(47, 5);
 
 	// Slots — positions straight from ContainerMethaneSynthesizer.addSlotToContainer()
