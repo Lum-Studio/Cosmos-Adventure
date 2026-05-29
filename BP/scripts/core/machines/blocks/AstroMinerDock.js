@@ -38,7 +38,7 @@ const data = {
 
 			// Energy bar display
 			const energy_hover = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.energy.capacity} gJ`;
-			container.add_ui_display(EnergyBarSlot, energy_hover, Math.round((energy / data.energy.capacity) * 55));
+			container.add_ui_display(EnergyBarSlot, energy_hover, Math.round((energy / data.energy.capacity) * 66));
 		}
 
 		// Recall button
