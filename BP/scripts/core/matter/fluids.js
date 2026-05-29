@@ -151,7 +151,7 @@ export function output_fluid(fluid_data, entity, block, fluid) {
         z: block.location.z - Math.floor(target_location.z)
     }
     direction = get_direction(direction);
-    if (/cosmos:fluid_pipe/.test(target_block.typeId) && target_block.permutation.getState(pipe_same_side[direction]) == 2) {
+    if (target_block && /cosmos:fluid_pipe/.test(target_block.typeId) && target_block.permutation.getState(pipe_same_side[direction]) == 2) {
         fluid = save_fluid_amount(entity, fluid_data, target_block, fluid);
         return fluid;
     }
