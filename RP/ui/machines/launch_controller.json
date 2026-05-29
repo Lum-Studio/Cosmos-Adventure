@@ -59,7 +59,7 @@
 				}
 			},
 			{
-				"frequency_button@machines.machine_button": {
+				"frequency_button@machines.machine_textbox": {
 					"$index": 3,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
@@ -75,7 +75,7 @@
 				}
 			},
 			{
-				"dest_frequency_button@machines.machine_button": {
+				"dest_frequency_button@machines.machine_textbox": {
 					"$index": 4,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",

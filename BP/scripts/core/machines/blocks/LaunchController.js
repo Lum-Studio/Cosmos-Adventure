@@ -166,6 +166,12 @@ export class LaunchController extends MachineBlock {
         energy = charge_from_machine(entity, block, energy);
         energy = charge_from_battery(entity, energy, 0);
 
+        // Check if anything changed
+        const newEnabled = enabled;
+        const newHideDest = hideDest;
+        const newRemovePad = removePad;
+        const newLaunchWhen = launchWhen;
+
         save_dynamic_object(entity, {
             energy: energy,
             frequency: frequency,
@@ -177,21 +183,22 @@ export class LaunchController extends MachineBlock {
             launchCondition: launchCondition
         }, "machine_data");
 
-        // Common
+        // Common energy bar - always update
         container.add_ui_display(1, "Energy", Math.round((energy / capacity) * 55) || 0);
 
-        // Update displays based on mode
+        // Update displays based on mode — use add_ui_button for clickable buttons
+        // so was_ui_clicked can detect when player takes them
         if (isAdvanced) {
             container.add_ui_display(2, "Remove Pad", removePad ? 1 : 0);
             container.add_ui_display(3, "Launch when", launchWhen ? 1 : 0);
-            container.add_ui_display(4, LAUNCH_CONDITIONS[launchCondition], 0);
-            container.add_ui_display(5, "<", 0); // Back button
+            container.add_ui_button(4, LAUNCH_CONDITIONS[launchCondition]);
+            container.add_ui_button(5, "<"); // Back button
         } else {
-            container.add_ui_display(2, enabled ? "Disable" : "Enable", 0);
-            container.add_ui_display(3, String(frequency || 0), 0);
-            container.add_ui_display(4, String(destFrequency || 0), 0);
-            container.add_ui_display(5, hideDest ? "Unhide Dest" : "Hide Dest", 0);
-            container.add_ui_display(6, "Advanced...", 0);
+            container.add_ui_button(2, enabled ? "Disable" : "Enable");
+            container.add_ui_button(3, String(frequency || 0));
+            container.add_ui_button(4, String(destFrequency || 0));
+            container.add_ui_button(5, hideDest ? "Unhide Dest" : "Hide Dest");
+            container.add_ui_button(6, "Advanced...");
             let status = "§2Active";
             if (energy <= 0) status = "§4Not Enough Power";
             else if (enabled) status = "§6Disabled";

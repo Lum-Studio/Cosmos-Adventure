@@ -13,8 +13,8 @@ export function register(reg: MachineRegistry) {
 	// Buttons & Inputs (UI slots 2-6)
 	// Buttons & Inputs (UI slots 2-6)
 	m.addButton(122, 16, { name: "enable_button", width: 48, height: 20, fontScale: 0.8 });
-	m.addButton(66, 16, { name: "frequency_button", width: 48, height: 20, fontScale: 0.8 });
-	m.addButton(45, 38, { name: "dest_frequency_button", width: 48, height: 20, fontScale: 0.8 });
+	m.addTextBox(66, 16, { name: "frequency_button", width: 48, height: 20, fontScale: 0.8 });
+	m.addTextBox(45, 38, { name: "dest_frequency_button", width: 48, height: 20, fontScale: 0.8 });
 	m.addButton(95, 38, { name: "hide_dest_button", width: 39, height: 20, fontScale: 0.65 });
 	m.addButton(48, 62, { name: "advanced_button", width: 80, height: 20, fontScale: 0.8 });
 

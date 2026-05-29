@@ -10,8 +10,8 @@ export function register(reg: MachineRegistry) {
 
 	// Buttons (UI slots 1, 2, 3)
 	m.addButton(122, 16, { name: "enable_button", width: 48, height: 20, fontScale: 0.5 });
-	m.addButton(66, 16, { name: "address_button", width: 48, height: 20, fontScale: 0.5 });
-	m.addButton(122, 38, { name: "target_address_button", width: 48, height: 20, fontScale: 0.5 });
+	m.addTextBox(66, 16, { name: "address_button", width: 48, height: 20, fontScale: 0.5 });
+	m.addTextBox(122, 38, { name: "target_address_button", width: 48, height: 20, fontScale: 0.5 });
 
 	// Energy Bar (UI slot 4)
 	m.drawEnergyBar(99, 114);

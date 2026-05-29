@@ -513,6 +513,21 @@ export class GuiMachine {
 		return idx;
 	}
 
+	/** Java: GuiElementTextBox */
+	addTextBox(x: number, y: number, opts: { name?: string; anchor?: Anchor; width?: number; height?: number; fontScale?: number } = {}): number {
+		const idx = this._uiSlot();
+		const name = opts.name ?? "textbox";
+		const anchor = opts.anchor ?? "top_left";
+		const w = opts.width ?? 75;
+		const h = opts.height ?? 18;
+		const props: any = { $index: idx, anchor_from: anchor, anchor_to: anchor, offset: [x, y], $button_size: [w, h] };
+		if (opts.fontScale != null) props.$button_font_scale = opts.fontScale;
+		this._content.push(() => ({
+			[`${name}@machines.machine_textbox`]: props,
+		}));
+		return idx;
+	}
+
 	/** Java: new GuiElementCheckbox(id, this, x, y, text) */
 	addCheckbox(x: number, y: number, opts: { name?: string; anchor?: Anchor } = {}): number {
 		const idx = this._uiSlot();

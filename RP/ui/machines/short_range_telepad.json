@@ -48,7 +48,7 @@
 				}
 			},
 			{
-				"address_button@machines.machine_button": {
+				"address_button@machines.machine_textbox": {
 					"$index": 2,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
@@ -64,7 +64,7 @@
 				}
 			},
 			{
-				"target_address_button@machines.machine_button": {
+				"target_address_button@machines.machine_textbox": {
 					"$index": 3,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",

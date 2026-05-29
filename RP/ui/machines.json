@@ -394,6 +394,51 @@
 			}}
 		]
 	},
+	"machine_textbox@machines.specific_slot": {
+		"$button_size|default": [75, 18],
+		"$button_font_scale|default": 1.0,
+		"controls": [
+			{ "button": {
+				"type": "button",
+				"collection_index": "$index",
+				"size": "$button_size",
+				"default_control": "default",
+				"hover_control": "hover",
+				"pressed_control": "pressed",
+				"sound_name": "random.click",
+				"bindings": "$fetch_container_slot",
+				"$tag": "",
+				"button_mappings": [
+					{
+						"from_button_id": "button.menu_select",
+						"to_button_id": "button.container_take_all_place_all",
+        				"mapping_type": "pressed"
+					},
+					{
+						"from_button_id": "button.menu_ok",
+						"to_button_id": "button.container_take_all_place_all",
+						"mapping_type": "pressed"
+					}
+				],
+				"controls": [
+					{ "default": { "type": "image", "texture": "textures/ui/cosmos/machines/text_box" } },
+					{ "hover": { "type": "image", "texture": "textures/ui/cosmos/machines/text_box" } },
+					{ "pressed": { "type": "image", "texture": "textures/ui/cosmos/machines/text_box" } },
+					{
+						"button_text": {
+							"type": "label",
+							"layer": 1,
+							"text": "#hover_text",
+							"shadow": false,
+							"color": [1, 1, 1],
+							"font_scale_factor": "$button_font_scale",
+							"bindings": "$fetch_item_hover"
+						}
+					}
+				]
+			}}
+		]
+	},
 	"machine_toggle@machines.specific_slot": {
 		"controls": [
 			{ "button": {
@@ -625,6 +670,94 @@
 						"text": "#text",
 						"layer": 6,
 						"shadow": true,
+						"bindings": [
+							{
+								"binding_name": "#hover_text",
+								"binding_name_override": "#text",
+								"binding_type": "collection",
+								"binding_collection_name": "container_items"
+							},
+							{
+								"binding_type": "view",
+								"source_property_name": "(#text - $button_tag - '§o' - '§f' )",
+								"target_property_name": "#text"
+							}
+						]
+					}
+				}
+			]
+		}}],
+		"bindings": [
+			{
+				"binding_name": "#hover_text",
+				"binding_type": "collection",
+				"binding_collection_name": "container_items"
+			},
+			{
+				"binding_type": "view",
+				"source_property_name": "(not(#hover_text - $button_tag = #hover_text))",
+				"target_property_name": "#visible"
+			}
+		]
+	},
+
+	"ui_textbox@machines.new_item_data": {
+		"$button_tag": "§textbox",
+		"$name": "ui_textbox_button"
+	},
+	
+	"ui_textbox_button": {
+		"type": "panel",
+		"size": [0, 0],
+		"controls": [{ "button@cosmos.button": {
+			"$button_tag": "$button_tag",
+			"size": ["100%", "100%"],
+			"pressed_control": "pressed",
+			"bindings": [
+			  {
+				"binding_type": "collection_details",
+				"binding_collection_name": "container_items",
+				"binding_condition": "once"
+			  }
+			],
+			"button_mappings": [
+				{
+					"from_button_id": "button.menu_select",
+					"to_button_id": "button.container_take_all_place_all",
+					"mapping_type": "pressed"
+				},
+				{
+					"from_button_id": "button.menu_ok",
+					"to_button_id": "button.container_take_all_place_all",
+					"mapping_type": "pressed"
+				}
+			],
+			"controls": [
+				{
+					"default": {
+						"type": "image",
+						"texture": "textures/ui/textedit_box"
+					}
+				},
+				{
+					"hover": {
+						"type": "image",
+						"texture": "textures/ui/textedit_box_hover"
+					}
+				},
+				{
+					"pressed": {
+						"type": "image",
+						"texture": "textures/ui/textedit_box_pressed"
+					}
+				},
+				{
+					"text": {
+						"type": "label",
+						"text": "#text",
+						"layer": 6,
+						"shadow": false,
+						"color": [1, 1, 1],
 						"bindings": [
 							{
 								"binding_name": "#hover_text",
