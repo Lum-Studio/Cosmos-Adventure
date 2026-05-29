@@ -14,9 +14,9 @@ export function register(reg: MachineRegistry) {
 
     m.addButton(50, 91, { name: "disable_button" }); // ui index 5
 
-    m.drawStatusText(88, 50, { anchor: "top_middle", name: "status_text" }); // ui index 6
-    m.drawStatusText(88, 60, { anchor: "top_middle", name: "oxygen_usage_text" }); // ui index 7
-    m.drawStatusText(88, 70, { anchor: "top_middle", name: "thermal_status_text" }); // ui index 8
+    m.drawStatusText(0, 50, { anchor: "top_middle", name: "status_text" }); // ui index 6
+    m.drawStatusText(0, 60, { anchor: "top_middle", name: "oxygen_usage_text" }); // ui index 7
+    m.drawStatusText(0, 70, { anchor: "top_middle", name: "thermal_status_text" }); // ui index 8
     
     // Add "In:" static labels
     m.drawString("In:", 80, 26, { color: [0.25, 0.25, 0.25] });

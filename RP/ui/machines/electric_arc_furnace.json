@@ -1,111 +1,110 @@
 {
-	"namespace": "deconstructor",
+	"namespace": "electric_arc_furnace",
 	"interface@machines.dynamic_interface": {
 		"$size": [
 			"100%",
-			199
+			157
 		],
 		"$content": [
 			{
 				"title": {
 					"type": "label",
-					"text": "Deconstructor",
+					"text": "Electric Arc Furnace",
 					"color": "$title_text_color",
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
 					"offset": [
-						10,
-						5
+						0,
+						4
 					]
 				}
 			},
 			{
-				"output_grid@machines.item_grid": {
-					"size": [
-						54,
-						54
-					],
-					"grid_dimensions": [
-						3,
-						3
-					],
+				"input@machines.item_slot": {
+					"$index": 0,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						112,
-						18
+						54,
+						23
 					]
 				}
 			},
 			{
 				"battery_slot@machines.item_slot": {
-					"$index": 9,
+					"$index": 1,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						55,
-						75
+						7,
+						46
 					],
 					"$overlay_texture": "textures/ui/cosmos/slot_overlay/power"
 				}
 			},
 			{
-				"input_slot@machines.item_slot": {
-					"$index": 10,
+				"output1@machines.item_slot": {
+					"$index": 2,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						26,
-						36
+						108,
+						23
+					]
+				}
+			},
+			{
+				"output2@machines.item_slot": {
+					"$index": 3,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						130,
+						23
 					]
 				}
 			},
 			{
 				"energy_bar@machines.energy_bar": {
-					"$index": 11,
+					"$index": 4,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						18,
-						96
+						39,
+						49
 					]
 				}
 			},
 			{
-				"progress@deconstructor.progress_bar": {
-					"$index": 12,
+				"progress@electric_arc_furnace.electric_furnace_bar": {
+					"$index": 5,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						53,
-						36
+						77,
+						23
 					]
 				}
 			},
 			{
-				"power_icon": {
-					"type": "image",
-					"texture": "textures/ui/cosmos/slot_overlay/power",
-					"size": [
-						11,
-						10
-					],
+				"status@machines.item_text": {
+					"$index": 6,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						4,
-						95
+						98,
+						49
 					]
 				}
 			}
 		]
 	},
-	"progress_bar": {
+	"electric_furnace_bar": {
 		"type": "image",
-		"texture": "textures/ui/cosmos/machines/deconstructor_bar",
+		"texture": "textures/ui/cosmos/machines/electric_furnace_bar",
 		"size": [
-			54,
-			17
+			22,
+			15
 		],
 		"controls": [
 			{
@@ -125,32 +124,12 @@
 								],
 								"controls": [
 									{
-										"deconstructor_on": {
-											"type": "image",
-											"texture": "textures/ui/cosmos/machines/deconstructor_on",
-											"size": [
-												15,
-												13
-											],
-											"anchor_from": "top_left",
-											"anchor_to": "top_left",
-											"offset": [
-												24,
-												-8
-											],
-											"bindings": "$use_durability",
-											"$source": "#null",
-											"$target": "#null",
-											"$visible_if": "(#data > 500 and not (#data = 1000))"
-										}
-									},
-									{
 										"progress_fill": {
 											"type": "panel",
 											"clips_children": true,
 											"size": [
-												54,
-												17
+												22,
+												15
 											],
 											"anchor_to": "top_left",
 											"anchor_from": "top_left",
@@ -169,10 +148,10 @@
 														"anchor_from": "top_left",
 														"type": "image",
 														"size": [
-															54,
-															17
+															22,
+															15
 														],
-														"texture": "textures/ui/cosmos/machines/deconstructor_bar_fill"
+														"texture": "textures/ui/cosmos/machines/electric_furnace_bar_fill"
 													}
 												}
 											]

@@ -367,7 +367,7 @@ export class GuiMachine {
 			const { ensureTankTextures } = require("./png_util");
 			const tex = ensureTankTextures(bedrockHeight, bedrockWidth);
 			props.$tank_width = bedrockWidth;
-			props.$tank_size = [bedrockWidth, bedrockHeight];
+			props.$tank_size = [`${bedrockWidth}px`, `${bedrockHeight}px`];
 			props.$tank_back_tex = tex.back;
 			props.$tank_front_tex = tex.front;
 		}
@@ -416,18 +416,20 @@ export class GuiMachine {
 	// ── Java API: Text ─────────────────────────────────────────
 
 	/** Java: fontRenderer.drawString(dynamicStatus, x, y, color) — runtime-updated text */
-	drawStatusText(x: number, y: number, opts: { name?: string; anchor?: Anchor } = {}): number {
+	drawStatusText(x: number, y: number, opts: { name?: string; anchor?: Anchor; scale?: number } = {}): number {
 		const idx = this._uiSlot();
 		const name = opts.name ?? "status";
 		const anchor = opts.anchor ?? "top_left";
+		const props: any = { $index: idx, anchor_from: anchor, anchor_to: anchor, offset: [x, y] };
+		if (opts.scale != null) props.$text_font_scale = opts.scale;
 		this._content.push(() => ({
-			[`${name}@machines.item_text`]: { $index: idx, anchor_from: anchor, anchor_to: anchor, offset: [x, y] },
+			[`${name}@machines.item_text`]: props,
 		}));
 		return idx;
 	}
 
 	/** Java: fontRenderer.drawString("literal", x, y, color) — static text */
-	drawString(text: string, x: number, y: number, opts: { name?: string; anchor?: Anchor; color?: any; layer?: number } = {}) {
+	drawString(text: string, x: number, y: number, opts: { name?: string; anchor?: Anchor; color?: any; layer?: number; scale?: number } = {}) {
 		const name = opts.name ?? text.toLowerCase().replace(/[\s:\/]/g, "_").slice(0, 20);
 		const anchor = opts.anchor ?? "top_left";
 		const props: any = {
@@ -436,6 +438,7 @@ export class GuiMachine {
 			anchor_from: anchor, anchor_to: anchor, offset: [x, y],
 		};
 		if (opts.layer != null) props.layer = opts.layer;
+		if (opts.scale != null) props.font_scale_factor = opts.scale;
 		this._content.push(() => ({ [name]: props }));
 	}
 
@@ -727,6 +730,17 @@ async function defineAll(): Promise<MachineRegistry> {
 	m.drawProgressBar(77, 23, "electric_furnace");
 	m.drawStatusText(98, 49);
 
+	// ── Electric Arc Furnace (Tier 2/Double output) ────────────
+	m = reg.add(gui("electric_arc_furnace", "Electric Arc Furnace", 157));
+	m.drawTitle(0, 4, { anchor: "top_middle" });
+	m.slot(54, 23, { name: "input" });
+	m.slot(7, 46, { name: "battery_slot", ghost: "power" });
+	m.slot(108, 23, { name: "output1" });
+	m.slot(130, 23, { name: "output2" }); // second output slot offset to the right
+	m.drawEnergyBar(39, 49);
+	m.drawProgressBar(77, 23, "electric_furnace");
+	m.drawStatusText(98, 49);
+
 	// ── Compressor (GuiIngotCompressor, ySize=192) ─────────────
 	m = reg.add(gui("compressor", "Compressor", 192));
 	m.drawTitle(10, 5);
@@ -740,6 +754,17 @@ async function defineAll(): Promise<MachineRegistry> {
 
 	// ── Electric Compressor (GuiElectricIngotCompressor, ySize=199) ─
 	m = reg.add(gui("electric_compressor", "Electric Compressor", 199));
+	m.drawTitle(10, 5);
+	m.slotGrid(18, 17);
+	m.slot(54, 74, { name: "battery_slot", ghost: "power" });
+	m.slot(137, 28, { name: "output1" });
+	m.slot(137, 46, { name: "output2" });
+	m.drawEnergyBar(17, 95);
+	m.drawProgressBarRef(77, 28, "compressor.progress_bar");
+	m.drawStatusText(78, 75);
+
+	// ── Advanced Compressor (Tier 2/Faster) ────────────────────
+	m = reg.add(gui("advanced_compressor", "Advanced Compressor", 199));
 	m.drawTitle(10, 5);
 	m.slotGrid(18, 17);
 	m.slot(54, 74, { name: "battery_slot", ghost: "power" });

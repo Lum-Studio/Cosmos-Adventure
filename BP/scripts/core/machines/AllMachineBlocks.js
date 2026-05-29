@@ -13,6 +13,8 @@ import FuelLoader from './blocks/FuelLoader'
 import WaterElectrolyzer from './blocks/WaterElectrolyzer'
 import GasLiquefier from './blocks/GasLiquefier'
 import ElectricFurnace from './blocks/ElectricFurnace'
+import ElectricArcFurnace from './blocks/ElectricArcFurnace'
+import AdvancedCompressor from './blocks/AdvancedCompressor'
 import Parachest from './blocks/Parachest'
 import OxygenDistributor from './blocks/OxygenDistributor'
 import BasicSolarPanel from './blocks/BasicSolarPanel'
@@ -39,6 +41,8 @@ const AllMachines = {
 	energy_storage_cluster: EnergyStorage.energy_storage_cluster,
 	electric_compressor: ElectricCompressor,
 	electric_furnace: ElectricFurnace,
+	electric_arc_furnace: ElectricArcFurnace,
+	advanced_compressor: AdvancedCompressor,
 	basic_solar_panel: BasicSolarPanel,
 	oxygen_collector: OxygenCollector,
 	oxygen_compressor: OxygenCompressor,

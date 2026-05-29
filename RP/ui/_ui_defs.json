@@ -39,6 +39,8 @@
     "ui/machines/solar_array_controller.json",
     "ui/machines/geothermal_generator.json",
     "ui/machines/terraformer.json",
-    "ui/machines/chromatic_applicator.json"
+    "ui/machines/chromatic_applicator.json",
+    "ui/machines/advanced_compressor.json",
+    "ui/machines/electric_arc_furnace.json"
   ]
 }

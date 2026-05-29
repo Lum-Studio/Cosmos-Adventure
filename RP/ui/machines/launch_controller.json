@@ -127,11 +127,11 @@
 					"$index": 7,
 					"anchor_from": "top_middle",
 					"anchor_to": "top_middle",
-					"$text_font_scale": 0.8,
 					"offset": [
 						0,
 						86
-					]
+					],
+					"$text_font_scale": 0.8
 				}
 			},
 			{
@@ -141,11 +141,11 @@
 					"color": "$title_text_color",
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"font_scale_factor": 0.8,
 					"offset": [
 						7,
 						22
-					]
+					],
+					"font_scale_factor": 0.8
 				}
 			},
 			{
@@ -155,11 +155,11 @@
 					"color": "$title_text_color",
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"font_scale_factor": 0.8,
 					"offset": [
 						7,
 						44
-					]
+					],
+					"font_scale_factor": 0.8
 				}
 			}
 		]

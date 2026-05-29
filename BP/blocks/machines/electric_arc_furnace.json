@@ -2,7 +2,7 @@
 	"format_version": "1.21.100",
   "minecraft:block": {
     "description": {
-      "identifier": "cosmos:advanced_compressor",
+      "identifier": "cosmos:electric_arc_furnace",
 			"menu_category": { "category": "items" },
       "traits": {
         "minecraft:placement_direction": {
@@ -13,7 +13,7 @@
     },
     "components": {
       "tag:machine": {},
-      // "cosmos:machine": {},
+      "cosmos:machine": {},
       "minecraft:destructible_by_mining": { "seconds_to_destroy": 0.5 },
       "minecraft:destructible_by_explosion": false,
       "minecraft:movable": { "movement_type": "immovable" },
@@ -21,7 +21,7 @@
       "minecraft:material_instances": {
         "up": { "render_method": "opaque", "texture": "advanced_machine_blank" },
         "down": { "render_method": "opaque", "texture": "advanced_machine_blank" },
-        "north": { "render_method": "opaque", "texture": "advansed_electric_compressor" },
+        "north": { "render_method": "opaque", "texture": "electric_arc_furnace" },
         "east": { "render_method": "opaque", "texture": "advanced_energy_input" },
         "south": { "render_method": "opaque", "texture": "advanced_machine_side" },
         "west": { "render_method": "opaque", "texture": "advanced_machine_side" }

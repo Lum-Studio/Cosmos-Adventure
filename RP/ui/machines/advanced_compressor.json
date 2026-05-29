@@ -1,16 +1,15 @@
 {
-	"namespace": "advanced_launch_controller",
+	"namespace": "advanced_compressor",
 	"interface@machines.dynamic_interface": {
 		"$size": [
 			"100%",
-			209
+			199
 		],
-		"$show_close_button": false,
 		"$content": [
 			{
 				"title": {
 					"type": "label",
-					"text": "Advanced Launch Controller",
+					"text": "Advanced Compressor",
 					"color": "$title_text_color",
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
@@ -21,77 +20,87 @@
 				}
 			},
 			{
-				"battery_slot@machines.item_slot": {
-					"$index": 0,
+				"input_grid@machines.item_grid": {
+					"size": [
+						54,
+						54
+					],
+					"grid_dimensions": [
+						3,
+						3
+					],
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						152,
-						105
+						18,
+						17
+					]
+				}
+			},
+			{
+				"battery_slot@machines.item_slot": {
+					"$index": 9,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						54,
+						74
 					],
 					"$overlay_texture": "textures/ui/cosmos/slot_overlay/power"
 				}
 			},
 			{
+				"output1@machines.item_slot": {
+					"$index": 10,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						137,
+						28
+					]
+				}
+			},
+			{
+				"output2@machines.item_slot": {
+					"$index": 11,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						137,
+						46
+					]
+				}
+			},
+			{
 				"energy_bar@machines.energy_bar": {
-					"$index": 1,
+					"$index": 12,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						99,
-						114
+						17,
+						95
 					]
 				}
 			},
 			{
-				"remove_pad_checkbox@machines.machine_toggle": {
-					"$index": 2,
+				"progress@compressor.progress_bar": {
+					"$index": 13,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						27,
-						20
+						77,
+						28
 					]
 				}
 			},
 			{
-				"launch_when_checkbox@machines.machine_toggle": {
-					"$index": 3,
+				"status@machines.item_text": {
+					"$index": 14,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
-						27,
-						38
-					]
-				}
-			},
-			{
-				"launch_condition_dropdown@machines.machine_button": {
-					"$index": 4,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [
-						52,
-						52
-					],
-					"$button_size": [
-						75,
-						18
-					]
-				}
-			},
-			{
-				"back_button@machines.machine_button": {
-					"$index": 5,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [
-						5,
-						5
-					],
-					"$button_size": [
-						20,
-						20
+						78,
+						75
 					]
 				}
 			}

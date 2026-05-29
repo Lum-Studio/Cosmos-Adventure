@@ -22,22 +22,22 @@ const data = {
         
         // TODO:
         const oxygen_usage = 0;
-        const status = energy == 0 ? "A 4Not Enough Power" : disabled ? "A 4Disabled" : "A 2Sealed";
-        const thermal_status = "A 2Normal";
+        const status = energy == 0 ? "§4Not Enough Power" : disabled ? "§4Disabled" : "§2Sealed";
+        const thermal_status = "§2Normal";
 
         save_dynamic_object(entity, {energy, o2, disabled}, "machine_data");
 
-        const energy_hover = `Energy Storage\nA aEnergy: ${Math.round(energy)} gJ\nA cMax Energy: ${data.energy.capacity} gJ`;
-        const oxygen_hover = `Oxygen Storage\nA aOxygen: ${Math.round(o2)}/${data["o2"].capacity}`;
+        const energy_hover = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.energy.capacity} gJ`;
+        const oxygen_hover = `Oxygen Storage\n§aOxygen: ${Math.round(o2)}/${data["o2"].capacity}`;
         
 
         
         container.add_ui_display(3, oxygen_hover, Math.round((o2 / data["o2"].capacity) * 55));
         container.add_ui_display(4, energy_hover, Math.round((energy / data.energy.capacity) * 55));
         container.add_ui_display(5, disabled ? 'Enable Seal' : 'Disable Seal');
-        container.add_ui_display(6, 'A rStatus: ' + status);
-        container.add_ui_display(7, `A rOxygen Usage: ${oxygen_usage} / sec`);
-        container.add_ui_display(8, 'A rThermal Status: ' + thermal_status);
+        container.add_ui_display(6, '§rStatus: ' + status);
+        container.add_ui_display(7, `§rOxygen Usage: ${oxygen_usage} / sec`);
+        container.add_ui_display(8, '§rThermal Status: ' + thermal_status);
     }
 };
 

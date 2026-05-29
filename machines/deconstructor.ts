@@ -23,14 +23,14 @@ export function register(reg: MachineRegistry) {
 
 	m.drawTitle();
 
+	// Output slots (2-10): 3x3 grid starting at x=112, y=18
+	m.slotGrid(112, 18, 3, 3, { name: "output_grid" });
+
 	// Battery slot (0): x=55, y=75
 	m.slot(55, 75, { name: "battery_slot", ghost: "power" });
 
 	// Input slot (1): x=26, y=36
 	m.slot(26, 36, { name: "input_slot" });
-
-	// Output slots (2-10): 3x3 grid starting at x=112, y=18
-	m.slotGrid(112, 18, 3, 3, { name: "output_grid" });
 
 	// Energy bar: x=18, y=96, w=54, h=7
 	m.drawEnergyBar(18, 96);

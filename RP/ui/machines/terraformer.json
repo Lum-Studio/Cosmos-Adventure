@@ -16,25 +16,6 @@
 				}
 			},
 			{
-				"water_tank@machines.fluid_tank": {
-					"$liquid": "water",
-					"$index": 15,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [
-						56,
-						18
-					],
-					"$tank_width": 41,
-					"$tank_size": [
-						"41px",
-						"28px"
-					],
-					"$tank_back_tex": "textures/ui/cosmos/machines/tank_back_41x28",
-					"$tank_front_tex": "textures/ui/cosmos/machines/tank_front_41x28"
-				}
-			},
-			{
 				"water_bucket@machines.item_slot": {
 					"$index": 0,
 					"anchor_from": "top_left",
@@ -55,17 +36,6 @@
 						39
 					],
 					"$overlay_texture": "textures/ui/cosmos/slot_overlay/power"
-				}
-			},
-			{
-				"energy_bar@machines.energy_bar": {
-					"$index": 14,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [
-						45,
-						48
-					]
 				}
 			},
 			{
@@ -198,6 +168,36 @@
 						79,
 						111
 					]
+				}
+			},
+			{
+				"energy_bar@machines.energy_bar": {
+					"$index": 14,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						45,
+						48
+					]
+				}
+			},
+			{
+				"water_tank@machines.fluid_tank": {
+					"$liquid": "water",
+					"$index": 15,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						56,
+						18
+					],
+					"$tank_width": 41,
+					"$tank_size": [
+						"41px",
+						"28px"
+					],
+					"$tank_back_tex": "textures/ui/cosmos/machines/tank_back_41x28",
+					"$tank_front_tex": "textures/ui/cosmos/machines/tank_front_41x28"
 				}
 			},
 			{
