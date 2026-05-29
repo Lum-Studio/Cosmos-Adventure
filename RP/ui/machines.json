@@ -188,7 +188,11 @@
 	},
 	"energy_bar": {
 		"type":"image",
-		"texture": "textures/ui/cosmos/machines/progress_bar",
+		"$energy_bg_tex|default": "textures/ui/cosmos/machines/progress_bar",
+		"$energy_icon_gray_tex|default": "textures/ui/cosmos/slot_overlay/power",
+		"$energy_icon_active_tex|default": "textures/ui/cosmos/slot_overlay/power_active",
+		"$energy_fill_tex|default": "textures/ui/cosmos/machines/progress_bar_fill",
+		"texture": "$energy_bg_tex",
 		"size": [ 55, 9 ],
 		"controls": [
 			{ "energy@machines.specific_slot": {
@@ -197,7 +201,7 @@
 				"controls": [
 					{ "gray_icon": {
 						"type": "image",
-						"texture": "textures/ui/cosmos/slot_overlay/power",
+						"texture": "$energy_icon_gray_tex",
 						"size": [16, 16],
 						"offset": [1, -3],
 						"anchor_from": "top_left",
@@ -213,7 +217,7 @@
 						"controls": [
 							{ "active_icon": {
 								"type": "image",
-								"texture": "textures/ui/cosmos/slot_overlay/power_active",
+								"texture": "$energy_icon_active_tex",
 								"size": [16, 16],
 								"offset": [1, -3],
 								"anchor_from": "top_left",
@@ -224,7 +228,7 @@
 							}},
 							{ "image": {
 								"type": "image",
-								"texture": "textures/ui/cosmos/machines/progress_bar_fill",
+								"texture": "$energy_fill_tex",
 								"color": [0.75, 0.66, 0.14],
 								"anchor_from": "top_left",
 								"anchor_to": "top_left",
@@ -243,7 +247,11 @@
 	},
 	"oxygen_bar": {
 		"type":"image",
-		"texture": "textures/ui/cosmos/machines/progress_bar",
+		"$oxygen_bg_tex|default": "textures/ui/cosmos/machines/progress_bar",
+		"$oxygen_icon_gray_tex|default": "textures/ui/cosmos/slot_overlay/o2",
+		"$oxygen_icon_active_tex|default": "textures/ui/cosmos/slot_overlay/o2_active",
+		"$oxygen_fill_tex|default": "textures/ui/cosmos/machines/progress_bar_fill",
+		"texture": "$oxygen_bg_tex",
 		"size": [ 55, 9 ],
 		"controls": [
 			{ "oxygen@machines.specific_slot": {
@@ -252,11 +260,12 @@
 				"controls": [
 					{ "gray_icon": {
 						"type": "image",
-						"anchor_from": "left_middle",
-						"anchor_to": "right_middle",
-						"texture": "textures/ui/cosmos/slot_overlay/o2",
+						"texture": "$oxygen_icon_gray_tex",
 						"size": [16, 16],
-						"offset": [1, -3.5]
+						"offset": [1, -3],
+						"anchor_from": "top_left",
+						"anchor_to": "top_right",
+						"color": [0.9, 0.9, 0.9]
 					}},
 					{ "oxygen_bar": {
 						"type": "panel",
@@ -267,9 +276,9 @@
 						"controls": [
 							{ "active_icon": {
 								"type": "image",
-								"texture": "textures/ui/cosmos/slot_overlay/o2_active",
+								"texture": "$oxygen_icon_active_tex",
 								"size": [16, 16],
-								"offset": [1, -3.5],
+								"offset": [1, -3],
 								"anchor_from": "top_left",
 								"anchor_to": "top_right",
 								"bindings": "$use_durability",
@@ -278,8 +287,8 @@
 							}},
 							{ "image": {
 								"type": "image",
-								"texture": "textures/ui/cosmos/machines/progress_bar_fill",
-								"color": [0.29, 0.63, 0.89],
+								"texture": "$oxygen_fill_tex",
+								"color": [0.44, 0.69, 0.94],
 								"anchor_from": "top_left",
 								"anchor_to": "top_left",
 								"size": [1, 9],
