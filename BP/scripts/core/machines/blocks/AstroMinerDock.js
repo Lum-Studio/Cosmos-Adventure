@@ -4,19 +4,19 @@ import { compare_lists, load_dynamic_object, save_dynamic_object } from "../../.
 import { setup_ui_button } from "../MachineButtons.js";
 
 // Slot layout (from ui_datagen):
-//   [0]     = battery_slot
-//   [1..72] = dock_slots (12×6 mined items grid)
+//   [0..71] = dock_slots (12×6 mined items grid)
+//   [72]    = battery_slot
 //   [73]    = energy_bar (UI display)
 //   [74]    = recall_button (UI display)
-const BatterySlot = 0;
+const BatterySlot = 72;
 const EnergyBarSlot = 73;
 const ButtonSlot = 74;
 
 const data = {
 	energy: { input: "right", capacity: 16000, maxInput: 120 },
 	items: {
-		top_input: Array.from({ length: 72 }, (_, i) => i + 1),
-		side_input: Array.from({ length: 72 }, (_, i) => i + 1)
+		top_input: Array.from({ length: 72 }, (_, i) => i),
+		side_input: Array.from({ length: 72 }, (_, i) => i)
 	},
 	onTick(entity, block) {
 		const container = entity.getComponent('minecraft:inventory').container;

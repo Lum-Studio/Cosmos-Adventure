@@ -38,18 +38,6 @@
 				}
 			},
 			{
-				"battery_slot@machines.item_slot": {
-					"$index": 0,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [
-						229,
-						107
-					],
-					"$overlay_texture": "textures/ui/cosmos/slot_overlay/power"
-				}
-			},
-			{
 				"dock_slots@machines.item_grid": {
 					"size": [
 						216,
@@ -65,6 +53,18 @@
 						7,
 						17
 					]
+				}
+			},
+			{
+				"battery_slot@machines.item_slot": {
+					"$index": 72,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						229,
+						107
+					],
+					"$overlay_texture": "textures/ui/cosmos/slot_overlay/power"
 				}
 			},
 			{

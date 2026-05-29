@@ -11,11 +11,12 @@ export function register(reg: MachineRegistry) {
 	// All positions shifted by -1 to account for Java slot coordinate convention
 	// (Java coords point to 16x16 item area; slot background draws at x-1, y-1)
 
-	// Energy Slot: Java (230, 108) → (229, 107)
-	m.slot(229, 107, { name: "battery_slot", ghost: "power" });
-
-	// Dock grid: Java (8, 18) → (7, 17)
+	// Dock grid FIRST (slots 0-71): Java (8, 18) → (7, 17)
+	// Grid must come before battery so it auto-indexes from 0
 	m.slotGrid(7, 17, 12, 6, { name: "dock_slots" });
+
+	// Energy Slot (slot 72): Java (230, 108) → (229, 107)
+	m.slot(229, 107, { name: "battery_slot", ghost: "power" });
 
 	// Energy Bar: Java (234, 29) → (233, 28), vertical 8x66
 	m.drawVerticalEnergyBar(233, 28);
