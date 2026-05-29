@@ -307,6 +307,7 @@
 	},
 	"machine_button@machines.specific_slot": {
 		"$button_size|default": [75, 18],
+		"$button_font_scale|default": 0.5,
 		"controls": [
 			{ "button": {
 				"type": "button",
@@ -340,7 +341,7 @@
 							"layer": 1,
 							"text": "#hover_text",
 							"shadow": true,
-							"font_scale_factor": 0.5,
+							"font_scale_factor": "$button_font_scale",
 							"bindings": "$fetch_item_hover"
 						}
 					}

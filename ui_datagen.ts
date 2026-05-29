@@ -470,14 +470,16 @@ export class GuiMachine {
 	// ── Java API: Buttons & Controls ───────────────────────────
 
 	/** Java: buttonList.add(new GuiButton(id, x, y, w, h, text)) */
-	addButton(x: number, y: number, opts: { name?: string; anchor?: Anchor; width?: number; height?: number } = {}): number {
+	addButton(x: number, y: number, opts: { name?: string; anchor?: Anchor; width?: number; height?: number; fontScale?: number } = {}): number {
 		const idx = this._uiSlot();
 		const name = opts.name ?? "start_button";
 		const anchor = opts.anchor ?? "top_left";
 		const w = opts.width ?? 75;
 		const h = opts.height ?? 18;
+		const props: any = { $index: idx, anchor_from: anchor, anchor_to: anchor, offset: [x, y], $button_size: [w, h] };
+		if (opts.fontScale != null) props.$button_font_scale = opts.fontScale;
 		this._content.push(() => ({
-			[`${name}@machines.machine_button`]: { $index: idx, anchor_from: anchor, anchor_to: anchor, offset: [x, y], $button_size: [w, h] },
+			[`${name}@machines.machine_button`]: props,
 		}));
 		return idx;
 	}
