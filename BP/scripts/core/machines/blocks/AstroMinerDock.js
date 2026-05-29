@@ -25,20 +25,18 @@ const data = {
 
 		save_dynamic_object(entity, {energy, isMining}, "machine_data");
 
-
         container.add_ui_display(73, "Recall");
+
+		if (container.was_ui_clicked(ButtonSlot, entity)) {
+			const vars = load_dynamic_object(entity, "machine_data");
+			vars.isMining = false;
+			save_dynamic_object(entity, vars, "machine_data");
+			setup_ui_button(entity, ButtonSlot, "Recall Miner");
+		}
 	},
     onPlace(entity) {
         setup_ui_button(entity, ButtonSlot, "Recall Miner");
     }
-};
-
-const buttons = []; 
-machine_buttons.set('cosmos:astro_miner_dock', buttons);
-buttons[ButtonSlot] = function (entity, item) {
-    const variables = load_dynamic_object(entity, "machine_data");
-    variables.isMining = false;
-    save_dynamic_object(entity, variables, "machine_data");
 };
 
 export default data;

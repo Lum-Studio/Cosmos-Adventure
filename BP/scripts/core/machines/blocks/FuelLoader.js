@@ -62,27 +62,25 @@ const data = {
 
 		save_dynamic_object(entity, {energy, fuel}, "machine_data")
 		
-		const status = fuel == 0 ? "§4No Fuel to Load"
-		: energy < 30 ? "§4Not Enough Power"
-		: active ? "§2Active"
-		: "§6Ready"
+		const status = fuel == 0 ? "§4No Fuel to Load!"
+		: energy == 0 ? "§4Not Enough Power"
+		: !active ? "§6Ready"
+		: energy < 30 ? "§6Not Enough Power"
+		: "§2Active"
 		
 		container.add_ui_display(EnergyDisplay, `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`, Math.round((energy / data.energy.capacity) * 55))
 		container.add_ui_display(FuelDisplay, `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel.capacity} mB`, Math.ceil((Math.ceil(fuel / 1000) / (data.fuel.capacity / 1000)) * 38))
-		container.add_ui_display(StatusDisplay, `§rStatus: ${status}`)
+		container.add_ui_display(StatusDisplay, `§rStatus:\n${status}`)
+
+		if (container.was_ui_clicked(ButtonSlot, entity)) {
+			const new_state = !active
+			entity.setDynamicProperty('active', new_state)
+			setup_ui_button(entity, ButtonSlot, LoadButtonText(new_state))
+		}
 	},
 	onPlace(entity) {
-		const initial_state = true
+		const initial_state = false
 		entity.setDynamicProperty('active', initial_state)
 		setup_ui_button(entity, ButtonSlot, LoadButtonText(initial_state))
 	}
 }; export default data
-
-const buttons = []; machine_buttons.set('cosmos:fuel_loader', buttons)
-buttons[ButtonSlot] = function (entity, item) {
-	const container = entity.getComponent('minecraft:inventory').container
-	const active = entity.getDynamicProperty('active')
-	item.nameTag = LoadButtonText(!active) // flip the button text
-	entity.setDynamicProperty('active', !active) // flip the machine state
-	container.setItem(ButtonSlot, item)
-}

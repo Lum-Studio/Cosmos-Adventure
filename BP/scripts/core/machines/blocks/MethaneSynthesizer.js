@@ -62,6 +62,12 @@ const data = {
 			container.add_ui_display(StatusDisplay, `§rStatus:`)
 			container.add_ui_display(StatusDetail, `  ${status}`)
 		}
+
+		if (container.was_ui_clicked(ButtonSlot, entity)) {
+			const new_state = !active
+			entity.setDynamicProperty('active', new_state)
+			setup_ui_button(entity, ButtonSlot, ProcessButtonText(new_state))
+		}
 	},
 	onPlace(entity) {
 		const initial_state = true
@@ -69,12 +75,3 @@ const data = {
 		setup_ui_button(entity, ButtonSlot, ProcessButtonText(initial_state))
 	}
 }; export default data
-
-const buttons = []; machine_buttons.set('cosmos:methane_synthesizer', buttons)
-buttons[ButtonSlot] = function (entity, item) {
-	const container = entity.getComponent('minecraft:inventory').container
-	const active = entity.getDynamicProperty('active')
-	item.nameTag = ProcessButtonText(!active)
-	entity.setDynamicProperty('active', !active)
-	container.setItem(ButtonSlot, item)
-}

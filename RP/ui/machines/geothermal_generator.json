@@ -69,8 +69,8 @@
 					],
 					"$tank_width": 18,
 					"$tank_size": [
-						18,
-						18
+						"18px",
+						"18px"
 					],
 					"$tank_back_tex": "textures/ui/cosmos/machines/tank_back_18",
 					"$tank_front_tex": "textures/ui/cosmos/machines/tank_front_18"

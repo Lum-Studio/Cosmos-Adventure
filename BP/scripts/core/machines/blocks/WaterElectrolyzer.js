@@ -56,6 +56,12 @@ const data = {
             container.add_ui_display(EnergyDisplay, `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`, Math.ceil((energy / data.energy.capacity) * 55))
             container.add_ui_display(StatusDisplay, `§rStatus:\n  ${status}`)
         }
+
+		if (container.was_ui_clicked(ButtonSlot, entity)) {
+			const new_state = !active
+			entity.setDynamicProperty('active', new_state)
+			setup_ui_button(entity, ButtonSlot, ProcessButtonText(new_state))
+		}
     },
     onPlace(entity) {
         const initial_state = true
@@ -63,12 +69,3 @@ const data = {
         setup_ui_button(entity, ButtonSlot, ProcessButtonText(initial_state))
     }
 }; export default data
-
-const buttons = []; machine_buttons.set('cosmos:water_electrolyzer', buttons)
-buttons[ButtonSlot] = function (entity, item) {
-    const container = entity.getComponent('minecraft:inventory').container
-    const active = entity.getDynamicProperty('active')
-    item.nameTag = ProcessButtonText(!active) // flip the button text
-    entity.setDynamicProperty('active', !active) // flip the machine state
-    container.setItem(ButtonSlot, item)
-}

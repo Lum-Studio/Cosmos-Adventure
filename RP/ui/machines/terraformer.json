@@ -27,8 +27,8 @@
 					],
 					"$tank_width": 41,
 					"$tank_size": [
-						41,
-						28
+						"41px",
+						"28px"
 					],
 					"$tank_back_tex": "textures/ui/cosmos/machines/tank_back_41x28",
 					"$tank_front_tex": "textures/ui/cosmos/machines/tank_front_41x28"
