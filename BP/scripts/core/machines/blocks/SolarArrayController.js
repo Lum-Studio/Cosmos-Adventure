@@ -35,12 +35,43 @@ const data = {
 				connected_panels = 0;
 				let { x, y, z } = block.location;
 				
-				// TODO: Implement adjacent block scanning for solar modules
+				let visited = new Set();
+				let queue = [
+					{x: x+1, y, z}, {x: x-1, y, z},
+					{x, y, z: z+1}, {x, y, z: z-1}
+				];
+				
+				while (queue.length > 0 && connected_panels < 1000) { // Safety limit 1000
+					let curr = queue.shift();
+					let key = `${curr.x},${curr.z}`;
+					if (visited.has(key)) continue;
+					visited.add(key);
+					
+					// Limit to 16 blocks radius
+					if (Math.abs(curr.x - x) > 16 || Math.abs(curr.z - z) > 16) continue;
+					
+					try {
+						let b = block.dimension.getBlock(curr);
+						if (b && b.typeId === 'cosmos:solar_array_module') {
+							// Simple sky check: check if the block directly above is air or transparent
+							let above = block.dimension.getBlock({x: curr.x, y: curr.y + 1, z: curr.z});
+							if (above && (above.isAir || above.isLiquid)) {
+								connected_panels++;
+							}
+							
+							queue.push({x: curr.x+1, y, z: curr.z});
+							queue.push({x: curr.x-1, y, z: curr.z});
+							queue.push({x: curr.x, y, z: curr.z+1});
+							queue.push({x: curr.x, y, z: curr.z-1});
+						}
+					} catch(e) {
+						// Catch loaded chunk boundaries
+					}
+				}
 				
 				environment = is_day_time ? 100 : 0;
-				// Example calculation:
-				// generated_energy = connected_panels * some_factor * (environment / 100)
-				is_generating = Math.floor(connected_panels * 5 * (environment / 100));
+				// Base generation formula from Galacticraft: solarStrength * 6.3F * solarBoost
+				is_generating = Math.floor(connected_panels * 6.3 * (environment / 100));
 			} else {
 				is_generating = 0;
 				environment = 0;

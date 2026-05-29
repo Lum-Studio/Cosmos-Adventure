@@ -16,25 +16,9 @@
 				}
 			},
 			{
-				"background": {
-					"type": "image",
-					"texture": "textures/gui/terraformer",
-					"size": [
-						176,
-						237
-					],
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [
-						0,
-						0
-					]
-				}
-			},
-			{
 				"water_tank@machines.fluid_tank": {
 					"$liquid": "water",
-					"$index": 0,
+					"$index": 15,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
@@ -75,7 +59,7 @@
 			},
 			{
 				"energy_bar@machines.energy_bar": {
-					"$index": 3,
+					"$index": 14,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [

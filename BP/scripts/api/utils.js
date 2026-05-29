@@ -167,3 +167,21 @@ export function closeContainerUI(player) {
 		if (player.isValid) player.teleport(returnPos, { rotation: rot });
 	});
 }
+
+/**
+ * Gets a random populated slot index in the given range.
+ * @param {mc.Container} container 
+ * @param {number} start 
+ * @param {number} end 
+ * @returns {number} The slot index, or -1 if none found
+ */
+export function getRandomItemSlot(container, start, end) {
+	let validSlots = [];
+	for (let i = start; i <= end; i++) {
+		if (container.getItem(i)) {
+			validSlots.push(i);
+		}
+	}
+	if (validSlots.length === 0) return -1;
+	return validSlots[Math.floor(Math.random() * validSlots.length)];
+}
