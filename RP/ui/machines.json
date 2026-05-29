@@ -307,7 +307,7 @@
 	},
 	"machine_button@machines.specific_slot": {
 		"$button_size|default": [75, 18],
-		"$button_font_scale|default": 0.5,
+		"$button_font_scale|default": 1.0,
 		"controls": [
 			{ "button": {
 				"type": "button",

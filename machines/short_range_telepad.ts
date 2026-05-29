@@ -9,9 +9,9 @@ export function register(reg: MachineRegistry) {
 	m.slot(152, 105, { name: "battery_slot", ghost: "power" });
 
 	// Buttons (UI slots 1, 2, 3)
-	m.addButton(122, 16, { name: "enable_button", width: 48, height: 20 });
-	m.addButton(66, 16, { name: "address_button", width: 48, height: 20 });
-	m.addButton(122, 38, { name: "target_address_button", width: 48, height: 20 });
+	m.addButton(122, 16, { name: "enable_button", width: 48, height: 20, fontScale: 0.5 });
+	m.addButton(66, 16, { name: "address_button", width: 48, height: 20, fontScale: 0.5 });
+	m.addButton(122, 38, { name: "target_address_button", width: 48, height: 20, fontScale: 0.5 });
 
 	// Energy Bar (UI slot 4)
 	m.drawEnergyBar(99, 114);

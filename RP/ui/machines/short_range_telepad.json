@@ -43,7 +43,8 @@
 					"$button_size": [
 						48,
 						20
-					]
+					],
+					"$button_font_scale": 0.5
 				}
 			},
 			{
@@ -58,7 +59,8 @@
 					"$button_size": [
 						48,
 						20
-					]
+					],
+					"$button_font_scale": 0.5
 				}
 			},
 			{
@@ -73,7 +75,8 @@
 					"$button_size": [
 						48,
 						20
-					]
+					],
+					"$button_font_scale": 0.5
 				}
 			},
 			{
