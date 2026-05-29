@@ -757,6 +757,43 @@
 		]
 	},
 
+    "dynamic_interface_large": {
+        "type": "panel",
+		"$content": [],
+		"$size": ["100%", 166],
+		"$show_close_button": true,
+        "controls": [
+            { "container_gamepad_helpers@common.container_gamepad_helpers": {} },
+            { "selected_item_details_factory@common.selected_item_details_factory": {} },
+            { "item_lock_notification_factory@common.item_lock_notification_factory": {} },
+            {
+                "root_panel@common.root_panel": {
+                    "size": [ 256, "100%" ],
+                    "layer": 1,
+                    "controls": [
+                        { "content": {
+							"type": "panel",
+							"size": "$size",
+							"controls": [
+								{"close_button@common.close_button": {
+									"visible": "$show_close_button"
+								}},
+								{ "top_half": {
+									"type": "panel",
+									"layer": 5,
+									"controls": "$content"
+								}},
+								{ "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} }
+							]
+                        }},
+                        { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },
+                        { "gamepad_cursor@common.gamepad_cursor_button": {} }
+                    ]
+                }
+            }
+        ]
+    },
+
     "dynamic_interface": {
         "type": "panel",
 		"$content": [],

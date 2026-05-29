@@ -1,10 +1,12 @@
 {
 	"namespace": "astro_miner_dock",
-	"interface@machines.dynamic_interface": {
+	"interface@machines.dynamic_interface_large": {
 		"$size": [
 			"100%",
 			221
 		],
+		"$show_bottom_half": false,
+		"$show_hotbar": false,
 		"$content": [
 			{
 				"title": {
@@ -73,6 +75,26 @@
 					"offset": [
 						234,
 						29
+					]
+				}
+			},
+			{
+				"player_inventory@common.inventory_panel_bottom_half_with_label": {
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						0,
+						129
+					]
+				}
+			},
+			{
+				"player_hotbar@common.hotbar_grid_template": {
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						0,
+						197
 					]
 				}
 			},

@@ -227,6 +227,7 @@ export class GuiMachine {
 	name: string;
 	title: string;
 	ySize: number;
+	xSize: number;
 
 	protected _slots: { idx: number; name: string; ghost?: string; grid?: boolean }[] = [];
 	protected _uiSlotCount = 0;
@@ -234,11 +235,13 @@ export class GuiMachine {
 	protected _barDefs: Record<string, any> = {};
 	protected _showClose = true;
 	protected _showBottomHalf = true;
+	protected _showHotbar = true;
 
-	constructor(name: string, title: string, ySize = 166) {
+	constructor(name: string, title: string, ySize = 166, xSize = 176) {
 		this.name = name;
 		this.title = title;
 		this.ySize = ySize;
+		this.xSize = xSize;
 	}
 
 	// ── Java API: Container slots ──────────────────────────────
@@ -470,6 +473,16 @@ export class GuiMachine {
 		}));
 	}
 
+	/** Manually position the hotbar grid (hides the default template hotbar). Only works with dynamic_interface_large. */
+	drawHotbar(x: number, y: number, opts: { name?: string; anchor?: Anchor } = {}) {
+		this._showHotbar = false;
+		const name = opts.name ?? "player_hotbar";
+		const anchor = opts.anchor ?? "top_left";
+		this._content.push(() => ({
+			[`${name}@common.hotbar_grid_template`]: { anchor_from: anchor, anchor_to: anchor, offset: [x, y] }
+		}));
+	}
+
 	// ── Java API: Buttons & Controls ───────────────────────────
 
 	/** Java: buttonList.add(new GuiButton(id, x, y, w, h, text)) */
@@ -556,8 +569,10 @@ export class GuiMachine {
 		if (this.ySize !== 166) iface.$size = ["100%", this.ySize];
 		if (!this._showClose) iface.$show_close_button = false;
 		if (!this._showBottomHalf) iface.$show_bottom_half = false;
+		if (!this._showHotbar) iface.$show_hotbar = false;
 		iface.$content = this._content.map((fn) => fn());
-		result["interface@machines.dynamic_interface"] = iface;
+		const ifaceName = this.xSize > 176 ? "interface@machines.dynamic_interface_large" : "interface@machines.dynamic_interface";
+		result[ifaceName] = iface;
 		for (const [k, v] of Object.entries(this._barDefs)) result[k] = v;
 		return result;
 	}
@@ -629,8 +644,8 @@ class GuiParameterized extends GuiMachine {
 // Shorthand factory
 // ================================================================
 
-export function gui(name: string, title: string, ySize = 166): GuiMachine {
-	return new GuiMachine(name, title, ySize);
+export function gui(name: string, title: string, ySize = 166, xSize = 176): GuiMachine {
+	return new GuiMachine(name, title, ySize, xSize);
 }
 
 function guiParameterized(name: string, title: string, ySize = 166): GuiParameterized {
