@@ -17,8 +17,8 @@ export function register(reg: MachineRegistry) {
 	// Dock grid: Java (8, 18) → (7, 17)
 	m.slotGrid(7, 17, 12, 6, { name: "dock_slots" });
 
-	// Energy Bar: Java (234, 29) → (233, 28)
-	m.drawEnergyBar(233, 28);
+	// Energy Bar: Java (234, 29) → (233, 28), vertical 8x66
+	m.drawVerticalEnergyBar(233, 28);
 
 	// Player inventory: shift panel by -1
 	m.drawPlayerInventory(-1, 128, { size: [176, 90] });

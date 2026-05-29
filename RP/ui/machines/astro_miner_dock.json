@@ -68,7 +68,7 @@
 				}
 			},
 			{
-				"energy_bar@machines.energy_bar": {
+				"energy_bar@machines.energy_bar_vertical": {
 					"$index": 73,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",

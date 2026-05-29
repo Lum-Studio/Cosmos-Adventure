@@ -304,6 +304,15 @@ export class GuiMachine {
 		return idx;
 	}
 
+	/** Java: drawColorModalRect vertical energy bar (8px wide, 66px tall, fills bottom-to-top) */
+	drawVerticalEnergyBar(x: number, y: number, anchor: Anchor = "top_left"): number {
+		const idx = this._uiSlot();
+		this._content.push(() => ({
+			"energy_bar@machines.energy_bar_vertical": { $index: idx, anchor_from: anchor, anchor_to: anchor, offset: [x, y] },
+		}));
+		return idx;
+	}
+
 	/** Java: int scale = getCappedScaledOxygenLevel(55); drawTexturedModalRect(...) */
 	drawOxygenBar(x: number, y: number, anchor: Anchor = "top_left"): number {
 		const idx = this._uiSlot();

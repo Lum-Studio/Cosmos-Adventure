@@ -249,6 +249,62 @@
 			{ "energy_hover@machines.item_hover": {} }
 		]
 	},
+	"energy_bar_vertical": {
+		"type":"image",
+		"texture": "textures/ui/cosmos/machines/energy_bar_vertical",
+		"size": [ 10, 68 ],
+		"controls": [
+			{ "energy@machines.specific_slot": {
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"controls": [
+					{ "gray_icon": {
+						"type": "image",
+						"texture": "textures/ui/cosmos/slot_overlay/power",
+						"size": [11, 10],
+						"offset": [0, -12],
+						"anchor_from": "top_middle",
+						"anchor_to": "bottom_middle",
+						"color": [0.9, 0.9, 0.9]
+					}},
+					{ "energy_bar": {
+						"type": "panel",
+						"collection_index": "$index",
+						"anchor_from": "bottom_left",
+						"anchor_to": "bottom_left",
+						"offset": [1, -1],
+						"size": [0, 1],
+						"controls": [
+							{ "active_icon": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/slot_overlay/power_active",
+								"size": [11, 10],
+								"offset": [0, -12],
+								"anchor_from": "top_middle",
+								"anchor_to": "bottom_middle",
+								"bindings": "$use_durability",
+								"$source": "#null", "$target": "#null",
+								"$visible_if": "(not (#data = 1000))"
+							}},
+							{ "image": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/machines/energy_bar_vertical_fill",
+								"color": [0.75, 0.66, 0.14],
+								"anchor_from": "bottom_left",
+								"anchor_to": "bottom_left",
+								"size": [8, 1],
+								"bindings": "$use_durability",
+								"$source": "#data",
+								"$target": "#size_binding_y",
+								"$visible_if": "(not (#data = 1000))"
+							}}
+						]
+					}}
+				]
+			}},
+			{ "energy_hover@machines.item_hover": {} }
+		]
+	},
 	"oxygen_bar": {
 		"type":"image",
 		"$oxygen_bg_tex|default": "textures/ui/cosmos/machines/progress_bar",
