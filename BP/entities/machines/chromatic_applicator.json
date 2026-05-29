@@ -48,7 +48,7 @@
                     "cosmos",
 					"power",
 					"machine",
-					"has_power_input"
+					"chromatic_applicator"
                 ]
             },
             "minecraft:collision_box": {
@@ -66,9 +66,9 @@
             },
             "minecraft:inventory": {
                 "container_type": "container",
-                "inventory_size": 13
+                "inventory_size": 6
             },
-            "cosmos:ui": "deconstructor",
+            "cosmos:ui": "chromatic_applicator",
             "minecraft:pushable": {
                 "is_pushable": false,
                 "is_pushable_by_piston": false

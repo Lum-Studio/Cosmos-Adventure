@@ -100,7 +100,7 @@
 								"texture": "('textures/ui/liquids/' + $liquid)",
 								"anchor_from": "bottom_left",
 								"anchor_to": "bottom_left",
-								"size": ["$tank_width", 1],
+								"size": ["100%", 1],
 								"bindings": "$use_durability",
 								"$source": "#data",
 								"$target": "#size_binding_y",
@@ -374,7 +374,7 @@
 					}
 				],
 				"controls": [
-					{"texture": {
+					{"default": {
 						"type": "panel",
 						"controls": [
 							{ "on": {
@@ -398,6 +398,25 @@
 						"texture": "textures/white",
 						"size": ["100% -2px", "100% -2px"],
 						"alpha": 0.2
+					}},
+					{"pressed": {
+						"type": "panel",
+						"controls": [
+							{ "on": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/machines/toggle_on",
+								"bindings": "$use_durability",
+								"$source": "#null", "$target": "#null",
+								"$visible_if": "(#data = 1)"
+							}},
+							{ "off": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/machines/toggle_off",
+								"bindings": "$use_durability",
+								"$source": "#null", "$target": "#null",
+								"$visible_if": "(not (#data = 1))"
+							}}
+						]
 					}}
 				]
 			}}

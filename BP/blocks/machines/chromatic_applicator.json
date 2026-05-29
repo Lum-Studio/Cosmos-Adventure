@@ -13,7 +13,8 @@
     },
     "components": {
       "tag:machine": {},
-      // "cosmos:machine": {},
+      "cosmos:machine": {},
+      "minecraft:display_name": "Chromatic Applicator",
       "minecraft:destructible_by_mining": { "seconds_to_destroy": 0.5 },
       "minecraft:destructible_by_explosion": false,
       "minecraft:movable": { "movement_type": "immovable" },

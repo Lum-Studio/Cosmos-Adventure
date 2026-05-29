@@ -32,7 +32,6 @@
     "ui/machines/cargo_unloader.json",
     "ui/machines/deconstructor.json",
     "ui/machines/oxygen_sealer.json",
-    "ui/machines/painter.json",
     "ui/machines/astro_miner_dock.json",
     "ui/machines/short_range_telepad.json",
     "ui/machines/launch_controller.json",

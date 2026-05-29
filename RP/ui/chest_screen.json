@@ -216,8 +216,8 @@
                 "$screen_background_alpha": 0.4
             },
             {
-                "requires": "(not (($ct - '§p§a§i§n§t§e§r') = $ct))",
-                "$screen_content": "painter.interface",
+                "requires": "(not (($ct - '§c§h§r§o§m§a§t§i§c§_§a§p§p§l§i§c§a§t§o§r') = $ct))",
+                "$screen_content": "chromatic_applicator.interface",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },
