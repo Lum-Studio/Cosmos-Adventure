@@ -153,3 +153,17 @@ export function getPlanetByLocation(location){
         z >= planet.range.start.z && z <= planet.range.end.z)
     )?.class;
 }
+
+/**
+ * Force-closes any open container UI for the player by temporarily teleporting them out of range.
+ * @param {mc.Player} player 
+ */
+export function closeContainerUI(player) {
+	if (!player || !player.isValid) return;
+	const returnPos = { ...player.location };
+	const rot = player.getRotation();
+	player.teleport({ x: returnPos.x, y: returnPos.y + 500, z: returnPos.z });
+	mc.system.run(() => {
+		if (player.isValid) player.teleport(returnPos, { rotation: rot });
+	});
+}

@@ -1,6 +1,6 @@
 import { system, world } from "@minecraft/server";
 import { ModalFormData } from "@minecraft/server-ui";
-import { load_dynamic_object, save_dynamic_object, compare_lists } from "../../../api/utils.js";
+import { load_dynamic_object, save_dynamic_object, compare_lists, closeContainerUI } from "../../../api/utils.js";
 import { charge_from_battery, charge_from_machine } from "../../matter/electricity.js";
 
 // Global address registry: address (int) -> { entityId, location, dimensionId, enabled }
@@ -121,11 +121,8 @@ const data = {
 			container.add_ui_button(2, address >= 0 ? String(address) : "--");
 			const player = findInteractingPlayer(entity);
 			if (player) {
-				const returnPos = { ...player.location };
-				const rot = player.getRotation();
-				player.teleport({ x: returnPos.x, y: returnPos.y + 500, z: returnPos.z });
+				closeContainerUI(player);
 				system.run(() => {
-					player.teleport(returnPos, { rotation: rot });
 					showAddressForm(player, entity, "Set Address", address, "telepad_address");
 				});
 			}
@@ -134,11 +131,8 @@ const data = {
 			container.add_ui_button(3, targetAddress >= 0 ? String(targetAddress) : "--");
 			const player = findInteractingPlayer(entity);
 			if (player) {
-				const returnPos = { ...player.location };
-				const rot = player.getRotation();
-				player.teleport({ x: returnPos.x, y: returnPos.y + 500, z: returnPos.z });
+				closeContainerUI(player);
 				system.run(() => {
-					player.teleport(returnPos, { rotation: rot });
 					showAddressForm(player, entity, "Set Target Address", targetAddress, "telepad_target");
 				});
 			}
