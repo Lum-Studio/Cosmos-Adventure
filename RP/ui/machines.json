@@ -340,6 +340,7 @@
 							"layer": 1,
 							"text": "#hover_text",
 							"shadow": true,
+							"font_scale_factor": 0.5,
 							"bindings": "$fetch_item_hover"
 						}
 					}
