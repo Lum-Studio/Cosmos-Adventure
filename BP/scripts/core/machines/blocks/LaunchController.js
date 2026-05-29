@@ -192,9 +192,9 @@ export class LaunchController extends MachineBlock {
             container.add_ui_display(4, String(destFrequency || 0), 0);
             container.add_ui_display(5, hideDest ? "Unhide Dest" : "Hide Dest", 0);
             container.add_ui_display(6, "Advanced...", 0);
-            let status = "A 2Active";
-            if (energy <= 0) status = "A 4Not Enough Power";
-            else if (enabled) status = "A 6Disabled";
+            let status = "§2Active";
+            if (energy <= 0) status = "§4Not Enough Power";
+            else if (enabled) status = "§6Disabled";
             container.add_ui_display(7, status, 0);
         }
     }
