@@ -27,6 +27,9 @@ export function return_to_earth(player, player_data){
     player.inputPermissions.setPermissionCategory(6, true)
     player.setDynamicProperty('in_the_rocket')
 
+    let player_not_on_ground = true;
+    let parachest_was_placed = false;
+
     let overworld = world.getDimension("overworld");
     
     const space_gear = JSON.parse(player.getDynamicProperty("space_gear") ?? '{}')
@@ -45,15 +48,15 @@ export function return_to_earth(player, player_data){
         parachest.setProperty("cosmos:parachute", parachute_color ?? 11);
         parachest.addEffect("slow_falling", 9999, {showParticles: false, amplifier: 3})
     }
-    let player_not_on_ground = true;
+
     let player_falling = system.runInterval(() => {
-        if(player_not_on_ground && player.getVelocity().y >= 0 && player.location.y < 250){
+        if(player_not_on_ground && player.getVelocity().y >= 0 && player.location.y < 254){
             player.removeEffect("slow_falling");
             player.setProperty("cosmos:parachute", 16);
             player_not_on_ground = false;
             if(!parachest) system.clearRun(player_falling)
         }
-        if(parachest && parachest.isValid && ((parachest.getVelocity().y >= 0 && parachest.location.y < 250) || parachest.location.y < -64)){
+        if(parachest && parachest.isValid && ((parachest.getVelocity().y >= 0 && parachest.location.y < 250) || parachest.location.y < -64) && !parachest_was_placed){
             system.runTimeout(() => {
                 let parachest_loc = parachest.location;
                 parachest_loc.y = Math.max(parachest_loc.y, -64)
@@ -66,8 +69,10 @@ export function return_to_earth(player, player_data){
                     saved_rocket_items.delete(player_data.id);
                 }, 5);
             }, 10);
-            system.clearRun(player_falling);
+            parachest_was_placed = true;
+            if(!player_not_on_ground) system.clearRun(player_falling);
         }
+        if(parachest_was_placed && !player_not_on_ground) system.clearRun(player_falling);
     });
 }
 

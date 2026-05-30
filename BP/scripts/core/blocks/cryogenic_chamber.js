@@ -1,4 +1,4 @@
-import { world, system, BlockPermutation, CatmullRomSpline, AnimationOptions, EasingType, LinearSpline } from "@minecraft/server"
+import { world, system, BlockPermutation, CatmullRomSpline, EasingType } from "@minecraft/server"
 
 
 export const cryogenic_chamber_component = {
@@ -91,7 +91,6 @@ function play_camera_animation(player, pos, degree, cam_degree){
         { x: pos.x + 0.5 + Math.cos((234 + degree)/57.2957795147) * 5, y: pos.y + 2, z: pos.z + 0.5 + Math.sin((234 + degree)/57.2957795147) * 5 },
         { x: pos.x + 0.5 + Math.cos((252 + degree)/57.2957795147) * 5, y: pos.y + 2, z: pos.z + 0.5 + Math.sin((252 + degree)/57.2957795147) * 5 },
         { x: pos.x + 0.5 + Math.cos((270 + degree)/57.2957795147) * 5.05, y: pos.y + 2, z: pos.z + 0.5 + Math.sin((270 + degree)/57.2957795147) * 5.05 },
-
     ];
 
     const progressKeyFrames = [
