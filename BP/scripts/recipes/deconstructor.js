@@ -1,6 +1,6 @@
 export const recipes = { 
    "minecraft:activator_rail": {
-      "minecraft:iron_ingot": 6
+      "minecraft:iron_ingot": 1
    },
    "cosmos:advanced_compressor": {
       "cosmos:compressed_steel": 4,
@@ -17,14 +17,10 @@ export const recipes = {
       "cosmos:basic_wafer": 1
    },
    "cosmos:air_lock_frame": {
-      "cosmos:compressed_aluminum": 6,
-      "cosmos:compressed_steel": 2
+      "cosmos:compressed_aluminum": 1
    },
    "cosmos:aluminum_block": {
       "cosmos:aluminum_ingot": 9
-   },
-   "cosmos:aluminum_wire": {
-      "cosmos:aluminum_ingot": 3
    },
    "cosmos:ambient_thermal_controller": {
       "cosmos:compressed_steel": 1,
@@ -38,7 +34,7 @@ export const recipes = {
       "cosmos:desh_ingot": 4
    },
    "cosmos:astro_miner_base": {
-      "cosmos:compressed_desh": 4
+      "cosmos:compressed_desh": 1
    },
    "cosmos:atmospheric_valve": {
       "cosmos:desh_ingot": 3
@@ -63,16 +59,13 @@ export const recipes = {
       "minecraft:iron_ingot": 5
    },
    "minecraft:bolt_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "minecraft:brush": {
       "minecraft:copper_ingot": 1
    },
    "minecraft:bucket": {
       "minecraft:iron_ingot": 3
-   },
-   "cosmos:buggy_fueling_pad": {
-      "cosmos:compressed_steel": 3
    },
    "cosmos:buggy_seat": {
       "cosmos:compressed_steel": 2,
@@ -102,9 +95,6 @@ export const recipes = {
    "cosmos:circuit_fabricator": {
       "cosmos:aluminum_ingot": 2
    },
-   "cosmos:clear_vacuum_glass": {
-      "cosmos:aluminum_ingot": 4
-   },
    "minecraft:clock": {
       "minecraft:gold_ingot": 4
    },
@@ -113,7 +103,7 @@ export const recipes = {
       "minecraft:copper_ingot": 3
    },
    "minecraft:coast_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "cosmos:communications_dish": {
       "cosmos:advanced_wafer": 2,
@@ -130,9 +120,6 @@ export const recipes = {
    "minecraft:copper_axe": {
       "minecraft:copper_ingot": 3
    },
-   "minecraft:copper_bars": {
-      "minecraft:copper_ingot": 6
-   },
    "minecraft:copper_block": {
       "minecraft:copper_ingot": 9
    },
@@ -140,7 +127,7 @@ export const recipes = {
       "minecraft:copper_ingot": 4
    },
    "cosmos:copper_canister": {
-      "minecraft:copper_ingot": 7
+      "minecraft:copper_ingot": 3
    },
    "minecraft:copper_chain": {
       "minecraft:copper_ingot": 1
@@ -159,9 +146,6 @@ export const recipes = {
    },
    "minecraft:copper_leggings": {
       "minecraft:copper_ingot": 7
-   },
-   "minecraft:copper_nugget": {
-      "minecraft:copper_ingot": 1
    },
    "minecraft:copper_pickaxe": {
       "minecraft:copper_ingot": 3
@@ -182,7 +166,7 @@ export const recipes = {
       "minecraft:iron_ingot": 5
    },
    "minecraft:copper_door": {
-      "minecraft:copper_ingot": 6
+      "minecraft:copper_ingot": 2
    },
    "minecraft:copper_trapdoor": {
       "minecraft:copper_ingot": 4
@@ -233,11 +217,8 @@ export const recipes = {
    "cosmos:desh_sword": {
       "cosmos:desh_ingot": 2
    },
-   "cosmos:detailed_tin_decoration_block": {
-      "cosmos:compressed_tin": 1
-   },
    "minecraft:detector_rail": {
-      "minecraft:iron_ingot": 6
+      "minecraft:iron_ingot": 1
    },
    "minecraft:diamond_axe": {
       "minecraft:diamond": 3
@@ -277,7 +258,7 @@ export const recipes = {
       "cosmos:basic_wafer": 4
    },
    "minecraft:dune_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "cosmos:electric_arc_furnace": {
       "cosmos:meteoric_iron_ingot": 2,
@@ -312,10 +293,10 @@ export const recipes = {
       "cosmos:compressed_steel": 6
    },
    "minecraft:eye_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "minecraft:flow_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "cosmos:fluid_manifulator": {
       "cosmos:advanced_wafer": 1,
@@ -368,7 +349,7 @@ export const recipes = {
       "minecraft:gold_ingot": 3
    },
    "minecraft:golden_rail": {
-      "minecraft:gold_ingot": 6
+      "minecraft:gold_ingot": 1
    },
    "minecraft:golden_shovel": {
       "minecraft:gold_ingot": 1
@@ -384,9 +365,6 @@ export const recipes = {
    },
    "minecraft:gold_ingot": {
       "minecraft:gold_nugget": 9
-   },
-   "minecraft:gold_nugget": {
-      "minecraft:gold_ingot": 1
    },
    "cosmos:grapple": {
       "minecraft:iron_ingot": 3
@@ -411,17 +389,10 @@ export const recipes = {
       "minecraft:iron_ingot": 5
    },
    "minecraft:host_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
-   },
-   "cosmos:hydraulic_platform": {
-      "cosmos:basic_wafer": 1,
-      "cosmos:compressed_steel": 2
+      "minecraft:diamond": 3
    },
    "minecraft:iron_axe": {
       "minecraft:iron_ingot": 3
-   },
-   "minecraft:iron_bars": {
-      "minecraft:iron_ingot": 6
    },
    "minecraft:iron_block": {
       "minecraft:iron_ingot": 9
@@ -433,7 +404,7 @@ export const recipes = {
       "minecraft:iron_ingot": 8
    },
    "minecraft:iron_door": {
-      "minecraft:iron_ingot": 6
+      "minecraft:iron_ingot": 2
    },
    "minecraft:iron_helmet": {
       "minecraft:iron_ingot": 5
@@ -443,9 +414,6 @@ export const recipes = {
    },
    "minecraft:iron_leggings": {
       "minecraft:iron_ingot": 7
-   },
-   "minecraft:iron_nugget": {
-      "minecraft:iron_ingot": 1
    },
    "minecraft:iron_pickaxe": {
       "minecraft:iron_ingot": 3
@@ -499,7 +467,7 @@ export const recipes = {
       "cosmos:compressed_steel": 4
    },
    "minecraft:netherite_upgrade_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "cosmos:nose_cone": {
       "cosmos:heavy_duty_plate": 3
@@ -550,20 +518,14 @@ export const recipes = {
    "cosmos:oxygen_tank_med_full": {
       "cosmos:compressed_tin": 2
    },
-   "cosmos:pipe_walkway": {
-      "cosmos:compressed_titanium": 4
-   },
-   "minecraft:rail": {
-      "minecraft:iron_ingot": 6
-   },
    "minecraft:raiser_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "cosmos:refinery": {
       "cosmos:compressed_steel": 2
    },
    "minecraft:rib_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "cosmos:rocket_engine": {
       "cosmos:heavy_duty_plate": 4
@@ -571,9 +533,6 @@ export const recipes = {
    "cosmos:rocket_fins": {
       "cosmos:heavy_duty_plate": 4,
       "cosmos:compressed_steel": 2
-   },
-   "cosmos:rocket_launch_pad": {
-      "cosmos:compressed_iron": 3
    },
    "minecraft:saddle": {
       "minecraft:iron_ingot": 1
@@ -586,22 +545,22 @@ export const recipes = {
       "cosmos:compressed_meteoric_iron": 1
    },
    "minecraft:sentry_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "minecraft:shaper_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "minecraft:shears": {
       "minecraft:iron_ingot": 2
    },
    "minecraft:silence_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "cosmos:slimeling_bag": {
       "minecraft:diamond": 1
    },
    "minecraft:snout_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "cosmos:solar_array_controller": {
       "cosmos:compressed_steel": 4,
@@ -619,7 +578,7 @@ export const recipes = {
       "cosmos:meteoric_iron_ingot": 1
    },
    "minecraft:spire_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "cosmos:spotlight_lighting_panel": {
       "cosmos:compressed_steel": 1
@@ -653,7 +612,7 @@ export const recipes = {
       "cosmos:compressed_steel": 3
    },
    "cosmos:steel_pole": {
-      "cosmos:compressed_steel": 3
+      "cosmos:compressed_steel": 1
    },
    "cosmos:steel_shovel": {
       "cosmos:compressed_steel": 1
@@ -663,9 +622,6 @@ export const recipes = {
    },
    "minecraft:stonecutter_block": {
       "minecraft:iron_ingot": 1
-   },
-   "cosmos:strong_vacuum_glass": {
-      "cosmos:compressed_aluminum": 4
    },
    "cosmos:telemetry_unit": {
       "cosmos:basic_wafer": 1,
@@ -680,7 +636,7 @@ export const recipes = {
       "cosmos:desh_ingot": 4
    },
    "minecraft:tide_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "cosmos:tier_1_booster": {
       "cosmos:heavy_duty_plate": 2,
@@ -690,10 +646,7 @@ export const recipes = {
       "cosmos:tin_ingot": 9
    },
    "cosmos:tin_canister": {
-      "cosmos:tin_ingot": 7
-   },
-   "cosmos:tin_decoration_block": {
-      "cosmos:compressed_tin": 1
+      "cosmos:tin_ingot": 3
    },
    "cosmos:titanium_axe": {
       "minecraft:iron_ingot": 2,
@@ -730,29 +683,20 @@ export const recipes = {
       "minecraft:iron_ingot": 1,
       "cosmos:compressed_titanium": 2
    },
-   "cosmos:vacuum_glass": {
-      "cosmos:tin_ingot": 4
-   },
    "minecraft:vex_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
-   },
-   "cosmos:walkway": {
-      "cosmos:compressed_titanium": 4
+      "minecraft:diamond": 3
    },
    "minecraft:ward_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "cosmos:water_electrolyzer": {
       "cosmos:compressed_copper": 2,
       "cosmos:compressed_bronze": 1
    },
    "minecraft:wayfinder_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
+      "minecraft:diamond": 3
    },
    "minecraft:wild_armor_trim_smithing_template": {
-      "minecraft:diamond": 7
-   },
-   "cosmos:wire_walkway": {
-      "cosmos:compressed_titanium": 4
+      "minecraft:diamond": 3
    }
 }
