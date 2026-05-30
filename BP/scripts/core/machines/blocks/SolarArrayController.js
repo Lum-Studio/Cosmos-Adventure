@@ -11,7 +11,10 @@ const data = {
 	onTick(entity, block) {
 		const e = entity;
 		let stopped = e.getDynamicProperty('stopped');
-		if (stopped == undefined) stopped = true;
+		if (stopped == undefined) {
+			stopped = true;
+			e.setDynamicProperty('stopped', true);
+		}
 		const container = e.getComponent('minecraft:inventory').container;
 
 		const variables = load_dynamic_object(e, "machine_data");
@@ -24,12 +27,17 @@ const data = {
 
 		let first_values = [energy, power, connected_panels, possible_panels, environment, is_generating, stopped];
 
+		if (container.was_ui_clicked(5, entity)) {
+			stopped = !stopped;
+			e.setDynamicProperty('stopped', stopped);
+		}
+
+		let planet = e.getPlanet();
+		let time = planet ? planet.getTimeOfDay() : world.getTimeOfDay();
+		let daylight_length = planet ? planet.time.day : 12000;
+		let is_day_time = (time <= daylight_length);
+
 		if (!(system.currentTick % 20)) {
-			let planet = e.getPlanet();
-			let time = planet ? planet.getTimeOfDay() : world.getTimeOfDay();
-			let daylight_length = planet ? planet.time.day : 12000;
-			
-			let is_day_time = (time <= daylight_length);
 
 			if (!stopped && block != undefined) {
 				// Count connected solar array modules
@@ -137,8 +145,8 @@ const data = {
 			container.add_ui_display(3, environment_text);
 			container.add_ui_display(4, connected_panels_text);
 			
-			// Button ID 0 is the Enable/Disable toggle button
-			container.add_ui_button(0, stopped ? 'Enable' : 'Disable', entity, 'stopped', !stopped);
+			// Button ID 0 in datagen maps to UI index 5
+			container.add_ui_button(5, stopped ? 'Enable' : 'Disable');
 		}
 	}
 }; 

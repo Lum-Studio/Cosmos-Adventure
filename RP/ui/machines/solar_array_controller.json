@@ -76,19 +76,6 @@
 				}
 			},
 			{
-				"inventory": {
-					"type": "label",
-					"text": "Inventory",
-					"color": "$title_text_color",
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [
-						8,
-						115
-					]
-				}
-			},
-			{
 				"enable_button@machines.machine_button": {
 					"$index": 5,
 					"anchor_from": "top_left",

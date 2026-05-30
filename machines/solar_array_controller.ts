@@ -21,8 +21,6 @@ export function register(reg: MachineRegistry) {
 	// Label "Connected Panels: ": x=0 (centered), y=79
 	m.drawStatusText(0, 79, { name: "connected_panels", anchor: "top_middle" });
 
-	// Label "Inventory": x=8, y=115
-	m.drawString("Inventory", 8, 115);
 
 	// Button id 0: x=52, y=93, w=72, h=20
 	m.addButton(52, 93, { name: "enable_button" });
