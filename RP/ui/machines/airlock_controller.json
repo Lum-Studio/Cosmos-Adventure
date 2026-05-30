@@ -13,14 +13,13 @@
 				}
 			},
 			{
-				"title": {
-					"type": "label",
-					"text": "Airlock Controller",
-					"color": "$title_text_color",
-					"font_scale_factor": 0.8,
+				"title@machines.item_text": {
+					"$index": 7,
+					"$text_font_scale": 0.8,
+					"$alignment": "center",
 					"anchor_from": "top_middle",
 					"anchor_to": "top_middle",
-					"offset": [0, 5]
+					"offset": [0, 4]
 				}
 			},
 			{
@@ -37,7 +36,7 @@
 					"$text_font_scale": 0.8,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [22, 19]
+					"offset": [22, 20]
 				}
 			},
 			{
@@ -45,7 +44,7 @@
 					"$index": 1,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [6, 34]
+					"offset": [6, 33]
 				}
 			},
 			{
@@ -58,80 +57,106 @@
 				}
 			},
 			{
-				"distance_value@machines.machine_toggle": {
+				"distance_value@machines.machine_textbox": {
 					"$index": 2,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [6, 50]
+					"offset": [99, 32],
+					"$button_size": [70, 14],
+					"$button_font_scale": 0.8
 				}
 			},
 			{
-				"distance_value_text@machines.item_text": {
-					"$index": 2,
-					"$text_font_scale": 0.8,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [22, 51]
-				}
-			},
-			{
-				"owner_only@machines.machine_toggle": {
+				"player_name@machines.machine_toggle": {
 					"$index": 3,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [6, 66]
+					"offset": [22, 49]
 				}
 			},
 			{
-				"owner_only_text@machines.item_text": {
+				"player_name_text@machines.item_text": {
 					"$index": 3,
 					"$text_font_scale": 0.8,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [22, 67]
+					"offset": [38, 51]
+				}
+			},
+			{
+				"arrow_icon": {
+					"type": "label",
+					"text": "↳",
+					"font_scale_factor": 1.5,
+					"color": "$title_text_color",
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [11, 48]
+				}
+			},
+			{
+				"player_textbox@machines.machine_textbox": {
+					"$index": 4,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [29, 64],
+					"$button_size": [110, 15],
+					"$button_font_scale": 0.8
 				}
 			},
 			{
 				"invert@machines.machine_toggle": {
-					"$index": 4,
+					"$index": 5,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [6, 82]
+					"offset": [6, 80]
 				}
 			},
 			{
 				"invert_text@machines.item_text": {
-					"$index": 4,
+					"$index": 5,
 					"$text_font_scale": 0.8,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [22, 83]
+					"offset": [22, 82]
 				}
 			},
 			{
 				"horizontal@machines.machine_toggle": {
-					"$index": 5,
+					"$index": 6,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [6, 98]
+					"offset": [6, 96]
 				}
 			},
 			{
 				"horizontal_text@machines.item_text": {
-					"$index": 5,
+					"$index": 6,
 					"$text_font_scale": 0.8,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [22, 99]
+					"offset": [22, 98]
+				}
+			},
+			{
+				"status_label": {
+					"type": "label",
+					"text": "Status:",
+					"color": "$title_text_color",
+					"font_scale_factor": 0.8,
+					"anchor_from": "bottom_middle",
+					"anchor_to": "bottom_middle",
+					"offset": [0, -20]
 				}
 			},
 			{
 				"status_text@machines.item_text": {
-					"$index": 6,
+					"$index": 8,
 					"$text_font_scale": 0.8,
+					"$alignment": "center",
 					"anchor_from": "bottom_middle",
 					"anchor_to": "bottom_middle",
-					"offset": [0, -6]
+					"offset": [0, -10]
 				}
 			}
 		]

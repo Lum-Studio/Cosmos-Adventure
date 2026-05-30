@@ -1,5 +1,37 @@
 import * as mc from "@minecraft/server";
-import { load_dynamic_object, save_dynamic_object } from "../../../api/utils";
+import { ModalFormData } from "@minecraft/server-ui";
+import { load_dynamic_object, save_dynamic_object, closeContainerUI } from "../../../api/utils";
+
+function findInteractingPlayer(entity) {
+    const loc = entity.location;
+    return entity.dimension.getPlayers({
+        location: { x: loc.x, y: loc.y, z: loc.z },
+        maxDistance: 6,
+    })[0];
+}
+
+function showPlayerNameForm(player, entity, currentName) {
+    let attempts = 0;
+    const tryShow = () => {
+        if (attempts++ > 12 || !player.isValid) return;
+        const form = new ModalFormData()
+            .title("Player to open for")
+            .textField("Enter player name:", "Player Name", { defaultValue: currentName || "" });
+
+        form.show(player).then(response => {
+            if (response.canceled && response.cancelationReason === "UserBusy") {
+                mc.system.runTimeout(tryShow, 5);
+                return;
+            }
+            if (response.canceled) return;
+            const name = response.formValues[0];
+            if (name != null) {
+                entity.setDynamicProperty("airlock_player_name", name);
+            }
+        });
+    };
+    tryShow();
+}
 
 const data = {
     ui: "§a§i§r§l§o§c§k§_§c§o§n§t§r§o§l§l§e§r",
@@ -11,76 +43,110 @@ const data = {
         
         save_dynamic_object(entity, {
             ownerName: ownerName,
-            redstoneActivation: 0,
-            playerDistanceActivation: 0,
-            playerDistanceSelection: 2,
-            ownerOnly: false,
+            redstoneActivation: false,
+            playerDistanceActivation: true,
+            playerDistanceSelection: 0,
+            playerNameMatches: false,
+            playerToOpenFor: "",
             invertSelection: false,
             horizontalModeEnabled: false,
         }, "machine_data");
     },
     onTick(entity, block) {
         const vars = load_dynamic_object(entity, "machine_data");
-        let redstoneActivation = vars.redstoneActivation ?? 0;
-        let playerDistanceActivation = vars.playerDistanceActivation ?? 0;
-        let playerDistanceSelection = vars.playerDistanceSelection ?? 2;
-        let ownerOnly = vars.ownerOnly ?? false;
+        let redstoneActivation = vars.redstoneActivation ?? false;
+        let playerDistanceActivation = vars.playerDistanceActivation ?? true;
+        let playerDistanceSelection = vars.playerDistanceSelection ?? 0;
+        let playerNameMatches = vars.playerNameMatches ?? false;
+        let playerToOpenFor = vars.playerToOpenFor ?? "";
         let invertSelection = vars.invertSelection ?? false;
         let horizontalModeEnabled = vars.horizontalModeEnabled ?? false;
         const ownerName = vars.ownerName ?? "";
         
         const container = entity.getComponent('minecraft:inventory').container;
 
-        if (container.was_ui_clicked(0, entity)) { redstoneActivation = (redstoneActivation + 1) % 3; }
-        if (container.was_ui_clicked(1, entity)) { playerDistanceActivation = (playerDistanceActivation + 1) % 3; }
+        // Pick up player name from form submission
+        const newPlayerName = entity.getDynamicProperty("airlock_player_name");
+        if (newPlayerName != null) {
+            playerToOpenFor = newPlayerName;
+            entity.setDynamicProperty("airlock_player_name", undefined);
+        }
+
+        let ui_initialized = entity.getDynamicProperty("ui_initialized");
+        if (!ui_initialized) {
+            entity.setDynamicProperty("ui_initialized", true);
+        } else {
+            // slot 4: Player name textbox (opens text input form)
+            // Check BEFORE was_ui_clicked so cursor isn't swept
+            if (!container.getItem(4)) {
+                const item = new mc.ItemStack('cosmos:ui_button');
+                item.nameTag = playerToOpenFor || "§7(click to set)";
+                container.setItem(4, item);
+                const player = findInteractingPlayer(entity);
+                if (player) {
+                    closeContainerUI(player);
+                    mc.system.run(() => {
+                        showPlayerNameForm(player, entity, playerToOpenFor);
+                    });
+                }
+            }
+        }
+
+        // slot 0: Redstone Signal checkbox
+        if (container.was_ui_clicked(0, entity)) { redstoneActivation = !redstoneActivation; }
+        // slot 1: Player Within checkbox
+        if (container.was_ui_clicked(1, entity)) { playerDistanceActivation = !playerDistanceActivation; }
+        // slot 2: Distance dropdown (cycle 0-3)
         if (container.was_ui_clicked(2, entity)) { playerDistanceSelection = (playerDistanceSelection + 1) % 4; }
-        if (container.was_ui_clicked(3, entity)) { ownerOnly = !ownerOnly; }
-        if (container.was_ui_clicked(4, entity)) { invertSelection = !invertSelection; }
-        if (container.was_ui_clicked(5, entity)) { horizontalModeEnabled = !horizontalModeEnabled; }
+        // slot 3: Player Name checkbox
+        if (container.was_ui_clicked(3, entity)) { playerNameMatches = !playerNameMatches; }
+        // slot 5: Invert Selection checkbox
+        if (container.was_ui_clicked(5, entity)) { invertSelection = !invertSelection; }
+        // slot 6: Horizontal Mode checkbox
+        if (container.was_ui_clicked(6, entity)) { horizontalModeEnabled = !horizontalModeEnabled; }
 
         save_dynamic_object(entity, {
             ownerName: ownerName,
             redstoneActivation: redstoneActivation,
             playerDistanceActivation: playerDistanceActivation,
             playerDistanceSelection: playerDistanceSelection,
-            ownerOnly: ownerOnly,
+            playerNameMatches: playerNameMatches,
+            playerToOpenFor: playerToOpenFor,
             invertSelection: invertSelection,
             horizontalModeEnabled: horizontalModeEnabled,
         }, "machine_data");
 
-        const redstonePower = block.getRedstonePower ? block.getRedstonePower() : 0;
-        const redstoneActive = redstonePower > 0;
-        
-        let playerInRange = false;
-        if (playerDistanceActivation !== 0) {
-            const players = entity.dimension.getPlayers({ location: block.location, maxDistance: playerDistanceSelection });
-            if (ownerOnly) {
-                playerInRange = players.some(p => p.name === ownerName);
+        // --- Activation logic (matches Java TileEntityAirLockController) ---
+        let active = false;
+
+        if (redstoneActivation) {
+            const redstonePower = block.getRedstonePower ? block.getRedstonePower() : 0;
+            active = redstonePower > 0;
+        }
+
+        if ((active || !redstoneActivation) && playerDistanceActivation) {
+            const distances = [1, 2, 5, 10];
+            const dist = distances[playerDistanceSelection] ?? 1;
+            const players = entity.dimension.getPlayers({ location: block.location, maxDistance: dist });
+
+            if (playerNameMatches) {
+                let foundPlayer = false;
+                for (const p of players) {
+                    if (p.name.toLowerCase() === playerToOpenFor.toLowerCase()) {
+                        foundPlayer = true;
+                        break;
+                    }
+                }
+                active = foundPlayer;
             } else {
-                playerInRange = players.length > 0;
+                active = players.length > 0;
             }
         }
-        
-        let openCount = 0;
-        let closeCount = 0;
 
-        if (redstoneActivation === 1) {
-            if (redstoneActive) openCount++; else closeCount++;
-        } else if (redstoneActivation === 2) {
-            if (redstoneActive) closeCount++; else openCount++;
+        if (!invertSelection) {
+            active = !active;
         }
 
-        if (playerDistanceActivation === 1) {
-            if (playerInRange) openCount++; else closeCount++;
-        } else if (playerDistanceActivation === 2) {
-            if (playerInRange) closeCount++; else openCount++;
-        }
-
-        let open = (openCount > 0); 
-        if (invertSelection) open = !open;
-
-        const active = !open; // active means SEALED
-        
         // Trace airlock frame
         const bounds = traceAirlock(block, horizontalModeEnabled);
         
@@ -89,29 +155,36 @@ const data = {
             fillAirlock(entity.dimension, bounds, active);
         }
         
-        // Redraw UI toggles with labels
-        const redstoneText = redstoneActivation === 0 ? "Redstone: Ignore" : (redstoneActivation === 1 ? "Redstone: Opens" : "Redstone: Closes");
-        const distText = playerDistanceActivation === 0 ? "Distance: Ignore" : (playerDistanceActivation === 1 ? "Distance: Opens" : "Distance: Closes");
-        const distVal = playerDistanceSelection === 0 ? "Within 1m" : (playerDistanceSelection === 1 ? "Within 2m" : (playerDistanceSelection === 2 ? "Within 5m" : "Within 10m"));
+        // --- Redraw UI ---
+        const distLabels = ["1 Meter", "2 Meter", "5 Meter", "10 Meter"];
         
         function setToggle(container, slot, isOn, text) {
-            const item = new (mc.ItemStack)('cosmos:ui_button');
+            const item = new mc.ItemStack('cosmos:ui_button');
             const dur = item.getComponent('durability');
             if (dur) dur.damage = isOn ? dur.maxDurability - 1 : dur.maxDurability;
             item.nameTag = text;
             container.setItem(slot, item);
         }
 
-        setToggle(container, 0, redstoneActivation !== 0, redstoneText);
-        setToggle(container, 1, playerDistanceActivation !== 0, distText);
-        setToggle(container, 2, true, distVal);
-        setToggle(container, 3, ownerOnly, ownerOnly ? "Open for Owner" : "Open for Any");
-        setToggle(container, 4, invertSelection, invertSelection ? "Inverted: Yes" : "Inverted: No");
-        setToggle(container, 5, horizontalModeEnabled, horizontalModeEnabled ? "Horizontal" : "Vertical");
+        function setText(container, slot, text) {
+            const item = new mc.ItemStack('cosmos:ui_button');
+            item.nameTag = text;
+            container.setItem(slot, item);
+        }
+
+        setToggle(container, 0, redstoneActivation, "Redstone Signal");
+        setToggle(container, 1, playerDistanceActivation, "Player Within: ");
+        setText(container, 2, distLabels[playerDistanceSelection]);
+        setToggle(container, 3, playerNameMatches, "Player Name is: ");
+        container.add_ui_button(4, playerToOpenFor || "§7(click to set)");
+        setToggle(container, 5, invertSelection, "Invert Selection");
+        setToggle(container, 6, horizontalModeEnabled, "Horizontal Mode");
         
-        const statusItem = new mc.ItemStack('cosmos:ui_button');
-        statusItem.nameTag = active ? "§cAir Lock Closed" : "§aAir Lock Open";
-        container.setItem(6, statusItem);
+        // slot 7: title (owner name)
+        setText(container, 7, ownerName + "'s Air Lock Controller");
+
+        // slot 8: status
+        setText(container, 8, active ? "§cAir Lock Closed" : "§aAir Lock Open");
     }
 };
 
@@ -130,79 +203,52 @@ function traceAirlock(startBlock, horizontalModeEnabled) {
     
     while (queue.length > 0) {
         const current = queue.shift();
+        const { x, y, z } = current.location;
         
-        minX = Math.min(minX, current.location.x);
-        maxX = Math.max(maxX, current.location.x);
-        minY = Math.min(minY, current.location.y);
-        maxY = Math.max(maxY, current.location.y);
-        minZ = Math.min(minZ, current.location.z);
-        maxZ = Math.max(maxZ, current.location.z);
+        minX = Math.min(minX, x);
+        maxX = Math.max(maxX, x);
+        minY = Math.min(minY, y);
+        maxY = Math.max(maxY, y);
+        minZ = Math.min(minZ, z);
+        maxZ = Math.max(maxZ, z);
         
-        const dirs = [
-            {x: 1, y: 0, z: 0}, {x: -1, y: 0, z: 0},
-            {x: 0, y: 1, z: 0}, {x: 0, y: -1, z: 0},
-            {x: 0, y: 0, z: 1}, {x: 0, y: 0, z: -1}
-        ];
+        if (maxX - minX > 20 || maxY - minY > 20 || maxZ - minZ > 20) {
+            return null;
+        }
         
-        for (const dir of dirs) {
-            const nx = current.location.x + dir.x;
-            const ny = current.location.y + dir.y;
-            const nz = current.location.z + dir.z;
+        const directions = horizontalModeEnabled
+            ? [[-1,0,0],[1,0,0],[0,0,-1],[0,0,1]]
+            : [[-1,0,0],[1,0,0],[0,-1,0],[0,1,0],[0,0,-1],[0,0,1]];
+        
+        for (const [dx, dy, dz] of directions) {
+            const nx = x + dx;
+            const ny = y + dy;
+            const nz = z + dz;
             const key = `${nx},${ny},${nz}`;
             
-            if (!visited.has(key)) {
-                if (Math.abs(nx - startBlock.location.x) > 20 || 
-                    Math.abs(ny - startBlock.location.y) > 20 || 
-                    Math.abs(nz - startBlock.location.z) > 20) {
-                    continue;
+            if (visited.has(key)) continue;
+            
+            try {
+                const block = startBlock.dimension.getBlock({x: nx, y: ny, z: nz});
+                if (block && (block.typeId === "cosmos:airlock_frame" || block.typeId === "cosmos:airlock_controller")) {
+                    visited.add(key);
+                    queue.push(block);
                 }
-                
-                try {
-                    const block = startBlock.dimension.getBlock({x: nx, y: ny, z: nz});
-                    if (block && (block.typeId === "cosmos:airlock_frame" || block.typeId === "cosmos:airlock_controller")) {
-                        visited.add(key);
-                        queue.push(block);
-                    }
-                } catch (e) {}
-            }
+            } catch (e) {}
         }
     }
     
-    let sizeX = maxX - minX + 1;
-    let sizeY = maxY - minY + 1;
-    let sizeZ = maxZ - minZ + 1;
+    if (visited.size < 5) return null;
     
-    if (horizontalModeEnabled) {
-        if (sizeX >= 3 && sizeZ >= 3 && sizeY === 1) {
-            return {
-                minX: minX + 1, maxX: maxX - 1,
-                minY: minY, maxY: maxY,
-                minZ: minZ + 1, maxZ: maxZ - 1
-            };
-        }
-    } else {
-        if (sizeX >= 3 && sizeY >= 3 && sizeZ === 1) {
-            return {
-                minX: minX + 1, maxX: maxX - 1,
-                minY: minY + 1, maxY: maxY - 1,
-                minZ: minZ, maxZ: maxZ
-            };
-        } else if (sizeZ >= 3 && sizeY >= 3 && sizeX === 1) {
-            return {
-                minX: minX, maxX: maxX,
-                minY: minY + 1, maxY: maxY - 1,
-                minZ: minZ + 1, maxZ: maxZ - 1
-            };
-        }
-    }
-    
-    return null;
+    return { minX, maxX, minY, maxY, minZ, maxZ, dimension: startBlock.dimension };
 }
 
 function fillAirlock(dimension, bounds, active) {
-    for (let x = bounds.minX; x <= bounds.maxX; x++) {
-        for (let y = bounds.minY; y <= bounds.maxY; y++) {
-            for (let z = bounds.minZ; z <= bounds.maxZ; z++) {
+    const { minX, maxX, minY, maxY, minZ, maxZ } = bounds;
+    
+    for (let x = minX + 1; x < maxX; x++) {
+        for (let y = minY + 1; y < maxY; y++) {
+            for (let z = minZ + 1; z < maxZ; z++) {
                 try {
                     const block = dimension.getBlock({x, y, z});
                     if (block) {
