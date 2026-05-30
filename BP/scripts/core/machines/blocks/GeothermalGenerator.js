@@ -26,7 +26,7 @@ const data = {
 				block_below = block_below.below();
 				if (!block_below) break;
 				const type = block_below.typeId;
-				if (type.includes("spout") || type.includes("magma") || type.includes("lava")) {
+				if (type.includes("spout")) {
 					is_valid = true;
 					distance = i;
 					break;
