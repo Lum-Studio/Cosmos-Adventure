@@ -5,8 +5,8 @@ import { charge_from_battery, charge_from_machine } from "../../matter/electrici
 
 const SALVAGE_CHANCE = 0.75;
 const PROCESS_TIME_REQUIRED = 250;
-const BatterySlot = 0;
-const InputSlot = 1;
+const BatterySlot = 9;
+const InputSlot = 10;
 
 // Only these items can be salvaged from the deconstructor (matching Java's salvageable list)
 const salvageable = [
@@ -104,7 +104,7 @@ function randomChanceList(items) {
 
 function addToOutputMatrix(container, stack) {
 	let remaining = stack.amount;
-	for (let i = 2; i < 11; i++) {
+	for (let i = 0; i < 9; i++) {
 		if (remaining <= 0) return;
 		const slot = container.getItem(i);
 		if (!slot) {
@@ -126,7 +126,7 @@ const data = {
 	items: {
 		top_input: [InputSlot],
 		side_input: [InputSlot],
-		output: [2, 3, 4, 5, 6, 7, 8, 9, 10]
+		output: [0, 1, 2, 3, 4, 5, 6, 7, 8]
 	},
 	onTick(entity, block) {
 		const container = entity.getComponent('minecraft:inventory').container;

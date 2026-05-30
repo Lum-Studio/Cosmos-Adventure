@@ -32,23 +32,8 @@
 				}
 			},
 			{
-				"enable_button@machines.machine_button": {
-					"$index": 1,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [
-						52,
-						81
-					],
-					"$button_size": [
-						75,
-						18
-					]
-				}
-			},
-			{
 				"energy_bar@machines.energy_bar": {
-					"$index": 2,
+					"$index": 1,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
@@ -58,9 +43,48 @@
 				}
 			},
 			{
+				"generating_label@machines.item_text": {
+					"$index": 2,
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
+					"offset": [
+						0,
+						46
+					],
+					"$text_font_scale": 0.8
+				}
+			},
+			{
+				"status_label@machines.item_text": {
+					"$index": 3,
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
+					"offset": [
+						0,
+						57
+					],
+					"$text_font_scale": 0.8
+				}
+			},
+			{
+				"enable_button@machines.machine_button": {
+					"$index": 4,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [
+						52,
+						81
+					],
+					"$button_size": [
+						72,
+						20
+					]
+				}
+			},
+			{
 				"lava_tank@machines.fluid_tank": {
 					"$liquid": "lava",
-					"$index": 3,
+					"$index": 5,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
