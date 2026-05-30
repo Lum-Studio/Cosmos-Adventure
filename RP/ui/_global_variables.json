@@ -135,7 +135,7 @@
 		},
 		{
 			"binding_type": "view",
-			"source_property_name": "(#hover_text - '§o' - '\n§8Has Custom Properties')", // only works in english
+			"source_property_name": "(#hover_text - '§o' - '§f' - '\n§8Has Custom Properties')", // only works in english
 			"target_property_name": "#hover_text"
 		}
 	],
