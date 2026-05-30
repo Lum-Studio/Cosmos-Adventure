@@ -169,7 +169,7 @@ const data = {
         container.add_ui_button(4, playerToOpenFor || "§7(click to set)");
         container.add_ui_display(5, "Invert Selection", invertSelection ? 1 : 0);
         container.add_ui_display(6, "Horizontal Mode", horizontalModeEnabled ? 1 : 0);
-        container.add_ui_display(7, ownerName + "'s Air Lock Controller", 0);
+        container.add_ui_display(7, (ownerName || "Airlock") + "'s Air Lock Controller", 0);
         container.add_ui_display(8, active ? "§cAir Lock Closed" : "§aAir Lock Open", 0);
     }
 };
