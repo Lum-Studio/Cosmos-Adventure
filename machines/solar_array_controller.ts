@@ -9,17 +9,17 @@ export function register(reg: MachineRegistry) {
 	// Slot index 0: x=152, y=91
 	m.slot(152, 91, { name: "battery_slot", ghost: "power" });
 
-	// Label "Generating: ": x=88, y=46
-	m.drawStatusText(88, 46, { name: "generating" });
+	// Label "Generating: ": x=0 (centered), y=46
+	m.drawStatusText(0, 46, { name: "generating", anchor: "top_middle" });
 
-	// Label "Status: ": x=88, y=57
-	m.drawStatusText(88, 57, { name: "status" });
+	// Label "Status: ": x=0 (centered), y=57
+	m.drawStatusText(0, 57, { name: "status", anchor: "top_middle" });
 
-	// Label "Environment: ": x=88, y=68
-	m.drawStatusText(88, 68, { name: "environment" });
+	// Label "Environment: ": x=0 (centered), y=68
+	m.drawStatusText(0, 68, { name: "environment", anchor: "top_middle" });
 
-	// Label "Connected Panels: ": x=88, y=79
-	m.drawStatusText(88, 79, { name: "connected_panels" });
+	// Label "Connected Panels: ": x=0 (centered), y=79
+	m.drawStatusText(0, 79, { name: "connected_panels", anchor: "top_middle" });
 
 	// Label "Inventory": x=8, y=115
 	m.drawString("Inventory", 8, 115);

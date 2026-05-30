@@ -34,10 +34,10 @@
 			{
 				"generating@machines.item_text": {
 					"$index": 1,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
 					"offset": [
-						88,
+						0,
 						46
 					]
 				}
@@ -45,10 +45,10 @@
 			{
 				"status@machines.item_text": {
 					"$index": 2,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
 					"offset": [
-						88,
+						0,
 						57
 					]
 				}
@@ -56,10 +56,10 @@
 			{
 				"environment@machines.item_text": {
 					"$index": 3,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
 					"offset": [
-						88,
+						0,
 						68
 					]
 				}
@@ -67,10 +67,10 @@
 			{
 				"connected_panels@machines.item_text": {
 					"$index": 4,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
 					"offset": [
-						88,
+						0,
 						79
 					]
 				}
