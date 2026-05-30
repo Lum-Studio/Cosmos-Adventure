@@ -1,15 +1,10 @@
-import OxygenUtil from "../../../api/world/OxygenUtils";
+import OxygenUtil from "../../api/world/OxygenUtils";
 
 // Java: TileEntityOxygenDetector — checks every 50 ticks for breathable air
 // and updates the block state to emit/stop redstone.
 
-let tickCounter = 49;
-
 export const oxygen_detector_component = {
 	onTick({ block }) {
-		if (++tickCounter < 50) return;
-		tickCounter = 0;
-
 		const { x, y, z } = block.location;
 		const aabb = {
 			min: { x: x - 0.6, y: y - 0.6, z: z - 0.6 },

@@ -8,20 +8,12 @@
         "cosmos:active": [false, true]
       }
     },
-    "permutations": [
-      {
-        "condition": "q.block_state('cosmos:active')",
-        "components": {
-          "minecraft:redstone_emitter": { "power": 15 },
-          "minecraft:material_instances": {
-            "*": { "render_method": "opaque", "texture": "oxygen_detector_active" }
-          }
-        }
-      }
-    ],
     "components": {
       "cosmos:oxygen_detector": {},
-      "minecraft:display_name": "%tile.oxygen_detector.name\n§7%tile.oxygen_detector.description",
+      "minecraft:display_name": "%tile.oxygen_detector.name",
+      "minecraft:tick": {
+        "interval_range": [ 50, 50 ]
+      },
       "minecraft:destructible_by_explosion": false,
       "minecraft:destructible_by_mining": {
         "seconds_to_destroy": 0.5
@@ -29,11 +21,25 @@
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
         "*": { "render_method": "opaque", "texture": "oxygen_detector" }
-      },
-      "minecraft:redstone_conductivity": {
-        "allows_wire_to_step_down": true,
-        "redstone_conductor": true
       }
-    }
+    },
+    "permutations": [
+      {
+        "condition": "query.block_state('cosmos:active')",
+        "components": {
+          "minecraft:redstone_producer": {
+            "power": 15
+          }
+        }
+      },
+      {
+        "condition": "!query.block_state('cosmos:active')",
+        "components": {
+          "minecraft:redstone_producer": {
+            "power": 0
+          }
+        }
+      }
+    ]
   }
 }

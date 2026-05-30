@@ -36,12 +36,14 @@ export function remove(block) {
       const container = machineEntity.getComponent('minecraft:inventory')?.container;
       if (container) {
         for (let i = 0; i < container.size; i++) {
-          const itemId = container.getItem(i)?.typeId;
-          if (!['cosmos:ui', 'cosmos:ui_button'].includes(itemId)) continue;
+          const item = container.getItem(i);
+          if (!item) continue;
+          if (!['cosmos:ui', 'cosmos:ui_button'].includes(item.typeId)) {
+            dimension.spawnItem(item, {x: location.x + 0.5, y: location.y + 0.5, z: location.z + 0.5});
+          }
           container.setItem(i);
         }
       }
-      machineEntity?.runCommand('kill @s');
       machineEntity?.remove();
     }
 
