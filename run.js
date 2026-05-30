@@ -13,7 +13,7 @@ function copy_folders(folders, success_message) {
 }
 
 function clean_folders(folders, success_message) {
-    folders.forEach(([source, target]) => clean_folder(target, source))
+    folders.forEach(([source, location, target]) => clean_folder(`${location}/${target}/`, source))
     log_green(success_message)
 }
 
@@ -34,7 +34,6 @@ switch (process.argv[2]) {
             const folders = [
                 ["BP/", behavior_packs, "cosmos_bp"],
                 ["RP/", resource_packs, "cosmos_rp"],
-                ["SKYPEDIA/resource_pack/", resource_packs, "cosmos_skypedia"]
             ]
             copy_folders(folders, "Finished Copying")
             clean_folders(folders, "Finished Cleaning")
@@ -48,13 +47,10 @@ switch (process.argv[2]) {
         case 'bp': copy_folders([["BP/", behavior_packs, "cosmos_bp"]], "Copied Behavior Pack"); break
 
         case 'scripts': copy_folders([["BP/scripts/", behavior_packs, "cosmos_bp/scripts"]], "Copied Scripts"); break
-
-        case 'skypedia': copy_folders([["SKYPEDIA/resource_pack/", resource_packs, "cosmos_skypedia"]], "Copied Skypedia"); break
     }; break
 
     case 'remove': case 'delete': {
         fs.rmSync(`${behavior_packs}/cosmos_bp`, { recursive: true, force: true })
         fs.rmSync(`${resource_packs}/cosmos_rp`, { recursive: true, force: true })
-        fs.rmSync(`${resource_packs}/cosmos_skypedia`, { recursive: true, force: true })
     } break
 }
