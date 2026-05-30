@@ -30,7 +30,9 @@ import AdvancedLaunchController from './blocks/AdvancedLaunchController'
 import Terraformer from './blocks/Terraformer'
 import GeothermalGenerator from './blocks/GeothermalGenerator'
 import SolarArrayController from './blocks/SolarArrayController'
+import AirlockController from './blocks/AirlockController'
 const AllMachines = {
+	airlock_controller: AirlockController,
 	advanced_launch_controller: AdvancedLaunchController,
 	launch_controller: LaunchController,
 	short_range_telepad: ShortRangeTelepad,

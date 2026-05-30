@@ -112,6 +112,12 @@
                 "$screen_background_alpha": 0.4
             },
             {
+                "requires": "(not (($ct - '§a§i§r§l§o§c§k§_§c§o§n§t§r§o§l§l§e§r') = $ct))",
+                "$screen_content": "airlock_controller.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
                 "requires": "(not (($ct - '§e§l§e§c§t§r§i§c§_§a§r§c§_§f§u§r§n§a§c§e') = $ct))",
                 "$screen_content": "electric_arc_furnace.interface",
                 "$screen_bg_content": "common.screen_background",

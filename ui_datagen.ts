@@ -981,6 +981,17 @@ async function defineAll(): Promise<MachineRegistry> {
 	// ── Geothermal Generator ───────────
 	(await import("./machines/geothermal_generator")).register(reg);
 
+	m = reg.add(gui("airlock_controller", "Airlock Controller", 139, 181));
+	m["_showBottomHalf"] = false;
+	m["_showHotbar"] = false;
+	m.drawTitle(0, 5, { anchor: "top_middle" });
+	m.addButton(10, 20, { name: "redstone", width: 161, height: 18 });
+	m.addButton(10, 40, { name: "distance", width: 161, height: 18 });
+	m.addButton(10, 60, { name: "distance_value", width: 161, height: 18 });
+	m.addButton(10, 80, { name: "owner_only", width: 161, height: 18 });
+	m.addButton(10, 100, { name: "invert", width: 78, height: 18 });
+	m.addButton(93, 100, { name: "horizontal", width: 78, height: 18 });
+
 	return reg;
 }
 

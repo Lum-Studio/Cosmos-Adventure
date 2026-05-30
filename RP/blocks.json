@@ -225,7 +225,7 @@
          "up": "machine_blank"
       }
    },
-   "air_lock_controller": {
+   "airlock_controller": {
       "sound": "stone",
       "textures": {
          "side": "air_lock_controller",
@@ -233,7 +233,7 @@
          "up": "air_lock_frame"
       }
    },
-   "air_lock_frame": {
+   "airlock_frame": {
       "sound": "stone",
       "textures": "air_lock_frame"
    },

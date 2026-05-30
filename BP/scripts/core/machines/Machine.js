@@ -173,7 +173,7 @@ export const machine_component = {
 		system.run(() => {
 			const entity = block.dimension.spawnEntity(perm.type.id, block.bottomCenter());
 			entity.nameTag = machine_object.ui;
-			if (typeof machine_object.onPlace == 'function') machine_object.onPlace(entity, block)
+			if (typeof machine_object.onPlace == 'function') machine_object.onPlace(entity, block, event)
 			const dynamic_object = JSON.parse(entity.getDynamicProperty("machine_data") ?? "{}");
 			machine_entities.set(entity.id, { type: machine_name, location: block.location, entity_data: dynamic_object });
 			if (perm.getState("cosmos:full")) {

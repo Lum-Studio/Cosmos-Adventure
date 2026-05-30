@@ -1,0 +1,139 @@
+{
+	"namespace": "airlock_controller",
+	"interface@machines.dynamic_interface_large": {
+		"$size": [
+			"100%",
+			139
+		],
+		"$content": [
+			{
+				"bg@common.dialog_background_opaque": {
+					"size": ["100%", "100%"],
+					"layer": -1
+				}
+			},
+			{
+				"title": {
+					"type": "label",
+					"text": "Airlock Controller",
+					"color": "$title_text_color",
+					"font_scale_factor": 0.8,
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
+					"offset": [0, 5]
+				}
+			},
+			{
+				"redstone@machines.machine_toggle": {
+					"$index": 0,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [6, 18]
+				}
+			},
+			{
+				"redstone_text@machines.item_text": {
+					"$index": 0,
+					"$text_font_scale": 0.8,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [22, 19]
+				}
+			},
+			{
+				"distance@machines.machine_toggle": {
+					"$index": 1,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [6, 34]
+				}
+			},
+			{
+				"distance_text@machines.item_text": {
+					"$index": 1,
+					"$text_font_scale": 0.8,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [22, 35]
+				}
+			},
+			{
+				"distance_value@machines.machine_toggle": {
+					"$index": 2,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [6, 50]
+				}
+			},
+			{
+				"distance_value_text@machines.item_text": {
+					"$index": 2,
+					"$text_font_scale": 0.8,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [22, 51]
+				}
+			},
+			{
+				"owner_only@machines.machine_toggle": {
+					"$index": 3,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [6, 66]
+				}
+			},
+			{
+				"owner_only_text@machines.item_text": {
+					"$index": 3,
+					"$text_font_scale": 0.8,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [22, 67]
+				}
+			},
+			{
+				"invert@machines.machine_toggle": {
+					"$index": 4,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [6, 82]
+				}
+			},
+			{
+				"invert_text@machines.item_text": {
+					"$index": 4,
+					"$text_font_scale": 0.8,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [22, 83]
+				}
+			},
+			{
+				"horizontal@machines.machine_toggle": {
+					"$index": 5,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [6, 98]
+				}
+			},
+			{
+				"horizontal_text@machines.item_text": {
+					"$index": 5,
+					"$text_font_scale": 0.8,
+					"anchor_from": "top_left",
+					"anchor_to": "top_left",
+					"offset": [22, 99]
+				}
+			},
+			{
+				"status_text@machines.item_text": {
+					"$index": 6,
+					"$text_font_scale": 0.8,
+					"anchor_from": "bottom_middle",
+					"anchor_to": "bottom_middle",
+					"offset": [0, -6]
+				}
+			}
+		]
+	}
+}
