@@ -82,22 +82,16 @@
 				}
 			},
 			{
-				"lava_tank@machines.fluid_tank": {
-					"$liquid": "lava",
+				"acid_activity@machines.fluid_tank": {
+					"$liquid": "sulphuric_acid",
 					"$index": 5,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [
-						33,
-						21
-					],
-					"$tank_width": 18,
-					"$tank_size": [
-						"18px",
-						"18px"
-					],
-					"$tank_back_tex": "textures/ui/cosmos/machines/tank_back_18",
-					"$tank_front_tex": "textures/ui/cosmos/machines/tank_front_18"
+					"offset": [33, 21],
+					"$tank_width": 46,
+					"$tank_size": ["46px", "16px"],
+					"$tank_back_tex": "textures/ui/cosmos/machines/geothermal_acid_back",
+					"$tank_front_tex": "textures/ui/cosmos/machines/geothermal_acid_front"
 				}
 			}
 		]

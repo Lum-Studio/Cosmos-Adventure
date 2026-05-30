@@ -57,6 +57,8 @@ const data = {
 		container.add_ui_display(2, is_generating);
 		container.add_ui_display(3, status);
 		container.add_ui_button(4, stopped ? 'Enable' : 'Disable', entity, 'stopped', !stopped);
+		// acid activity indicator (scales 0-16 based on generation)
+		container.add_ui_display(5, "", is_valid ? Math.max(1, Math.round((generated_energy / 200) * 16)) : 0);
 	}
 };
 

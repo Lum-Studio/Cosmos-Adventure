@@ -15,7 +15,6 @@
 			{
 				"title@machines.item_text": {
 					"$index": 7,
-					"$text_font_scale": 0.8,
 					"$alignment": "center",
 					"anchor_from": "top_middle",
 					"anchor_to": "top_middle",
@@ -33,7 +32,6 @@
 			{
 				"redstone_text@machines.item_text": {
 					"$index": 0,
-					"$text_font_scale": 0.8,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [22, 20]
@@ -50,7 +48,6 @@
 			{
 				"distance_text@machines.item_text": {
 					"$index": 1,
-					"$text_font_scale": 0.8,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [22, 35]
@@ -63,7 +60,6 @@
 					"anchor_to": "top_left",
 					"offset": [99, 32],
 					"$button_size": [70, 14],
-					"$button_font_scale": 0.8
 				}
 			},
 			{
@@ -77,7 +73,6 @@
 			{
 				"player_name_text@machines.item_text": {
 					"$index": 3,
-					"$text_font_scale": 0.8,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [38, 51]
@@ -101,7 +96,6 @@
 					"anchor_to": "top_left",
 					"offset": [29, 64],
 					"$button_size": [110, 15],
-					"$button_font_scale": 0.8
 				}
 			},
 			{
@@ -115,7 +109,6 @@
 			{
 				"invert_text@machines.item_text": {
 					"$index": 5,
-					"$text_font_scale": 0.8,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [22, 82]
@@ -132,7 +125,6 @@
 			{
 				"horizontal_text@machines.item_text": {
 					"$index": 6,
-					"$text_font_scale": 0.8,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [22, 98]
@@ -143,7 +135,7 @@
 					"type": "label",
 					"text": "Status:",
 					"color": "$title_text_color",
-					"font_scale_factor": 0.8,
+					"font_scale_factor": 1.0,
 					"anchor_from": "bottom_middle",
 					"anchor_to": "bottom_middle",
 					"offset": [0, -20]
@@ -152,7 +144,6 @@
 			{
 				"status_text@machines.item_text": {
 					"$index": 8,
-					"$text_font_scale": 0.8,
 					"$alignment": "center",
 					"anchor_from": "bottom_middle",
 					"anchor_to": "bottom_middle",
