@@ -65,44 +65,38 @@ const data = {
         
         const container = entity.getComponent('minecraft:inventory').container;
 
-        // Pick up player name from form submission
+        // get player name
         const newPlayerName = entity.getDynamicProperty("airlock_player_name");
         if (newPlayerName != null) {
             playerToOpenFor = newPlayerName;
             entity.setDynamicProperty("airlock_player_name", undefined);
+            // overwrite slot 4
+            const item = new mc.ItemStack('cosmos:ui_button');
+            item.nameTag = playerToOpenFor || "§7(click to set)";
+            container.setItem(4, item);
         }
 
-        let ui_initialized = entity.getDynamicProperty("ui_initialized");
-        if (!ui_initialized) {
-            entity.setDynamicProperty("ui_initialized", true);
-        } else {
-            // slot 4: Player name textbox (opens text input form)
-            // Check BEFORE was_ui_clicked so cursor isn't swept
-            if (!container.getItem(4)) {
-                const item = new mc.ItemStack('cosmos:ui_button');
-                item.nameTag = playerToOpenFor || "§7(click to set)";
-                container.setItem(4, item);
-                const player = findInteractingPlayer(entity);
-                if (player) {
-                    closeContainerUI(player);
-                    mc.system.run(() => {
-                        showPlayerNameForm(player, entity, playerToOpenFor);
-                    });
-                }
+        // slot 0: redstone signal
+        if (container.was_ui_clicked(0, entity)) { redstoneActivation = !redstoneActivation; }
+        // slot 1: player within
+        if (container.was_ui_clicked(1, entity)) { playerDistanceActivation = !playerDistanceActivation; }
+        // slot 2: distance
+        if (container.was_ui_clicked(2, entity)) { playerDistanceSelection = (playerDistanceSelection + 1) % 4; }
+        // slot 3: player name matches
+        if (container.was_ui_clicked(3, entity)) { playerNameMatches = !playerNameMatches; }
+        // slot 4: player name
+        if (container.was_ui_clicked(4, entity)) {
+            const player = findInteractingPlayer(entity);
+            if (player) {
+                closeContainerUI(player);
+                mc.system.run(() => {
+                    showPlayerNameForm(player, entity, playerToOpenFor);
+                });
             }
         }
-
-        // slot 0: Redstone Signal checkbox
-        if (container.was_ui_clicked(0, entity)) { redstoneActivation = !redstoneActivation; }
-        // slot 1: Player Within checkbox
-        if (container.was_ui_clicked(1, entity)) { playerDistanceActivation = !playerDistanceActivation; }
-        // slot 2: Distance dropdown (cycle 0-3)
-        if (container.was_ui_clicked(2, entity)) { playerDistanceSelection = (playerDistanceSelection + 1) % 4; }
-        // slot 3: Player Name checkbox
-        if (container.was_ui_clicked(3, entity)) { playerNameMatches = !playerNameMatches; }
-        // slot 5: Invert Selection checkbox
+        // slot 5: invert selection
         if (container.was_ui_clicked(5, entity)) { invertSelection = !invertSelection; }
-        // slot 6: Horizontal Mode checkbox
+        // slot 6: horizontal mode
         if (container.was_ui_clicked(6, entity)) { horizontalModeEnabled = !horizontalModeEnabled; }
 
         save_dynamic_object(entity, {
@@ -116,7 +110,7 @@ const data = {
             horizontalModeEnabled: horizontalModeEnabled,
         }, "machine_data");
 
-        // --- Activation logic (matches Java TileEntityAirLockController) ---
+        // activation logic
         let active = false;
 
         if (redstoneActivation) {
@@ -147,44 +141,26 @@ const data = {
             active = !active;
         }
 
-        // Trace airlock frame
+        // trace airlock frame
         const bounds = traceAirlock(block, horizontalModeEnabled);
         
-        // Update blocks
+        // update blocks
         if (bounds) {
             fillAirlock(entity.dimension, bounds, active);
         }
         
-        // --- Redraw UI ---
+        // redraw ui
         const distLabels = ["1 Meter", "2 Meter", "5 Meter", "10 Meter"];
-        
-        function setToggle(container, slot, isOn, text) {
-            const item = new mc.ItemStack('cosmos:ui_button');
-            const dur = item.getComponent('durability');
-            if (dur) dur.damage = isOn ? dur.maxDurability - 1 : dur.maxDurability;
-            item.nameTag = text;
-            container.setItem(slot, item);
-        }
 
-        function setText(container, slot, text) {
-            const item = new mc.ItemStack('cosmos:ui_button');
-            item.nameTag = text;
-            container.setItem(slot, item);
-        }
-
-        setToggle(container, 0, redstoneActivation, "Redstone Signal");
-        setToggle(container, 1, playerDistanceActivation, "Player Within: ");
-        setText(container, 2, distLabels[playerDistanceSelection]);
-        setToggle(container, 3, playerNameMatches, "Player Name is: ");
+        container.add_ui_display(0, "Redstone Signal", redstoneActivation ? 1 : 0);
+        container.add_ui_display(1, "Player Within: ", playerDistanceActivation ? 1 : 0);
+        container.add_ui_button(2, distLabels[playerDistanceSelection]);
+        container.add_ui_display(3, "Player Name is: ", playerNameMatches ? 1 : 0);
         container.add_ui_button(4, playerToOpenFor || "§7(click to set)");
-        setToggle(container, 5, invertSelection, "Invert Selection");
-        setToggle(container, 6, horizontalModeEnabled, "Horizontal Mode");
-        
-        // slot 7: title (owner name)
-        setText(container, 7, ownerName + "'s Air Lock Controller");
-
-        // slot 8: status
-        setText(container, 8, active ? "§cAir Lock Closed" : "§aAir Lock Open");
+        container.add_ui_display(5, "Invert Selection", invertSelection ? 1 : 0);
+        container.add_ui_display(6, "Horizontal Mode", horizontalModeEnabled ? 1 : 0);
+        container.add_ui_display(7, ownerName + "'s Air Lock Controller", 0);
+        container.add_ui_display(8, active ? "§cAir Lock Closed" : "§aAir Lock Open", 0);
     }
 };
 
