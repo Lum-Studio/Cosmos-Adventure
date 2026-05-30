@@ -41,6 +41,7 @@
     "ui/machines/terraformer.json",
     "ui/machines/chromatic_applicator.json",
     "ui/machines/advanced_compressor.json",
-    "ui/machines/electric_arc_furnace.json"
+    "ui/machines/electric_arc_furnace.json",
+    "ui/machines/oxygen_detector.json"
   ]
 }

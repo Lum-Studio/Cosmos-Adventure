@@ -1,0 +1,39 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cosmos:oxygen_detector",
+      "menu_category": { "category": "items" },
+      "states": {
+        "cosmos:active": [false, true]
+      }
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('cosmos:active')",
+        "components": {
+          "minecraft:redstone_emitter": { "power": 15 },
+          "minecraft:material_instances": {
+            "*": { "render_method": "opaque", "texture": "oxygen_detector_active" }
+          }
+        }
+      }
+    ],
+    "components": {
+      "cosmos:oxygen_detector": {},
+      "minecraft:display_name": "%tile.oxygen_detector.name\n§7%tile.oxygen_detector.description",
+      "minecraft:destructible_by_explosion": false,
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.5
+      },
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": { "render_method": "opaque", "texture": "oxygen_detector" }
+      },
+      "minecraft:redstone_conductivity": {
+        "allows_wire_to_step_down": true,
+        "redstone_conductor": true
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { ItemStack, system, world } from "@minecraft/server";
 import { space_gear_component } from "./player/space_gear";
 import { end_cleaner_component } from "./world/PlanetBuilder";
 import { aluminum_wire_component } from "../core/blocks/aluminum_wire";
+import { oxygen_detector_component } from "../core/blocks/oxygen_detector";
 import { cavernous_vines_component } from "../core/blocks/cavernous_vines";
 import { communication_dish_component } from "../core/blocks/dishbase";
 import { arc_lamp, cheese_block, fallen_meteor } from "../core/matter/blocks";
@@ -50,6 +51,7 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
     register_block_component("cosmos:boss_block", evolved_skeleton_component)
     register_block_component('cosmos:solar_panel', solar_panel_component)
     register_block_component('cosmos:machine', machine_component)
+    register_block_component('cosmos:oxygen_detector', oxygen_detector_component)
     
     // Item Components
     register_item_component("cosmos:space_gear", space_gear_component)
