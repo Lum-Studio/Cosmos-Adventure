@@ -80,6 +80,11 @@ const data = {
             container.setItem(4, item);
         }
 
+        // skip click detection on first tick (slots are empty)
+        if (!entity.getDynamicProperty("ui_initialized")) {
+            entity.setDynamicProperty("ui_initialized", true);
+        } else {
+
         // slot 0: redstone signal
         if (container.was_ui_clicked(0, entity)) { redstoneActivation = !redstoneActivation; }
         // slot 1: player within
@@ -102,6 +107,7 @@ const data = {
         if (container.was_ui_clicked(5, entity)) { invertSelection = !invertSelection; }
         // slot 6: horizontal mode
         if (container.was_ui_clicked(6, entity)) { horizontalModeEnabled = !horizontalModeEnabled; }
+        } // end ui_initialized
 
         save_dynamic_object(entity, {
             ownerName: ownerName,
