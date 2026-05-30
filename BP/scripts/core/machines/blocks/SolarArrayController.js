@@ -90,11 +90,11 @@ const data = {
 		// Update UI display if variables changed or battery item changed
 		if (!compare_lists(first_values, [energy, power, connected_panels, environment, is_generating, stopped]) || !container.getItem(1)) {
 			
-			let status_info = stopped ? 'A 6Disabled' : (environment > 0 ? 'A 2Collecting Energy' : 'A 4Sun Is Not Visible');
+			let status_info = stopped ? '§6Disabled' : (environment > 0 ? '§2Collecting Energy' : '§4Sun Is Not Visible');
 			
 			const generating_text = `Generating: ${is_generating} gJ/t`;
 			const status_text = `Status: ${status_info}`;
-			const environment_text = `Environment: ${environment}%%`;
+			const environment_text = `Environment: ${environment}%`;
 			const connected_panels_text = `Connected Panels: ${connected_panels}`;
 
 			// Add UI Display
