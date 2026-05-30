@@ -61,7 +61,11 @@ const data = {
         let playerToOpenFor = vars.playerToOpenFor ?? "";
         let invertSelection = vars.invertSelection ?? false;
         let horizontalModeEnabled = vars.horizontalModeEnabled ?? false;
-        const ownerName = vars.ownerName ?? "";
+        let ownerName = vars.ownerName ?? "";
+        if (!ownerName) {
+            const p = findInteractingPlayer(entity);
+            if (p) ownerName = p.name;
+        }
         
         const container = entity.getComponent('minecraft:inventory').container;
 
