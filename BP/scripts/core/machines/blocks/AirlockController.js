@@ -131,7 +131,8 @@ const data = {
         if ((active || !redstoneActivation) && playerDistanceActivation) {
             const distances = [1, 2, 5, 10];
             const dist = distances[playerDistanceSelection] ?? 1;
-            const players = entity.dimension.getPlayers({ location: block.location, maxDistance: dist });
+            const center = { x: block.location.x + 0.5, y: block.location.y + 0.5, z: block.location.z + 0.5 };
+            const players = entity.dimension.getPlayers({ location: center, maxDistance: dist });
 
             if (playerNameMatches) {
                 let foundPlayer = false;
