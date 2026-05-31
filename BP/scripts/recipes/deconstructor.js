@@ -4,17 +4,14 @@ export const recipes = {
    },
    "cosmos:advanced_compressor": {
       "cosmos:compressed_steel": 4,
-      "cosmos:compressed_meteoric_iron": 1,
-      "cosmos:advanced_wafer": 1
+      "cosmos:compressed_meteoric_iron": 1
    },
    "cosmos:advanced_solar_panel": {
-      "cosmos:advanced_wafer": 1,
       "cosmos:compressed_steel": 4
    },
    "cosmos:air_lock_controller": {
       "cosmos:compressed_meteoric_iron": 2,
       "cosmos:compressed_steel": 6,
-      "cosmos:basic_wafer": 1
    },
    "cosmos:air_lock_frame": {
       "cosmos:compressed_aluminum": 1
@@ -24,8 +21,7 @@ export const recipes = {
    },
    "cosmos:ambient_thermal_controller": {
       "cosmos:compressed_steel": 1,
-      "cosmos:compressed_bronze": 4,
-      "cosmos:basic_wafer": 1
+      "cosmos:compressed_bronze": 4
    },
    "minecraft:anvil": {
       "minecraft:iron_ingot": 4
@@ -40,7 +36,6 @@ export const recipes = {
       "cosmos:desh_ingot": 3
    },
    "cosmos:basic_solar_panel": {
-      "cosmos:basic_wafer": 1,
       "cosmos:compressed_steel": 4
    },
    "cosmos:battery": {
@@ -106,14 +101,12 @@ export const recipes = {
       "minecraft:diamond": 3
    },
    "cosmos:communications_dish": {
-      "cosmos:advanced_wafer": 2,
       "cosmos:compressed_aluminum": 3
    },
    "minecraft:compass": {
       "minecraft:iron_ingot": 4
    },
    "cosmos:compressor": {
-      "cosmos:basic_wafer": 1,
       "cosmos:aluminum_ingot": 6,
       "minecraft:copper_ingot": 1
    },
@@ -254,26 +247,22 @@ export const recipes = {
       "minecraft:diamond": 2
    },
    "cosmos:display_screen": {
-      "cosmos:compressed_steel": 4,
-      "cosmos:basic_wafer": 4
+      "cosmos:compressed_steel": 4
    },
    "minecraft:dune_armor_trim_smithing_template": {
       "minecraft:diamond": 3
    },
    "cosmos:electric_arc_furnace": {
       "cosmos:meteoric_iron_ingot": 2,
-      "cosmos:heavy_duty_plate": 5,
-      "cosmos:advanced_wafer": 1
+      "cosmos:heavy_duty_plate": 5
    },
    "cosmos:electric_compressor": {
       "cosmos:compressed_steel": 4,
-      "cosmos:compressed_tin": 1,
-      "cosmos:advanced_wafer": 1
+      "cosmos:compressed_tin": 1
    },
    "cosmos:electric_furnace": {
       "cosmos:compressed_aluminum": 2,
-      "cosmos:compressed_steel": 5,
-      "cosmos:basic_wafer": 1
+      "cosmos:compressed_steel": 5
    },
    "cosmos:emergency_post": {
       "cosmos:compressed_tin": 4
@@ -286,8 +275,7 @@ export const recipes = {
       "minecraft:diamond": 2
    },
    "cosmos:energy_storage_cluster": {
-      "cosmos:compressed_steel": 4,
-      "cosmos:advanced_wafer": 1
+      "cosmos:compressed_steel": 4
    },
    "cosmos:energy_storage_module": {
       "cosmos:compressed_steel": 6
@@ -299,18 +287,15 @@ export const recipes = {
       "minecraft:diamond": 3
    },
    "cosmos:fluid_manifulator": {
-      "cosmos:advanced_wafer": 1,
       "cosmos:meteoric_iron_ingot": 4
    },
    "cosmos:frequency_module": {
-      "cosmos:basic_wafer": 1,
       "cosmos:compressed_aluminum": 1,
       "cosmos:compressed_iron": 2
    },
    "cosmos:fuel_loader": {
       "cosmos:compressed_tin": 2,
-      "cosmos:compressed_copper": 5,
-      "cosmos:basic_wafer": 1
+      "cosmos:compressed_copper": 5
    },
    "cosmos:gas_liquefier": {
       "cosmos:compressed_bronze": 1
@@ -434,7 +419,6 @@ export const recipes = {
       "cosmos:desh_ingot": 1
    },
    "cosmos:launch_controller": {
-      "cosmos:advanced_wafer": 1,
       "cosmos:compressed_desh": 2,
       "cosmos:desh_ingot": 4
    },
@@ -463,7 +447,6 @@ export const recipes = {
       "minecraft:iron_ingot": 5
    },
    "cosmos:nasa_workbench": {
-      "cosmos:advanced_wafer": 1,
       "cosmos:compressed_steel": 4
    },
    "minecraft:netherite_upgrade_smithing_template": {
@@ -491,7 +474,6 @@ export const recipes = {
    },
    "cosmos:oxygen_detector": {
       "cosmos:compressed_aluminum": 1,
-      "cosmos:basic_wafer": 1,
       "cosmos:compressed_steel": 3
    },
    "cosmos:oxygen_distributor": {
@@ -499,7 +481,6 @@ export const recipes = {
       "cosmos:compressed_aluminum": 1
    },
    "cosmos:oxygen_fan": {
-      "cosmos:basic_wafer": 1,
       "cosmos:compressed_steel": 4
    },
    "cosmos:oxygen_sealer": {
@@ -563,18 +544,13 @@ export const recipes = {
       "minecraft:diamond": 3
    },
    "cosmos:solar_array_controller": {
-      "cosmos:compressed_steel": 4,
-      "cosmos:advanced_wafer": 1
-   },
-   "cosmos:solar_array_module": {
-      "cosmos:advanced_wafer": 1
+      "cosmos:compressed_steel": 4
    },
    "minecraft:speckled_melon": {
       "minecraft:gold_nugget": 8
    },
    "cosmos:spin_thruster": {
       "cosmos:compressed_steel": 2,
-      "cosmos:advanced_wafer": 1,
       "cosmos:meteoric_iron_ingot": 1
    },
    "minecraft:spire_armor_trim_smithing_template": {
@@ -624,7 +600,6 @@ export const recipes = {
       "minecraft:iron_ingot": 1
    },
    "cosmos:telemetry_unit": {
-      "cosmos:basic_wafer": 1,
       "cosmos:compressed_tin": 4,
       "cosmos:compressed_copper": 3
    },
