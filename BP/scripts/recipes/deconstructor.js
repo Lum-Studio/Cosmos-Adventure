@@ -693,5 +693,41 @@ export const recipes = {
   },
   "cosmos:switchable_heavy_aluminum_wire": {
     "cosmos:aluminum_ingot": 1
+  },
+  "cosmos:rocket_tier_1_item": {
+    "cosmos:heavy_duty_plate": 31,
+    "cosmos:compressed_steel": 9,
+    "cosmos:compressed_tin": 1
+  },
+  "cosmos:rocket_tier_2_item": {
+    "cosmos:heavy_duty_plate_tier2": 10,
+    "cosmos:heavy_duty_plate": 25,
+    "cosmos:compressed_steel": 10,
+    "cosmos:compressed_tin": 2,
+    "cosmos:compressed_meteoric_iron": 4
+  },
+  "cosmos:rocket_tier_3_item": {
+    "cosmos:heavy_duty_plate_tier3": 33,
+    "cosmos:compressed_titanium": 8,
+    "cosmos:compressed_tin": 9,
+    "cosmos:compressed_steel": 4,
+    "cosmos:heavy_duty_plate": 4,
+    "cosmos:compressed_meteoric_iron": 8
+  },
+  "cosmos:cargo_rocket_item": {
+    "cosmos:heavy_duty_plate_tier2": 6,
+    "cosmos:heavy_duty_plate": 23,
+    "cosmos:compressed_steel": 9,
+    "cosmos:compressed_tin": 1
+  },
+  "cosmos:astro_miner_item": {
+    "cosmos:heavy_duty_plate": 4,
+    "cosmos:compressed_iron": 24,
+    "cosmos:steel_pole": 1
+  },
+  "cosmos:moon_buggy_item": {
+    "cosmos:heavy_duty_plate": 11,
+    "cosmos:compressed_steel": 3,
+    "cosmos:compressed_iron": 1
   }
 }

@@ -124,6 +124,12 @@
                 "$screen_background_alpha": 0.4
             },
             {
+                "requires": "(not (($ct - '§d§e§c§o§n§s§t§r§u§c§t§o§r') = $ct))",
+                "$screen_content": "deconstructor.interface",
+                "$screen_bg_content": "common.screen_background",
+                "$screen_background_alpha": 0.4
+            },
+            {
                 "requires": "(not (($ct - '§f§u§e§l§0') = $ct))",
                 "$screen_content": "rocket.interface",
                 "$storage_tier": 0,
