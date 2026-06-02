@@ -57,6 +57,9 @@ const data = {
         let redstoneActivation = vars.redstoneActivation ?? false;
         let playerDistanceActivation = vars.playerDistanceActivation ?? true;
         let playerDistanceSelection = vars.playerDistanceSelection ?? 0;
+        if (playerDistanceSelection < 0 || playerDistanceSelection >= 4 || isNaN(playerDistanceSelection)) {
+            playerDistanceSelection = 0;
+        }
         let playerNameMatches = vars.playerNameMatches ?? false;
         let playerToOpenFor = vars.playerToOpenFor ?? "";
         let invertSelection = vars.invertSelection ?? false;
@@ -165,7 +168,13 @@ const data = {
 
         container.add_ui_display(0, "Redstone Signal", redstoneActivation ? 1 : 0);
         container.add_ui_display(1, "Player Within: ", playerDistanceActivation ? 1 : 0);
-        container.add_ui_button(2, distLabels[playerDistanceSelection]);
+        
+        if (entity.getDynamicProperty("last_dist") !== playerDistanceSelection || !container.getItem(2)) {
+            entity.setDynamicProperty("last_dist", playerDistanceSelection);
+            container.setItem(2, undefined);
+            container.add_ui_button(2, "§r" + (distLabels[playerDistanceSelection] || "1 Meter"));
+        }
+        
         container.add_ui_display(3, "Player Name is: ", playerNameMatches ? 1 : 0);
         container.add_ui_button(4, playerToOpenFor || "§7(click to set)");
         container.add_ui_display(5, "Invert Selection", invertSelection ? 1 : 0);

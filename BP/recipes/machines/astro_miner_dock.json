@@ -7,18 +7,20 @@
     "tags": [
       "crafting_table"
     ],
-    "unlock": [
-      { "item": "minecraft:iron_ingot" }
-    ],
     "pattern": [
-      "XXX",
-      "XYX",
-      "XXX"
+      "XCX",
+      "W W",
+      "XBX"
     ],
     "key": {
-      "X": "minecraft:iron_ingot",
-      "Y": "minecraft:gold_ingot"
+      "B": "cosmos:energy_storage_module",
+      "C": "minecraft:chest",
+      "W": "cosmos:beam_core",
+      "X": "cosmos:compressed_desh"
     },
+    "unlock": [
+      { "item": "cosmos:energy_storage_module" }
+    ],
     "result": {
       "item": "cosmos:astro_miner_dock"
     }

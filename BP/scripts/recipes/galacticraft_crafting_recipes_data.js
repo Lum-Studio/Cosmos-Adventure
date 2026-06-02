@@ -147,12 +147,7 @@ export const recipes = {
     "minecraft:glowstone_dust": 4,
     "cosmos:battery": 1
   },
-  "cosmos:astro_miner_base": {
-    "cosmos:compressed_desh": 4,
-    "minecraft:chest": 1,
-    "cosmos:beam_core": 2,
-    "cosmos:energy_storage_module": 1
-  },
+
   "cosmos:atmospheric_valve": {
     "cosmos:desh_ingot": 3,
     "cosmos:oxygen_vent": 1

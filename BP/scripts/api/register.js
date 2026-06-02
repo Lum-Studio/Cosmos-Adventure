@@ -4,6 +4,7 @@ import { end_cleaner_component } from "./world/PlanetBuilder";
 import { aluminum_wire_component } from "../core/blocks/aluminum_wire";
 import { oxygen_detector_component } from "../core/blocks/oxygen_detector";
 import { cavernous_vines_component } from "../core/blocks/cavernous_vines";
+import { cryogenic_chamber_component } from "../core/blocks/cryogenic_chamber";
 import { communication_dish_component } from "../core/blocks/dishbase";
 import { arc_lamp, cheese_block, fallen_meteor } from "../core/matter/blocks";
 import { fluid_pipe_component } from "../core/blocks/fluid_pipe";
@@ -37,6 +38,7 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
     register_block_component('cosmos:arc_lamp', arc_lamp)
     register_block_component("cosmos:cavernous_vines", cavernous_vines_component)
     register_block_component("cosmos:cheese_block", cheese_block)
+    register_block_component("cosmos:cryogenic_chamber", cryogenic_chamber_component)
     register_block_component("cosmos:dishbase", communication_dish_component)
     register_block_component('cosmos:fallen_meteor', fallen_meteor)
     register_block_component('cosmos:fluid_pipe', fluid_pipe_component)
