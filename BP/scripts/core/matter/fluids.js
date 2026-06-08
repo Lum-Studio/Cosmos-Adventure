@@ -151,7 +151,7 @@ export function output_fluid(fluid_data, entity, block, fluid) {
         z: block.location.z - Math.floor(target_location.z)
     }
     direction = get_direction(direction);
-    if (target_block && /cosmos:fluid_pipe/.test(target_block.typeId) && target_block.permutation.getState(pipe_same_side[direction]) == 2) {
+    if (target_block.hasTag("fluid_pipe") && target_block.permutation.getState(pipe_same_side[direction]) == 2) {
         fluid = save_fluid_amount(entity, fluid_data, target_block, fluid);
         return fluid;
     }
@@ -165,7 +165,7 @@ export function input_fluid(fluid_data, entity, block, fluid) {
     if (!source_location || fluid == data[fluid_data.slot].capacity) return fluid
     const source_block = block.dimension.getBlock(source_location)
 
-    if (/cosmos:fluid_pipe/.test(source_block?.typeId)) {
+    if (source_block?.hasTag("fluid_pipe")) {
         fluid = get_fluid_amount(entity, fluid_data, fluid)
         return fluid
     } else {

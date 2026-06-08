@@ -45,7 +45,7 @@ const data = {
 			save_dynamic_object(entity, {energy, progress}, "machine_data");
 			const energy_hover = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.energy.capacity} gJ`
 			container.add_ui_display(3, energy_hover, Math.round((energy / data.energy.capacity) * 55))
-			container.add_ui_display(4, '', Math.ceil((progress / 200) * 22))
+			container.add_ui_display(4, '', Math.ceil((progress / 200) * 24))
 			container.add_ui_display(5, '§rStatus: ' + (!energy ? '\n§4No Power' : progress ? '\n§2Running' : '\n§6Idle'))
 		}
 	}

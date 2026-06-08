@@ -135,6 +135,12 @@
             },
             "volume": 0
          },
+         "cosmos:deconstructor": {
+            "events": {
+               "death": "none"
+            },
+            "volume": 0
+         },
          "cosmos:oxygen_collector": {
             "events": {
                "death": "none"

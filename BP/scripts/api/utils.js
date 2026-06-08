@@ -1,4 +1,4 @@
-// This file is only for Utility functions
+// This file is for general Utility functions only.
 
 import * as mc from "@minecraft/server";
 import {machine_entities} from "../core/machines/Machine";
@@ -25,14 +25,6 @@ export function save_dynamic_object(storage, value, type, name = 'variables'){
 
 export function str(object) { return JSON.stringify(object) }
 
-/**@param {mc.Block[]} locations @param {mc.Dimension} dim */
-export const destroyBlocksJOB = function* (locations, dim) {
-	for (const loc of locations) {
-		dim.runCommand(`setblock ${loc.x} ${loc.y} ${loc.z} air [] destroy`);
-		yield;
-	}
-}
-
 const four_neighbors_array = ["north", "east", "west", "south"]
 export function four_neighbors(block) {
 	const blocks = {}
@@ -52,23 +44,13 @@ export function get_neighbors(block) {
 }
 
 // this function takes a Block and a Side (above, below, left, right, back, or front) and returns a location {x, y, z}
+const TURN_BY = { front: 0, back: Math.PI, left: Math.PI / 2, right: -Math.PI / 2 }
+const ROTATE_BY = { north: Math.PI / 2, east: Math.PI, south: -Math.PI / 2, west: 0 }
 export function location_of_side(block, side) {
-	const TURN_BY = {
-		front: 0,
-		left: Math.PI / 2,
-		back: Math.PI,
-		right: -Math.PI / 2,
-	}
-	const ROTATE_BY = {
-		west: 0,
-		north: Math.PI / 2,
-		east: Math.PI,
-		south: -Math.PI / 2,
-	}
 	if (!block || !block.isValid || !side) return
 	const { location, permutation } = block
-	if (side == "above") return location.y += 1, location
-	if (side == "below") return location.y -= 1, location
+	if (side == "above") return location.y++, location
+	if (side == "below") return location.y--, location
 	const facing = permutation.getState("minecraft:cardinal_direction")
 	if (!facing) return
 	const direction = ROTATE_BY[facing]

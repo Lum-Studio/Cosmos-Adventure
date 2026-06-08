@@ -13,6 +13,9 @@
     "cheese_block": {
       "textures": "textures/blocks/cheese_block"
     },
+    "cryogenic_chamber": {
+      "textures": "textures/blocks/cryogenic_chamber"
+    },
     "dishbase": {
       "textures": "textures/blocks/dishbase"
     },

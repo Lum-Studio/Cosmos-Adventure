@@ -89,16 +89,18 @@ const data = {
 		container.add_ui_display(LiquidDisplay, `Liquid Tank\n(${fluid_names[liquid.type]})\n§e${liquid.amount} / ${data.liquid.capacity}`, Math.ceil((liquid.amount / data.liquid.capacity) * 38))
 		container.add_ui_display(LiquidTexture, '', fluid_textures[liquid.type] ?? 0)
 		container.add_ui_display(StatusDisplay, `§rStatus:\n ${status}`)
-
-		if (container.was_ui_clicked(ButtonSlot, entity)) {
-			const new_state = !active
-			entity.setDynamicProperty('active', new_state)
-			setup_ui_button(entity, ButtonSlot, ProcessButtonText(new_state))
-		}
 	},
 	onPlace(entity) {
-		const initial_state = true
-		entity.setDynamicProperty('active', initial_state) // initial state is on
-		setup_ui_button(entity, ButtonSlot, ProcessButtonText(initial_state))
+		entity.setDynamicProperty('active', true) // initial state is on
+		setup_ui_button(entity, ButtonSlot, ProcessButtonText(true))
 	}
 }; export default data
+
+const buttons = []; machine_buttons.set('cosmos:gas_liquefier', buttons)
+buttons[ButtonSlot] = function (entity, item) {
+	const container = entity.getComponent('minecraft:inventory').container
+	const active = entity.getDynamicProperty('active')
+	item.nameTag = ProcessButtonText(!active) // flip the button text
+	entity.setDynamicProperty('active', !active) // flip the machine state
+	container.setItem(ButtonSlot, item)
+}

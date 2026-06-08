@@ -36,14 +36,12 @@ export function remove(block) {
       const container = machineEntity.getComponent('minecraft:inventory')?.container;
       if (container) {
         for (let i = 0; i < container.size; i++) {
-          const item = container.getItem(i);
-          if (!item) continue;
-          if (!['cosmos:ui', 'cosmos:ui_button'].includes(item.typeId)) {
-            dimension.spawnItem(item, {x: location.x + 0.5, y: location.y + 0.5, z: location.z + 0.5});
-          }
+          const itemId = container.getItem(i)?.typeId;
+          if (!['cosmos:ui', 'cosmos:ui_button'].includes(itemId)) continue;
           container.setItem(i);
         }
       }
+      machineEntity?.runCommand('kill @s');
       machineEntity?.remove();
     }
 
@@ -57,7 +55,7 @@ export const wrench_component = {
       block.setPermutation(perm.withState('cosmos:lamp_direction', direction));
       return;
     }
-    if(/cosmos:fluid_pipe/.test(block.typeId)) attach_to_machine(block)
+    if(block.hasTag("fluid_pipe")) attach_to_machine(block)
     if (!block.hasTag("machine")) return
     if (player.isSneaking) remove(block)
     else rotate(block, perm)

@@ -205,14 +205,12 @@ export const machine_component = {
 		const container = entity.getComponent('minecraft:inventory')?.container;
 		if (container) {
 			for (let i = 0; i < container.size; i++) {
-				const item = container.getItem(i);
-				if (!item) continue;
-				if (!['cosmos:ui', 'cosmos:ui_button'].includes(item.typeId)) {
-					entity.dimension.spawnItem(item, block.center());
-				}
+				const itemId = container.getItem(i)?.typeId;
+				if (!['cosmos:ui', 'cosmos:ui_button'].includes(itemId)) continue;
 				container.setItem(i);
 			}
 		}
+		entity.kill(); // kill to make it drop the items
 		entity.remove();
 	},
 }

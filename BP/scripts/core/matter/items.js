@@ -17,8 +17,18 @@ world.afterEvents.playerInventoryItemChange.subscribe(({itemStack:item, slot, pl
     else if (item?.typeId == "cosmos:battery" && !item?.getLore().length){
         player.getComponent("minecraft:inventory").container.setItem(slot, update_battery(item, 0));
     }
-    else if (item?.typeId == "cosmos:ui" || item?.typeId == "cosmos:ui_button") {
-        player.getComponent("minecraft:inventory").container.setItem(slot)
+    else if (item?.typeId == "cosmos:ui") player.getComponent("minecraft:inventory").container.setItem(slot)
+    else if (item?.typeId == "cosmos:ui_button") {
+        // this is for nasa work bench
+        const id = item.getLore()[0]
+        if (!id || !world.getEntity(id)) player.getComponent("minecraft:inventory").container.setItem(slot)
+        // the behavior of the rest of machines
+        const machine_id = item.getDynamicProperty('machine_id') // get the id of the machine entity
+        const button_slot = item.getDynamicProperty('slot') // get the slot for that button
+        if (typeof machine_id != 'string' || typeof button_slot != 'number') return // check if the button is linked to a machine
+        const machine = world.getEntity(machine_id) // get the machine entity
+        if (!machine || !machine.isValid) return // check if the entity is still valid
+        machine_buttons.get(machine.typeId)[button_slot](machine, item) // run the button function
     }
     else if(item?.typeId && tanks[item.typeId] && !item?.getLore().length){
         player.getComponent("minecraft:inventory").container.setItem(slot, update_tank(item, 0));

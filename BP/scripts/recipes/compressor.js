@@ -1,4 +1,4 @@
-// ingrediants of each recipe should be sorted alphabetically
+// ingredients of each recipe should be sorted alphabetically
 export default new Map ([
 	["cosmos:compressed_iron", ["minecraft:iron_ingot", "minecraft:iron_ingot"]],
 	["cosmos:compressed_copper", ["minecraft:copper_ingot", "minecraft:copper_ingot"]],

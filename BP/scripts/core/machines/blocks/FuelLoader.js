@@ -6,10 +6,8 @@ import { input_fluid, load_from_item } from "../../matter/fluids.js";
 import { machine_buttons, setup_ui_button } from "../MachineButtons"
 
 const InputSlot = 0, BatterySlot = 1
-const EnergyDisplay = 2
-const FuelDisplay = 3
-const StatusDisplay = 4
-const ButtonSlot = 5
+const EnergyDisplay = 2, FuelDisplay = 3
+const StatusDisplay = 4, ButtonSlot = 5
 const LoadButtonText = (status) => status ? 'Stop Loading' : 'Load Fuel'
 
 function get_vehicles(block) {
@@ -48,45 +46,43 @@ const data = {
 		fuel = input_fluid({type: "fuel", slot: "fuel"}, entity, block, fuel)
 		fuel = load_from_item(fuel, "fuel", data.fuel.capacity, container, InputSlot)
 
-		if (active && energy >= 30 && fuel > 0 && block) {
+		if (active && energy > 0 && fuel >= 2 && block) {
 			const vehicles = system.currentTick % 100 == 0 ? (entity.vehicles = get_vehicles(block)) : entity.vehicles ?? []
-			const vehicle = vehicles.find((v) => v && v.isValid && (load_dynamic_object(v, "vehicle_data")?.fuel ?? 0) < 1000)
-			
-			if (vehicle) {
+			vehicles.forEach((vehicle) => {
+				if (!vehicle || !vehicle.isValid) return
 				let vehicle_data = load_dynamic_object(vehicle, "vehicle_data") ?? {}
 				let fuel_level = vehicle_data.fuel ?? 0
-				
-				const space = 1000 - fuel_level
-				const amount = Math.min(space, 2, fuel)
-				
-				vehicle_data.fuel += amount
+				if (fuel_level >= 1000) return
+				vehicle_data.fuel = Math.min(1000, fuel_level + 2)
 				save_dynamic_object(vehicle, vehicle_data, "vehicle_data")
-				fuel -= amount
-				energy -= 30
-			}
+				fuel = Math.max(0, fuel - 2)
+				energy = Math.max(0, energy - 30)
+			})
 		}
 
 		save_dynamic_object(entity, {energy, fuel}, "machine_data")
 		
-		const status = fuel == 0 ? "§4No Fuel to Load!"
-		: energy == 0 ? "§4Not Enough Power"
-		: !active ? "§6Ready"
-		: energy < 30 ? "§6Not Enough Power"
-		: "§2Active"
+		const status = fuel == 0 ? "§4No Fuel to Load"
+		: energy < 30 ? "§4Not Enough Power"
+		: active ? "§2Active"
+		: "§6Ready"
 		
 		container.add_ui_display(EnergyDisplay, `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`, Math.round((energy / data.energy.capacity) * 55))
 		container.add_ui_display(FuelDisplay, `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel.capacity} mB`, Math.ceil((Math.ceil(fuel / 1000) / (data.fuel.capacity / 1000)) * 38))
-		container.add_ui_display(StatusDisplay, `§rStatus:\n${status}`)
-
-		if (container.was_ui_clicked(ButtonSlot, entity)) {
-			const new_state = !active
-			entity.setDynamicProperty('active', new_state)
-			setup_ui_button(entity, ButtonSlot, LoadButtonText(new_state))
-		}
+		container.add_ui_display(StatusDisplay, `§rStatus: ${status}`)
 	},
 	onPlace(entity) {
-		const initial_state = false
+		const initial_state = true
 		entity.setDynamicProperty('active', initial_state)
 		setup_ui_button(entity, ButtonSlot, LoadButtonText(initial_state))
 	}
 }; export default data
+
+const buttons = []; machine_buttons.set('cosmos:fuel_loader', buttons)
+buttons[ButtonSlot] = function (entity, item) {
+	const container = entity.getComponent('minecraft:inventory').container
+	const active = entity.getDynamicProperty('active')
+	item.nameTag = LoadButtonText(!active) // flip the button text
+	entity.setDynamicProperty('active', !active) // flip the machine state
+	container.setItem(ButtonSlot, item)
+}

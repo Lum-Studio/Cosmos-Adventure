@@ -84,12 +84,6 @@ const data = {
 		container.add_ui_display(OilDisplay, `Oil Storage\n§eOil: ${oil} / ${data.oil.capacity} mB`, Math.ceil((Math.ceil(oil / 1000) / (data.oil.capacity / 1000)) * 38))
 		container.add_ui_display(FuelDisplay, `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel.capacity} mB`, Math.ceil((Math.ceil(fuel / 1000) / (data.fuel.capacity / 1000)) * 38))
 		container.add_ui_display(StatusDisplay, `§rStatus:\n${status}`)
-
-		if (container.was_ui_clicked(ButtonSlot, entity)) {
-			const new_state = !active
-			entity.setDynamicProperty('active', new_state)
-			setup_ui_button(entity, ButtonSlot, ProcessButtonText(new_state))
-		}
 	},
 	onPlace(entity) {
 		const initial_state = true
@@ -97,3 +91,12 @@ const data = {
 		setup_ui_button(entity, ButtonSlot, ProcessButtonText(initial_state))
 	}
 }; export default data
+
+const buttons = []; machine_buttons.set('cosmos:refinery', buttons)
+buttons[ButtonSlot] = function (entity, item) {
+	const container = entity.getComponent('minecraft:inventory').container
+	const active = entity.getDynamicProperty('active')
+	item.nameTag = ProcessButtonText(!active) // flip the button text
+	entity.setDynamicProperty('active', !active) // flip the machine state
+	container.setItem(ButtonSlot, item)
+}

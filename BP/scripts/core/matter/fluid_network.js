@@ -82,7 +82,7 @@ export function save_fluid_amount(machine, fluid_data, pipe, amount){
 
             save_dynamic_object(machine_entity, fluid_object, 'machine_data', 'fluid_storage_amount');
             
-            if(machine.id == fluid_storage.id && /cosmos:fluid_pipe/.test(pipe.typeId)){
+            if(machine.id == fluid_storage.id && pipe.hasTag("fluid_pipe")){
                 let state = pipe.typeId.replace("cosmos:fluid_pipe_", '');
                 if(fluid.amount > 0 && state != fluid_type) system.runJob(update_fluid(pipe, fluid_type));
                 else if(fluid.amount === 0 && pipe.typeId != "cosmos:fluid_pipe"){
@@ -219,7 +219,7 @@ export function* update_fluid(pipe, fluid){
         let block = pipes_to_update[i];
         updated_pipes.push(JSON.stringify({x: block.x, y: block.y, z: block.z}));
         let new_pipe = pipe.dimension.getBlock(block);
-        if(new_pipe && !new_pipe.isAir && /cosmos:fluid_pipe/.test(new_pipe.typeId)){
+        if(new_pipe && !new_pipe.isAir && new_pipe.hasTag("fluid_pipe")){
             pipes_to_update = [...pipes_to_update, ...get_sides(new_pipe, updated_pipes)]
             new_pipe.setPermutation(BlockPermutation.resolve(new_type, new_pipe.permutation.getAllStates()));
             yield;

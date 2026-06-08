@@ -81,15 +81,9 @@ const data = {
         container.add_ui_display(OxygenDisplay, oxygen_hover, Math.round((o2 / data["o2"].capacity) * 55))
         container.add_ui_display(EnergyDisplay, energy_hover, Math.round((energy / data.energy.capacity) * 55))
         container.add_ui_display(StatusDisplay, '§rStatus: ' + status)
-        let ui_initialized = entity.getDynamicProperty("ui_initialized");
-        if (!ui_initialized) {
-            entity.setDynamicProperty("ui_initialized", true);
-            container.add_ui_toggle(ButtonSlot, visible_button ? 1 : 0)
-        } else {
-            if (container.was_ui_clicked(ButtonSlot, distributor)) {
-                entity.setDynamicProperty('visible_button', !visible_button)
-                container.add_ui_toggle(ButtonSlot, visible_button ? 0 : 1)
-            }
+        if (!container.getItem(ButtonSlot)) {
+            entity.setDynamicProperty('visible_button', !visible_button)
+            container.add_ui_toggle(ButtonSlot, visible_button ? 0 : 1)
         }
     }
 }; export default data
