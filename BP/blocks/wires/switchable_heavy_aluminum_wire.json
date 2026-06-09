@@ -1,0 +1,47 @@
+{
+	"format_version": "1.26.0",
+	"minecraft:block": {
+		"description": {
+			"identifier": "cosmos:switchable_heavy_aluminum_wire",
+			"menu_category": { "category": "items" },
+			"states": {
+				"cosmos:up": [false, true],
+				"cosmos:down": [false, true],
+				"cosmos:north": [false, true],
+				"cosmos:east": [false, true],
+				"cosmos:south": [false, true],
+				"cosmos:west": [false, true],
+				"cosmos:switch": [true, false]
+			}
+		},
+		"components": {
+			"tag:wire": {},
+      		"tag:heavy_wire": {},
+			"tag:switchable": {},
+			"minecraft:material_instances": { "*": { "texture": "aluminum_wire_switch", "render_method": "blend" } },
+			"minecraft:redstone_consumer": {"min_power": 0},
+			"minecraft:redstone_conductivity": {
+				"allows_wire_to_step_down": false,
+				"redstone_conductor": true
+			},
+			"minecraft:collision_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
+			"minecraft:selection_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
+			"minecraft:light_dampening": 0,
+			"minecraft:destructible_by_mining": { "seconds_to_destroy": 0.5 },
+			"minecraft:destructible_by_explosion": false,
+			"cosmos:aluminum_wire": {},
+      		"cosmos:switchable_wire": {},
+			"minecraft:geometry": {
+				"identifier": "geometry.heavy_aluminum_wire",
+				"bone_visibility": {
+					"up": "q.block_state('cosmos:up')",
+					"down": "q.block_state('cosmos:down')",
+					"north": "q.block_state('cosmos:north')",
+					"east": "q.block_state('cosmos:east')",
+					"south": "q.block_state('cosmos:south')",
+					"west": "q.block_state('cosmos:west')"
+				}
+			}
+		}
+	}
+}

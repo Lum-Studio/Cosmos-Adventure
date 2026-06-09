@@ -1396,6 +1396,8 @@ item.cosmos:tier1_key=Tier 1 Dungeon Key
 item.cosmos:tier2_key=Tier 2 Dungeon Key
 item.cosmos:tier3_key=Tier 3 Dungeon Key
 item.cosmos:volcanic_pickaxe=Volcanic Pickaxe
+item.cosmos:switchable_aluminum_wire=Switchable Aluminum Wire
+item.cosmos:switchable_heavy_aluminum_wire=Switchable Heavy Aluminum Wire
 
 ##fluids
 fluid.undefined=Empty

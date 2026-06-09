@@ -7,6 +7,9 @@
     "aluminum_wire": {
       "textures": "textures/blocks/aluminum_wire"
     },
+    "aluminum_wire_switch": {
+      "textures": "textures/blocks/aluminum_wire_switch"
+    },
     "buggy_fueling_pad": {
       "textures": "textures/blocks/buggy_fueling_pad"
     },
