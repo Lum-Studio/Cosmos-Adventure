@@ -28,6 +28,7 @@ const data = {
 		const has_ingredients = compare_lists(materials.map(i=> i?.typeId), IngredientTypes)
 
 		const variables = load_dynamic_object(entity, "machine_data")
+		const tier = load_dynamic_object(entity, "machine_data", "energy_tier")?.level ?? 1;
 		let energy = variables.energy || 0
 		let progress = variables.progress || 0
 
@@ -42,7 +43,8 @@ const data = {
 		// reset the progress if no ingredients or the recipe changed
 		if (progress && (!has_ingredients || !recipe)) progress = 0
 		// craft the item if progress is full
-		if (progress >= MaxProgress) {
+		let time_required = MaxProgress / tier;
+		if (progress >= time_required) {
 			progress = 0
 			// decrement the input item
 			container.setItem(InputSlot, input_item.decrementStack())
@@ -60,7 +62,7 @@ const data = {
 		if(!compare_lists(first_values, [energy, progress]) || !container.getItem(EnergyDisplay)){
 			const energy_hover = `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`
 			container.add_ui_display(EnergyDisplay, energy_hover, Math.round((energy / data.energy.capacity) * 55))
-			container.add_ui_display(ProgressDisplay, `Progress: ${Math.round((progress / MaxProgress) * 100)}%`, Math.round((progress / MaxProgress) * 51))
+			container.add_ui_display(ProgressDisplay, `Progress: ${Math.round((progress / time_required) * 100)}%`, Math.round((progress / time_required) * 51))
 			container.add_ui_display(StatusDisplay, `§r Status:\n${!energy ? '§4No Power' : progress ? '§2Running' : '   §6Idle'}`)
 		}
 	}

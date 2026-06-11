@@ -30,6 +30,7 @@ const data = {
 		const active = entity.getDynamicProperty("active")
 		
 		const variables = load_dynamic_object(entity, "machine_data")
+		const tier = load_dynamic_object(entity, "machine_data", "energy_tier")?.level ?? 1;
 		let energy = variables.energy ?? 0
 		let oil = variables.oil ?? 0
 		let fuel = variables.fuel ?? 0
@@ -62,7 +63,9 @@ const data = {
 		// refine oil
 		if (!active && system.currentTick % 2 == 0 && oil > 0 && energy > 0 && fuel < data.fuel.capacity) {
 			if (energy >= 120) {
-				oil-- ; fuel++; energy -= 120;
+				let melted_amount = Math.min(data.fuel.capacity - fuel, Math.min(oil, tier));
+
+				fuel += melted_amount; oil -= melted_amount; energy -= 120;
 				if (system.currentTick % 20 == 0) make_smoke(block)
 			}
 		}

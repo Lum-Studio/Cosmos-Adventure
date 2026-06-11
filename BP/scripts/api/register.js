@@ -1,7 +1,7 @@
 import { ItemStack, system, world } from "@minecraft/server";
 import { space_gear_component } from "./player/space_gear";
 import { end_cleaner_component } from "./world/PlanetBuilder";
-import { aluminum_wire_component } from "../core/blocks/aluminum_wire";
+import { aluminum_wire_component, switchable_wire_component } from "../core/blocks/aluminum_wire";
 import { oxygen_detector_component } from "../core/blocks/oxygen_detector";
 import { cavernous_vines_component } from "../core/blocks/cavernous_vines";
 import { cryogenic_chamber_component } from "../core/blocks/cryogenic_chamber";
@@ -35,6 +35,7 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
     // Block Components
     register_block_component('cosmos:end_cleaner', end_cleaner_component)
     register_block_component('cosmos:aluminum_wire', aluminum_wire_component)
+    register_block_component('cosmos:switchable_wire', switchable_wire_component)
     register_block_component('cosmos:arc_lamp', arc_lamp)
     register_block_component("cosmos:cavernous_vines", cavernous_vines_component)
     register_block_component("cosmos:cheese_block", cheese_block)

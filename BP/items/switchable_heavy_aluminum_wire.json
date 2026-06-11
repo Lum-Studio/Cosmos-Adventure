@@ -1,0 +1,15 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cosmos:switchable_heavy_aluminum_wire"
+    },
+    "components": {
+      "minecraft:icon": "switchable_heavy_aluminum_wire",
+      "minecraft:block_placer": {
+        "replace_block_item": true,
+        "block": "cosmos:switchable_heavy_aluminum_wire"
+      }
+    }
+  }
+}

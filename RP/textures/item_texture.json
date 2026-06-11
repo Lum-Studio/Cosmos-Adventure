@@ -14,6 +14,12 @@
     "heavy_aluminum_wire": {
       "textures": "textures/items/heavy_aluminum_wire"
     },
+    "switchable_aluminum_wire": {
+      "textures": "textures/items/aluminum_wire_switch_item"
+    },
+    "switchable_heavy_aluminum_wire": {
+      "textures": "textures/items/aluminum_wire_heavy_switch_item"
+    },
     "ambient_thermal_controller": {
       "textures": "textures/items/ambient_thermal_controller"
     },

@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.80",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cosmos:sealed_aluminum_wire",
+		  "menu_category": { "category": "items" },
+      "states": {
+				"cosmos:up": [false, true],
+				"cosmos:down": [false, true],
+				"cosmos:north": [false, true],
+				"cosmos:east": [false, true],
+				"cosmos:south": [false, true],
+				"cosmos:west": [false, true]
+			}
+    },
+    "components": {
+      "tag:wire": {},
+      "minecraft:destructible_by_mining": { "seconds_to_destroy": 0.5 },
+			"minecraft:destructible_by_explosion": false,
+			"minecraft:custom_components": ["cosmos:aluminum_wire"]
+    }
+  }
+}

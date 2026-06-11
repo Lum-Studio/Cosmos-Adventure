@@ -1,8 +1,8 @@
 {
-	"format_version": "1.21.50",
+	"format_version": "1.21.80",
 	"minecraft:block": {
 		"description": {
-			"identifier": "cosmos:aluminum_wire",
+			"identifier": "cosmos:heavy_aluminum_wire",
 			"menu_category": { "category": "items" },
 			"states": {
 				"cosmos:up": [false, true],
@@ -14,6 +14,8 @@
 			}
 		},
 		"components": {
+			"tag:wire": {},
+			"tag:heavy_wire": {},
 			"minecraft:material_instances": { "*": { "texture": "aluminum_wire", "render_method": "blend" } },
 			"minecraft:collision_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
 			"minecraft:selection_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
@@ -22,7 +24,7 @@
 			"minecraft:destructible_by_explosion": false,
 			"minecraft:custom_components": ["cosmos:aluminum_wire"],
 			"minecraft:geometry": {
-				"identifier": "geometry.aluminum_wire",
+				"identifier": "geometry.heavy_aluminum_wire",
 				"bone_visibility": {
 					"up": "q.block_state('cosmos:up')",
 					"down": "q.block_state('cosmos:down')",
