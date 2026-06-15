@@ -1,5 +1,5 @@
 {
-    "format_version": "1.26.20",
+    "format_version": "1.21.80",
 	"minecraft:block": {
 		"description": {
 			"identifier": "cosmos:fluid_pipe_o2",
@@ -26,7 +26,7 @@
 			"minecraft:destructible_by_mining": { "seconds_to_destroy": 0.5 },
 			"minecraft:destructible_by_explosion": false,
 			"tag:fluid_pipe": {},
-			"cosmos:fluid_pipe": {},
+			"minecraft:custom_components": ["cosmos:fluid_pipe"],
 			"minecraft:geometry": {
 				"identifier": "geometry.fluid_pipe",
 				"bone_visibility": {
@@ -37,7 +37,7 @@
 					"south": "q.block_state('cosmos:fluid_south') != 0",
 					"west": "q.block_state('cosmos:fluid_west') != 0",
 					
-					"fluid_middle": "1",
+					"fluid_middle": true,
 					"fluid_up": "q.block_state('cosmos:fluid_up') != 0",
 					"fluid_down": "q.block_state('cosmos:fluid_down') != 0",
 					"fluid_north": "q.block_state('cosmos:fluid_north') != 0",
@@ -52,22 +52,22 @@
 					"pull_south": "q.block_state('cosmos:fluid_south') == 2",
 					"pull_west": "q.block_state('cosmos:fluid_west') == 2",
 
-					"white": "1",
-					"silver": "0",
-					"gray": "0",
-					"black": "0",
-					"brown": "0",
-					"red": "0",
-					"orange": "0",
-					"yellow": "0",
-					"lime": "0",
-					"green": "0",
-					"light_blue": "0",
-					"cyan": "0",
-					"blue": "0",
-					"purple": "0",
-					"magenta": "0",
-					"pink": "0"
+					"white": true,
+					"silver": false,
+					"gray": false,
+					"black": false,
+					"brown": false,
+					"red": false,
+					"orange": false,
+					"yellow": false,
+					"lime": false,
+					"green": false,
+					"light_blue": false,
+					"cyan": false,
+					"blue": false,
+					"purple": false,
+					"magenta": false,
+					"pink": false
 				}
 			}
 		}
