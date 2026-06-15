@@ -19,7 +19,7 @@
 				"color": { "texture": "fluid_pipe_color", "render_method": "blend" },
 				"pull": { "texture": "fluid_pipe_pull", "render_method": "blend" }
 			},
-			"minecraft:collision_box": { "sorigin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
+			"minecraft:collision_box": { "origin": [-2.5, 5.5, -2.5], "size": [5, 5, 5] },
 			"minecraft:selection_box": { "origin": [-5, 3, -5], "size": [10, 10, 10] },
 			"minecraft:light_dampening": 0,
 			"minecraft:loot": "loot_tables/blocks/fluid_pipe.json",
