@@ -1,5 +1,5 @@
 {
-    "format_version": "1.21.20",
+    "format_version": "1.26.20",
     "minecraft:block": {
       "description": {
         "identifier": "cosmos:cryogenic_chamber",
@@ -53,8 +53,7 @@
           }
         ],
         "minecraft:destructible_by_explosion": false,
-        "minecraft:custom_components": ["cosmos:cryogenic_chamber"],
-
+        "cosmos:cryogenic_chamber": {},
         "minecraft:material_instances": {
           "*": {
             "texture": "cryogenic_chamber",

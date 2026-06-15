@@ -1,5 +1,5 @@
 {
-  "format_version": "1.21.50",
+  "format_version": "1.26.20",
   "minecraft:block": {
 	"description": {
 		"identifier": "cosmos:communications_dish",
@@ -13,6 +13,7 @@
 	  "minecraft:loot": "loot_tables/blocks/dishbase.json",
 	  "minecraft:geometry": "minecraft:geometry.full_block",
 	  "minecraft:destructible_by_explosion": false,
+	  "cosmos:dishbase": {},
 	  "minecraft:destructible_by_mining": {
 		  "seconds_to_destroy": 0.5
 	  }
