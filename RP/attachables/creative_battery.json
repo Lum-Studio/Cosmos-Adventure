@@ -12,10 +12,10 @@
         "enchanted": "textures/misc/enchanted_item_glint"
       },
       "geometry": {
-        "default": "geometry.humanoid.hand"
+        "default": "geometry.item_df"
       },
       "animations": {
-        "hold": "animation.humanoid.hand.hold"
+        "hold": "animation.dungeon_finder.hold"
       },
       "scripts": {
         "animate": [
@@ -23,7 +23,7 @@
         ]
       },
       "render_controllers": [
-        "controller.render.default_item"
+        "controller.render.item_df"
       ]
     }
   }
