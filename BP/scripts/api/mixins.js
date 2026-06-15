@@ -47,6 +47,12 @@ Merge(mc.Player.prototype, {
         this.runCommand(`give @s ${item} ${amount} ${data}`);
         this.runCommand("stopsound @s random.pop");
         world.gameRules.sendCommandFeedback = cmdfeedback;
+    },
+
+    getPlanet() {
+        if (this.dimension.id == "minecraft:the_end") {
+            return getPlanetByLocation(this.location);
+        } else return undefined;
     }
 });
 
