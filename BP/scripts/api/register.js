@@ -25,11 +25,12 @@ import { machine_component } from "../core/machines/Machine";
 import { select_solar_system } from "./player/celestial_selector";
 import nasa_workbench_recipes from "../recipes/nasa_workbench";
 
-system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegistry, blockComponentRegistry}) => {
+system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegistry, blockComponentRegistry, dimensionRegistry}) => {
     const register_block_component = blockComponentRegistry.registerCustomComponent.bind(blockComponentRegistry)
     const register_item_component = itemComponentRegistry.registerCustomComponent.bind(itemComponentRegistry)
     const register_command = customCommandRegistry.registerCommand.bind(customCommandRegistry)
     const register_enum = customCommandRegistry.registerEnum.bind(customCommandRegistry)
+    const register_dimension = dimensionRegistry.registerCustomDimension.bind(dimensionRegistry)
 
     // Block Components
     register_block_component('cosmos:end_cleaner', end_cleaner_component)
@@ -67,6 +68,8 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
     register_item_component("cosmos:wrench", wrench_component)
     register_item_component("cosmos:bucket", bucket_component)
 
+    // Dimensions
+    register_dimension("cosmos:space_stations")
     // Commands
     register_command({
         name: "cosmos:render_distance", 

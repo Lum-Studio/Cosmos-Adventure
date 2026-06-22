@@ -54,7 +54,7 @@ Merge(mc.Player.prototype, {
 //@ts-expect-error
 Merge(mc.Block.prototype, {
     getPlanet(){
-        if(this.dimension.id == "minecraft:the_end") {
+        if(["cosmos:space_stations", "minecraft:the_end"].includes(this.dimension.id)) {
             return getPlanetByLocation(this.location);
         }else return undefined;
     },
@@ -77,7 +77,7 @@ Merge(mc.World.prototype, {
 
 Merge(mc.Entity.prototype, {
     getPlanet(){
-        if(this.dimension.id == "minecraft:the_end") {
+        if(["cosmos:space_stations", "minecraft:the_end"].includes(this.dimension.id)) {
             return getPlanetByLocation(this.location);
         }else return undefined;
     },

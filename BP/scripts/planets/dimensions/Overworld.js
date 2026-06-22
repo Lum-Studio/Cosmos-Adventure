@@ -22,13 +22,13 @@ const parachutes = {
     "cosmos:parachute_yellow": 15
 }
 
-export function return_to_earth(player, player_data){
+export function return_to_earth(player, player_data, should_place_parachest = true){
     player.inputPermissions.setPermissionCategory(2, true)
     player.inputPermissions.setPermissionCategory(6, true)
     player.setDynamicProperty('in_the_rocket')
 
     let player_not_on_ground = true;
-    let parachest_was_placed = false;
+    let parachest_was_placed = true;
 
     let overworld = world.getDimension("overworld");
     
@@ -42,7 +42,9 @@ export function return_to_earth(player, player_data){
         player.setProperty("cosmos:parachute", parachute_color);
         player.addEffect("slow_falling", 9999, {showParticles: false})
     }
-    if(player_data){
+
+    if(should_place_parachest){
+        parachest_was_placed = false;
         player.teleport(player.location, { dimension: overworld});
         parachest = overworld.spawnEntity("cosmos:parachute_chest_entity", {x: Math.round(player.location.x) + 5.5, y: 255, z: Math.round(player.location.z) + 5.5})
         parachest.setProperty("cosmos:parachute", parachute_color ?? 11);
@@ -76,14 +78,15 @@ export function return_to_earth(player, player_data){
     });
 }
 
-export function launch_to_earth(player, rocket_data){ 
+export function launch_to_earth(player, rocket_data, place_parachest = true){ 
     player.runCommand("fog @s remove mars");
     let location = { x: 0 + (Math.random() * 20), y: 255, z: 0 + (Math.random() * 20) };
 	if(rocket_data?.items) saved_rocket_items.set(rocket_data.id, rocket_data.items)
+    rocket_data.place_parachest = false;
 
     if (player.dimension.id == "minecraft:overworld"){
         player.teleport(location);
-        system.runTimeout(() => {return_to_earth(player, rocket_data);}, 5)
+        system.runTimeout(() => {return_to_earth(player, rocket_data, place_parachest);}, 5)
         return;
     };
     player.setDynamicProperty('dimension', JSON.stringify(rocket_data));

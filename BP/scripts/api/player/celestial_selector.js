@@ -2,6 +2,7 @@ import { ActionFormData } from "@minecraft/server-ui";
 import { world, system } from "@minecraft/server";
 import { get_rocket_data } from "./liftoff";
 import { launch_to_earth } from "../../planets/dimensions/Overworld";
+import { saved_rocket_items } from "./liftoff";
 
 const debug = true
 
@@ -58,7 +59,7 @@ export function select_solar_system(player, tier = 1, calledViaCommand = false) 
 		}
 		const station_index = response.selection - 6
 		const station = Object.values(space_stations)[Math.floor(station_index / 2)]
-		if (station_index % 2 == 0) launch_to_station(player, station)
+		if (station_index % 2 == 0) launch_to_station(player, station, space_stations, calledViaCommand)
 		if (station_index % 2 == 1) rename_station(player, station)
 	})
 }
@@ -73,6 +74,7 @@ function launch(player, planet, calledViaCommand) {
 	
 	let rocket = riding?.entityRidingOn; 
 	let rocket_data = get_rocket_data(rocket, calledViaCommand);
+	if(rocket_data.items) saved_rocket_items.set(rocket_data.id, rocket_data.items);
 	if(rocket) rocket.remove();
 
 	let planet_object = world.getPlanet(planet);
@@ -83,8 +85,25 @@ function launch(player, planet, calledViaCommand) {
 	if (debug) player.sendMessage(`Launch ${player.nameTag} to ${planet}`)
 }
 
-function launch_to_station(player, station) {
+function launch_to_station(player, station, station_object, calledViaCommand) {
 	player.setDynamicProperty("in_celestial_selector")
+
+	let riding = !calledViaCommand ? player.getComponent("minecraft:riding"): undefined;
+	if(!calledViaCommand && !riding) return;
+
+	let rocket = riding?.entityRidingOn; 
+	let rocket_data = get_rocket_data(rocket, calledViaCommand);
+	if(rocket_data.items) saved_rocket_items.set(rocket_data.id, rocket_data.items);
+	if(rocket) rocket.remove();
+	
+	rocket_data.station = {location: station.location, is_generated: station.is_generated, type: "stations"};
+	rocket_data.type = "stations";
+
+	let planet_object = world.getPlanet("stations");
+	planet_object.launching(player, rocket_data, false);
+	station.is_generated = true;
+
+	world.setDynamicProperty("all_space_stations", JSON.stringify(station_object));
 	if (debug) player.sendMessage(`Launch ${player.nameTag} to ${station.name}`)
 }
 
@@ -95,8 +114,8 @@ function rename_station(player, station) {
 function create_station(player) {
 	if (debug) player.sendMessage(`Create Space Station`)
 	const space_stations = JSON.parse(world.getDynamicProperty("all_space_stations") ?? '{}')
-	space_stations[player.nameTag] = { name: `${player.nameTag}'s Space Station` }
-	space_stations['Zahar'] = { name: `NSS` }
+    let station_location = {x: 0 + Object.keys(space_stations).length * 2000, y: 70, z: 0}
+	space_stations[player.nameTag] = { name: `${player.nameTag}'s Space Station`, location: station_location, is_generated: false}
 	world.setDynamicProperty("all_space_stations", JSON.stringify(space_stations))
 }
 

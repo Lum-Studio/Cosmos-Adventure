@@ -70,14 +70,18 @@ world.afterEvents.playerDimensionChange.subscribe((data) => {
     data.player.setDynamicProperty('dimension');
     let planet = world.getPlanet(player_data.type);
 
-    if(data.fromDimension.id == "minecraft:the_end" && player_data.type !== "overworld"){
+    if(data.fromDimension.id == "cosmos:space_stations" && player_data.type == "stations"){
+        planet.launching(data.player, player_data, false);
+        return;
+    }
+    if(data.fromDimension.id == "minecraft:the_end" && !["overworld", "stations"].includes(player_data.type)){
         planet.launching(data.player, player_data, false)
         return;
     }
     if(player_data.type !== "overworld"){
         let planet = world.getPlanet(player_data.type);
         planet.launching(data.player, player_data, true);
-    }else return_to_earth(data.player, player_data)
+    }else return_to_earth(data.player, player_data, player_data.place_parachest)
 });
 
 //system of cleaning entity that were spawned in night

@@ -35,7 +35,7 @@ const data = {
 
         o2 = output_fluid({type: "o2", slot: "o2"}, entity, block, o2);
         //checks for leaves or cropes approximately once every 40 ticks
-        if(Math.floor(Math.random() * 10) === 0 && dimension_id == "minecraft:the_end" && energy > 200){
+        if(Math.floor(Math.random() * 10) === 0 && ["cosmos:space_stations", "minecraft:the_end"].includes(dimension_id) && energy > 200){
             oxygen_source_bloks = 0;
             let {x, y, z} = entity.location;
             for(let location of block.dimension.getBlocks(
