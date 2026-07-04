@@ -23,6 +23,7 @@ import { bucket_component } from "../core/matter/fluids";
 import { solar_panel_component } from "../core/machines/blocks/BasicSolarPanel";
 import { machine_component } from "../core/machines/Machine";
 import { select_solar_system } from "./player/celestial_selector";
+import { volcanic_pickaxe_component } from "../core/items/volcanic_pickaxe";
 import nasa_workbench_recipes from "../recipes/nasa_workbench";
 
 system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegistry, blockComponentRegistry, dimensionRegistry}) => {
@@ -67,6 +68,7 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
     register_item_component("cosmos:grapple", grapple_component)
     register_item_component("cosmos:wrench", wrench_component)
     register_item_component("cosmos:bucket", bucket_component)
+    register_item_component("cosmos:volcanic_pickaxe", volcanic_pickaxe_component)
 
     // Dimensions
     register_dimension("cosmos:space_stations")
