@@ -6,6 +6,7 @@ import { throw_meteors } from "../planets/events/meteor_event.js";
 import { dungeon_finder_loop } from "./items/dungeon_finder.js";
 import { oxygen_spending, is_entity_in_a_bubble } from "../api/player/oxygen.js";
 import { launch_to_earth } from "../planets/dimensions/Overworld.js";
+import { player_gravity } from "../planets/gravity.js";
 
 function space_tags_removing(player){
     player.removeTag("oxygen_hunger");
@@ -38,7 +39,7 @@ world.afterEvents.worldLoad.subscribe(() => {
             if(!(currentTick % 10) && planet?.type == "stations" && player.location.y < 10) launch_to_earth(player, {type: "overworld"}, false)
         });
         //manage gravity
-        //player_gravity(players_in_space)
+        player_gravity();
     });
 });
 
@@ -47,6 +48,7 @@ world.afterEvents.playerSpawn.subscribe(({player}) => {
     if(!["cosmos:space_stations", "minecraft:the_end"].includes(player.dimension.id)){
         space_tags_removing(player)
     }
+    player.removeTag("gravity_falling")
     player.removeTag("oxygen_hunger");
     player.setDynamicProperty("in_celestial_selector");
 
@@ -65,5 +67,6 @@ world.afterEvents.playerDimensionChange.subscribe((data) => {
     if(["cosmos:space_stations", "minecraft:the_end"].includes(data.fromDimension.id)){
         data.player.runCommand("fog @s remove mars")
         space_tags_removing(data.player);
+        data.player.removeTag("gravity_falling")
     }
 });
