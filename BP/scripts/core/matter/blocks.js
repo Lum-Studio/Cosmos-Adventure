@@ -67,7 +67,11 @@ export const fallen_meteor = {
             {
                 direction_x = (Math.random() - Math.random()) * 0.01;
             }
-            try{burned_entity.applyKnockback({x: direction_x, z: direction_z}, 1)}catch{}
+            try{
+                burned_entity.knockback = true;
+                system.runTimeout(() => {if(burned_entity.isValid) burned_entity.knockback = false}, 40);
+                burned_entity.applyKnockback({x: direction_x, z: direction_z}, 1)
+            }catch{}
         }
     }
 }

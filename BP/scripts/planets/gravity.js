@@ -135,6 +135,7 @@ function setGravity(entity) {
 
 export function player_gravity(){
   for (let player of world.getPlayers({tags: ["in_space"]})){
+    if(player.knockback) return;
     player.addTag("gravity_falling");
     const gravity = Gravity.of(player)
     if (gravity.value == 9.8) continue;
@@ -201,6 +202,7 @@ export function player_gravity(){
 
   GravityEntities.forEach((entity, index) => {
     if (!entity.isValid || entity.dimension.id != 'minecraft:the_end') return GravityEntities.splice(index, 1);
+    if(entity.knockback) return;
     setGravity(entity)
 
     if (entity.isInWater) entity.fallingVelocity = 0;

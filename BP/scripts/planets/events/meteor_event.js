@@ -53,13 +53,13 @@ export function throw_meteors(player){
 
 world.afterEvents.projectileHitBlock.subscribe(({projectile, dimension}) => {
     if(projectile.typeId == "cosmos:fallen_meteor" && (projectile.location.y <= 255 && projectile.location.y > -64)){
-        dimension.createExplosion(projectile.location, projectile.getComponent("minecraft:scale").value/3 + 2)
         let {x, y, z} = projectile.location;
+        dimension.createExplosion(projectile.location, projectile.getComponent("minecraft:scale").value/3 + 2)
         system.runTimeout(() => {
             let top_block = dimension.getTopmostBlock({x: x, z: z});
             top_block.above().setPermutation(
             BlockPermutation.resolve("cosmos:fallen_meteor", {"cosmos:heat_level": 1}));
-            projectile.remove();
+            try{ projectile.remove(); }catch{}
         }, 10);
     }
 });
