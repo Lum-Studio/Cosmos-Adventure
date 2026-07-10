@@ -23,7 +23,7 @@ import { wrench_component } from "../core/items/wrench";
 import { bucket_component } from "../core/matter/fluids";
 import { solar_panel_component } from "../core/machines/blocks/BasicSolarPanel";
 import { machine_component } from "../core/machines/Machine";
-import { select_solar_system } from "./player/celestial_selector";
+import { select_solar_system, start_celestial_selector } from "./player/celestial_selector";
 import nasa_workbench_recipes from "../recipes/nasa_workbench";
 
 system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegistry, blockComponentRegistry}) => {
@@ -90,6 +90,20 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
     ({sourceType, sourceEntity}) => {
         if (sourceType == "Entity" && sourceEntity.typeId == "minecraft:player") {
             system.run(() => select_solar_system(sourceEntity, 3, true))
+        }
+    })
+
+    register_command({
+        name: "cosmos:planet_selector",
+        description: "Opens the planet selector screen.",
+        cheatsRequired: true, permissionLevel: 1,
+        optionalParameters: [
+            { type: "Integer", name: "tier" }
+        ]
+    }, 
+    ({sourceType, sourceEntity}, tier = 1) => {
+        if (sourceType == "Entity" && sourceEntity.typeId == "minecraft:player") {
+            system.run(() => start_celestial_selector(sourceEntity, tier, true))
         }
     })
 
