@@ -79,6 +79,9 @@
     "walkway": {
       "textures": "textures/blocks/walkway"
     },
+    "wire_walkway": {
+      "textures": "textures/blocks/wire_walkway"
+    },
 
     //arc_lamp
     "arc_lamp_off": {
