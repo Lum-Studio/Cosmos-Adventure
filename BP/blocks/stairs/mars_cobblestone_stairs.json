@@ -24,7 +24,6 @@
 			}
 		},
 		"components": {
-      "minecraft:display_name": "%tile.mars_stairs_cobblestone.name",
 			"minecraft:selection_box": true,
 			"minecraft:destructible_by_mining": {
 				"seconds_to_destroy": 0.5

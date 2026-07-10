@@ -12,7 +12,7 @@
       }
 	},
 	"components": {
-    "minecraft:display_name": "%tile.machine.3.name\n§7%tile.compressor.description",
+    "minecraft:display_name": "%tile.compressor.name\n§7%tile.compressor.description",
 	  "tag:machine": {},
     "cosmos:machine": {},
     "minecraft:destructible_by_explosion": false,

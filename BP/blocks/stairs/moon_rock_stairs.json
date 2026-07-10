@@ -24,7 +24,6 @@
 			}
 		},
 		"components": {
-      "minecraft:display_name": "%tile.moon_stairs_stone.name",
 			"minecraft:selection_box": true,
 			"minecraft:destructible_by_mining": {
 				"seconds_to_destroy": 0.5

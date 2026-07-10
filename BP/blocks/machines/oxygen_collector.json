@@ -13,7 +13,7 @@
     },
     "components": {
 	    "tag:machine": {},
-      "minecraft:display_name": "%tile.collector.name\n§7%tile.collector.description",
+      "minecraft:display_name": "%tile.oxygen_collector.name\n§7%tile.collector.description",
       "cosmos:machine": {},
       "minecraft:destructible_by_explosion": false,
       "minecraft:movable": { "movement_type": "immovable" },

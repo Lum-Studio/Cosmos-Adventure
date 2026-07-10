@@ -5,7 +5,6 @@
          "identifier": "cosmos:space_station"
       },
       "components": {
-         "minecraft:display_name": "%tile.dummyblock.space_station_base.name",
          "minecraft:destructible_by_explosion": false,
          "minecraft:destructible_by_mining": false
       }
