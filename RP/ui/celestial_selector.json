@@ -7921,7 +7921,13 @@
           "factory": {
             "name": "buttons",
             "control_name": "selector.station_list_item"
-          }
+          },
+          "bindings": [
+            {
+              "binding_name": "#form_button_length",
+              "binding_name_override": "#collection_length"
+            }
+          ]
         }
       }
     ]
