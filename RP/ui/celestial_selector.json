@@ -27,6 +27,7 @@
             {"catalog@selector.catalog": {}},
             {"launch_panel@selector.launch_panel": {}},
             {"station_list_panel@selector.station_list_panel": {}},
+            {"top_rename_panel@selector.top_rename_panel": {}},
 			      {"solar_system@selector.solar_system": {}},
 			      {"zoomed_solar_system_mercury@selector.zoomed_solar_system_mercury": {}},
 			      {"zoomed_solar_system_venus@selector.zoomed_solar_system_venus": {}},
@@ -273,6 +274,7 @@
                       "$id": "aluminum_ingot",
                       "$name": "Aluminum Ingot",
                       "$condition": "$has_aluminum",
+                      "$no_condition": "$no_aluminum",
                       "$amount": "16"
                     }
                   },
@@ -281,6 +283,7 @@
                       "$id": "advanced_wafer",
                       "$name": "Advanced Wafer",
                       "$condition": "$has_wafer",
+                      "$no_condition": "$no_wafer",
                       "$amount": "1"
                     }
                   },
@@ -289,6 +292,7 @@
                       "$id": "tin_ingot",
                       "$name": "Tin Ingot",
                       "$condition": "$has_tin",
+                      "$no_condition": "$no_tin",
                       "$amount": "32"
                     }
                   },
@@ -297,6 +301,7 @@
                       "$id": "iron_ingot",
                       "$name": "Iron Ingot",
                       "$condition": "$has_iron",
+                      "$no_condition": "$no_iron",
                       "$amount": "24"
                     }
                   },
@@ -5027,7 +5032,7 @@
           ],
           "controls": [
             {
-              "select_box@selector.selection_box": {
+              "orbital_toggle_station@selector.selection_box": {
                 "$selection_size": [16, 16],
                 "controls": [
                   {
@@ -6282,7 +6287,7 @@
           ],
           "controls": [
             {
-              "select_box@selector.selection_box": {
+              "orbital_toggle_station@selector.selection_box": {
                 "$selection_size": [16, 16],
                 "controls": [
                   {
@@ -7903,6 +7908,274 @@
           "controls": [
             {
               "station_list_content@selector.station_list_content": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "planet_header": {
+    "type": "image",
+    "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+    "color": [0, 0.6, 1],
+    "size": [94, 11],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "offset": [0, 8],
+    "layer": 5,
+    "controls": [
+      {
+        "label": {
+          "type": "label",
+          "text": "$planet_title",
+          "color": [1, 1, 1],
+          "size": ["100%", 10],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "text_alignment": "center",
+          "layer": 6
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "$toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "top_rename_panel": {
+    "type": "panel",
+    "size": ["100%", "100%"],
+    "controls": [
+      {
+        "mercury_header@selector.planet_header": {
+          "$toggle": "catalog_toggle_mercury",
+          "$planet_title": "MERCURY"
+        }
+      },
+      {
+        "venus_header@selector.planet_header": {
+          "$toggle": "catalog_toggle_venus",
+          "$planet_title": "VENUS"
+        }
+      },
+      {
+        "earth_header@selector.planet_header": {
+          "$planet_title": "EARTH",
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "catalog_toggle_overworld",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#earth_selected"
+            },
+            {
+              "binding_type": "view",
+              "source_control_name": "orbital_toggle_station",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#station_selected"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#earth_selected and not #station_selected)",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "moon_header@selector.planet_header": {
+          "$toggle": "orbital_toggle_moon",
+          "$planet_title": "MOON"
+        }
+      },
+      {
+        "mars_header@selector.planet_header": {
+          "$toggle": "catalog_toggle_mars",
+          "$planet_title": "MARS"
+        }
+      },
+      {
+        "asteroids_header@selector.planet_header": {
+          "$toggle": "catalog_toggle_asteroids",
+          "$planet_title": "ASTEROIDS"
+        }
+      },
+      {
+        "jupiter_header@selector.planet_header": {
+          "$toggle": "catalog_toggle_jupiter",
+          "$planet_title": "JUPITER"
+        }
+      },
+      {
+        "saturn_header@selector.planet_header": {
+          "$toggle": "catalog_toggle_saturn",
+          "$planet_title": "SATURN"
+        }
+      },
+      {
+        "uranus_header@selector.planet_header": {
+          "$toggle": "catalog_toggle_uranus",
+          "$planet_title": "URANUS"
+        }
+      },
+      {
+        "neptune_header@selector.planet_header": {
+          "$toggle": "catalog_toggle_neptune",
+          "$planet_title": "NEPTUNE"
+        }
+      },
+      {
+        "rename_collection": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [94, 11],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [0, 8],
+          "collection_name": "form_buttons",
+          "factory": {
+            "name": "buttons",
+            "control_name": "selector.top_rename_item"
+          },
+          "bindings": [
+            {
+              "binding_name": "#form_button_length",
+              "binding_name_override": "#collection_length"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "top_rename_item": {
+    "type": "panel",
+    "size": [94, 11],
+    "controls": [
+      {
+        "clickable_rename@cosmos.button": {
+          "size": [94, 11],
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#form_button_text",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "#form_text",
+              "target_property_name": "#form_val"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#form_val - ('%.27s' * #form_val))",
+              "target_property_name": "#player_name"
+            },
+            {
+              "binding_type": "view",
+              "source_control_name": "orbital_toggle_station",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#station_selected"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#station_selected and not (#form_button_text - 'Rename ' = #form_button_text) and not (#form_button_text - #player_name = #form_button_text))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "$action": "button.form_button_click",
+          "controls": [
+            {
+              "default": {
+                "type": "image",
+                "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+                "color": [0, 0.8, 0],
+                "size": [94, 11],
+                "layer": 5
+              }
+            },
+            {
+              "hover": {
+                "type": "image",
+                "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+                "color": [0, 1, 0],
+                "size": [94, 11],
+                "layer": 5
+              }
+            },
+            {
+              "label": {
+                "type": "label",
+                "text": "RENAME",
+                "color": [1, 1, 1],
+                "size": ["100%", 10],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "text_alignment": "center",
+                "layer": 6
+              }
+            }
+          ]
+        }
+      },
+      {
+        "static_rename": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+          "color": [0.8, 0, 0],
+          "size": [94, 11],
+          "layer": 5,
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#form_button_text",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "#form_text",
+              "target_property_name": "#form_val"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#form_val - ('%.27s' * #form_val))",
+              "target_property_name": "#player_name"
+            },
+            {
+              "binding_type": "view",
+              "source_control_name": "orbital_toggle_station",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#station_selected"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#station_selected and not (#form_button_text - 'Rename ' = #form_button_text) and (#form_button_text - #player_name = #form_button_text))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "label": {
+                "type": "label",
+                "text": "RENAME",
+                "color": [1, 1, 1],
+                "size": ["100%", 10],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "text_alignment": "center",
+                "layer": 6
+              }
             }
           ]
         }

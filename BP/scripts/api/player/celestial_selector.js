@@ -1,4 +1,4 @@
-import { ActionFormData } from "@minecraft/server-ui";
+import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import { world, system, Player } from "@minecraft/server";
 import { get_rocket_data } from "./liftoff";
 import { launch_to_earth } from "../../planets/dimensions/Overworld";
@@ -33,7 +33,7 @@ export function select_solar_system(player, tier = 1, calledViaCommand = false) 
 	const has_station = player.nameTag in space_stations
 	let form = new ActionFormData()
 		.title("Celestial Panel Solar System")
-		.body(`Tier ${tier} Station ${has_station || ('false ' + JSON.stringify(read_inventory(player)))}`)
+		.body(`Tier ${tier} Station ${has_station ? 'true Player:' + player.nameTag : 'false ' + JSON.stringify(read_inventory(player))}`)
 		.button(`Launch to Overworld`)
 		.button(`Launch to Moon`)
 		.button(`Launch to Mars`)
@@ -114,7 +114,39 @@ function launch_to_station(player, station, station_object, calledViaCommand) {
 }
 
 function rename_station(player, station) {
-	if (debug) player.sendMessage(`Rename ${station.name}`)
+	const space_stations = JSON.parse(world.getDynamicProperty("all_space_stations") ?? '{}')
+	const owner = Object.keys(space_stations).find(key => space_stations[key].location.x === station.location.x)
+	if (!owner) return
+	
+	if (owner !== player.nameTag) {
+		player.sendMessage("§cYou can only rename your own space station!");
+		return
+	}
+
+	const modal = new ModalFormData()
+		.title("Rename Space Station")
+		.textField("Enter new name:", "My Space Station", station.name);
+
+	modal.show(player).then((response) => {
+		if (response.canceled || !response.formValues || !response.formValues[0]) {
+			select_solar_system(player);
+			return;
+		}
+
+		const newName = response.formValues[0].trim();
+		if (newName === "") {
+			select_solar_system(player);
+			return;
+		}
+
+		const updated_stations = JSON.parse(world.getDynamicProperty("all_space_stations") ?? '{}')
+		if (updated_stations[owner]) {
+			updated_stations[owner].name = newName;
+			world.setDynamicProperty("all_space_stations", JSON.stringify(updated_stations));
+			player.sendMessage(`§aSpace station successfully renamed to: ${newName}`);
+		}
+		select_solar_system(player);
+	})
 }
 
 function create_station(player) {

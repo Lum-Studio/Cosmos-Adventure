@@ -563,6 +563,34 @@
 			"target_property_name": "#visible"
 		}
 	],
+	"$no_aluminum": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(#form_text - '\"aluminum\":true' = #form_text)",
+			"target_property_name": "#visible"
+		}
+	],
+	"$no_wafer": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(#form_text - '\"wafer\":true' = #form_text)",
+			"target_property_name": "#visible"
+		}
+	],
+	"$no_tin": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(#form_text - '\"tin\":true' = #form_text)",
+			"target_property_name": "#visible"
+		}
+	],
+	"$no_iron": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(#form_text - '\"iron\":true' = #form_text)",
+			"target_property_name": "#visible"
+		}
+	],
 	"$get_planet": [
 		{
 			"binding_type": "view",
@@ -625,7 +653,7 @@
 		},
 		{
 			"binding_type": "view",
-			"source_property_name": "(#form_button_text - 'Launch to ')",
+			"source_property_name": "(#form_button_text - 'Rename ' = #form_button_text ? #form_button_text - 'Launch to ' : 'Rename')",
 			"target_property_name": "#name"
 		}
 	],
