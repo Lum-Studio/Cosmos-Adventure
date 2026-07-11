@@ -1,13 +1,25 @@
 {
-  "format_version": "1.20.80",
+  "format_version": "1.26.0",
   "minecraft:block": {
     "description": {
       "identifier": "cosmos:walkway",
-		  "menu_category": { "category": "items" }
+		  "menu_category": { "category": "items" },
+      "states": {
+				"cosmos:north": [false, true],
+				"cosmos:east": [false, true],
+				"cosmos:south": [false, true],
+				"cosmos:west": [false, true]
+			}
     },
     "components": {
       "minecraft:geometry": {
-        "identifier": "geometry.walkway"
+        "identifier": "geometry.walkway",
+        "bone_visibility": {
+					"north": "q.block_state('cosmos:north')",
+					"east": "q.block_state('cosmos:east')",
+					"south": "q.block_state('cosmos:south')",
+					"west": "q.block_state('cosmos:west')"
+        }
       },
       "minecraft:material_instances": {
         "*": { "texture": "walkway", "render_method": "alpha_test"}
@@ -22,7 +34,8 @@
       },
       "minecraft:destructible_by_mining": {
         "seconds_to_destroy": 1
-      }
+      },
+      "cosmos:walkway": {}
     }
   }
 }

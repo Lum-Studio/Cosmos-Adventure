@@ -1,77 +1,288 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:block": {
-    "description": {
-      "identifier": "cosmos:mars_cobblestone_stairs",
-		  "menu_category": { "category": "items" },
-      "traits": {
-        "minecraft:placement_direction": {
-          "enabled_states": [
-            "minecraft:cardinal_direction"
-          ]
-        },
-        "minecraft:placement_position": {
-          "enabled_states": [
-            "minecraft:vertical_half"
-          ]
-        }
-      },
-      "states": {
-        "generic:north_east": [
-          true,
-          false
-        ],
-        "generic:north_west": [
-          true,
-          false
-        ],
-        "generic:south_east": [
-          false,
-          true
-        ],
-        "generic:south_west": [
-          false,
-          true
-        ]
-      }
-    },
-    "components": {
-      "minecraft:display_name": "%tile.mars_stairs_cobblestone.name",
-      "minecraft:geometry": {
-        "identifier": "geometry.stairs",
-        "bone_visibility": {
-          "top_ne": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:north_east')",
-          "top_nw": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:north_west')",
-          "top_se": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:south_east')",
-          "top_sw": "q.block_state('minecraft:vertical_half') == 'top' || q.block_state('generic:south_west')",
-          "bottom_ne": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:north_east')",
-          "bottom_nw": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:north_west')",
-          "bottom_se": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:south_east')",
-          "bottom_sw": "q.block_state('minecraft:vertical_half') == 'bottom' || q.block_state('generic:south_west')"
-        }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 0.5
-      },
-      "minecraft:destructible_by_explosion": {
-        "explosion_resistance": 12
-      },
-      "minecraft:material_instances": {
-        "*": {
-          "texture": "mars_cobblestone",
-          "render_method": "opaque"
-        }
-      },
-      "minecraft:custom_components": [
-        "cosmos:stairs"
-      ],
-      "minecraft:tick": {
-        "interval_range": [
-          1,
-          1
-        ]
-      },
-      "tag:stairs": {}
-    }
-  }
+	"format_version": "1.26.0",
+	"minecraft:block": {
+		"description": {
+			"identifier": "cosmos:mars_cobblestone_stairs",
+      "menu_category": {
+				"category": "items"
+			},
+			"traits": {
+				"minecraft:placement_position": {
+					"enabled_states": ["minecraft:vertical_half"]
+				},
+				"minecraft:placement_direction": {
+					"blocks_to_corner_with": [
+						{
+							"tags": "q.any_tag('minecraft:cornerable_stairs')"
+						}
+					],
+					"enabled_states": ["minecraft:corner_and_cardinal_direction"]
+				},
+				"minecraft:connection": {
+					"enabled_states": ["minecraft:cardinal_connections"]
+				}
+			}
+		},
+		"components": {
+			"minecraft:selection_box": true,
+			"minecraft:destructible_by_mining": {
+				"seconds_to_destroy": 0.5
+			},
+			"minecraft:destructible_by_explosion": {
+				"explosion_resistance": 12
+			},
+			"minecraft:geometry": {
+				"identifier": "geometry.stairs",
+				"uv_lock": false,
+				"bone_visibility": {
+					"regular": "q.block_state('minecraft:vertical_half') == 'bottom'",
+					"back_l": "q.block_state('minecraft:vertical_half') == 'bottom' && (q.block_state('minecraft:corner') != 'outer_right')",
+					"back_r": "q.block_state('minecraft:vertical_half') == 'bottom' && (q.block_state('minecraft:corner') != 'outer_left')",
+					"front_r": "q.block_state('minecraft:vertical_half') == 'bottom' && q.block_state('minecraft:corner') == 'inner_right'",
+					"front_l": "q.block_state('minecraft:vertical_half') == 'bottom' && q.block_state('minecraft:corner') == 'inner_left'",
+					"top_down": "q.block_state('minecraft:vertical_half') == 'top'",
+					"top_back_l": "q.block_state('minecraft:vertical_half') == 'top' && (q.block_state('minecraft:corner') != 'outer_right')",
+					"top_back_r": "q.block_state('minecraft:vertical_half') == 'top' && (q.block_state('minecraft:corner') != 'outer_left')",
+					"top_front_r": "q.block_state('minecraft:vertical_half') == 'top' && q.block_state('minecraft:corner') == 'inner_right'",
+					"top_front_l": "q.block_state('minecraft:vertical_half') == 'top' && q.block_state('minecraft:corner') == 'inner_left'"
+				}
+			},
+			"minecraft:material_instances": {
+				"*": {
+					"texture": "mars_cobblestone",
+					"render_method": "alpha_test"
+				}
+			},
+			"tag:minecraft:is_pickaxe_item_destructible": {},
+			"minecraft:liquid_detection": {
+				"detection_rules": [
+					{
+						"liquid_type": "water",
+						"can_contain_liquid": true,
+						"on_liquid_touches": "blocking"
+					}
+				]
+			},
+			"tag:minecraft:cornerable_stairs": {},
+			"minecraft:support": {
+				"shape": "stair"
+			}
+		},
+		"permutations": [
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [0, 180, 0]
+					},
+					"minecraft:connection_rule": {
+						"accepts_connections_from": "all",
+						"enabled_directions": ["north"]
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [0, 0, 0]
+					},
+					"minecraft:connection_rule": {
+						"accepts_connections_from": "all",
+						"enabled_directions": ["south"]
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [0, 90, 0]
+					},
+					"minecraft:connection_rule": {
+						"accepts_connections_from": "all",
+						"enabled_directions": ["east"]
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [0, 270, 0]
+					},
+					"minecraft:connection_rule": {
+						"accepts_connections_from": "all",
+						"enabled_directions": ["west"]
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:corner') == 'none' && q.block_state('minecraft:vertical_half') == 'bottom'",
+				"components": {
+					"minecraft:collision_box": [
+						{
+							"origin": [-8, 0, -8],
+							"size": [16, 8, 16]
+						},
+						{
+							"origin": [-8, 8, 0],
+							"size": [16, 8, 8]
+						}
+					]
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:corner') == 'inner_right' && q.block_state('minecraft:vertical_half') == 'bottom'",
+				"components": {
+					"minecraft:collision_box": [
+						{
+							"origin": [-8, 0, -8],
+							"size": [16, 8, 16]
+						},
+						{
+							"origin": [-8, 8, 0],
+							"size": [16, 8, 8]
+						},
+						{
+							"origin": [0, 8, -8],
+							"size": [8, 8, 8]
+						}
+					]
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:corner') == 'outer_right' && q.block_state('minecraft:vertical_half') == 'bottom'",
+				"components": {
+					"minecraft:collision_box": [
+						{
+							"origin": [-8, 0, -8],
+							"size": [16, 8, 16]
+						},
+						{
+							"origin": [0, 8, 0],
+							"size": [8, 8, 8]
+						}
+					]
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:corner') == 'inner_left' && q.block_state('minecraft:vertical_half') == 'bottom'",
+				"components": {
+					"minecraft:collision_box": [
+						{
+							"origin": [-8, 0, -8],
+							"size": [16, 8, 16]
+						},
+						{
+							"origin": [-8, 8, 0],
+							"size": [16, 8, 8]
+						},
+						{
+							"origin": [-8, 8, -8],
+							"size": [8, 8, 8]
+						}
+					]
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:corner') == 'outer_left' && q.block_state('minecraft:vertical_half') == 'bottom'",
+				"components": {
+					"minecraft:collision_box": [
+						{
+							"origin": [-8, 0, -8],
+							"size": [16, 8, 16]
+						},
+						{
+							"origin": [-8, 8, 0],
+							"size": [8, 8, 8]
+						}
+					]
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:corner') == 'none' && q.block_state('minecraft:vertical_half') == 'top'",
+				"components": {
+					"minecraft:collision_box": [
+						{
+							"origin": [-8, 8, -8],
+							"size": [16, 8, 16]
+						},
+						{
+							"origin": [-8, 0, 0],
+							"size": [16, 8, 8]
+						}
+					]
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:corner') == 'inner_right' && q.block_state('minecraft:vertical_half') == 'top'",
+				"components": {
+					"minecraft:collision_box": [
+						{
+							"origin": [-8, 8, -8],
+							"size": [16, 8, 16]
+						},
+						{
+							"origin": [-8, 0, 0],
+							"size": [16, 8, 8]
+						},
+						{
+							"origin": [0, 0, -8],
+							"size": [8, 8, 8]
+						}
+					]
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:corner') == 'outer_right' && q.block_state('minecraft:vertical_half') == 'top'",
+				"components": {
+					"minecraft:collision_box": [
+						{
+							"origin": [-8, 8, -8],
+							"size": [16, 8, 16]
+						},
+						{
+							"origin": [0, 0, 0],
+							"size": [8, 8, 8]
+						}
+					]
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:corner') == 'inner_left' && q.block_state('minecraft:vertical_half') == 'top'",
+				"components": {
+					"minecraft:collision_box": [
+						{
+							"origin": [-8, 8, -8],
+							"size": [16, 8, 16]
+						},
+						{
+							"origin": [-8, 0, 0],
+							"size": [16, 8, 8]
+						},
+						{
+							"origin": [-8, 0, -8],
+							"size": [8, 8, 8]
+						}
+					]
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:corner') == 'outer_left' && q.block_state('minecraft:vertical_half') == 'top'",
+				"components": {
+					"minecraft:collision_box": [
+						{
+							"origin": [-8, 8, -8],
+							"size": [16, 8, 16]
+						},
+						{
+							"origin": [-8, 0, 0],
+							"size": [8, 8, 8]
+						}
+					]
+				}
+			}
+		]
+	}
 }

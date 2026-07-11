@@ -40,9 +40,6 @@
                }
             ]
          },
-         "minecraft:display_name": {
-            "value": "Titanium Shovel"
-         },
          "minecraft:tags": {
             "tags": [
                "minecraft:is_shovel"

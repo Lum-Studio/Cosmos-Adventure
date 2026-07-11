@@ -21,9 +21,6 @@
             "tags": [
                "minecraft:is_sword"
             ]
-         },
-         "minecraft:display_name": {
-            "value": "Steel Sword"
          }
       }
    }

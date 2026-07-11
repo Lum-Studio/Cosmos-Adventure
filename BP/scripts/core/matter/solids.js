@@ -8,7 +8,8 @@ const stone_tier = new Set([
 	"minecraft:netherite_pickaxe",
 	"cosmos:titanium_pickaxe",
 	"cosmos:steel_pickaxe",
-	"cosmos:desh_pickaxe"
+	"cosmos:desh_pickaxe",
+	"cosmos:volcanic_pickaxe"
 ])
 
 const iron_tier = new Set([
@@ -17,14 +18,16 @@ const iron_tier = new Set([
 	"minecraft:netherite_pickaxe",
 	"cosmos:titanium_pickaxe",
 	"cosmos:steel_pickaxe",
-	"cosmos:desh_pickaxe"
+	"cosmos:desh_pickaxe",
+	"cosmos:volcanic_pickaxe"
 ])
 
 const diamond_tier = new Set([
 	"minecraft:diamond_pickaxe",
 	"minecraft:netherite_pickaxe",
 	"cosmos:titanium_pickaxe",
-	"cosmos:desh_pickaxe"
+	"cosmos:desh_pickaxe",
+	"cosmos:volcanic_pickaxe"
 ])
 
 function wrong_tool(block, item) {
@@ -53,7 +56,7 @@ world.beforeEvents.playerBreakBlock.subscribe((event) => {
 
 //durability system
 world.afterEvents.playerBreakBlock.subscribe(({brokenBlockPermutation:block, itemStackBeforeBreak:item, player}) => {
-	if (!item || !block.hasTag("take_durability")) return
+	if (!item || !block.hasTag("take_durability") || item.typeId == "cosmos:volcanic_pickaxe") return
 	const unbreaking = item.getComponent('enchantable')?.getEnchantment('unbreaking')?.level ?? 0
 	const durability = item.getComponent('durability')
 	if (!durability) return

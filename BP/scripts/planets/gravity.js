@@ -129,11 +129,14 @@ function setGravity(entity) {
   let gravity = Gravity.of(entity)
   let planet = entity.getPlanet()
   if (!planet) return gravity.setTemp(9.8);
+  entity.addTag("gravity_falling");
   gravity.setTemp(planet.gravity)
 }
 
-export function player_gravity(players){
-  for (let player of players) {
+export function player_gravity(){
+  for (let player of world.getPlayers({tags: ["in_space"]})){
+    if(player.knockback) return;
+    player.addTag("gravity_falling");
     const gravity = Gravity.of(player)
     if (gravity.value == 9.8) continue;
 
@@ -192,24 +195,17 @@ export function player_gravity(players){
     if (ray == undefined) return; 
 
     let distance = player.location.y - sumObjects(ray.block, ray.faceLocation).y
-    player.distance = distance
-    if (distance < -player.getVelocity().y*3) player.addEffect('slow_falling', 1, { amplifier: 0, showParticles: false });
+    player.distance = distance;
 
     player.fallingVelocity = player.fallVelocity/2
   }
 
   GravityEntities.forEach((entity, index) => {
     if (!entity.isValid || entity.dimension.id != 'minecraft:the_end') return GravityEntities.splice(index, 1);
+    if(entity.knockback) return;
     setGravity(entity)
 
     if (entity.isInWater) entity.fallingVelocity = 0;
-
-    if (entity.isOnGround && entity.fallingVelocity > 0) {
-      let velocity = entity.fallingVelocity
-      let damage = (velocity * 2) ** 1.7
-      entity.fallingVelocity = 0
-      if (damage >= 1) entity.applyDamage(damage, { cause: 'fall' })
-    }
 
     if (entity.typeId == 'minecraft:player') return;
 
@@ -230,8 +226,7 @@ export function player_gravity(players){
 
 
       let distance = entity.location.y - sumObjects(ray.block, ray.faceLocation).y
-      entity.distance = distance
-      if (distance < -entity.getVelocity().y*2) entity.addEffect('slow_falling', 1, { amplifier: 0, showParticles: false });
+      entity.distance = distance;
 
       entity.fallingVelocity = -entity.getVelocity().y
     } else {
@@ -280,3 +275,16 @@ function sumObjects(vector1, vector2, multi = 1) {
     z: (vector1.z || 0) + (vector2.z || 0) * multi
   }
 }
+
+world.beforeEvents.entityHurt.subscribe((data) => {
+  system.run(() => {
+    if(data.hurtEntity.fallingVelocity > 0) {
+      let velocity = data.hurtEntity.fallingVelocity;
+      let damage = (velocity * 2.7) ** 2;
+      data.hurtEntity.fallingVelocity = 0;
+      if (damage >= 1) data.hurtEntity.applyDamage(damage, { cause: 'none' });
+    }
+  
+  });
+  data.cancel = true;
+}, {entityFilter: {tags: ["gravity_falling"]}, allowedDamageCauses: ["fall"]});

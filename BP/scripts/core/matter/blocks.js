@@ -3,7 +3,6 @@ import { system, world, ItemStack, BlockPermutation } from "@minecraft/server"
 import "../blocks/aluminum_wire.js"
 import "../blocks/fluid_tank.js"
 import "../blocks/fluid_pipe.js"
-import "../blocks/stairs.js"
 import "../blocks/launch_pads.js"
 import "../blocks/hydraulic_platform.js"
 import "../blocks/nasa_workbench.js"
@@ -67,7 +66,11 @@ export const fallen_meteor = {
             {
                 direction_x = (Math.random() - Math.random()) * 0.01;
             }
-            try{burned_entity.applyKnockback({x: direction_x, z: direction_z}, 1)}catch{}
+            try{
+                burned_entity.knockback = true;
+                system.runTimeout(() => {if(burned_entity.isValid) burned_entity.knockback = false}, 40);
+                burned_entity.applyKnockback({x: direction_x, z: direction_z}, 1)
+            }catch{}
         }
     }
 }

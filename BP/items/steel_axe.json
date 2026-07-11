@@ -227,9 +227,6 @@
                }
             ]
          },
-         "minecraft:display_name": {
-            "value": "Steel Axe"
-         },
          "minecraft:use_animation": {
             "value": "block"
          },

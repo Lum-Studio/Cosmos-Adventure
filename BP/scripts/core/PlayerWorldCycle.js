@@ -5,6 +5,8 @@ import { spawn_footprint } from "../planets/events/footprint.js";
 import { throw_meteors } from "../planets/events/meteor_event.js";
 import { dungeon_finder_loop } from "./items/dungeon_finder.js";
 import { oxygen_spending, is_entity_in_a_bubble } from "../api/player/oxygen.js";
+import { launch_to_earth } from "../planets/dimensions/Overworld.js";
+import { player_gravity } from "../planets/gravity.js";
 
 function space_tags_removing(player){
     player.removeTag("oxygen_hunger");
@@ -33,17 +35,20 @@ world.afterEvents.worldLoad.subscribe(() => {
             if(coords_enabled) coords_loop(player)
             //manage footprints in the moon
             if(!(currentTick % 10) && tags.includes("in_space") && !player.getComponent("minecraft:riding")) spawn_footprint(player, player.location)
+
+            if(!(currentTick % 10) && planet?.type == "stations" && player.location.y < 10) launch_to_earth(player, {type: "overworld"}, false)
         });
         //manage gravity
-        //player_gravity(players_in_space)
+        player_gravity();
     });
 });
 
 //removes space tags and sets standart permissions to default
 world.afterEvents.playerSpawn.subscribe(({player}) => {
-    if(player.dimension.id !== "minecraft:the_end"){
+    if(!["cosmos:space_stations", "minecraft:the_end"].includes(player.dimension.id)){
         space_tags_removing(player)
     }
+    player.removeTag("gravity_falling")
     player.removeTag("oxygen_hunger");
     player.setDynamicProperty("in_celestial_selector");
 
@@ -53,14 +58,15 @@ world.afterEvents.playerSpawn.subscribe(({player}) => {
 });
 
 world.afterEvents.playerDimensionChange.subscribe((data) => {
-    if(data.toDimension.id == "minecraft:the_end"){
+    if(["cosmos:space_stations", "minecraft:the_end"].includes(data.toDimension.id)){
         let planet = getPlanetByLocation(data.toLocation);
         if(!planet) return;
         data.player.addTag("in_space");
         data.player.addTag("ableToOxygen");
     }
-    if(data.fromDimension.id == "minecraft:the_end"){
+    if(["cosmos:space_stations", "minecraft:the_end"].includes(data.fromDimension.id)){
         data.player.runCommand("fog @s remove mars")
         space_tags_removing(data.player);
+        data.player.removeTag("gravity_falling")
     }
 });

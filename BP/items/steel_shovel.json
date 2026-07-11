@@ -40,9 +40,6 @@
                }
             ]
          },
-         "minecraft:display_name": {
-            "value": "Steel Shovel"
-         },
          "minecraft:use_animation": {
             "value": "block"
          },

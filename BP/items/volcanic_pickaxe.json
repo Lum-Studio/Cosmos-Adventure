@@ -1,12 +1,38 @@
 {
-   "format_version": "1.20.20",
+   "format_version": "1.21.80",
    "minecraft:item": {
       "description": {
          "identifier": "cosmos:volcanic_pickaxe"
       },
       "components": {
-         "minecraft:icon": {
-            "texture": "volcanic_pickaxe"
+         "minecraft:custom_components": [
+            "cosmos:volcanic_pickaxe"
+         ],
+         "minecraft:hand_equipped": true,
+         "minecraft:icon": "volcanic_pickaxe",
+         "minecraft:tags": {
+            "tags": ["minecraft:is_pickaxe"]
+         },
+         "minecraft:durability": {
+            "damage_chance": {
+               "min": 20,
+               "max": 50
+            },
+            "max_durability": 1561
+         },
+         "minecraft:digger": {
+            "destroy_speeds": [
+               {
+               "block": {
+                  "tags": "query.any_tag( 'minecraft:is_pickaxe_item_destructible' )"
+               },
+               "speed": 2
+               }
+            ],
+            "use_efficiency": true
+         },
+         "minecraft:max_stack_size": {
+            "value": 1
          }
       }
    }

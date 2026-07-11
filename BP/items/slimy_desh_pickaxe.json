@@ -909,15 +909,12 @@
 					}
 				]
 			},
-			"minecraft:display_name": {
-				"value": "Slimy Desh Pickaxe"
-			},
 			"minecraft:tags": {
 				"tags": [
 					"minecraft:is_pickaxe"
 				]
 			},
-      "minecraft:icon": "slimy_desh_pickaxe"
+            "minecraft:icon": "slimy_desh_pickaxe"
 		}
 	}
 }

@@ -28,9 +28,6 @@
             "slot": "hoe"
          },
          "minecraft:can_destroy_in_creative": true,
-         "minecraft:display_name": {
-            "value": "Titanium Hoe"
-         },
          "minecraft:use_animation": {
             "value": "block"
          },

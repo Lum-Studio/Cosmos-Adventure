@@ -998,9 +998,6 @@
                }
             ]
          },
-         "minecraft:display_name": {
-            "value": "Titanium Pickaxe"
-         },
          "minecraft:tags": {
             "tags": [
                "minecraft:is_pickaxe"

@@ -18,9 +18,6 @@
             "tags": [
                "minecraft:is_sword"
             ]
-         },
-         "minecraft:display_name": {
-            "value": "Desh Sword"
          }
       }
    }

@@ -1416,7 +1416,9 @@ fluid.bacterial_sludge=Bacterial Sludge
 fluid.sulphuric_acid=Sulphuric Acid
 ## blocks
 tile.cosmos:tin_ore.name=Tin Ore
+tile.cosmos:aluminum_block.name=Aluminum Block
 tile.cosmos:aluminum_ore.name=Aluminum Ore
+tile.cosmos:silicon_block.name=Silicon Block
 tile.cosmos:silicon_ore.name=Silicon Ore
 tile.cosmos:cavernous_vines.name=Cavernous Vines
 tile.cosmos:fallen_meteor.name=Fallen Meteor
@@ -1449,6 +1451,8 @@ tile.cosmos:dark_lighting_panel.name=Lighting Panel (Dark)
 tile.cosmos:deconstructor.name=Deconstructor
 tile.cosmos:desh_block.name=Desh Block
 tile.cosmos:desh_ore.name=Desh Ore
+
+tile.cosmos:tin_block.name=Tin Block
 tile.cosmos:detailed_tin_decoration_block.name=Tin Decoration Block
 tile.cosmos:detailed_tin_decoration_slab.name=Tin Decoration Slab
 tile.cosmos:detailed_tin_decoration_stairs.name=Tin Decoration Stairs
@@ -1457,6 +1461,7 @@ tile.cosmos:tin_decoration_block.name=Tin Wall Block
 tile.cosmos:tin_decoration_slab.name=Tin Wall Slab
 tile.cosmos:tin_decoration_stairs.name=Tin Wall Stairs
 tile.cosmos:tin_decoration_wall.name=Tin Wall
+
 tile.cosmos:electric_arc_furnace.name=Electric Arc Furnace
 tile.cosmos:electric_furnace.name=Electric Furnace
 tile.cosmos:flag.name=Flag
@@ -1475,21 +1480,27 @@ tile.cosmos:lighting_panel.name=Lighting Panel (Square)
 tile.cosmos:linear_lighting_panel.name=Lighting Panel (Linear)
 tile.cosmos:mars_cobblestone_slab.name=Mars Cobblestone Slab
 tile.cosmos:mars_cobblestone_wall.name=Mars Cobblestone Wall
+tile.cosmos:mars_dungeon_bricks.name=Mars Dungeon Bricks
 tile.cosmos:mars_dungeon_bricks_slab.name=Mars Dungeon Bricks Slab
 tile.cosmos:mars_dungeon_bricks_wall.name=Mars Dungeon Bricks Wall
+tile.cosmos:mars_dungeon_bricks_stairs.name=Mars Dungeon Bricks Stairs
 tile.cosmos:meteoric_iron_block.name=Meteoric Iron Block
 tile.cosmos:methane_synthesizer.name=Methane Synthesizer
 tile.cosmos:moon_dirt.name=Moon Dirt
 tile.cosmos:moon_turf.name=Moon Turf
 tile.cosmos:moon_rock.name=Moon Rock
+tile.cosmos:moon_dungeon_bricks.name=Moon Dungeon Bricks
 tile.cosmos:moon_dungeon_bricks_slab.name=Moon Dungeon Bricks Slab
 tile.cosmos:moon_dungeon_bricks_wall.name=Moon Dungeon Bricks Wall
+tile.cosmos:moon_dungeon_bricks_stairs.name=Moon Dungeon Bricks Stairs
 tile.cosmos:moon_rock_slab.name=Moon Rock Slab
 tile.cosmos:moon_rock_wall.name=Moon Rock Wall
+tile.cosmos:moon_rock_stairs.name=Moon Rock Stairs
 tile.cosmos:mars_fine_regolith.name=Mars Fine Regolith
 tile.cosmos:mars_regolith.name=Mars Regolith
 tile.cosmos:mars_stone.name=Mars Stone
 tile.cosmos:mars_cobblestone.name=Mars Cobblestone
+tile.cosmos:mars_cobblestone_stairs.name=Mars Cobblestone Stairs
 tile.cosmos:oxygen_storage_module.name=Oxygen Storage Module
 tile.cosmos:oxygen_distributor.name=Oxygen Bubble Distributor
 tile.cosmos:oxygen_compressor.name=Oxygen Compressor
@@ -1500,6 +1511,7 @@ tile.cosmos:refinery.name=Refinery
 tile.cosmos:sealed_aluminum_wire.name=Sealed Aluminum Wire
 tile.cosmos:sealed_fluid_pipe.name=Sealed Fluid Pipe
 tile.cosmos:sealed_heavy_aluminum_wire.name=Sealed Heavy Aluminum Wire
+tile.cosmos:space_station.name=Space Station Base
 tile.cosmos:telemetry_unit.name=Telemetry Unit
 tile.cosmos:telepad.name=Telepad
 tile.cosmos:terraformer.name=Terraformer
@@ -1513,6 +1525,11 @@ action.hint.exit.cosmos:rocket_tier_1=Press SNEAK to Exit, Hold JUMP to Launch
 custom.coords=Position
 ## entites
 entity.cosmos:treasure_chest.name=Treasure Chest
+
+## eggs
+item.spawn_egg.entity.cosmos:evolved_skeleton_boss.name=Spawn Evolved Skeleton Boss
+item.spawn_egg.entity.cosmos:evolved_spider.name=Spawn Evolved Spider
+
 ## creative inventory
 cosmos:cosmos_items=Cosmos Items
 cosmos:cosmos_blocks=Cosmos Blocks
@@ -1563,3 +1580,23 @@ tile.cosmos:venus_soft_rock.name=Venus Soft Rock
 tile.cosmos:venus_tin_ore.name=Venus Tin Ore
 tile.cosmos:venus_volcanic_rock.name=Venus Volcanic Rock
 tile.cosmos:vapor_spout.name=Vapor Spout
+
+## Block with descriptions
+tile.arc_lamp.name=Arc Lamp
+tile.arclamp.description=Arc Lamps are used to provide strong light to a large area,\nalso causing most mobs to flee.
+tile.buggy_fueling_pad.name=Buggy Fueling Pad
+tile.buggy_pad.description=Fueling Pads will allow a buggy on the pad to be refueled\nby an attached Fuel Loaders if set up in a 3x3 square.\n Cannot be used to launch rockets!
+tile.compressor.name=Compressor
+tile.compressor.description=Compressor will process ingots into their compressed equivalents.\nThe most essential machine in Galacticraft!
+tile.circuit_fabricator.name=Circuit Fabricator
+tile.circuit_fabricator.description=Circuit Fabricator will process basic materials into silicon wafers,\nused for advanced machines.
+tile.electric_compressor.name=Electric Compressor
+tile.compressor_electric.description=Electric Compressor will process ingots into their compressed equivalents.\nCompresses two at a time, making it more effective than its predecessor.
+tile.nasa_workbench.name=NASA Workbench
+tile.rocket_workbench.description=The NASA Workbench is used to create many advanced parts and vehicles.\nNew schematics can be added as they are found.
+tile.parachest.name=Parachest
+tile.parachest.description=Parachests will fall from the sky after landing on certain planets/moons, such as Earth.\nContains rocket, fuel, and cargo from previous launch.
+tile.rocket_launch_pad.name=Rocket Launch Pad
+tile.landing_pad.description=Launch Pads will allow placement of Rockets if set up in a 3x3 square.\nFuel Loaders, Cargo Loaders, and Launch Controllers can be attached.
+tile.oxygen_collector.name=Oxygen Collector
+tile.collector.description=Oxygen Collector will store oxygen\ncollected from leaves in the surrounding area.

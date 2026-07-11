@@ -18,7 +18,6 @@ export class Mars extends Planet{
         player.runCommand("fog @s push cosmos:mars_fog mars")
         if(loaded){ landing_balloons_motion(player, data); return;}
         let loc = { x: this._center.x + (Math.random() * 20), y: 1000, z: this._center.z + (Math.random() * 20) };
-        if(data.items) saved_rocket_items.set(data.id, data.items);
         
         player.setDynamicProperty('dimension', JSON.stringify(data));
         if(player.dimension.id == "minecraft:the_end"){

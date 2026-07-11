@@ -12,7 +12,7 @@
       }
 	  },
     "components": {
-      "minecraft:display_name": "%tile.machine2.5.name\n§7%tile.circuit_fabricator.description",
+      "minecraft:display_name": "%tile.circuit_fabricator.name\n§7%tile.circuit_fabricator.description",
       "tag:machine": {},
       "cosmos:machine": {},
       "minecraft:destructible_by_explosion": false,

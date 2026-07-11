@@ -1002,9 +1002,6 @@
 					}
 				]
 			},
-			"minecraft:display_name": {
-				"value": "Desh Pickaxe"
-			},
 			"minecraft:tags": {
 				"tags": [
 					"minecraft:is_pickaxe"

@@ -31,9 +31,6 @@
             "slot": "hoe"
          },
          "minecraft:can_destroy_in_creative": true,
-         "minecraft:display_name": {
-            "value": "Steel Hoe"
-         },
          "minecraft:tags": {
             "tags": [
                "minecraft:is_hoe"

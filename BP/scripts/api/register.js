@@ -6,13 +6,13 @@ import { oxygen_detector_component } from "../core/blocks/oxygen_detector";
 import { cavernous_vines_component } from "../core/blocks/cavernous_vines";
 import { cryogenic_chamber_component } from "../core/blocks/cryogenic_chamber";
 import { communication_dish_component } from "../core/blocks/dishbase";
+import { walkway_component } from "../core/blocks/walkway";
 import { arc_lamp, cheese_block, fallen_meteor } from "../core/matter/blocks";
 import { fluid_pipe_component } from "../core/blocks/fluid_pipe";
 import { fluid_tank_component } from "../core/blocks/fluid_tank";
 import { hydraulic_platform_component } from "../core/blocks/hydraulic_platform";
 import { components as launch_pad_components } from "../core/blocks/launch_pads";
 import { nasa_workbench_component } from "../core/blocks/nasa_workbench";
-import { stairs_component } from "../core/blocks/stairs";
 import { treasure_chest_component } from "../core/blocks/treasure_chest";
 import { wall_component } from "../core/blocks/wall";
 import { evolved_skeleton_component } from "../core/entities/evolved_skeleton_boss";
@@ -24,13 +24,15 @@ import { bucket_component } from "../core/matter/fluids";
 import { solar_panel_component } from "../core/machines/blocks/BasicSolarPanel";
 import { machine_component } from "../core/machines/Machine";
 import { select_solar_system, start_celestial_selector } from "./player/celestial_selector";
+import { volcanic_pickaxe_component } from "../core/items/volcanic_pickaxe";
 import nasa_workbench_recipes from "../recipes/nasa_workbench";
 
-system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegistry, blockComponentRegistry}) => {
+system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegistry, blockComponentRegistry, dimensionRegistry}) => {
     const register_block_component = blockComponentRegistry.registerCustomComponent.bind(blockComponentRegistry)
     const register_item_component = itemComponentRegistry.registerCustomComponent.bind(itemComponentRegistry)
     const register_command = customCommandRegistry.registerCommand.bind(customCommandRegistry)
     const register_enum = customCommandRegistry.registerEnum.bind(customCommandRegistry)
+    const register_dimension = dimensionRegistry.registerCustomDimension.bind(dimensionRegistry)
 
     // Block Components
     register_block_component('cosmos:end_cleaner', end_cleaner_component)
@@ -48,7 +50,7 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
 	register_block_component('cosmos:rocket_launch_pad', launch_pad_components.rocket_launch_pad)
 	register_block_component('cosmos:buggy_fueling_pad', launch_pad_components.buggy_fueling_pad)
     register_block_component("cosmos:nasa_workbench", nasa_workbench_component)
-    register_block_component('cosmos:stairs', stairs_component)
+    register_block_component('cosmos:walkway', walkway_component)
     // register_block_component('cosmos:wall', wall_component)
     register_block_component('cosmos:treasure_chest', treasure_chest_component)
     register_block_component("cosmos:boss_block", evolved_skeleton_component)
@@ -68,7 +70,10 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
     register_item_component("cosmos:grapple", grapple_component)
     register_item_component("cosmos:wrench", wrench_component)
     register_item_component("cosmos:bucket", bucket_component)
+    register_item_component("cosmos:volcanic_pickaxe", volcanic_pickaxe_component)
 
+    // Dimensions
+    register_dimension("cosmos:space_stations")
     // Commands
     register_command({
         name: "cosmos:render_distance", 

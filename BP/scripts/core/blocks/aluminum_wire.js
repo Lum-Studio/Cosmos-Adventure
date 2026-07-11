@@ -9,7 +9,7 @@ export function str_pos(location) {
 	return `${x} ${y} ${z}`
 }
 
-const same_side = {
+export const same_side = {
 	above: "cosmos:up",
 	below: "cosmos:down",
 	north: "cosmos:north",
@@ -17,7 +17,7 @@ const same_side = {
 	east: "cosmos:east",
 	west: "cosmos:west", 
 }
-const opposite_side = {
+export const opposite_side = {
 	above: "cosmos:down",
 	below: "cosmos:up",
 	north: "cosmos:south",

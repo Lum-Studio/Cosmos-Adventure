@@ -1001,9 +1001,6 @@
                }
             ]
          },
-         "minecraft:display_name": {
-            "value": "Steel Pickaxe"
-         },
          "minecraft:tags": {
             "tags": [
                "minecraft:is_pickaxe"

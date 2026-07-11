@@ -224,9 +224,6 @@
                }
             ]
          },
-         "minecraft:display_name": {
-            "value": "Titanium Axe"
-         },
          "minecraft:use_animation": {
             "value": "block"
          },

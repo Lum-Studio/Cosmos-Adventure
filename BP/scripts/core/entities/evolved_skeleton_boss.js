@@ -40,7 +40,9 @@ function throwPlayer(boss, player, corners){
         let motionZ = 0 - pos_z / direction * 4.4;
 
         if(motionY > 0.4000000059604645) motionY = 0.4000000059604645;
-    
+
+        player.knockback = true;
+        system.runTimeout(() => {player.knockback = false}, 10);
         player.applyKnockback({x: motionX, z: motionZ}, motionY);
     }else{
         let closest_corner = corners.sort((vectorA, vectorB) => {
@@ -53,6 +55,8 @@ function throwPlayer(boss, player, corners){
         closest_corner.x *= vector_lenght;
         closest_corner.z *= vector_lenght;
 
+        player.knockback = true;
+        system.runTimeout(() => {player.knockback = false;}, 10);
         player.applyKnockback({x: closest_corner.x, z: closest_corner.z}, 0.1);
     }
 }
