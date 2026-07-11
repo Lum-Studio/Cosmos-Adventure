@@ -26,6 +26,7 @@
             },
             {"catalog@selector.catalog": {}},
             {"launch_panel@selector.launch_panel": {}},
+            {"station_list_panel@selector.station_list_panel": {}},
 			      {"solar_system@selector.solar_system": {}},
 			      {"zoomed_solar_system_mercury@selector.zoomed_solar_system_mercury": {}},
 			      {"zoomed_solar_system_venus@selector.zoomed_solar_system_venus": {}},
@@ -211,115 +212,115 @@
             }
           ]
         }
-      }//,
-      // {
-      //   "create_station": {
-      //     "type": "image",
-      //     "texture": "textures/ui/cosmos/celestial_selector/station_panel",
-      //     "color": [0, 0.5, 1],
-      //     "size": [93, 64],
-      //     "anchor_from": "bottom_left",
-      //     "anchor_to": "top_left",
-      //     "offset": [0, -8],
-      //     "layer": 2,
-      //     "controls": [
-      //       {
-      //         "station_label": {
-      //           "type": "label",
-      //           "text": "A Space Station can be created here!",
-      //           "text_alignment": "center",
-      //           "size": ["100%", "default"],
-      //           "anchor_from": "top_middle",
-      //           "anchor_to": "top_middle",
-      //           "offset": [0, 6],
-      //           "layer": 3
-      //         }
-      //       },
-      //       {
-      //         "green_fade": {
-      //           "type": "label",
-      //           "text": "A Space Station can be created here!",
-      //           "color": [0, 1, 0],
-      //           "text_alignment": "center",
-      //           "size": ["100%", "default"],
-      //           "anchor_from": "top_middle",
-      //           "anchor_to": "top_middle",
-      //           "offset": [0, 6],
-      //           "layer": 4,
-      //           "anims": [
-      //             "@cosmos.text_fade_in"
-      //           ]
-      //         }
-      //       },
-      //       {
-      //         "materials": {
-      //           "type": "stack_panel",
-      //           "orientation": "horizontal",
-      //           "size": ["100%", 32],
-      //           "offset": [0, 4],
-      //           "anchor_from": "bottom_middle",
-      //           "anchor_to": "bottom_middle",
-      //           "layer": 4,
-      //           "controls": [
-      //             {
-      //               "left_pad": {
-      //                 "type": "panel",
-      //                 "size": ["10%", 32]
-      //               }
-      //             },
-      //             {
-      //               "aluminum@cosmos.material": {
-      //                 "$id": "aluminum_ingot",
-      //                 "$name": "Aluminum Ingot",
-      //                 "$condition": "$has_aluminum",
-      //                 "$amount": "16"
-      //               }
-      //             },
-      //             {
-      //               "wafer@cosmos.material": {
-      //                 "$id": "advanced_wafer",
-      //                 "$name": "Advanced Wafer",
-      //                 "$condition": "$has_wafer",
-      //                 "$amount": "1"
-      //               }
-      //             },
-      //             {
-      //               "tin@cosmos.material": {
-      //                 "$id": "tin_ingot",
-      //                 "$name": "Tin Ingot",
-      //                 "$condition": "$has_tin",
-      //                 "$amount": "32"
-      //               }
-      //             },
-      //             {
-      //               "iron@cosmos.material": {
-      //                 "$id": "iron_ingot",
-      //                 "$name": "Iron Ingot",
-      //                 "$condition": "$has_iron",
-      //                 "$amount": "24"
-      //               }
-      //             },
-      //             {
-      //               "right_pad": {
-      //                 "type": "panel",
-      //                 "size": ["10%", 32]
-      //               }
-      //             }
-      //           ]
-      //         }
-      //       },
-      //       {
-      //         "station_button@cosmos.form_buttons": {
-      //           "$buttons": "cosmos.create_station_button",
-      //           "offset": [0, 1],
-      //           "anchor_from": "bottom_middle",
-      //           "anchor_to": "top_middle"
-      //         }
-      //       }
-      //     ],
-      //     "bindings": "$can_have_station"
-      //   }
-      // }
+      },
+      {
+        "create_station": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/station_panel",
+          "color": [0, 0.5, 1],
+          "size": [93, 64],
+          "anchor_from": "bottom_left",
+          "anchor_to": "top_left",
+          "offset": [0, -8],
+          "layer": 2,
+          "controls": [
+            {
+              "station_label": {
+                "type": "label",
+                "text": "A Space Station can be created here!",
+                "text_alignment": "center",
+                "size": ["100%", "default"],
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "offset": [0, 6],
+                "layer": 3
+              }
+            },
+            {
+              "green_fade": {
+                "type": "label",
+                "text": "A Space Station can be created here!",
+                "color": [0, 1, 0],
+                "text_alignment": "center",
+                "size": ["100%", "default"],
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "offset": [0, 6],
+                "layer": 4,
+                "anims": [
+                  "@cosmos.text_fade_in"
+                ]
+              }
+            },
+            {
+              "materials": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": ["100%", 32],
+                "offset": [0, 4],
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "layer": 4,
+                "controls": [
+                  {
+                    "left_pad": {
+                      "type": "panel",
+                      "size": ["10%", 32]
+                    }
+                  },
+                  {
+                    "aluminum@cosmos.material": {
+                      "$id": "aluminum_ingot",
+                      "$name": "Aluminum Ingot",
+                      "$condition": "$has_aluminum",
+                      "$amount": "16"
+                    }
+                  },
+                  {
+                    "wafer@cosmos.material": {
+                      "$id": "advanced_wafer",
+                      "$name": "Advanced Wafer",
+                      "$condition": "$has_wafer",
+                      "$amount": "1"
+                    }
+                  },
+                  {
+                    "tin@cosmos.material": {
+                      "$id": "tin_ingot",
+                      "$name": "Tin Ingot",
+                      "$condition": "$has_tin",
+                      "$amount": "32"
+                    }
+                  },
+                  {
+                    "iron@cosmos.material": {
+                      "$id": "iron_ingot",
+                      "$name": "Iron Ingot",
+                      "$condition": "$has_iron",
+                      "$amount": "24"
+                    }
+                  },
+                  {
+                    "right_pad": {
+                      "type": "panel",
+                      "size": ["10%", 32]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "station_button@cosmos.form_buttons": {
+                "$buttons": "cosmos.create_station_button",
+                "offset": [0, 1],
+                "anchor_from": "bottom_middle",
+                "anchor_to": "top_middle"
+              }
+            }
+          ],
+          "bindings": "$can_have_station"
+        }
+      }
     ],
     "bindings": [
       {
@@ -7372,5 +7373,135 @@
   "moon_local_orbit_step126": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m126", "to": "$m127", "next": "@selector.moon_local_orbit_step127" },
   "moon_local_orbit_step127": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m127", "to": "$m128", "next": "@selector.moon_local_orbit_step128" },
   "moon_local_orbit_step128": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m128", "to": "$m1", "next": "@selector.moon_local_orbit_step1" },
+  "station_list_panel": {
+    "type": "image",
+    "texture": "textures/ui/cosmos/celestial_selector/launch_button_holder",
+    "color": [0, 0.5, 1],
+    "size": [95, 80],
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "offset": [-5, 147],
+    "layer": 8,
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_overworld",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#overworld_zoomed"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#overworld_zoomed and not (#form_text - 'Station' = #form_text))",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "title": {
+          "type": "label",
+          "text": "Space Stations",
+          "size": ["100%", 10],
+          "offset": [0, 4],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "text_alignment": "center",
+          "layer": 9
+        }
+      },
+      {
+        "scroll_panel@common.scrolling_panel": {
+          "size": [85, 60],
+          "offset": [0, 15],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "layer": 9,
+          "$scroll_box_mouse_wheel_speed": 5,
+          "$scroll_view_port_size": [85, 60],
+          "$scroll_background_image_control": "common.empty_panel",
+          "$scrolling_content": "selector.station_list_content"
+        }
+      }
+    ]
+  },
+  "station_list_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": ["100%", "default"],
+    "controls": [
+      {
+        "stations_collection": {
+          "type": "collection_panel",
+          "collection_name": "form_buttons",
+          "factory": {
+            "name": "buttons",
+            "control_name": "selector.station_list_item"
+          }
+        }
+      }
+    ]
+  },
+  "station_list_item@cosmos.button": {
+    "size": [85, 14],
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "form_buttons"
+      },
+      {
+        "binding_name": "#form_button_text",
+        "binding_type": "collection",
+        "binding_collection_name": "form_buttons"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not (#form_button_text - 'Launch to ' = #form_button_text))",
+        "target_property_name": "#visible"
+      }
+    ],
+    "$action": "button.form_button_click",
+    "controls": [
+      {
+        "default@selector.station_button_content": {
+          "color": [0, 0.6, 1]
+        }
+      },
+      {
+        "hover@selector.station_button_content": {
+          "color": [0, 0.8, 1]
+        }
+      }
+    ]
+  },
+  "station_button_content": {
+    "type": "image",
+    "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+    "color": "$color",
+    "size": [85, 12],
+    "layer": 2,
+    "controls": [
+      {
+        "label": {
+          "type": "label",
+          "text": "(#form_button_text - 'Launch to ')",
+          "size": ["100% - 6px", 10],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "text_alignment": "center",
+          "layer": 3,
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#form_button_text",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            }
+          ]
+        }
+      }
+    ]
+  },
   "footer": {}
 }
