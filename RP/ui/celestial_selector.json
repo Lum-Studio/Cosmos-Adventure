@@ -1008,8 +1008,19 @@
   "solar_system": {
     "type": "image",
     "texture": "textures/ui/cosmos/celestial_selector/solar_system_orbits",
-    "bindings": "$visibile_if",
-    "$condition": "(#title_text - 'Celestial Panel ' = 'Solar System')",
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_sol",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoomed_out"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "((#title_text - 'Celestial Panel ' = 'Solar System') and #zoomed_out)",
+        "target_property_name": "#visible"
+      }
+    ],
     "anims": [{
       "expand": {
         "anim_type": "size",
