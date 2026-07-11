@@ -625,7 +625,7 @@
 		},
 		{
 			"binding_type": "view",
-			"source_property_name": "(#form_button_text - ('%.21s' * #form_button_text))",
+			"source_property_name": "(#form_button_text - 'Launch to ')",
 			"target_property_name": "#name"
 		}
 	],

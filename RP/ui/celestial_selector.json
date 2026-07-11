@@ -7916,7 +7916,9 @@
     "controls": [
       {
         "stations_collection": {
-          "type": "collection_panel",
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": ["100%", "default"],
           "collection_name": "form_buttons",
           "factory": {
             "name": "buttons",
@@ -7946,56 +7948,41 @@
       },
       {
         "binding_type": "view",
-        "source_property_name": "(not (#form_button_text - 'Launch to ' = #form_button_text))",
+        "source_property_name": "(not (#form_button_text - 'Space Station' = #form_button_text) and not (#form_button_text - 'Launch to ' = #form_button_text))",
         "target_property_name": "#visible"
       }
     ],
     "$action": "button.form_button_click",
     "controls": [
       {
-        "default@selector.station_button_content": {
-          "color": [0, 0.6, 1]
+        "default": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+          "color": [0, 0.6, 1],
+          "size": [85, 12],
+          "layer": 2
         }
       },
       {
-        "hover@selector.station_button_content": {
-          "color": [0, 0.8, 1]
+        "hover": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+          "color": [0, 0.8, 1],
+          "size": [85, 12],
+          "layer": 2
         }
-      }
-    ]
-  },
-  "station_button_content": {
-    "type": "image",
-    "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
-    "color": "$color",
-    "size": [85, 12],
-    "layer": 2,
-    "controls": [
+      },
       {
         "label": {
           "type": "label",
-          "text": "",
+          "text": "#name",
+          "color": [1, 1, 1],
           "size": ["100% - 6px", 10],
           "anchor_from": "center",
           "anchor_to": "center",
           "text_alignment": "center",
           "layer": 3,
-          "bindings": [
-            {
-              "binding_type": "collection_details",
-              "binding_collection_name": "form_buttons"
-            },
-            {
-              "binding_name": "#form_button_text",
-              "binding_type": "collection",
-              "binding_collection_name": "form_buttons"
-            },
-            {
-              "binding_type": "view",
-              "source_property_name": "(#form_button_text - 'Launch to ')",
-              "target_property_name": "#text"
-            }
-          ]
+          "bindings": "$get_station_name"
         }
       }
     ]
