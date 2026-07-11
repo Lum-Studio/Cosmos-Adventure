@@ -55,7 +55,13 @@ export function select_solar_system(player, tier = 1, calledViaCommand = false) 
 			case 2: if (tier >= 2) launch(player, "Mars", calledViaCommand); return
 			case 3: if (tier >= 3) launch(player, "Venus", calledViaCommand); return
 			case 4: if (tier >= 3) launch(player, "Asteroids", calledViaCommand); return
-			case 5: if (!Object.values(read_inventory(player)).includes(false)) create_station(player); return
+			case 5: {
+				if (!Object.values(read_inventory(player)).includes(false)) {
+					create_station(player);
+					select_solar_system(player, tier, calledViaCommand);
+				}
+				return
+			}
 		}
 		const station_index = response.selection - 6
 		const station = Object.values(space_stations)[Math.floor(station_index / 2)]
@@ -117,6 +123,12 @@ function create_station(player) {
     let station_location = {x: 0 + Object.keys(space_stations).length * 2000, y: 70, z: 0}
 	space_stations[player.nameTag] = { name: `${player.nameTag}'s Space Station`, location: station_location, is_generated: false}
 	world.setDynamicProperty("all_space_stations", JSON.stringify(space_stations))
+	if (player.getGameMode() !== "Creative") {
+		player.runCommand("clear @s cosmos:aluminum_ingot 0 16");
+		player.runCommand("clear @s cosmos:advanced_wafer 0 1");
+		player.runCommand("clear @s cosmos:tin_ingot 0 32");
+		player.runCommand("clear @s minecraft:iron_ingot 0 24");
+	}
 }
 
 export function start_celestial_selector(player, tier = 1, calledViaCommand = false) {
