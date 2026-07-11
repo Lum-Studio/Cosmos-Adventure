@@ -26,7 +26,9 @@
             },
             {"catalog@selector.catalog": {}},
             {"launch_panel@selector.launch_panel": {}},
-			      {"solar_system@selector.solar_system": {}}
+			      {"solar_system@selector.solar_system": {}},
+			      {"earth_zoom@selector.earth_zoom_view": {}},
+			      {"planet_zoom@selector.generic_zoom_view": {}}
           ]
         }
       }
@@ -1007,8 +1009,19 @@
   "solar_system": {
     "type": "image",
     "texture": "textures/ui/cosmos/celestial_selector/solar_system_orbits",
-    "bindings": "$visibile_if",
-    "$condition": "(#title_text - 'Celestial Panel ' = 'Solar System')",
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_sol",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoomed_out"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "((#title_text - 'Celestial Panel ' = 'Solar System') and #zoomed_out)",
+        "target_property_name": "#visible"
+      }
+    ],
     "anims": [{
       "expand": {
         "anim_type": "size",
@@ -5555,5 +5568,540 @@
   "orbit_step2046": { "anim_type": "offset", "duration": "$orbit_duration", "from": "$x2046", "to": "$x2047", "next": "@selector.orbit_step2047" },
   "orbit_step2047": { "anim_type": "offset", "duration": "$orbit_duration", "from": "$x2047", "to": "$x2048", "next": "@selector.orbit_step2048" },
   "orbit_step2048": { "anim_type": "offset", "duration": "$orbit_duration", "from": "$x2048", "to": "$x1", "next": "@selector.orbit_step1" },
+
+  //zoom views
+  "earth_zoom_view": {
+    "type": "panel",
+    "size": [401, 202],
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_overworld",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_earth"
+      },
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_moon",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_moon"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "((#title_text - 'Celestial Panel ' = 'Solar System') and (#zoom_earth or #zoom_moon))",
+        "target_property_name": "#visible"
+      }
+    ],
+    "anims": [{
+      "expand": {
+        "anim_type": "size",
+        "duration": 0.5,
+        "from": [0, 0],
+        "to": [401, 202]
+      }
+    }],
+    "controls": [
+      {
+        "moon_ring": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/moon_orbit",
+          "size": [401, 202]
+        }
+      },
+      {
+        "earth_icon": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/earth",
+          "size": [24, 24],
+          "controls": [
+            { "orbital_toggle_overworld_zoom@selector.selection_box": {
+              "$selection_size": [32, 32]
+            }}
+          ]
+        }
+      },
+      {
+        "orbiting_moon": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/moon",
+          "size": [8, 8],
+          "anims": ["@selector.moon_orbit_step1"],
+          "$moon_orbit_duration": 0.03125,
+                "$m1": [150, 0], "$m2": [149.95, 1.84], "$m3": [149.82, 3.68], "$m4": [149.59, 5.52], "$m5": [149.28, 7.35], "$m6": [148.87, 9.18], "$m7": [148.38, 11], "$m8": [147.79, 12.82],
+                "$m9": [147.12, 14.63], "$m10": [146.36, 16.43], "$m11": [145.5, 18.22], "$m12": [144.57, 20], "$m13": [143.54, 21.77], "$m14": [142.43, 23.53], "$m15": [141.23, 25.27], "$m16": [139.95, 26.99],
+                "$m17": [138.58, 28.7], "$m18": [137.13, 30.39], "$m19": [135.6, 32.07], "$m20": [133.98, 33.72], "$m21": [132.29, 35.35], "$m22": [130.51, 36.97], "$m23": [128.66, 38.56], "$m24": [126.73, 40.12],
+                "$m25": [124.72, 41.67], "$m26": [122.64, 43.19], "$m27": [120.48, 44.68], "$m28": [118.25, 46.14], "$m29": [115.95, 47.58], "$m30": [113.58, 48.99], "$m31": [111.14, 50.37], "$m32": [108.64, 51.72],
+                "$m33": [106.07, 53.03], "$m34": [103.43, 54.32], "$m35": [100.73, 55.57], "$m36": [97.98, 56.79], "$m37": [95.16, 57.98], "$m38": [92.28, 59.13], "$m39": [89.35, 60.24], "$m40": [86.37, 61.32],
+                "$m41": [83.34, 62.36], "$m42": [80.25, 63.36], "$m43": [77.12, 64.33], "$m44": [73.93, 65.26], "$m45": [70.71, 66.14], "$m46": [67.44, 66.99], "$m47": [64.13, 67.8], "$m48": [60.79, 68.57],
+                "$m49": [57.4, 69.29], "$m50": [53.98, 69.97], "$m51": [50.53, 70.62], "$m52": [47.05, 71.21], "$m53": [43.54, 71.77], "$m54": [40.01, 72.28], "$m55": [36.45, 72.75], "$m56": [32.87, 73.18],
+                "$m57": [29.26, 73.56], "$m58": [25.64, 73.9], "$m59": [22.01, 74.19], "$m60": [18.36, 74.44], "$m61": [14.7, 74.64], "$m62": [11.03, 74.8], "$m63": [7.36, 74.91], "$m64": [3.68, 74.98],
+                "$m65": [0, 75], "$m66": [-3.68, 74.98], "$m67": [-7.36, 74.91], "$m68": [-11.03, 74.8], "$m69": [-14.7, 74.64], "$m70": [-18.36, 74.44], "$m71": [-22.01, 74.19], "$m72": [-25.64, 73.9],
+                "$m73": [-29.26, 73.56], "$m74": [-32.87, 73.18], "$m75": [-36.45, 72.75], "$m76": [-40.01, 72.28], "$m77": [-43.54, 71.77], "$m78": [-47.05, 71.21], "$m79": [-50.53, 70.62], "$m80": [-53.98, 69.97],
+                "$m81": [-57.4, 69.29], "$m82": [-60.79, 68.57], "$m83": [-64.13, 67.8], "$m84": [-67.44, 66.99], "$m85": [-70.71, 66.14], "$m86": [-73.93, 65.26], "$m87": [-77.12, 64.33], "$m88": [-80.25, 63.36],
+                "$m89": [-83.34, 62.36], "$m90": [-86.37, 61.32], "$m91": [-89.35, 60.24], "$m92": [-92.28, 59.13], "$m93": [-95.16, 57.98], "$m94": [-97.98, 56.79], "$m95": [-100.73, 55.57], "$m96": [-103.43, 54.32],
+                "$m97": [-106.07, 53.03], "$m98": [-108.64, 51.72], "$m99": [-111.14, 50.37], "$m100": [-113.58, 48.99], "$m101": [-115.95, 47.58], "$m102": [-118.25, 46.14], "$m103": [-120.48, 44.68], "$m104": [-122.64, 43.19],
+                "$m105": [-124.72, 41.67], "$m106": [-126.73, 40.12], "$m107": [-128.66, 38.56], "$m108": [-130.51, 36.97], "$m109": [-132.29, 35.35], "$m110": [-133.98, 33.72], "$m111": [-135.6, 32.07], "$m112": [-137.13, 30.39],
+                "$m113": [-138.58, 28.7], "$m114": [-139.95, 26.99], "$m115": [-141.23, 25.27], "$m116": [-142.43, 23.53], "$m117": [-143.54, 21.77], "$m118": [-144.57, 20], "$m119": [-145.5, 18.22], "$m120": [-146.36, 16.43],
+                "$m121": [-147.12, 14.63], "$m122": [-147.79, 12.82], "$m123": [-148.38, 11], "$m124": [-148.87, 9.18], "$m125": [-149.28, 7.35], "$m126": [-149.59, 5.52], "$m127": [-149.82, 3.68], "$m128": [-149.95, 1.84],
+                "$m129": [-150, 0], "$m130": [-149.95, -1.84], "$m131": [-149.82, -3.68], "$m132": [-149.59, -5.52], "$m133": [-149.28, -7.35], "$m134": [-148.87, -9.18], "$m135": [-148.38, -11], "$m136": [-147.79, -12.82],
+                "$m137": [-147.12, -14.63], "$m138": [-146.36, -16.43], "$m139": [-145.5, -18.22], "$m140": [-144.57, -20], "$m141": [-143.54, -21.77], "$m142": [-142.43, -23.53], "$m143": [-141.23, -25.27], "$m144": [-139.95, -26.99],
+                "$m145": [-138.58, -28.7], "$m146": [-137.13, -30.39], "$m147": [-135.6, -32.07], "$m148": [-133.98, -33.72], "$m149": [-132.29, -35.35], "$m150": [-130.51, -36.97], "$m151": [-128.66, -38.56], "$m152": [-126.73, -40.12],
+                "$m153": [-124.72, -41.67], "$m154": [-122.64, -43.19], "$m155": [-120.48, -44.68], "$m156": [-118.25, -46.14], "$m157": [-115.95, -47.58], "$m158": [-113.58, -48.99], "$m159": [-111.14, -50.37], "$m160": [-108.64, -51.72],
+                "$m161": [-106.07, -53.03], "$m162": [-103.43, -54.32], "$m163": [-100.73, -55.57], "$m164": [-97.98, -56.79], "$m165": [-95.16, -57.98], "$m166": [-92.28, -59.13], "$m167": [-89.35, -60.24], "$m168": [-86.37, -61.32],
+                "$m169": [-83.34, -62.36], "$m170": [-80.25, -63.36], "$m171": [-77.12, -64.33], "$m172": [-73.93, -65.26], "$m173": [-70.71, -66.14], "$m174": [-67.44, -66.99], "$m175": [-64.13, -67.8], "$m176": [-60.79, -68.57],
+                "$m177": [-57.4, -69.29], "$m178": [-53.98, -69.97], "$m179": [-50.53, -70.62], "$m180": [-47.05, -71.21], "$m181": [-43.54, -71.77], "$m182": [-40.01, -72.28], "$m183": [-36.45, -72.75], "$m184": [-32.87, -73.18],
+                "$m185": [-29.26, -73.56], "$m186": [-25.64, -73.9], "$m187": [-22.01, -74.19], "$m188": [-18.36, -74.44], "$m189": [-14.7, -74.64], "$m190": [-11.03, -74.8], "$m191": [-7.36, -74.91], "$m192": [-3.68, -74.98],
+                "$m193": [0, -75], "$m194": [3.68, -74.98], "$m195": [7.36, -74.91], "$m196": [11.03, -74.8], "$m197": [14.7, -74.64], "$m198": [18.36, -74.44], "$m199": [22.01, -74.19], "$m200": [25.64, -73.9],
+                "$m201": [29.26, -73.56], "$m202": [32.87, -73.18], "$m203": [36.45, -72.75], "$m204": [40.01, -72.28], "$m205": [43.54, -71.77], "$m206": [47.05, -71.21], "$m207": [50.53, -70.62], "$m208": [53.98, -69.97],
+                "$m209": [57.4, -69.29], "$m210": [60.79, -68.57], "$m211": [64.13, -67.8], "$m212": [67.44, -66.99], "$m213": [70.71, -66.14], "$m214": [73.93, -65.26], "$m215": [77.12, -64.33], "$m216": [80.25, -63.36],
+                "$m217": [83.34, -62.36], "$m218": [86.37, -61.32], "$m219": [89.35, -60.24], "$m220": [92.28, -59.13], "$m221": [95.16, -57.98], "$m222": [97.98, -56.79], "$m223": [100.73, -55.57], "$m224": [103.43, -54.32],
+                "$m225": [106.07, -53.03], "$m226": [108.64, -51.72], "$m227": [111.14, -50.37], "$m228": [113.58, -48.99], "$m229": [115.95, -47.58], "$m230": [118.25, -46.14], "$m231": [120.48, -44.68], "$m232": [122.64, -43.19],
+                "$m233": [124.72, -41.67], "$m234": [126.73, -40.12], "$m235": [128.66, -38.56], "$m236": [130.51, -36.97], "$m237": [132.29, -35.35], "$m238": [133.98, -33.72], "$m239": [135.6, -32.07], "$m240": [137.13, -30.39],
+                "$m241": [138.58, -28.7], "$m242": [139.95, -26.99], "$m243": [141.23, -25.27], "$m244": [142.43, -23.53], "$m245": [143.54, -21.77], "$m246": [144.57, -20], "$m247": [145.5, -18.22], "$m248": [146.36, -16.43],
+                "$m249": [147.12, -14.63], "$m250": [147.79, -12.82], "$m251": [148.38, -11], "$m252": [148.87, -9.18], "$m253": [149.28, -7.35], "$m254": [149.59, -5.52], "$m255": [149.82, -3.68], "$m256": [149.95, -1.84]
+        }
+      }
+    ]
+  },
+
+  "generic_zoom_view": {
+    "type": "panel",
+    "size": [401, 202],
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_mercury",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_mercury"
+      },
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_venus",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_venus"
+      },
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_mars",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_mars"
+      },
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_asteroids",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_asteroids"
+      },
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_jupiter",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_jupiter"
+      },
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_saturn",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_saturn"
+      },
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_uranus",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_uranus"
+      },
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_neptune",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_neptune"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "((#title_text - 'Celestial Panel ' = 'Solar System') and (#zoom_mercury or #zoom_venus or #zoom_mars or #zoom_asteroids or #zoom_jupiter or #zoom_saturn or #zoom_uranus or #zoom_neptune))",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "zoom_mercury": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/mercury",
+          "size": [16, 16],
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "zoom_toggle_mercury",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "zoom_venus": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/venus",
+          "size": [16, 16],
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "zoom_toggle_venus",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "zoom_mars": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/mars",
+          "size": [16, 16],
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "zoom_toggle_mars",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "zoom_asteroids": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/spin_asteroid",
+          "size": [20, 20],
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "zoom_toggle_asteroids",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "zoom_jupiter": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/jupiter",
+          "size": [16, 16],
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "zoom_toggle_jupiter",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "zoom_saturn": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/saturn",
+          "size": [40, 16],
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "zoom_toggle_saturn",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "zoom_uranus": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/uranus",
+          "size": [16, 40],
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "zoom_toggle_uranus",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "zoom_neptune": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/neptune",
+          "size": [16, 16],
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "zoom_toggle_neptune",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //moon orbit animations (256-step float-precision elliptical path)
+  "moon_orbit_step1": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m1", "to": "$m2", "next": "@selector.moon_orbit_step2" },
+  "moon_orbit_step2": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m2", "to": "$m3", "next": "@selector.moon_orbit_step3" },
+  "moon_orbit_step3": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m3", "to": "$m4", "next": "@selector.moon_orbit_step4" },
+  "moon_orbit_step4": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m4", "to": "$m5", "next": "@selector.moon_orbit_step5" },
+  "moon_orbit_step5": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m5", "to": "$m6", "next": "@selector.moon_orbit_step6" },
+  "moon_orbit_step6": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m6", "to": "$m7", "next": "@selector.moon_orbit_step7" },
+  "moon_orbit_step7": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m7", "to": "$m8", "next": "@selector.moon_orbit_step8" },
+  "moon_orbit_step8": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m8", "to": "$m9", "next": "@selector.moon_orbit_step9" },
+  "moon_orbit_step9": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m9", "to": "$m10", "next": "@selector.moon_orbit_step10" },
+  "moon_orbit_step10": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m10", "to": "$m11", "next": "@selector.moon_orbit_step11" },
+  "moon_orbit_step11": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m11", "to": "$m12", "next": "@selector.moon_orbit_step12" },
+  "moon_orbit_step12": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m12", "to": "$m13", "next": "@selector.moon_orbit_step13" },
+  "moon_orbit_step13": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m13", "to": "$m14", "next": "@selector.moon_orbit_step14" },
+  "moon_orbit_step14": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m14", "to": "$m15", "next": "@selector.moon_orbit_step15" },
+  "moon_orbit_step15": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m15", "to": "$m16", "next": "@selector.moon_orbit_step16" },
+  "moon_orbit_step16": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m16", "to": "$m17", "next": "@selector.moon_orbit_step17" },
+  "moon_orbit_step17": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m17", "to": "$m18", "next": "@selector.moon_orbit_step18" },
+  "moon_orbit_step18": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m18", "to": "$m19", "next": "@selector.moon_orbit_step19" },
+  "moon_orbit_step19": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m19", "to": "$m20", "next": "@selector.moon_orbit_step20" },
+  "moon_orbit_step20": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m20", "to": "$m21", "next": "@selector.moon_orbit_step21" },
+  "moon_orbit_step21": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m21", "to": "$m22", "next": "@selector.moon_orbit_step22" },
+  "moon_orbit_step22": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m22", "to": "$m23", "next": "@selector.moon_orbit_step23" },
+  "moon_orbit_step23": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m23", "to": "$m24", "next": "@selector.moon_orbit_step24" },
+  "moon_orbit_step24": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m24", "to": "$m25", "next": "@selector.moon_orbit_step25" },
+  "moon_orbit_step25": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m25", "to": "$m26", "next": "@selector.moon_orbit_step26" },
+  "moon_orbit_step26": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m26", "to": "$m27", "next": "@selector.moon_orbit_step27" },
+  "moon_orbit_step27": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m27", "to": "$m28", "next": "@selector.moon_orbit_step28" },
+  "moon_orbit_step28": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m28", "to": "$m29", "next": "@selector.moon_orbit_step29" },
+  "moon_orbit_step29": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m29", "to": "$m30", "next": "@selector.moon_orbit_step30" },
+  "moon_orbit_step30": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m30", "to": "$m31", "next": "@selector.moon_orbit_step31" },
+  "moon_orbit_step31": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m31", "to": "$m32", "next": "@selector.moon_orbit_step32" },
+  "moon_orbit_step32": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m32", "to": "$m33", "next": "@selector.moon_orbit_step33" },
+  "moon_orbit_step33": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m33", "to": "$m34", "next": "@selector.moon_orbit_step34" },
+  "moon_orbit_step34": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m34", "to": "$m35", "next": "@selector.moon_orbit_step35" },
+  "moon_orbit_step35": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m35", "to": "$m36", "next": "@selector.moon_orbit_step36" },
+  "moon_orbit_step36": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m36", "to": "$m37", "next": "@selector.moon_orbit_step37" },
+  "moon_orbit_step37": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m37", "to": "$m38", "next": "@selector.moon_orbit_step38" },
+  "moon_orbit_step38": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m38", "to": "$m39", "next": "@selector.moon_orbit_step39" },
+  "moon_orbit_step39": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m39", "to": "$m40", "next": "@selector.moon_orbit_step40" },
+  "moon_orbit_step40": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m40", "to": "$m41", "next": "@selector.moon_orbit_step41" },
+  "moon_orbit_step41": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m41", "to": "$m42", "next": "@selector.moon_orbit_step42" },
+  "moon_orbit_step42": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m42", "to": "$m43", "next": "@selector.moon_orbit_step43" },
+  "moon_orbit_step43": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m43", "to": "$m44", "next": "@selector.moon_orbit_step44" },
+  "moon_orbit_step44": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m44", "to": "$m45", "next": "@selector.moon_orbit_step45" },
+  "moon_orbit_step45": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m45", "to": "$m46", "next": "@selector.moon_orbit_step46" },
+  "moon_orbit_step46": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m46", "to": "$m47", "next": "@selector.moon_orbit_step47" },
+  "moon_orbit_step47": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m47", "to": "$m48", "next": "@selector.moon_orbit_step48" },
+  "moon_orbit_step48": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m48", "to": "$m49", "next": "@selector.moon_orbit_step49" },
+  "moon_orbit_step49": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m49", "to": "$m50", "next": "@selector.moon_orbit_step50" },
+  "moon_orbit_step50": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m50", "to": "$m51", "next": "@selector.moon_orbit_step51" },
+  "moon_orbit_step51": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m51", "to": "$m52", "next": "@selector.moon_orbit_step52" },
+  "moon_orbit_step52": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m52", "to": "$m53", "next": "@selector.moon_orbit_step53" },
+  "moon_orbit_step53": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m53", "to": "$m54", "next": "@selector.moon_orbit_step54" },
+  "moon_orbit_step54": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m54", "to": "$m55", "next": "@selector.moon_orbit_step55" },
+  "moon_orbit_step55": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m55", "to": "$m56", "next": "@selector.moon_orbit_step56" },
+  "moon_orbit_step56": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m56", "to": "$m57", "next": "@selector.moon_orbit_step57" },
+  "moon_orbit_step57": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m57", "to": "$m58", "next": "@selector.moon_orbit_step58" },
+  "moon_orbit_step58": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m58", "to": "$m59", "next": "@selector.moon_orbit_step59" },
+  "moon_orbit_step59": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m59", "to": "$m60", "next": "@selector.moon_orbit_step60" },
+  "moon_orbit_step60": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m60", "to": "$m61", "next": "@selector.moon_orbit_step61" },
+  "moon_orbit_step61": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m61", "to": "$m62", "next": "@selector.moon_orbit_step62" },
+  "moon_orbit_step62": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m62", "to": "$m63", "next": "@selector.moon_orbit_step63" },
+  "moon_orbit_step63": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m63", "to": "$m64", "next": "@selector.moon_orbit_step64" },
+  "moon_orbit_step64": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m64", "to": "$m65", "next": "@selector.moon_orbit_step65" },
+  "moon_orbit_step65": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m65", "to": "$m66", "next": "@selector.moon_orbit_step66" },
+  "moon_orbit_step66": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m66", "to": "$m67", "next": "@selector.moon_orbit_step67" },
+  "moon_orbit_step67": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m67", "to": "$m68", "next": "@selector.moon_orbit_step68" },
+  "moon_orbit_step68": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m68", "to": "$m69", "next": "@selector.moon_orbit_step69" },
+  "moon_orbit_step69": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m69", "to": "$m70", "next": "@selector.moon_orbit_step70" },
+  "moon_orbit_step70": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m70", "to": "$m71", "next": "@selector.moon_orbit_step71" },
+  "moon_orbit_step71": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m71", "to": "$m72", "next": "@selector.moon_orbit_step72" },
+  "moon_orbit_step72": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m72", "to": "$m73", "next": "@selector.moon_orbit_step73" },
+  "moon_orbit_step73": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m73", "to": "$m74", "next": "@selector.moon_orbit_step74" },
+  "moon_orbit_step74": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m74", "to": "$m75", "next": "@selector.moon_orbit_step75" },
+  "moon_orbit_step75": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m75", "to": "$m76", "next": "@selector.moon_orbit_step76" },
+  "moon_orbit_step76": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m76", "to": "$m77", "next": "@selector.moon_orbit_step77" },
+  "moon_orbit_step77": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m77", "to": "$m78", "next": "@selector.moon_orbit_step78" },
+  "moon_orbit_step78": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m78", "to": "$m79", "next": "@selector.moon_orbit_step79" },
+  "moon_orbit_step79": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m79", "to": "$m80", "next": "@selector.moon_orbit_step80" },
+  "moon_orbit_step80": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m80", "to": "$m81", "next": "@selector.moon_orbit_step81" },
+  "moon_orbit_step81": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m81", "to": "$m82", "next": "@selector.moon_orbit_step82" },
+  "moon_orbit_step82": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m82", "to": "$m83", "next": "@selector.moon_orbit_step83" },
+  "moon_orbit_step83": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m83", "to": "$m84", "next": "@selector.moon_orbit_step84" },
+  "moon_orbit_step84": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m84", "to": "$m85", "next": "@selector.moon_orbit_step85" },
+  "moon_orbit_step85": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m85", "to": "$m86", "next": "@selector.moon_orbit_step86" },
+  "moon_orbit_step86": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m86", "to": "$m87", "next": "@selector.moon_orbit_step87" },
+  "moon_orbit_step87": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m87", "to": "$m88", "next": "@selector.moon_orbit_step88" },
+  "moon_orbit_step88": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m88", "to": "$m89", "next": "@selector.moon_orbit_step89" },
+  "moon_orbit_step89": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m89", "to": "$m90", "next": "@selector.moon_orbit_step90" },
+  "moon_orbit_step90": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m90", "to": "$m91", "next": "@selector.moon_orbit_step91" },
+  "moon_orbit_step91": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m91", "to": "$m92", "next": "@selector.moon_orbit_step92" },
+  "moon_orbit_step92": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m92", "to": "$m93", "next": "@selector.moon_orbit_step93" },
+  "moon_orbit_step93": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m93", "to": "$m94", "next": "@selector.moon_orbit_step94" },
+  "moon_orbit_step94": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m94", "to": "$m95", "next": "@selector.moon_orbit_step95" },
+  "moon_orbit_step95": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m95", "to": "$m96", "next": "@selector.moon_orbit_step96" },
+  "moon_orbit_step96": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m96", "to": "$m97", "next": "@selector.moon_orbit_step97" },
+  "moon_orbit_step97": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m97", "to": "$m98", "next": "@selector.moon_orbit_step98" },
+  "moon_orbit_step98": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m98", "to": "$m99", "next": "@selector.moon_orbit_step99" },
+  "moon_orbit_step99": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m99", "to": "$m100", "next": "@selector.moon_orbit_step100" },
+  "moon_orbit_step100": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m100", "to": "$m101", "next": "@selector.moon_orbit_step101" },
+  "moon_orbit_step101": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m101", "to": "$m102", "next": "@selector.moon_orbit_step102" },
+  "moon_orbit_step102": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m102", "to": "$m103", "next": "@selector.moon_orbit_step103" },
+  "moon_orbit_step103": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m103", "to": "$m104", "next": "@selector.moon_orbit_step104" },
+  "moon_orbit_step104": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m104", "to": "$m105", "next": "@selector.moon_orbit_step105" },
+  "moon_orbit_step105": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m105", "to": "$m106", "next": "@selector.moon_orbit_step106" },
+  "moon_orbit_step106": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m106", "to": "$m107", "next": "@selector.moon_orbit_step107" },
+  "moon_orbit_step107": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m107", "to": "$m108", "next": "@selector.moon_orbit_step108" },
+  "moon_orbit_step108": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m108", "to": "$m109", "next": "@selector.moon_orbit_step109" },
+  "moon_orbit_step109": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m109", "to": "$m110", "next": "@selector.moon_orbit_step110" },
+  "moon_orbit_step110": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m110", "to": "$m111", "next": "@selector.moon_orbit_step111" },
+  "moon_orbit_step111": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m111", "to": "$m112", "next": "@selector.moon_orbit_step112" },
+  "moon_orbit_step112": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m112", "to": "$m113", "next": "@selector.moon_orbit_step113" },
+  "moon_orbit_step113": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m113", "to": "$m114", "next": "@selector.moon_orbit_step114" },
+  "moon_orbit_step114": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m114", "to": "$m115", "next": "@selector.moon_orbit_step115" },
+  "moon_orbit_step115": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m115", "to": "$m116", "next": "@selector.moon_orbit_step116" },
+  "moon_orbit_step116": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m116", "to": "$m117", "next": "@selector.moon_orbit_step117" },
+  "moon_orbit_step117": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m117", "to": "$m118", "next": "@selector.moon_orbit_step118" },
+  "moon_orbit_step118": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m118", "to": "$m119", "next": "@selector.moon_orbit_step119" },
+  "moon_orbit_step119": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m119", "to": "$m120", "next": "@selector.moon_orbit_step120" },
+  "moon_orbit_step120": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m120", "to": "$m121", "next": "@selector.moon_orbit_step121" },
+  "moon_orbit_step121": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m121", "to": "$m122", "next": "@selector.moon_orbit_step122" },
+  "moon_orbit_step122": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m122", "to": "$m123", "next": "@selector.moon_orbit_step123" },
+  "moon_orbit_step123": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m123", "to": "$m124", "next": "@selector.moon_orbit_step124" },
+  "moon_orbit_step124": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m124", "to": "$m125", "next": "@selector.moon_orbit_step125" },
+  "moon_orbit_step125": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m125", "to": "$m126", "next": "@selector.moon_orbit_step126" },
+  "moon_orbit_step126": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m126", "to": "$m127", "next": "@selector.moon_orbit_step127" },
+  "moon_orbit_step127": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m127", "to": "$m128", "next": "@selector.moon_orbit_step128" },
+  "moon_orbit_step128": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m128", "to": "$m129", "next": "@selector.moon_orbit_step129" },
+  "moon_orbit_step129": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m129", "to": "$m130", "next": "@selector.moon_orbit_step130" },
+  "moon_orbit_step130": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m130", "to": "$m131", "next": "@selector.moon_orbit_step131" },
+  "moon_orbit_step131": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m131", "to": "$m132", "next": "@selector.moon_orbit_step132" },
+  "moon_orbit_step132": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m132", "to": "$m133", "next": "@selector.moon_orbit_step133" },
+  "moon_orbit_step133": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m133", "to": "$m134", "next": "@selector.moon_orbit_step134" },
+  "moon_orbit_step134": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m134", "to": "$m135", "next": "@selector.moon_orbit_step135" },
+  "moon_orbit_step135": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m135", "to": "$m136", "next": "@selector.moon_orbit_step136" },
+  "moon_orbit_step136": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m136", "to": "$m137", "next": "@selector.moon_orbit_step137" },
+  "moon_orbit_step137": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m137", "to": "$m138", "next": "@selector.moon_orbit_step138" },
+  "moon_orbit_step138": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m138", "to": "$m139", "next": "@selector.moon_orbit_step139" },
+  "moon_orbit_step139": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m139", "to": "$m140", "next": "@selector.moon_orbit_step140" },
+  "moon_orbit_step140": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m140", "to": "$m141", "next": "@selector.moon_orbit_step141" },
+  "moon_orbit_step141": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m141", "to": "$m142", "next": "@selector.moon_orbit_step142" },
+  "moon_orbit_step142": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m142", "to": "$m143", "next": "@selector.moon_orbit_step143" },
+  "moon_orbit_step143": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m143", "to": "$m144", "next": "@selector.moon_orbit_step144" },
+  "moon_orbit_step144": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m144", "to": "$m145", "next": "@selector.moon_orbit_step145" },
+  "moon_orbit_step145": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m145", "to": "$m146", "next": "@selector.moon_orbit_step146" },
+  "moon_orbit_step146": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m146", "to": "$m147", "next": "@selector.moon_orbit_step147" },
+  "moon_orbit_step147": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m147", "to": "$m148", "next": "@selector.moon_orbit_step148" },
+  "moon_orbit_step148": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m148", "to": "$m149", "next": "@selector.moon_orbit_step149" },
+  "moon_orbit_step149": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m149", "to": "$m150", "next": "@selector.moon_orbit_step150" },
+  "moon_orbit_step150": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m150", "to": "$m151", "next": "@selector.moon_orbit_step151" },
+  "moon_orbit_step151": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m151", "to": "$m152", "next": "@selector.moon_orbit_step152" },
+  "moon_orbit_step152": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m152", "to": "$m153", "next": "@selector.moon_orbit_step153" },
+  "moon_orbit_step153": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m153", "to": "$m154", "next": "@selector.moon_orbit_step154" },
+  "moon_orbit_step154": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m154", "to": "$m155", "next": "@selector.moon_orbit_step155" },
+  "moon_orbit_step155": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m155", "to": "$m156", "next": "@selector.moon_orbit_step156" },
+  "moon_orbit_step156": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m156", "to": "$m157", "next": "@selector.moon_orbit_step157" },
+  "moon_orbit_step157": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m157", "to": "$m158", "next": "@selector.moon_orbit_step158" },
+  "moon_orbit_step158": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m158", "to": "$m159", "next": "@selector.moon_orbit_step159" },
+  "moon_orbit_step159": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m159", "to": "$m160", "next": "@selector.moon_orbit_step160" },
+  "moon_orbit_step160": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m160", "to": "$m161", "next": "@selector.moon_orbit_step161" },
+  "moon_orbit_step161": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m161", "to": "$m162", "next": "@selector.moon_orbit_step162" },
+  "moon_orbit_step162": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m162", "to": "$m163", "next": "@selector.moon_orbit_step163" },
+  "moon_orbit_step163": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m163", "to": "$m164", "next": "@selector.moon_orbit_step164" },
+  "moon_orbit_step164": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m164", "to": "$m165", "next": "@selector.moon_orbit_step165" },
+  "moon_orbit_step165": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m165", "to": "$m166", "next": "@selector.moon_orbit_step166" },
+  "moon_orbit_step166": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m166", "to": "$m167", "next": "@selector.moon_orbit_step167" },
+  "moon_orbit_step167": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m167", "to": "$m168", "next": "@selector.moon_orbit_step168" },
+  "moon_orbit_step168": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m168", "to": "$m169", "next": "@selector.moon_orbit_step169" },
+  "moon_orbit_step169": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m169", "to": "$m170", "next": "@selector.moon_orbit_step170" },
+  "moon_orbit_step170": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m170", "to": "$m171", "next": "@selector.moon_orbit_step171" },
+  "moon_orbit_step171": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m171", "to": "$m172", "next": "@selector.moon_orbit_step172" },
+  "moon_orbit_step172": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m172", "to": "$m173", "next": "@selector.moon_orbit_step173" },
+  "moon_orbit_step173": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m173", "to": "$m174", "next": "@selector.moon_orbit_step174" },
+  "moon_orbit_step174": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m174", "to": "$m175", "next": "@selector.moon_orbit_step175" },
+  "moon_orbit_step175": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m175", "to": "$m176", "next": "@selector.moon_orbit_step176" },
+  "moon_orbit_step176": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m176", "to": "$m177", "next": "@selector.moon_orbit_step177" },
+  "moon_orbit_step177": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m177", "to": "$m178", "next": "@selector.moon_orbit_step178" },
+  "moon_orbit_step178": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m178", "to": "$m179", "next": "@selector.moon_orbit_step179" },
+  "moon_orbit_step179": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m179", "to": "$m180", "next": "@selector.moon_orbit_step180" },
+  "moon_orbit_step180": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m180", "to": "$m181", "next": "@selector.moon_orbit_step181" },
+  "moon_orbit_step181": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m181", "to": "$m182", "next": "@selector.moon_orbit_step182" },
+  "moon_orbit_step182": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m182", "to": "$m183", "next": "@selector.moon_orbit_step183" },
+  "moon_orbit_step183": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m183", "to": "$m184", "next": "@selector.moon_orbit_step184" },
+  "moon_orbit_step184": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m184", "to": "$m185", "next": "@selector.moon_orbit_step185" },
+  "moon_orbit_step185": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m185", "to": "$m186", "next": "@selector.moon_orbit_step186" },
+  "moon_orbit_step186": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m186", "to": "$m187", "next": "@selector.moon_orbit_step187" },
+  "moon_orbit_step187": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m187", "to": "$m188", "next": "@selector.moon_orbit_step188" },
+  "moon_orbit_step188": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m188", "to": "$m189", "next": "@selector.moon_orbit_step189" },
+  "moon_orbit_step189": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m189", "to": "$m190", "next": "@selector.moon_orbit_step190" },
+  "moon_orbit_step190": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m190", "to": "$m191", "next": "@selector.moon_orbit_step191" },
+  "moon_orbit_step191": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m191", "to": "$m192", "next": "@selector.moon_orbit_step192" },
+  "moon_orbit_step192": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m192", "to": "$m193", "next": "@selector.moon_orbit_step193" },
+  "moon_orbit_step193": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m193", "to": "$m194", "next": "@selector.moon_orbit_step194" },
+  "moon_orbit_step194": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m194", "to": "$m195", "next": "@selector.moon_orbit_step195" },
+  "moon_orbit_step195": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m195", "to": "$m196", "next": "@selector.moon_orbit_step196" },
+  "moon_orbit_step196": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m196", "to": "$m197", "next": "@selector.moon_orbit_step197" },
+  "moon_orbit_step197": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m197", "to": "$m198", "next": "@selector.moon_orbit_step198" },
+  "moon_orbit_step198": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m198", "to": "$m199", "next": "@selector.moon_orbit_step199" },
+  "moon_orbit_step199": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m199", "to": "$m200", "next": "@selector.moon_orbit_step200" },
+  "moon_orbit_step200": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m200", "to": "$m201", "next": "@selector.moon_orbit_step201" },
+  "moon_orbit_step201": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m201", "to": "$m202", "next": "@selector.moon_orbit_step202" },
+  "moon_orbit_step202": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m202", "to": "$m203", "next": "@selector.moon_orbit_step203" },
+  "moon_orbit_step203": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m203", "to": "$m204", "next": "@selector.moon_orbit_step204" },
+  "moon_orbit_step204": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m204", "to": "$m205", "next": "@selector.moon_orbit_step205" },
+  "moon_orbit_step205": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m205", "to": "$m206", "next": "@selector.moon_orbit_step206" },
+  "moon_orbit_step206": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m206", "to": "$m207", "next": "@selector.moon_orbit_step207" },
+  "moon_orbit_step207": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m207", "to": "$m208", "next": "@selector.moon_orbit_step208" },
+  "moon_orbit_step208": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m208", "to": "$m209", "next": "@selector.moon_orbit_step209" },
+  "moon_orbit_step209": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m209", "to": "$m210", "next": "@selector.moon_orbit_step210" },
+  "moon_orbit_step210": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m210", "to": "$m211", "next": "@selector.moon_orbit_step211" },
+  "moon_orbit_step211": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m211", "to": "$m212", "next": "@selector.moon_orbit_step212" },
+  "moon_orbit_step212": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m212", "to": "$m213", "next": "@selector.moon_orbit_step213" },
+  "moon_orbit_step213": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m213", "to": "$m214", "next": "@selector.moon_orbit_step214" },
+  "moon_orbit_step214": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m214", "to": "$m215", "next": "@selector.moon_orbit_step215" },
+  "moon_orbit_step215": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m215", "to": "$m216", "next": "@selector.moon_orbit_step216" },
+  "moon_orbit_step216": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m216", "to": "$m217", "next": "@selector.moon_orbit_step217" },
+  "moon_orbit_step217": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m217", "to": "$m218", "next": "@selector.moon_orbit_step218" },
+  "moon_orbit_step218": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m218", "to": "$m219", "next": "@selector.moon_orbit_step219" },
+  "moon_orbit_step219": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m219", "to": "$m220", "next": "@selector.moon_orbit_step220" },
+  "moon_orbit_step220": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m220", "to": "$m221", "next": "@selector.moon_orbit_step221" },
+  "moon_orbit_step221": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m221", "to": "$m222", "next": "@selector.moon_orbit_step222" },
+  "moon_orbit_step222": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m222", "to": "$m223", "next": "@selector.moon_orbit_step223" },
+  "moon_orbit_step223": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m223", "to": "$m224", "next": "@selector.moon_orbit_step224" },
+  "moon_orbit_step224": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m224", "to": "$m225", "next": "@selector.moon_orbit_step225" },
+  "moon_orbit_step225": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m225", "to": "$m226", "next": "@selector.moon_orbit_step226" },
+  "moon_orbit_step226": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m226", "to": "$m227", "next": "@selector.moon_orbit_step227" },
+  "moon_orbit_step227": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m227", "to": "$m228", "next": "@selector.moon_orbit_step228" },
+  "moon_orbit_step228": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m228", "to": "$m229", "next": "@selector.moon_orbit_step229" },
+  "moon_orbit_step229": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m229", "to": "$m230", "next": "@selector.moon_orbit_step230" },
+  "moon_orbit_step230": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m230", "to": "$m231", "next": "@selector.moon_orbit_step231" },
+  "moon_orbit_step231": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m231", "to": "$m232", "next": "@selector.moon_orbit_step232" },
+  "moon_orbit_step232": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m232", "to": "$m233", "next": "@selector.moon_orbit_step233" },
+  "moon_orbit_step233": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m233", "to": "$m234", "next": "@selector.moon_orbit_step234" },
+  "moon_orbit_step234": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m234", "to": "$m235", "next": "@selector.moon_orbit_step235" },
+  "moon_orbit_step235": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m235", "to": "$m236", "next": "@selector.moon_orbit_step236" },
+  "moon_orbit_step236": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m236", "to": "$m237", "next": "@selector.moon_orbit_step237" },
+  "moon_orbit_step237": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m237", "to": "$m238", "next": "@selector.moon_orbit_step238" },
+  "moon_orbit_step238": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m238", "to": "$m239", "next": "@selector.moon_orbit_step239" },
+  "moon_orbit_step239": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m239", "to": "$m240", "next": "@selector.moon_orbit_step240" },
+  "moon_orbit_step240": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m240", "to": "$m241", "next": "@selector.moon_orbit_step241" },
+  "moon_orbit_step241": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m241", "to": "$m242", "next": "@selector.moon_orbit_step242" },
+  "moon_orbit_step242": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m242", "to": "$m243", "next": "@selector.moon_orbit_step243" },
+  "moon_orbit_step243": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m243", "to": "$m244", "next": "@selector.moon_orbit_step244" },
+  "moon_orbit_step244": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m244", "to": "$m245", "next": "@selector.moon_orbit_step245" },
+  "moon_orbit_step245": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m245", "to": "$m246", "next": "@selector.moon_orbit_step246" },
+  "moon_orbit_step246": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m246", "to": "$m247", "next": "@selector.moon_orbit_step247" },
+  "moon_orbit_step247": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m247", "to": "$m248", "next": "@selector.moon_orbit_step248" },
+  "moon_orbit_step248": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m248", "to": "$m249", "next": "@selector.moon_orbit_step249" },
+  "moon_orbit_step249": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m249", "to": "$m250", "next": "@selector.moon_orbit_step250" },
+  "moon_orbit_step250": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m250", "to": "$m251", "next": "@selector.moon_orbit_step251" },
+  "moon_orbit_step251": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m251", "to": "$m252", "next": "@selector.moon_orbit_step252" },
+  "moon_orbit_step252": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m252", "to": "$m253", "next": "@selector.moon_orbit_step253" },
+  "moon_orbit_step253": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m253", "to": "$m254", "next": "@selector.moon_orbit_step254" },
+  "moon_orbit_step254": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m254", "to": "$m255", "next": "@selector.moon_orbit_step255" },
+  "moon_orbit_step255": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m255", "to": "$m256", "next": "@selector.moon_orbit_step256" },
+  "moon_orbit_step256": { "anim_type": "offset", "duration": "$moon_orbit_duration", "from": "$m256", "to": "$m1", "next": "@selector.moon_orbit_step1" },
   "footer": {}
 }
