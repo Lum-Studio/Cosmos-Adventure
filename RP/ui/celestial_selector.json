@@ -7974,7 +7974,7 @@
       {
         "label": {
           "type": "label",
-          "text": "(#form_button_text - 'Launch to ')",
+          "text": "",
           "size": ["100% - 6px", 10],
           "anchor_from": "center",
           "anchor_to": "center",
@@ -7989,6 +7989,11 @@
               "binding_name": "#form_button_text",
               "binding_type": "collection",
               "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#form_button_text - 'Launch to ')",
+              "target_property_name": "#text"
             }
           ]
         }
