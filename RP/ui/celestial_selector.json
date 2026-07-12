@@ -8063,6 +8063,39 @@
         }
       },
       {
+        "station_rename_header": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [94, 11],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [0, 8],
+          "layer": 5,
+          "collection_name": "form_buttons",
+          "factory": {
+            "name": "buttons",
+            "control_name": "selector.station_rename_header_item"
+          },
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "orbital_toggle_station",
+              "source_property_name": "#toggle_state",
+              "target_property_name": "#station_selected"
+            },
+            {
+              "binding_name": "#form_button_length",
+              "binding_name_override": "#collection_length"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "#station_selected",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
         "moon_header@selector.planet_header": {
           "$toggle": "orbital_toggle_moon",
           "$planet_title": "MOON"
@@ -8369,6 +8402,126 @@
                 "anchor_to": "center",
                 "text_alignment": "center",
                 "layer": 11
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "station_rename_header_item": {
+    "type": "panel",
+    "size": [94, 11],
+    "controls": [
+      {
+        "rename_header_btn@cosmos.button": {
+          "size": [94, 11],
+          "layer": 5,
+          "$action": "button.form_button_click",
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#form_button_text",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "#form_text",
+              "target_property_name": "#form_val"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#form_val - ('%.27s' * #form_val))",
+              "target_property_name": "#player_name"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not (#form_button_text - 'Rename ' = #form_button_text) and not (#form_button_text - #player_name = #form_button_text))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "default": {
+                "type": "image",
+                "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+                "color": [0, 0.8, 0],
+                "size": [94, 11],
+                "layer": 5
+              }
+            },
+            {
+              "hover": {
+                "type": "image",
+                "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+                "color": [0, 1, 0],
+                "size": [94, 11],
+                "layer": 5
+              }
+            },
+            {
+              "label": {
+                "type": "label",
+                "text": "RENAME",
+                "color": [1, 1, 1],
+                "size": ["100%", 10],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "text_alignment": "center",
+                "layer": 6
+              }
+            }
+          ]
+        }
+      },
+      {
+        "rename_header_unowned": {
+          "type": "image",
+          "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+          "color": [0.8, 0, 0],
+          "size": [94, 11],
+          "layer": 5,
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#form_button_text",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "#form_text",
+              "target_property_name": "#form_val"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#form_val - ('%.27s' * #form_val))",
+              "target_property_name": "#player_name"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not (#form_button_text - 'Rename ' = #form_button_text) and (#form_button_text - #player_name = #form_button_text))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "label": {
+                "type": "label",
+                "text": "RENAME",
+                "color": [0.6, 0.6, 0.6],
+                "size": ["100%", 10],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "text_alignment": "center",
+                "layer": 6
               }
             }
           ]
