@@ -5032,16 +5032,54 @@
           ],
           "controls": [
             {
-              "orbital_toggle_station@selector.selection_box": {
-                "$selection_size": [16, 16],
+              "orbital_toggle_station@cosmos.toggle": {
+                "toggle_default_state": false,
+                "toggle_grid_collection_name": "orbital_planet",
+                "toggle_name": "orbital_planet",
+                "size": [16, 16],
                 "controls": [
                   {
-                    "hover": {
+                    "checked_hover": {
                       "type": "image",
+                      "size": [16, 16],
                       "texture": "textures/ui/cosmos/celestial_selector/selection_box",
-                      "color": [0, 0.8, 1],
-                      "size": [18, 18]
+                      "color": [1, 1, 0],
+                      "layer": 7,
+                      "anims": ["@selector.fade_loop"]
                     }
+                  }
+                ]
+              }
+            },
+            {
+              "rename_station_collection": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "size": [60, 11],
+                "offset": [0, -16],
+                "anchor_from": "top_middle",
+                "anchor_to": "bottom_middle",
+                "layer": 10,
+                "collection_name": "form_buttons",
+                "factory": {
+                  "name": "buttons",
+                  "control_name": "selector.orbiting_rename_item"
+                },
+                "bindings": [
+                  {
+                    "binding_type": "view",
+                    "source_control_name": "orbital_toggle_station",
+                    "source_property_name": "#toggle_state",
+                    "target_property_name": "#station_selected"
+                  },
+                  {
+                    "binding_name": "#form_button_length",
+                    "binding_name_override": "#collection_length"
+                  },
+                  {
+                    "binding_type": "view",
+                    "source_property_name": "#station_selected",
+                    "target_property_name": "#visible"
                   }
                 ]
               }
@@ -6287,16 +6325,54 @@
           ],
           "controls": [
             {
-              "orbital_toggle_station@selector.selection_box": {
-                "$selection_size": [16, 16],
+              "orbital_toggle_station@cosmos.toggle": {
+                "toggle_default_state": false,
+                "toggle_grid_collection_name": "orbital_planet",
+                "toggle_name": "orbital_planet",
+                "size": [16, 16],
                 "controls": [
                   {
-                    "hover": {
+                    "checked_hover": {
                       "type": "image",
+                      "size": [16, 16],
                       "texture": "textures/ui/cosmos/celestial_selector/selection_box",
-                      "color": [0, 0.8, 1],
-                      "size": [18, 18]
+                      "color": [1, 1, 0],
+                      "layer": 7,
+                      "anims": ["@selector.fade_loop"]
                     }
+                  }
+                ]
+              }
+            },
+            {
+              "rename_station_collection": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "size": [60, 11],
+                "offset": [0, -16],
+                "anchor_from": "top_middle",
+                "anchor_to": "bottom_middle",
+                "layer": 10,
+                "collection_name": "form_buttons",
+                "factory": {
+                  "name": "buttons",
+                  "control_name": "selector.orbiting_rename_item"
+                },
+                "bindings": [
+                  {
+                    "binding_type": "view",
+                    "source_control_name": "orbital_toggle_station",
+                    "source_property_name": "#toggle_state",
+                    "target_property_name": "#station_selected"
+                  },
+                  {
+                    "binding_name": "#form_button_length",
+                    "binding_name_override": "#collection_length"
+                  },
+                  {
+                    "binding_type": "view",
+                    "source_property_name": "#station_selected",
+                    "target_property_name": "#visible"
                   }
                 ]
               }
@@ -7949,25 +8025,6 @@
   "top_rename_panel": {
     "type": "panel",
     "size": ["100%", "100%"],
-    "bindings": [
-      {
-        "binding_type": "view",
-        "source_control_name": "zoom_toggle_overworld",
-        "source_property_name": "#toggle_state",
-        "target_property_name": "#zoom_earth"
-      },
-      {
-        "binding_type": "view",
-        "source_control_name": "zoom_toggle_moon",
-        "source_property_name": "#toggle_state",
-        "target_property_name": "#zoom_moon"
-      },
-      {
-        "binding_type": "view",
-        "source_property_name": "((#title_text - 'Celestial Panel ' = 'Solar System') and (#zoom_earth or #zoom_moon))",
-        "target_property_name": "#visible"
-      }
-    ],
     "controls": [
       {
         "mercury_header@selector.planet_header": {
@@ -8045,27 +8102,6 @@
         "neptune_header@selector.planet_header": {
           "$toggle": "catalog_toggle_neptune",
           "$planet_title": "NEPTUNE"
-        }
-      },
-      {
-        "rename_collection": {
-          "type": "stack_panel",
-          "orientation": "vertical",
-          "size": [94, 11],
-          "anchor_from": "top_middle",
-          "anchor_to": "top_middle",
-          "offset": [0, 8],
-          "collection_name": "form_buttons",
-          "factory": {
-            "name": "buttons",
-            "control_name": "selector.top_rename_item"
-          },
-          "bindings": [
-            {
-              "binding_name": "#form_button_length",
-              "binding_name_override": "#collection_length"
-            }
-          ]
         }
       }
     ]
@@ -8267,18 +8303,73 @@
       {
         "label": {
           "type": "label",
-          "text": "#name",
+          "text": "#form_button_text",
           "color": [1, 1, 1],
           "size": ["100% - 6px", 10],
           "anchor_from": "center",
           "anchor_to": "center",
           "text_alignment": "center",
           "layer": 3,
+          "bindings": "$get_station_name"
+        }
+      }
+    ]
+  },
+  "orbiting_rename_item": {
+    "type": "panel",
+    "size": [60, 11],
+    "controls": [
+      {
+        "rename_btn@cosmos.button": {
+          "size": [60, 11],
+          "layer": 10,
+          "$action": "button.form_button_click",
           "bindings": [
             {
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#form_button_text",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
               "binding_type": "view",
-              "source_property_name": "(#form_button_text - 'Launch to ')",
-              "target_property_name": "#name"
+              "source_property_name": "(not (#form_button_text - 'Rename ' = #form_button_text))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "default": {
+                "type": "image",
+                "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+                "color": [0, 0.8, 0],
+                "size": [60, 11],
+                "layer": 10
+              }
+            },
+            {
+              "hover": {
+                "type": "image",
+                "texture": "textures/ui/cosmos/celestial_selector/station_list_item",
+                "color": [0, 1, 0],
+                "size": [60, 11],
+                "layer": 10
+              }
+            },
+            {
+              "label": {
+                "type": "label",
+                "text": "RENAME",
+                "color": [1, 1, 1],
+                "size": ["100%", 10],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "text_alignment": "center",
+                "layer": 11
+              }
             }
           ]
         }
