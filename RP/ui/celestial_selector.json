@@ -7949,6 +7949,25 @@
   "top_rename_panel": {
     "type": "panel",
     "size": ["100%", "100%"],
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_overworld",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_earth"
+      },
+      {
+        "binding_type": "view",
+        "source_control_name": "zoom_toggle_moon",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#zoom_moon"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "((#title_text - 'Celestial Panel ' = 'Solar System') and (#zoom_earth or #zoom_moon))",
+        "target_property_name": "#visible"
+      }
+    ],
     "controls": [
       {
         "mercury_header@selector.planet_header": {
@@ -8221,7 +8240,7 @@
       },
       {
         "binding_type": "view",
-        "source_property_name": "(not (#form_button_text - 'Space Station' = #form_button_text) and not (#form_button_text - 'Launch to ' = #form_button_text))",
+        "source_property_name": "(not (#form_button_text - 'Launch to ' = #form_button_text) and (#form_button_text - 'Overworld' = #form_button_text) and (#form_button_text - 'Moon' = #form_button_text) and (#form_button_text - 'Mars' = #form_button_text) and (#form_button_text - 'Venus' = #form_button_text) and (#form_button_text - 'Asteroids' = #form_button_text))",
         "target_property_name": "#visible"
       }
     ],
@@ -8255,7 +8274,13 @@
           "anchor_to": "center",
           "text_alignment": "center",
           "layer": 3,
-          "bindings": "$get_station_name"
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_property_name": "(#form_button_text - 'Launch to ')",
+              "target_property_name": "#name"
+            }
+          ]
         }
       }
     ]
