@@ -8060,45 +8060,6 @@
         }
       },
       {
-        "rename_collection": {
-          "type": "stack_panel",
-          "orientation": "vertical",
-          "size": [94, 11],
-          "anchor_from": "top_middle",
-          "anchor_to": "top_middle",
-          "offset": [0, 8],
-          "layer": 5,
-          "collection_name": "form_buttons",
-          "factory": {
-            "name": "buttons",
-            "control_name": "selector.top_rename_item"
-          },
-          "bindings": [
-            {
-              "binding_name": "#form_button_length",
-              "binding_name_override": "#collection_length"
-            },
-            {
-              "binding_type": "view",
-              "source_control_name": "zoom_toggle_overworld",
-              "source_property_name": "#toggle_state",
-              "target_property_name": "#zoom_earth"
-            },
-            {
-              "binding_type": "view",
-              "source_control_name": "orbital_toggle_station",
-              "source_property_name": "#toggle_state",
-              "target_property_name": "#station_selected"
-            },
-            {
-              "binding_type": "view",
-              "source_property_name": "(#zoom_earth and #station_selected)",
-              "target_property_name": "#visible"
-            }
-          ]
-        }
-      },
-      {
         "moon_header@selector.planet_header": {
           "$toggle": "orbital_toggle_moon",
           "$planet_title": "MOON"
@@ -8138,6 +8099,27 @@
         "neptune_header@selector.planet_header": {
           "$toggle": "catalog_toggle_neptune",
           "$planet_title": "NEPTUNE"
+        }
+      },
+      {
+        "rename_collection": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [94, 11],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [0, 8],
+          "collection_name": "form_buttons",
+          "factory": {
+            "name": "buttons",
+            "control_name": "selector.top_rename_item"
+          },
+          "bindings": [
+            {
+              "binding_name": "#form_button_length",
+              "binding_name_override": "#collection_length"
+            }
+          ]
         }
       }
     ]
@@ -8349,7 +8331,7 @@
           "bindings": [
             {
               "binding_type": "view",
-              "source_property_name": "#form_button_text",
+              "source_property_name": "(#form_button_text - 'Launch to ')",
               "target_property_name": "#name"
             }
           ]
