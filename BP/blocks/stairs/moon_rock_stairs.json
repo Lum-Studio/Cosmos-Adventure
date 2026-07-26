@@ -3,7 +3,7 @@
 	"minecraft:block": {
 		"description": {
 			"identifier": "cosmos:moon_rock_stairs",
-      "menu_category": {
+            "menu_category": {
 				"category": "items"
 			},
 			"traits": {
