@@ -5,158 +5,110 @@
 			"100%",
 			139
 		],
+		"$show_bottom_half": false,
+		"$show_hotbar": false,
 		"$content": [
 			{
-				"bg@common.dialog_background_opaque": {
-					"size": ["100%", "100%"],
-					"layer": -1
-				}
-			},
-			{
-				"title@machines.item_text": {
-					"$index": 7,
-					"$text_font_scale": 0.8,
-					"$alignment": "center",
+				"title": {
+					"type": "label",
+					"text": "Airlock Controller",
+					"color": "$title_text_color",
 					"anchor_from": "top_middle",
 					"anchor_to": "top_middle",
-					"offset": [0, 4]
+					"offset": [
+						0,
+						5
+					]
 				}
 			},
 			{
-				"redstone@machines.machine_toggle": {
+				"redstone@machines.machine_button": {
 					"$index": 0,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [6, 18]
+					"offset": [
+						10,
+						20
+					],
+					"$button_size": [
+						161,
+						18
+					]
 				}
 			},
 			{
-				"redstone_text@machines.item_text": {
-					"$index": 0,
-					"$text_font_scale": 0.8,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [22, 20]
-				}
-			},
-			{
-				"distance@machines.machine_toggle": {
+				"distance@machines.machine_button": {
 					"$index": 1,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [6, 33]
+					"offset": [
+						10,
+						40
+					],
+					"$button_size": [
+						161,
+						18
+					]
 				}
 			},
 			{
-				"distance_text@machines.item_text": {
-					"$index": 1,
-					"$text_font_scale": 0.8,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [22, 35]
-				}
-			},
-			{
-				"distance_value@machines.machine_textbox": {
+				"distance_value@machines.machine_button": {
 					"$index": 2,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [99, 32],
-					"$button_size": [70, 14],
-					"$button_font_scale": 0.8
+					"offset": [
+						10,
+						60
+					],
+					"$button_size": [
+						161,
+						18
+					]
 				}
 			},
 			{
-				"player_name@machines.machine_toggle": {
+				"owner_only@machines.machine_button": {
 					"$index": 3,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [22, 49]
+					"offset": [
+						10,
+						80
+					],
+					"$button_size": [
+						161,
+						18
+					]
 				}
 			},
 			{
-				"player_name_text@machines.item_text": {
-					"$index": 3,
-					"$text_font_scale": 0.8,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [38, 51]
-				}
-			},
-			{
-				"arrow_icon": {
-					"type": "label",
-					"text": "↳",
-					"font_scale_factor": 1.5,
-					"color": "$title_text_color",
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [11, 48]
-				}
-			},
-			{
-				"player_textbox@machines.machine_textbox": {
+				"invert@machines.machine_button": {
 					"$index": 4,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [29, 64],
-					"$button_size": [110, 15],
-					"$button_font_scale": 0.8
+					"offset": [
+						10,
+						100
+					],
+					"$button_size": [
+						78,
+						18
+					]
 				}
 			},
 			{
-				"invert@machines.machine_toggle": {
+				"horizontal@machines.machine_button": {
 					"$index": 5,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [6, 80]
-				}
-			},
-			{
-				"invert_text@machines.item_text": {
-					"$index": 5,
-					"$text_font_scale": 0.8,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [22, 82]
-				}
-			},
-			{
-				"horizontal@machines.machine_toggle": {
-					"$index": 6,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [6, 96]
-				}
-			},
-			{
-				"horizontal_text@machines.item_text": {
-					"$index": 6,
-					"$text_font_scale": 0.8,
-					"anchor_from": "top_left",
-					"anchor_to": "top_left",
-					"offset": [22, 98]
-				}
-			},
-			{
-				"status_label": {
-					"type": "label",
-					"text": "Status:",
-					"color": "$title_text_color",
-					"font_scale_factor": 0.8,
-					"anchor_from": "bottom_middle",
-					"anchor_to": "bottom_middle",
-					"offset": [0, -20]
-				}
-			},
-			{
-				"status_text@machines.item_text": {
-					"$index": 8,
-					"$text_font_scale": 0.8,
-					"$alignment": "center",
-					"anchor_from": "bottom_middle",
-					"anchor_to": "bottom_middle",
-					"offset": [0, -10]
+					"offset": [
+						93,
+						100
+					],
+					"$button_size": [
+						78,
+						18
+					]
 				}
 			}
 		]

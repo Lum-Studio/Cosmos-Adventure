@@ -735,12 +735,63 @@ export class MachineRegistry {
 		for (const r of results) {
 			if (!entries.includes(r.uiDef)) { entries.push(r.uiDef); changed = true; }
 		}
+		for (const c of CELESTIAL_FILES) {
+			if (!entries.includes(c)) { entries.push(c); changed = true; }
+		}
 		if (changed) {
 			defs.ui_defs = entries;
 			writeFileSync(defsPath, JSON.stringify(defs, null, 2) + "\n");
 			console.log("  ✓ _ui_defs.json patched");
 		}
 	}
+}
+
+export const CELESTIAL_FILES = [
+	"ui/celestial/celestial_base.json",
+	"ui/celestial/solar_system_map.json",
+	"ui/celestial/planet_views.json",
+	"ui/celestial/station_recipe_panel.json",
+	"ui/celestial/station_list_panel.json",
+];
+
+export function verifyCelestialFiles(rootDir = "."): { ok: boolean; errors: string[] } {
+	const errors: string[] = [];
+	const celestialSubFiles = [
+		"celestial_base",
+		"solar_system_map",
+		"planet_views",
+		"station_recipe_panel",
+		"station_list_panel"
+	];
+	for (const name of celestialSubFiles) {
+		const fullPath = join(rootDir, "RP/ui/celestial", `${name}.json`);
+		if (!existsSync(fullPath)) {
+			errors.push(`Missing celestial file: ${fullPath}`);
+		} else {
+			try {
+				const content = readFileSync(fullPath, "utf-8");
+				JSON.parse(content);
+				console.log(`  ✓ celestial/${name}.json`);
+			} catch (e: any) {
+				errors.push(`Invalid JSON in ${fullPath}: ${e.message}`);
+			}
+		}
+	}
+	const defsPath = join(rootDir, "RP/ui/_ui_defs.json");
+	if (existsSync(defsPath)) {
+		try {
+			const defs = JSON.parse(readFileSync(defsPath, "utf-8"));
+			const entries: string[] = defs.ui_defs ?? [];
+			for (const f of CELESTIAL_FILES) {
+				if (!entries.includes(f)) {
+					errors.push(`_ui_defs.json missing entry: ${f}`);
+				}
+			}
+		} catch (e: any) {
+			errors.push(`Invalid _ui_defs.json: ${e.message}`);
+		}
+	}
+	return { ok: errors.length === 0, errors };
 }
 
 // ================================================================
@@ -1007,8 +1058,21 @@ if (isMain) {
 	const flags = {
 		verify: args.includes("--verify"),
 		dryRun: args.includes("--dry-run"),
+		celestial: args.includes("--celestial"),
 		machine: args.includes("--machine") ? args[args.indexOf("--machine") + 1] : null,
 	};
+
+	if (flags.celestial) {
+		console.log("Verifying celestial selection UI files:");
+		const celRes = verifyCelestialFiles();
+		if (celRes.ok) {
+			console.log("  ✓ All celestial selection files verified and registered.");
+			process.exit(0);
+		} else {
+			for (const err of celRes.errors) console.error(`  ✗ ${err}`);
+			process.exit(1);
+		}
+	}
 
 	const reg = await defineAll();
 
@@ -1044,6 +1108,12 @@ if (isMain) {
 				console.log(`  ? ${r.name}: no existing file`);
 			}
 		}
+		console.log("\nVerifying celestial selection UI files:");
+		const celRes = verifyCelestialFiles();
+		if (!celRes.ok) {
+			ok = false;
+			for (const err of celRes.errors) console.error(`  ✗ ${err}`);
+		}
 		process.exit(ok ? 0 : 1);
 	} else if (flags.dryRun) {
 		const results = reg.generate({ write: false, patch: false });
@@ -1062,4 +1132,5 @@ if (isMain) {
 // ================================================================
 
 export { GuiParameterized, guiParameterized, defineAll, BARS, barHorizontal, barVerticalFlame, barColored };
+
 
