@@ -7,7 +7,7 @@ const BatterySlot = 9, InputSlot = 10
 const EnergyDisplay = 11, ProgressDisplay = 12, StatusDisplay = 13
 
 const data = {
-	energy: {input: "right", capacity: 16000, maxInput: 45},
+	energy: {input: "right", capacity: 16000, maxInput: 187, rate: 75},
 	onTick(entity, block){
 		const container = entity.getComponent('minecraft:inventory').container;
 		const variables = load_dynamic_object(entity, "machine_data");
@@ -18,11 +18,11 @@ const data = {
 		energy = charge_from_battery(entity, energy, BatterySlot);
 		if(!(system.currentTick % 80)) energy -= Math.min(5, energy)
 
-		if(energy > 50){
+		if(energy > data.energy.rate){
 			let recipe_item = container.getItem(InputSlot);
 			if (recipe_item){
 				progress++;
-				energy -= Math.min(50, energy);
+				energy -= Math.min(data.energy.rate, energy);
 			}
 			else progress = 0
 
@@ -34,10 +34,12 @@ const data = {
 			}
 		}else if(progress > 0) progress = 0;
 
-		const energy_hover = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.energy.capacity} gJ`
-		container.add_ui_display(EnergyDisplay, energy_hover, Math.round((energy / data.energy.capacity) * 55))
-		container.add_ui_display(ProgressDisplay, '', Math.ceil((progress / 250) * 52))
-		container.add_ui_display(StatusDisplay, `§r   Status:\n${progress ? '§2Running' : '    §6Idle' }`)
+		if(entity.active_ui || !container.getItem(StatusDisplay)){
+			const energy_hover = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.energy.capacity} gJ`
+		    container.add_ui_display(EnergyDisplay, energy_hover, Math.round((energy / data.energy.capacity) * 55))
+		    container.add_ui_display(ProgressDisplay, '', Math.ceil((progress / 250) * 52))
+		    container.add_ui_display(StatusDisplay, `§r   Status:\n${progress ? '§2Running' : '    §6Idle' }`)
+		}
 
 		save_dynamic_object(entity, {progress, energy}, "machine_data")
 	}

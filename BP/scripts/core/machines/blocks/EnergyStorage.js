@@ -9,7 +9,7 @@ const data = {
 			output: "right", 
 			capacity: 500000,
 			maxPower: 300,
-			maxInput: 2000
+			maxInput: 750
 		},
 	},
 	energy_storage_cluster: {
@@ -19,7 +19,7 @@ const data = {
 			output: "right", 
 			capacity: 2500000,
 			maxPower: 1800,
-			maxInput: 2000
+			maxInput: 4500
 		},
 	}
 }
@@ -44,8 +44,10 @@ function onTick(entity, block) {
 	// store and display data
 
 	save_dynamic_object(entity, {energy, power}, "machine_data");
-	container.add_ui_display(2, `§r ${energy} gJ\nof ${store_data.energy.capacity} gJ`)
-	container.add_ui_display(3, '', Math.ceil((energy/ store_data.energy.capacity) * 75 ))
+	if(entity.active_ui || !container.getItem(2)){
+		container.add_ui_display(2, `§r ${energy} gJ\nof ${store_data.energy.capacity} gJ`)
+	    container.add_ui_display(3, '', Math.ceil((energy/ store_data.energy.capacity) * 75 ))
+	}
 	
 	// change the block look
 	try { if (block?.typeId != "minecraft:air") {

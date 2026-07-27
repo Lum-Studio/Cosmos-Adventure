@@ -3,10 +3,12 @@ import machines from "./AllMachineBlocks";
 import { detach_wires, attach_to_wires } from "../blocks/aluminum_wire";
 import { attach_pipes, detach_pipes } from "../blocks/fluid_pipe";
 import { pickaxes } from "../../api/utils";
-import { setSolarPanelBlocks } from "./blocks/BasicSolarPanel";
+import { setSolarPanelBlocks } from "./blocks/SolarPanel";
+import data from "./blocks/CoalGenerator";
 
 const multi_block_machines = {
-	"cosmos:basic_solar_panel": setSolarPanelBlocks
+	"cosmos:basic_solar_panel": setSolarPanelBlocks,
+	"cosmos:advanced_solar_panel": setSolarPanelBlocks
 }
 export let machine_entities = new Map();
 
@@ -185,7 +187,7 @@ export const machine_component = {
 	},
 	onPlayerBreak({ block, dimension, brokenBlockPermutation: perm }) {
 		detach_wires(block);
-		detach_pipes(block);
+		detach_pipes(block, perm, "machine");
 		
 		const entity = dimension.getEntities({
 			type: perm.type.id,
@@ -283,3 +285,13 @@ world.afterEvents.entitySpawn.subscribe((data) => {
 		data.entity.remove();
 	}
 });
+
+world.afterEvents.entityContainerOpened.subscribe(({entity}) => {
+	entity.active_ui = entity.active_ui ? entity.active_ui + 1: 1;
+}, {entityFilter: {families: ["machine"]}});
+
+world.afterEvents.entityContainerClosed.subscribe(({entity}) => {
+	if(entity.active_ui === undefined) return;
+	entity.active_ui -= 1;
+	if(entity.active_ui <= 0) delete entity.active_ui;
+}, {entityFilter: {families: ["machine"]}});

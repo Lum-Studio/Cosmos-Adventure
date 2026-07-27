@@ -1,7 +1,7 @@
 import { world, ItemStack, system } from "@minecraft/server"
 import { compare_position, get_entity, load_dynamic_object, location_of_side, save_dynamic_object } from "../../api/utils"
 import { get_data } from "../machines/Machine"
-import { save_fluid_amount, get_fluid_amount } from "./fluid_network"
+import { create_network, fluid_network, save_network} from "./fluid_network"
 import { get_direction, pipe_same_side } from "../blocks/fluid_pipe"
 
 function evaporate(block) {
@@ -32,11 +32,12 @@ const fluid_canisters = {
     n2: "cosmos:n2_canister",
     fuel: "cosmos:fuel_canister",
     oil: "cosmos:oil_canister",
-    
+    methane: "cosmos:methane_canister",
     "cosmos:o2_canister": "o2", 
     "cosmos:n2_canister": "n2",
     "cosmos:fuel_canister": "fuel",
     "cosmos:oil_canister": "oil",
+    "cosmos:methane_canister": "methane"
 }
 const fluid_buckets = {
     water: "minecraft:water_bucket",
@@ -52,7 +53,8 @@ const liquid_lores = {
     "cosmos:o2_canister": "Oxygen: ",
     "cosmos:n2_canister": "Nitrogen: ",
     "cosmos:fuel_canister": "Fuel: ",
-    "cosmos:oil_canister": "Oil: "
+    "cosmos:oil_canister": "Oil: ",
+    "cosmos:methane_canister": "Methane: "
 }
 
 const empty_canister = (type = "cosmos:empty_canister") => { // using a function to get a new object
@@ -66,13 +68,13 @@ export const fluid_names = {
     oil: "Oil",
     fuel: "Fuel",
     air: "Atmospheric Gases",
-    o2_gas: "Oxygen Gas",
-    h2_gas: "Hydrogen Gas",
-    n2_gas: "Nitrogen Gas",
-    co2_gas: "Carbon Dioxide",
-    methane_gas: "Methane Gas",
-    helium_gas: "Helium Gas",
-    argon_gas: "Argon Gas",
+    o2: "Oxygen Gas",
+    h2: "Hydrogen Gas",
+    n2: "Nitrogen Gas",
+    co2: "Carbon Dioxide",
+    methane: "Methane Gas",
+    helium: "Helium Gas",
+    argon: "Argon Gas",
     liquid_oxygen: "Liquid Oxygen",
     liquid_nitrogen: "Liquid Nitrogen",
     liquid_methane: "Liquid Methane",
@@ -142,6 +144,14 @@ export const bucket_component = {
 
 export function output_fluid(fluid_data, entity, block, fluid) {
     if(system.currentTick % 20) return fluid;
+    
+    /* debug purposes
+    prints fluid system object and all registered pipes
+    if you wanna delete registered pipes and system use world.clearDynamicProperties();
+    note: it might clean stations too
+    console.warn(JSON.stringify(world.getDynamicPropertyIds(), fluid_network))
+    console.warn(JSON.stringify(fluid_network))*/
+    
     const data = get_data(entity)
     const target_location = location_of_side(block, data[fluid_data.slot].output)
     if (!target_location) return fluid
@@ -151,40 +161,48 @@ export function output_fluid(fluid_data, entity, block, fluid) {
         z: block.location.z - Math.floor(target_location.z)
     }
     direction = get_direction(direction);
-    if (target_block.hasTag("fluid_pipe") && target_block.permutation.getState(pipe_same_side[direction]) == 2) {
-        fluid = save_fluid_amount(entity, fluid_data, target_block, fluid);
-        return fluid;
+
+    let condition_state = (fluid_data.liquid_type == "g") ? 1: 2;
+    if (target_block.hasTag("fluid_pipe") && target_block.permutation.getState(pipe_same_side[direction]) >= condition_state){
+        let network_id = world.getDynamicProperty(target_block.dimension.id + JSON.stringify(target_block.location));
+        if(!network_id){
+            fluid = create_network(target_block, fluid_data.type, fluid_data.liquid_type, fluid);
+            return fluid;
+        }else if(fluid_network[network_id]?.t == fluid_data.type && fluid_network[network_id]?.l == fluid_data.liquid_type){
+            let network = fluid_network[network_id];
+            let capacity = Math.min(network.p * 200 - network.c, fluid);
+            network.c += capacity;
+            fluid -= capacity;
+            if(network.c > 0) network.e = true;
+            else network.e = false;
+            save_network();
+        }
     }
     return fluid;
 }
 
 export function input_fluid(fluid_data, entity, block, fluid) {
-    if(system.currentTick % 20) return fluid;
+    if(system.currentTick % 20) return [fluid, fluid_data.type];
     const data = get_data(entity)
     const source_location = location_of_side(block, data[fluid_data.slot].input)
-    if (!source_location || fluid == data[fluid_data.slot].capacity) return fluid
+    if (!source_location || fluid == data[fluid_data.slot].capacity) return [fluid, fluid_data.type]
     const source_block = block.dimension.getBlock(source_location)
 
     if (source_block?.hasTag("fluid_pipe")) {
-        fluid = get_fluid_amount(entity, fluid_data, fluid)
-        return fluid
-    } else {
-        const source_entity = get_entity(entity.dimension, source_location, `has_${fluid_data.type}_output`)
-        if (!source_entity) return fluid
-        
-        let variables = load_dynamic_object(source_entity, 'machine_data');
-        const source_fluid = variables?.[fluid_data.type] ?? 0
-        if (source_fluid == 0) return fluid
-        
-        const io = location_of_side(source_block, get_data(source_entity)[fluid_data.type].output)
-        if (!compare_position(entity.location, io)) return fluid
-
-        const space = data[fluid_data.slot].capacity - fluid;
-
-        variables[fluid_data.type] -= Math.min(source_fluid, space);
-        save_dynamic_object(source_entity, variables, 'machine_data')
-        return fluid + Math.min(source_fluid, space);
+        let network = world.getDynamicProperty(source_block.dimension.id + JSON.stringify(source_block.location));
+        network = fluid_network[network];
+        if(network && fluid_data.type == undefined && network.l == fluid_data.liquid_type){
+            fluid_data.type = network.t;
+        }
+        if(network && network.t == fluid_data.type && network.l == fluid_data.liquid_type){
+            let extracted_fluid = Math.min(data[fluid_data.slot].capacity - fluid, Math.floor(network.c/(network.i ?? 1)));
+            network.c -= extracted_fluid;
+            fluid += extracted_fluid;
+            save_network();
+            return [fluid, fluid_data.type];
+        }
     }
+    return [fluid, fluid_data.type];
 }
 
 export function load_from_item(amount, fluid_type, capacity, container, slot) {
@@ -237,7 +255,7 @@ export function load_to_item(amount, fluid_type, container, slot){
 export function load_to_canister(canister, amount, fluid_type, container, slot) {
     const empty = canister.typeId == "cosmos:empty_canister" // is it empty?
     const canister_type = fluid_canisters[fluid_type] // what type of canister to fill?
-    if (canister.typeId != canister_type && !empty) return amount // if empty or contains the same fluid
+    if (!canister_type || (canister.typeId != canister_type && !empty)) return amount // if empty or contains the same fluid
     if (empty) canister = empty_canister(canister_type) // if empty set its type
     const durability = canister.getComponent('minecraft:durability')
     if (!durability.damage) return amount // the canister is full

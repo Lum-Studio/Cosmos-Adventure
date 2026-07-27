@@ -10,10 +10,10 @@ const StatusDisplay = 8, ButtonSlot = 9
 const ProcessButtonText = (state) => state ? 'Stop' : 'Process'
 
 const data = {
-	energy: {input: "below", capacity: 16000, maxInput: 900},
-	water: {input: "left", capacity: 4000},
-	o2: {output: "back", capacity: 4000},
-	h2: {output: "right", capacity: 4000},
+	energy: {input: "below", capacity: 16000, maxInput: 300},
+	water: {input: "right", capacity: 4000},
+	o2: {output: "front", capacity: 4000},
+	h2: {output: "left", capacity: 4000},
 	onTick(entity, block) {
         const container = entity.getComponent('minecraft:inventory').container
         const active = entity.getDynamicProperty('active')
@@ -28,11 +28,11 @@ const data = {
         energy = charge_from_machine(entity, block, energy);
         energy = charge_from_battery(entity, energy, BatterySlot)
         
-        water = input_fluid({type: "water", slot: "water"}, entity, block, water)
+        water = input_fluid({type: "water", slot: "water"}, entity, block, water)[0]
         water = load_from_item(water, "water", data.water.capacity, container, InputSlot)
 
-        o2 = output_fluid({type: 'o2', slot: 'o2'}, entity, block, o2)
-        h2 = output_fluid({type: 'h2', slot: 'h2'}, entity, block, h2)
+        o2 = output_fluid({type: 'o2', slot: 'o2', liquid_type: "g"}, entity, block, o2);
+        h2 = output_fluid({type: 'h2', slot: 'h2', liquid_type: "g"}, entity, block, h2);
 
         let status = energy < 375 ? '§cLow energy' : !water ? '§cNo Water!' : '§6Idle'
         if (o2 + 2 > data.o2.capacity && h2 + 4 > data.h2.capacity) status = '§cTanks Full'
@@ -49,7 +49,7 @@ const data = {
         save_dynamic_object(entity, {energy, water, o2, h2}, "machine_data")
             
         //ui display
-        if (system.currentTick % 3 == 0) {
+        if ((entity.active_ui || !container.getItem(StatusDisplay)) && system.currentTick % 3 == 0) {
             container.add_ui_display(WaterDisplay, `Water Tank\n§e${water} / ${data.water.capacity}`, Math.ceil((water / data.water.capacity) * 38))
             container.add_ui_display(OxygenDisplay, `Gas Storage\n(Oxygen Gas)\n§e${o2} / ${data.o2.capacity}`, Math.ceil((o2 / data.o2.capacity) * 38))
             container.add_ui_display(HydrogenDisplay, `Gas Storage\n(Hydrogen Gas)\n§e${h2} / ${data.h2.capacity}`, Math.ceil((h2 / data.h2.capacity) * 38))

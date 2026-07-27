@@ -1,0 +1,75 @@
+{
+	"format_version": "1.21.100",
+	"minecraft:block": {
+		"description": {
+			"identifier": "cosmos:mars_cobblestone_slab",
+			"menu_category": {
+				"category": "items"
+			},
+			"traits": {
+				"minecraft:placement_position": {
+					"enabled_states": ["minecraft:vertical_half"]
+				}
+			}
+		},
+		"components": {
+			"minecraft:destructible_by_mining": {
+				"seconds_to_destroy": 0.5
+			},
+			"minecraft:destructible_by_explosion": {
+				"explosion_resistance": 12
+			},
+			"minecraft:geometry": {
+				"identifier": "geometry.slab",
+				"bone_visibility": {
+					"top": "q.block_state('minecraft:vertical_half') == 'top'",
+					"bottom": "q.block_state('minecraft:vertical_half') == 'bottom'"
+				}
+			},
+			"minecraft:material_instances": {
+				"*": {
+					"texture": "mars_cobblestone",
+					"render_method": "opaque"
+				}
+			},
+			"tag:minecraft:is_pickaxe_item_destructible": {},
+			"minecraft:liquid_detection": {
+				"detection_rules": [
+					{
+						"liquid_type": "water",
+						"can_contain_liquid": true,
+						"on_liquid_touches": "blocking"
+					}
+				]
+			}
+		},
+		"permutations": [
+			{
+				"condition": "q.block_state('minecraft:vertical_half') == 'bottom'",
+				"components": {
+					"minecraft:collision_box": {
+						"origin": [-8, 0, -8],
+						"size": [16, 8, 16]
+					},
+					"minecraft:selection_box": {
+						"origin": [-8, 0, -8],
+						"size": [16, 8, 16]
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:vertical_half') == 'top'",
+				"components": {
+					"minecraft:collision_box": {
+						"origin": [-8, 8, -8],
+						"size": [16, 8, 16]
+					},
+					"minecraft:selection_box": {
+						"origin": [-8, 8, -8],
+						"size": [16, 8, 16]
+					}
+				}
+			}
+		]
+	}
+}

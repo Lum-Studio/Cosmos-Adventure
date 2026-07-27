@@ -9,7 +9,7 @@ const OxygenDisplay = 2, EnergyDisplay = 3, StatusDisplay = 4
 const ButtonSlot = 5
 
 const data = {
-    energy: {input: "right", capacity: 16000, maxInput: 25},
+    energy: {input: "right", capacity: 16000, maxInput: 25, rate: 10},
     o2: {input: "left", capacity: 6000, maxInput: 8},
     onTick(entity, block) {
         let distributor = entity;
@@ -20,7 +20,7 @@ const data = {
         const variables = load_dynamic_object(distributor, "machine_data");
         let energy = variables.energy || 0;
         let o2 = variables.o2 || 0;
-        o2 = input_fluid({type: "o2", slot: "o2"}, distributor, block, o2); // input from pipes or machines
+        o2 = input_fluid({type: "o2", slot: "o2", liquid_type: "g"}, distributor, block, o2)[0]; // input from pipes or machines
         if (!(system.currentTick % 20) && canister) { // input from canister
             if (canister.typeId == "cosmos:o2_canister") o2 = load_from_canister({
                 canister, amount: o2,
@@ -48,7 +48,7 @@ const data = {
 
         let active = (bubble_radius > 1 && energy > 0 && o2 > 30);
         if(!(system.currentTick % 2)) {
-            if (energy > 0 && o2 > 30){
+            if (energy > (data.energy.rate * 2) && o2 > 30){
                 o2 = Math.max(o2 - 3, 0);
                 energy = Math.max(energy - 3, 0);
                 bubble_radius += 0.02;
@@ -70,17 +70,18 @@ const data = {
         distributor.setProperty("cosmos:bubble_radius", visible_button ? bubble_radius : 0)
         save_dynamic_object(distributor, {energy, o2, bubble_radius}, "machine_data");
 
-        let status = (!energy)? "§4Not Enough Power":
-        (o2 < 30)? "§4Not Enough Oxygen":
-        "§2Active";
+        if(entity.active_ui || !container.getItem(StatusDisplay)){
+            let status = (energy <= (data.energy.rate * 2))? "§4Not Enough Power":
+            (o2 < 30)? "§4Not Enough Oxygen":
+            "§2Active";
+ 
+            const energy_hover = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.energy.capacity} gJ`;
+            const oxygen_hover = `Oxygen Storage\n§aOxygen: ${o2}/${data["o2"].capacity}`; 
 
-        
-        const energy_hover = `Energy Storage\n§aEnergy: ${Math.round(energy)} gJ\n§cMax Energy: ${data.energy.capacity} gJ`;
-        const oxygen_hover = `Oxygen Storage\n§aOxygen: ${o2}/${data["o2"].capacity}`; 
-
-        container.add_ui_display(OxygenDisplay, oxygen_hover, Math.round((o2 / data["o2"].capacity) * 55))
-        container.add_ui_display(EnergyDisplay, energy_hover, Math.round((energy / data.energy.capacity) * 55))
-        container.add_ui_display(StatusDisplay, '§rStatus: ' + status)
+            container.add_ui_display(OxygenDisplay, oxygen_hover, Math.round((o2 / data["o2"].capacity) * 55))
+            container.add_ui_display(EnergyDisplay, energy_hover, Math.round((energy / data.energy.capacity) * 55))
+            container.add_ui_display(StatusDisplay, '§rStatus: ' + status)
+        }
         if (!container.getItem(ButtonSlot)) {
             entity.setDynamicProperty('visible_button', !visible_button)
             container.add_ui_toggle(ButtonSlot, visible_button ? 0 : 1)

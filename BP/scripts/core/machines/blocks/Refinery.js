@@ -22,7 +22,7 @@ function make_smoke({dimension, x, y, z}) {
 }
 
 const data = {
-	energy: {input: "above", capacity: 16000, maxInput: 120},
+	energy: {input: "above", capacity: 16000, maxInput: 150, rate: 60},
 	oil: {input: "right", capacity: 24000},
 	fuel: {output: "left", capacity: 24000},
 	onTick(entity, block) {
@@ -58,35 +58,31 @@ const data = {
 
 		//move fluids
 		fuel = load_to_item(fuel, "fuel", container, OutputSlot)
-		fuel = output_fluid({type: "fuel", slot: "fuel"}, entity, block, fuel);
+		fuel = output_fluid({type: "fuel", slot: "fuel", liquid_type: "l"}, entity, block, fuel);
 
 		// refine oil
-		if (!active && system.currentTick % 2 == 0 && oil > 0 && energy > 0 && fuel < data.fuel.capacity) {
-			if (energy >= 120) {
-				let melted_amount = Math.min(data.fuel.capacity - fuel, Math.min(oil, tier));
-
-				fuel += melted_amount; oil -= melted_amount; energy -= 120;
-				if (system.currentTick % 20 == 0) make_smoke(block)
-			}
+		if (!active && system.currentTick % 2 == 0 && oil > 0 && energy > (data.energy.rate * 2) && fuel < data.fuel.capacity) {
+			let melted_amount = Math.min(data.fuel.capacity - fuel, Math.min(oil, tier));
+            fuel += melted_amount; oil -= melted_amount; energy -= (data.energy.rate * 2);
+			if (system.currentTick % 20 == 0) make_smoke(block)
 		}
 
-
-		// write the status text
-		const status = energy == 0 ? "§4No Power"
-		: oil == 0 ? "§cNo Oil"
-		: energy < 120 ? "§6Not Enough Power"
-		: fuel == data.fuel.capacity ? "§cFull"
-		: active ? "§6Ready"
-		: "§2Refining"
-
-		
 		save_dynamic_object(entity, {energy, oil, fuel}, "machine_data")
 		
-		// setup UI display
-		container.add_ui_display(EnergyDisplay, `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`, Math.round((energy / data.energy.capacity) * 55))
-		container.add_ui_display(OilDisplay, `Oil Storage\n§eOil: ${oil} / ${data.oil.capacity} mB`, Math.ceil((Math.ceil(oil / 1000) / (data.oil.capacity / 1000)) * 38))
-		container.add_ui_display(FuelDisplay, `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel.capacity} mB`, Math.ceil((Math.ceil(fuel / 1000) / (data.fuel.capacity / 1000)) * 38))
-		container.add_ui_display(StatusDisplay, `§rStatus:\n${status}`)
+		if(entity.active_ui || !container.getItem(StatusDisplay)){
+            // write the status text
+			const status = !energy ? "§4No Power"
+			: oil == 0 ? "§cNo Oil"
+			: energy < (data.energy.rate * 2) ? "§6Not Enough Power"
+			: fuel == data.fuel.capacity ? "§cFull"
+			: active ? "§6Ready"
+			: "§2Refining"
+			// setup UI display
+			container.add_ui_display(EnergyDisplay, `Energy Storage\n§aEnergy: ${energy} gJ\n§cMax Energy: ${data.energy.capacity} gJ`, Math.round((energy / data.energy.capacity) * 55))
+			container.add_ui_display(OilDisplay, `Oil Storage\n§eOil: ${oil} / ${data.oil.capacity} mB`, Math.ceil((Math.ceil(oil / 1000) / (data.oil.capacity / 1000)) * 38))
+			container.add_ui_display(FuelDisplay, `Fuel Storage\n§eFuel: ${fuel} / ${data.fuel.capacity} mB`, Math.ceil((Math.ceil(fuel / 1000) / (data.fuel.capacity / 1000)) * 38))
+			container.add_ui_display(StatusDisplay, `§rStatus:\n${status}`)
+		}
 	},
 	onPlace(entity) {
 		const initial_state = true
