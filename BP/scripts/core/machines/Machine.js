@@ -142,6 +142,38 @@ function block_entity_access() {
 	}
 }
 
+// Machines that MUST always tick because they interact with the live world
+// (block placement, entity teleportation, real-time bubble visuals, terraforming)
+const ALWAYS_TICK = new Set([
+	"airlock_controller",
+	"short_range_telepad",
+	"terraformer",
+	"oxygen_distributor",
+	"basic_solar_panel",
+	"advanced_solar_panel",
+]);
+
+// Max ticks to catch up in one burst per machine (cap to prevent lag spikes)
+const MAX_CATCHUP_TICKS = 6000; // ~5 minutes of offline time
+// How many catch-up ticks to replay per frame (higher = faster catch-up, more lag)
+const CATCHUP_PER_FRAME = 20;
+
+/**
+ * Starts a self-clearing runInterval that replays a machine's onTick
+ * for the elapsed ticks, processing CATCHUP_PER_FRAME ticks each frame.
+ */
+function start_catchup(machineEntity, block, data, elapsedTicks) {
+	const total = Math.min(elapsedTicks, MAX_CATCHUP_TICKS);
+	let done = 0;
+	const handle = system.runInterval(() => {
+		if (!machineEntity.isValid) { system.clearRun(handle); return; }
+		for (let i = 0; i < CATCHUP_PER_FRAME && done < total; i++, done++) {
+			data.onTick(machineEntity, block);
+		}
+		if (done >= total) system.clearRun(handle);
+	});
+}
+
 world.afterEvents.worldLoad.subscribe(() => {
 	world.getDims(dimension => dimension.getEntities({includeFamilies: ['machine']})).forEach(entity => {reload_machine(entity)});
 	system.runInterval(() => {
@@ -171,7 +203,15 @@ world.afterEvents.worldLoad.subscribe(() => {
 			const data = machines[machineData.type];
 			if (!data) return;
 
-			// tick the machine
+			const isAwake = machineEntity.active_ui || ALWAYS_TICK.has(machineData.type);
+
+			if (!isAwake) {
+				// Machine is dormant — record when it fell asleep (if not already recorded)
+				if (!machineData.sleepTick) machineData.sleepTick = system.currentTick;
+				return; // skip ticking this machine entirely
+			}
+
+			// Machine is awake — tick it normally
 			data.onTick(machineEntity, block);
 
 			// hopper support every 8 ticks
@@ -302,12 +342,40 @@ world.afterEvents.entitySpawn.subscribe((data) => {
 	}
 });
 
+// === LAZY EVALUATION: Container Open triggers catch-up ===
 world.afterEvents.entityContainerOpened.subscribe(({entity}) => {
-	entity.active_ui = entity.active_ui ? entity.active_ui + 1: 1;
+	entity.active_ui = entity.active_ui ? entity.active_ui + 1 : 1;
+
+	// Catch up dormant machine when a player opens it
+	const machineData = machine_entities.get(entity.id);
+	if (!machineData || !machineData.sleepTick) return;
+
+	const elapsed = system.currentTick - machineData.sleepTick;
+	delete machineData.sleepTick; // wake it up
+
+	if (elapsed <= 0) return;
+
+	const data = machines[machineData.type];
+	if (!data) return;
+
+	let block;
+	try { block = entity.dimension.getBlock(machineData.location); } catch (e) {}
+	if (!block) return;
+
+	// Run catch-up spread across frames via self-clearing runInterval
+	start_catchup(entity, block, data, elapsed);
 }, {entityFilter: {families: ["machine"]}});
 
+// === LAZY EVALUATION: Container Close records sleep timestamp ===
 world.afterEvents.entityContainerClosed.subscribe(({entity}) => {
-	if(entity.active_ui === undefined) return;
+	if (entity.active_ui === undefined) return;
 	entity.active_ui -= 1;
-	if(entity.active_ui <= 0) delete entity.active_ui;
-}, {entityFilter: {families: ["machine"]}});
+	if (entity.active_ui <= 0) {
+		delete entity.active_ui;
+		// Mark the machine as going to sleep NOW
+		const machineData = machine_entities.get(entity.id);
+		if (machineData && !ALWAYS_TICK.has(machineData.type)) {
+			machineData.sleepTick = system.currentTick;
+		}
+	}
+}, {entityFilter: {families: ["machine"]}});
