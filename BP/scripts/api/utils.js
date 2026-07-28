@@ -20,7 +20,11 @@ export function save_dynamic_object(storage, value, type, name = 'variables'){
 	entity.entity_data = entity.entity_data ?? {};
 	entity.entity_data[name] = value;
 	data_maps[type].set(storage.id, entity);
-	storage.setDynamicProperty(type, JSON.stringify(entity.entity_data)) 
+	const new_str = JSON.stringify(entity.entity_data);
+	if (entity.last_str !== new_str) {
+		entity.last_str = new_str;
+		storage.setDynamicProperty(type, new_str);
+	}
 }
 
 export function str(object) { return JSON.stringify(object) }

@@ -124,21 +124,20 @@ function hopper_interactions(block, entity, data) {
 function block_entity_access() {
 	const players = world.getAllPlayers();
 	for (const player of players) {
-		if (!player) continue;
+		if (!player || !player.isValid) continue;
+		const item = player.getComponent("minecraft:equippable")?.getEquipment("Mainhand")?.typeId;
+		const has_pickaxe = pickaxes.has(item);
+		const has_wrench = item === "cosmos:standard_wrench" || item === "cosmos:wrench";
+		if (!player.isSneaking && !has_pickaxe && !has_wrench) continue;
+
 		const targetEntity = player.getEntitiesFromViewDirection({
 			maxDistance: 6,
 			families: ["cosmos"],
 			ignoreBlockCollision: true
 		})[0]?.entity;
-		if (player.isSneaking) {
-			if (targetEntity) targetEntity.triggerEvent("cosmos:shrink");
-			continue;
-		}
-		const item = player.getComponent("minecraft:equippable").getEquipment("Mainhand")?.typeId;
-		const has_pickaxe = pickaxes.has(item);
-		const has_wrench = item === "cosmos:standard_wrench";
-		if (has_pickaxe || has_wrench) {
-			if (targetEntity) targetEntity.triggerEvent("cosmos:shrink");
+
+		if (targetEntity) {
+			targetEntity.triggerEvent("cosmos:shrink");
 		}
 	}
 }
@@ -150,16 +149,33 @@ world.afterEvents.worldLoad.subscribe(() => {
 		// give block access every 2 ticks
 		if (!(system.currentTick % 2)) block_entity_access();
 
+		const isHopperTick = (system.currentTick % 8 === 0);
+
 		machine_entities.forEach((machineData, entityId) => {
 			const machineEntity = world.getEntity(entityId);
-			if (!machineEntity?.isValid) return;
-			let block = machineEntity.dimension.getBlock(machineData.location);
-			if(!block) return;
-			const data = machines[machineData.type]
+			if (!machineEntity?.isValid) {
+				machine_entities.delete(entityId);
+				return;
+			}
+			const dimension = machineEntity.dimension;
+			let block;
+			try { block = dimension.getBlock(machineData.location); } catch (e) {}
+			if (!block) return;
+
+			if (block.typeId !== machineEntity.typeId) {
+				machine_entities.delete(entityId);
+				try { machineEntity.remove(); } catch (e) {}
+				return;
+			}
+
+			const data = machines[machineData.type];
+			if (!data) return;
+
 			// tick the machine
-			data.onTick(machineEntity, block)
+			data.onTick(machineEntity, block);
+
 			// hopper support every 8 ticks
-			if (system.currentTick % 8 == 0) hopper_interactions(block, machineEntity, data)
+			if (isHopperTick) hopper_interactions(block, machineEntity, data);
 		});
 	});
 });
