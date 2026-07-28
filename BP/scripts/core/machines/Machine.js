@@ -29,7 +29,11 @@ function reload_machine(entity){
 	block_location = {x: Math.floor(block_location.x), y: Math.floor(block_location.y), z: Math.floor(block_location.z)};
 
 	const dynamic_object = JSON.parse(entity.getDynamicProperty("machine_data") ?? "{}");
-	machine_entities.set(entity.id, { type: machine_name, location: block_location, entity_data: dynamic_object });
+	// Restore sleepTick from persisted dynamic property (survives chunk unload)
+	const persisted_sleep = entity.getDynamicProperty("sleep_tick");
+	const entry = { type: machine_name, location: block_location, entity_data: dynamic_object };
+	if (persisted_sleep !== undefined) entry.sleepTick = persisted_sleep;
+	machine_entities.set(entity.id, entry);
 }
 
 function hopper_interactions(block, entity, data) {
@@ -161,6 +165,7 @@ const CATCHUP_PER_FRAME = 20;
 /**
  * Starts a self-clearing runInterval that replays a machine's onTick
  * for the elapsed ticks, processing CATCHUP_PER_FRAME ticks each frame.
+ * Also runs hopper_interactions every 8th replayed tick to maintain item flow.
  */
 function start_catchup(machineEntity, block, data, elapsedTicks) {
 	const total = Math.min(elapsedTicks, MAX_CATCHUP_TICKS);
@@ -169,8 +174,46 @@ function start_catchup(machineEntity, block, data, elapsedTicks) {
 		if (!machineEntity.isValid) { system.clearRun(handle); return; }
 		for (let i = 0; i < CATCHUP_PER_FRAME && done < total; i++, done++) {
 			data.onTick(machineEntity, block);
+			// Simulate hopper interactions at the same rate as live ticking (every 8 ticks)
+			if (done % 8 === 0) hopper_interactions(block, machineEntity, data);
 		}
 		if (done >= total) system.clearRun(handle);
+	});
+}
+
+/**
+ * When a machine wakes up, also catch up all dormant machines within 2 blocks
+ * so hopper chains (A → hopper → B) produce consistent results.
+ */
+function wake_neighbors(sourceEntity, sourceMachineData) {
+	const loc = sourceMachineData.location;
+	machine_entities.forEach((neighborData, neighborId) => {
+		if (neighborId === sourceEntity.id) return; // skip self
+		if (!neighborData.sleepTick) return; // already awake
+		if (ALWAYS_TICK.has(neighborData.type)) return; // always ticks anyway
+
+		// Check if neighbor is within 2 blocks (hopper reach)
+		const nl = neighborData.location;
+		if (Math.abs(nl.x - loc.x) > 2 || Math.abs(nl.y - loc.y) > 2 || Math.abs(nl.z - loc.z) > 2) return;
+
+		const neighborEntity = world.getEntity(neighborId);
+		if (!neighborEntity?.isValid) return;
+
+		const elapsed = system.currentTick - neighborData.sleepTick;
+		delete neighborData.sleepTick;
+		// Clear persisted sleep on the entity
+		try { neighborEntity.setDynamicProperty("sleep_tick", undefined); } catch (e) {}
+
+		if (elapsed <= 0) return;
+
+		const nData = machines[neighborData.type];
+		if (!nData) return;
+
+		let nBlock;
+		try { nBlock = neighborEntity.dimension.getBlock(neighborData.location); } catch (e) {}
+		if (!nBlock) return;
+
+		start_catchup(neighborEntity, nBlock, nData, elapsed);
 	});
 }
 
@@ -207,7 +250,11 @@ world.afterEvents.worldLoad.subscribe(() => {
 
 			if (!isAwake) {
 				// Machine is dormant — record when it fell asleep (if not already recorded)
-				if (!machineData.sleepTick) machineData.sleepTick = system.currentTick;
+				if (!machineData.sleepTick) {
+					machineData.sleepTick = system.currentTick;
+					// Persist to entity dynamic property so it survives chunk unload
+					try { machineEntity.setDynamicProperty("sleep_tick", system.currentTick); } catch (e) {}
+				}
 				return; // skip ticking this machine entirely
 			}
 
@@ -352,6 +399,8 @@ world.afterEvents.entityContainerOpened.subscribe(({entity}) => {
 
 	const elapsed = system.currentTick - machineData.sleepTick;
 	delete machineData.sleepTick; // wake it up
+	// Clear persisted sleep on the entity
+	try { entity.setDynamicProperty("sleep_tick", undefined); } catch (e) {}
 
 	if (elapsed <= 0) return;
 
@@ -361,6 +410,9 @@ world.afterEvents.entityContainerOpened.subscribe(({entity}) => {
 	let block;
 	try { block = entity.dimension.getBlock(machineData.location); } catch (e) {}
 	if (!block) return;
+
+	// Catch up neighboring dormant machines first (hopper chains)
+	wake_neighbors(entity, machineData);
 
 	// Run catch-up spread across frames via self-clearing runInterval
 	start_catchup(entity, block, data, elapsed);
@@ -376,6 +428,8 @@ world.afterEvents.entityContainerClosed.subscribe(({entity}) => {
 		const machineData = machine_entities.get(entity.id);
 		if (machineData && !ALWAYS_TICK.has(machineData.type)) {
 			machineData.sleepTick = system.currentTick;
+			// Persist to entity dynamic property so it survives chunk unload
+			try { entity.setDynamicProperty("sleep_tick", system.currentTick); } catch (e) {}
 		}
 	}
 }, {entityFilter: {families: ["machine"]}});
