@@ -15,8 +15,12 @@ import {
 export { generateSpawnTerrain };
 
 export const SPAWN_COORDINATES = {
+    "minecraft:overworld": { x: 0.5, y: 75, z: 0.5 },
     "cosmos:moon": { x: 0.5, y: 92, z: 0.5 },
-    "cosmos:mars": { x: 0.5, y: 95, z: 0.5 }
+    "cosmos:mars": { x: 0.5, y: 95, z: 0.5 },
+    "cosmos:venus": { x: 0.5, y: 70, z: 0.5 },
+    "cosmos:asteroids": { x: 0.5, y: 70, z: 0.5 },
+    "cosmos:space_stations": { x: -3.5, y: 72, z: -3.5 }
 };
 
 const spawnPlatformBuilt = new Set();
@@ -89,6 +93,42 @@ export async function ensureDimensionSpawn(dimension) {
     }
     if (activeSpawnPromises.has(dimId)) {
         return activeSpawnPromises.get(dimId);
+    }
+
+    if (dimId === "minecraft:overworld") {
+        let surfaceY = 75;
+        try {
+            if (typeof dim.getTopmostBlock === "function") {
+                const top = dim.getTopmostBlock({ x: 0, z: 0 });
+                if (top && top.location && top.location.y > 0) {
+                    surfaceY = top.location.y + 1;
+                }
+            }
+        } catch (e) {}
+        const coords = { x: 0.5, y: surfaceY, z: 0.5 };
+        SPAWN_COORDINATES[dimId] = coords;
+        spawnPlatformBuilt.add(dimId);
+        return coords;
+    }
+
+    if (dimId === "cosmos:space_stations") {
+        try {
+            dim.placeFeature("cosmos:station_feature", { x: 0, y: 65, z: 0 });
+        } catch (e) {}
+        buildLandingPlatform(dim, -3, 71, -3, "minecraft:iron_block");
+        const coords = { x: -3.5, y: 72, z: -3.5 };
+        SPAWN_COORDINATES[dimId] = coords;
+        spawnPlatformBuilt.add(dimId);
+        return coords;
+    }
+
+    if (dimId === "cosmos:venus" || dimId === "cosmos:asteroids") {
+        const floorBlock = dimId === "cosmos:venus" ? "minecraft:stone" : "minecraft:deepslate";
+        buildLandingPlatform(dim, 0, 69, 0, floorBlock);
+        const coords = { x: 0.5, y: 70, z: 0.5 };
+        SPAWN_COORDINATES[dimId] = coords;
+        spawnPlatformBuilt.add(dimId);
+        return coords;
     }
 
     const promise = (async () => {

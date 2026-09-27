@@ -28,6 +28,7 @@ import { select_solar_system, start_celestial_selector } from "./player/celestia
 import { volcanic_pickaxe_component } from "../core/items/volcanic_pickaxe";
 import { fluid_tick_component } from "../core/matter/fluid_network";
 import nasa_workbench_recipes from "../recipes/nasa_workbench";
+import { registerKorolev } from "../planets/korolev.js";
 
 system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegistry, blockComponentRegistry, dimensionRegistry}) => {
     const register_block_component = blockComponentRegistry.registerCustomComponent.bind(blockComponentRegistry)
@@ -147,4 +148,7 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
             inventory.addItem(rocket)
         })
 	})
+
+    // Korolev Dimension Warp System
+    registerKorolev(customCommandRegistry);
 })
