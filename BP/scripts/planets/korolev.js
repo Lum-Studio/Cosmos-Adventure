@@ -15,67 +15,67 @@ export const KOROLEV_DESTINATIONS = {
         id: "minecraft:overworld",
         name: "Overworld",
         subtitle: "Terra / Earth Base",
-        badge: "§2🌍 Overworld"
+        badge: "Overworld"
     },
     "earth": {
         id: "minecraft:overworld",
         name: "Overworld",
         subtitle: "Terra / Earth Base",
-        badge: "§2🌍 Overworld"
+        badge: "Overworld"
     },
     "moon": {
         id: COSMOS_DIMENSIONS.MOON,
         name: "Moon",
         subtitle: "Lunar Surface & Low Gravity",
-        badge: "§8🌑 Moon"
+        badge: "Moon"
     },
     "luna": {
         id: COSMOS_DIMENSIONS.MOON,
         name: "Moon",
         subtitle: "Lunar Surface & Low Gravity",
-        badge: "§8🌑 Moon"
+        badge: "Moon"
     },
     "mars": {
         id: COSMOS_DIMENSIONS.MARS,
         name: "Mars",
         subtitle: "Aresian Red Planet & Caverns",
-        badge: "§c🔴 Mars"
+        badge: "Mars"
     },
     "venus": {
         id: COSMOS_DIMENSIONS.VENUS,
         name: "Venus",
         subtitle: "Cytherean Atmospheric Outpost",
-        badge: "§e🟡 Venus"
+        badge: "Venus"
     },
     "asteroids": {
         id: COSMOS_DIMENSIONS.ASTEROIDS,
         name: "Asteroids",
         subtitle: "Microgravity Kuiper / Asteroid Belt",
-        badge: "§9☄️ Asteroids"
+        badge: "Asteroids"
     },
     "asteroid": {
         id: COSMOS_DIMENSIONS.ASTEROIDS,
         name: "Asteroids",
         subtitle: "Microgravity Kuiper / Asteroid Belt",
-        badge: "§9☄️ Asteroids"
+        badge: "Asteroids"
     },
     "stations": {
         id: COSMOS_DIMENSIONS.SPACE_STATIONS,
         name: "Space Station",
         subtitle: "Orbital Research Laboratory",
-        badge: "§b🛰️ Space Station"
+        badge: "Space Station"
     },
     "space_stations": {
         id: COSMOS_DIMENSIONS.SPACE_STATIONS,
         name: "Space Station",
         subtitle: "Orbital Research Laboratory",
-        badge: "§b🛰️ Space Station"
+        badge: "Space Station"
     },
     "station": {
         id: COSMOS_DIMENSIONS.SPACE_STATIONS,
         name: "Space Station",
         subtitle: "Orbital Research Laboratory",
-        badge: "§b🛰️ Space Station"
+        badge: "Space Station"
     }
 };
 
@@ -109,17 +109,17 @@ export function showKorolevNavigator(player) {
     const currentDimName = formatDimensionName(currentDimId);
 
     const options = [
-        { key: "overworld", label: "§2🌍 Overworld (Earth)\n§8Surface Biosphere" },
-        { key: "moon", label: "§8🌑 Moon\n§8Low Gravity & Regolith" },
-        { key: "mars", label: "§c🔴 Mars\n§8Atmosphere & Caverns" },
-        { key: "venus", label: "§e🟡 Venus\n§8Extreme Heat & Pressure" },
-        { key: "asteroids", label: "§9☄️ Asteroids\n§8Microgravity Void Belt" },
-        { key: "stations", label: "§b🛰️ Space Station\n§8Orbital Research Outpost" }
+        { key: "overworld", label: "Overworld (Earth)\nSurface Biosphere" },
+        { key: "moon", label: "Moon\nLow Gravity & Regolith" },
+        { key: "mars", label: "Mars\nAtmosphere & Caverns" },
+        { key: "venus", label: "Venus\nExtreme Heat & Pressure" },
+        { key: "asteroids", label: "Asteroids\nMicrogravity Void Belt" },
+        { key: "stations", label: "Space Station\nOrbital Research Outpost" }
     ];
 
     const form = new ActionFormData()
-        .title("§l§3KOROLEV NAVIGATOR§r")
-        .body(`§7Current Dimension: §e${currentDimName}\n§7Select target planetary body to initiate warp jump:`);
+        .title("KOROLEV NAVIGATOR")
+        .body(`Current Dimension: ${currentDimName}\nSelect target planetary body to initiate warp jump:`);
 
     for (const opt of options) {
         form.button(opt.label);
@@ -152,8 +152,8 @@ export async function executeKorolevTeleport(player, targetInput) {
     const dest = KOROLEV_DESTINATIONS[cleanInput];
 
     if (!dest) {
-        player.sendMessage(`§c[Korolev] Unknown planetary target: "§f${targetInput}§c".`);
-        player.sendMessage(`§7Valid destinations: §eoverworld§7, §emoon§7, §emars§7, §evenus§7, §easteroids§7, §estations§7.`);
+        player.sendMessage(`[Korolev] Unknown planetary target: "${targetInput}".`);
+        player.sendMessage(`Valid destinations: overworld, moon, mars, venus, asteroids, stations.`);
         try {
             player.playSound("note.bass", { pitch: 0.8, volume: 1.0 });
         } catch (e) {}
@@ -168,7 +168,7 @@ export async function executeKorolevTeleport(player, targetInput) {
     }
 
     if (!targetDim) {
-        player.sendMessage(`§c[Korolev] Dimension "§f${dest.id}§c" is currently unreachable.`);
+        player.sendMessage(`[Korolev] Dimension "${dest.id}" is currently unreachable.`);
         return false;
     }
 
@@ -180,18 +180,18 @@ export async function executeKorolevTeleport(player, targetInput) {
         }
     } catch (e) {}
 
-    player.sendMessage(`§b[Korolev] §7Calculating orbital vector to §e${dest.name}§7...`);
+    player.sendMessage(`[Korolev] Calculating orbital vector to ${dest.name}...`);
 
     try {
         const spawnCoords = await ensureDimensionSpawn(targetDim);
         await teleportPlayerSafely(player, targetDim, spawnCoords);
 
-        player.sendMessage(`§a[Korolev] Warp jump to §e${dest.name} §acomplete! Coordinates: §f${Math.floor(spawnCoords.x)}, ${Math.floor(spawnCoords.y)}, ${Math.floor(spawnCoords.z)}`);
+        player.sendMessage(`[Korolev] Warp jump to ${dest.name} complete! Coordinates: ${Math.floor(spawnCoords.x)}, ${Math.floor(spawnCoords.y)}, ${Math.floor(spawnCoords.z)}`);
 
         try {
             if (typeof player.onScreenDisplay?.setTitle === "function") {
-                player.onScreenDisplay.setTitle(`§6${dest.name.toUpperCase()}`, {
-                    subtitle: `§7${dest.subtitle}`,
+                player.onScreenDisplay.setTitle(dest.name.toUpperCase(), {
+                    subtitle: dest.subtitle,
                     fadeInDuration: 10,
                     stayDuration: 40,
                     fadeOutDuration: 10
@@ -205,7 +205,7 @@ export async function executeKorolevTeleport(player, targetInput) {
 
         return true;
     } catch (err) {
-        player.sendMessage(`§c[Korolev] Jump failure: ${err?.message || err}`);
+        player.sendMessage(`[Korolev] Jump failure: ${err?.message || err}`);
         return false;
     }
 }

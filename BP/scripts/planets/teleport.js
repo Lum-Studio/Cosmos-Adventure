@@ -133,7 +133,7 @@ export function checkAndRecoverVoidFall(player) {
                 }
 
                 if (typeof player.onScreenDisplay?.setActionBar === "function") {
-                    player.onScreenDisplay.setActionBar("§b[Cosmos] Void Boundary Recovery");
+                    player.onScreenDisplay.setActionBar("[Cosmos] Void Boundary Recovery");
                 }
 
                 return true;
