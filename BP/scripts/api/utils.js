@@ -134,7 +134,12 @@ export function compare_position(a, b) {
 export function floor_position({ x, y, z }) {
 	return { x: Math.floor(x), y: Math.floor(y), z: Math.floor(z) };
 }
-export function getPlanetByLocation(location){
+export function getPlanetByLocation(location, dimension){
+    if (dimension) {
+        const dimId = typeof dimension === 'string' ? dimension : dimension.id;
+        const entry = ALL_PLANETS.find(p => p.dimensionId === dimId || p.id === dimId.replace("cosmos:", ""));
+        if (entry) return entry.class;
+    }
     let {x, y, z} = location;
     return ALL_PLANETS.find((planet) => (
         x >= planet.range.start.x && x <= planet.range.end.x && 

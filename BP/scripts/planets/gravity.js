@@ -119,9 +119,16 @@ world.afterEvents.entitySpawn.subscribe(data => {
   if (!GravityEntities.includes(data.entity)) GravityEntities.push(data.entity)
 })
 
+const SPACE_DIMENSIONS = ['cosmos:moon', 'cosmos:mars', 'cosmos:venus', 'cosmos:asteroids', 'cosmos:space_stations'];
+
 system.runInterval(() => {
-  for (let dimension of ['the_end'].map(id => world.getDimension(id))) {
-    GravityEntities = GravityEntities.concat(dimension.getEntities().filter(entity => !GravityEntities.includes(entity)))
+  for (let dimId of SPACE_DIMENSIONS) {
+    try {
+      const dimension = world.getDimension(dimId);
+      if (dimension) {
+        GravityEntities = GravityEntities.concat(dimension.getEntities().filter(entity => !GravityEntities.includes(entity)));
+      }
+    } catch (e) {}
   }
 }, 10)
 
@@ -202,7 +209,7 @@ export function player_gravity(){
 
   for (let index = GravityEntities.length - 1; index >= 0; index--) {
     const entity = GravityEntities[index];
-    if (!entity.isValid || entity.dimension.id != 'minecraft:the_end') {
+    if (!entity.isValid || !SPACE_DIMENSIONS.includes(entity.dimension.id)) {
       GravityEntities.splice(index, 1);
       continue;
     }

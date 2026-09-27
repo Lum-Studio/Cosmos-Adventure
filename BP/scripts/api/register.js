@@ -77,6 +77,10 @@ system.beforeEvents.startup.subscribe(({customCommandRegistry, itemComponentRegi
     register_item_component("cosmos:volcanic_pickaxe", volcanic_pickaxe_component)
 
     // Dimensions
+    register_dimension("cosmos:moon")
+    register_dimension("cosmos:mars")
+    register_dimension("cosmos:venus")
+    register_dimension("cosmos:asteroids")
     register_dimension("cosmos:space_stations")
     // Commands
     register_command({

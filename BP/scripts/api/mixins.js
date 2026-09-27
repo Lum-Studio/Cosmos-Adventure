@@ -50,9 +50,13 @@ Merge(mc.Player.prototype, {
     },
 
     getPlanet() {
-        if (this.dimension.id == "minecraft:the_end") {
-            return getPlanetByLocation(this.location);
-        } else return undefined;
+        const dimId = this.dimension.id;
+        const entry = ALL_PLANETS.find(p => p.dimensionId === dimId || p.id === dimId.replace("cosmos:", ""));
+        if (entry) return entry.class;
+        if (dimId === "minecraft:the_end") {
+            return getPlanetByLocation(this.location, this.dimension);
+        }
+        return undefined;
     }
 });
 
@@ -60,9 +64,13 @@ Merge(mc.Player.prototype, {
 //@ts-expect-error
 Merge(mc.Block.prototype, {
     getPlanet(){
-        if(["cosmos:space_stations", "minecraft:the_end"].includes(this.dimension.id)) {
-            return getPlanetByLocation(this.location);
-        }else return undefined;
+        const dimId = this.dimension.id;
+        const entry = ALL_PLANETS.find(p => p.dimensionId === dimId || p.id === dimId.replace("cosmos:", ""));
+        if (entry) return entry.class;
+        if (["cosmos:space_stations", "minecraft:the_end"].includes(dimId)) {
+            return getPlanetByLocation(this.location, this.dimension);
+        }
+        return undefined;
     },
 });
 
@@ -71,21 +79,29 @@ Merge(mc.Block.prototype, {
 Merge(mc.World.prototype, {
     getDims(fn) {
         // dimension.getEntities returns a entity array, so flatMap to combine it into one array
-        return ['overworld', 'nether', 'the_end'].flatMap(dim => {
-            const dimension = this.getDimension(dim);
-            return fn ? fn(dimension) : dimension
+        return ['overworld', 'nether', 'the_end', 'cosmos:moon', 'cosmos:mars'].flatMap(dim => {
+            try {
+                const dimension = this.getDimension(dim);
+                return fn ? fn(dimension) : dimension;
+            } catch (e) {
+                return [];
+            }
         })
     },
     getPlanet(type){
-        return ALL_PLANETS.find((planet) => planet.id == type)?.class;
+        return ALL_PLANETS.find((planet) => planet.id == type || planet.dimensionId == type)?.class;
     }
 });
 
 Merge(mc.Entity.prototype, {
     getPlanet(){
-        if(["cosmos:space_stations", "minecraft:the_end"].includes(this.dimension.id)) {
-            return getPlanetByLocation(this.location);
-        }else return undefined;
+        const dimId = this.dimension.id;
+        const entry = ALL_PLANETS.find(p => p.dimensionId === dimId || p.id === dimId.replace("cosmos:", ""));
+        if (entry) return entry.class;
+        if (["cosmos:space_stations", "minecraft:the_end"].includes(dimId)) {
+            return getPlanetByLocation(this.location, this.dimension);
+        }
+        return undefined;
     },
 });
 
