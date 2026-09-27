@@ -29,6 +29,7 @@
 						256,
 						221
 					],
+					"layer": -1,
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
 					"offset": [
@@ -89,6 +90,18 @@
 					"size": [
 						176,
 						90
+					],
+					 "controls": [
+					{ "inventory_panel@inventory_panel": {} },
+					{
+						"inventory_label@section_heading_label": {
+						"anchor_from": "top_left",
+						"anchor_to": "top_left",
+						"offset": [ 7, -1 ],
+						"layer": 2,
+						"text": "container.inventory"
+						}
+					}
 					]
 				}
 			},
