@@ -67,7 +67,9 @@ world.afterEvents.playerDimensionChange.subscribe((data) => {
         data.player.addTag("ableToOxygen");
     }
     if(SPACE_DIMENSIONS.includes(data.fromDimension.id)){
-        data.player.runCommandAsync?.("fog @s remove mars").catch(() => {});
+        try {
+            data.player.runCommand("fog @s remove mars");
+        } catch (e) {}
         space_tags_removing(data.player);
         data.player.removeTag("gravity_falling")
     }

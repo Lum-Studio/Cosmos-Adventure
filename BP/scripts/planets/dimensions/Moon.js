@@ -18,7 +18,9 @@ export class Moon extends Planet {
         this._solarEnergyMultiplier = 1.4;
     }
     launching(player, data, loaded = false) {
-        player.runCommandAsync?.("fog @s remove mars").catch(() => {});
+        try {
+            player.runCommand("fog @s remove mars");
+        } catch (e) {}
         if (loaded) {
             moon_lander(player, data);
             return;

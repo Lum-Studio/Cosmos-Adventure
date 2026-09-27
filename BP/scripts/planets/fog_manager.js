@@ -28,8 +28,8 @@ export function applyMarsFog(player) {
     } catch (e) {}
 
     try {
-        if (typeof player.runCommandAsync === "function") {
-            player.runCommandAsync(`fog @s push ${MARS_FOG_ID} ${MARS_FOG_TAG}`);
+        if (typeof player.runCommand === "function") {
+            player.runCommand(`fog @s push ${MARS_FOG_ID} ${MARS_FOG_TAG}`);
             activeMarsFogPlayers.add(player.id);
         }
     } catch (e) {}
@@ -51,8 +51,8 @@ export function removeMarsFog(player) {
     } catch (e) {}
 
     try {
-        if (typeof player.runCommandAsync === "function") {
-            player.runCommandAsync(`fog @s remove ${MARS_FOG_TAG}`);
+        if (typeof player.runCommand === "function") {
+            player.runCommand(`fog @s remove ${MARS_FOG_TAG}`);
             activeMarsFogPlayers.delete(player.id);
         }
     } catch (e) {}

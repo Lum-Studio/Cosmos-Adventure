@@ -110,8 +110,10 @@ export async function ensureDimensionSpawn(dimension) {
                     from: { x: -48, y: 0, z: -48 },
                     to: { x: 48, y: 160, z: 48 }
                 });
-            } else if (typeof dim.runCommandAsync === "function") {
-                await dim.runCommandAsync(`tickingarea add circle 0 90 0 2 ${areaId}`).catch(() => {});
+            } else if (typeof dim.runCommand === "function") {
+                try {
+                    dim.runCommand(`tickingarea add circle 0 90 0 2 ${areaId}`);
+                } catch (e) {}
             }
         } catch (quotaErr) {}
 
@@ -169,7 +171,7 @@ export async function ensureDimensionSpawn(dimension) {
                     }
                 } catch (e) {}
                 try {
-                    dim.runCommandAsync?.(`tickingarea remove ${areaId}`).catch(() => {});
+                    dim.runCommand?.(`tickingarea remove ${areaId}`);
                 } catch (e) {}
             }, 60);
 
